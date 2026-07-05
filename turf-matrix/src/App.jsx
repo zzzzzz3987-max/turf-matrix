@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
-  Star, Map, Route,
+  Star, Map, Route, ChevronRight,
 } from "lucide-react";
 
 /* =====================================================================
@@ -4578,8 +4578,8 @@ const sortHorses = (horses, sortKey, evMap) => {
   return arr;
 };
 
-const scoreTone = (v) => (v >= 85 ? "text-blue-600" : v >= 70 ? "text-gray-900" : "text-gray-500");
-const evTone = (ev) => (ev >= 1.15 ? "text-blue-600" : ev >= 0.95 ? "text-gray-900" : "text-gray-500");
+const scoreTone = (v) => (v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
+const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 
 /* カスタムフック: PC(≥768px)判定 — シート/インライン展開の切替に使用 */
 const useIsDesktop = () => {
@@ -4603,10 +4603,40 @@ const Num = ({ children, className = "" }) => (
   <span className={`tm-num tabular-nums ${className}`}>{children}</span>
 );
 
+const Badge = ({ children, className = "" }) => (
+  <span className={className}>{children}</span>
+);
+
+const MetricCard = ({ label, value, className = "", valueClassName = "", labelClassName = "" }) => (
+  <div className={className}>
+    <Num className={valueClassName}>{value}</Num>
+    <span className={labelClassName}>{label}</span>
+  </div>
+);
+
+const GlassPanel = ({ children, className = "" }) => (
+  <div className={`rounded-2xl border border-teal-100 bg-white/80 p-4 shadow-sm backdrop-blur md:p-5 ${className}`}>
+    {children}
+  </div>
+);
+
 const BetaBadge = () => (
-  <span className="inline-flex items-center gap-1 rounded-full border border-blue-200 bg-blue-50 px-2 py-0.5 text-[11px] font-medium text-blue-700">
+  <Badge className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-700 sm:text-[11px]">
     β v0.3
-  </span>
+  </Badge>
+);
+
+const PlatformBadge = () => (
+  <Badge className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-teal-100 bg-white/70 px-2.5 py-1 text-[10px] font-medium text-slate-600 shadow-sm backdrop-blur sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]">
+    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+    <span>
+      <span className="hidden sm:inline">AI Racing </span>
+      <span className="sm:hidden">AI </span>
+      Intelligence Platform
+    </span>
+    <span className="hidden text-slate-300 sm:inline">/</span>
+    <span className="hidden sm:inline">β Sample Data</span>
+  </Badge>
 );
 
 const Skeleton = ({ className = "" }) => (
@@ -4685,7 +4715,7 @@ const AnimatedBar = ({ value, delay = 0, trackClass = "bg-gray-100", heightClass
   return (
     <div className={`${heightClass} flex-1 overflow-hidden rounded-full ${trackClass}`}>
       <div
-        className="tm-bar h-full rounded-full bg-blue-600"
+        className="tm-bar h-full rounded-full bg-teal-600"
         style={{ width: mounted ? `${value}%` : "0%", transitionDelay: `${delay}ms` }}
       />
     </div>
@@ -4725,7 +4755,7 @@ const StarRating = ({ value, size = 12, className = "" }) => (
         key={i}
         size={size}
         strokeWidth={1.5}
-        className={i <= value ? "fill-blue-600 text-blue-600" : "fill-gray-200 text-gray-200"}
+        className={i <= value ? "fill-emerald-500 text-emerald-500" : "fill-gray-200 text-gray-200"}
       />
     ))}
   </span>
@@ -4836,7 +4866,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                     <td key={h.id} className="px-0.5 py-0.5">
                       <div
                         className="mx-auto flex h-8 w-[52px] items-center justify-center rounded"
-                        style={{ backgroundColor: `rgba(37, 99, 235, ${a})` }}
+                        style={{ backgroundColor: `rgba(15, 118, 110, ${a})` }}
                       >
                         <Num
                           className={`text-[11px] font-semibold ${a > 0.45 ? "text-white" : "text-gray-700"}`}
@@ -4864,12 +4894,12 @@ const ValueCard = ({ ev, rank, popularity }) => {
   if (!ev) return null;
   const vs = valueStars(ev.ev);
   return (
-    <div className="rounded-xl border border-blue-100 bg-white p-4 md:p-5">
+    <div className="rounded-xl border border-teal-100 bg-white p-4 md:p-5">
       <div className="flex items-center justify-between">
         <SectionLabel icon={TrendingUp}>TM Value — 期待値評価</SectionLabel>
         <span
           className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-            ev.verdict.tone === "blue" ? "bg-blue-50 text-blue-700" : "bg-gray-100 text-gray-500"
+            ev.verdict.tone === "blue" ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
           }`}
         >
           {ev.verdict.label}
@@ -4970,11 +5000,11 @@ const TrainingEvalCard = ({ evalData }) => (
     </div>
 
     <div className="mt-3 space-y-3">
-      <div className="rounded-lg border border-blue-100 bg-white p-3">
+      <div className="rounded-lg border border-teal-100 bg-white p-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-[13px] font-semibold text-gray-900">一週前追い切り</span>
-            <span className="rounded bg-blue-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">主要評価</span>
+            <span className="rounded bg-teal-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">主要評価</span>
           </div>
           <Num className={`text-sm font-semibold ${scoreTone(evalData.oneWeek.score)}`}>
             {evalData.oneWeek.score}
@@ -4999,7 +5029,7 @@ const TrainingEvalCard = ({ evalData }) => (
           <span className="text-[13px] font-medium text-gray-700">厩舎勝負調教パターン</span>
           <span
             className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-              evalData.stablePattern.match ? "bg-blue-50 text-blue-700" : "bg-gray-100 text-gray-500"
+              evalData.stablePattern.match ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
             }`}
           >
             {evalData.stablePattern.match ? "合致" : "非合致"}
@@ -5017,17 +5047,18 @@ const TrainingEvalCard = ({ evalData }) => (
 );
 
 /* ---- 馬詳細の中身(モバイルシート / PCインライン展開で共有) ---- */
-const HorseDetailContent = ({ horse, rank, fieldSize, ev }) => {
+const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false, skipLeadInsight = false }) => {
   const a = horse.analysis;
   const tier = scoreTier(horse.aiScore);
   const bd = scoreBreakdown(horse);
+  const insights = skipLeadInsight ? a.insight.slice(1) : a.insight;
   return (
     <div className="space-y-7">
       {/* TM INDEX — 指数のブランドブロック */}
-      <div>
+      <GlassPanel>
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gray-400">
-            TURF MATRIX INDEX
+            {compactHeader ? "TM INDEX Evidence" : "TURF MATRIX INDEX"}
           </span>
           {ev && (
             <span className="flex items-center gap-1.5">
@@ -5036,22 +5067,24 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev }) => {
             </span>
           )}
         </div>
-        <div className="mt-2 flex items-end justify-between gap-4">
-          <div className="flex items-baseline gap-2">
-            <Num className={`text-[52px] font-bold leading-none tracking-tight md:text-[56px] ${scoreTone(horse.aiScore)}`}>
-              {horse.aiScore}
-            </Num>
-            <span className="text-xs text-gray-400">/ 100</span>
-          </div>
+        <div className={compactHeader ? "mt-3 flex flex-wrap items-center gap-2" : "mt-2 flex items-end justify-between gap-4"}>
+          {!compactHeader && (
+            <div className="flex items-baseline gap-2">
+              <Num className={`text-[52px] font-bold leading-none tracking-tight md:text-[56px] ${scoreTone(horse.aiScore)}`}>
+                {horse.aiScore}
+              </Num>
+              <span className="text-xs text-gray-400">/ 100</span>
+            </div>
+          )}
           <div className="flex flex-col items-end gap-1.5 pb-1">
             {rank != null && (
               <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[11px] font-medium text-gray-600">
-                Rank <Num className="font-bold text-blue-600">{rank}</Num>
+                Rank <Num className="font-bold text-teal-600">{rank}</Num>
                 <span className="text-gray-400">/ {fieldSize}頭</span>
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium text-gray-600">
-              <Num className={`font-bold ${horse.aiScore >= 80 ? "text-blue-600" : "text-gray-500"}`}>
+              <Num className={`font-bold ${horse.aiScore >= 80 ? "text-emerald-600" : "text-gray-500"}`}>
                 {tier.label}
               </Num>
               {tier.text}
@@ -5060,9 +5093,9 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev }) => {
         </div>
 
         {/* なぜこの指数なのか — 内訳の開示 */}
-        <div className="mt-4 rounded-lg border border-gray-200 bg-white p-4">
+        <div className="mt-4 rounded-xl border border-gray-200/80 bg-white/70 p-4 backdrop-blur">
           <div className="flex items-baseline justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">指数の内訳</span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">指数の根拠</span>
             <span className="text-[10px] text-gray-400">ファクター × 重みの寄与</span>
           </div>
           <div className="mt-2.5 grid grid-cols-2 gap-x-6 gap-y-1.5 md:grid-cols-4">
@@ -5086,7 +5119,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev }) => {
         </div>
 
         {/* 信頼度は必ず理由とセットで */}
-        <div className="mt-3 rounded-lg border border-gray-200 bg-white p-4">
+        <div className="mt-3 rounded-xl border border-gray-200/80 bg-white/70 p-4 backdrop-blur">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">分析信頼度</span>
             <span className="flex items-center gap-1.5">
@@ -5103,23 +5136,27 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev }) => {
             ))}
           </ul>
         </div>
-      </div>
+      </GlassPanel>
 
       {/* AI Insight — AIが今回最も伝えたいこと */}
-      <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-4 md:p-5">
-        <div className="flex items-center gap-1.5">
-          <Sparkles size={13} strokeWidth={1.75} className="text-blue-600" />
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-blue-700">AI Insight</span>
-        </div>
-        <ul className="mt-3 space-y-2">
-          {a.insight.map((t, i) => (
-            <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-gray-700">
-              <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-blue-500" />
-              {t}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {insights.length > 0 && (
+        <GlassPanel>
+          <div className="flex items-center gap-1.5">
+            <Sparkles size={13} strokeWidth={1.75} className="text-teal-600" />
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-teal-700">
+              {skipLeadInsight ? "AI Insight Details" : "AI Insight"}
+            </span>
+          </div>
+          <ul className="mt-3 space-y-2">
+            {insights.map((t, i) => (
+              <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-gray-700">
+                <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-emerald-500" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </GlassPanel>
+      )}
 
       {/* 期待値評価(自動計算) */}
       <ValueCard ev={ev} rank={rank} popularity={horse.popularity} />
@@ -5206,35 +5243,79 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
   }, [onClose]);
 
   if (!horse) return null;
+  const insightLead = horse.analysis?.insight?.[0];
+
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
       <div className="tm-fade absolute inset-0 bg-gray-900/40" onClick={onClose} />
       <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-2xl bg-white shadow-2xl">
-        <div className="sticky top-0 z-10 border-b border-gray-100 bg-white/95 px-5 pb-3 pt-2.5 backdrop-blur">
+        <div className="sticky top-0 z-10 border-b border-gray-100 bg-white/90 px-5 pb-4 pt-2.5 backdrop-blur-xl">
           <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-gray-200 bg-gray-50">
-                <Num className="text-sm font-semibold text-gray-700">{horse.number}</Num>
-              </span>
-              <div>
-                <div className="text-[15px] font-semibold text-gray-900">{horse.name}</div>
-                <div className="mt-0.5 text-[11px] text-gray-500">
-                  {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white/80 shadow-sm">
+                  <Num className="text-sm font-semibold text-gray-700">{horse.number}</Num>
+                </span>
+                <div className="min-w-0">
+                  <div className="truncate text-[17px] font-bold leading-tight text-gray-900">{horse.name}</div>
+                  <div className="mt-1 text-[11px] text-gray-500">
+                    {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+                  </div>
                 </div>
               </div>
             </div>
             <button
               onClick={onClose}
-              className="flex h-11 w-11 items-center justify-center rounded-lg text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 active:bg-gray-100"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 active:bg-gray-100"
               aria-label="閉じる"
             >
               <X size={18} strokeWidth={1.75} />
             </button>
           </div>
+
+          <div className="mt-4 grid grid-cols-[1fr_auto] gap-3 rounded-xl border border-teal-100 bg-white/70 p-3 shadow-sm">
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">TM INDEX</div>
+              <Num className={`mt-1 block text-[34px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>
+                {horse.aiScore}
+              </Num>
+            </div>
+            <div className="min-w-[88px] rounded-lg bg-teal-50/70 px-3 py-2 text-right">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">TM VALUE</div>
+              <div className={`mt-1 text-[12px] ${ev && ev.ev >= 1.15 ? "font-semibold text-teal-700" : "text-gray-500"}`}>
+                {ev ? (
+                  <>
+                    EV <Num>{ev.ev.toFixed(2)}</Num>
+                  </>
+                ) : (
+                  "EV --"
+                )}
+              </div>
+              {rank != null && (
+                <div className="mt-1 text-[10px] text-gray-400">
+                  Rank <Num>{rank}</Num> / {fieldSize}頭
+                </div>
+              )}
+            </div>
+          </div>
+
+          {insightLead && (
+            <div className="mt-3 flex gap-2 rounded-lg bg-teal-50/40 px-3 py-2 text-[12px] leading-relaxed text-gray-600">
+              <Sparkles size={13} strokeWidth={1.75} className="mt-[3px] shrink-0 text-teal-600" />
+              <span className="line-clamp-2">{insightLead}</span>
+            </div>
+          )}
         </div>
-        <div className="px-5 pt-6" style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom))" }}>
-          <HorseDetailContent horse={horse} rank={rank} fieldSize={fieldSize} ev={ev} />
+        <div className="px-5 pt-5" style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom))" }}>
+          <HorseDetailContent
+            horse={horse}
+            rank={rank}
+            fieldSize={fieldSize}
+            ev={ev}
+            compactHeader
+            skipLeadInsight
+          />
         </div>
       </div>
     </div>
@@ -5247,34 +5328,64 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
     <button
       onClick={onToggle}
       aria-expanded={expanded}
-      className={`grid w-full grid-cols-[2rem_1fr_auto] items-center gap-x-3 px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50/70 active:bg-gray-100/60 md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:px-5 md:py-3.5 ${
-        expanded ? "bg-blue-50/40" : ""
+      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50/70 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
+        expanded ? "bg-teal-50/40" : ""
       }`}
     >
-      {/* 馬番 */}
-      <span className="flex h-7 w-7 items-center justify-center rounded-md border border-gray-200 bg-white md:h-8 md:w-8">
-        <Num className="text-[13px] font-semibold text-gray-700">{horse.number}</Num>
-      </span>
+      <span className="md:contents">
+        <span className="flex items-start justify-between gap-3 md:contents">
+          <span className="flex min-w-0 items-start gap-3 md:contents">
+            {/* 馬番 */}
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white md:h-8 md:w-8 md:rounded-md">
+              <Num className="text-[13px] font-semibold text-gray-700">{horse.number}</Num>
+            </span>
 
-      {/* 馬名 + (モバイル: 騎手/人気/オッズ/EV/短評をまとめる) */}
-      <span className="min-w-0">
-        <span className="block truncate text-[14px] font-semibold text-gray-900">{horse.name}</span>
-        <span className="mt-0.5 block text-[11px] text-gray-500 md:hidden">
-          {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ <Num>{horse.odds.toFixed(1)}</Num>
-          {ev && (
-            <>
-              {" ・ "}
-              <span
-                className={`text-[10px] tracking-tight ${
-                  valueStars(ev.ev) >= 4 ? "font-semibold text-blue-600" : "text-gray-400"
-                }`}
-              >
-                {starText(valueStars(ev.ev))}
+            {/* 馬名 + (モバイル: 騎手/人気/オッズ) */}
+            <span className="min-w-0 md:block">
+              <span className="block truncate text-[15px] font-semibold text-gray-900 md:text-[14px]">
+                {horse.name}
               </span>
-            </>
-          )}
+              <span className="mt-1 block text-[11px] text-gray-500 md:hidden">
+                {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+              </span>
+            </span>
+          </span>
+
+          {/* AI指数(モバイルでは右端の主役) */}
+          <span className="shrink-0 text-right md:hidden">
+            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400 md:hidden">
+              TM INDEX
+            </span>
+            <Num className={`block text-[24px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>
+              {horse.aiScore}
+            </Num>
+          </span>
         </span>
-        <span className="mt-1 block truncate text-[11px] text-gray-400 md:hidden">{horse.comment}</span>
+
+        <span className="mt-3 flex items-center justify-between gap-3 border-t border-gray-100 pt-3 md:hidden">
+          <span className="min-w-0">
+            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400">TM VALUE</span>
+            <span
+              className={`mt-0.5 block text-[12px] ${
+                ev && ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-500"
+              }`}
+            >
+              {ev ? (
+                <>
+                  EV <Num>{ev.ev.toFixed(2)}</Num> ・ {starText(valueStars(ev.ev))}
+                </>
+              ) : (
+                "EV --"
+              )}
+            </span>
+          </span>
+          <span className="inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium text-teal-600">
+            詳細を見る
+            <ChevronRight size={12} strokeWidth={1.75} />
+          </span>
+        </span>
+
+        <span className="mt-2 block truncate text-[12px] text-gray-500 md:hidden">{horse.comment}</span>
       </span>
 
       {/* PC列: 騎手 / 人気 / オッズ+EV */}
@@ -5288,7 +5399,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         {ev && (
           <Num
             className={`block text-[10px] leading-tight ${
-              ev.ev >= 1.15 ? "font-semibold text-blue-600" : "text-gray-400"
+              ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-400"
             }`}
           >
             EV {ev.ev.toFixed(2)}
@@ -5296,9 +5407,9 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         )}
       </span>
 
-      {/* AI指数(モバイルでは右端) */}
-      <span className="text-right">
-        <Num className={`text-xl font-bold md:text-[19px] ${scoreTone(horse.aiScore)}`}>{horse.aiScore}</Num>
+      {/* PC列: AI指数 */}
+      <span className="hidden text-right md:block">
+        <Num className={`text-[19px] font-bold ${scoreTone(horse.aiScore)}`}>{horse.aiScore}</Num>
       </span>
 
       {/* PC列: 短評 */}
@@ -5346,40 +5457,47 @@ const HomePage = ({ onOpenRace }) => {
   return (
     <main className="mx-auto max-w-5xl px-5">
       {/* Hero */}
-      <section className="pb-12 pt-10 md:pb-16 md:pt-20">
-        <div className="flex items-center gap-2">
-          <BetaBadge />
-          <span className="text-[11px] text-gray-400">表示データはサンプルです</span>
-        </div>
-        <h1 className="mt-5 text-[34px] font-bold leading-[1.22] tracking-tight text-gray-900 md:text-[48px]">
-          競馬を、もっと<span className="tm-gradient-text">クリア</span>に。
-        </h1>
-        <p className="mt-5 max-w-xl text-[14px] leading-[1.9] text-gray-500 md:text-[15px]">
-          AIが血統・調教・展開など<span className="font-semibold text-gray-700">11の分析軸</span>で全馬を評価。
-          <br className="hidden md:block" />
-          人気ではなく、<span className="font-semibold text-gray-700">期待値</span>でレースを読む分析サービスです。
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4 md:gap-x-8">
-          {meta ? (
-            [
-              { label: "分析レース", value: String(meta.raceCount) },
-              { label: "分析頭数", value: String(meta.horseCount) },
-              { label: "分析軸", value: "11" },
-              { label: "更新", value: meta.updatedAt },
-            ].map((s, i) => (
-              <div key={s.label} className="flex items-center gap-6 md:gap-8">
-                {i > 0 && <span className="hidden h-7 w-px bg-gray-200 sm:block" />}
-                <div>
-                  <Num className="block text-[19px] font-bold leading-none tracking-tight text-gray-900">
-                    {s.value}
-                  </Num>
-                  <span className="mt-1.5 block text-[10px] tracking-wide text-gray-400">{s.label}</span>
+      <section className="relative overflow-hidden rounded-2xl border border-white/80 bg-white/70 px-4 pb-12 pt-8 shadow-sm backdrop-blur md:overflow-visible md:rounded-none md:border-transparent md:bg-transparent md:px-0 md:pb-16 md:pt-20 md:shadow-none">
+        <div className="pointer-events-none absolute inset-x-4 top-0 h-24 rounded-full bg-gradient-to-r from-teal-50/70 via-white/40 to-emerald-50/60 blur-2xl md:hidden" />
+        <div className="relative">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+            <BetaBadge />
+            <PlatformBadge />
+            <span className="basis-full text-[11px] text-gray-400 sm:basis-auto">表示データはサンプルです</span>
+          </div>
+          <h1 className="mt-4 text-[34px] font-bold leading-[1.22] tracking-tight text-gray-900 md:mt-5 md:text-[48px]">
+            競馬を、もっと<span className="tm-gradient-text">クリア</span>に。
+          </h1>
+          <p className="mt-4 max-w-xl text-[14px] leading-[1.9] text-gray-500 md:mt-5 md:text-[15px]">
+            AIが血統・調教・展開など<span className="font-semibold text-gray-700">11の分析軸</span>で全馬を評価。
+            <br className="hidden md:block" />
+            人気ではなく、<span className="font-semibold text-gray-700">期待値</span>でレースを読む分析サービスです。
+          </p>
+          <div className="mt-7 grid grid-cols-2 gap-3 sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-4 md:gap-x-8">
+            {meta ? (
+              [
+                { label: "分析レース", value: String(meta.raceCount) },
+                { label: "分析頭数", value: String(meta.horseCount) },
+                { label: "分析軸", value: "11" },
+                { label: "更新", value: meta.updatedAt },
+              ].map((s, i) => (
+                <div
+                  key={s.label}
+                  className="rounded-lg border border-gray-100 bg-white/60 p-3 sm:flex sm:items-center sm:gap-6 sm:border-0 sm:bg-transparent sm:p-0 md:gap-8"
+                >
+                  {i > 0 && <span className="hidden h-7 w-px bg-gray-200 sm:block" />}
+                  <MetricCard
+                    label={s.label}
+                    value={s.value}
+                    valueClassName="block text-[22px] font-bold leading-none tracking-tight text-gray-900 sm:text-[19px]"
+                    labelClassName="mt-2 block text-[10px] tracking-wide text-gray-400 sm:mt-1.5"
+                  />
                 </div>
-              </div>
-            ))
-          ) : (
-            <Skeleton className="h-9 w-64" />
-          )}
+              ))
+            ) : (
+              <Skeleton className="col-span-2 h-24 sm:h-9 sm:w-64" />
+            )}
+          </div>
         </div>
       </section>
 
@@ -5397,27 +5515,35 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={r.id}
                     onClick={() => onOpenRace(r.id)}
-                    className="group rounded-xl border border-gray-200 bg-white p-5 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md active:translate-y-0 active:shadow-sm"
+                    className="group rounded-xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-md active:translate-y-0 active:shadow-sm sm:p-5"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="flex items-center gap-2">
-                        <span className="text-[14px] font-bold text-gray-900">
-                          {r.track}
-                          <Num>{r.number}</Num>R
-                        </span>
-                        {r.grade && (
-                          <span className="rounded border border-blue-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-blue-600">
-                            {r.grade}
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-2 py-0.5 text-gray-500">
+                            <Clock size={11} strokeWidth={1.75} />
+                            <Num className="text-[12px] font-semibold text-slate-700">{r.time}</Num>
                           </span>
-                        )}
-                      </span>
-                      <span className="flex items-center gap-1 text-gray-400">
-                        <Clock size={11} strokeWidth={1.75} />
-                        <Num className="text-[12px] font-semibold text-gray-700">{r.time}</Num>
+                          <span className="text-[14px] font-bold text-gray-900">
+                            {r.track}
+                            <Num>{r.number}</Num>R
+                          </span>
+                          {r.grade && (
+                            <span className="rounded border border-teal-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-teal-600">
+                              {r.grade}
+                            </span>
+                          )}
+                        </div>
+                        <div className="mt-2 truncate text-[13px] font-medium text-gray-700 sm:text-[12px] sm:font-normal sm:text-gray-500">
+                          {r.name}
+                        </div>
+                      </div>
+                      <span className="inline-flex shrink-0 items-center gap-0.5 pt-0.5 text-[11px] font-medium text-teal-600">
+                        詳細
+                        <ChevronRight size={12} strokeWidth={1.75} />
                       </span>
                     </div>
-                    <div className="mt-1 truncate text-[12px] text-gray-500">{r.name}</div>
-                    <div className="mt-2.5 flex items-center gap-3 text-[11px] text-gray-400">
+                    <div className="mt-3 flex items-center gap-3 text-[11px] text-gray-400 sm:mt-2.5">
                       <span>
                         {r.surface}
                         <Num>{r.distance}</Num>m
@@ -5427,16 +5553,20 @@ const HomePage = ({ onOpenRace }) => {
                         <Num>{r.fieldSize}</Num>頭
                       </span>
                     </div>
-                    <div className="mt-4 space-y-2.5 border-t border-gray-100 pt-3.5">
-                      <div className="flex items-center justify-between">
+                    <div className="mt-3.5 space-y-3 border-t border-gray-100 pt-3.5 sm:mt-4 sm:space-y-2.5">
+                      <div>
                         <span className="text-[11px] text-gray-400">AI指数 1位</span>
-                        <span className="flex items-baseline gap-2">
-                          <span className="text-[12px] font-medium text-gray-700">{r.topHorse.name}</span>
-                          <Num className="text-[15px] font-bold text-blue-600">{r.topHorse.aiScore}</Num>
-                        </span>
+                        <div className="mt-1 flex items-baseline justify-between gap-3">
+                          <span className="min-w-0 truncate text-[14px] font-semibold text-gray-800 sm:text-[12px] sm:font-medium sm:text-gray-700">
+                            {r.topHorse.name}
+                          </span>
+                          <Num className="shrink-0 text-[22px] font-bold leading-none text-emerald-600 sm:text-[15px]">
+                            {r.topHorse.aiScore}
+                          </Num>
+                        </div>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50/70 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                           <BadgeCheck size={11} strokeWidth={1.75} />
                           分析完了
                         </span>
@@ -5459,7 +5589,7 @@ const HomePage = ({ onOpenRace }) => {
               <ul className="mt-4 space-y-2 border-t border-gray-100 pt-4">
                 {summary.highlights.map((h, i) => (
                   <li key={i} className="flex gap-2.5 text-[12px] text-gray-600">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-blue-600" />
+                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-500" />
                     {h}
                   </li>
                 ))}
@@ -5489,14 +5619,14 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={f.horseId}
                     onClick={() => onOpenRace(f.raceId, f.horseId)}
-                    className={`group rounded-2xl border border-gray-200 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-200 hover:shadow-md active:translate-y-0 active:shadow-sm ${
+                    className={`group rounded-2xl border border-gray-200 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-md active:translate-y-0 active:shadow-sm ${
                       isMain ? "p-6 md:col-span-2 md:p-8" : "p-5 md:p-6"
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <Num className="text-[10px] font-bold tracking-[0.18em] text-blue-600">
+                          <Num className="text-[10px] font-bold tracking-[0.18em] text-teal-600">
                             PICK 0{i + 1}
                           </Num>
                           <span className="text-[11px] text-gray-400">{f.raceLabel}</span>
@@ -5556,7 +5686,7 @@ const HomePage = ({ onOpenRace }) => {
                   onClick={() => onOpenRace(item.raceId, item.horse.id)}
                   className="grid w-full grid-cols-[1.5rem_auto_1fr_2.5rem] items-center gap-3 border-b border-gray-100 px-4 py-3.5 text-left transition-colors duration-150 last:border-b-0 hover:bg-gray-50/70 active:bg-gray-100/60 md:px-5"
                 >
-                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-blue-600" : "text-gray-400"}`}>
+                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-emerald-600" : "text-gray-400"}`}>
                     {i + 1}
                   </Num>
                   <span className="min-w-0">
@@ -5590,6 +5720,10 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
 
   /* Rank・期待値はロジック層で自動計算(手入力不要) */
   const rankMap = useMemo(() => (race ? rankByScore(race.horses) : {}), [race]);
+  const topIndexHorse = useMemo(
+    () => (race ? [...race.horses].sort((a, b) => b.aiScore - a.aiScore)[0] : null),
+    [race]
+  );
   const evMap = useMemo(
     () =>
       race
@@ -5631,32 +5765,40 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       <div className="pt-5 md:pt-6">
         <button
           onClick={onBack}
-          className="-mx-2 -my-2 flex items-center gap-1 rounded-lg px-2 py-2 text-[13px] text-gray-500 transition-colors hover:text-gray-900 active:bg-gray-100/60"
+          className="-mx-2 -my-2 inline-flex min-h-10 items-center gap-1 rounded-lg px-2 py-2 text-[13px] font-medium text-gray-500 transition-colors hover:text-gray-900 active:bg-gray-100/60"
         >
           <ChevronLeft size={15} strokeWidth={1.75} />
           トップへ戻る
         </button>
 
         {race ? (
-          <div className="mt-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm md:p-6">
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-              <h1 className="text-[19px] font-bold tracking-tight text-gray-900">
-                {race.track}
-                <Num>{race.number}</Num>R {race.name}
-              </h1>
-              {race.grade && (
-                <span className="rounded border border-blue-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-blue-600">
-                  {race.grade}
-                </span>
-              )}
-              <span className="rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700">
+          <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-2 py-0.5 text-gray-500">
+                    <Clock size={11} strokeWidth={1.75} />
+                    <Num className="text-[12px] font-semibold text-slate-700">{race.time}</Num>
+                  </span>
+                  <span className="text-[13px] font-bold text-gray-900">
+                    {race.track}
+                    <Num>{race.number}</Num>R
+                  </span>
+                  {race.grade && (
+                    <span className="rounded border border-teal-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-teal-600">
+                      {race.grade}
+                    </span>
+                  )}
+                </div>
+                <h1 className="mt-2 text-[22px] font-bold leading-tight tracking-tight text-gray-900 md:text-[19px]">
+                  {race.name}
+                </h1>
+              </div>
+              <span className="mt-0.5 shrink-0 rounded-full bg-emerald-50/70 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                 分析済み
               </span>
             </div>
-            <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] text-gray-500">
-              <span>
-                発走 <Num className="font-semibold text-gray-800">{race.time}</Num>
-              </span>
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-gray-500 md:mt-2 md:gap-x-4">
               <span>
                 {race.surface}
                 <Num>{race.distance}</Num>m
@@ -5666,6 +5808,19 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 <Num>{race.fieldSize}</Num>頭
               </span>
             </div>
+            {topIndexHorse && (
+              <div className="mt-4 rounded-lg border border-teal-100 bg-teal-50/40 px-3 py-2.5 md:mt-4">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[11px] font-medium text-teal-700">TM INDEX Top</span>
+                  <span className="min-w-0 truncate text-right text-[12px] text-gray-600">
+                    {topIndexHorse.name}
+                    <Num className="ml-2 font-bold text-emerald-600">
+                      {topIndexHorse.aiScore}
+                    </Num>
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <Skeleton className="mt-4 h-24" />
@@ -5678,13 +5833,15 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       {/* 並び替え(モバイル: 全幅・親指で押しやすい高さ) */}
       <div className="mt-6 flex flex-col gap-2.5 md:flex-row md:items-center md:justify-between">
         <h2 className="text-[13px] font-semibold text-gray-900">出走馬 AI分析</h2>
-        <div className="grid w-full grid-cols-4 rounded-lg border border-gray-200 bg-gray-50 p-0.5 md:flex md:w-auto">
+        <div className="grid w-full grid-cols-4 rounded-xl border border-gray-200 bg-gray-50 p-1 md:flex md:w-auto md:rounded-lg md:p-0.5">
           {SORT_OPTIONS.map((o) => (
             <button
               key={o.key}
               onClick={() => setSortKey(o.key)}
-              className={`rounded-md px-3 py-2 text-[11px] font-medium transition-colors duration-150 md:py-1.5 ${
-                sortKey === o.key ? "bg-white text-gray-900 shadow-sm" : "text-gray-500 hover:text-gray-700"
+              className={`rounded-lg px-2 py-2.5 text-[11px] font-semibold transition-colors duration-150 md:rounded-md md:px-3 md:py-1.5 ${
+                sortKey === o.key
+                  ? "bg-white text-teal-700 shadow-sm ring-1 ring-teal-100"
+                  : "text-gray-500 hover:text-gray-700"
               }`}
             >
               {o.label}
@@ -5769,7 +5926,7 @@ export default function App() {
         body, #root { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; }
         .tm-num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
         .tm-bar { transition: width 800ms cubic-bezier(0.22, 1, 0.36, 1); }
-        button:focus-visible { outline: 2px solid rgba(37, 99, 235, 0.45); outline-offset: 2px; }
+        button:focus-visible { outline: 2px solid rgba(15, 118, 110, 0.45); outline-offset: 2px; }
         /* TURF MATRIX ブランド(Teal → Blue → Emerald) */
         .tm-gradient-text {
           background: linear-gradient(90deg, #00C2B8, #2D7BFF, #22E6A2);

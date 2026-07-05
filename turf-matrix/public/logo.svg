@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 320">
+  <defs>
+    <linearGradient id="mane" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C2B8"/>
+      <stop offset="55%" stop-color="#2D7BFF"/>
+      <stop offset="100%" stop-color="#22E6A2"/>
+    </linearGradient>
+    <linearGradient id="mane2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22E6A2"/>
+      <stop offset="100%" stop-color="#00C2B8"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(24,24) scale(0.532)">
+
+  <!-- Glassmorphism(控えめ) -->
+  <circle cx="256" cy="256" r="212" fill="#FFFFFF" fill-opacity="0.55"/>
+  <circle cx="256" cy="256" r="212" fill="none" stroke="#0A1021" stroke-opacity="0.05" stroke-width="2"/>
+
+  <!-- たてがみ: 左を回るグラデーションの弧 -->
+  <path d="M 302 56 A 200 200 0 1 0 302 456" fill="none" stroke="url(#mane)" stroke-width="22" stroke-linecap="round"/>
+  <path d="M 266 106 A 152 152 0 0 0 114 262" fill="none" stroke="url(#mane2)" stroke-width="15" stroke-linecap="round" opacity="0.85"/>
+  <path d="M 246 154 A 106 106 0 0 0 150 262" fill="none" stroke="#00C2B8" stroke-width="10" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- 馬の頭部: ネイビーの流れるラインアート(右向き) -->
+  <g fill="none" stroke="#0A1021" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <!-- 耳 -->
+    <path d="M 270 130 L 292 84 L 314 134"/>
+    <!-- 額→鼻筋→鼻先→口元→顎→頬から首前へ、一筆の輪郭 -->
+    <path d="M 314 134
+             C 352 156, 382 196, 395 240
+             C 404 268, 405 292, 396 307
+             L 366 312
+             C 350 314, 339 306, 334 292
+             C 328 338, 308 378, 274 408"/>
+    <!-- 後頭部→首の後ろ(たてがみの弧へ流す) -->
+    <path d="M 270 130
+             C 255 164, 250 202, 257 240
+             C 263 276, 257 316, 238 352"/>
+  </g>
+  <!-- 目 -->
+  <circle cx="322" cy="198" r="11" fill="#0A1021"/>
+</g>
+  <g font-family="Inter, 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif">
+    <text x="332" y="172" font-size="96" font-weight="700" letter-spacing="6">
+      <tspan fill="#0A1021">TURF </tspan><tspan fill="url(#mane)">MATRIX</tspan>
+    </text>
+    <text x="338" y="228" font-size="27" font-weight="500" letter-spacing="14.5" fill="#6B7280">AI ANALYSIS NAVIGATION</text>
+  </g>
+</svg>

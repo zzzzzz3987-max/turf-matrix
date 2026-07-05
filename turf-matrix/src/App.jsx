@@ -4569,6 +4569,80 @@ const SORT_OPTIONS = [
   { key: "popularity", label: "人気" },
 ];
 
+/* TM FACTORS v1: 将来の analysis.factors[key] との対応表(UIモック) */
+const TM_FACTOR_MOCKS = [
+  {
+    key: "blood",
+    label: "Blood",
+    score: 82,
+    maxScore: 100,
+    stars: 4,
+    summary: "血統背景と距離適性の噛み合い",
+    evidence: "pedigree.lines / pedigree.scores を接続予定",
+    status: "mock",
+  },
+  {
+    key: "training",
+    label: "Training",
+    score: 91,
+    maxScore: 100,
+    stars: 5,
+    summary: "追い切り内容と上昇度の強さ",
+    evidence: "trainingEval / factors.training を接続予定",
+    status: "mock",
+  },
+  {
+    key: "course",
+    label: "Course",
+    score: 78,
+    maxScore: 100,
+    stars: 4,
+    summary: "コース形態と過去傾向への適合",
+    evidence: "factors.course / 距離条件を接続予定",
+    status: "mock",
+  },
+  {
+    key: "pace",
+    label: "Pace",
+    score: 68,
+    maxScore: 100,
+    stars: 3,
+    summary: "想定ラップと脚質の相性",
+    evidence: "factors.pace / factors.lap を接続予定",
+    status: "mock",
+  },
+  {
+    key: "stable",
+    label: "Stable",
+    score: 74,
+    maxScore: 100,
+    stars: 4,
+    summary: "厩舎パターンと仕上げ精度",
+    evidence: "factors.stable / stablePattern を接続予定",
+    status: "mock",
+  },
+  {
+    key: "form",
+    label: "Form",
+    score: 80,
+    maxScore: 100,
+    stars: 4,
+    summary: "近走内容と状態面の安定感",
+    evidence: "analysis.tags / comment / confidenceReasons を接続予定",
+    status: "mock",
+  },
+  {
+    key: "value",
+    label: "Value",
+    score: 88,
+    maxScore: 100,
+    stars: 5,
+    summary: "市場評価とのギャップ",
+    evidence: "evaluateValue のEV結果を接続予定",
+    status: "mock",
+  },
+];
+
 const sortHorses = (horses, sortKey, evMap) => {
   const arr = [...horses];
   if (sortKey === "score") arr.sort((a, b) => b.aiScore - a.aiScore);
@@ -4614,8 +4688,18 @@ const MetricCard = ({ label, value, className = "", valueClassName = "", labelCl
   </div>
 );
 
+const GLASS = {
+  surface:
+    "rounded-3xl border border-white/80 bg-white/80 shadow-[0_18px_48px_-36px_rgba(15,118,110,0.45)] backdrop-blur-xl",
+  inner:
+    "rounded-2xl border border-white/80 bg-white/75 shadow-[0_14px_34px_-30px_rgba(15,118,110,0.45)] backdrop-blur-xl",
+  interactive:
+    "transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-[0_20px_52px_-38px_rgba(15,118,110,0.5)] active:translate-y-0 active:shadow-sm",
+  padding: "p-4 md:p-5",
+};
+
 const GlassPanel = ({ children, className = "" }) => (
-  <div className={`rounded-2xl border border-teal-100 bg-white/80 p-4 shadow-sm backdrop-blur md:p-5 ${className}`}>
+  <div className={`${GLASS.surface} ${GLASS.padding} ${className}`}>
     {children}
   </div>
 );
@@ -4681,7 +4765,7 @@ const Header = ({ onHome, meta }) => (
 );
 
 const Footer = () => (
-  <footer className="mt-16 border-t border-gray-200 bg-white">
+  <footer className="mt-16 border-t border-white/80 bg-white/70 backdrop-blur-xl">
     <div className="mx-auto max-w-5xl px-5 py-10">
       <div className="flex items-center gap-2.5">
         <span className="text-sm font-bold tracking-tight text-gray-900">
@@ -4762,6 +4846,36 @@ const StarRating = ({ value, size = 12, className = "" }) => (
 );
 const starText = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
+const TMFactorsCard = () => (
+  <div className={`mt-3 ${GLASS.inner} p-4`}>
+    <div className="flex items-center justify-between gap-3">
+      <div>
+        <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">TM FACTORS v1</div>
+        <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
+          TM INDEXを7つの視点に分解するUIモックです。
+        </p>
+      </div>
+      <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-500">
+        UI mock
+      </span>
+    </div>
+    <div className="mt-3 grid gap-2.5 md:grid-cols-2">
+      {TM_FACTOR_MOCKS.map((factor) => (
+        <div key={factor.key} className="rounded-2xl border border-white/80 bg-white/75 p-3 shadow-sm">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-[12px] font-semibold text-gray-900">{factor.label}</div>
+              <StarRating value={factor.stars} size={11} className="mt-1" />
+            </div>
+            <Num className="shrink-0 text-[18px] font-bold leading-none text-emerald-600">{factor.score}</Num>
+          </div>
+          <p className="mt-2 text-[11px] leading-relaxed text-gray-500">{factor.summary}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const CONF_STARS = { high: 4, mid: 3, low: 2 };
 const ConfidenceIndicator = ({ level }) => {
   const c = CONFIDENCE[level];
@@ -4775,8 +4889,8 @@ const ConfidenceIndicator = ({ level }) => {
 };
 
 const SectionLabel = ({ icon: Icon, children }) => (
-  <h4 className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
-    {Icon && <Icon size={12} strokeWidth={1.75} className="shrink-0 text-gray-300" />}
+  <h4 className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+    {Icon && <Icon size={12} strokeWidth={1.75} className="shrink-0 text-teal-500/60" />}
     {children}
   </h4>
 );
@@ -4825,7 +4939,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         <h2 className="text-[13px] font-semibold text-gray-900">ファクター比較</h2>
         <span className="text-[11px] text-gray-400">濃い青ほど優位 ・ 横スクロール可</span>
       </div>
-      <div className="mt-3 overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className={`mt-3 overflow-x-auto ${GLASS.inner}`}>
         <table
           className="border-collapse text-center"
           style={{ minWidth: `${96 + sorted.length * 54}px`, width: "100%" }}
@@ -5118,6 +5232,8 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           </div>
         </div>
 
+        <TMFactorsCard />
+
         {/* 信頼度は必ず理由とセットで */}
         <div className="mt-3 rounded-xl border border-gray-200/80 bg-white/70 p-4 backdrop-blur">
           <div className="flex items-center justify-between">
@@ -5248,8 +5364,8 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
       <div className="tm-fade absolute inset-0 bg-gray-900/40" onClick={onClose} />
-      <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-2xl bg-white shadow-2xl">
-        <div className="sticky top-0 z-10 border-b border-gray-100 bg-white/90 px-5 pb-4 pt-2.5 backdrop-blur-xl">
+      <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-3xl bg-white/95 shadow-2xl backdrop-blur-xl">
+        <div className="sticky top-0 z-10 border-b border-white/80 bg-white/90 px-5 pb-4 pt-2.5 backdrop-blur-xl">
           <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -5274,14 +5390,14 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </button>
           </div>
 
-          <div className="mt-4 grid grid-cols-[1fr_auto] gap-3 rounded-xl border border-teal-100 bg-white/70 p-3 shadow-sm">
+          <div className={`mt-4 grid grid-cols-[1fr_auto] gap-3 ${GLASS.inner} p-3`}>
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">TM INDEX</div>
               <Num className={`mt-1 block text-[34px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>
                 {horse.aiScore}
               </Num>
             </div>
-            <div className="min-w-[88px] rounded-lg bg-teal-50/70 px-3 py-2 text-right">
+            <div className="min-w-[88px] rounded-xl bg-teal-50/70 px-3 py-2 text-right">
               <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">TM VALUE</div>
               <div className={`mt-1 text-[12px] ${ev && ev.ev >= 1.15 ? "font-semibold text-teal-700" : "text-gray-500"}`}>
                 {ev ? (
@@ -5301,7 +5417,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
           </div>
 
           {insightLead && (
-            <div className="mt-3 flex gap-2 rounded-lg bg-teal-50/40 px-3 py-2 text-[12px] leading-relaxed text-gray-600">
+            <div className={`mt-3 flex gap-2 ${GLASS.inner} px-3 py-2 text-[12px] leading-relaxed text-gray-600`}>
               <Sparkles size={13} strokeWidth={1.75} className="mt-[3px] shrink-0 text-teal-600" />
               <span className="line-clamp-2">{insightLead}</span>
             </div>
@@ -5457,8 +5573,8 @@ const HomePage = ({ onOpenRace }) => {
   return (
     <main className="mx-auto max-w-5xl px-5">
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-2xl border border-white/80 bg-white/70 px-4 pb-12 pt-8 shadow-sm backdrop-blur md:overflow-visible md:rounded-none md:border-transparent md:bg-transparent md:px-0 md:pb-16 md:pt-20 md:shadow-none">
-        <div className="pointer-events-none absolute inset-x-4 top-0 h-24 rounded-full bg-gradient-to-r from-teal-50/70 via-white/40 to-emerald-50/60 blur-2xl md:hidden" />
+      <section className={`relative overflow-hidden ${GLASS.surface} px-4 pb-12 pt-8 md:overflow-visible md:rounded-none md:border-transparent md:bg-transparent md:px-0 md:pb-16 md:pt-20 md:shadow-none`}>
+        <div className="pointer-events-none absolute inset-x-3 top-0 h-28 rounded-full bg-gradient-to-r from-teal-50/80 via-cyan-50/40 to-emerald-50/70 blur-2xl md:hidden" />
         <div className="relative">
           <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
             <BetaBadge />
@@ -5515,7 +5631,7 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={r.id}
                     onClick={() => onOpenRace(r.id)}
-                    className="group rounded-xl border border-gray-200 bg-white p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-md active:translate-y-0 active:shadow-sm sm:p-5"
+                    className={`group ${GLASS.surface} ${GLASS.interactive} p-4 text-left sm:p-5`}
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
@@ -5582,7 +5698,7 @@ const HomePage = ({ onOpenRace }) => {
       {/* AI分析サマリー */}
       <section className="mt-14">
         <h2 className="text-[15px] font-semibold text-gray-900">AI分析サマリー</h2>
-        <div className="mt-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <div className={`mt-4 ${GLASS.surface} p-6`}>
           {summary ? (
             <>
               <p className="text-[13px] leading-[1.9] text-gray-700">{summary.text}</p>
@@ -5619,7 +5735,7 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={f.horseId}
                     onClick={() => onOpenRace(f.raceId, f.horseId)}
-                    className={`group rounded-2xl border border-gray-200 bg-white text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-md active:translate-y-0 active:shadow-sm ${
+                    className={`group ${GLASS.surface} ${GLASS.interactive} text-left ${
                       isMain ? "p-6 md:col-span-2 md:p-8" : "p-5 md:p-6"
                     }`}
                   >
@@ -5678,7 +5794,7 @@ const HomePage = ({ onOpenRace }) => {
           <h2 className="text-[15px] font-semibold text-gray-900">AI指数ランキング</h2>
           <span className="text-[11px] text-gray-400">本日 全レース</span>
         </div>
-        <div className="mt-4 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
           {ranking
             ? ranking.map((item, i) => (
                 <button
@@ -5772,7 +5888,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         </button>
 
         {race ? (
-          <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+          <div className={`mt-4 ${GLASS.surface} p-4 md:p-6`}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
@@ -5809,7 +5925,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
               </span>
             </div>
             {topIndexHorse && (
-              <div className="mt-4 rounded-lg border border-teal-100 bg-teal-50/40 px-3 py-2.5 md:mt-4">
+              <div className={`mt-4 ${GLASS.inner} px-3 py-2.5 md:mt-4`}>
                 <div className="flex items-center justify-between gap-3">
                   <span className="text-[11px] font-medium text-teal-700">TM INDEX Top</span>
                   <span className="min-w-0 truncate text-right text-[12px] text-gray-600">
@@ -5851,7 +5967,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       </div>
 
       {/* 出走馬一覧 */}
-      <div className="mt-3 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className={`mt-3 overflow-hidden ${GLASS.surface}`}>
         {/* PC列ヘッダー */}
         <div className="hidden grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-400 md:grid">
           <span>馬番</span>
@@ -5920,7 +6036,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 antialiased">
+    <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 antialiased">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
         body, #root { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; }
@@ -5952,25 +6068,33 @@ export default function App() {
         }
       `}</style>
 
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <div className="absolute -top-24 left-1/2 h-72 w-[32rem] -translate-x-1/2 rounded-full bg-cyan-50/60 blur-3xl" />
+        <div className="absolute right-[-8rem] top-64 h-72 w-72 rounded-full bg-emerald-50/70 blur-3xl" />
+        <div className="absolute bottom-24 left-[-8rem] h-64 w-64 rounded-full bg-teal-50/70 blur-3xl" />
+      </div>
+
       {DATA_ERRORS.length > 0 && (
-        <div className="border-b border-amber-200 bg-amber-50 px-5 py-2 text-center text-[11px] text-amber-800">
+        <div className="relative z-10 border-b border-amber-200 bg-amber-50 px-5 py-2 text-center text-[11px] text-amber-800">
           週次データの検証で <Num className="font-semibold">{DATA_ERRORS.length}</Num> 件の警告があります(開発者コンソール参照)
         </div>
       )}
 
-      <Header onHome={goHome} meta={meta} />
+      <div className="relative z-10">
+        <Header onHome={goHome} meta={meta} />
 
-      {route.page === "home" && <HomePage onOpenRace={openRace} />}
-      {route.page === "race" && (
-        <RacePage
-          key={route.key}
-          raceId={route.raceId}
-          initialHorseId={route.horseId}
-          onBack={goHome}
-        />
-      )}
+        {route.page === "home" && <HomePage onOpenRace={openRace} />}
+        {route.page === "race" && (
+          <RacePage
+            key={route.key}
+            raceId={route.raceId}
+            initialHorseId={route.horseId}
+            onBack={goHome}
+          />
+        )}
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }

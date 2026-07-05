@@ -86,7 +86,7 @@ const WEEK_DATA = {
       "number": 11,
       "name": "北九州記念",
       "grade": "GⅢ",
-      "time": "15:35",
+      "time": "15:45",
       "surface": "芝",
       "distance": 1200,
       "going": "良",
@@ -4655,6 +4655,20 @@ const sortHorses = (horses, sortKey, evMap) => {
 const scoreTone = (v) => (v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
 const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 
+const commandFactors = (horse, ev) => {
+  const factors = horse.analysis.factors;
+  const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : 50;
+  return [
+    { key: "blood", label: "Blood AI", value: pedigreeIndex(horse.analysis.pedigree) },
+    { key: "training", label: "Training AI", value: factors.training },
+    { key: "course", label: "Course AI", value: Math.round((factors.course + factors.distance) / 2) },
+    { key: "pace", label: "Pace AI", value: factors.pace },
+    { key: "stable", label: "Stable AI", value: factors.stable },
+    { key: "form", label: "Form AI", value: Math.round((factors.ability + factors.lap) / 2) },
+    { key: "value", label: "Value AI", value: valueScore },
+  ];
+};
+
 /* カスタムフック: PC(≥768px)判定 — シート/インライン展開の切替に使用 */
 const useIsDesktop = () => {
   const [isDesktop, setIsDesktop] = useState(
@@ -4690,12 +4704,12 @@ const MetricCard = ({ label, value, className = "", valueClassName = "", labelCl
 
 const GLASS = {
   surface:
-    "rounded-3xl border border-white/80 bg-white/80 shadow-[0_18px_48px_-36px_rgba(15,118,110,0.45)] backdrop-blur-xl",
+    "rounded-[2rem] border border-white/90 bg-white/[0.74] shadow-[0_26px_76px_-56px_rgba(15,23,42,0.42)] backdrop-blur-xl ring-1 ring-slate-900/[0.02]",
   inner:
-    "rounded-2xl border border-white/80 bg-white/75 shadow-[0_14px_34px_-30px_rgba(15,118,110,0.45)] backdrop-blur-xl",
+    "rounded-[1.35rem] border border-white/85 bg-white/[0.62] shadow-[0_18px_44px_-38px_rgba(15,23,42,0.32)] backdrop-blur-lg ring-1 ring-slate-900/[0.015]",
   interactive:
-    "transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-200 hover:shadow-[0_20px_52px_-38px_rgba(15,118,110,0.5)] active:translate-y-0 active:shadow-sm",
-  padding: "p-4 md:p-5",
+    "transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/82 hover:shadow-[0_30px_84px_-58px_rgba(15,23,42,0.5)] active:translate-y-0 active:shadow-sm",
+  padding: "p-6 sm:p-7",
 };
 
 const GlassPanel = ({ children, className = "" }) => (
@@ -4705,14 +4719,14 @@ const GlassPanel = ({ children, className = "" }) => (
 );
 
 const BetaBadge = () => (
-  <Badge className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-700 sm:text-[11px]">
+  <Badge className="inline-flex items-center gap-1 rounded-full border border-white/90 bg-white/70 px-2 py-0.5 text-[10px] font-medium text-slate-600 shadow-sm backdrop-blur sm:text-[11px]">
     β v0.3
   </Badge>
 );
 
 const PlatformBadge = () => (
-  <Badge className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-teal-100 bg-white/70 px-2.5 py-1 text-[10px] font-medium text-slate-600 shadow-sm backdrop-blur sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]">
-    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+  <Badge className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-teal-100/80 bg-white/75 px-2.5 py-1 text-[10px] font-semibold text-slate-600 shadow-[0_10px_24px_-20px_rgba(15,118,110,0.6)] backdrop-blur-xl sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]">
+    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12)]" />
     <span>
       <span className="hidden sm:inline">AI Racing </span>
       <span className="sm:hidden">AI </span>
@@ -4727,37 +4741,30 @@ const Skeleton = ({ className = "" }) => (
   <div className={`animate-pulse rounded-lg bg-gray-100 ${className}`} />
 );
 
+const OFFICIAL_LOGO_SRC = "/logo-official.png";
+
+const OfficialLogo = ({ className = "" }) => (
+  <img
+    src={OFFICIAL_LOGO_SRC}
+    alt="TURF MATRIX"
+    className={`h-9 w-[194px] flex-shrink-0 object-contain object-left sm:w-[212px] ${className}`}
+    width="212"
+    height="36"
+  />
+);
+
 const Header = ({ onHome, meta }) => (
-  <header className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/70 backdrop-blur-xl">
-    <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5">
-      <button onClick={onHome} className="flex items-center gap-2.5" aria-label="トップへ戻る">
-        <svg viewBox="0 0 512 512" width="26" height="26" aria-hidden="true" className="shrink-0">
-          <defs>
-            <linearGradient id="tmMane" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#00C2B8" />
-              <stop offset="55%" stopColor="#2D7BFF" />
-              <stop offset="100%" stopColor="#22E6A2" />
-            </linearGradient>
-          </defs>
-          <path d="M 302 56 A 200 200 0 1 0 302 456" fill="none" stroke="url(#tmMane)" strokeWidth="34" strokeLinecap="round" />
-          <g fill="none" stroke="#0A1021" strokeWidth="30" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M 270 130 L 292 84 L 314 134" />
-            <path d="M 314 134 C 352 156, 382 196, 395 240 C 404 268, 405 292, 396 307 L 366 312 C 350 314, 339 306, 334 292 C 328 338, 308 378, 274 408" />
-            <path d="M 270 130 C 255 164, 250 202, 257 240 C 263 276, 257 316, 238 352" />
-          </g>
-          <circle cx="322" cy="198" r="15" fill="#0A1021" />
-        </svg>
-        <span className="text-[15px] font-bold tracking-tight text-gray-900">
-          TURF <span className="tm-gradient-text">MATRIX</span>
-        </span>
-        <BetaBadge />
+  <header className="sticky top-0 z-40 border-b border-white/80 bg-white/75 shadow-[0_12px_40px_-34px_rgba(15,23,42,0.35)] backdrop-blur-2xl">
+    <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
+      <button onClick={onHome} className="flex min-w-0 items-center" aria-label="トップへ戻る">
+        <OfficialLogo />
       </button>
-      <div className="text-xs text-gray-500">
+      <div className="flex items-center gap-2 text-[11px] text-slate-500">
+        <BetaBadge />
         {meta ? (
-          <>
-            {meta.dateLabel} <span className="hidden sm:inline">・ {meta.venue}開催 ・ </span>
-            <Num>{meta.updatedAt}</Num> 更新
-          </>
+          <span className="hidden sm:inline">
+            {meta.dateLabel} <span className="text-slate-300">/</span> <Num>{meta.updatedAt}</Num>
+          </span>
         ) : null}
       </div>
     </div>
@@ -4765,13 +4772,14 @@ const Header = ({ onHome, meta }) => (
 );
 
 const Footer = () => (
-  <footer className="mt-16 border-t border-white/80 bg-white/70 backdrop-blur-xl">
-    <div className="mx-auto max-w-5xl px-5 py-10">
-      <div className="flex items-center gap-2.5">
+  <footer className="mt-20 border-t border-white/80 bg-white/55 backdrop-blur-2xl">
+    <div className="mx-auto max-w-5xl px-5 py-12">
+      <div className="flex flex-wrap items-center gap-2.5">
         <span className="text-sm font-bold tracking-tight text-gray-900">
           TURF <span className="tm-gradient-text">MATRIX</span>
         </span>
         <BetaBadge />
+        <PlatformBadge />
       </div>
       <p className="mt-4 max-w-2xl text-xs leading-relaxed text-gray-500">
         本サービスは分析情報の提供を目的としており、的中や利益を保証するものではありません。
@@ -4847,29 +4855,37 @@ const StarRating = ({ value, size = 12, className = "" }) => (
 const starText = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
 const TMFactorsCard = () => (
-  <div className={`mt-3 ${GLASS.inner} p-4`}>
-    <div className="flex items-center justify-between gap-3">
+  <div className={`mt-4 ${GLASS.inner} p-4`}>
+    <div className="flex items-start justify-between gap-3">
       <div>
-        <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">TM FACTORS v1</div>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM FACTORS v1</div>
         <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
           TM INDEXを7つの視点に分解するUIモックです。
         </p>
       </div>
-      <span className="shrink-0 rounded-full bg-slate-50 px-2 py-0.5 text-[10px] font-medium text-slate-500">
+      <span className="shrink-0 rounded-full border border-white/80 bg-white/65 px-2 py-0.5 text-[10px] font-medium text-slate-500">
         UI mock
       </span>
     </div>
-    <div className="mt-3 grid gap-2.5 md:grid-cols-2">
+    <div className="mt-4 grid gap-2.5 md:grid-cols-2">
       {TM_FACTOR_MOCKS.map((factor) => (
-        <div key={factor.key} className="rounded-2xl border border-white/80 bg-white/75 p-3 shadow-sm">
-          <div className="flex items-start justify-between gap-3">
+        <div key={factor.key} className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-[0_14px_34px_-30px_rgba(15,118,110,0.45)]">
+          <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <div className="text-[12px] font-semibold text-gray-900">{factor.label}</div>
-              <StarRating value={factor.stars} size={11} className="mt-1" />
+              <div className="text-[12px] font-semibold text-slate-900">{factor.label}</div>
+              <div className="mt-1 flex items-center gap-2">
+                <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+                  <div
+                    className="h-full rounded-full bg-slate-800/80"
+                    style={{ width: `${Math.min(100, (factor.score / factor.maxScore) * 100)}%` }}
+                  />
+                </div>
+                <StarRating value={factor.stars} size={9} />
+              </div>
             </div>
-            <Num className="shrink-0 text-[18px] font-bold leading-none text-emerald-600">{factor.score}</Num>
+            <Num className="shrink-0 text-[22px] font-bold leading-none text-slate-900">{factor.score}</Num>
           </div>
-          <p className="mt-2 text-[11px] leading-relaxed text-gray-500">{factor.summary}</p>
+          <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-gray-500">{factor.summary}</p>
         </div>
       ))}
     </div>
@@ -4934,19 +4950,68 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         : h.analysis.factors[d.key];
   const cellAlpha = (d, v) => (d.type === "ev" ? heat((v - 0.55) / 0.9) : heat((v - 45) / 55));
   return (
-    <section className="mt-6">
-      <div className="flex items-baseline justify-between">
-        <h2 className="text-[13px] font-semibold text-gray-900">ファクター比較</h2>
-        <span className="text-[11px] text-gray-400">濃い青ほど優位 ・ 横スクロール可</span>
+    <section className="mt-7">
+      <div className="flex items-end justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Factor Matrix</div>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">Horse Comparison</h2>
+        </div>
+        <span className="hidden text-right text-[11px] text-slate-400 md:block">濃いほど優位 ・ 横スクロール可</span>
       </div>
-      <div className={`mt-3 overflow-x-auto ${GLASS.inner}`}>
+      <div className="mt-5 grid gap-3 md:hidden">
+        {sorted.slice(0, 4).map((h) => {
+          const factors = commandFactors(h, evMap[h.id]);
+          return (
+            <button
+              key={h.id}
+              onClick={() => onSelect(h)}
+              className={`${GLASS.surface} ${GLASS.interactive} p-4 text-left`}
+              aria-label={`${h.name}の詳細`}
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-2xl border border-white/90 bg-white/60">
+                      <Num className="text-[12px] font-bold text-slate-600">{h.number}</Num>
+                    </span>
+                    <span className="truncate text-[16px] font-bold text-slate-950">{h.name}</span>
+                  </div>
+                  <div className="mt-1.5 text-[11px] font-medium text-slate-400">
+                    {h.jockey} ・ <Num>{h.popularity}</Num>人気
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM INDEX</div>
+                  <Num className={`mt-1 block text-[36px] font-bold leading-none ${scoreTone(h.aiScore)}`}>
+                    {h.aiScore}
+                  </Num>
+                </div>
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                {factors.map((f) => (
+                  <div key={f.key} className="rounded-[1.15rem] border border-white/80 bg-white/45 p-2.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
+                      <Num className="text-[14px] font-bold text-slate-800">{f.value}</Num>
+                    </div>
+                    <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
+                      <div className="h-full rounded-full bg-slate-700/75" style={{ width: `${f.value}%` }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+      <div className={`mt-4 hidden overflow-x-auto ${GLASS.surface} p-2 md:block`}>
         <table
           className="border-collapse text-center"
           style={{ minWidth: `${96 + sorted.length * 54}px`, width: "100%" }}
         >
           <thead>
             <tr>
-              <th className="sticky left-0 z-10 bg-white px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+              <th className="sticky left-0 z-10 rounded-l-2xl bg-white/80 px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-400 backdrop-blur-xl">
                 指数順
               </th>
               {sorted.map((h) => (
@@ -4956,7 +5021,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                     className="mx-auto flex w-full flex-col items-center gap-1"
                     aria-label={`${h.name}の詳細`}
                   >
-                    <span className="flex h-6 w-6 items-center justify-center rounded-md border border-gray-200 bg-gray-50">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-white/90 bg-white/75 shadow-sm">
                       <Num className="text-[11px] font-semibold text-gray-700">{h.number}</Num>
                     </span>
                     <span className="w-12 truncate text-[9px] font-medium leading-tight text-gray-500">
@@ -4969,8 +5034,8 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           </thead>
           <tbody>
             {COMPARE_DEFS.map((d) => (
-              <tr key={d.key} className="border-t border-gray-100">
-                <th className="sticky left-0 z-10 whitespace-nowrap bg-white px-3 py-1.5 text-left text-[11px] font-medium text-gray-500">
+              <tr key={d.key} className="border-t border-white/70">
+                <th className="sticky left-0 z-10 whitespace-nowrap bg-white/80 px-3 py-1.5 text-left text-[11px] font-medium text-gray-500 backdrop-blur-xl">
                   {d.label}
                 </th>
                 {sorted.map((h) => {
@@ -4979,7 +5044,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                   return (
                     <td key={h.id} className="px-0.5 py-0.5">
                       <div
-                        className="mx-auto flex h-8 w-[52px] items-center justify-center rounded"
+                        className="mx-auto flex h-8 w-[52px] items-center justify-center rounded-xl shadow-sm"
                         style={{ backgroundColor: `rgba(15, 118, 110, ${a})` }}
                       >
                         <Num
@@ -4996,7 +5061,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           </tbody>
         </table>
       </div>
-      <p className="mt-2 text-[11px] text-gray-400">
+      <p className="mt-3 text-[11px] text-gray-400">
         馬名をタップすると分析詳細が開きます。期待値は推定勝率×単勝オッズ(1.00が損益分岐の目安)。
       </p>
     </section>
@@ -5169,9 +5234,11 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
   return (
     <div className="space-y-7">
       {/* TM INDEX — 指数のブランドブロック */}
-      <GlassPanel>
+      <GlassPanel className="relative overflow-hidden">
+        <div className="pointer-events-none absolute -right-14 -top-16 h-40 w-40 rounded-full bg-teal-100/60 blur-3xl" />
+        <div className="relative">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-gray-400">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
             {compactHeader ? "TM INDEX Evidence" : "TURF MATRIX INDEX"}
           </span>
           {ev && (
@@ -5181,7 +5248,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
             </span>
           )}
         </div>
-        <div className={compactHeader ? "mt-3 flex flex-wrap items-center gap-2" : "mt-2 flex items-end justify-between gap-4"}>
+        <div className={compactHeader ? "mt-3 flex flex-wrap items-center gap-2" : "mt-3 flex items-end justify-between gap-4"}>
           {!compactHeader && (
             <div className="flex items-baseline gap-2">
               <Num className={`text-[52px] font-bold leading-none tracking-tight md:text-[56px] ${scoreTone(horse.aiScore)}`}>
@@ -5207,7 +5274,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
         </div>
 
         {/* なぜこの指数なのか — 内訳の開示 */}
-        <div className="mt-4 rounded-xl border border-gray-200/80 bg-white/70 p-4 backdrop-blur">
+        <div className={`mt-4 ${GLASS.inner} p-4`}>
           <div className="flex items-baseline justify-between">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">指数の根拠</span>
             <span className="text-[10px] text-gray-400">ファクター × 重みの寄与</span>
@@ -5235,7 +5302,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
         <TMFactorsCard />
 
         {/* 信頼度は必ず理由とセットで */}
-        <div className="mt-3 rounded-xl border border-gray-200/80 bg-white/70 p-4 backdrop-blur">
+        <div className={`mt-3 ${GLASS.inner} p-4`}>
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">分析信頼度</span>
             <span className="flex items-center gap-1.5">
@@ -5252,14 +5319,17 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
             ))}
           </ul>
         </div>
+        </div>
       </GlassPanel>
 
       {/* AI Insight — AIが今回最も伝えたいこと */}
       {insights.length > 0 && (
-        <GlassPanel>
+        <GlassPanel className="relative overflow-hidden">
+          <div className="pointer-events-none absolute -right-10 -top-14 h-32 w-32 rounded-full bg-cyan-100/70 blur-3xl" />
+          <div className="relative">
           <div className="flex items-center gap-1.5">
-            <Sparkles size={13} strokeWidth={1.75} className="text-teal-600" />
-            <span className="text-[11px] font-semibold uppercase tracking-wider text-teal-700">
+            <Sparkles size={13} strokeWidth={1.75} className="text-slate-400" />
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
               {skipLeadInsight ? "AI Insight Details" : "AI Insight"}
             </span>
           </div>
@@ -5271,6 +5341,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               </li>
             ))}
           </ul>
+          </div>
         </GlassPanel>
       )}
 
@@ -5360,22 +5431,28 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
   if (!horse) return null;
   const insightLead = horse.analysis?.insight?.[0];
+  const command = commandFactors(horse, ev);
+  const confidence = CONFIDENCE[horse.analysis.confidence];
 
   return (
     <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
-      <div className="tm-fade absolute inset-0 bg-gray-900/40" onClick={onClose} />
-      <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-3xl bg-white/95 shadow-2xl backdrop-blur-xl">
-        <div className="sticky top-0 z-10 border-b border-white/80 bg-white/90 px-5 pb-4 pt-2.5 backdrop-blur-xl">
+      <div className="tm-fade absolute inset-0 bg-slate-900/15 backdrop-blur-[3px]" onClick={onClose} />
+      <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-[2rem] border-t border-white/90 bg-white/[0.9] shadow-[0_-34px_100px_-54px_rgba(15,118,110,0.62)] backdrop-blur-2xl">
+        <div className="sticky top-0 z-10 overflow-hidden border-b border-white/80 bg-white/[0.84] px-5 pb-6 pt-2.5 backdrop-blur-2xl">
+          <div className="pointer-events-none absolute -right-12 -top-16 h-44 w-44 rounded-full bg-emerald-100/75 blur-3xl" />
+          <div className="pointer-events-none absolute -left-16 bottom-0 h-36 w-36 rounded-full bg-cyan-100/70 blur-3xl" />
+          <div className="relative">
           <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
+              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Top Signal</div>
               <div className="flex items-center gap-2">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white/80 shadow-sm">
-                  <Num className="text-sm font-semibold text-gray-700">{horse.number}</Num>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm">
+                  <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
                 </span>
                 <div className="min-w-0">
-                  <div className="truncate text-[17px] font-bold leading-tight text-gray-900">{horse.name}</div>
-                  <div className="mt-1 text-[11px] text-gray-500">
+                  <div className="truncate text-[20px] font-bold leading-tight tracking-tight text-slate-950">{horse.name}</div>
+                  <div className="mt-1 text-[11px] font-medium text-slate-500">
                     {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
                   </div>
                 </div>
@@ -5383,23 +5460,23 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </div>
             <button
               onClick={onClose}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-gray-400 transition-colors hover:bg-gray-50 hover:text-gray-600 active:bg-gray-100"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/80 bg-white/65 text-slate-400 shadow-sm transition-colors hover:bg-white hover:text-slate-600 active:bg-gray-100"
               aria-label="閉じる"
             >
               <X size={18} strokeWidth={1.75} />
             </button>
           </div>
 
-          <div className={`mt-4 grid grid-cols-[1fr_auto] gap-3 ${GLASS.inner} p-3`}>
+          <div className="mt-7 grid grid-cols-[1fr_auto] gap-4">
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">TM INDEX</div>
-              <Num className={`mt-1 block text-[34px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">TM INDEX</div>
+              <Num className={`mt-3 block text-[64px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
                 {horse.aiScore}
               </Num>
             </div>
-            <div className="min-w-[88px] rounded-xl bg-teal-50/70 px-3 py-2 text-right">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-teal-700">TM VALUE</div>
-              <div className={`mt-1 text-[12px] ${ev && ev.ev >= 1.15 ? "font-semibold text-teal-700" : "text-gray-500"}`}>
+            <div className="min-w-[112px] rounded-[1.35rem] border border-white/85 bg-white/52 px-3 py-3 text-right">
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">TM VALUE</div>
+              <div className={`mt-2 text-[18px] ${ev && ev.ev >= 1.15 ? "font-bold text-slate-900" : "text-gray-500"}`}>
                 {ev ? (
                   <>
                     EV <Num>{ev.ev.toFixed(2)}</Num>
@@ -5416,12 +5493,38 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </div>
           </div>
 
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <div className={`${GLASS.inner} p-3.5`}>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Confidence</div>
+              <div className="mt-2 text-[13px] font-bold text-slate-900">{confidence.label}</div>
+            </div>
+            <div className={`${GLASS.inner} p-3.5`}>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">AI Verdict</div>
+              <div className="mt-2 text-[13px] font-bold text-slate-900">{horse.aiScore >= 80 ? "Positive" : "Watch"}</div>
+            </div>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            {command.map((f) => (
+              <div key={f.key} className="rounded-2xl border border-white/80 bg-white/45 p-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
+                  <Num className="text-[15px] font-bold text-slate-800">{f.value}</Num>
+                </div>
+                <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
+                  <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${f.value}%` }} />
+                </div>
+              </div>
+            ))}
+          </div>
+
           {insightLead && (
-            <div className={`mt-3 flex gap-2 ${GLASS.inner} px-3 py-2 text-[12px] leading-relaxed text-gray-600`}>
-              <Sparkles size={13} strokeWidth={1.75} className="mt-[3px] shrink-0 text-teal-600" />
+            <div className="mt-4 flex gap-2 rounded-2xl border border-white/80 bg-white/45 px-3.5 py-3 text-[12px] leading-relaxed text-slate-600">
+              <Sparkles size={14} strokeWidth={1.75} className="mt-[3px] shrink-0 text-slate-400" />
               <span className="line-clamp-2">{insightLead}</span>
             </div>
           )}
+          </div>
         </div>
         <div className="px-5 pt-5" style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom))" }}>
           <HorseDetailContent
@@ -5440,25 +5543,25 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
 /* ---- 出走馬の1行(クリックで詳細) ---- */
 const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop }) => (
-  <div className="border-b border-gray-100 last:border-b-0">
+  <div className="border-b border-white/70 last:border-b-0">
     <button
       onClick={onToggle}
       aria-expanded={expanded}
-      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50/70 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
-        expanded ? "bg-teal-50/40" : ""
+      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-white/70 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
+        expanded ? "bg-teal-50/45" : "bg-white/20"
       }`}
     >
       <span className="md:contents">
         <span className="flex items-start justify-between gap-3 md:contents">
           <span className="flex min-w-0 items-start gap-3 md:contents">
             {/* 馬番 */}
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-gray-200 bg-white md:h-8 md:w-8 md:rounded-md">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm md:h-8 md:w-8 md:rounded-xl">
               <Num className="text-[13px] font-semibold text-gray-700">{horse.number}</Num>
             </span>
 
             {/* 馬名 + (モバイル: 騎手/人気/オッズ) */}
             <span className="min-w-0 md:block">
-              <span className="block truncate text-[15px] font-semibold text-gray-900 md:text-[14px]">
+              <span className="block truncate text-[16px] font-bold text-slate-950 md:text-[14px]">
                 {horse.name}
               </span>
               <span className="mt-1 block text-[11px] text-gray-500 md:hidden">
@@ -5472,13 +5575,13 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400 md:hidden">
               TM INDEX
             </span>
-            <Num className={`block text-[24px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>
+            <Num className={`block text-[28px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
               {horse.aiScore}
             </Num>
           </span>
         </span>
 
-        <span className="mt-3 flex items-center justify-between gap-3 border-t border-gray-100 pt-3 md:hidden">
+        <span className="mt-3 flex items-center justify-between gap-3 border-t border-white/70 pt-3 md:hidden">
           <span className="min-w-0">
             <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400">TM VALUE</span>
             <span
@@ -5569,61 +5672,73 @@ const HomePage = ({ onOpenRace }) => {
     dataProvider.getFeaturedHorses().then(setFeatured);
     dataProvider.getIndexRanking(5).then(setRanking);
   }, []);
+  const topSignal = useMemo(() => {
+    if (!races?.length) return null;
+    return [...races].sort((a, b) => b.topHorse.aiScore - a.topHorse.aiScore)[0];
+  }, [races]);
 
   return (
     <main className="mx-auto max-w-5xl px-5">
       {/* Hero */}
-      <section className={`relative overflow-hidden ${GLASS.surface} px-4 pb-12 pt-8 md:overflow-visible md:rounded-none md:border-transparent md:bg-transparent md:px-0 md:pb-16 md:pt-20 md:shadow-none`}>
-        <div className="pointer-events-none absolute inset-x-3 top-0 h-28 rounded-full bg-gradient-to-r from-teal-50/80 via-cyan-50/40 to-emerald-50/70 blur-2xl md:hidden" />
+      <section className={`relative mt-6 overflow-hidden ${GLASS.surface} px-6 pb-8 pt-8 md:mt-10 md:px-10 md:pb-10 md:pt-10`}>
+        <div className="pointer-events-none absolute -left-24 -top-20 h-56 w-56 rounded-full bg-cyan-100/45 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 top-20 h-52 w-52 rounded-full bg-emerald-100/45 blur-3xl" />
+        <div className="pointer-events-none absolute inset-x-8 bottom-0 h-24 rounded-full bg-teal-50/55 blur-3xl" />
         <div className="relative">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Today</span>
             <BetaBadge />
-            <PlatformBadge />
-            <span className="basis-full text-[11px] text-gray-400 sm:basis-auto">表示データはサンプルです</span>
           </div>
-          <h1 className="mt-4 text-[34px] font-bold leading-[1.22] tracking-tight text-gray-900 md:mt-5 md:text-[48px]">
-            競馬を、もっと<span className="tm-gradient-text">クリア</span>に。
-          </h1>
-          <p className="mt-4 max-w-xl text-[14px] leading-[1.9] text-gray-500 md:mt-5 md:text-[15px]">
-            AIが血統・調教・展開など<span className="font-semibold text-gray-700">11の分析軸</span>で全馬を評価。
-            <br className="hidden md:block" />
-            人気ではなく、<span className="font-semibold text-gray-700">期待値</span>でレースを読む分析サービスです。
-          </p>
-          <div className="mt-7 grid grid-cols-2 gap-3 sm:mt-9 sm:flex sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-4 md:gap-x-8">
-            {meta ? (
-              [
-                { label: "分析レース", value: String(meta.raceCount) },
-                { label: "分析頭数", value: String(meta.horseCount) },
-                { label: "分析軸", value: "11" },
-                { label: "更新", value: meta.updatedAt },
-              ].map((s, i) => (
-                <div
-                  key={s.label}
-                  className="rounded-lg border border-gray-100 bg-white/60 p-3 sm:flex sm:items-center sm:gap-6 sm:border-0 sm:bg-transparent sm:p-0 md:gap-8"
-                >
-                  {i > 0 && <span className="hidden h-7 w-px bg-gray-200 sm:block" />}
-                  <MetricCard
-                    label={s.label}
-                    value={s.value}
-                    valueClassName="block text-[22px] font-bold leading-none tracking-tight text-gray-900 sm:text-[19px]"
-                    labelClassName="mt-2 block text-[10px] tracking-wide text-gray-400 sm:mt-1.5"
-                  />
+          {topSignal ? (
+            <>
+              <div className="mt-9">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Top Signal</div>
+                <div className="mt-4 truncate text-[30px] font-bold leading-tight tracking-tight text-slate-950 md:text-[44px]">
+                  {topSignal.topHorse.name}
                 </div>
-              ))
-            ) : (
-              <Skeleton className="col-span-2 h-24 sm:h-9 sm:w-64" />
-            )}
-          </div>
+              </div>
+              <div className="mt-8 flex items-end justify-between gap-5">
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">TM INDEX</div>
+                  <Num className="mt-3 block text-[76px] font-bold leading-none tracking-tight text-emerald-600 md:text-[92px]">
+                    {topSignal.topHorse.aiScore}
+                  </Num>
+                </div>
+                <button
+                  onClick={() => onOpenRace(topSignal.id)}
+                  className="mb-3 inline-flex shrink-0 items-center gap-1 rounded-full border border-white/60 bg-white/25 px-2.5 py-1.5 text-[11px] font-semibold text-slate-500 backdrop-blur"
+                >
+                  View Analysis
+                  <ChevronRight size={13} strokeWidth={1.75} />
+                </button>
+              </div>
+              <div className="mt-7 grid grid-cols-2 gap-3">
+                <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Confidence</div>
+                  <div className="mt-2 text-[17px] font-bold text-slate-950">{CONFIDENCE[topSignal.confidence].label}</div>
+                </div>
+                <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Race</div>
+                  <div className="mt-2 truncate text-[17px] font-bold text-slate-950">{topSignal.name}</div>
+                </div>
+              </div>
+            </>
+          ) : (
+            <Skeleton className="mt-8 h-64" />
+          )}
         </div>
       </section>
 
       {/* 今日のレース */}
-      <section>
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-[15px] font-semibold text-gray-900">今日のレース</h2>
-          <span className="text-[11px] text-gray-400">{meta?.venue}開催</span>
+      <section className="mt-12">
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Race Intelligence</div>
+            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">今日のレース</h2>
+          </div>
+          <span className="text-[11px] font-medium text-slate-400">{meta?.venue}開催</span>
         </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-3">
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
           {races
             ? [...races]
                 .sort((a, b) => b.number - a.number)
@@ -5631,63 +5746,42 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={r.id}
                     onClick={() => onOpenRace(r.id)}
-                    className={`group ${GLASS.surface} ${GLASS.interactive} p-4 text-left sm:p-5`}
+                    className={`group relative overflow-hidden ${GLASS.surface} ${GLASS.interactive} p-6 text-left`}
                   >
-                    <div className="flex items-start justify-between gap-3">
+                    <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-emerald-100/45 blur-3xl" />
+                    <div className="relative">
+                    <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-2 py-0.5 text-gray-500">
-                            <Clock size={11} strokeWidth={1.75} />
-                            <Num className="text-[12px] font-semibold text-slate-700">{r.time}</Num>
-                          </span>
-                          <span className="text-[14px] font-bold text-gray-900">
-                            {r.track}
-                            <Num>{r.number}</Num>R
-                          </span>
-                          {r.grade && (
-                            <span className="rounded border border-teal-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-teal-600">
-                              {r.grade}
-                            </span>
-                          )}
-                        </div>
-                        <div className="mt-2 truncate text-[13px] font-medium text-gray-700 sm:text-[12px] sm:font-normal sm:text-gray-500">
+                        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Race Signal</div>
+                        <div className="mt-3 truncate text-[20px] font-bold tracking-tight text-slate-950 md:text-[17px]">
                           {r.name}
                         </div>
                       </div>
-                      <span className="inline-flex shrink-0 items-center gap-0.5 pt-0.5 text-[11px] font-medium text-teal-600">
+                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-white/55 px-2 py-1 text-[11px] font-semibold text-slate-500">
                         詳細
                         <ChevronRight size={12} strokeWidth={1.75} />
                       </span>
                     </div>
-                    <div className="mt-3 flex items-center gap-3 text-[11px] text-gray-400 sm:mt-2.5">
-                      <span>
-                        {r.surface}
-                        <Num>{r.distance}</Num>m
-                      </span>
-                      <span>{r.going}</span>
-                      <span>
-                        <Num>{r.fieldSize}</Num>頭
-                      </span>
-                    </div>
-                    <div className="mt-3.5 space-y-3 border-t border-gray-100 pt-3.5 sm:mt-4 sm:space-y-2.5">
-                      <div>
-                        <span className="text-[11px] text-gray-400">AI指数 1位</span>
-                        <div className="mt-1 flex items-baseline justify-between gap-3">
-                          <span className="min-w-0 truncate text-[14px] font-semibold text-gray-800 sm:text-[12px] sm:font-medium sm:text-gray-700">
+                    <div className="mt-9">
+                      <div className="flex items-end justify-between gap-4">
+                        <div className="min-w-0">
+                          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</span>
+                          <span className="mt-2 block min-w-0 truncate text-[15px] font-bold text-slate-900">
                             {r.topHorse.name}
                           </span>
-                          <Num className="shrink-0 text-[22px] font-bold leading-none text-emerald-600 sm:text-[15px]">
+                        </div>
+                        <Num className="shrink-0 text-[51px] font-bold leading-none tracking-tight text-emerald-600 md:text-[39px]">
                             {r.topHorse.aiScore}
                           </Num>
-                        </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50/70 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
-                          <BadgeCheck size={11} strokeWidth={1.75} />
-                          分析完了
+                      <div className="mt-6 flex items-center justify-between border-t border-white/70 pt-4">
+                        <span className="text-[10px] font-medium text-slate-400">
+                          <Clock size={10} strokeWidth={1.75} className="mr-1 inline-block align-[-1px]" />
+                          <Num>{r.time}</Num> ・ {r.track}<Num>{r.number}</Num>R
                         </span>
-                        <ConfidenceIndicator level={r.confidence} />
+                        <span className="text-[10px] font-medium text-slate-400">Confidence {CONFIDENCE[r.confidence].label}</span>
                       </div>
+                    </div>
                     </div>
                   </button>
                 ))
@@ -5696,21 +5790,31 @@ const HomePage = ({ onOpenRace }) => {
       </section>
 
       {/* AI分析サマリー */}
-      <section className="mt-14">
-        <h2 className="text-[15px] font-semibold text-gray-900">AI分析サマリー</h2>
-        <div className={`mt-4 ${GLASS.surface} p-6`}>
+      <section className="mt-16">
+        <div className="flex items-end justify-between">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Daily Intelligence</div>
+            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">AI分析サマリー</h2>
+          </div>
+        </div>
+        <div className={`relative mt-4 overflow-hidden ${GLASS.surface} p-6`}>
+          <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-cyan-100/70 blur-3xl" />
           {summary ? (
-            <>
-              <p className="text-[13px] leading-[1.9] text-gray-700">{summary.text}</p>
+            <div className="relative">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-2.5 py-1 text-[10px] font-semibold text-slate-500">
+                <Sparkles size={11} strokeWidth={1.75} />
+                AI Insight
+              </div>
+              <p className="mt-4 text-[13px] leading-[2] text-slate-700">{summary.text}</p>
               <ul className="mt-4 space-y-2 border-t border-gray-100 pt-4">
                 {summary.highlights.map((h, i) => (
-                  <li key={i} className="flex gap-2.5 text-[12px] text-gray-600">
-                    <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-emerald-500" />
+                  <li key={i} className="flex gap-2.5 text-[12px] leading-relaxed text-slate-600">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
                     {h}
                   </li>
                 ))}
               </ul>
-            </>
+            </div>
           ) : (
             <div className="space-y-3">
               <Skeleton className="h-4 w-full" />
@@ -5888,11 +5992,13 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         </button>
 
         {race ? (
-          <div className={`mt-4 ${GLASS.surface} p-4 md:p-6`}>
+          <div className={`relative mt-4 overflow-hidden ${GLASS.surface} p-5 md:p-7`}>
+            <div className="pointer-events-none absolute -right-12 -top-14 h-40 w-40 rounded-full bg-emerald-100/70 blur-3xl" />
+            <div className="relative">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-slate-50 px-2 py-0.5 text-gray-500">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-white/80 bg-white/70 px-2.5 py-1 text-gray-500 shadow-sm">
                     <Clock size={11} strokeWidth={1.75} />
                     <Num className="text-[12px] font-semibold text-slate-700">{race.time}</Num>
                   </span>
@@ -5901,20 +6007,20 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                     <Num>{race.number}</Num>R
                   </span>
                   {race.grade && (
-                    <span className="rounded border border-teal-500/70 px-1.5 py-px text-[10px] font-bold leading-4 text-teal-600">
+                    <span className="rounded border border-slate-200 bg-white/50 px-1.5 py-px text-[10px] font-bold leading-4 text-slate-500">
                       {race.grade}
                     </span>
                   )}
                 </div>
-                <h1 className="mt-2 text-[22px] font-bold leading-tight tracking-tight text-gray-900 md:text-[19px]">
+                <h1 className="mt-3 text-[26px] font-bold leading-tight tracking-tight text-slate-950 md:text-[24px]">
                   {race.name}
                 </h1>
               </div>
-              <span className="mt-0.5 shrink-0 rounded-full bg-emerald-50/70 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+              <span className="mt-0.5 shrink-0 rounded-full border border-emerald-100 bg-emerald-50/75 px-2.5 py-1 text-[10px] font-semibold text-emerald-700">
                 分析済み
               </span>
             </div>
-            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-gray-500 md:mt-2 md:gap-x-4">
+            <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] font-medium text-slate-500 md:gap-x-4">
               <span>
                 {race.surface}
                 <Num>{race.distance}</Num>m
@@ -5925,18 +6031,19 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
               </span>
             </div>
             {topIndexHorse && (
-              <div className={`mt-4 ${GLASS.inner} px-3 py-2.5 md:mt-4`}>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-[11px] font-medium text-teal-700">TM INDEX Top</span>
-                  <span className="min-w-0 truncate text-right text-[12px] text-gray-600">
-                    {topIndexHorse.name}
-                    <Num className="ml-2 font-bold text-emerald-600">
+              <div className={`mt-5 ${GLASS.inner} p-4`}>
+                <div className="flex items-end justify-between gap-3">
+                  <div className="min-w-0">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM INDEX Top</span>
+                    <span className="mt-1 block truncate text-[14px] font-bold text-slate-900">{topIndexHorse.name}</span>
+                  </div>
+                  <Num className="text-[38px] font-bold leading-none text-emerald-600">
                       {topIndexHorse.aiScore}
                     </Num>
-                  </span>
                 </div>
               </div>
             )}
+            </div>
           </div>
         ) : (
           <Skeleton className="mt-4 h-24" />
@@ -5947,9 +6054,12 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       {race && <ComparisonTable horses={race.horses} evMap={evMap} onSelect={handleToggle} />}
 
       {/* 並び替え(モバイル: 全幅・親指で押しやすい高さ) */}
-      <div className="mt-6 flex flex-col gap-2.5 md:flex-row md:items-center md:justify-between">
-        <h2 className="text-[13px] font-semibold text-gray-900">出走馬 AI分析</h2>
-        <div className="grid w-full grid-cols-4 rounded-xl border border-gray-200 bg-gray-50 p-1 md:flex md:w-auto md:rounded-lg md:p-0.5">
+      <div className="mt-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Runner Matrix</div>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">出走馬 AI分析</h2>
+        </div>
+        <div className="grid w-full grid-cols-4 rounded-2xl border border-white/80 bg-white/65 p-1 shadow-sm backdrop-blur-xl md:flex md:w-auto md:rounded-2xl md:p-1">
           {SORT_OPTIONS.map((o) => (
             <button
               key={o.key}
@@ -5967,7 +6077,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       </div>
 
       {/* 出走馬一覧 */}
-      <div className={`mt-3 overflow-hidden ${GLASS.surface}`}>
+      <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
         {/* PC列ヘッダー */}
         <div className="hidden grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-400 md:grid">
           <span>馬番</span>
@@ -6036,7 +6146,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gray-50 text-gray-900 antialiased">
+    <div className="relative min-h-screen overflow-hidden bg-[#f7fbfb] text-gray-900 antialiased">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
         body, #root { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; }
@@ -6051,8 +6161,10 @@ export default function App() {
         }
         /* ボトムシートのスクロール対策(iOS Safari / Android Chrome) */
         .tm-sheet {
-          max-height: 85vh;      /* dvh非対応ブラウザ向けフォールバック */
-          max-height: 85dvh;     /* 100vh問題の回避(動的ビューポート) */
+          height: 90vh;          /* 背面の一覧を10%ほど残す */
+          height: 90dvh;         /* 100vh問題の回避(動的ビューポート) */
+          max-height: 90vh;      /* dvh非対応ブラウザ向けフォールバック */
+          max-height: 90dvh;
           -webkit-overflow-scrolling: touch;  /* iOS慣性スクロール */
           overscroll-behavior: contain;       /* 背面へのスクロール連鎖を遮断 */
           touch-action: pan-y;
@@ -6069,9 +6181,10 @@ export default function App() {
       `}</style>
 
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -top-24 left-1/2 h-72 w-[32rem] -translate-x-1/2 rounded-full bg-cyan-50/60 blur-3xl" />
-        <div className="absolute right-[-8rem] top-64 h-72 w-72 rounded-full bg-emerald-50/70 blur-3xl" />
-        <div className="absolute bottom-24 left-[-8rem] h-64 w-64 rounded-full bg-teal-50/70 blur-3xl" />
+        <div className="absolute -top-28 left-1/2 h-96 w-[42rem] -translate-x-1/2 rounded-full bg-cyan-100/55 blur-3xl" />
+        <div className="absolute right-[-10rem] top-48 h-96 w-96 rounded-full bg-emerald-100/60 blur-3xl" />
+        <div className="absolute bottom-20 left-[-10rem] h-80 w-80 rounded-full bg-teal-100/55 blur-3xl" />
+        <div className="absolute inset-x-0 top-0 h-px bg-white/80" />
       </div>
 
       {DATA_ERRORS.length > 0 && (

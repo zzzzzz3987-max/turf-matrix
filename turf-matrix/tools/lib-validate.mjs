@@ -22,7 +22,9 @@ export const validateWeekData = (data) => {
 
   if (!data?.meta?.date) errors.push("meta.date がありません");
   if (!data?.meta?.dateLabel) warnings.push("meta.dateLabel がありません(ヘッダー表示が空になります)");
-  if (!Array.isArray(data?.races) || data.races.length === 0) errors.push("races が空です");
+  if (!Array.isArray(data?.races) || data.races.length === 0) {
+    if (data?.meta?.dataStatus !== "missing") errors.push("races is empty");
+  }
 
   const seenIds = new Set();
   for (const r of data?.races ?? []) {

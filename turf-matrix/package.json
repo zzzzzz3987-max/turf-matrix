@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "generate-week": "node tools/csv-to-week.mjs --config tools/csv-config.json --out tools/week-data.json",
     "update-data": "node tools/update-data.mjs tools/week-data.json src/App.jsx"
   },
   "dependencies": {

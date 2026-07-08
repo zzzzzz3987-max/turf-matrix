@@ -886,8 +886,8 @@ for (const { track, raceNo, rows } of raceMap.values()) {
         confidence: h.confidence,
         confidenceReasons: h.confidenceReasons,
         factorsDetail: {},
-        verdict: { status: "mock", label: null, summary: null, evidence: [] },
-        topSignal: { status: "mock", label: null, summary: null },
+        verdict: { status: "missing", label: null, summary: null, evidence: [] },
+        topSignal: { status: "missing", label: null, summary: null },
         /* --- クロス分析スロット(複数ファクターの掛け合わせ。未取得は正直に明示) --- */
         crossAnalysis: buildCross(h, race, rank, ev),
       },
@@ -929,7 +929,7 @@ racesOut.sort((a, b) => a.track.localeCompare(b.track, "ja") || a.number - b.num
 const allH = racesOut.flatMap((r) => r.horses.map((h) => ({ r, h, ev: winProb(h, r.horses) * h.odds })));
 allH.sort((a, b) => b.h.aiScore - a.h.aiScore);
 const featured = allH.slice(0, 2).map(({ r, h }) => ({
-  horseId: h.id, raceId: r.id, note: `${r.track}${r.number}Rの最上位評価。TM INDEX ${h.aiScore}(自動生成メモ)`,
+  horseId: h.id, raceId: r.id, note: `${r.track}${r.number}R TM INDEX top. TM INDEX ${h.aiScore}`,
 }));
 /* 妙味枠: 指数順位が人気より明確に上(2つ以上) かつ 指数が上位半分の馬から、EV最大を選ぶ */
 const rankOf = new Map();
@@ -947,12 +947,12 @@ const valuePick = allH
   .sort((a, b) => b.ev - a.ev)[0];
 if (valuePick) featured.push({
   horseId: valuePick.h.id, raceId: valuePick.r.id,
-  note: `指数と人気の乖離から期待値${valuePick.ev.toFixed(2)}。妙味枠(自動生成メモ)`,
+  note: `Value signal detected. EV ${valuePick.ev.toFixed(2)}`,
 });
 while (featured.length < 3 && allH[featured.length]) {
   const { r, h } = allH[featured.length];
   if (!featured.some((f) => f.horseId === h.id))
-    featured.push({ horseId: h.id, raceId: r.id, note: `TM INDEX ${h.aiScore}の上位評価(自動生成メモ)` });
+    featured.push({ horseId: h.id, raceId: r.id, note: `TM INDEX ${h.aiScore} top-rated signal` });
 }
 
 const cfgDate = parseDate(config.meta?.date);
@@ -968,31 +968,37 @@ const featuredRaceId =
     (b.category === "special" ? 1 : 0) - (a.category === "special" ? 1 : 0) ||
     (b.number ?? 0) - (a.number ?? 0)
   )[0]?.id;
+const hasRaceData = racesOut.length > 0 && allH.length > 0;
 
 const weekData = {
   meta: {
     date: isoDate(date),
     dateLabel: jaLabel(date),
-    venue: [...new Set(racesOut.map((r) => r.track))].join("・"),
+    venue: hasRaceData ? [...new Set(racesOut.map((r) => r.track))].join(" / ") : "データ未取得",
     updatedAt: `${pad2(now.getHours())}:${pad2(now.getMinutes())}`,
-    version: "β v0.3",
+    version: "beta v0.3",
     brand: "TURF MATRIX",
-    schemaVersion: 3,
+    schemaVersion: 4,
     week: isoWeek(date),
     source: "target-frontier-jv-csv",
-    textMode: "template",
+    textMode: "csv",
+    dataStatus: hasRaceData ? "active" : "missing",
     featuredRaceId,
     ...(oddsTime ? { oddsUpdatedAt: z2h(oddsTime) } : {}),
     ...(approxOdds ? { oddsApproximated: true, oddsNote: "単勝オッズは人気からの概算値です(参考表示)" } : {}),
     ...(files.some((f) => f.profile) ? { inputProfile: files.find((f) => f.profile).profile } : {}),
   },
   dailySummary: {
-    text: `本日の${[...new Set(racesOut.map((r) => r.track))].join("・")}は${racesOut.length}レース・${allH.length}頭を分析。最高評価は${top.h.name}(TM INDEX ${top.h.aiScore})です。本文はTARGET CSVからの自動生成のため、踏み込んだ考察はLLM/手動での加筆を推奨します。`,
-    highlights: [
-      `TM INDEX最上位: ${top.h.name}(${top.r.track}${top.r.number}R / ${top.h.aiScore})`,
-      valuePick ? `期待値注目: ${valuePick.h.name}(EV ${valuePick.ev.toFixed(2)} / ${valuePick.h.popularity}人気)` : "期待値1.0超の妙味候補は検出されませんでした",
-      `分析対象: ${racesOut.map((r) => `${r.track}${r.number}R`).join(" / ")}`,
-    ],
+    text: hasRaceData
+      ? `TARGET CSV loaded: ${racesOut.length} races / ${allH.length} runners. Top signal is ${top.h.name}(TM INDEX ${top.h.aiScore}).`
+      : "TARGET CSVが未投入です。CSV生成後に実データのみ表示します。",
+    highlights: hasRaceData
+      ? [
+          `TM INDEX top: ${top.h.name}(${top.r.track}${top.r.number}R / ${top.h.aiScore})`,
+          valuePick ? `Value signal: ${valuePick.h.name}(EV ${valuePick.ev.toFixed(2)} / popularity ${valuePick.h.popularity})` : "No EV over 1.0 signal detected",
+          `Race scope: ${racesOut.map((r) => `${r.track}${r.number}R`).join(" / ")}`,
+        ]
+      : ["JRA-VAN TARGET CSV未取得"],
   },
   races: racesOut,
   featured,
@@ -1015,7 +1021,7 @@ writeFileSync(OUT_PATH, JSON.stringify(weekData, null, 2) + "\n");
 
 /* LLM磨き上げ用プロンプト(モデル非依存) */
 const promptPath = join(dirname(resolve(OUT_PATH)), "llm-enrich-prompt.txt");
-writeFileSync(promptPath, `あなたは競馬AI分析サービス「turfmetrics」の編集担当です。
+writeFileSync(promptPath, `あなたはAI Racing Intelligence Platform「TURF MATRIX」の編集担当です。
 添付の week-data.json は TARGET frontier JV のCSVから自動生成されたドラフトです。
 数値(factors / pedigree.scores / aiScore / odds等)は一切変更せず、
 以下の文章フィールドだけを具体的に書き直し、完全なJSONのみを出力してください。

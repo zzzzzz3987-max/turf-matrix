@@ -195,8 +195,8 @@ const selectFeaturedRace = (db) => {
 const normalizeAnalysis = (analysis) => ({
   ...analysis,
   factorsDetail: analysis?.factorsDetail ?? {},
-  verdict: analysis?.verdict ?? { status: "mock", label: null, summary: null, evidence: [] },
-  topSignal: analysis?.topSignal ?? { status: "mock", label: null, summary: null },
+  verdict: analysis?.verdict ?? { status: "missing", label: null, summary: null, evidence: [] },
+  topSignal: analysis?.topSignal ?? { status: "missing", label: null, summary: null },
 });
 
 const cleanText = (value, fallback) => {
@@ -350,8 +350,8 @@ const SORT_OPTIONS = [
   { key: "popularity", label: "人気" },
 ];
 
-/* TM FACTORS v1: 将来の analysis.factors[key] との対応表(UIモック) */
-const TM_FACTOR_MOCKS = [
+/* TM FACTORS v1: 将来の analysis.factors[key] との対応表 */
+const TM_FACTOR_DEFS = [
   {
     key: "blood",
     label: "Blood",
@@ -360,7 +360,7 @@ const TM_FACTOR_MOCKS = [
     stars: 4,
     summary: "血統背景と距離適性の噛み合い",
     evidence: "pedigree.lines / pedigree.scores を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "training",
@@ -370,7 +370,7 @@ const TM_FACTOR_MOCKS = [
     stars: 5,
     summary: "追い切り内容と上昇度の強さ",
     evidence: "trainingEval / factors.training を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "course",
@@ -380,7 +380,7 @@ const TM_FACTOR_MOCKS = [
     stars: 4,
     summary: "コース形態と過去傾向への適合",
     evidence: "factors.course / 距離条件を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "pace",
@@ -390,7 +390,7 @@ const TM_FACTOR_MOCKS = [
     stars: 3,
     summary: "想定ラップと脚質の相性",
     evidence: "factors.pace / factors.lap を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "stable",
@@ -400,7 +400,7 @@ const TM_FACTOR_MOCKS = [
     stars: 4,
     summary: "厩舎パターンと仕上げ精度",
     evidence: "factors.stable / stablePattern を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "form",
@@ -410,7 +410,7 @@ const TM_FACTOR_MOCKS = [
     stars: 4,
     summary: "近走内容と状態面の安定感",
     evidence: "analysis.tags / comment / confidenceReasons を接続予定",
-    status: "mock",
+    status: "missing",
   },
   {
     key: "value",
@@ -420,7 +420,7 @@ const TM_FACTOR_MOCKS = [
     stars: 5,
     summary: "市場評価とのギャップ",
     evidence: "evaluateValue のEV結果を接続予定",
-    status: "mock",
+    status: "missing",
   },
 ];
 
@@ -514,7 +514,7 @@ const PlatformBadge = () => (
       Intelligence Platform
     </span>
     <span className="hidden text-slate-300 sm:inline">/</span>
-    <span className="hidden sm:inline">β Sample Data</span>
+    <span className="hidden sm:inline">β CSV Data</span>
   </Badge>
 );
 
@@ -641,15 +641,15 @@ const TMFactorsCard = () => (
       <div>
         <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM FACTORS v1</div>
         <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
-          TM INDEXを7つの視点に分解するUIモックです。
+          TM INDEXを7つの視点で整理します。
         </p>
       </div>
       <span className="shrink-0 rounded-full border border-white/80 bg-white/65 px-2 py-0.5 text-[10px] font-medium text-slate-500">
-        UI mock
+        Data pending
       </span>
     </div>
     <div className="mt-4 grid gap-2.5 md:grid-cols-2">
-      {TM_FACTOR_MOCKS.map((factor) => (
+      {TM_FACTOR_DEFS.map((factor) => (
         <div key={factor.key} className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-[0_14px_34px_-30px_rgba(15,118,110,0.45)]">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
@@ -1507,7 +1507,9 @@ const HomePage = ({ onOpenRace }) => {
   }, []);
   const topSignal = useMemo(() => {
     if (!races?.length) return null;
-    return races.find((race) => race.featuredRace) ?? [...races].sort((a, b) => b.topHorse.aiScore - a.topHorse.aiScore)[0];
+    const raceWithData = races.filter((race) => race.topHorse.available);
+    if (!raceWithData.length) return null;
+    return raceWithData.find((race) => race.featuredRace) ?? [...raceWithData].sort((a, b) => (b.topHorse.aiScore ?? 0) - (a.topHorse.aiScore ?? 0))[0];
   }, [races]);
 
   return (
@@ -1556,6 +1558,19 @@ const HomePage = ({ onOpenRace }) => {
                 </div>
               </div>
             </>
+          ) : races ? (
+            <div className="mt-9">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
+              <div className="mt-4 text-[20px] font-bold leading-tight tracking-tight text-slate-950 md:text-[30px]">
+                データ未取得
+              </div>
+              <div className="mt-8">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
+                <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-emerald-600 md:text-[64px]">
+                  --
+                </Num>
+              </div>
+            </div>
           ) : (
             <Skeleton className="mt-8 h-64" />
           )}
@@ -1573,7 +1588,8 @@ const HomePage = ({ onOpenRace }) => {
         </div>
         <div className="mt-5 grid gap-5 md:grid-cols-3">
           {races
-            ? [...races]
+            ? races.length
+              ? [...races]
                 .sort((a, b) => b.number - a.number)
                 .map((r) => (
                   <button
@@ -1618,6 +1634,11 @@ const HomePage = ({ onOpenRace }) => {
                     </div>
                   </button>
                 ))
+              : (
+                <div className={`${GLASS.surface} p-6 text-[13px] font-medium text-slate-400 md:col-span-3`}>
+                  データ未取得
+                </div>
+              )
             : [0, 1, 2].map((i) => <Skeleton key={i} className="h-44" />)}
         </div>
       </section>
@@ -1666,7 +1687,8 @@ const HomePage = ({ onOpenRace }) => {
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {featured
-            ? featured.map((f, i) => {
+            ? featured.length
+              ? featured.map((f, i) => {
                 const isMain = i === 0;
                 return (
                   <button
@@ -1719,6 +1741,11 @@ const HomePage = ({ onOpenRace }) => {
                   </button>
                 );
               })
+              : (
+                <div className={`${GLASS.surface} p-6 text-[13px] font-medium text-slate-400 md:col-span-2`}>
+                  データ未取得
+                </div>
+              )
             : [0, 1, 2].map((i) => (
                 <Skeleton key={i} className={i === 0 ? "h-36 md:col-span-2" : "h-28"} />
               ))}
@@ -1733,7 +1760,8 @@ const HomePage = ({ onOpenRace }) => {
         </div>
         <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
           {ranking
-            ? ranking.map((item, i) => (
+            ? ranking.length
+              ? ranking.map((item, i) => (
                 <button
                   key={item.horse.id}
                   onClick={() => onOpenRace(item.raceId, item.horse.id)}
@@ -1756,6 +1784,11 @@ const HomePage = ({ onOpenRace }) => {
                   </Num>
                 </button>
               ))
+              : (
+                <div className="px-5 py-8 text-center text-[13px] font-medium text-slate-400">
+                  データ未取得
+                </div>
+              )
             : [0, 1, 2, 3, 4].map((i) => <Skeleton key={i} className="m-3 h-10" />)}
         </div>
       </section>

@@ -40,8 +40,10 @@ const BEGIN = "/* ===== WEEK_DATA:BEGIN (このブロックを差し替え) ====
 const END = "/* ===== WEEK_DATA:END ===== */";
 const jsx = readFileSync(jsxPath, "utf8");
 if (!jsx.includes(BEGIN) || !jsx.includes(END)) {
-  console.error("✗ JSX内にWEEK_DATAマーカーが見つかりません");
-  process.exit(1);
+  const horses = data.races.reduce((s, r) => s + r.horses.length, 0);
+  console.log(`✓ 検証完了: ${data.meta.dateLabel ?? data.meta.date} / ${data.races.length}レース ${horses}頭`);
+  console.log("  App.jsx は tools/week-data.json を直接読み込むため、JSXへの注入は不要です。");
+  process.exit(0);
 }
 const head = jsx.split(BEGIN)[0];
 const tail = jsx.split(END)[1];

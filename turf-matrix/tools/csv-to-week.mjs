@@ -136,6 +136,13 @@ const normGrade = (s) => {
   if (/G[Ⅲ3]|GIII/i.test(t)) return "GⅢ";
   return null;
 };
+const raceCategory = (race) => {
+  if (race?.category) return race.category;
+  if (race?.grade || normGrade(race?.name)) return "grade";
+  if (/特別|ステークス|S$|賞|記念/.test(String(race?.name ?? ""))) return "special";
+  return "race";
+};
+
 
 /* =====================================================================
  * 2. CSV読み込み(文字コード自動判別) & パース
@@ -798,9 +805,13 @@ for (const { track, raceNo, rows } of raceMap.values()) {
     surface, distance,
     going: cfgRace?.going ?? (first.going || "良"),
     fieldSize,
+    category: cfgRace?.category ?? null,
+    displayTarget: cfgRace?.displayTarget ?? true,
+    featuredPriority: cfgRace?.featuredPriority ?? 0,
     horses: [],
   };
   if (!race.grade) delete race.grade;
+  race.category = raceCategory(race);
   race._cc = first.courseCode ?? null; // 過去走との同コース照合用(出力前に削除)
   if (!cfgRace && !first.raceName)
     warn(`${track}${raceNo}R: レース名・発走時刻がCSVに無いため既定値を使用。csv-config.json の "races" で指定できます`);
@@ -874,6 +885,9 @@ for (const { track, raceNo, rows } of raceMap.values()) {
         pedigree: h.pedigreeObj,
         confidence: h.confidence,
         confidenceReasons: h.confidenceReasons,
+        factorsDetail: {},
+        verdict: { status: "mock", label: null, summary: null, evidence: [] },
+        topSignal: { status: "mock", label: null, summary: null },
         /* --- クロス分析スロット(複数ファクターの掛け合わせ。未取得は正直に明示) --- */
         crossAnalysis: buildCross(h, race, rank, ev),
       },
@@ -946,6 +960,14 @@ const date = cfgDate ?? globalDate ?? new Date();
 if (!cfgDate && !globalDate) warn('開催日が不明のため本日日付を使用しました(csv-config.json の "meta": {"date": "YYYY-MM-DD"} で指定できます)');
 const now = new Date();
 const top = allH[0];
+const featuredRaceId =
+  config.meta?.featuredRaceId ??
+  [...racesOut].sort((a, b) =>
+    (b.featuredPriority ?? 0) - (a.featuredPriority ?? 0) ||
+    (b.category === "grade" ? 1 : 0) - (a.category === "grade" ? 1 : 0) ||
+    (b.category === "special" ? 1 : 0) - (a.category === "special" ? 1 : 0) ||
+    (b.number ?? 0) - (a.number ?? 0)
+  )[0]?.id;
 
 const weekData = {
   meta: {
@@ -959,6 +981,7 @@ const weekData = {
     week: isoWeek(date),
     source: "target-frontier-jv-csv",
     textMode: "template",
+    featuredRaceId,
     ...(oddsTime ? { oddsUpdatedAt: z2h(oddsTime) } : {}),
     ...(approxOdds ? { oddsApproximated: true, oddsNote: "単勝オッズは人気からの概算値です(参考表示)" } : {}),
     ...(files.some((f) => f.profile) ? { inputProfile: files.find((f) => f.profile).profile } : {}),

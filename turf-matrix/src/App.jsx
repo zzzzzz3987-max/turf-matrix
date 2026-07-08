@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -5402,13 +5403,50 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
  *  - iOS Safariのbodyスクロール貫通: position:fixedロック + 位置復元
  */
 const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
+  const sheetRef = useRef(null);
+  const sheetBodyRef = useRef(null);
+  const touchStartYRef = useRef(0);
+
   /* bodyスクロールロック(iOS対応: position:fixed方式 + スクロール位置復元) */
   useEffect(() => {
     const y = window.scrollY;
     const { style } = document.body;
+    const htmlStyle = document.documentElement.style;
     const prev = {
       position: style.position, top: style.top, left: style.left,
       right: style.right, width: style.width, overflow: style.overflow,
+      overscrollBehavior: style.overscrollBehavior,
+      touchAction: style.touchAction,
+    };
+    const prevHtml = {
+      overflow: htmlStyle.overflow,
+      overscrollBehavior: htmlStyle.overscrollBehavior,
+      touchAction: htmlStyle.touchAction,
+    };
+    const keepTouchInsideSheetBody = (e) => {
+      const sheet = sheetRef.current;
+      const sheetBody = sheetBodyRef.current;
+      if (!sheet || !sheet.contains(e.target)) {
+        e.preventDefault();
+        return;
+      }
+
+      if (!sheetBody || !sheetBody.contains(e.target)) {
+        e.preventDefault();
+        return;
+      }
+
+      const currentY = e.touches?.[0]?.clientY ?? touchStartYRef.current;
+      const deltaY = currentY - touchStartYRef.current;
+      const atTop = sheetBody.scrollTop <= 0;
+      const atBottom = sheetBody.scrollTop + sheetBody.clientHeight >= sheetBody.scrollHeight - 1;
+
+      if ((atTop && deltaY > 0) || (atBottom && deltaY < 0)) {
+        e.preventDefault();
+      }
+    };
+    const rememberTouchStart = (e) => {
+      touchStartYRef.current = e.touches?.[0]?.clientY ?? 0;
     };
     style.position = "fixed";
     style.top = `-${y}px`;
@@ -5416,8 +5454,16 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
     style.right = "0";
     style.width = "100%";
     style.overflow = "hidden";
+    style.overscrollBehavior = "none";
+    htmlStyle.overflow = "hidden";
+    htmlStyle.overscrollBehavior = "none";
+    document.addEventListener("touchstart", rememberTouchStart, { passive: true });
+    document.addEventListener("touchmove", keepTouchInsideSheetBody, { passive: false });
     return () => {
+      document.removeEventListener("touchstart", rememberTouchStart);
+      document.removeEventListener("touchmove", keepTouchInsideSheetBody);
       Object.assign(style, prev);
+      Object.assign(htmlStyle, prevHtml);
       window.scrollTo(0, y);
     };
   }, []);
@@ -5434,48 +5480,55 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
   const command = commandFactors(horse, ev);
   const confidence = CONFIDENCE[horse.analysis.confidence];
 
-  return (
-    <div className="fixed inset-0 z-50" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
+  const modal = (
+    <div className="tm-modal-root fixed inset-0 z-[9999] overflow-hidden overscroll-none" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
       <div className="tm-fade absolute inset-0 bg-slate-900/15 backdrop-blur-[3px]" onClick={onClose} />
-      <div className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 overflow-y-auto rounded-t-[2rem] border-t border-white/90 bg-white/[0.9] shadow-[0_-34px_100px_-54px_rgba(15,118,110,0.62)] backdrop-blur-2xl">
-        <div className="sticky top-0 z-10 overflow-hidden border-b border-white/80 bg-white/[0.84] px-5 pb-6 pt-2.5 backdrop-blur-2xl">
+      <div ref={sheetRef} className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[2rem] border-t border-white/90 bg-white/[0.9] shadow-[0_-34px_100px_-54px_rgba(15,118,110,0.62)] backdrop-blur-2xl">
+        <div className="shrink-0 overflow-hidden border-b border-white/80 bg-white/[0.84] px-5 pb-5 pt-2.5 backdrop-blur-2xl">
           <div className="pointer-events-none absolute -right-12 -top-16 h-44 w-44 rounded-full bg-emerald-100/75 blur-3xl" />
           <div className="pointer-events-none absolute -left-16 bottom-0 h-36 w-36 rounded-full bg-cyan-100/70 blur-3xl" />
           <div className="relative">
-          <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <div className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Top Signal</div>
-              <div className="flex items-center gap-2">
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm">
-                  <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
-                </span>
-                <div className="min-w-0">
-                  <div className="truncate text-[20px] font-bold leading-tight tracking-tight text-slate-950">{horse.name}</div>
-                  <div className="mt-1 text-[11px] font-medium text-slate-500">
-                    {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+            <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
+                <div className="flex items-center gap-2">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm">
+                    <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
+                  </span>
+                  <div className="min-w-0">
+                    <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{horse.name}</div>
+                    <div className="mt-1 text-[11px] font-medium text-slate-500">
+                      {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+                    </div>
                   </div>
                 </div>
               </div>
+              <button
+                onClick={onClose}
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/80 bg-white/65 text-slate-400 shadow-sm transition-colors hover:bg-white hover:text-slate-600 active:bg-gray-100"
+                aria-label="閉じる"
+              >
+                <X size={18} strokeWidth={1.75} />
+              </button>
             </div>
-            <button
-              onClick={onClose}
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/80 bg-white/65 text-slate-400 shadow-sm transition-colors hover:bg-white hover:text-slate-600 active:bg-gray-100"
-              aria-label="閉じる"
-            >
-              <X size={18} strokeWidth={1.75} />
-            </button>
           </div>
+        </div>
 
-          <div className="mt-7 grid grid-cols-[1fr_auto] gap-4">
+        <div
+          ref={sheetBodyRef}
+          className="tm-sheet-body min-h-0 flex-1 overflow-y-auto px-5 pt-5"
+          style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom))" }}
+        >
+          <div className="grid grid-cols-[1fr_auto] gap-4">
             <div>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">TM INDEX</div>
-              <Num className={`mt-3 block text-[64px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
+              <Num className={`mt-3 block text-[48px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
                 {horse.aiScore}
               </Num>
             </div>
             <div className="min-w-[112px] rounded-[1.35rem] border border-white/85 bg-white/52 px-3 py-3 text-right">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">TM VALUE</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM VALUE</div>
               <div className={`mt-2 text-[18px] ${ev && ev.ev >= 1.15 ? "font-bold text-slate-900" : "text-gray-500"}`}>
                 {ev ? (
                   <>
@@ -5495,11 +5548,11 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
           <div className="mt-6 grid grid-cols-2 gap-3">
             <div className={`${GLASS.inner} p-3.5`}>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Confidence</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Confidence</div>
               <div className="mt-2 text-[13px] font-bold text-slate-900">{confidence.label}</div>
             </div>
             <div className={`${GLASS.inner} p-3.5`}>
-              <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">AI Verdict</div>
+              <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">AI Verdict</div>
               <div className="mt-2 text-[13px] font-bold text-slate-900">{horse.aiScore >= 80 ? "Positive" : "Watch"}</div>
             </div>
           </div>
@@ -5524,9 +5577,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
               <span className="line-clamp-2">{insightLead}</span>
             </div>
           )}
-          </div>
-        </div>
-        <div className="px-5 pt-5" style={{ paddingBottom: "calc(3.5rem + env(safe-area-inset-bottom))" }}>
+
           <HorseDetailContent
             horse={horse}
             rank={rank}
@@ -5539,6 +5590,8 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
       </div>
     </div>
   );
+
+  return createPortal(modal, document.body);
 };
 
 /* ---- 出走馬の1行(クリックで詳細) ---- */
@@ -5686,27 +5739,27 @@ const HomePage = ({ onOpenRace }) => {
         <div className="pointer-events-none absolute inset-x-8 bottom-0 h-24 rounded-full bg-teal-50/55 blur-3xl" />
         <div className="relative">
           <div className="flex items-center justify-between gap-3">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Today</span>
+            <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Today</span>
             <BetaBadge />
           </div>
           {topSignal ? (
             <>
               <div className="mt-9">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-slate-400">Top Signal</div>
-                <div className="mt-4 truncate text-[30px] font-bold leading-tight tracking-tight text-slate-950 md:text-[44px]">
+                <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
+                <div className="mt-4 truncate text-[20px] font-bold leading-tight tracking-tight text-slate-950 md:text-[30px]">
                   {topSignal.topHorse.name}
                 </div>
               </div>
               <div className="mt-8 flex items-end justify-between gap-5">
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">TM INDEX</div>
-                  <Num className="mt-3 block text-[76px] font-bold leading-none tracking-tight text-emerald-600 md:text-[92px]">
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
+                  <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-emerald-600 md:text-[64px]">
                     {topSignal.topHorse.aiScore}
                   </Num>
                 </div>
                 <button
                   onClick={() => onOpenRace(topSignal.id)}
-                  className="mb-3 inline-flex shrink-0 items-center gap-1 rounded-full border border-white/60 bg-white/25 px-2.5 py-1.5 text-[11px] font-semibold text-slate-500 backdrop-blur"
+                  className="mb-4 inline-flex shrink-0 items-center gap-1 rounded-full border border-white/45 bg-white/15 px-2 py-1 text-[10px] font-semibold text-slate-400 backdrop-blur"
                 >
                   View Analysis
                   <ChevronRight size={13} strokeWidth={1.75} />
@@ -5714,11 +5767,11 @@ const HomePage = ({ onOpenRace }) => {
               </div>
               <div className="mt-7 grid grid-cols-2 gap-3">
                 <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Confidence</div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Confidence</div>
                   <div className="mt-2 text-[17px] font-bold text-slate-950">{CONFIDENCE[topSignal.confidence].label}</div>
                 </div>
                 <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Race</div>
+                  <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Race</div>
                   <div className="mt-2 truncate text-[17px] font-bold text-slate-950">{topSignal.name}</div>
                 </div>
               </div>
@@ -5733,7 +5786,7 @@ const HomePage = ({ onOpenRace }) => {
       <section className="mt-12">
         <div className="flex items-end justify-between">
           <div>
-            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Race Intelligence</div>
+            <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Race Intelligence</div>
             <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">今日のレース</h2>
           </div>
           <span className="text-[11px] font-medium text-slate-400">{meta?.venue}開催</span>
@@ -5752,8 +5805,8 @@ const HomePage = ({ onOpenRace }) => {
                     <div className="relative">
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
-                        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Race Signal</div>
-                        <div className="mt-3 truncate text-[20px] font-bold tracking-tight text-slate-950 md:text-[17px]">
+                        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Race Signal</div>
+                        <div className="mt-3 truncate text-[16px] font-bold tracking-tight text-slate-950 md:text-[14px]">
                           {r.name}
                         </div>
                       </div>
@@ -5765,12 +5818,12 @@ const HomePage = ({ onOpenRace }) => {
                     <div className="mt-9">
                       <div className="flex items-end justify-between gap-4">
                         <div className="min-w-0">
-                          <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</span>
-                          <span className="mt-2 block min-w-0 truncate text-[15px] font-bold text-slate-900">
+                          <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Top Signal</span>
+                          <span className="mt-2 block min-w-0 truncate text-[12px] font-bold text-slate-900">
                             {r.topHorse.name}
                           </span>
                         </div>
-                        <Num className="shrink-0 text-[51px] font-bold leading-none tracking-tight text-emerald-600 md:text-[39px]">
+                        <Num className="shrink-0 text-[36px] font-bold leading-none tracking-tight text-emerald-600 md:text-[30px]">
                             {r.topHorse.aiScore}
                           </Num>
                       </div>
@@ -6153,6 +6206,11 @@ export default function App() {
         .tm-num { font-family: 'JetBrains Mono', ui-monospace, monospace; }
         .tm-bar { transition: width 800ms cubic-bezier(0.22, 1, 0.36, 1); }
         button:focus-visible { outline: 2px solid rgba(15, 118, 110, 0.45); outline-offset: 2px; }
+        .tm-modal-root {
+          height: 100vh;
+          height: 100dvh;
+          contain: layout size style;
+        }
         /* TURF MATRIX ブランド(Teal → Blue → Emerald) */
         .tm-gradient-text {
           background: linear-gradient(90deg, #00C2B8, #2D7BFF, #22E6A2);
@@ -6165,6 +6223,9 @@ export default function App() {
           height: 90dvh;         /* 100vh問題の回避(動的ビューポート) */
           max-height: 90vh;      /* dvh非対応ブラウザ向けフォールバック */
           max-height: 90dvh;
+          overscroll-behavior: contain;
+        }
+        .tm-sheet-body {
           -webkit-overflow-scrolling: touch;  /* iOS慣性スクロール */
           overscroll-behavior: contain;       /* 背面へのスクロール連鎖を遮断 */
           touch-action: pan-y;

@@ -7,6 +7,13 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = resolve(SCRIPT_DIR, "csv-config.json");
 const MIN_SIZE_BYTES = 1024;
 const REQUIRED_KINDS = new Set(["shutuba", "odds"]);
+const KIND_LABELS = {
+  shutuba: "shutuba.csv (出馬表 / 出馬表分析)",
+  odds: "odds.csv (オッズ)",
+  supplement: "supplement.csv (補完用)",
+  training: "training.csv (調教)",
+  pedigree: "pedigree.csv (血統)",
+};
 
 const todayKey = (date = new Date()) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
@@ -37,7 +44,10 @@ if (!existsSync(CONFIG_PATH)) {
     const path = resolve(baseDir, file.path);
 
     if (!existsSync(path)) {
-      const message = `CSV not found (${file.kind}): ${path}`;
+      const label = KIND_LABELS[file.kind] ?? file.kind;
+      const message = isRequired
+        ? `Required TARGET CSV is missing: ${label}. Place it at ${path} after the Friday TARGET update.`
+        : `Optional TARGET CSV is missing: ${label}. Expected path: ${path}`;
       if (isRequired) errors.push(message);
       else warnings.push(message);
       continue;
@@ -49,19 +59,22 @@ if (!existsSync(CONFIG_PATH)) {
     const rows = countRows(path);
 
     if (modified !== today) {
-      const message = `CSV is not updated today (${file.kind}): ${path} / mtime=${modified}`;
+      const label = KIND_LABELS[file.kind] ?? file.kind;
+      const message = `${isRequired ? "Required" : "Optional"} TARGET CSV was not updated today: ${label}. path=${path} / mtime=${modified}. Re-export it from TARGET after the Friday update.`;
       if (isRequired) errors.push(message);
       else warnings.push(message);
     }
 
     if (size < MIN_SIZE_BYTES) {
-      const message = `CSV is smaller than 1 KB (${file.kind}): ${path} / ${size} bytes`;
+      const label = KIND_LABELS[file.kind] ?? file.kind;
+      const message = `${isRequired ? "Required" : "Optional"} TARGET CSV is smaller than 1 KB: ${label}. path=${path} / ${size} bytes. Check the TARGET export result.`;
       if (isRequired) errors.push(message);
       else warnings.push(message);
     }
 
     if (rows < 2) {
-      const message = `CSV has fewer than 2 rows (${file.kind}): ${path} / rows=${rows}`;
+      const label = KIND_LABELS[file.kind] ?? file.kind;
+      const message = `${isRequired ? "Required" : "Optional"} TARGET CSV has fewer than 2 rows: ${label}. path=${path} / rows=${rows}. Check the TARGET export range.`;
       if (isRequired) errors.push(message);
       else warnings.push(message);
     }

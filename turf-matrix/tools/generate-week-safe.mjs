@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { copyFileSync, existsSync, readFileSync, renameSync, unlinkSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,12 +9,16 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = join(SCRIPT_DIR, "csv-config.json");
 const RUNTIME_CONFIG_PATH = join(SCRIPT_DIR, "csv-config.runtime.json");
 const NEXT_PATH = join(SCRIPT_DIR, "week-data.next.json");
-const FINAL_PATH = join(SCRIPT_DIR, "week-data.json");
-const BACKUP_PATH = join(SCRIPT_DIR, "week-data.backup.json");
 const REQUIRED_KINDS = new Set(["shutuba", "odds"]);
 
 if (existsSync(NEXT_PATH)) unlinkSync(NEXT_PATH);
 if (existsSync(RUNTIME_CONFIG_PATH)) unlinkSync(RUNTIME_CONFIG_PATH);
+
+const validation = spawnSync(process.execPath, [join(SCRIPT_DIR, "validate-csv-inputs.mjs")], { stdio: "inherit" });
+if (validation.status !== 0) {
+  console.error("CSV input validation failed. week-data.next.json and week-data.json were not changed.");
+  process.exit(validation.status ?? 1);
+}
 
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 const runtimeConfig = {
@@ -62,6 +66,4 @@ if (errors.length) {
   process.exit(1);
 }
 
-if (existsSync(FINAL_PATH)) copyFileSync(FINAL_PATH, BACKUP_PATH);
-renameSync(NEXT_PATH, FINAL_PATH);
-console.log("week-data.next.json promoted to week-data.json.");
+console.log("week-data.next.json generated and validated. week-data.json was not changed.");

@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "generate-week": "node tools/csv-to-week.mjs --config tools/csv-config.json --out tools/week-data.json",
+    "validate:csv": "node tools/validate-csv-inputs.mjs",
+    "generate-week": "node tools/generate-week-safe.mjs",
+    "weekly:update": "powershell -ExecutionPolicy Bypass -File tools/weekly-update.ps1",
     "update-data": "node tools/update-data.mjs tools/week-data.json src/App.jsx"
   },
   "dependencies": {

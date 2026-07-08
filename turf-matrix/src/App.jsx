@@ -99,6 +99,7 @@ const rankByScore = (horses) =>
 
 /** レース単位の分析信頼度(全馬の信頼度の加重平均) */
 const raceConfidence = (horses) => {
+  if (!horses?.length) return "low";
   const weight = { high: 3, mid: 2, low: 1 };
   const avg = horses.reduce((s, h) => s + weight[h.analysis.confidence], 0) / horses.length;
   return avg >= 2.5 ? "high" : avg >= 1.8 ? "mid" : "low";
@@ -262,7 +263,9 @@ const dataProvider = {
       return {
         ...r,
         horses: undefined,
-        topHorse: { name: top.name, aiScore: top.aiScore },
+        topHorse: top
+          ? { name: top.name, aiScore: top.aiScore, available: true }
+          : { name: "データ未取得", aiScore: null, available: false },
         confidence: raceConfidence(r.horses),
       };
     });
@@ -273,21 +276,22 @@ const dataProvider = {
     return simulateLatency(race);
   },
   async getFeaturedHorses() {
-    const items = WEEK_DATA.featured.map((f) => {
+    const items = WEEK_DATA.featured.flatMap((f) => {
       const race = WEEK_DATA.races.find((r) => r.id === f.raceId);
-      const horse = race.horses.find((h) => h.id === f.horseId);
-      return {
+      const horse = race?.horses?.find((h) => h.id === f.horseId);
+      if (!race || !horse) return [];
+      return [{
         ...f,
         horse,
         raceLabel: `${race.track}${race.number}R`,
         ev: evaluateValue(horse, race.horses).ev,
-      };
+      }];
     });
     return simulateLatency(items);
   },
   async getIndexRanking(limit = 5) {
     const all = WEEK_DATA.races.flatMap((r) =>
-      r.horses.map((h) => ({ horse: h, raceId: r.id, raceLabel: `${r.track}${r.number}R` }))
+      (r.horses ?? []).map((h) => ({ horse: h, raceId: r.id, raceLabel: `${r.track}${r.number}R` }))
     );
     all.sort((a, b) => b.horse.aiScore - a.horse.aiScore);
     return simulateLatency(all.slice(0, limit));
@@ -1530,7 +1534,7 @@ const HomePage = ({ onOpenRace }) => {
                 <div>
                   <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
                   <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-emerald-600 md:text-[64px]">
-                    {topSignal.topHorse.aiScore}
+                    {topSignal.topHorse.aiScore ?? "--"}
                   </Num>
                 </div>
                 <button
@@ -1600,7 +1604,7 @@ const HomePage = ({ onOpenRace }) => {
                           </span>
                         </div>
                         <Num className="shrink-0 text-[36px] font-bold leading-none tracking-tight text-emerald-600 md:text-[30px]">
-                            {r.topHorse.aiScore}
+                            {r.topHorse.aiScore ?? "--"}
                           </Num>
                       </div>
                       <div className="mt-6 flex items-center justify-between border-t border-white/70 pt-4">
@@ -1775,7 +1779,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
   );
   const evMap = useMemo(
     () =>
-      race
+      race && race.horses.length
         ? Object.fromEntries(race.horses.map((h) => [h.id, evaluateValue(h, race.horses)]))
         : {},
     [race]
@@ -1919,7 +1923,8 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         </div>
 
         {race
-          ? sortHorses(race.horses, sortKey, evMap).map((h) => (
+          ? race.horses.length
+            ? sortHorses(race.horses, sortKey, evMap).map((h) => (
               <HorseRow
                 key={h.id}
                 horse={h}
@@ -1931,6 +1936,11 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 isDesktop={isDesktop}
               />
             ))
+            : (
+              <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
+                データ未取得
+              </div>
+            )
           : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}
       </div>
 

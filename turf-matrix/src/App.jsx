@@ -198,16 +198,29 @@ const normalizeAnalysis = (analysis) => ({
   topSignal: analysis?.topSignal ?? { status: "mock", label: null, summary: null },
 });
 
+const cleanText = (value, fallback) => {
+  const text = String(value ?? "").trim();
+  if (!text || /^\?+$/.test(text)) return fallback;
+  return text;
+};
+
 const normalizeWeekData = (db) => {
   const featuredRace = selectFeaturedRace(db);
   return {
     ...db,
     meta: {
       ...db.meta,
+      venue: cleanText(db.meta?.venue, "開催場未設定"),
       featuredRaceId: db.meta?.featuredRaceId ?? featuredRace?.id ?? null,
+    },
+    dailySummary: {
+      text: cleanText(db.dailySummary?.text, "週次データを読み込みました。"),
+      highlights: (db.dailySummary?.highlights ?? []).filter((item) => !/^\?+$/.test(String(item ?? "").trim())),
     },
     races: (db.races ?? []).map((race) => ({
       ...race,
+      track: cleanText(race.track, "開催場未設定"),
+      name: cleanText(race.name, `${cleanText(race.track, "Race")}${race.number ?? ""}R`),
       category: race.category ?? (gradeScore(race.grade) ? "grade" : isSpecialRace(race) ? "special" : "race"),
       featuredRace: race.id === featuredRace?.id,
       displayTarget: race.displayTarget ?? true,

@@ -4,6 +4,17 @@ Sprint 1.8.5 defines a safe landing zone for TARGET frontier JV HTML exports.
 This is research only. HTML files are optional and are not connected to
 `week-data.json` yet.
 
+## Power Automate Desktop operation
+
+The concrete PAD recording sheet is maintained here:
+
+```text
+docs/PAD_TARGET_EXPORT.md
+```
+
+Use it as the source of truth for fixed save locations, fixed file names,
+Thursday preodds preparation, and Friday production update commands.
+
 ## Fixed input folder
 
 Place TARGET HTML exports here:
@@ -14,6 +25,21 @@ tools/target-html/input/
 
 Do not commit raw HTML files. TARGET/JRA-VAN source HTML may contain licensed raw
 data, so `tools/target-html/input/*.html` and `*.htm` are ignored by git.
+
+## Fixed normalized HTML names
+
+Power Automate Desktop should overwrite these fixed file names every week:
+
+```text
+tools/target-html/input/racecard.html
+tools/target-html/input/pedigree.html
+tools/target-html/input/form.html
+tools/target-html/input/training-slope.html
+tools/target-html/input/training-wood.html
+```
+
+Do not include dates, race names, or Japanese race titles in the saved file
+names. The fixed names make the future parser deterministic.
 
 ## Current confirmed HTML exports
 

@@ -2,6 +2,12 @@
 
 This workflow supports Thursday preparation before odds are available.
 
+For the Power Automate Desktop recording procedure, use:
+
+```text
+docs/PAD_TARGET_EXPORT.md
+```
+
 ## Goal
 
 Import everything that does not depend on odds first, then add `odds.csv` on

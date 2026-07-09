@@ -1,51 +1,16 @@
 {
   "meta": {
-    "date": "2026-07-12",
-    "featuredRaceId": "fukushima-11"
+    "inputMode": "target-all-csv-plus-odds",
+    "featuredRaceId": null
   },
-  "races": [
-    {
-      "track": "福島",
-      "raceNo": 11,
-      "name": "七夕賞",
-      "grade": "GIII",
-      "time": "15:45",
-      "going": "良",
-      "category": "grade",
-      "featuredPriority": 100
-    },
-    {
-      "track": "福島",
-      "raceNo": 10,
-      "name": "阿武隈ステークス",
-      "grade": "特別",
-      "time": "15:10",
-      "going": "良",
-      "category": "special",
-      "featuredPriority": 40
-    }
-  ],
   "files": [
     {
-      "kind": "shutuba",
-      "path": "csv/input/shutuba.csv",
-      "profile": "target-shutuba-noheader-46"
+      "kind": "unified",
+      "path": "csv/input/all.csv"
     },
     {
       "kind": "odds",
       "path": "csv/input/odds.csv"
-    },
-    {
-      "kind": "supplement",
-      "path": "csv/input/supplement.csv"
-    },
-    {
-      "kind": "training",
-      "path": "csv/input/training.csv"
-    },
-    {
-      "kind": "pedigree",
-      "path": "csv/input/pedigree.csv"
     }
   ]
 }

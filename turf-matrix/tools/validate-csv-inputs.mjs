@@ -6,8 +6,9 @@ import { fileURLToPath } from "node:url";
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = resolve(SCRIPT_DIR, "csv-config.json");
 const MIN_SIZE_BYTES = 1024;
-const REQUIRED_KINDS = new Set(["shutuba", "odds"]);
+const REQUIRED_KINDS = new Set(["unified", "odds"]);
 const KIND_LABELS = {
+  unified: "all.csv (TARGET all export / \u5168\u3066.csv)",
   shutuba: "shutuba.csv (出馬表 / 出馬表分析)",
   odds: "odds.csv (オッズ)",
   supplement: "supplement.csv (補完用)",
@@ -46,7 +47,7 @@ if (!existsSync(CONFIG_PATH)) {
     if (!existsSync(path)) {
       const label = KIND_LABELS[file.kind] ?? file.kind;
       const message = isRequired
-        ? `Required TARGET CSV is missing: ${label}. Place it at ${path} after the Friday TARGET update.`
+        ? `Required TARGET CSV is missing: ${label}. Place it at ${path}. all.csv may be exported on Thursday; odds.csv is added on Friday before production update.`
         : `Optional TARGET CSV is missing: ${label}. Expected path: ${path}`;
       if (isRequired) errors.push(message);
       else warnings.push(message);

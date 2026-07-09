@@ -9,7 +9,7 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const CONFIG_PATH = join(SCRIPT_DIR, "csv-config.json");
 const RUNTIME_CONFIG_PATH = join(SCRIPT_DIR, "csv-config.runtime.json");
 const NEXT_PATH = join(SCRIPT_DIR, "week-data.next.json");
-const REQUIRED_KINDS = new Set(["shutuba", "odds"]);
+const REQUIRED_KINDS = new Set(["unified", "odds"]);
 
 if (existsSync(NEXT_PATH)) unlinkSync(NEXT_PATH);
 if (existsSync(RUNTIME_CONFIG_PATH)) unlinkSync(RUNTIME_CONFIG_PATH);

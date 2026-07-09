@@ -22,18 +22,15 @@ const fileInfo = (name) => {
 };
 
 const csv = {
-  shutuba: fileInfo("shutuba.csv"),
+  all: fileInfo("all.csv"),
   odds: fileInfo("odds.csv"),
-  supplement: fileInfo("supplement.csv"),
-  training: fileInfo("training.csv"),
-  pedigree: fileInfo("pedigree.csv"),
 };
 
 const preodds = {
   schemaVersion: 1,
   mode: "preodds",
   generatedAt: new Date().toISOString(),
-  status: csv.shutuba.exists ? "ready_for_odds" : "missing_shutuba",
+  status: csv.all.exists ? "ready_for_odds" : "missing_all_csv",
   publishable: false,
   sourcePolicy: {
     updatesWeekData: false,
@@ -56,8 +53,8 @@ const preodds = {
 writeFileSync(OUT_PATH, JSON.stringify(preodds, null, 2) + "\n");
 console.log(`Generated ${OUT_PATH}`);
 
-if (!csv.shutuba.exists) {
-  console.warn("shutuba.csv is missing. preodds file is a readiness manifest only.");
+if (!csv.all.exists) {
+  console.warn("all.csv is missing. preodds file is a readiness manifest only.");
 }
 
 if (!csv.odds.exists) {

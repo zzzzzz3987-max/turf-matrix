@@ -10,13 +10,13 @@ docs/PAD_TARGET_EXPORT.md
 
 ## Goal
 
-Import everything that does not depend on odds first, then add `odds.csv` on
+Import `all.csv` and optional training HTML first, then add `odds.csv` on
 Friday and run the production weekly update.
 
 Thursday:
 
 ```text
-TARGET HTML / non-odds CSV
+TARGET all.csv / optional training HTML
   -> detect HTML
   -> generate week-data.preodds.json
   -> no production publish
@@ -42,6 +42,26 @@ tools/week-data.preodds.json
 ```
 
 It is ignored by git and must not be used as the production data file.
+
+## Input separation
+
+Main preodds input:
+
+- `tools/csv/input/all.csv`
+
+Optional training HTML:
+
+- `tools/target-html/input/training-slope.html`
+- `tools/target-html/input/training-wood.html`
+
+Non-preferred optional HTML:
+
+- `racecard.html`
+- `pedigree.html`
+- `form.html`
+
+Pedigree, recent form, ZI, body weight, and running style should come from
+`all.csv`. Training is the only HTML-assisted input for now.
 
 ## Odds-dependent fields
 
@@ -81,13 +101,14 @@ npm run weekly:update
 
 ## HTML parser scope
 
-Sprint 1.8.5 and the preodds workflow only detect HTML files and inspect their
-encoding/table shape. They do not connect HTML data to `week-data.json`.
+The current preodds workflow only detects HTML files and inspects their
+encoding/table shape. It does not connect HTML data to production
+`week-data.json`.
 
-Future parser candidates:
+Standard parser candidates:
 
-- `racecard.html`
-- `pedigree.html`
-- `form.html`
 - `training-slope.html`
 - `training-wood.html`
+
+`racecard.html`, `pedigree.html`, and `form.html` remain optional research
+inputs, not standard pipeline inputs.

@@ -24,6 +24,7 @@ The parser layer is not connected to:
 | `all-csv-parser.mjs` | `tools/csv/input/all.csv` | Main TARGET all export |
 | `training-slope-html-parser.mjs` | `tools/target-html/input/training-slope.html` | Optional slope training HTML |
 | `training-wood-html-parser.mjs` | `tools/target-html/input/training-wood.html` | Optional wood/CW/D training HTML |
+| `pedigree-html-parser.mjs` | `tools/target-html/input/pedigree/*.html` | Optional horse-level pedigree HTML |
 
 `tools/csv/input/odds.csv` remains a Friday input for the existing weekly
 pipeline. It is intentionally not parsed in Sprint 1.9 because Value AI / EV /

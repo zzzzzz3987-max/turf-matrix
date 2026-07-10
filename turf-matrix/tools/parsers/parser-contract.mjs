@@ -29,6 +29,72 @@ export const readTextSmart = (path) => {
 export const countNonEmptyRows = (text) =>
   text.split(/\r\n|\n|\r/).filter((line) => line.trim().length > 0).length;
 
+export const cleanCell = (value) =>
+  String(value ?? "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/\u3000/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+export const toNumber = (value) => {
+  const normalized = String(value ?? "").replace(/,/g, "").trim();
+  if (!normalized) return null;
+  const parsed = Number(normalized);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+export const parseCsvRows = (text) => {
+  const rows = [];
+  let row = [];
+  let current = "";
+  let quoted = false;
+
+  for (let index = 0; index < text.length; index++) {
+    const char = text[index];
+    if (quoted) {
+      if (char === "\"") {
+        if (text[index + 1] === "\"") {
+          current += "\"";
+          index++;
+        } else {
+          quoted = false;
+        }
+      } else {
+        current += char;
+      }
+    } else if (char === "\"") {
+      quoted = true;
+    } else if (char === ",") {
+      row.push(current);
+      current = "";
+    } else if (char === "\n") {
+      row.push(current);
+      rows.push(row);
+      row = [];
+      current = "";
+    } else if (char !== "\r") {
+      current += char;
+    }
+  }
+
+  if (current !== "" || row.length) {
+    row.push(current);
+    rows.push(row);
+  }
+
+  return rows.filter((record) => record.some((cell) => cleanCell(cell).length > 0));
+};
+
+export const parseTargetHtmlRows = (text) =>
+  text
+    .split(/<tr\b[^>]*>/i)
+    .slice(1)
+    .map((chunk) =>
+      [...chunk.matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((match) => cleanCell(match[1]))
+    )
+    .filter((row) => row.length > 0);
+
 export const inspectTextInput = ({
   parserId,
   source,

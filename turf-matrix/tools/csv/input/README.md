@@ -1,16 +1,18 @@
-# TARGET CSV input
+# TURF MATRIX CSV input
 
-Power Automate Desktop should place the Friday TARGET exports here.
+Power Automate Desktop saves TARGET CSV files here.
 
-Required:
+## Files
 
-- `shutuba.csv`
-- `odds.csv`
+| File | Timing | Role |
+| --- | --- | --- |
+| `all.csv` | Thursday | Main input |
+| `odds.csv` | Friday | Value AI input |
 
-Optional:
+## Rules
 
-- `supplement.csv`
-- `training.csv`
-- `pedigree.csv`
-
-Do not commit exported CSV files.
+- `all.csv` is the primary TARGET export.
+- `odds.csv` is added on Friday.
+- Do not update production `week-data.json` until `odds.csv` exists and the weekly pipeline succeeds.
+- Do not commit exported CSV files.
+- `README.md` and `.gitkeep` stay managed by git.

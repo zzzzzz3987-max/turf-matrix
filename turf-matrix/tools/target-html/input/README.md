@@ -1,13 +1,32 @@
-# TARGET HTML input
+# TURF MATRIX TARGET HTML input
 
-Place optional TARGET HTML exports here for parser research.
+Power Automate Desktop saves TARGET HTML files here.
 
-Confirmed examples:
+## Files
 
-- `七夕賞_出馬表.html`
-- `七夕賞_血統.html`
-- `七夕賞_前走①.html`
-- `七夕賞_調教①.html`
-- `七夕賞_調教②.html`
+| File | Role |
+| --- | --- |
+| `training-slope.html` | Slope training input |
+| `training-wood.html` | Wood/CW/D training input |
 
-Raw HTML files are ignored by git. Do not commit exported TARGET HTML.
+## Pedigree HTML
+
+Horse-level four-generation pedigree HTML files are saved under:
+
+```text
+tools/target-html/input/pedigree/
+```
+
+File names do not need to be changed.
+
+Examples:
+
+- `ヤマニンブークリエ.html`
+- `リカンカブール.html`
+- `メリオーレム.html`
+
+## Rules
+
+- Raw HTML files are ignored by git.
+- Do not commit exported TARGET HTML.
+- `README.md` and `.gitkeep` stay managed by git.

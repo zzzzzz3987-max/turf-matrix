@@ -25,6 +25,16 @@ Training HTML supplements:
 - `tools/target-html/input/training-slope.html`
 - `tools/target-html/input/training-wood.html`
 
+Horse-level pedigree HTML:
+
+- `tools/target-html/input/pedigree/*.html`
+
+File names may stay as exported horse names, for example:
+
+- `ヤマニンブークリエ.html`
+- `リカンカブール.html`
+- `メリオーレム.html`
+
 Optional / non-preferred HTML:
 
 - `racecard.html`
@@ -32,7 +42,9 @@ Optional / non-preferred HTML:
 - `form.html`
 
 Racecard, pedigree, recent form, ZI, body weight, and running style should come
-from `all.csv`. Training is the only HTML-assisted input for now.
+from `all.csv`. Training HTML and horse-level four-generation pedigree HTML are
+stored as parser inputs, but they are not connected to production data in this
+sprint.
 
 ## Power Automate Desktop operation
 
@@ -102,6 +114,7 @@ Future targets:
   sprint.
 - Do not use HTML to fill dummy data.
 - Keep `all.csv` and `odds.csv` as the only required production CSV inputs.
+- Keep raw horse-level pedigree HTML under `tools/target-html/input/pedigree/`.
 
 ## Future parser structure
 

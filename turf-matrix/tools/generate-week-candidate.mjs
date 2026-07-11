@@ -98,19 +98,140 @@ const scorePace = (horse) => {
   return clamp(76 - Math.abs(mean - 6) * 3.5);
 };
 
-const scoreTraining = (horse) => {
-  const slope = horse.training?.slope ?? [];
-  const wood = horse.training?.wood ?? [];
-  const records = [...slope, ...wood];
-  if (!records.length) return 50;
+const trainingThreshold = (type, stableSide) => {
+  if (type === "slope") {
+    return stableSide === "栗"
+      ? { "4F": 52.9, "3F": 38.9, "2F": 25.9, "1F": 13.4 }
+      : { "4F": 49.9, "3F": 35.9, "2F": 23.9, "1F": 12.8 };
+  }
+  return { "4F": 50.0, "3F": 36.8, "2F": 24.4, "1F": 12.0 };
+};
 
-  const countScore = 58 + Math.min(18, records.length * 2);
-  const finalF = [
-    ...slope.map((item) => item["1F"]),
-    ...wood.map((item) => item.times?.["1F"]),
-  ].filter((value) => typeof value === "number");
-  const finalScore = finalF.length ? avg(finalF.map((value) => 94 - (value - 11.2) * 9)) : 60;
-  return clamp(countScore * 0.45 + finalScore * 0.55);
+const toSessionDateValue = (dateText) => {
+  const match = String(dateText ?? "").match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/);
+  if (!match) return 0;
+  return Number(match[1]) * 10000 + Number(match[2]) * 100 + Number(match[3]);
+};
+
+const lapValues = (lap) =>
+  [lap?.lap4, lap?.lap3, lap?.lap2, lap?.lap1].filter((value) => typeof value === "number" && Number.isFinite(value));
+
+const formatSession = (session) => {
+  if (!session) return "時計未取得";
+  const type = session.type === "wood" ? "ウッド" : "坂路";
+  const course = session.course ? `${session.course}` : type;
+  return `${session.date ?? "日付不明"} ${course} 4F${session.f4 ?? "-"}-1F${session.f1 ?? "-"}`;
+};
+
+const sessionScore = (session, stableSide) => {
+  const threshold = trainingThreshold(session.type, stableSide);
+  const f4Gap = typeof session.f4 === "number" ? threshold["4F"] - session.f4 : -8;
+  const f1Gap = typeof session.f1 === "number" ? threshold["1F"] - session.f1 : -4;
+  const values = lapValues(session.lap);
+  const accel = values.length >= 2 && values.at(-1) <= values.at(-2);
+  const strongFinish = typeof session.f1 === "number" && session.f1 <= threshold["1F"];
+  const verySharpFinish = typeof session.f1 === "number" && session.f1 <= threshold["1F"] - 0.5;
+  const typeBase = session.type === "wood" ? 63 : 60;
+
+  return clamp(
+    typeBase +
+      Math.max(-8, Math.min(14, f4Gap * 4.2)) +
+      Math.max(-8, Math.min(18, f1Gap * 5.5)) +
+      (accel ? 7 : -2) +
+      (strongFinish ? 5 : 0) +
+      (verySharpFinish ? 4 : 0),
+    45,
+    94
+  );
+};
+
+const collectTrainingSessions = (horse) => {
+  const slope = (horse.training?.slope ?? []).map((item) => ({
+    type: "slope",
+    date: item.date,
+    trainer: item.trainer,
+    f4: item["4F"],
+    f3: item["3F"],
+    f2: item["2F"],
+    f1: item["1F"],
+    lap: item.lap,
+  }));
+  const wood = (horse.training?.wood ?? []).map((item) => ({
+    type: "wood",
+    date: item.date,
+    trainer: item.trainer,
+    course: item.course,
+    direction: item.direction,
+    f4: item.times?.["4F"],
+    f3: item.times?.["3F"],
+    f2: item.times?.["2F"],
+    f1: item.times?.["1F"],
+    lap: item.lap,
+  }));
+  return [...slope, ...wood].filter((session) => typeof session.f1 === "number" || typeof session.f4 === "number");
+};
+
+const buildTrainingAnalysis = (horse) => {
+  const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
+  const sessions = collectTrainingSessions(horse)
+    .map((session) => ({ ...session, score: sessionScore(session, stableSide), dateValue: toSessionDateValue(session.date) }))
+    .sort((a, b) => b.dateValue - a.dateValue);
+
+  if (!sessions.length) {
+    return {
+      score: 50,
+      lapScore: 50,
+      grade: "C",
+      status: "未取得",
+      count: 0,
+      summary: "調教時計は未取得。調教面は評価に強く反映していません。",
+      finalText: "最終追切の時計が取れていないため、調教評価は参考扱いです。",
+      patternText: "調教時計の裏付けは未取得です。",
+      strengths: ["調教時計は未取得"],
+    };
+  }
+
+  const best = [...sessions].sort((a, b) => b.score - a.score)[0];
+  const final = sessions[0];
+  const fastFinish = sessions.filter((session) => {
+    const threshold = trainingThreshold(session.type, stableSide);
+    return typeof session.f1 === "number" && session.f1 <= threshold["1F"];
+  }).length;
+  const accelCount = sessions.filter((session) => {
+    const values = lapValues(session.lap);
+    return values.length >= 2 && values.at(-1) <= values.at(-2);
+  }).length;
+  const activeCount = sessions.filter((session) => session.score >= 70).length;
+  const score = clamp(best.score * 0.5 + final.score * 0.3 + Math.min(10, activeCount * 2) + Math.min(8, fastFinish * 2));
+  const lapScore = clamp(score + Math.min(6, accelCount * 1.5) - (accelCount ? 0 : 4));
+  const grade = score >= 84 ? "A" : score >= 74 ? "B" : score >= 62 ? "C" : "D";
+
+  const strengths = [
+    best.score >= 76 ? `好時計: ${formatSession(best)}` : `基準時計: ${formatSession(best)}`,
+    fastFinish ? `終い基準クリア ${fastFinish}本` : "終いの強調材料は控えめ",
+    accelCount ? `加速ラップ ${accelCount}本` : "加速ラップは目立たず",
+  ];
+
+  return {
+    score,
+    lapScore,
+    grade,
+    status: "取得済み",
+    count: sessions.length,
+    best,
+    final,
+    fastFinish,
+    accelCount,
+    activeCount,
+    strengths,
+    summary: `${sessions.length}本の時計から、${strengths.join(" / ")}。`,
+    finalText: `${formatSession(final)}。最終確認としては${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。`,
+    patternText: `${formatSession(best)}が最も評価できる時計。${fastFinish ? "終いの反応も確認できます。" : "終いの反応は強調しすぎない評価です。"}`,
+  };
+};
+
+const scoreTraining = (horse) => {
+  return buildTrainingAnalysis(horse).score;
 };
 
 const scoreBlood = (horse) => {
@@ -252,8 +373,9 @@ const buildAnalysis = (horse) => {
   const course = scoreCourse(horse);
   const lap = scoreLap(horse);
   const pace = scorePace(horse);
-  const training = scoreTraining(horse);
-  const trainingLap = training;
+  const trainingAnalysis = buildTrainingAnalysis(horse);
+  const training = trainingAnalysis.score;
+  const trainingLap = trainingAnalysis.lapScore;
   const blood = scoreBlood(horse);
   const value = scoreValue(horse, ability);
   const stable = clamp(58 + (horse.trainer ? 6 : 0) + (horse.dataStatus?.training === "active" ? 6 : 0));
@@ -287,8 +409,8 @@ const buildAnalysis = (horse) => {
 
   const confidence = confidenceFor(horse, factors);
   const trainingStatus =
-    horse.dataStatus?.training === "active"
-      ? `調教データ${(horse.training?.slope?.length ?? 0) + (horse.training?.wood?.length ?? 0)}件を接続`
+    trainingAnalysis.count
+      ? trainingAnalysis.summary
       : "調教データは一部取得";
   const recent = horse.pastRuns?.[0];
   const recentText = recent ? `直近は${recent.course}${recent.raceName}で${recent.finishPosition}着` : "近走データは不足";
@@ -301,8 +423,8 @@ const buildAnalysis = (horse) => {
     ? `TARGET基礎指数${horse.odds.zi}から能力の土台を確認`
     : "TARGET基礎指数は未取得";
   const trainingReadable =
-    horse.dataStatus?.training === "active"
-      ? trainingStatus
+    trainingAnalysis.count
+      ? trainingAnalysis.summary
       : "最終追切データは一部未取得のため、調教面は参考評価";
 
   return {
@@ -326,7 +448,7 @@ const buildAnalysis = (horse) => {
       factors,
       factorsDetail: {
         blood: { key: "blood", label: "血統", score: blood, maxScore: 100, status: horse.pedigree ? "active" : "missing", summary: bloodSummary },
-        training: { key: "training", label: "調教", score: training, maxScore: 100, status: horse.dataStatus?.training === "active" ? "active" : "partial", summary: trainingReadable },
+        training: { key: "training", label: "調教", score: training, maxScore: 100, status: trainingAnalysis.count ? "active" : "partial", summary: trainingReadable },
         course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}mへの適性を評価` },
         pace: { key: "pace", label: "展開", score: pace, maxScore: 100, status: "active", summary: "近走の通過順から脚質バランスを評価" },
         stable: { key: "stable", label: "厩舎", score: stable, maxScore: 100, status: "active", summary: "厩舎情報と調教取得状態を補助評価" },
@@ -337,7 +459,7 @@ const buildAnalysis = (horse) => {
         `${displayName}は総合指数${tmIndex}。${recentText}。`,
         `血統面は${bloodSummary}。人気だけに寄せず、近走内容と適性を分けて評価しています。`,
         horse.dataStatus?.training === "active"
-          ? trainingStatus
+          ? trainingAnalysis.summary
           : "調教データは一部取得のため、調教評価は控えめに扱っています。",
       ],
       pros: [
@@ -355,18 +477,40 @@ const buildAnalysis = (horse) => {
         text: `馬番${displayNumber ?? "未取得"}を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。`,
       },
       trainingEval: {
-        grade: gradeForTraining(training),
+        grade: trainingAnalysis.grade,
         oneWeek: {
           score: training,
           text: trainingReadable,
         },
         final: {
-          status: horse.dataStatus?.training === "active" ? "確認済み" : "一部取得",
-          text: horse.dataStatus?.training === "active" ? "坂路/CW等の取得データから最終追いを確認。" : "最終追切の詳細が取れていないため、調教評価は参考扱いです。",
+          status: trainingAnalysis.count ? "確認済み" : "一部取得",
+          text: trainingAnalysis.finalText,
         },
         stablePattern: {
-          match: horse.dataStatus?.training === "active",
-          text: horse.trainer ? `${horse.trainer}厩舎の出走データとして接続済み。` : "厩舎情報未取得。",
+          match: trainingAnalysis.score >= 74,
+          text: trainingAnalysis.patternText,
+        },
+        details: {
+          count: trainingAnalysis.count,
+          best: trainingAnalysis.best ? {
+            type: trainingAnalysis.best.type,
+            date: trainingAnalysis.best.date,
+            course: trainingAnalysis.best.course ?? null,
+            f4: trainingAnalysis.best.f4 ?? null,
+            f1: trainingAnalysis.best.f1 ?? null,
+            score: trainingAnalysis.best.score,
+          } : null,
+          final: trainingAnalysis.final ? {
+            type: trainingAnalysis.final.type,
+            date: trainingAnalysis.final.date,
+            course: trainingAnalysis.final.course ?? null,
+            f4: trainingAnalysis.final.f4 ?? null,
+            f1: trainingAnalysis.final.f1 ?? null,
+            score: trainingAnalysis.final.score,
+          } : null,
+          fastFinish: trainingAnalysis.fastFinish ?? 0,
+          accelCount: trainingAnalysis.accelCount ?? 0,
+          strengths: trainingAnalysis.strengths ?? [],
         },
       },
       pedigree: pedigreeAnalysis,

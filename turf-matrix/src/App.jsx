@@ -1068,62 +1068,108 @@ const PedigreeCard = ({ pedigree }) => {
 };
 
 /* ---- 調教評価カード: 「一週前重視・最終追いは確認材料」の思想を文言で明示 ---- */
-const TrainingEvalCard = ({ evalData }) => (
-  <div className="rounded-xl border border-gray-200 bg-gray-50/60 p-4 md:p-5">
-    <div className="flex items-center justify-between">
-      <SectionLabel icon={Dumbbell}>調教評価</SectionLabel>
-      <span className="flex items-baseline gap-1">
-        <Num className="text-lg font-semibold text-gray-900">{evalData.grade}</Num>
-        <span className="text-[10px] text-gray-400">総合</span>
-      </span>
-    </div>
+const formatTrainingPoint = (item) => {
+  if (!item) return "時計未取得";
+  const type = item.type === "wood" ? "ウッド" : "坂路";
+  const course = item.course ? `${item.course}` : type;
+  return `${item.date ?? "日付不明"} ${course} 4F${item.f4 ?? "-"} / 1F${item.f1 ?? "-"}`;
+};
 
-    <div className="mt-3 space-y-3">
-      <div className="rounded-lg border border-teal-100 bg-white p-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-[13px] font-semibold text-gray-900">一週前追い切り</span>
-            <span className="rounded bg-teal-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">主要評価</span>
+const TrainingEvalCard = ({ evalData }) => {
+  const details = evalData.details ?? {};
+  const strengths = details.strengths ?? [];
+  return (
+    <div className="rounded-xl border border-gray-200 bg-gray-50/60 p-4 md:p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <SectionLabel icon={Dumbbell}>調教評価</SectionLabel>
+          <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">
+            坂路/ウッドの基準時計、終い1F、加速ラップ、最終追切を分けて評価。
+          </p>
+        </div>
+        <span className="flex shrink-0 items-baseline gap-1">
+          <Num className="text-lg font-semibold text-gray-900">{evalData.grade}</Num>
+          <span className="text-[10px] text-gray-400">総合</span>
+        </span>
+      </div>
+
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
+          <div className="text-[10px] font-semibold text-gray-400">時計本数</div>
+          <Num className="mt-1 block text-[16px] font-bold text-slate-900">{details.count ?? 0}</Num>
+        </div>
+        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
+          <div className="text-[10px] font-semibold text-gray-400">終い基準</div>
+          <Num className="mt-1 block text-[16px] font-bold text-emerald-600">{details.fastFinish ?? 0}</Num>
+        </div>
+        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
+          <div className="text-[10px] font-semibold text-gray-400">加速ラップ</div>
+          <Num className="mt-1 block text-[16px] font-bold text-emerald-600">{details.accelCount ?? 0}</Num>
+        </div>
+      </div>
+
+      <div className="mt-3 space-y-3">
+        <div className="rounded-lg border border-teal-100 bg-white p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-[13px] font-semibold text-gray-900">調教の強み</span>
+              <span className="rounded bg-teal-600 px-1.5 py-0.5 text-[10px] font-semibold text-white">主要評価</span>
+            </div>
+            <Num className={`text-sm font-semibold ${scoreTone(evalData.oneWeek.score)}`}>
+              {evalData.oneWeek.score}
+            </Num>
           </div>
-          <Num className={`text-sm font-semibold ${scoreTone(evalData.oneWeek.score)}`}>
-            {evalData.oneWeek.score}
-          </Num>
-        </div>
-        <p className="mt-1.5 text-[12px] leading-relaxed text-gray-600">{evalData.oneWeek.text}</p>
-      </div>
-
-      <div className="rounded-lg border border-gray-200 bg-white p-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-[13px] font-medium text-gray-700">最終追い切り</span>
-            <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500">確認材料</span>
+          <div className="mt-2 space-y-1.5">
+            {strengths.length ? strengths.map((text) => (
+              <div key={text} className="text-[12px] leading-relaxed text-gray-600">・{text}</div>
+            )) : (
+              <p className="text-[12px] leading-relaxed text-gray-600">{evalData.oneWeek.text}</p>
+            )}
           </div>
-          <span className="text-[12px] font-medium text-gray-600">{evalData.final.status}</span>
         </div>
-        <p className="mt-1.5 text-[12px] leading-relaxed text-gray-600">{evalData.final.text}</p>
+
+        <div className="rounded-lg border border-gray-200 bg-white p-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="text-[13px] font-medium text-gray-700">最終追切</span>
+              <span className="rounded bg-gray-100 px-1.5 py-0.5 text-[10px] font-medium text-gray-500">確認材料</span>
+            </div>
+            <span className="text-[12px] font-medium text-gray-600">{evalData.final.status}</span>
+          </div>
+          <p className="mt-1.5 text-[12px] leading-relaxed text-gray-600">{evalData.final.text}</p>
+          {details.final ? (
+            <div className="mt-2 rounded-md bg-gray-50 px-2.5 py-2 text-[11px] text-gray-500">
+              {formatTrainingPoint(details.final)}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="rounded-lg border border-gray-200 bg-white p-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[13px] font-medium text-gray-700">ベスト時計</span>
+            <span
+              className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                evalData.stablePattern.match ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
+              }`}
+            >
+              {evalData.stablePattern.match ? "強調材料" : "参考材料"}
+            </span>
+          </div>
+          <p className="mt-1.5 text-[12px] leading-relaxed text-gray-600">{evalData.stablePattern.text}</p>
+          {details.best ? (
+            <div className="mt-2 rounded-md bg-gray-50 px-2.5 py-2 text-[11px] text-gray-500">
+              {formatTrainingPoint(details.best)}
+            </div>
+          ) : null}
+        </div>
       </div>
 
-      <div className="rounded-lg border border-gray-200 bg-white p-3">
-        <div className="flex items-center justify-between">
-          <span className="text-[13px] font-medium text-gray-700">厩舎勝負調教パターン</span>
-          <span
-            className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-              evalData.stablePattern.match ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
-            }`}
-          >
-            {evalData.stablePattern.match ? "合致" : "非合致"}
-          </span>
-        </div>
-        <p className="mt-1.5 text-[12px] leading-relaxed text-gray-600">{evalData.stablePattern.text}</p>
-      </div>
+      <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
+        評価方針: 軽めの時計を平均せず、基準を超えた時計・終いの反応・加速ラップを重視します。
+      </p>
     </div>
-
-    <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
-      評価方針: 本サービスは<span className="font-medium text-gray-500">一週前追い切りを主要評価</span>とし、
-      最終追い切りは直前の状態を確かめる<span className="font-medium text-gray-500">確認材料</span>として扱います。
-    </p>
-  </div>
-);
+  );
+};
 
 /* ---- 馬詳細の中身(モバイルシート / PCインライン展開で共有) ---- */
 const StatusChip = ({ children, tone = "slate" }) => (

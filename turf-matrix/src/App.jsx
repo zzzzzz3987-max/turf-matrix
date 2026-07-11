@@ -946,11 +946,12 @@ const ValueCard = ({ ev, rank, popularity }) => {
 const PedigreeCard = ({ pedigree }) => {
   const idx = pedigreeIndex(pedigree);
   const structure = pedigree?.structure ?? {};
+  const strengthLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
   const focusScores = [
-    { key: "stamina", label: "Stamina" },
-    { key: "sustain", label: "Sustain" },
-    { key: "speed", label: "Speed" },
-    { key: "burst", label: "Burst" },
+    { key: "stamina", label: "スタミナ" },
+    { key: "sustain", label: "持続力" },
+    { key: "speed", label: "スピード" },
+    { key: "burst", label: "瞬発力" },
   ];
   const lineGroups = [
     { label: "父系", value: structure.sireLine },
@@ -965,7 +966,7 @@ const PedigreeCard = ({ pedigree }) => {
         <div>
           <SectionLabel icon={Dna}>血統評価(4ライン)</SectionLabel>
           <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">
-            4代血統から父系・母系・母父・牝系を分解し、距離/持続力/瞬発力の補助評価に接続。
+            {pedigree.headline ?? "4代血統から父系・母系・母父・牝系を分解し、距離適性や持続力の補助評価に接続。"}
           </p>
         </div>
         <span className="flex shrink-0 items-baseline gap-1">
@@ -973,6 +974,20 @@ const PedigreeCard = ({ pedigree }) => {
           <span className="text-[10px] text-gray-400">血統指数</span>
         </span>
       </div>
+
+      {pedigree.strengths?.length ? (
+        <div className="mt-4 grid gap-2">
+          {pedigree.strengths.map((item) => (
+            <div key={item.label} className="rounded-lg border border-emerald-100/80 bg-emerald-50/45 px-3 py-2.5">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-[12px] font-semibold text-slate-900">{item.label}</span>
+                <span className="text-[10px] font-semibold text-emerald-700">{strengthLabel(item.score)}</span>
+              </div>
+              <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
 
       <div className="mt-4 grid grid-cols-2 gap-2.5">
         {focusScores.map((d, i) => (
@@ -1012,7 +1027,7 @@ const PedigreeCard = ({ pedigree }) => {
           <div className="mb-2 flex items-center justify-between">
             <span className="text-[10px] font-semibold tracking-wide text-gray-400">4代接続</span>
             <span className="text-[10px] text-gray-400">
-              {structure.ancestorCount ?? "-"} ancestors / {structure.completeness ?? "partial"}
+              {structure.ancestorCount ?? "-"} 要素 / {structure.completeness ?? "一部取得"}
             </span>
           </div>
           <div className="grid gap-2">
@@ -1209,10 +1224,10 @@ const HorseDataPreviewContent = ({ horse }) => {
         {pedigree ? (
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {[
-              ["Sire", pedigree.sire],
-              ["Dam", pedigree.dam],
-              ["Broodmare Sire", pedigree.broodmareSire],
-              ["Dam Dam", pedigree.damDam],
+              ["父", pedigree.sire],
+              ["母", pedigree.dam],
+              ["母父", pedigree.broodmareSire],
+              ["牝系", pedigree.damDam],
             ].map(([label, value]) => (
               <div key={label} className={`${GLASS.inner} p-3 text-[12px]`}>
                 <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">{label}</div>

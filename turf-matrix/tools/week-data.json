@@ -71,20 +71,20 @@
           },
           "tmIndex": 74,
           "tmValue": 74,
-          "comment": "TM INDEX v0: 直近は東京目黒記念ＨG2で11着。調教データはpartialとして評価。",
+          "comment": "直近は東京目黒記念ＨG2で11着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走34件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝45.5倍・15人気をValue評価へ反映"
+              "単勝45.5倍・15人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 94",
-              "人気 15",
-              "Training partial"
+              "TARGET基礎指数94から能力の土台を確認",
+              "単勝人気 15",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 60,
@@ -100,31 +100,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 70,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 77,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 67,
                 "maxScore": 100,
                 "status": "active",
@@ -132,15 +132,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 48,
                 "maxScore": 100,
                 "status": "active",
@@ -148,7 +148,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 74,
                 "maxScore": 100,
                 "status": "active",
@@ -156,20 +156,20 @@
               }
             },
             "insight": [
-              "ボーンディスウェイはTM INDEX v0で74。直近は東京目黒記念ＨG2で11着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "ボーンディスウェイは総合指数74。直近は東京目黒記念ＨG2で11着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 94を能力評価に反映",
-              "過去走34件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数94から能力の土台を確認",
+              "過去走34件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "ボーンディスウェイは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で74と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "ボーンディスウェイは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数74と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 68,
               "text": "馬番1を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -178,11 +178,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 70,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -190,26 +190,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "ハーツクライ",
-                  "note": "ハーツクライ → *サンデーサイレンス → Halo を父系の主軸として参照"
+                  "note": "ハーツクライ → *サンデーサイレンス → Halo からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "*ウィンドハック",
-                  "note": "*ウィンドハック → Platini → Surumu を母系の主軸として参照"
+                  "note": "*ウィンドハック → Platini → Surumu から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "Platini",
-                  "note": "Platini → Surumu → Literat を母父ラインとして補助評価"
+                  "note": "Platini → Surumu → Literat から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "Waconda",
-                  "note": "Waconda → Pursuit of Love → Groom Dancer まで牝系を確認"
+                  "note": "Waconda → Pursuit of Love → Groom Dancer からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -238,7 +259,7 @@
                   "Groom Dancer",
                   "Waterway"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -254,18 +275,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は東京目黒記念ＨG2で11着。単勝45.5倍・15人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は東京目黒記念ＨG2で11着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝45.5倍・15人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 74",
-                "Form 48 / Training 70 / Blood 88 / Value 74",
-                "調教データはpartialとして評価"
+                "総合指数 74",
+                "近走 48 / 調教 70 / 血統 88 / 妙味 74",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "ボーンディスウェイ / TM INDEX 74"
+              "label": "注目評価",
+              "summary": "ボーンディスウェイ / 総合指数 74"
             }
           },
           "currentRace": {
@@ -1711,20 +1732,20 @@
           },
           "tmIndex": 76,
           "tmValue": 61,
-          "comment": "TM INDEX v0: 直近は東京ジューンで5着。調教データはpartialとして評価。",
+          "comment": "直近は東京ジューンで5着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走22件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝16.8倍・7人気をValue評価へ反映"
+              "単勝16.8倍・7人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 102",
-              "人気 7",
-              "Training partial"
+              "TARGET基礎指数102から能力の土台を確認",
+              "単勝人気 7",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 71,
@@ -1740,31 +1761,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 67,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 63,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 75,
                 "maxScore": 100,
                 "status": "active",
@@ -1772,15 +1793,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 62,
                 "maxScore": 100,
                 "status": "active",
@@ -1788,7 +1809,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 61,
                 "maxScore": 100,
                 "status": "active",
@@ -1796,20 +1817,20 @@
               }
             },
             "insight": [
-              "コントラポストはTM INDEX v0で76。直近は東京ジューンで5着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "コントラポストは総合指数76。直近は東京ジューンで5着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 102を能力評価に反映",
-              "過去走22件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数102から能力の土台を確認",
+              "過去走22件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "コントラポストは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で76と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "コントラポストは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数76と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 68,
               "text": "馬番2を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -1818,11 +1839,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 67,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -1830,26 +1851,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "ルーラーシップ",
-                  "note": "ルーラーシップ → キングカメハメハ → Kingmambo を父系の主軸として参照"
+                  "note": "ルーラーシップ → キングカメハメハ → Kingmambo からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "アカンサス",
-                  "note": "アカンサス → フジキセキ → *サンデーサイレンス を母系の主軸として参照"
+                  "note": "アカンサス → フジキセキ → *サンデーサイレンス から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "フジキセキ",
-                  "note": "フジキセキ → *サンデーサイレンス → Halo を母父ラインとして補助評価"
+                  "note": "フジキセキ → *サンデーサイレンス → Halo から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*センスオブアート",
-                  "note": "*センスオブアート → Unbridled's Song → Unbridled まで牝系を確認"
+                  "note": "*センスオブアート → Unbridled's Song → Unbridled からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -1878,7 +1920,7 @@
                   "Unbridled",
                   "Bishop's Mate"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -1894,18 +1936,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は東京ジューンで5着。単勝16.8倍・7人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は東京ジューンで5着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝16.8倍・7人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 76",
-                "Form 62 / Training 67 / Blood 88 / Value 61",
-                "調教データはpartialとして評価"
+                "総合指数 76",
+                "近走 62 / 調教 67 / 血統 88 / 妙味 61",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "コントラポスト / TM INDEX 76"
+              "label": "注目評価",
+              "summary": "コントラポスト / 総合指数 76"
             }
           },
           "currentRace": {
@@ -2946,20 +2988,20 @@
           },
           "tmIndex": 68,
           "tmValue": 60,
-          "comment": "TM INDEX v0: 直近は京都都大路Ｈ(L)で12着。調教データはpartialとして評価。",
+          "comment": "直近は京都都大路Ｈ(L)で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走40件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝96倍・16人気をValue評価へ反映"
+              "単勝96倍・16人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 80",
-              "人気 16",
-              "Training partial"
+              "TARGET基礎指数80から能力の土台を確認",
+              "単勝人気 16",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 42,
@@ -2975,31 +3017,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 76,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 78,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 69,
                 "maxScore": 100,
                 "status": "active",
@@ -3007,15 +3049,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 35,
                 "maxScore": 100,
                 "status": "active",
@@ -3023,7 +3065,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 60,
                 "maxScore": 100,
                 "status": "active",
@@ -3031,20 +3073,20 @@
               }
             },
             "insight": [
-              "ショウナンマグマはTM INDEX v0で68。直近は京都都大路Ｈ(L)で12着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "ショウナンマグマは総合指数68。直近は京都都大路Ｈ(L)で12着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 80を能力評価に反映",
-              "過去走40件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数80から能力の土台を確認",
+              "過去走40件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "ショウナンマグマは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で68と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "ショウナンマグマは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数68と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 68,
               "text": "馬番3を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -3053,11 +3095,11 @@
               "grade": "B",
               "oneWeek": {
                 "score": 76,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -3065,26 +3107,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "*ザファクター",
-                  "note": "*ザファクター → War Front → Danzig を父系の主軸として参照"
+                  "note": "*ザファクター → War Front → Danzig からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "レッドメアラス",
-                  "note": "レッドメアラス → ステイゴールド → *サンデーサイレンス を母系の主軸として参照"
+                  "note": "レッドメアラス → ステイゴールド → *サンデーサイレンス から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "ステイゴールド",
-                  "note": "ステイゴールド → *サンデーサイレンス → Halo を母父ラインとして補助評価"
+                  "note": "ステイゴールド → *サンデーサイレンス → Halo から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "セイランクイーン",
-                  "note": "セイランクイーン → メジロマックイーン → メジロテイターン まで牝系を確認"
+                  "note": "セイランクイーン → メジロマックイーン → メジロテイターン からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -3113,7 +3176,7 @@
                   "メジロテイターン",
                   "ケイシュウミリオン"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -3129,18 +3192,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Watch",
-              "summary": "直近は京都都大路Ｈ(L)で12着。単勝96倍・16人気をValue評価へ反映。",
+              "label": "注視",
+              "summary": "直近は京都都大路Ｈ(L)で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝96倍・16人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 68",
-                "Form 35 / Training 76 / Blood 88 / Value 60",
-                "調教データはpartialとして評価"
+                "総合指数 68",
+                "近走 35 / 調教 76 / 血統 88 / 妙味 60",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "ショウナンマグマ / TM INDEX 68"
+              "label": "注目評価",
+              "summary": "ショウナンマグマ / 総合指数 68"
             }
           },
           "currentRace": {
@@ -4643,20 +4706,20 @@
           },
           "tmIndex": 83,
           "tmValue": 65,
-          "comment": "TM INDEX v0: 直近は東京エプソムG3で6着。調教データはpartialとして評価。",
+          "comment": "直近は東京エプソムG3で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走12件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝4.4倍・1人気をValue評価へ反映"
+              "単勝4.4倍・1人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 119",
-              "人気 1",
-              "Training partial"
+              "TARGET基礎指数119から能力の土台を確認",
+              "単勝人気 1",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 93,
@@ -4672,31 +4735,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 72,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 60,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 68,
                 "maxScore": 100,
                 "status": "active",
@@ -4704,15 +4767,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 55,
                 "maxScore": 100,
                 "status": "active",
@@ -4720,7 +4783,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 65,
                 "maxScore": 100,
                 "status": "active",
@@ -4728,20 +4791,20 @@
               }
             },
             "insight": [
-              "カラマティアノスはTM INDEX v0で83。直近は東京エプソムG3で6着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "カラマティアノスは総合指数83。直近は東京エプソムG3で6着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 119を能力評価に反映",
-              "過去走12件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数119から能力の土台を確認",
+              "過去走12件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "カラマティアノスは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で83と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "カラマティアノスは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数83と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 68,
               "text": "馬番4を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -4750,11 +4813,11 @@
               "grade": "B",
               "oneWeek": {
                 "score": 72,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -4762,26 +4825,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "レイデオロ",
-                  "note": "レイデオロ → キングカメハメハ → Kingmambo を父系の主軸として参照"
+                  "note": "レイデオロ → キングカメハメハ → Kingmambo からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "ダンサール",
-                  "note": "ダンサール → ハーツクライ → *サンデーサイレンス を母系の主軸として参照"
+                  "note": "ダンサール → ハーツクライ → *サンデーサイレンス から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "ハーツクライ",
-                  "note": "ハーツクライ → *サンデーサイレンス → Halo を母父ラインとして補助評価"
+                  "note": "ハーツクライ → *サンデーサイレンス → Halo から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*バラダセール",
-                  "note": "*バラダセール → Not For Sale → Parade Marshal まで牝系を確認"
+                  "note": "*バラダセール → Not For Sale → Parade Marshal からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -4810,7 +4894,7 @@
                   "Parade Marshal",
                   "La Balada"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -4826,18 +4910,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "直近は東京エプソムG3で6着。単勝4.4倍・1人気をValue評価へ反映。",
+              "label": "最上位評価",
+              "summary": "直近は東京エプソムG3で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝4.4倍・1人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 83",
-                "Form 55 / Training 72 / Blood 88 / Value 65",
-                "調教データはpartialとして評価"
+                "総合指数 83",
+                "近走 55 / 調教 72 / 血統 88 / 妙味 65",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "カラマティアノス / TM INDEX 83"
+              "label": "最上位評価",
+              "summary": "カラマティアノス / 総合指数 83"
             }
           },
           "currentRace": {
@@ -5600,20 +5684,20 @@
           },
           "tmIndex": 73,
           "tmValue": 66,
-          "comment": "TM INDEX v0: 直近は京都都大路Ｈ(L)で6着。調教データはpartialとして評価。",
+          "comment": "直近は京都都大路Ｈ(L)で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走14件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝26.6倍・11人気をValue評価へ反映"
+              "単勝26.6倍・11人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 95",
-              "人気 11",
-              "Training partial"
+              "TARGET基礎指数95から能力の土台を確認",
+              "単勝人気 11",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 62,
@@ -5629,31 +5713,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 64,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 61,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 69,
                 "maxScore": 100,
                 "status": "active",
@@ -5661,15 +5745,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 46,
                 "maxScore": 100,
                 "status": "active",
@@ -5677,7 +5761,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 66,
                 "maxScore": 100,
                 "status": "active",
@@ -5685,20 +5769,20 @@
               }
             },
             "insight": [
-              "オーロラエックスはTM INDEX v0で73。直近は京都都大路Ｈ(L)で6着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "オーロラエックスは総合指数73。直近は京都都大路Ｈ(L)で6着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 95を能力評価に反映",
-              "過去走14件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数95から能力の土台を確認",
+              "過去走14件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "オーロラエックスは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で73と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "オーロラエックスは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数73と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番5を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -5707,11 +5791,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 64,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -5719,26 +5803,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "サトノダイヤモンド",
-                  "note": "サトノダイヤモンド → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "サトノダイヤモンド → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "*ガリレオズソング",
-                  "note": "*ガリレオズソング → Galileo → Sadler's Wells を母系の主軸として参照"
+                  "note": "*ガリレオズソング → Galileo → Sadler's Wells から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "Galileo",
-                  "note": "Galileo → Sadler's Wells → Northern Dancer を母父ラインとして補助評価"
+                  "note": "Galileo → Sadler's Wells → Northern Dancer から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "Song to Remember",
-                  "note": "Song to Remember → Storm Cat → Storm Bird まで牝系を確認"
+                  "note": "Song to Remember → Storm Cat → Storm Bird からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -5767,7 +5872,7 @@
                   "Storm Bird",
                   "Wedding Reception"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -5783,18 +5888,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Watch",
-              "summary": "直近は京都都大路Ｈ(L)で6着。単勝26.6倍・11人気をValue評価へ反映。",
+              "label": "注視",
+              "summary": "直近は京都都大路Ｈ(L)で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝26.6倍・11人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 73",
-                "Form 46 / Training 64 / Blood 88 / Value 66",
-                "調教データはpartialとして評価"
+                "総合指数 73",
+                "近走 46 / 調教 64 / 血統 88 / 妙味 66",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "オーロラエックス / TM INDEX 73"
+              "label": "注目評価",
+              "summary": "オーロラエックス / 総合指数 73"
             }
           },
           "currentRace": {
@@ -6591,20 +6696,20 @@
           },
           "tmIndex": 76,
           "tmValue": 55,
-          "comment": "TM INDEX v0: 直近は東京エプソムG3で12着。調教データはpartialとして評価。",
+          "comment": "直近は東京エプソムG3で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走26件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝12.4倍・6人気をValue評価へ反映"
+              "単勝12.4倍・6人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 95",
-              "人気 6",
-              "Training partial"
+              "TARGET基礎指数95から能力の土台を確認",
+              "単勝人気 6",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 62,
@@ -6620,31 +6725,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 66,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 72,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 72,
                 "maxScore": 100,
                 "status": "active",
@@ -6652,15 +6757,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 48,
                 "maxScore": 100,
                 "status": "active",
@@ -6668,7 +6773,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 55,
                 "maxScore": 100,
                 "status": "active",
@@ -6676,20 +6781,20 @@
               }
             },
             "insight": [
-              "マイネルモーントはTM INDEX v0で76。直近は東京エプソムG3で12着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "マイネルモーントは総合指数76。直近は東京エプソムG3で12着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 95を能力評価に反映",
-              "過去走26件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数95から能力の土台を確認",
+              "過去走26件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "マイネルモーントは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で76と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "マイネルモーントは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数76と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番6を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -6698,11 +6803,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 66,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -6710,26 +6815,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "ゴールドシップ",
-                  "note": "ゴールドシップ → ステイゴールド → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "ゴールドシップ → ステイゴールド → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "ゲッカコウ",
-                  "note": "ゲッカコウ → *ロージズインメイ → Devil His Due を母系の主軸として参照"
+                  "note": "ゲッカコウ → *ロージズインメイ → Devil His Due から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "*ロージズインメイ",
-                  "note": "*ロージズインメイ → Devil His Due → Devil's Bag を母父ラインとして補助評価"
+                  "note": "*ロージズインメイ → Devil His Due → Devil's Bag から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "チューベローズ",
-                  "note": "チューベローズ → *シンボリクリスエス → Kris S. まで牝系を確認"
+                  "note": "チューベローズ → *シンボリクリスエス → Kris S. からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -6758,7 +6884,7 @@
                   "Kris S.",
                   "チューニー"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -6774,18 +6900,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は東京エプソムG3で12着。単勝12.4倍・6人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は東京エプソムG3で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝12.4倍・6人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 76",
-                "Form 48 / Training 66 / Blood 88 / Value 55",
-                "調教データはpartialとして評価"
+                "総合指数 76",
+                "近走 48 / 調教 66 / 血統 88 / 妙味 55",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "マイネルモーント / TM INDEX 76"
+              "label": "注目評価",
+              "summary": "マイネルモーント / 総合指数 76"
             }
           },
           "currentRace": {
@@ -7972,20 +8098,20 @@
           },
           "tmIndex": 69,
           "tmValue": 57,
-          "comment": "TM INDEX v0: 直近は東京ジューンで10着。調教データはpartialとして評価。",
+          "comment": "直近は東京ジューンで10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走18件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝21.3倍・9人気をValue評価へ反映"
+              "単勝21.3倍・9人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 88",
-              "人気 9",
-              "Training partial"
+              "TARGET基礎指数88から能力の土台を確認",
+              "単勝人気 9",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 52,
@@ -8001,31 +8127,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 67,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 63,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 67,
                 "maxScore": 100,
                 "status": "active",
@@ -8033,15 +8159,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 49,
                 "maxScore": 100,
                 "status": "active",
@@ -8049,7 +8175,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 57,
                 "maxScore": 100,
                 "status": "active",
@@ -8057,20 +8183,20 @@
               }
             },
             "insight": [
-              "メリオーレムはTM INDEX v0で69。直近は東京ジューンで10着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "メリオーレムは総合指数69。直近は東京ジューンで10着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 88を能力評価に反映",
-              "過去走18件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数88から能力の土台を確認",
+              "過去走18件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "メリオーレムは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で69と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "メリオーレムは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数69と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番7を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -8079,11 +8205,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 67,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -8091,26 +8217,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "シュヴァルグラン",
-                  "note": "シュヴァルグラン → ハーツクライ → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "シュヴァルグラン → ハーツクライ → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "*メリオーラ",
-                  "note": "*メリオーラ → Starspangledbanner → Choisir を母系の主軸として参照"
+                  "note": "*メリオーラ → Starspangledbanner → Choisir から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "Starspangledbanner",
-                  "note": "Starspangledbanner → Choisir → Danehill Dancer を母父ラインとして補助評価"
+                  "note": "Starspangledbanner → Choisir → Danehill Dancer から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "Messelina",
-                  "note": "Messelina → Noverre → Rahy まで牝系を確認"
+                  "note": "Messelina → Noverre → Rahy からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -8139,7 +8286,7 @@
                   "Rahy",
                   "Ingerence"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -8155,18 +8302,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Watch",
-              "summary": "直近は東京ジューンで10着。単勝21.3倍・9人気をValue評価へ反映。",
+              "label": "注視",
+              "summary": "直近は東京ジューンで10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝21.3倍・9人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 69",
-                "Form 49 / Training 67 / Blood 88 / Value 57",
-                "調教データはpartialとして評価"
+                "総合指数 69",
+                "近走 49 / 調教 67 / 血統 88 / 妙味 57",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "メリオーレム / TM INDEX 69"
+              "label": "注目評価",
+              "summary": "メリオーレム / 総合指数 69"
             }
           },
           "currentRace": {
@@ -9076,20 +9223,20 @@
           },
           "tmIndex": 72,
           "tmValue": 72,
-          "comment": "TM INDEX v0: 直近は中山日経賞G2で15着。調教データはpartialとして評価。",
+          "comment": "直近は中山日経賞G2で15着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走13件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝38.8倍・14人気をValue評価へ反映"
+              "単勝38.8倍・14人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 94",
-              "人気 14",
-              "Training partial"
+              "TARGET基礎指数94から能力の土台を確認",
+              "単勝人気 14",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 60,
@@ -9105,31 +9252,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 71,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 67,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 76,
                 "maxScore": 100,
                 "status": "active",
@@ -9137,15 +9284,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 35,
                 "maxScore": 100,
                 "status": "active",
@@ -9153,7 +9300,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 72,
                 "maxScore": 100,
                 "status": "active",
@@ -9161,20 +9308,20 @@
               }
             },
             "insight": [
-              "クリスマスパレードはTM INDEX v0で72。直近は中山日経賞G2で15着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "クリスマスパレードは総合指数72。直近は中山日経賞G2で15着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 94を能力評価に反映",
-              "過去走13件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数94から能力の土台を確認",
+              "過去走13件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "クリスマスパレードは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で72と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "クリスマスパレードは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数72と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番8を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -9183,11 +9330,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 71,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -9195,26 +9342,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "キタサンブラック",
-                  "note": "キタサンブラック → ブラックタイド → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "キタサンブラック → ブラックタイド → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "*ミスエリカ",
-                  "note": "*ミスエリカ → Blame → Arch を母系の主軸として参照"
+                  "note": "*ミスエリカ → Blame → Arch から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "Blame",
-                  "note": "Blame → Arch → Kris S. を母父ラインとして補助評価"
+                  "note": "Blame → Arch → Kris S. から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "Le Relais",
-                  "note": "Le Relais → Coronado's Quest → Forty Niner まで牝系を確認"
+                  "note": "Le Relais → Coronado's Quest → Forty Niner からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -9243,7 +9411,7 @@
                   "Forty Niner",
                   "Malbay"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -9259,18 +9427,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Watch",
-              "summary": "直近は中山日経賞G2で15着。単勝38.8倍・14人気をValue評価へ反映。",
+              "label": "注視",
+              "summary": "直近は中山日経賞G2で15着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝38.8倍・14人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 72",
-                "Form 35 / Training 71 / Blood 88 / Value 72",
-                "調教データはpartialとして評価"
+                "総合指数 72",
+                "近走 35 / 調教 71 / 血統 88 / 妙味 72",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "クリスマスパレード / TM INDEX 72"
+              "label": "注目評価",
+              "summary": "クリスマスパレード / 総合指数 72"
             }
           },
           "currentRace": {
@@ -10038,20 +10206,20 @@
           },
           "tmIndex": 66,
           "tmValue": 63,
-          "comment": "TM INDEX v0: 直近は函館函館記念ＨG3で12着。調教データはpartialとして評価。",
+          "comment": "直近は函館函館記念ＨG3で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走31件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝36.3倍・12人気をValue評価へ反映"
+              "単勝36.3倍・12人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 87",
-              "人気 12",
-              "Training partial"
+              "TARGET基礎指数87から能力の土台を確認",
+              "単勝人気 12",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 51,
@@ -10067,31 +10235,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 50,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 72,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 64,
                 "maxScore": 100,
                 "status": "active",
@@ -10099,15 +10267,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 35,
                 "maxScore": 100,
                 "status": "active",
@@ -10115,7 +10283,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 63,
                 "maxScore": 100,
                 "status": "active",
@@ -10123,20 +10291,20 @@
               }
             },
             "insight": [
-              "オニャンコポンはTM INDEX v0で66。直近は函館函館記念ＨG3で12着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "オニャンコポンは総合指数66。直近は函館函館記念ＨG3で12着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 87を能力評価に反映",
-              "過去走31件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数87から能力の土台を確認",
+              "過去走31件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "オニャンコポンは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で66と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "オニャンコポンは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数66と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番9を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -10145,11 +10313,11 @@
               "grade": "D",
               "oneWeek": {
                 "score": 50,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -10157,26 +10325,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "エイシンフラッシュ",
-                  "note": "エイシンフラッシュ → King's Best → Kingmambo を父系の主軸として参照"
+                  "note": "エイシンフラッシュ → King's Best → Kingmambo からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "シャリオドール",
-                  "note": "シャリオドール → ヴィクトワールピサ → ネオユニヴァース を母系の主軸として参照"
+                  "note": "シャリオドール → ヴィクトワールピサ → ネオユニヴァース から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "ヴィクトワールピサ",
-                  "note": "ヴィクトワールピサ → ネオユニヴァース → *サンデーサイレンス を母父ラインとして補助評価"
+                  "note": "ヴィクトワールピサ → ネオユニヴァース → *サンデーサイレンス から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*サプレザ",
-                  "note": "*サプレザ → Sahm → Mr. Prospector まで牝系を確認"
+                  "note": "*サプレザ → Sahm → Mr. Prospector からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -10205,7 +10394,7 @@
                   "Mr. Prospector",
                   "Sorpresa"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -10221,18 +10410,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Watch",
-              "summary": "直近は函館函館記念ＨG3で12着。単勝36.3倍・12人気をValue評価へ反映。",
+              "label": "注視",
+              "summary": "直近は函館函館記念ＨG3で12着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝36.3倍・12人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 66",
-                "Form 35 / Training 50 / Blood 88 / Value 63",
-                "調教データはpartialとして評価"
+                "総合指数 66",
+                "近走 35 / 調教 50 / 血統 88 / 妙味 63",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "オニャンコポン / TM INDEX 66"
+              "label": "注目評価",
+              "summary": "オニャンコポン / 総合指数 66"
             }
           },
           "currentRace": {
@@ -11403,20 +11592,20 @@
           },
           "tmIndex": 79,
           "tmValue": 66,
-          "comment": "TM INDEX v0: 直近は東京エプソムG3で10着。調教データはpartialとして評価。",
+          "comment": "直近は東京エプソムG3で10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走11件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝18倍・8人気をValue評価へ反映"
+              "単勝18倍・8人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 107",
-              "人気 8",
-              "Training partial"
+              "TARGET基礎指数107から能力の土台を確認",
+              "単勝人気 8",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 77,
@@ -11432,31 +11621,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 66,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 67,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 70,
                 "maxScore": 100,
                 "status": "active",
@@ -11464,15 +11653,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 49,
                 "maxScore": 100,
                 "status": "active",
@@ -11480,7 +11669,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 66,
                 "maxScore": 100,
                 "status": "active",
@@ -11488,20 +11677,20 @@
               }
             },
             "insight": [
-              "センツブラッドはTM INDEX v0で79。直近は東京エプソムG3で10着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "センツブラッドは総合指数79。直近は東京エプソムG3で10着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 107を能力評価に反映",
-              "過去走11件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数107から能力の土台を確認",
+              "過去走11件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "センツブラッドは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で79と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "センツブラッドは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数79と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番10を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -11510,11 +11699,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 66,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -11522,26 +11711,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "ルーラーシップ",
-                  "note": "ルーラーシップ → キングカメハメハ → Kingmambo を父系の主軸として参照"
+                  "note": "ルーラーシップ → キングカメハメハ → Kingmambo からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "サマーセント",
-                  "note": "サマーセント → *ハービンジャー → Dansili を母系の主軸として参照"
+                  "note": "サマーセント → *ハービンジャー → Dansili から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "*ハービンジャー",
-                  "note": "*ハービンジャー → Dansili → Danehill を母父ラインとして補助評価"
+                  "note": "*ハービンジャー → Dansili → Danehill から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "プリムローズレーン",
-                  "note": "プリムローズレーン → *サンデーサイレンス → Halo まで牝系を確認"
+                  "note": "プリムローズレーン → *サンデーサイレンス → Halo からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -11570,7 +11780,7 @@
                   "Halo",
                   "*オエノセラ"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -11586,18 +11796,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は東京エプソムG3で10着。単勝18倍・8人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は東京エプソムG3で10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝18倍・8人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 79",
-                "Form 49 / Training 66 / Blood 88 / Value 66",
-                "調教データはpartialとして評価"
+                "総合指数 79",
+                "近走 49 / 調教 66 / 血統 88 / 妙味 66",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "センツブラッド / TM INDEX 79"
+              "label": "注目評価",
+              "summary": "センツブラッド / 総合指数 79"
             }
           },
           "currentRace": {
@@ -12334,20 +12544,20 @@
           },
           "tmIndex": 84,
           "tmValue": 61,
-          "comment": "TM INDEX v0: 直近は中山日経賞G2で10着。調教データはpartialとして評価。",
+          "comment": "直近は中山日経賞G2で10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走15件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝5.5倍・2人気をValue評価へ反映"
+              "単勝5.5倍・2人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 113",
-              "人気 2",
-              "Training partial"
+              "TARGET基礎指数113から能力の土台を確認",
+              "単勝人気 2",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 85,
@@ -12363,31 +12573,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 71,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 72,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 63,
                 "maxScore": 100,
                 "status": "active",
@@ -12395,15 +12605,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 56,
                 "maxScore": 100,
                 "status": "active",
@@ -12411,7 +12621,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 61,
                 "maxScore": 100,
                 "status": "active",
@@ -12419,20 +12629,20 @@
               }
             },
             "insight": [
-              "アスクナイスショーはTM INDEX v0で84。直近は中山日経賞G2で10着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "アスクナイスショーは総合指数84。直近は中山日経賞G2で10着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 113を能力評価に反映",
-              "過去走15件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数113から能力の土台を確認",
+              "過去走15件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "アスクナイスショーは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で84と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "アスクナイスショーは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数84と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 60,
               "text": "馬番11を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -12441,11 +12651,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 71,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -12453,26 +12663,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "シルバーステート",
-                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "ケンブリッジヒカリ",
-                  "note": "ケンブリッジヒカリ → アドマイヤムーン → *エンドスウィープ を母系の主軸として参照"
+                  "note": "ケンブリッジヒカリ → アドマイヤムーン → *エンドスウィープ から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "アドマイヤムーン",
-                  "note": "アドマイヤムーン → *エンドスウィープ → Forty Niner を母父ラインとして補助評価"
+                  "note": "アドマイヤムーン → *エンドスウィープ → Forty Niner から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*ドバイソプラノ",
-                  "note": "*ドバイソプラノ → Zafonic → Gone West まで牝系を確認"
+                  "note": "*ドバイソプラノ → Zafonic → Gone West からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -12501,7 +12732,7 @@
                   "Gone West",
                   "Ring of Music"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -12517,18 +12748,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "直近は中山日経賞G2で10着。単勝5.5倍・2人気をValue評価へ反映。",
+              "label": "最上位評価",
+              "summary": "直近は中山日経賞G2で10着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝5.5倍・2人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 84",
-                "Form 56 / Training 71 / Blood 88 / Value 61",
-                "調教データはpartialとして評価"
+                "総合指数 84",
+                "近走 56 / 調教 71 / 血統 88 / 妙味 61",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "アスクナイスショー / TM INDEX 84"
+              "label": "最上位評価",
+              "summary": "アスクナイスショー / 総合指数 84"
             }
           },
           "currentRace": {
@@ -13398,20 +13629,20 @@
           },
           "tmIndex": 80,
           "tmValue": 70,
-          "comment": "TM INDEX v0: 直近は小倉小倉大賞ＨG3で6着。調教データはpartialとして評価。",
+          "comment": "直近は小倉小倉大賞ＨG3で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走20件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝25.4倍・10人気をValue評価へ反映"
+              "単勝25.4倍・10人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 105",
-              "人気 10",
-              "Training partial"
+              "TARGET基礎指数105から能力の土台を確認",
+              "単勝人気 10",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 75,
@@ -13427,31 +13658,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 68,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 70,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 75,
                 "maxScore": 100,
                 "status": "active",
@@ -13459,15 +13690,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 50,
                 "maxScore": 100,
                 "status": "active",
@@ -13475,7 +13706,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 70,
                 "maxScore": 100,
                 "status": "active",
@@ -13483,20 +13714,20 @@
               }
             },
             "insight": [
-              "リカンカブールはTM INDEX v0で80。直近は小倉小倉大賞ＨG3で6着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "リカンカブールは総合指数80。直近は小倉小倉大賞ＨG3で6着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 105を能力評価に反映",
-              "過去走20件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数105から能力の土台を確認",
+              "過去走20件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "リカンカブールは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "リカンカブールは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数80と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 60,
               "text": "馬番12を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -13505,11 +13736,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 68,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -13517,26 +13748,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "シルバーステート",
-                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "*アンブラッセモワ",
-                  "note": "*アンブラッセモワ → Zoffany → Dansili を母系の主軸として参照"
+                  "note": "*アンブラッセモワ → Zoffany → Dansili から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "Zoffany",
-                  "note": "Zoffany → Dansili → Danehill を母父ラインとして補助評価"
+                  "note": "Zoffany → Dansili → Danehill から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "Ice Flower",
-                  "note": "Ice Flower → Pivotal → Polar Falcon まで牝系を確認"
+                  "note": "Ice Flower → Pivotal → Polar Falcon からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -13565,7 +13817,7 @@
                   "Polar Falcon",
                   "Ejlaal"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -13581,18 +13833,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は小倉小倉大賞ＨG3で6着。単勝25.4倍・10人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は小倉小倉大賞ＨG3で6着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝25.4倍・10人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 80",
-                "Form 50 / Training 68 / Blood 88 / Value 70",
-                "調教データはpartialとして評価"
+                "総合指数 80",
+                "近走 50 / 調教 68 / 血統 88 / 妙味 70",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "リカンカブール / TM INDEX 80"
+              "label": "注目評価",
+              "summary": "リカンカブール / 総合指数 80"
             }
           },
           "currentRace": {
@@ -14605,20 +14857,20 @@
           },
           "tmIndex": 83,
           "tmValue": 62,
-          "comment": "TM INDEX v0: 直近は東京メトロポ(L)で3着。調教データはpartialとして評価。",
+          "comment": "直近は東京メトロポ(L)で3着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走11件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝7.6倍・4人気をValue評価へ反映"
+              "単勝7.6倍・4人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 115",
-              "人気 4",
-              "Training partial"
+              "TARGET基礎指数115から能力の土台を確認",
+              "単勝人気 4",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 88,
@@ -14634,31 +14886,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 62,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 67,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 62,
                 "maxScore": 100,
                 "status": "active",
@@ -14666,15 +14918,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 63,
                 "maxScore": 100,
                 "status": "active",
@@ -14682,7 +14934,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 62,
                 "maxScore": 100,
                 "status": "active",
@@ -14690,20 +14942,20 @@
               }
             },
             "insight": [
-              "バトルボーンはTM INDEX v0で83。直近は東京メトロポ(L)で3着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "バトルボーンは総合指数83。直近は東京メトロポ(L)で3着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 115を能力評価に反映",
-              "過去走11件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数115から能力の土台を確認",
+              "過去走11件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "バトルボーンは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で83と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "バトルボーンは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数83と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 60,
               "text": "馬番13を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -14712,11 +14964,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 62,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -14724,26 +14976,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "シルバーステート",
-                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "シルバーステート → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "コンカラン",
-                  "note": "コンカラン → ジャングルポケット → *トニービン を母系の主軸として参照"
+                  "note": "コンカラン → ジャングルポケット → *トニービン から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "ジャングルポケット",
-                  "note": "ジャングルポケット → *トニービン → Kampala を母父ラインとして補助評価"
+                  "note": "ジャングルポケット → *トニービン → Kampala から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*クバター",
-                  "note": "*クバター → De Ramiro → Kasteel まで牝系を確認"
+                  "note": "*クバター → De Ramiro → Kasteel からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -14772,7 +15045,7 @@
                   "Kasteel",
                   "Golden Relic"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -14788,18 +15061,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "直近は東京メトロポ(L)で3着。単勝7.6倍・4人気をValue評価へ反映。",
+              "label": "最上位評価",
+              "summary": "直近は東京メトロポ(L)で3着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝7.6倍・4人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 83",
-                "Form 63 / Training 62 / Blood 88 / Value 62",
-                "調教データはpartialとして評価"
+                "総合指数 83",
+                "近走 63 / 調教 62 / 血統 88 / 妙味 62",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Top Signal",
-              "summary": "バトルボーン / TM INDEX 83"
+              "label": "最上位評価",
+              "summary": "バトルボーン / 総合指数 83"
             }
           },
           "currentRace": {
@@ -15578,20 +15851,20 @@
           },
           "tmIndex": 75,
           "tmValue": 75,
-          "comment": "TM INDEX v0: 直近は京都日経新春ＨG2で13着。調教データはpartialとして評価。",
+          "comment": "直近は京都日経新春ＨG2で13着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走14件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝37.3倍・13人気をValue評価へ反映"
+              "単勝37.3倍・13人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 103",
-              "人気 13",
-              "Training partial"
+              "TARGET基礎指数103から能力の土台を確認",
+              "単勝人気 13",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 72,
@@ -15607,31 +15880,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 63,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 61,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 73,
                 "maxScore": 100,
                 "status": "active",
@@ -15639,15 +15912,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 48,
                 "maxScore": 100,
                 "status": "active",
@@ -15655,7 +15928,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 75,
                 "maxScore": 100,
                 "status": "active",
@@ -15663,20 +15936,20 @@
               }
             },
             "insight": [
-              "オールナットはTM INDEX v0で75。直近は京都日経新春ＨG2で13着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "オールナットは総合指数75。直近は京都日経新春ＨG2で13着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 103を能力評価に反映",
-              "過去走14件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数103から能力の土台を確認",
+              "過去走14件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "オールナットは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で75と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "オールナットは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数75と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 60,
               "text": "馬番14を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -15685,11 +15958,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 63,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -15697,26 +15970,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "サトノダイヤモンド",
-                  "note": "サトノダイヤモンド → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "サトノダイヤモンド → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "キューティゴールド",
-                  "note": "キューティゴールド → *フレンチデピュティ → Deputy Minister を母系の主軸として参照"
+                  "note": "キューティゴールド → *フレンチデピュティ → Deputy Minister から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "*フレンチデピュティ",
-                  "note": "*フレンチデピュティ → Deputy Minister → Vice Regent を母父ラインとして補助評価"
+                  "note": "*フレンチデピュティ → Deputy Minister → Vice Regent から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "ゴールデンサッシュ",
-                  "note": "ゴールデンサッシュ → *デイクタス → Sanctus まで牝系を確認"
+                  "note": "ゴールデンサッシュ → *デイクタス → Sanctus からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -15745,7 +16039,7 @@
                   "Sanctus",
                   "ダイナサツシユ"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -15761,18 +16055,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は京都日経新春ＨG2で13着。単勝37.3倍・13人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は京都日経新春ＨG2で13着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝37.3倍・13人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 75",
-                "Form 48 / Training 63 / Blood 88 / Value 75",
-                "調教データはpartialとして評価"
+                "総合指数 75",
+                "近走 48 / 調教 63 / 血統 88 / 妙味 75",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "オールナット / TM INDEX 75"
+              "label": "注目評価",
+              "summary": "オールナット / 総合指数 75"
             }
           },
           "currentRace": {
@@ -16656,20 +16950,20 @@
           },
           "tmIndex": 80,
           "tmValue": 65,
-          "comment": "TM INDEX v0: 直近は新潟新潟大賞ＨG3で5着。調教データはpartialとして評価。",
+          "comment": "直近は新潟新潟大賞ＨG3で5着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走12件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝8.4倍・5人気をValue評価へ反映"
+              "単勝8.4倍・5人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 116",
-              "人気 5",
-              "Training partial"
+              "TARGET基礎指数116から能力の土台を確認",
+              "単勝人気 5",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 89,
@@ -16685,31 +16979,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 70,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 60,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 73,
                 "maxScore": 100,
                 "status": "active",
@@ -16717,15 +17011,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 49,
                 "maxScore": 100,
                 "status": "active",
@@ -16733,7 +17027,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 65,
                 "maxScore": 100,
                 "status": "active",
@@ -16741,20 +17035,20 @@
               }
             },
             "insight": [
-              "ヤマニンブークリエはTM INDEX v0で80。直近は新潟新潟大賞ＨG3で5着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "ヤマニンブークリエは総合指数80。直近は新潟新潟大賞ＨG3で5着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 116を能力評価に反映",
-              "過去走12件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数116から能力の土台を確認",
+              "過去走12件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "ヤマニンブークリエは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "ヤマニンブークリエは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数80と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 58,
               "text": "馬番15を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -16763,11 +17057,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 70,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -16775,26 +17069,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "キタサンブラック",
-                  "note": "キタサンブラック → ブラックタイド → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "キタサンブラック → ブラックタイド → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "ヤマニンプードレ",
-                  "note": "ヤマニンプードレ → *チチカステナンゴ → Smadoun を母系の主軸として参照"
+                  "note": "ヤマニンプードレ → *チチカステナンゴ → Smadoun から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "*チチカステナンゴ",
-                  "note": "*チチカステナンゴ → Smadoun → Kaldoun を母父ラインとして補助評価"
+                  "note": "*チチカステナンゴ → Smadoun → Kaldoun から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "ヤマニンカルフール",
-                  "note": "ヤマニンカルフール → *エリシオ → Fairy King まで牝系を確認"
+                  "note": "ヤマニンカルフール → *エリシオ → Fairy King からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -16823,7 +17138,7 @@
                   "Fairy King",
                   "*ワンオブアクライン"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -16839,18 +17154,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は新潟新潟大賞ＨG3で5着。単勝8.4倍・5人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は新潟新潟大賞ＨG3で5着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝8.4倍・5人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 80",
-                "Form 49 / Training 70 / Blood 88 / Value 65",
-                "調教データはpartialとして評価"
+                "総合指数 80",
+                "近走 49 / 調教 70 / 血統 88 / 妙味 65",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "ヤマニンブークリエ / TM INDEX 80"
+              "label": "注目評価",
+              "summary": "ヤマニンブークリエ / 総合指数 80"
             }
           },
           "currentRace": {
@@ -17601,20 +17916,20 @@
           },
           "tmIndex": 80,
           "tmValue": 62,
-          "comment": "TM INDEX v0: 直近は福島福島民報(L)で1着。調教データはpartialとして評価。",
+          "comment": "直近は福島福島民報(L)で1着。持続力を中心に、スタミナ補強・底力を補助材料として評価。",
           "analysis": {
             "status": "tm-index-v0",
             "confidence": "high",
             "confidenceReasons": [
               "過去走18件を参照",
-              "調教データはpartialとして評価",
+              "調教データは一部取得",
               "4代血統を接続済み",
-              "単勝6倍・3人気をValue評価へ反映"
+              "単勝6倍・3人気を妙味評価へ反映"
             ],
             "tags": [
-              "ZI 115",
-              "人気 3",
-              "Training partial"
+              "TARGET基礎指数115から能力の土台を確認",
+              "単勝人気 3",
+              "調教データ一部取得"
             ],
             "factors": {
               "ability": 88,
@@ -17630,31 +17945,31 @@
             "factorsDetail": {
               "blood": {
                 "key": "blood",
-                "label": "Blood",
+                "label": "血統",
                 "score": 88,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+                "summary": "持続力を中心に、スタミナ補強・底力を補助材料として評価"
               },
               "training": {
                 "key": "training",
-                "label": "Training",
+                "label": "調教",
                 "score": 69,
                 "maxScore": 100,
                 "status": "partial",
-                "summary": "調教データはpartialとして評価"
+                "summary": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "course": {
                 "key": "course",
-                "label": "Course",
+                "label": "コース",
                 "score": 73,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "福島芝2000mへの接続評価"
+                "summary": "福島芝2000mへの適性を評価"
               },
               "pace": {
                 "key": "pace",
-                "label": "Pace",
+                "label": "展開",
                 "score": 74,
                 "maxScore": 100,
                 "status": "active",
@@ -17662,15 +17977,15 @@
               },
               "stable": {
                 "key": "stable",
-                "label": "Stable",
+                "label": "厩舎",
                 "score": 58,
                 "maxScore": 100,
                 "status": "active",
-                "summary": "厩舎・調教取得状態を補助評価"
+                "summary": "厩舎情報と調教取得状態を補助評価"
               },
               "form": {
                 "key": "form",
-                "label": "Form",
+                "label": "近走",
                 "score": 61,
                 "maxScore": 100,
                 "status": "active",
@@ -17678,7 +17993,7 @@
               },
               "value": {
                 "key": "value",
-                "label": "Value",
+                "label": "妙味",
                 "score": 62,
                 "maxScore": 100,
                 "status": "active",
@@ -17686,20 +18001,20 @@
               }
             },
             "insight": [
-              "サヴォーナはTM INDEX v0で80。直近は福島福島民報(L)で1着。",
-              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
-              "調教データがないためTraining AIはpartialとして扱っています。"
+              "サヴォーナは総合指数80。直近は福島福島民報(L)で1着。",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価。人気だけに寄せず、近走内容と適性を分けて評価しています。",
+              "調教データは一部取得のため、調教評価は控えめに扱っています。"
             ],
             "pros": [
-              "ZI 115を能力評価に反映",
-              "過去走18件をForm評価に使用",
-              "4代血統をBlood評価に使用"
+              "TARGET基礎指数115から能力の土台を確認",
+              "過去走18件から近走傾向を確認",
+              "血統面は持続力を中心に、スタミナ補強・底力を補助材料として評価"
             ],
             "cons": [
-              "調教評価はv0の簡易判定",
-              "ペース・馬場の高度推定は次フェーズで拡張"
+              "調教評価は取得できた範囲での初期評価",
+              "馬場状態や当日のペース変化は直前情報で再確認が必要"
             ],
-            "commentary": "サヴォーナは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "commentary": "サヴォーナは、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数80と評価しました。現段階ではTARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 58,
               "text": "馬番16を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
@@ -17708,11 +18023,11 @@
               "grade": "C",
               "oneWeek": {
                 "score": 69,
-                "text": "調教データはpartialとして評価"
+                "text": "最終追切データは一部未取得のため、調教面は参考評価"
               },
               "final": {
-                "status": "partial",
-                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+                "status": "一部取得",
+                "text": "最終追切の詳細が取れていないため、調教評価は参考扱いです。"
               },
               "stablePattern": {
                 "match": false,
@@ -17720,26 +18035,47 @@
               }
             },
             "pedigree": {
+              "headline": "持続力を中心に、スタミナ補強・底力を補助材料として評価",
+              "strengths": [
+                {
+                  "key": "sustain",
+                  "label": "持続力",
+                  "text": "長く脚を使う流れへの対応力",
+                  "score": 92
+                },
+                {
+                  "key": "stamina",
+                  "label": "スタミナ補強",
+                  "text": "中距離で最後まで脚を使う土台",
+                  "score": 91
+                },
+                {
+                  "key": "family",
+                  "label": "底力",
+                  "text": "牝系から見る踏ん張りの裏付け",
+                  "score": 88
+                }
+              ],
               "lines": [
                 {
-                  "role": "Sire",
+                  "role": "父系",
                   "name": "キズナ",
-                  "note": "キズナ → ディープインパクト → *サンデーサイレンス を父系の主軸として参照"
+                  "note": "キズナ → ディープインパクト → *サンデーサイレンス からスピードと持続力の土台を確認"
                 },
                 {
-                  "role": "Dam",
+                  "role": "母系",
                   "name": "テイケイラピッド",
-                  "note": "テイケイラピッド → *スニッツェル → Redoute's Choice を母系の主軸として参照"
+                  "note": "テイケイラピッド → *スニッツェル → Redoute's Choice から底力と距離耐性を確認"
                 },
                 {
-                  "role": "BMS",
+                  "role": "母父",
                   "name": "*スニッツェル",
-                  "note": "*スニッツェル → Redoute's Choice → Danehill を母父ラインとして補助評価"
+                  "note": "*スニッツェル → Redoute's Choice → Danehill から瞬発力と機動力を補助評価"
                 },
                 {
-                  "role": "Family",
+                  "role": "牝系",
                   "name": "*ラプーマ",
-                  "note": "*ラプーマ → Lord At War → General まで牝系を確認"
+                  "note": "*ラプーマ → Lord At War → General からスタミナと底力の補強を確認"
                 }
               ],
               "structure": {
@@ -17768,7 +18104,7 @@
                   "General",
                   "Raise a Holme"
                 ],
-                "completeness": "full"
+                "completeness": "4代取得済み"
               },
               "scores": {
                 "course": 88,
@@ -17784,18 +18120,18 @@
             },
             "verdict": {
               "status": "active",
-              "label": "Positive",
-              "summary": "直近は福島福島民報(L)で1着。単勝6倍・3人気をValue評価へ反映。",
+              "label": "高評価",
+              "summary": "直近は福島福島民報(L)で1着。持続力を中心に、スタミナ補強・底力を補助材料として評価。単勝6倍・3人気を妙味評価へ反映。",
               "evidence": [
-                "TM INDEX v0 80",
-                "Form 61 / Training 69 / Blood 88 / Value 62",
-                "調教データはpartialとして評価"
+                "総合指数 80",
+                "近走 61 / 調教 69 / 血統 88 / 妙味 62",
+                "最終追切データは一部未取得のため、調教面は参考評価"
               ]
             },
             "topSignal": {
               "status": "active",
-              "label": "Signal",
-              "summary": "サヴォーナ / TM INDEX 80"
+              "label": "注目評価",
+              "summary": "サヴォーナ / 総合指数 80"
             }
           },
           "currentRace": {

@@ -143,6 +143,24 @@ const namesByBranches = (pedigree, branches) => {
   return branches.map((branch) => byBranch.get(branch)).filter(Boolean);
 };
 
+const scoreLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
+
+const buildBloodStrengths = (scores) => {
+  const candidates = [
+    { key: "stamina", label: "スタミナ補強", text: "中距離で最後まで脚を使う土台" },
+    { key: "sustain", label: "持続力", text: "長く脚を使う流れへの対応力" },
+    { key: "speed", label: "スピード", text: "位置を取りにいく基礎スピード" },
+    { key: "burst", label: "瞬発力", text: "直線で反応する加速性能" },
+    { key: "family", label: "底力", text: "牝系から見る踏ん張りの裏付け" },
+  ];
+
+  return candidates
+    .map((item) => ({ ...item, score: scores[item.key] }))
+    .filter((item) => typeof item.score === "number")
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 3);
+};
+
 const buildPedigreeAnalysis = (horse, bloodScore) => {
   const pedigree = horse.pedigree;
   const sireLine = [
@@ -164,28 +182,45 @@ const buildPedigreeAnalysis = (horse, bloodScore) => {
     ...namesByBranches(pedigree, ["dam.dam.sire", "dam.dam.sire.sire", "dam.dam.dam"]),
   ].filter(Boolean);
   const ancestorCount = pedigree?.ancestors?.length ?? 0;
+  const scores = {
+    course: bloodScore,
+    distance: clamp(bloodScore + 2),
+    going: clamp(bloodScore - 4),
+    lap: clamp(bloodScore - 2),
+    family: bloodScore,
+    speed: clamp(bloodScore - 1),
+    stamina: clamp(bloodScore + 3),
+    burst: clamp(bloodScore - 3),
+    sustain: clamp(bloodScore + 4),
+  };
+  const strengths = buildBloodStrengths(scores);
+  const headline = strengths.length
+    ? `${strengths[0].label}を中心に、${strengths.slice(1).map((item) => item.label).join("・")}を補助材料として評価`
+    : "4代血統の取得状態を確認";
 
   return {
+    headline,
+    strengths,
     lines: [
       {
-        role: "Sire",
+        role: "父系",
         name: pedigree?.sire ?? horse.currentRace?.sire ?? "未取得",
-        note: sireLine.length >= 3 ? `${sireLine.slice(0, 3).join(" → ")} を父系の主軸として参照` : "父系情報を4代血統から参照",
+        note: sireLine.length >= 3 ? `${sireLine.slice(0, 3).join(" → ")} からスピードと持続力の土台を確認` : "父系情報を4代血統から参照",
       },
       {
-        role: "Dam",
+        role: "母系",
         name: pedigree?.dam ?? horse.currentRace?.dam ?? "未取得",
-        note: damLine.length >= 3 ? `${damLine.slice(0, 3).join(" → ")} を母系の主軸として参照` : "母系情報を4代血統から参照",
+        note: damLine.length >= 3 ? `${damLine.slice(0, 3).join(" → ")} から底力と距離耐性を確認` : "母系情報を4代血統から参照",
       },
       {
-        role: "BMS",
+        role: "母父",
         name: pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire ?? "未取得",
-        note: bmsLine.length >= 2 ? `${bmsLine.slice(0, 3).join(" → ")} を母父ラインとして補助評価` : "母父を補助評価に使用",
+        note: bmsLine.length >= 2 ? `${bmsLine.slice(0, 3).join(" → ")} から瞬発力と機動力を補助評価` : "母父を補助評価に使用",
       },
       {
-        role: "Family",
+        role: "牝系",
         name: pedigree?.damDam ?? "未取得",
-        note: familyLine.length >= 2 ? `${familyLine.slice(0, 3).join(" → ")} まで牝系を確認` : "牝系の取得状態を確認",
+        note: familyLine.length >= 2 ? `${familyLine.slice(0, 3).join(" → ")} からスタミナと底力の補強を確認` : "牝系の取得状態を確認",
       },
     ],
     structure: {
@@ -194,19 +229,9 @@ const buildPedigreeAnalysis = (horse, bloodScore) => {
       damLine,
       bmsLine,
       familyLine,
-      completeness: ancestorCount >= 28 ? "full" : ancestorCount >= 20 ? "partial" : "limited",
+      completeness: ancestorCount >= 28 ? "4代取得済み" : ancestorCount >= 20 ? "一部取得" : "取得不足",
     },
-    scores: {
-      course: bloodScore,
-      distance: clamp(bloodScore + 2),
-      going: clamp(bloodScore - 4),
-      lap: clamp(bloodScore - 2),
-      family: bloodScore,
-      speed: clamp(bloodScore - 1),
-      stamina: clamp(bloodScore + 3),
-      burst: clamp(bloodScore - 3),
-      sustain: clamp(bloodScore + 4),
-    },
+    scores,
   };
 };
 
@@ -264,17 +289,26 @@ const buildAnalysis = (horse) => {
   const trainingStatus =
     horse.dataStatus?.training === "active"
       ? `調教データ${(horse.training?.slope?.length ?? 0) + (horse.training?.wood?.length ?? 0)}件を接続`
-      : "調教データはpartialとして評価";
+      : "調教データは一部取得";
   const recent = horse.pastRuns?.[0];
   const recentText = recent ? `直近は${recent.course}${recent.raceName}で${recent.finishPosition}着` : "近走データは不足";
   const valueText = horse.odds?.popularity
-    ? `単勝${horse.odds.winOdds}倍・${horse.odds.popularity}人気をValue評価へ反映`
+    ? `単勝${horse.odds.winOdds}倍・${horse.odds.popularity}人気を妙味評価へ反映`
     : "オッズ未取得";
+  const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood);
+  const bloodSummary = pedigreeAnalysis.headline ?? "4代血統を確認";
+  const abilityText = horse.odds?.zi
+    ? `TARGET基礎指数${horse.odds.zi}から能力の土台を確認`
+    : "TARGET基礎指数は未取得";
+  const trainingReadable =
+    horse.dataStatus?.training === "active"
+      ? trainingStatus
+      : "最終追切データは一部未取得のため、調教面は参考評価";
 
   return {
     tmIndex,
     tmValue: value,
-    comment: `TM INDEX v0: ${recentText}。${trainingStatus}。`,
+    comment: `${recentText}。${bloodSummary}。`,
     analysis: {
       status: "tm-index-v0",
       confidence,
@@ -285,37 +319,37 @@ const buildAnalysis = (horse) => {
         valueText,
       ],
       tags: [
-        `ZI ${horse.odds?.zi ?? "未取得"}`,
-        `人気 ${horse.odds?.popularity ?? "未取得"}`,
-        horse.dataStatus?.training === "active" ? "Training active" : "Training partial",
+        abilityText,
+        `単勝人気 ${horse.odds?.popularity ?? "未取得"}`,
+        horse.dataStatus?.training === "active" ? "調教データ取得済み" : "調教データ一部取得",
       ],
       factors,
       factorsDetail: {
-        blood: { key: "blood", label: "Blood", score: blood, maxScore: 100, status: horse.pedigree ? "active" : "missing", summary: "4代血統の取得状態と中距離向きの基礎評価" },
-        training: { key: "training", label: "Training", score: training, maxScore: 100, status: horse.dataStatus?.training === "active" ? "active" : "partial", summary: trainingStatus },
-        course: { key: "course", label: "Course", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}mへの接続評価` },
-        pace: { key: "pace", label: "Pace", score: pace, maxScore: 100, status: "active", summary: "近走の通過順から脚質バランスを評価" },
-        stable: { key: "stable", label: "Stable", score: stable, maxScore: 100, status: "active", summary: "厩舎・調教取得状態を補助評価" },
-        form: { key: "form", label: "Form", score: form, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "近走着順と着差を中心に評価" },
-        value: { key: "value", label: "Value", score: value, maxScore: 100, status: horse.odds?.status === "active" ? "active" : "missing", summary: "人気・単勝オッズと基礎能力の差を評価" },
+        blood: { key: "blood", label: "血統", score: blood, maxScore: 100, status: horse.pedigree ? "active" : "missing", summary: bloodSummary },
+        training: { key: "training", label: "調教", score: training, maxScore: 100, status: horse.dataStatus?.training === "active" ? "active" : "partial", summary: trainingReadable },
+        course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}mへの適性を評価` },
+        pace: { key: "pace", label: "展開", score: pace, maxScore: 100, status: "active", summary: "近走の通過順から脚質バランスを評価" },
+        stable: { key: "stable", label: "厩舎", score: stable, maxScore: 100, status: "active", summary: "厩舎情報と調教取得状態を補助評価" },
+        form: { key: "form", label: "近走", score: form, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "近走着順と着差を中心に評価" },
+        value: { key: "value", label: "妙味", score: value, maxScore: 100, status: horse.odds?.status === "active" ? "active" : "missing", summary: "人気・単勝オッズと基礎能力の差を評価" },
       },
       insight: [
-        `${displayName}はTM INDEX v0で${tmIndex}。${recentText}。`,
-        `血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。`,
+        `${displayName}は総合指数${tmIndex}。${recentText}。`,
+        `血統面は${bloodSummary}。人気だけに寄せず、近走内容と適性を分けて評価しています。`,
         horse.dataStatus?.training === "active"
           ? trainingStatus
-          : "調教データがないためTraining AIはpartialとして扱っています。",
+          : "調教データは一部取得のため、調教評価は控えめに扱っています。",
       ],
       pros: [
-        `ZI ${horse.odds?.zi ?? "未取得"}を能力評価に反映`,
-        `過去走${horse.pastRuns?.length ?? 0}件をForm評価に使用`,
-        horse.pedigree ? "4代血統をBlood評価に使用" : "血統データは未取得",
+        abilityText,
+        `過去走${horse.pastRuns?.length ?? 0}件から近走傾向を確認`,
+        horse.pedigree ? `血統面は${bloodSummary}` : "血統データは未取得",
       ],
       cons: [
-        horse.dataStatus?.training === "missing" ? "調教データが不足" : "調教評価はv0の簡易判定",
-        "ペース・馬場の高度推定は次フェーズで拡張",
+        horse.dataStatus?.training === "missing" ? "最終追切データが未取得のため調教面は参考評価" : "調教評価は取得できた範囲での初期評価",
+        "馬場状態や当日のペース変化は直前情報で再確認が必要",
       ],
-      commentary: `${displayName}は、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で${tmIndex}と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。`,
+      commentary: `${displayName}は、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数${tmIndex}と評価しました。現段階ではTARGET実データに基づく初期分析です。`,
       frameEval: {
         score: frame,
         text: `馬番${displayNumber ?? "未取得"}を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。`,
@@ -324,32 +358,32 @@ const buildAnalysis = (horse) => {
         grade: gradeForTraining(training),
         oneWeek: {
           score: training,
-          text: trainingStatus,
+          text: trainingReadable,
         },
         final: {
-          status: horse.dataStatus?.training === "active" ? "確認済み" : "partial",
-          text: horse.dataStatus?.training === "active" ? "坂路/CW等の取得データから最終追いを確認。" : "TARGET側に調教データがなく、欠損として安全に扱います。",
+          status: horse.dataStatus?.training === "active" ? "確認済み" : "一部取得",
+          text: horse.dataStatus?.training === "active" ? "坂路/CW等の取得データから最終追いを確認。" : "最終追切の詳細が取れていないため、調教評価は参考扱いです。",
         },
         stablePattern: {
           match: horse.dataStatus?.training === "active",
           text: horse.trainer ? `${horse.trainer}厩舎の出走データとして接続済み。` : "厩舎情報未取得。",
         },
       },
-      pedigree: buildPedigreeAnalysis(horse, blood),
+      pedigree: pedigreeAnalysis,
       verdict: {
         status: "active",
-        label: tmIndex >= 82 ? "Top Signal" : tmIndex >= 74 ? "Positive" : "Watch",
-        summary: `${recentText}。${valueText}。`,
+        label: tmIndex >= 82 ? "最上位評価" : tmIndex >= 74 ? "高評価" : "注視",
+        summary: `${recentText}。${bloodSummary}。${valueText}。`,
         evidence: [
-          `TM INDEX v0 ${tmIndex}`,
-          `Form ${form} / Training ${training} / Blood ${blood} / Value ${value}`,
-          trainingStatus,
+          `総合指数 ${tmIndex}`,
+          `近走 ${form} / 調教 ${training} / 血統 ${blood} / 妙味 ${value}`,
+          trainingReadable,
         ],
       },
       topSignal: {
         status: "active",
-        label: tmIndex >= 82 ? "Top Signal" : "Signal",
-        summary: `${displayName} / TM INDEX ${tmIndex}`,
+        label: tmIndex >= 82 ? "最上位評価" : "注目評価",
+        summary: `${displayName} / 総合指数 ${tmIndex}`,
       },
     },
   };

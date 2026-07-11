@@ -113,6 +113,11 @@ const toSessionDateValue = (dateText) => {
   return Number(match[1]) * 10000 + Number(match[2]) * 100 + Number(match[3]);
 };
 
+const sessionDay = (dateText) => {
+  const match = String(dateText ?? "").match(/\d{4}\.\s*\d{1,2}\.\s*(\d{1,2})/);
+  return match ? Number(match[1]) : null;
+};
+
 const lapValues = (lap) =>
   [lap?.lap4, lap?.lap3, lap?.lap2, lap?.lap1].filter((value) => typeof value === "number" && Number.isFinite(value));
 
@@ -192,7 +197,10 @@ const buildTrainingAnalysis = (horse) => {
   }
 
   const best = [...sessions].sort((a, b) => b.score - a.score)[0];
-  const final = sessions[0];
+  const finalCandidates = sessions.filter((session) => session.dateValue >= 20260708 && session.dateValue <= 20260709);
+  const final = finalCandidates[0] ?? sessions[0];
+  const latest = sessions[0];
+  const lightAfterFinal = latest?.dateValue > final?.dateValue ? latest : null;
   const fastFinish = sessions.filter((session) => {
     const threshold = trainingThreshold(session.type, stableSide);
     return typeof session.f1 === "number" && session.f1 <= threshold["1F"];
@@ -220,12 +228,13 @@ const buildTrainingAnalysis = (horse) => {
     count: sessions.length,
     best,
     final,
+    lightAfterFinal,
     fastFinish,
     accelCount,
     activeCount,
     strengths,
     summary: `${sessions.length}本の時計から、${strengths.join(" / ")}。`,
-    finalText: `${formatSession(final)}。最終確認としては${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。`,
+    finalText: `${formatSession(final)}。水曜/木曜の最終追切として${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。${lightAfterFinal ? ` ${formatSession(lightAfterFinal)}は直前軽めとして扱います。` : ""}`,
     patternText: `${formatSession(best)}が最も評価できる時計。${fastFinish ? "終いの反応も確認できます。" : "終いの反応は強調しすぎない評価です。"}`,
   };
 };
@@ -507,6 +516,14 @@ const buildAnalysis = (horse) => {
             f4: trainingAnalysis.final.f4 ?? null,
             f1: trainingAnalysis.final.f1 ?? null,
             score: trainingAnalysis.final.score,
+          } : null,
+          lightAfterFinal: trainingAnalysis.lightAfterFinal ? {
+            type: trainingAnalysis.lightAfterFinal.type,
+            date: trainingAnalysis.lightAfterFinal.date,
+            course: trainingAnalysis.lightAfterFinal.course ?? null,
+            f4: trainingAnalysis.lightAfterFinal.f4 ?? null,
+            f1: trainingAnalysis.lightAfterFinal.f1 ?? null,
+            score: trainingAnalysis.lightAfterFinal.score,
           } : null,
           fastFinish: trainingAnalysis.fastFinish ?? 0,
           accelCount: trainingAnalysis.accelCount ?? 0,

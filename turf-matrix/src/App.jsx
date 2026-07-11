@@ -1142,6 +1142,11 @@ const TrainingEvalCard = ({ evalData }) => {
               {formatTrainingPoint(details.final)}
             </div>
           ) : null}
+          {details.lightAfterFinal ? (
+            <div className="mt-2 rounded-md bg-amber-50/70 px-2.5 py-2 text-[11px] text-amber-700">
+              直前軽め: {formatTrainingPoint(details.lightAfterFinal)}
+            </div>
+          ) : null}
         </div>
 
         <div className="rounded-lg border border-gray-200 bg-white p-3">

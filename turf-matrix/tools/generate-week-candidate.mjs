@@ -138,25 +138,77 @@ const frameScore = (number) => {
   return 58;
 };
 
-const buildPedigreeAnalysis = (horse, bloodScore) => ({
-  lines: [
-    { role: "Sire", name: horse.pedigree?.sire ?? horse.currentRace?.sire ?? "未取得", note: "父系情報を4代血統から参照" },
-    { role: "Dam", name: horse.pedigree?.dam ?? horse.currentRace?.dam ?? "未取得", note: "母系情報を4代血統から参照" },
-    { role: "BMS", name: horse.pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire ?? "未取得", note: "母父を補助評価に使用" },
-    { role: "Family", name: horse.pedigree?.damDam ?? "未取得", note: "牝系の取得状態を確認" },
-  ],
-  scores: {
-    course: bloodScore,
-    distance: clamp(bloodScore + 2),
-    going: clamp(bloodScore - 4),
-    lap: clamp(bloodScore - 2),
-    family: bloodScore,
-    speed: clamp(bloodScore - 1),
-    stamina: clamp(bloodScore + 3),
-    burst: clamp(bloodScore - 3),
-    sustain: clamp(bloodScore + 4),
-  },
-});
+const namesByBranches = (pedigree, branches) => {
+  const byBranch = new Map((pedigree?.ancestors ?? []).map((ancestor) => [ancestor.branch, ancestor.name]));
+  return branches.map((branch) => byBranch.get(branch)).filter(Boolean);
+};
+
+const buildPedigreeAnalysis = (horse, bloodScore) => {
+  const pedigree = horse.pedigree;
+  const sireLine = [
+    pedigree?.sire,
+    pedigree?.sireSire,
+    ...namesByBranches(pedigree, ["sire.sire.sire", "sire.sire.sire.sire"]),
+  ].filter(Boolean);
+  const damLine = [
+    pedigree?.dam,
+    pedigree?.damSire,
+    ...namesByBranches(pedigree, ["dam.sire.sire", "dam.sire.sire.sire"]),
+  ].filter(Boolean);
+  const bmsLine = [
+    pedigree?.broodmareSire,
+    ...namesByBranches(pedigree, ["dam.sire.sire", "dam.sire.sire.sire", "dam.sire.dam"]),
+  ].filter(Boolean);
+  const familyLine = [
+    pedigree?.damDam,
+    ...namesByBranches(pedigree, ["dam.dam.sire", "dam.dam.sire.sire", "dam.dam.dam"]),
+  ].filter(Boolean);
+  const ancestorCount = pedigree?.ancestors?.length ?? 0;
+
+  return {
+    lines: [
+      {
+        role: "Sire",
+        name: pedigree?.sire ?? horse.currentRace?.sire ?? "未取得",
+        note: sireLine.length >= 3 ? `${sireLine.slice(0, 3).join(" → ")} を父系の主軸として参照` : "父系情報を4代血統から参照",
+      },
+      {
+        role: "Dam",
+        name: pedigree?.dam ?? horse.currentRace?.dam ?? "未取得",
+        note: damLine.length >= 3 ? `${damLine.slice(0, 3).join(" → ")} を母系の主軸として参照` : "母系情報を4代血統から参照",
+      },
+      {
+        role: "BMS",
+        name: pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire ?? "未取得",
+        note: bmsLine.length >= 2 ? `${bmsLine.slice(0, 3).join(" → ")} を母父ラインとして補助評価` : "母父を補助評価に使用",
+      },
+      {
+        role: "Family",
+        name: pedigree?.damDam ?? "未取得",
+        note: familyLine.length >= 2 ? `${familyLine.slice(0, 3).join(" → ")} まで牝系を確認` : "牝系の取得状態を確認",
+      },
+    ],
+    structure: {
+      ancestorCount,
+      sireLine,
+      damLine,
+      bmsLine,
+      familyLine,
+      completeness: ancestorCount >= 28 ? "full" : ancestorCount >= 20 ? "partial" : "limited",
+    },
+    scores: {
+      course: bloodScore,
+      distance: clamp(bloodScore + 2),
+      going: clamp(bloodScore - 4),
+      lap: clamp(bloodScore - 2),
+      family: bloodScore,
+      speed: clamp(bloodScore - 1),
+      stamina: clamp(bloodScore + 3),
+      burst: clamp(bloodScore - 3),
+      sustain: clamp(bloodScore + 4),
+    },
+  };
+};
 
 const confidenceFor = (horse, factors) => {
   if (horse.dataStatus?.training === "missing") return "mid";

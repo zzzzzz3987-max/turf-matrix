@@ -945,29 +945,89 @@ const ValueCard = ({ ev, rank, popularity }) => {
 /* ---- 血統評価: 4ライン分析(父系/母父系/母母父系/牝系) ---- */
 const PedigreeCard = ({ pedigree }) => {
   const idx = pedigreeIndex(pedigree);
+  const structure = pedigree?.structure ?? {};
+  const focusScores = [
+    { key: "stamina", label: "Stamina" },
+    { key: "sustain", label: "Sustain" },
+    { key: "speed", label: "Speed" },
+    { key: "burst", label: "Burst" },
+  ];
+  const lineGroups = [
+    { label: "父系", value: structure.sireLine },
+    { label: "母系", value: structure.damLine },
+    { label: "母父", value: structure.bmsLine },
+    { label: "牝系", value: structure.familyLine },
+  ];
+
   return (
     <div className="rounded-xl border border-gray-200 bg-gray-50/60 p-4 md:p-5">
-      <div className="flex items-center justify-between">
-        <SectionLabel icon={Dna}>血統評価(4ライン)</SectionLabel>
-        <span className="flex items-baseline gap-1">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <SectionLabel icon={Dna}>血統評価(4ライン)</SectionLabel>
+          <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">
+            4代血統から父系・母系・母父・牝系を分解し、距離/持続力/瞬発力の補助評価に接続。
+          </p>
+        </div>
+        <span className="flex shrink-0 items-baseline gap-1">
           <Num className={`text-sm font-semibold ${scoreTone(idx)}`}>{idx}</Num>
           <span className="text-[10px] text-gray-400">血統指数</span>
         </span>
       </div>
-      <div className="mt-3 space-y-2">
-        {pedigree.lines.map((l) => (
-          <div key={l.role} className="flex gap-2.5 text-[12px] leading-relaxed">
-            <span className="w-14 shrink-0 pt-px text-[10px] font-semibold tracking-wide text-gray-400">
-              {l.role}
-            </span>
-            <span className="min-w-0 text-gray-600">
-              <span className="font-semibold text-gray-800">{l.name}</span>
-              <span className="text-gray-400"> — </span>
-              {l.note}
-            </span>
+
+      <div className="mt-4 grid grid-cols-2 gap-2.5">
+        {focusScores.map((d, i) => (
+          <div key={d.key} className="rounded-lg border border-white/80 bg-white/70 p-3 shadow-[0_14px_34px_-28px_rgba(15,23,42,0.45)]">
+            <div className="flex items-baseline justify-between">
+              <span className="text-[10px] font-semibold tracking-wide text-gray-400">{d.label}</span>
+              <Num className={`text-[15px] font-semibold ${scoreTone(pedigree.scores[d.key])}`}>
+                {pedigree.scores[d.key]}
+              </Num>
+            </div>
+            <div className="mt-2 flex">
+              <AnimatedBar
+                value={pedigree.scores[d.key]}
+                delay={i * 45}
+                heightClass="h-1"
+                trackClass="bg-gray-200/70"
+              />
+            </div>
           </div>
         ))}
       </div>
+
+      <div className="mt-4 space-y-2.5">
+        {pedigree.lines.map((l) => (
+          <div key={l.role} className="rounded-lg border border-gray-200/70 bg-white/65 p-3">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-[10px] font-semibold tracking-wide text-gray-400">{l.role}</span>
+              <span className="min-w-0 truncate text-right text-[12px] font-semibold text-gray-900">{l.name}</span>
+            </div>
+            <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">{l.note}</p>
+          </div>
+        ))}
+      </div>
+
+      {lineGroups.some((group) => group.value?.length) ? (
+        <div className="mt-4 border-t border-gray-200/70 pt-3.5">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-[10px] font-semibold tracking-wide text-gray-400">4代接続</span>
+            <span className="text-[10px] text-gray-400">
+              {structure.ancestorCount ?? "-"} ancestors / {structure.completeness ?? "partial"}
+            </span>
+          </div>
+          <div className="grid gap-2">
+            {lineGroups.map((group) =>
+              group.value?.length ? (
+                <div key={group.label} className="flex gap-2 text-[11px] leading-relaxed">
+                  <span className="w-9 shrink-0 font-semibold text-gray-400">{group.label}</span>
+                  <span className="min-w-0 text-gray-600">{group.value.slice(0, 5).join(" → ")}</span>
+                </div>
+              ) : null
+            )}
+          </div>
+        </div>
+      ) : null}
+
       <div className="mt-4 grid grid-cols-3 gap-x-4 gap-y-3 border-t border-gray-200/70 pt-3.5">
         {PEDIGREE_SCORE_DEFS.map((d, i) => (
           <div key={d.key}>

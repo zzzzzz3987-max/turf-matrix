@@ -11,51 +11,78 @@ export const dataMode = import.meta.env.VITE_TURF_DATA_MODE === "candidate" && c
 const isCandidatePayload = (data) =>
   data?.mode === "candidate" || data?.mode === "candidate-preodds" || Boolean(data?.races?.[0]?.horses?.[0]?.currentRace);
 
-const adaptCandidateHorse = (horse) => ({
-  id: horse.id,
-  number: horse.number,
-  name: horse.name,
-  jockey: horse.jockey,
-  popularity: horse.popularity ?? null,
-  odds: horse.odds ?? null,
-  aiScore: horse.tmIndex ?? null,
-  comment: "分析準備中",
-  currentRace: horse.currentRace,
-  pastRuns: horse.pastRuns ?? [],
-  training: horse.training ?? { slope: [], wood: [] },
-  pedigreeRaw: horse.pedigree,
-  dataStatus: horse.dataStatus,
-  analysis: {
-    status: "not_connected",
-    confidence: null,
-    tags: [],
-    factors: null,
-    insight: [],
-    pros: [],
-    cons: [],
-    commentary: null,
-    frameEval: null,
-    trainingEval: null,
-    pedigree: null,
-    factorsDetail: {},
-    verdict: { status: "missing", label: "未評価", summary: null, evidence: [] },
-    topSignal: { status: "missing", label: "未評価", summary: null },
-  },
-});
+const fallbackAnalysis = {
+  status: "not_connected",
+  confidence: null,
+  confidenceReasons: [],
+  tags: [],
+  factors: null,
+  insight: [],
+  pros: [],
+  cons: [],
+  commentary: null,
+  frameEval: null,
+  trainingEval: null,
+  pedigree: null,
+  factorsDetail: {},
+  verdict: { status: "missing", label: "未評価", summary: null, evidence: [] },
+  topSignal: { status: "missing", label: "未評価", summary: null },
+};
+
+const adaptCandidateHorse = (horse) => {
+  const analysis = horse.analysis ?? fallbackAnalysis;
+  return {
+    id: horse.id,
+    number: horse.number,
+    name: horse.name,
+    jockey: horse.jockey,
+    popularity: horse.popularity ?? null,
+    odds: horse.odds ?? null,
+    aiScore: horse.tmIndex ?? null,
+    comment: horse.comment ?? analysis.verdict?.summary ?? "分析準備中",
+    currentRace: horse.currentRace,
+    pastRuns: horse.pastRuns ?? [],
+    training: horse.training ?? { slope: [], wood: [] },
+    pedigreeRaw: horse.pedigree,
+    dataStatus: horse.dataStatus,
+    analysis: {
+      ...fallbackAnalysis,
+      ...analysis,
+      factorsDetail: analysis.factorsDetail ?? {},
+      verdict: analysis.verdict ?? fallbackAnalysis.verdict,
+      topSignal: analysis.topSignal ?? fallbackAnalysis.topSignal,
+    },
+  };
+};
 
 const buildSummary = (candidate, horses) => {
+  const top = [...horses].filter((horse) => horse.aiScore != null).sort((a, b) => b.aiScore - a.aiScore)[0];
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
 
   return {
-    text: `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEX/TM VALUEは分析未接続です。`,
+    text: top
+      ? `TARGET実データからTM INDEX v0を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
+      : `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEXは分析準備中です。`,
     highlights: [
       `出走馬${horses.length}頭をcurrent-race-detail.csvから取得`,
       `過去走${candidate.join?.pastRunCount ?? "311"}件、血統${horses.filter((horse) => horse.dataStatus?.pedigree === "active").length}頭、調教${trainingCount}頭を接続`,
-      "Value AIとTM VALUEは次Sprintで正式接続",
+      `単勝オッズ${oddsCount}頭分をValue評価へ反映`,
     ],
   };
 };
+
+const buildFeatured = (race, horses) =>
+  [...horses]
+    .filter((horse) => horse.aiScore != null)
+    .sort((a, b) => b.aiScore - a.aiScore)
+    .slice(0, 3)
+    .map((horse, index) => ({
+      raceId: race.id,
+      horseId: horse.id,
+      note: horse.analysis?.verdict?.summary ?? horse.comment ?? `TM INDEX v0 ${horse.aiScore}`,
+      priority: index + 1,
+    }));
 
 const adaptCandidate = (candidate, { previewMode = false } = {}) => {
   const race = candidate.races?.[0];
@@ -80,6 +107,7 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
       featuredRaceId: race.id,
       previewMode,
       intelligenceLayerConnected: candidate.intelligenceLayerConnected,
+      intelligenceStage: candidate.intelligenceStage ?? null,
     },
     dailySummary: buildSummary(candidate, horses),
     races: [
@@ -104,7 +132,7 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
         horses,
       },
     ],
-    featured: [],
+    featured: buildFeatured(race, horses),
   };
 };
 

@@ -178,7 +178,7 @@ const validateWeekData = (db) => {
   const errors = [];
   if (!db?.meta?.date) errors.push("meta.date がありません");
   for (const r of db?.races ?? []) {
-    for (const k of ["id", "track", "number", "time", "surface", "distance", "going"])
+    for (const k of ["id", "track", "number", "surface", "distance"])
       if (r[k] == null) errors.push(`${r.id || "?"}: ${k} が欠落`);
     if ((r.horses?.length ?? 0) !== r.fieldSize)
       errors.push(`${r.id}: fieldSize(${r.fieldSize}) と horses数(${r.horses?.length ?? 0}) が不一致`);

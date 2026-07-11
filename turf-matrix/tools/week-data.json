@@ -4,8 +4,9 @@
   "deterministicOutput": true,
   "generatedAt": null,
   "productionWeekDataUpdated": false,
-  "intelligenceLayerConnected": false,
-  "uiConnected": false,
+  "intelligenceLayerConnected": true,
+  "intelligenceStage": "tm-index-v0",
+  "uiConnected": true,
   "meta": {
     "date": "2026-07-12",
     "dateLabel": "2026-07-12",
@@ -36,7 +37,7 @@
         "currentRace": "active",
         "pastRuns": "active",
         "odds": "active",
-        "intelligence": "not_connected"
+        "intelligence": "tm-index-v0"
       },
       "horses": [
         {
@@ -68,8 +69,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 74,
+          "tmValue": 74,
+          "comment": "TM INDEX v0: 直近は東京目黒記念ＨG2で11着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走34件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝45.5倍・15人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 94",
+              "人気 15",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 60,
+              "distance": 71,
+              "lap": 78,
+              "training": 70,
+              "trainingLap": 70,
+              "stable": 58,
+              "frame": 68,
+              "course": 77,
+              "pace": 67
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 70,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 77,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 67,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 48,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 74,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "ボーンディスウェイはTM INDEX v0で74。直近は東京目黒記念ＨG2で11着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 94を能力評価に反映",
+              "過去走34件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "ボーンディスウェイは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で74と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 68,
+              "text": "馬番1を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 70,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "ハーツクライ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "*ウィンドハック",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "Platini",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "Waconda",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は東京目黒記念ＨG2で11着。単勝45.5倍・15人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 74",
+                "Form 48 / Training 70 / Blood 88 / Value 74",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "ボーンディスウェイ / TM INDEX 74"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -1479,7 +1649,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -1511,8 +1681,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 76,
+          "tmValue": 61,
+          "comment": "TM INDEX v0: 直近は東京ジューンで5着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走22件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝16.8倍・7人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 102",
+              "人気 7",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 71,
+              "distance": 65,
+              "lap": 81,
+              "training": 67,
+              "trainingLap": 67,
+              "stable": 58,
+              "frame": 68,
+              "course": 63,
+              "pace": 75
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 67,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 63,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 75,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 62,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 61,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "コントラポストはTM INDEX v0で76。直近は東京ジューンで5着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 102を能力評価に反映",
+              "過去走22件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "コントラポストは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で76と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 68,
+              "text": "馬番2を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 67,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "ルーラーシップ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "アカンサス",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "フジキセキ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*センスオブアート",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は東京ジューンで5着。単勝16.8倍・7人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 76",
+                "Form 62 / Training 67 / Blood 88 / Value 61",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "コントラポスト / TM INDEX 76"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -2517,7 +2856,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -2549,8 +2888,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 68,
+          "tmValue": 60,
+          "comment": "TM INDEX v0: 直近は京都都大路Ｈ(L)で12着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走40件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝96倍・16人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 80",
+              "人気 16",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 42,
+              "distance": 83,
+              "lap": 66,
+              "training": 76,
+              "trainingLap": 76,
+              "stable": 58,
+              "frame": 68,
+              "course": 78,
+              "pace": 69
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 76,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 78,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 69,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 35,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 60,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "ショウナンマグマはTM INDEX v0で68。直近は京都都大路Ｈ(L)で12着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 80を能力評価に反映",
+              "過去走40件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "ショウナンマグマは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で68と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 68,
+              "text": "馬番3を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "B",
+              "oneWeek": {
+                "score": 76,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "*ザファクター",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "レッドメアラス",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "ステイゴールド",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "セイランクイーン",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Watch",
+              "summary": "直近は京都都大路Ｈ(L)で12着。単勝96倍・16人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 68",
+                "Form 35 / Training 76 / Blood 88 / Value 60",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "ショウナンマグマ / TM INDEX 68"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -4017,7 +4525,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -4049,8 +4557,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 83,
+          "tmValue": 65,
+          "comment": "TM INDEX v0: 直近は東京エプソムG3で6着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走12件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝4.4倍・1人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 119",
+              "人気 1",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 93,
+              "distance": 73,
+              "lap": 80,
+              "training": 72,
+              "trainingLap": 72,
+              "stable": 58,
+              "frame": 68,
+              "course": 60,
+              "pace": 68
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 72,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 60,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 68,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 55,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 65,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "カラマティアノスはTM INDEX v0で83。直近は東京エプソムG3で6着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 119を能力評価に反映",
+              "過去走12件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "カラマティアノスは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で83と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 68,
+              "text": "馬番4を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "B",
+              "oneWeek": {
+                "score": 72,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "レイデオロ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "ダンサール",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "ハーツクライ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*バラダセール",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "直近は東京エプソムG3で6着。単勝4.4倍・1人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 83",
+                "Form 55 / Training 72 / Blood 88 / Value 65",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "カラマティアノス / TM INDEX 83"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -4777,7 +5454,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -4809,8 +5486,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 73,
+          "tmValue": 66,
+          "comment": "TM INDEX v0: 直近は京都都大路Ｈ(L)で6着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走14件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝26.6倍・11人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 95",
+              "人気 11",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 62,
+              "distance": 81,
+              "lap": 81,
+              "training": 64,
+              "trainingLap": 64,
+              "stable": 58,
+              "frame": 64,
+              "course": 61,
+              "pace": 69
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 64,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 61,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 69,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 46,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 66,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "オーロラエックスはTM INDEX v0で73。直近は京都都大路Ｈ(L)で6着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 95を能力評価に反映",
+              "過去走14件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "オーロラエックスは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で73と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番5を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 64,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "サトノダイヤモンド",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "*ガリレオズソング",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "Galileo",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "Song to Remember",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Watch",
+              "summary": "直近は京都都大路Ｈ(L)で6着。単勝26.6倍・11人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 73",
+                "Form 46 / Training 64 / Blood 88 / Value 66",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "オーロラエックス / TM INDEX 73"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -5571,7 +6417,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -5603,8 +6449,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 76,
+          "tmValue": 55,
+          "comment": "TM INDEX v0: 直近は東京エプソムG3で12着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走26件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝12.4倍・6人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 95",
+              "人気 6",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 62,
+              "distance": 96,
+              "lap": 79,
+              "training": 66,
+              "trainingLap": 66,
+              "stable": 58,
+              "frame": 64,
+              "course": 72,
+              "pace": 72
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 66,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 72,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 72,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 48,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 55,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "マイネルモーントはTM INDEX v0で76。直近は東京エプソムG3で12着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 95を能力評価に反映",
+              "過去走26件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "マイネルモーントは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で76と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番6を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 66,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "ゴールドシップ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "ゲッカコウ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "*ロージズインメイ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "チューベローズ",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は東京エプソムG3で12着。単勝12.4倍・6人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 76",
+                "Form 48 / Training 66 / Blood 88 / Value 55",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "マイネルモーント / TM INDEX 76"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -6755,7 +7770,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -6787,8 +7802,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 69,
+          "tmValue": 57,
+          "comment": "TM INDEX v0: 直近は東京ジューンで10着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走18件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝21.3倍・9人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 88",
+              "人気 9",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 52,
+              "distance": 73,
+              "lap": 80,
+              "training": 67,
+              "trainingLap": 67,
+              "stable": 58,
+              "frame": 64,
+              "course": 63,
+              "pace": 67
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 67,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 63,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 67,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 49,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 57,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "メリオーレムはTM INDEX v0で69。直近は東京ジューンで10着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 88を能力評価に反映",
+              "過去走18件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "メリオーレムは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で69と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番7を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 67,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "シュヴァルグラン",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "*メリオーラ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "Starspangledbanner",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "Messelina",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Watch",
+              "summary": "直近は東京ジューンで10着。単勝21.3倍・9人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 69",
+                "Form 49 / Training 67 / Blood 88 / Value 57",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "メリオーレム / TM INDEX 69"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -7662,7 +8846,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -7694,8 +8878,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 72,
+          "tmValue": 72,
+          "comment": "TM INDEX v0: 直近は中山日経賞G2で15着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走13件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝38.8倍・14人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 94",
+              "人気 14",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 60,
+              "distance": 84,
+              "lap": 70,
+              "training": 71,
+              "trainingLap": 71,
+              "stable": 58,
+              "frame": 64,
+              "course": 67,
+              "pace": 76
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 71,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 67,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 76,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 35,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 72,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "クリスマスパレードはTM INDEX v0で72。直近は中山日経賞G2で15着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 94を能力評価に反映",
+              "過去走13件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "クリスマスパレードは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で72と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番8を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 71,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "キタサンブラック",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "*ミスエリカ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "Blame",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "Le Relais",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Watch",
+              "summary": "直近は中山日経賞G2で15着。単勝38.8倍・14人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 72",
+                "Form 35 / Training 71 / Blood 88 / Value 72",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "クリスマスパレード / TM INDEX 72"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -8427,7 +9780,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -8459,8 +9812,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 66,
+          "tmValue": 63,
+          "comment": "TM INDEX v0: 直近は函館函館記念ＨG3で12着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走31件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝36.3倍・12人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 87",
+              "人気 12",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 51,
+              "distance": 77,
+              "lap": 81,
+              "training": 50,
+              "trainingLap": 50,
+              "stable": 58,
+              "frame": 64,
+              "course": 72,
+              "pace": 64
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 50,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 72,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 64,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 35,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 63,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "オニャンコポンはTM INDEX v0で66。直近は函館函館記念ＨG3で12着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 87を能力評価に反映",
+              "過去走31件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "オニャンコポンは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で66と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番9を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "D",
+              "oneWeek": {
+                "score": 50,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "エイシンフラッシュ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "シャリオドール",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "ヴィクトワールピサ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*サプレザ",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Watch",
+              "summary": "直近は函館函館記念ＨG3で12着。単勝36.3倍・12人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 66",
+                "Form 35 / Training 50 / Blood 88 / Value 63",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "オニャンコポン / TM INDEX 66"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -9595,7 +11117,7 @@
             "training": "missing",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -9627,8 +11149,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 79,
+          "tmValue": 66,
+          "comment": "TM INDEX v0: 直近は東京エプソムG3で10着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走11件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝18倍・8人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 107",
+              "人気 8",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 77,
+              "distance": 84,
+              "lap": 74,
+              "training": 66,
+              "trainingLap": 66,
+              "stable": 58,
+              "frame": 64,
+              "course": 67,
+              "pace": 70
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 66,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 67,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 70,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 49,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 66,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "センツブラッドはTM INDEX v0で79。直近は東京エプソムG3で10着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 107を能力評価に反映",
+              "過去走11件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "センツブラッドは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で79と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 64,
+              "text": "馬番10を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 66,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "ルーラーシップ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "サマーセント",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "*ハービンジャー",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "プリムローズレーン",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は東京エプソムG3で10着。単勝18倍・8人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 79",
+                "Form 49 / Training 66 / Blood 88 / Value 66",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "センツブラッド / TM INDEX 79"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -10329,7 +12020,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -10361,8 +12052,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 84,
+          "tmValue": 61,
+          "comment": "TM INDEX v0: 直近は中山日経賞G2で10着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走15件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝5.5倍・2人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 113",
+              "人気 2",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 85,
+              "distance": 91,
+              "lap": 72,
+              "training": 71,
+              "trainingLap": 71,
+              "stable": 58,
+              "frame": 60,
+              "course": 72,
+              "pace": 63
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 71,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 72,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 63,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 56,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 61,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "アスクナイスショーはTM INDEX v0で84。直近は中山日経賞G2で10着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 113を能力評価に反映",
+              "過去走15件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "アスクナイスショーは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で84と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 60,
+              "text": "馬番11を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 71,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "シルバーステート",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "ケンブリッジヒカリ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "アドマイヤムーン",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*ドバイソプラノ",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "直近は中山日経賞G2で10着。単勝5.5倍・2人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 84",
+                "Form 56 / Training 71 / Blood 88 / Value 61",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "アスクナイスショー / TM INDEX 84"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -11196,7 +13056,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -11228,8 +13088,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 80,
+          "tmValue": 70,
+          "comment": "TM INDEX v0: 直近は小倉小倉大賞ＨG3で6着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走20件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝25.4倍・10人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 105",
+              "人気 10",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 75,
+              "distance": 94,
+              "lap": 74,
+              "training": 68,
+              "trainingLap": 68,
+              "stable": 58,
+              "frame": 60,
+              "course": 70,
+              "pace": 75
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 68,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 70,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 75,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 50,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 70,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "リカンカブールはTM INDEX v0で80。直近は小倉小倉大賞ＨG3で6着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 105を能力評価に反映",
+              "過去走20件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "リカンカブールは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 60,
+              "text": "馬番12を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 68,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "シルバーステート",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "*アンブラッセモワ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "Zoffany",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "Ice Flower",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は小倉小倉大賞ＨG3で6着。単勝25.4倍・10人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 80",
+                "Form 50 / Training 68 / Blood 88 / Value 70",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "リカンカブール / TM INDEX 80"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -12206,7 +14235,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -12238,8 +14267,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 83,
+          "tmValue": 62,
+          "comment": "TM INDEX v0: 直近は東京メトロポ(L)で3着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走11件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝7.6倍・4人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 115",
+              "人気 4",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 88,
+              "distance": 86,
+              "lap": 76,
+              "training": 62,
+              "trainingLap": 62,
+              "stable": 58,
+              "frame": 60,
+              "course": 67,
+              "pace": 62
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 62,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 67,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 62,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 63,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 62,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "バトルボーンはTM INDEX v0で83。直近は東京メトロポ(L)で3着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 115を能力評価に反映",
+              "過去走11件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "バトルボーンは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で83と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 60,
+              "text": "馬番13を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 62,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "シルバーステート",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "コンカラン",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "ジャングルポケット",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*クバター",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "直近は東京メトロポ(L)で3着。単勝7.6倍・4人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 83",
+                "Form 63 / Training 62 / Blood 88 / Value 62",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Top Signal",
+              "summary": "バトルボーン / TM INDEX 83"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -12982,7 +15180,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -13014,8 +15212,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 75,
+          "tmValue": 75,
+          "comment": "TM INDEX v0: 直近は京都日経新春ＨG2で13着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走14件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝37.3倍・13人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 103",
+              "人気 13",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 72,
+              "distance": 69,
+              "lap": 82,
+              "training": 63,
+              "trainingLap": 63,
+              "stable": 58,
+              "frame": 60,
+              "course": 61,
+              "pace": 73
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 63,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 61,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 73,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 48,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 75,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "オールナットはTM INDEX v0で75。直近は京都日経新春ＨG2で13着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 103を能力評価に反映",
+              "過去走14件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "オールナットは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で75と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 60,
+              "text": "馬番14を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 63,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "サトノダイヤモンド",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "キューティゴールド",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "*フレンチデピュティ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "ゴールデンサッシュ",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は京都日経新春ＨG2で13着。単勝37.3倍・13人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 75",
+                "Form 48 / Training 63 / Blood 88 / Value 75",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "オールナット / TM INDEX 75"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -13863,7 +16230,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -13895,8 +16262,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 80,
+          "tmValue": 65,
+          "comment": "TM INDEX v0: 直近は新潟新潟大賞ＨG3で5着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走12件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝8.4倍・5人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 116",
+              "人気 5",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 89,
+              "distance": 69,
+              "lap": 72,
+              "training": 70,
+              "trainingLap": 70,
+              "stable": 58,
+              "frame": 58,
+              "course": 60,
+              "pace": 73
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 70,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 60,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 73,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 49,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 65,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "ヤマニンブークリエはTM INDEX v0で80。直近は新潟新潟大賞ＨG3で5着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 116を能力評価に反映",
+              "過去走12件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "ヤマニンブークリエは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 58,
+              "text": "馬番15を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 70,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "キタサンブラック",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "ヤマニンプードレ",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "*チチカステナンゴ",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "ヤマニンカルフール",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は新潟新潟大賞ＨG3で5着。単勝8.4倍・5人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 80",
+                "Form 49 / Training 70 / Blood 88 / Value 65",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "ヤマニンブークリエ / TM INDEX 80"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -14611,7 +17147,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         },
         {
@@ -14643,8 +17179,177 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": null,
-          "tmValue": null,
+          "tmIndex": 80,
+          "tmValue": 62,
+          "comment": "TM INDEX v0: 直近は福島福島民報(L)で1着。調教データはpartialとして評価。",
+          "analysis": {
+            "status": "tm-index-v0",
+            "confidence": "high",
+            "confidenceReasons": [
+              "過去走18件を参照",
+              "調教データはpartialとして評価",
+              "4代血統を接続済み",
+              "単勝6倍・3人気をValue評価へ反映"
+            ],
+            "tags": [
+              "ZI 115",
+              "人気 3",
+              "Training partial"
+            ],
+            "factors": {
+              "ability": 88,
+              "distance": 45,
+              "lap": 72,
+              "training": 69,
+              "trainingLap": 69,
+              "stable": 58,
+              "frame": 58,
+              "course": 73,
+              "pace": 74
+            },
+            "factorsDetail": {
+              "blood": {
+                "key": "blood",
+                "label": "Blood",
+                "score": 88,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "4代血統の取得状態と中距離向きの基礎評価"
+              },
+              "training": {
+                "key": "training",
+                "label": "Training",
+                "score": 69,
+                "maxScore": 100,
+                "status": "partial",
+                "summary": "調教データはpartialとして評価"
+              },
+              "course": {
+                "key": "course",
+                "label": "Course",
+                "score": 73,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "福島芝2000mへの接続評価"
+              },
+              "pace": {
+                "key": "pace",
+                "label": "Pace",
+                "score": 74,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走の通過順から脚質バランスを評価"
+              },
+              "stable": {
+                "key": "stable",
+                "label": "Stable",
+                "score": 58,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "厩舎・調教取得状態を補助評価"
+              },
+              "form": {
+                "key": "form",
+                "label": "Form",
+                "score": 61,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "近走着順と着差を中心に評価"
+              },
+              "value": {
+                "key": "value",
+                "label": "Value",
+                "score": 62,
+                "maxScore": 100,
+                "status": "active",
+                "summary": "人気・単勝オッズと基礎能力の差を評価"
+              }
+            },
+            "insight": [
+              "サヴォーナはTM INDEX v0で80。直近は福島福島民報(L)で1着。",
+              "血統・調教・近走・オッズを分離して評価し、人気の後追いにならないようValueは補助扱いにしています。",
+              "調教データがないためTraining AIはpartialとして扱っています。"
+            ],
+            "pros": [
+              "ZI 115を能力評価に反映",
+              "過去走18件をForm評価に使用",
+              "4代血統をBlood評価に使用"
+            ],
+            "cons": [
+              "調教評価はv0の簡易判定",
+              "ペース・馬場の高度推定は次フェーズで拡張"
+            ],
+            "commentary": "サヴォーナは、能力指標・近走内容・コース距離・調教取得状態・血統・オッズ妙味を統合したTM INDEX v0で80と評価しました。現段階では学習モデルではなく、TARGET実データに基づく決定的な初期分析です。",
+            "frameEval": {
+              "score": 58,
+              "text": "馬番16を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。"
+            },
+            "trainingEval": {
+              "grade": "C",
+              "oneWeek": {
+                "score": 69,
+                "text": "調教データはpartialとして評価"
+              },
+              "final": {
+                "status": "partial",
+                "text": "TARGET側に調教データがなく、欠損として安全に扱います。"
+              },
+              "stablePattern": {
+                "match": false,
+                "text": "厩舎情報未取得。"
+              }
+            },
+            "pedigree": {
+              "lines": [
+                {
+                  "role": "Sire",
+                  "name": "キズナ",
+                  "note": "父系情報を4代血統から参照"
+                },
+                {
+                  "role": "Dam",
+                  "name": "テイケイラピッド",
+                  "note": "母系情報を4代血統から参照"
+                },
+                {
+                  "role": "BMS",
+                  "name": "*スニッツェル",
+                  "note": "母父を補助評価に使用"
+                },
+                {
+                  "role": "Family",
+                  "name": "*ラプーマ",
+                  "note": "牝系の取得状態を確認"
+                }
+              ],
+              "scores": {
+                "course": 88,
+                "distance": 90,
+                "going": 84,
+                "lap": 86,
+                "family": 88,
+                "speed": 87,
+                "stamina": 91,
+                "burst": 85,
+                "sustain": 92
+              }
+            },
+            "verdict": {
+              "status": "active",
+              "label": "Positive",
+              "summary": "直近は福島福島民報(L)で1着。単勝6倍・3人気をValue評価へ反映。",
+              "evidence": [
+                "TM INDEX v0 80",
+                "Form 61 / Training 69 / Blood 88 / Value 62",
+                "調教データはpartialとして評価"
+              ]
+            },
+            "topSignal": {
+              "status": "active",
+              "label": "Signal",
+              "summary": "サヴォーナ / TM INDEX 80"
+            }
+          },
           "currentRace": {
             "raceDate": "2026-07-12",
             "course": "福島",
@@ -15478,7 +18183,7 @@
             "training": "active",
             "pedigree": "active",
             "odds": "active",
-            "intelligence": "not_connected"
+            "intelligence": "tm-index-v0"
           }
         }
       ]

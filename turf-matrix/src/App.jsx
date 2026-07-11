@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
-import weekData from "../tools/week-data.json";
+import { dataMode, weekData } from "./data/week-data-loader.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -68,7 +68,28 @@ import {
  * ===================================================================== */
 
 /** AI指数からレース内の推定勝率を算出(指数のべき乗シェア) */
+const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
+const isEvaluatedHorse = (horse) => isFiniteNumber(horse?.aiScore);
+const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
+const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "取得待ち");
+const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "取得待ち");
+const displayRaceValue = (value, fallback = "取得待ち") => (value == null || value === "" ? fallback : value);
+const oddsStatusLabel = (status) => ({
+  active: "最終更新",
+  preodds: "発売前",
+  missing: "取得待ち",
+  closed: "締切",
+  partial: "一部取得",
+}[status] ?? "取得待ち");
+const formatOddsUpdatedAt = (value, status) => {
+  if (status !== "active" || !value) return oddsStatusLabel(status);
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return oddsStatusLabel(status);
+  return `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
+};
+
 const winProbability = (horse, field, k = 7) => {
+  if (!isEvaluatedHorse(horse) || !field?.every(isEvaluatedHorse)) return null;
   const w = (h) => Math.pow(h.aiScore / 100, k);
   const total = field.reduce((s, h) => s + w(h), 0);
   return w(horse) / total;
@@ -76,7 +97,9 @@ const winProbability = (horse, field, k = 7) => {
 
 /** 期待値評価: { prob, ev, verdict } */
 const evaluateValue = (horse, field) => {
+  if (!isEvaluatedHorse(horse) || !isFiniteNumber(horse?.odds) || horse.odds <= 0) return null;
   const prob = winProbability(horse, field);
+  if (prob == null) return null;
   const ev = prob * horse.odds;
   const verdict =
     ev >= 1.15 ? { label: "妙味あり", tone: "blue" }
@@ -87,6 +110,7 @@ const evaluateValue = (horse, field) => {
 
 /** 血統指数 = 9項目の平均 */
 const pedigreeIndex = (pedigree) => {
+  if (!pedigree?.scores) return null;
   const v = Object.values(pedigree.scores);
   return Math.round(v.reduce((a, b) => a + b, 0) / v.length);
 };
@@ -94,12 +118,13 @@ const pedigreeIndex = (pedigree) => {
 /** レース内Rank(AI指数順) { horseId: rank } */
 const rankByScore = (horses) =>
   Object.fromEntries(
-    [...horses].sort((a, b) => b.aiScore - a.aiScore).map((h, i) => [h.id, i + 1])
+    [...horses].filter(isEvaluatedHorse).sort((a, b) => b.aiScore - a.aiScore).map((h, i) => [h.id, i + 1])
   );
 
 /** レース単位の分析信頼度(全馬の信頼度の加重平均) */
 const raceConfidence = (horses) => {
   if (!horses?.length) return "low";
+  if (!horses.every((h) => h.analysis?.confidence)) return null;
   const weight = { high: 3, mid: 2, low: 1 };
   const avg = horses.reduce((s, h) => s + weight[h.analysis.confidence], 0) / horses.length;
   return avg >= 2.5 ? "high" : avg >= 1.8 ? "mid" : "low";
@@ -107,6 +132,8 @@ const raceConfidence = (horses) => {
 
 /** TM INDEX ティア */
 const scoreTier = (v) =>
+  !isFiniteNumber(v) ? { label: "未評価", text: "分析準備中" }
+  :
   v >= 90 ? { label: "S", text: "TOP評価" }
   : v >= 80 ? { label: "A", text: "有力評価" }
   : v >= 70 ? { label: "B", text: "標準評価" }
@@ -115,10 +142,12 @@ const scoreTier = (v) =>
 
 /** TM VALUE: 期待値の5段階(1.00が損益分岐) */
 const valueStars = (ev) =>
+  !isFiniteNumber(ev) ? 0 :
   ev >= 1.3 ? 5 : ev >= 1.15 ? 4 : ev >= 1.0 ? 3 : ev >= 0.85 ? 2 : 1;
 
 /** 分析信頼度の5段階(レベル + 調教評価の裏付けで加点) */
 const confidenceStars = (a) => {
+  if (!a?.confidence) return 0;
   const base = { high: 4, mid: 3, low: 2 }[a.confidence];
   return Math.min(5, base + (a.trainingEval?.grade === "A" ? 1 : 0));
 };
@@ -135,6 +164,7 @@ const BREAKDOWN_DEFS = [
   { label: "厩舎・枠順", calc: (f) => f.stable * 0.03 + f.frame * 0.02 },
 ];
 const scoreBreakdown = (horse) => {
+  if (!isEvaluatedHorse(horse) || !horse.analysis?.factors || !horse.analysis?.pedigree) return null;
   const f = horse.analysis.factors;
   const ped = pedigreeIndex(horse.analysis.pedigree);
   const items = BREAKDOWN_DEFS.map((d) => ({ label: d.label, value: Math.round(d.calc(f, ped)) }));
@@ -234,7 +264,8 @@ const normalizeWeekData = (db) => {
 };
 
 const WEEK_DATA = normalizeWeekData(weekData);
-const DATA_ERRORS = validateWeekData(WEEK_DATA);
+const IS_INTELLIGENCE_PENDING = WEEK_DATA.meta?.intelligenceLayerConnected === false;
+const DATA_ERRORS = dataMode === "candidate" || IS_INTELLIGENCE_PENDING ? [] : validateWeekData(WEEK_DATA);
 if (DATA_ERRORS.length) console.warn("[TURF MATRIX] week-data 検証警告:", DATA_ERRORS);
 
 /* =====================================================================
@@ -259,7 +290,7 @@ const dataProvider = {
   },
   async getRaces() {
     const list = WEEK_DATA.races.filter((r) => r.displayTarget !== false).map((r) => {
-      const top = [...r.horses].sort((a, b) => b.aiScore - a.aiScore)[0];
+      const top = [...r.horses].filter(isEvaluatedHorse).sort((a, b) => b.aiScore - a.aiScore)[0];
       return {
         ...r,
         horses: undefined,
@@ -276,6 +307,7 @@ const dataProvider = {
     return simulateLatency(race);
   },
   async getFeaturedHorses() {
+    if (dataMode === "candidate" || IS_INTELLIGENCE_PENDING) return simulateLatency([]);
     const items = WEEK_DATA.featured.flatMap((f) => {
       const race = WEEK_DATA.races.find((r) => r.id === f.raceId);
       const horse = race?.horses?.find((h) => h.id === f.horseId);
@@ -284,7 +316,7 @@ const dataProvider = {
         ...f,
         horse,
         raceLabel: `${race.track}${race.number}R`,
-        ev: evaluateValue(horse, race.horses).ev,
+        ev: evaluateValue(horse, race.horses)?.ev,
       }];
     });
     return simulateLatency(items);
@@ -292,7 +324,7 @@ const dataProvider = {
   async getIndexRanking(limit = 5) {
     const all = WEEK_DATA.races.flatMap((r) =>
       (r.horses ?? []).map((h) => ({ horse: h, raceId: r.id, raceLabel: `${r.track}${r.number}R` }))
-    );
+    ).filter((item) => isEvaluatedHorse(item.horse));
     all.sort((a, b) => b.horse.aiScore - a.horse.aiScore);
     return simulateLatency(all.slice(0, limit));
   },
@@ -340,7 +372,7 @@ const PEDIGREE_SCORE_DEFS = [
 const CONFIDENCE = {
   high: { label: "High", dots: 3, note: "データ量・再現性とも十分" },
   mid: { label: "Mid", dots: 2, note: "一部ファクターの根拠が限定的" },
-  low: { label: "Low", dots: 1, note: "サンプル不足のため振れ幅が大きい" },
+  low: { label: "Low", dots: 1, note: "データ不足のため振れ幅が大きい" },
 };
 
 const SORT_OPTIONS = [
@@ -426,17 +458,29 @@ const TM_FACTOR_DEFS = [
 
 const sortHorses = (horses, sortKey, evMap) => {
   const arr = [...horses];
-  if (sortKey === "score") arr.sort((a, b) => b.aiScore - a.aiScore);
+  if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
   if (sortKey === "ev") arr.sort((a, b) => (evMap[b.id]?.ev ?? 0) - (evMap[a.id]?.ev ?? 0));
   if (sortKey === "number") arr.sort((a, b) => a.number - b.number);
-  if (sortKey === "popularity") arr.sort((a, b) => a.popularity - b.popularity);
+  if (sortKey === "popularity") arr.sort((a, b) => (a.popularity ?? 999) - (b.popularity ?? 999) || a.number - b.number);
   return arr;
 };
 
-const scoreTone = (v) => (v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
+const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-400" : v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
 const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
+const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
 
 const commandFactors = (horse, ev) => {
+  if (!horse.analysis?.factors || !horse.analysis?.pedigree) {
+    return [
+      { key: "blood", label: "Blood AI", value: null, status: horse.pedigreeRaw ? "取得済み" : "未取得" },
+      { key: "training", label: "Training AI", value: null, status: horse.dataStatus?.training === "active" ? "取得済み" : "調教データ不足" },
+      { key: "course", label: "Course AI", value: null, status: "分析準備中" },
+      { key: "pace", label: "Pace AI", value: null, status: "分析準備中" },
+      { key: "stable", label: "Stable AI", value: null, status: "分析準備中" },
+      { key: "form", label: "Form AI", value: null, status: horse.pastRuns?.length ? "過去走取得済み" : "未取得" },
+      { key: "value", label: "Value AI", value: null, status: "オッズ取得待ち" },
+    ];
+  }
   const factors = horse.analysis.factors;
   const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : 50;
   return [
@@ -571,7 +615,7 @@ const Footer = () => (
         期待値を独立に算出します。
       </p>
       <p className="mt-2 text-xs text-gray-400">
-        β版のため、表示中のデータはすべてサンプルです。過去分析ログ(検証・回顧・回収率の透明化)は今後のバージョンで公開予定です。
+        β版のため、一部AI分析項目は準備中です。過去分析ログ(検証・回顧・回収率の透明化)は今後のバージョンで公開予定です。
       </p>
       <p className="mt-6 text-[11px] text-gray-400">© 2026 TURF MATRIX — AI Racing Intelligence Platform</p>
     </div>
@@ -1007,8 +1051,126 @@ const TrainingEvalCard = ({ evalData }) => (
 );
 
 /* ---- 馬詳細の中身(モバイルシート / PCインライン展開で共有) ---- */
+const StatusChip = ({ children, tone = "slate" }) => (
+  <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
+    tone === "ok"
+      ? "border-emerald-100 bg-emerald-50/70 text-emerald-700"
+      : tone === "wait"
+        ? "border-amber-100 bg-amber-50/70 text-amber-700"
+        : "border-slate-100 bg-white/60 text-slate-500"
+  }`}>
+    {children}
+  </span>
+);
+
+const HorseDataPreviewContent = ({ horse }) => {
+  const current = horse.currentRace ?? {};
+  const pastRuns = horse.pastRuns ?? [];
+  const slope = horse.training?.slope ?? [];
+  const wood = horse.training?.wood ?? [];
+  const pedigree = horse.pedigreeRaw;
+  const trainingMissing = horse.dataStatus?.training === "missing";
+
+  return (
+    <div className="space-y-5">
+      <GlassPanel>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Current Race</div>
+            <h3 className="mt-2 text-[18px] font-bold text-slate-950">{horse.name}</h3>
+          </div>
+          <StatusChip tone="wait">AI分析準備中</StatusChip>
+        </div>
+        <div className="mt-5 grid grid-cols-2 gap-3 text-[12px] md:grid-cols-4">
+          {[
+            ["馬番", current.horseNumber],
+            ["性齢", current.sexAge],
+            ["斤量", current.carriedWeight],
+            ["騎手", current.jockey],
+            ["調教師", `${current.stableSide ?? ""}${current.trainer ?? ""}`],
+            ["レース", `${current.course ?? ""}${current.raceNo ?? ""}R`],
+            ["条件", `${current.surface ?? ""}${current.distance ?? ""}m`],
+            ["オッズ", "取得待ち"],
+          ].map(([label, value]) => (
+            <div key={label} className={`${GLASS.inner} p-3`}>
+              <div className="text-[10px] font-semibold text-slate-400">{label}</div>
+              <div className="mt-1 font-bold text-slate-900">{displayRaceValue(value)}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <StatusChip tone="ok">過去走 {pastRuns.length}件</StatusChip>
+          <StatusChip tone={trainingMissing ? "wait" : "ok"}>
+            {trainingMissing ? "調教データ不足" : `調教 ${slope.length + wood.length}件`}
+          </StatusChip>
+          <StatusChip tone={pedigree ? "ok" : "wait"}>{pedigree ? "4代血統取得済み" : "血統未取得"}</StatusChip>
+          <StatusChip tone="wait">TM INDEX 未評価</StatusChip>
+          <StatusChip tone="wait">TM VALUE 未評価</StatusChip>
+        </div>
+      </GlassPanel>
+
+      <GlassPanel>
+        <SectionLabel icon={Activity}>Past Runs</SectionLabel>
+        <div className="mt-4 space-y-2">
+          {pastRuns.slice(0, 8).map((run, index) => (
+            <div key={`${run.date}-${run.raceName}-${index}`} className="grid grid-cols-[5.5rem_1fr_auto] gap-3 rounded-2xl border border-white/80 bg-white/50 px-3 py-2 text-[12px]">
+              <Num className="text-slate-500">{run.date}</Num>
+              <span className="min-w-0 truncate font-semibold text-slate-800">{run.course} {run.raceName}</span>
+              <span className="text-right text-slate-500">{run.surface}<Num>{run.distance}</Num>m / <Num>{run.finishPosition}</Num>着</span>
+            </div>
+          ))}
+        </div>
+      </GlassPanel>
+
+      <GlassPanel>
+        <SectionLabel icon={Dumbbell}>Training</SectionLabel>
+        {trainingMissing ? (
+          <p className="mt-3 text-[13px] text-slate-500">TARGETに調教データがありません。</p>
+        ) : (
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {slope.slice(0, 3).map((item, index) => (
+              <div key={`slope-${index}`} className={`${GLASS.inner} p-3 text-[12px]`}>
+                <div className="font-bold text-slate-900">坂路 {item.date}</div>
+                <div className="mt-1 text-slate-500">4F <Num>{item["4F"]}</Num> / 1F <Num>{item["1F"]}</Num></div>
+              </div>
+            ))}
+            {wood.slice(0, 3).map((item, index) => (
+              <div key={`wood-${index}`} className={`${GLASS.inner} p-3 text-[12px]`}>
+                <div className="font-bold text-slate-900">{item.course} {item.date}</div>
+                <div className="mt-1 text-slate-500">6F <Num>{item.times?.["6F"] ?? "—"}</Num> / 1F <Num>{item.times?.["1F"] ?? "—"}</Num></div>
+              </div>
+            ))}
+          </div>
+        )}
+      </GlassPanel>
+
+      <GlassPanel>
+        <SectionLabel icon={Dna}>Pedigree</SectionLabel>
+        {pedigree ? (
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {[
+              ["Sire", pedigree.sire],
+              ["Dam", pedigree.dam],
+              ["Broodmare Sire", pedigree.broodmareSire],
+              ["Dam Dam", pedigree.damDam],
+            ].map(([label, value]) => (
+              <div key={label} className={`${GLASS.inner} p-3 text-[12px]`}>
+                <div className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">{label}</div>
+                <div className="mt-1 font-bold text-slate-900">{value ?? "未取得"}</div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-3 text-[13px] text-slate-500">血統データ未取得</p>
+        )}
+      </GlassPanel>
+    </div>
+  );
+};
+
 const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false, skipLeadInsight = false }) => {
   const a = horse.analysis;
+  if (!isEvaluatedHorse(horse) || !a?.factors) return <HorseDataPreviewContent horse={horse} />;
   const tier = scoreTier(horse.aiScore);
   const bd = scoreBreakdown(horse);
   const insights = skipLeadInsight ? a.insight.slice(1) : a.insight;
@@ -1258,7 +1420,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
   if (!horse) return null;
   const insightLead = horse.analysis?.insight?.[0];
   const command = commandFactors(horse, ev);
-  const confidence = CONFIDENCE[horse.analysis.confidence];
+  const confidence = confidenceMeta(horse.analysis?.confidence);
 
   const modal = (
     <div className="tm-modal-root fixed inset-0 z-[9999] overflow-hidden overscroll-none" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
@@ -1279,7 +1441,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                   <div className="min-w-0">
                     <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{horse.name}</div>
                     <div className="mt-1 text-[11px] font-medium text-slate-500">
-                      {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+                      {horse.jockey} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
                     </div>
                   </div>
                 </div>
@@ -1304,7 +1466,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             <div>
               <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
               <Num className={`mt-3 block text-[48px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
-                {horse.aiScore}
+                {displayScore(horse.aiScore)}
               </Num>
             </div>
             <div className="min-w-[112px] rounded-[1.35rem] border border-white/85 bg-white/52 px-3 py-3 text-right">
@@ -1315,7 +1477,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                     EV <Num>{ev.ev.toFixed(2)}</Num>
                   </>
                 ) : (
-                  "EV --"
+                  "未評価"
                 )}
               </div>
               {rank != null && (
@@ -1333,7 +1495,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </div>
             <div className={`${GLASS.inner} p-3.5`}>
               <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">AI Verdict</div>
-              <div className="mt-2 text-[13px] font-bold text-slate-900">{horse.aiScore >= 80 ? "Positive" : "Watch"}</div>
+              <div className="mt-2 text-[13px] font-bold text-slate-900">{isEvaluatedHorse(horse) ? (horse.aiScore >= 80 ? "Positive" : "Watch") : "分析準備中"}</div>
             </div>
           </div>
 
@@ -1342,10 +1504,10 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
               <div key={f.key} className="rounded-2xl border border-white/80 bg-white/45 p-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
-                  <Num className="text-[15px] font-bold text-slate-800">{f.value}</Num>
+                  <Num className="text-[15px] font-bold text-slate-800">{f.value ?? f.status ?? "未評価"}</Num>
                 </div>
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-                  <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${f.value}%` }} />
+                  <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${f.value ?? 0}%` }} />
                 </div>
               </div>
             ))}
@@ -1398,7 +1560,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
                 {horse.name}
               </span>
               <span className="mt-1 block text-[11px] text-gray-500 md:hidden">
-                {horse.jockey} ・ <Num>{horse.popularity}</Num>人気 ・ 単勝 <Num>{horse.odds.toFixed(1)}</Num>
+                {horse.jockey} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
               </span>
             </span>
           </span>
@@ -1409,7 +1571,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
               TM INDEX
             </span>
             <Num className={`block text-[28px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
-              {horse.aiScore}
+              {displayScore(horse.aiScore)}
             </Num>
           </span>
         </span>
@@ -1427,7 +1589,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
                   EV <Num>{ev.ev.toFixed(2)}</Num> ・ {starText(valueStars(ev.ev))}
                 </>
               ) : (
-                "EV --"
+                "未評価"
               )}
             </span>
           </span>
@@ -1443,11 +1605,11 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
       {/* PC列: 騎手 / 人気 / オッズ+EV */}
       <span className="hidden truncate text-[13px] text-gray-600 md:block">{horse.jockey}</span>
       <span className="hidden text-right md:block">
-        <Num className="text-[13px] text-gray-600">{horse.popularity}</Num>
+        <Num className="text-[13px] text-gray-600">{displayPopularity(horse.popularity)}</Num>
         <span className="text-[11px] text-gray-400">人気</span>
       </span>
       <span className="hidden text-right md:block">
-        <Num className="block text-[13px] text-gray-600">{horse.odds.toFixed(1)}</Num>
+        <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
         {ev && (
           <Num
             className={`block text-[10px] leading-tight ${
@@ -1461,7 +1623,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
 
       {/* PC列: AI指数 */}
       <span className="hidden text-right md:block">
-        <Num className={`text-[19px] font-bold ${scoreTone(horse.aiScore)}`}>{horse.aiScore}</Num>
+        <Num className={`text-[19px] font-bold ${scoreTone(horse.aiScore)}`}>{displayScore(horse.aiScore)}</Num>
       </span>
 
       {/* PC列: 短評 */}
@@ -1536,7 +1698,7 @@ const HomePage = ({ onOpenRace }) => {
                 <div>
                   <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
                   <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-emerald-600 md:text-[64px]">
-                    {topSignal.topHorse.aiScore ?? "--"}
+                    {displayScore(topSignal.topHorse.aiScore)}
                   </Num>
                 </div>
                 <button
@@ -1550,7 +1712,7 @@ const HomePage = ({ onOpenRace }) => {
               <div className="mt-7 grid grid-cols-2 gap-3">
                 <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Confidence</div>
-                  <div className="mt-2 text-[17px] font-bold text-slate-950">{CONFIDENCE[topSignal.confidence].label}</div>
+                  <div className="mt-2 text-[17px] font-bold text-slate-950">{confidenceMeta(topSignal.confidence).label}</div>
                 </div>
                 <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Race</div>
@@ -1620,15 +1782,15 @@ const HomePage = ({ onOpenRace }) => {
                           </span>
                         </div>
                         <Num className="shrink-0 text-[36px] font-bold leading-none tracking-tight text-emerald-600 md:text-[30px]">
-                            {r.topHorse.aiScore ?? "--"}
+                            {displayScore(r.topHorse.aiScore)}
                           </Num>
                       </div>
                       <div className="mt-6 flex items-center justify-between border-t border-white/70 pt-4">
                         <span className="text-[10px] font-medium text-slate-400">
                           <Clock size={10} strokeWidth={1.75} className="mr-1 inline-block align-[-1px]" />
-                          <Num>{r.time}</Num> ・ {r.track}<Num>{r.number}</Num>R
+                          <Num>{displayRaceValue(r.time, "取得待ち")}</Num> ・ {r.track}<Num>{r.number}</Num>R
                         </span>
-                        <span className="text-[10px] font-medium text-slate-400">Confidence {CONFIDENCE[r.confidence].label}</span>
+                        <span className="text-[10px] font-medium text-slate-400">Confidence {confidenceMeta(r.confidence).label}</span>
                       </div>
                     </div>
                     </div>
@@ -1807,7 +1969,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
   /* Rank・期待値はロジック層で自動計算(手入力不要) */
   const rankMap = useMemo(() => (race ? rankByScore(race.horses) : {}), [race]);
   const topIndexHorse = useMemo(
-    () => (race ? [...race.horses].sort((a, b) => b.aiScore - a.aiScore)[0] : null),
+    () => (race ? [...race.horses].filter(isEvaluatedHorse).sort((a, b) => b.aiScore - a.aiScore)[0] : null),
     [race]
   );
   const evMap = useMemo(
@@ -1866,7 +2028,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="inline-flex items-center gap-1 rounded-full border border-white/80 bg-white/70 px-2.5 py-1 text-gray-500 shadow-sm">
                     <Clock size={11} strokeWidth={1.75} />
-                    <Num className="text-[12px] font-semibold text-slate-700">{race.time}</Num>
+                    <Num className="text-[12px] font-semibold text-slate-700">{displayRaceValue(race.time, "取得待ち")}</Num>
                   </span>
                   <span className="text-[13px] font-bold text-gray-900">
                     {race.track}
@@ -1891,10 +2053,16 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 {race.surface}
                 <Num>{race.distance}</Num>m
               </span>
-              <span>馬場 {race.going}</span>
+              <span>馬場 {displayRaceValue(race.going, "取得待ち")}</span>
               <span>
                 <Num>{race.fieldSize}</Num>頭
               </span>
+            </div>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-white/80 bg-white/55 px-3 py-2 text-[11px] font-medium text-slate-500 shadow-sm backdrop-blur-xl">
+              <span className="text-slate-400">単勝オッズ</span>
+              <span className="h-1 w-1 rounded-full bg-slate-300" />
+              <span>{oddsStatusLabel(race.oddsStatus)}</span>
+              <Num className="font-semibold text-slate-700">{formatOddsUpdatedAt(race.oddsUpdatedAt, race.oddsStatus)}</Num>
             </div>
             {topIndexHorse && (
               <div className={`mt-5 ${GLASS.inner} p-4`}>
@@ -1917,7 +2085,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       </div>
 
       {/* ファクター比較(全馬横断) */}
-      {race && <ComparisonTable horses={race.horses} evMap={evMap} onSelect={handleToggle} />}
+      {race && race.horses.some(isEvaluatedHorse) && <ComparisonTable horses={race.horses} evMap={evMap} onSelect={handleToggle} />}
 
       {/* 並び替え(モバイル: 全幅・親指で押しやすい高さ) */}
       <div className="mt-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">

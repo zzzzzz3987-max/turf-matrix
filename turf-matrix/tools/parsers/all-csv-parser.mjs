@@ -11,25 +11,26 @@ export const source = Object.freeze({
 });
 
 export const extractionTargets = Object.freeze([
-  "race.date",
-  "race.track",
-  "race.number",
-  "race.name",
-  "race.grade",
-  "race.startTime",
-  "race.surface",
-  "race.distance",
-  "race.going",
-  "horse.number",
+  "currentRace.horseName",
+  "currentRace.sexAge",
+  "currentRace.trainer",
+  "currentRace.owner",
+  "currentRace.breeder",
+  "currentRace.bodyWeight",
+  "currentRace.runningStyle",
+  "currentRace.availableIndex",
+  "pastRuns.date",
+  "pastRuns.course",
+  "pastRuns.raceNumber",
+  "pastRuns.raceName",
+  "pastRuns.surface",
+  "pastRuns.distance",
+  "pastRuns.trackCondition",
+  "pastRuns.finishPosition",
+  "pastRuns.popularity",
+  "pastRuns.passingOrder",
+  "pastRuns.last3F",
   "horse.name",
-  "horse.sexAge",
-  "horse.jockey",
-  "horse.trainer",
-  "horse.bodyWeight",
-  "horse.weightDiff",
-  "horse.runningStyle",
-  "horse.zi",
-  "horse.recentForm",
   "horse.pedigree.sire",
   "horse.pedigree.dam",
   "horse.pedigree.damSire",
@@ -61,18 +62,40 @@ const parseRaceDate = (row) => {
   return `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
 };
 
-const extractRow = (row) => ({
-  raceDate: parseRaceDate(row),
+const sexAgeFromRow = (row) => {
+  const sex = valueAt(row, 15);
+  const age = valueAt(row, 16);
+  return sex || age ? `${sex}${age}` : null;
+};
+
+const extractPastRun = (row) => ({
+  date: parseRaceDate(row),
   course: valueAt(row, 5) || null,
-  raceNo: toNumber(valueAt(row, 7)),
+  raceNumber: toNumber(valueAt(row, 7)),
   raceName: valueAt(row, 8) || null,
   surface: valueAt(row, 10) || null,
   distance: toNumber(valueAt(row, 12)),
   trackCondition: valueAt(row, 13) || null,
-  horseName: valueAt(row, 14) || null,
-  sexAge: `${valueAt(row, 15)}${valueAt(row, 16)}` || null,
   jockey: valueAt(row, 17) || null,
-  weight: toNumber(valueAt(row, 18)),
+  carriedWeight: toNumber(valueAt(row, 18)),
+  fieldSize: toNumber(valueAt(row, 19)),
+  popularity: toNumber(valueAt(row, 20)),
+  finishPosition: toNumber(valueAt(row, 21)),
+  confirmedFinishPosition: toNumber(valueAt(row, 22)),
+  surfaceCode: valueAt(row, 23) || null,
+  margin: toNumber(valueAt(row, 24)),
+  horseNumber: toNumber(valueAt(row, 25)),
+  timeSeconds: toNumber(valueAt(row, 26)),
+  timeText: valueAt(row, 27) || null,
+  passingOrder: [29, 30, 31, 32].map((column) => toNumber(valueAt(row, column))),
+  last3F: toNumber(valueAt(row, 33)),
+  bodyWeight: toNumber(valueAt(row, 34)),
+  bodyWeightDiff: toNumber(valueAt(row, 66)),
+});
+
+const extractRow = (row) => ({
+  horseName: valueAt(row, 14) || null,
+  sexAge: sexAgeFromRow(row),
   trainer: valueAt(row, 35) || null,
   owner: valueAt(row, 42) || null,
   breeder: valueAt(row, 43) || null,
@@ -93,19 +116,7 @@ const extractRow = (row) => ({
     sireLine: valueAt(row, 55) || null,
     damLine: valueAt(row, 56) || null,
   },
-  recentRun: {
-    fieldSize: toNumber(valueAt(row, 19)),
-    popularity: toNumber(valueAt(row, 20)),
-    finish: toNumber(valueAt(row, 21)),
-    confirmedFinish: toNumber(valueAt(row, 22)),
-    surfaceCode: valueAt(row, 23) || null,
-    margin: toNumber(valueAt(row, 24)),
-    horseNoCandidate: toNumber(valueAt(row, 25)),
-    timeSeconds: toNumber(valueAt(row, 26)),
-    timeText: valueAt(row, 27) || null,
-    corners: [29, 30, 31, 32].map((column) => toNumber(valueAt(row, column))),
-    last3F: toNumber(valueAt(row, 33)),
-  },
+  pastRun: extractPastRun(row),
   rawColumns: {
     firstColumnCount: row.length,
   },
@@ -123,18 +134,19 @@ export const parse = () => {
     if (!byHorse.has(record.horseName)) {
       byHorse.set(record.horseName, {
         horseName: record.horseName,
-        all: {
-          raceDate: record.raceDate,
-          course: record.course,
-          raceNo: record.raceNo,
-          raceName: record.raceName,
-          surface: record.surface,
-          distance: record.distance,
-          trackCondition: record.trackCondition,
+        currentRace: {
+          raceDate: null,
+          course: null,
+          raceNo: null,
+          raceName: null,
+          surface: null,
+          distance: null,
+          trackCondition: null,
+          horseNumber: null,
           horseName: record.horseName,
           sexAge: record.sexAge,
-          jockey: record.jockey,
-          weight: record.weight,
+          jockey: null,
+          weight: null,
           trainer: record.trainer,
           owner: record.owner,
           breeder: record.breeder,
@@ -142,11 +154,15 @@ export const parse = () => {
           runningStyle: record.runningStyle,
           availableIndex: record.availableIndex,
           pedigree: record.pedigree,
-          recentRuns: [],
+          sourceStatus: {
+            raceFields: "not_in_all_csv",
+            horseFields: "available",
+          },
         },
+        pastRuns: [],
       });
     }
-    byHorse.get(record.horseName).all.recentRuns.push(record.recentRun);
+    byHorse.get(record.horseName).pastRuns.push(record.pastRun);
   }
 
   return {

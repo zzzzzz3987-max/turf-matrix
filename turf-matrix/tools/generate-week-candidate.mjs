@@ -9,6 +9,12 @@ const NORMALIZED_PATH = join(SCRIPT_DIR, "week-data.normalized.json");
 const OUT_PATH = join(SCRIPT_DIR, "week-data.candidate.json");
 
 const FACTOR_KEYS = ["ability", "distance", "lap", "training", "trainingLap", "stable", "frame", "course", "pace"];
+const RACE_DAY_CONDITION = {
+  weather: "小雨",
+  going: "稍重",
+  course: "B",
+  summary: "小雨・稍重の福島芝2000m。Bコースで内に傷みがあり、馬力・持続力・底力を補正評価。",
+};
 
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 const avg = (values, fallback = 60) => {
@@ -249,7 +255,8 @@ const scoreBlood = (horse) => {
   const ancestorCount = pedigree.ancestors?.length ?? 0;
   const base = 60 + Math.min(18, ancestorCount * 0.6);
   const completeness = [pedigree.sire, pedigree.dam, pedigree.broodmareSire, pedigree.sireSire, pedigree.damDam].filter(Boolean).length;
-  return clamp(base + completeness * 2);
+  const raceBias = buildRaceBiasMatch(pedigree);
+  return clamp(base + completeness * 2 + Math.max(0, (raceBias.score - 64) * 0.35));
 };
 
 const scoreValue = (horse, abilityScore) => {
@@ -275,6 +282,94 @@ const namesByBranches = (pedigree, branches) => {
 
 const scoreLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
 
+const normalizeBloodName = (value) =>
+  String(value ?? "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/\s+/g, "");
+
+const bloodNamePool = (pedigree) => {
+  if (!pedigree) return [];
+  return [
+    pedigree.sire,
+    pedigree.dam,
+    pedigree.broodmareSire,
+    pedigree.sireSire,
+    pedigree.sireDam,
+    pedigree.damSire,
+    pedigree.damDam,
+    ...(pedigree.ancestors ?? []).map((ancestor) => ancestor.name),
+  ]
+    .filter(Boolean)
+    .map((name) => ({ raw: name, normalized: normalizeBloodName(name) }));
+};
+
+const bloodlineRules = [
+  {
+    key: "kingmambo",
+    label: "キングマンボ内包",
+    weight: 14,
+    terms: ["kingmambo", "キングマンボ", "キングカメハメハ", "kingkamehameha", "ロードカナロア", "ルーラーシップ", "ドゥラメンテ", "レイデオロ", "ラブリーデイ"],
+    text: "福島芝2000mで必要な馬力と持続スピードを補強",
+  },
+  {
+    key: "european",
+    label: "欧州スタミナ",
+    weight: 9,
+    terms: ["sadler", "サドラー", "nureyev", "ヌレイエフ", "tonybin", "トニービン", "galileo", "ガリレオ", "danehill", "デインヒル", "monsun", "モンズン"],
+    text: "稍重で最後まで脚を使うスタミナを補助",
+  },
+  {
+    key: "bottomPower",
+    label: "底力",
+    weight: 8,
+    terms: ["ribot", "リボー", "graustark", "グロースターク", "hismajesty", "ヒズマジェスティ", "roberto", "ロベルト", "ブライアンズタイム", "シンボリクリスエス", "モーリス", "スクリーンヒーロー"],
+    text: "早めに動いて踏ん張る競馬への耐性を評価",
+  },
+  {
+    key: "staminaFamily",
+    label: "持続スタミナ",
+    weight: 6,
+    terms: ["ステイゴールド", "オルフェーヴル", "ゴールドシップ", "ハーツクライ", "ジャングルポケット"],
+    text: "小回り中距離で長く脚を使う土台を確認",
+  },
+];
+
+const buildRaceBiasMatch = (pedigree) => {
+  const pool = bloodNamePool(pedigree);
+  if (!pool.length) {
+    return {
+      score: 50,
+      grade: "未取得",
+      matched: [],
+      summary: "血統データ未取得のため、七夕賞適合は参考外",
+    };
+  }
+
+  const matched = bloodlineRules
+    .map((rule) => {
+      const hits = pool
+        .filter((name) => rule.terms.some((term) => name.normalized.includes(normalizeBloodName(term))))
+        .map((name) => name.raw);
+      return hits.length ? {
+        key: rule.key,
+        label: rule.label,
+        weight: rule.weight,
+        text: rule.text,
+        hits: [...new Set(hits)].slice(0, 4),
+      } : null;
+    })
+    .filter(Boolean);
+
+  const score = clamp(56 + matched.reduce((sum, item) => sum + item.weight, 0), 45, 94);
+  const grade = score >= 82 ? "高" : score >= 68 ? "中" : "低";
+  const summary = matched.length
+    ? `${matched.map((item) => item.label).join("・")}を確認。${RACE_DAY_CONDITION.summary}`
+    : `強い七夕賞血統バイアスは限定的。${RACE_DAY_CONDITION.summary}`;
+
+  return { score, grade, matched, summary };
+};
+
 const buildBloodStrengths = (scores) => {
   const candidates = [
     { key: "stamina", label: "スタミナ補強", text: "中距離で最後まで脚を使う土台" },
@@ -293,6 +388,7 @@ const buildBloodStrengths = (scores) => {
 
 const buildPedigreeAnalysis = (horse, bloodScore) => {
   const pedigree = horse.pedigree;
+  const raceBias = buildRaceBiasMatch(pedigree);
   const sireLine = [
     pedigree?.sire,
     pedigree?.sireSire,
@@ -315,7 +411,7 @@ const buildPedigreeAnalysis = (horse, bloodScore) => {
   const scores = {
     course: bloodScore,
     distance: clamp(bloodScore + 2),
-    going: clamp(bloodScore - 4),
+    going: clamp(bloodScore + 3),
     lap: clamp(bloodScore - 2),
     family: bloodScore,
     speed: clamp(bloodScore - 1),
@@ -323,9 +419,17 @@ const buildPedigreeAnalysis = (horse, bloodScore) => {
     burst: clamp(bloodScore - 3),
     sustain: clamp(bloodScore + 4),
   };
-  const strengths = buildBloodStrengths(scores);
+  const strengths = [
+    {
+      key: "raceBias",
+      label: `七夕賞適合 ${raceBias.grade}`,
+      text: raceBias.summary,
+      score: raceBias.score,
+    },
+    ...buildBloodStrengths(scores),
+  ].slice(0, 4);
   const headline = strengths.length
-    ? `${strengths[0].label}を中心に、${strengths.slice(1).map((item) => item.label).join("・")}を補助材料として評価`
+    ? `${raceBias.grade !== "低" ? "七夕賞血統バイアスに合致" : "血統バイアスは補助評価"}。${strengths.slice(1, 3).map((item) => item.label).join("・")}を確認`
     : "4代血統の取得状態を確認";
 
   return {
@@ -361,6 +465,7 @@ const buildPedigreeAnalysis = (horse, bloodScore) => {
       familyLine,
       completeness: ancestorCount >= 28 ? "4代取得済み" : ancestorCount >= 20 ? "一部取得" : "取得不足",
     },
+    raceBias,
     scores,
   };
 };
@@ -447,18 +552,20 @@ const buildAnalysis = (horse) => {
         `過去走${horse.pastRuns?.length ?? 0}件を参照`,
         trainingStatus,
         horse.pedigree ? "4代血統を接続済み" : "血統データ未取得",
+        RACE_DAY_CONDITION.summary,
         valueText,
       ],
       tags: [
         abilityText,
         `単勝人気 ${horse.odds?.popularity ?? "未取得"}`,
+        `${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}補正`,
         horse.dataStatus?.training === "active" ? "調教データ取得済み" : "調教データ一部取得",
       ],
       factors,
       factorsDetail: {
         blood: { key: "blood", label: "血統", score: blood, maxScore: 100, status: horse.pedigree ? "active" : "missing", summary: bloodSummary },
         training: { key: "training", label: "調教", score: training, maxScore: 100, status: trainingAnalysis.count ? "active" : "partial", summary: trainingReadable },
-        course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}mへの適性を評価` },
+        course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}m / ${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}を評価` },
         pace: { key: "pace", label: "展開", score: pace, maxScore: 100, status: "active", summary: "近走の通過順から脚質バランスを評価" },
         stable: { key: "stable", label: "厩舎", score: stable, maxScore: 100, status: "active", summary: "厩舎情報と調教取得状態を補助評価" },
         form: { key: "form", label: "近走", score: form, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "近走着順と着差を中心に評価" },
@@ -467,6 +574,7 @@ const buildAnalysis = (horse) => {
       insight: [
         `${displayName}は総合指数${tmIndex}。${recentText}。`,
         `血統面は${bloodSummary}。人気だけに寄せず、近走内容と適性を分けて評価しています。`,
+        `当日条件は${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}。馬力、持続力、底力を補正して評価しています。`,
         horse.dataStatus?.training === "active"
           ? trainingAnalysis.summary
           : "調教データは一部取得のため、調教評価は控えめに扱っています。",
@@ -478,7 +586,7 @@ const buildAnalysis = (horse) => {
       ],
       cons: [
         horse.dataStatus?.training === "missing" ? "最終追切データが未取得のため調教面は参考評価" : "調教評価は取得できた範囲での初期評価",
-        "馬場状態や当日のペース変化は直前情報で再確認が必要",
+        `${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}のため、軽い瞬発力だけの評価は控えめ`,
       ],
       commentary: `${displayName}は、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数${tmIndex}と評価しました。現段階ではTARGET実データに基づく初期分析です。`,
       frameEval: {
@@ -538,6 +646,7 @@ const buildAnalysis = (horse) => {
         evidence: [
           `総合指数 ${tmIndex}`,
           `近走 ${form} / 調教 ${training} / 血統 ${blood} / 妙味 ${value}`,
+          RACE_DAY_CONDITION.summary,
           trainingReadable,
         ],
       },
@@ -610,6 +719,7 @@ const buildCandidate = (normalized) => {
       featuredRaceId: `${race.raceDate}-${race.course}-${race.raceNo}R`,
       oddsUpdatedAt: normalized.source.odds?.updatedAt ?? null,
       oddsStatus,
+      raceDayCondition: RACE_DAY_CONDITION,
     },
     races: [
       {
@@ -622,7 +732,10 @@ const buildCandidate = (normalized) => {
         time: null,
         surface: race.surface,
         distance: race.distance,
-        going: null,
+        weather: RACE_DAY_CONDITION.weather,
+        going: RACE_DAY_CONDITION.going,
+        courseType: RACE_DAY_CONDITION.course,
+        conditionSummary: RACE_DAY_CONDITION.summary,
         fieldSize: race.fieldSize,
         oddsUpdatedAt: normalized.source.odds?.updatedAt ?? null,
         oddsStatus,

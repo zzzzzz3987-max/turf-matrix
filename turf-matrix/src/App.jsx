@@ -946,6 +946,7 @@ const ValueCard = ({ ev, rank, popularity }) => {
 const PedigreeCard = ({ pedigree }) => {
   const idx = pedigreeIndex(pedigree);
   const structure = pedigree?.structure ?? {};
+  const raceBias = pedigree?.raceBias;
   const strengthLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
   const focusScores = [
     { key: "stamina", label: "スタミナ" },
@@ -974,6 +975,25 @@ const PedigreeCard = ({ pedigree }) => {
           <span className="text-[10px] text-gray-400">血統指数</span>
         </span>
       </div>
+
+      {raceBias ? (
+        <div className="mt-4 rounded-lg border border-teal-100/80 bg-white/75 px-3 py-3">
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-[12px] font-semibold text-slate-900">七夕賞血統適合</span>
+            <span className="text-[10px] font-semibold text-teal-700">{raceBias.grade}</span>
+          </div>
+          <p className="mt-1.5 text-[11px] leading-relaxed text-slate-500">{raceBias.summary}</p>
+          {raceBias.matched?.length ? (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {raceBias.matched.map((item) => (
+                <span key={item.key} className="rounded-full border border-teal-100 bg-teal-50/70 px-2 py-1 text-[10px] font-semibold text-teal-700">
+                  {item.label}
+                </span>
+              ))}
+            </div>
+          ) : null}
+        </div>
+      ) : null}
 
       {pedigree.strengths?.length ? (
         <div className="mt-4 grid gap-2">
@@ -2179,7 +2199,9 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 {race.surface}
                 <Num>{race.distance}</Num>m
               </span>
+              <span>天候 {displayRaceValue(race.weather, "取得待ち")}</span>
               <span>馬場 {displayRaceValue(race.going, "取得待ち")}</span>
+              {race.courseType ? <span>{race.courseType}コース</span> : null}
               <span>
                 <Num>{race.fieldSize}</Num>頭
               </span>

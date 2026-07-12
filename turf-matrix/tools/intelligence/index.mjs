@@ -4,6 +4,7 @@
 import { FACTOR_KEYS, RACE_DAY_CONDITION } from "./constants.mjs";
 import { scoreBlood, buildPedigreeAnalysis } from "./blood-ai.mjs";
 import { buildTrainingAnalysis } from "./training-ai.mjs";
+import { scoreValue } from "./value-ai.mjs";
 
 
 
@@ -93,15 +94,6 @@ const scorePace = (horse) => {
   if (!orders.length) return 58;
   const mean = avg(orders, 8);
   return clamp(76 - Math.abs(mean - 6) * 3.5);
-};
-
-const scoreValue = (horse, abilityScore) => {
-  if (!horse.odds?.winOdds || !horse.odds?.popularity) return 50;
-  const popularity = horse.odds.popularity;
-  const odds = horse.odds.winOdds;
-  const gapBonus = (abilityScore - 65) * 0.45 + Math.max(0, popularity - 4) * 2.2;
-  const longOddsRisk = odds > 50 ? (odds - 50) * 0.18 : 0;
-  return clamp(52 + gapBonus - longOddsRisk);
 };
 
 const frameScore = (number) => {

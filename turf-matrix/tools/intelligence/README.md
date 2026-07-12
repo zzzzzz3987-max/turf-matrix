@@ -6,7 +6,7 @@ Current scope:
 
 - TM INDEX v0 scoring
 - Blood AI v1 race-bias scoring (`blood-ai.mjs`)
-- Training AI v0 scoring
+- Training AI v1 workout scoring (`training-ai.mjs`)
 - Value scoring from odds
 - Verdict / evidence assembly
 
@@ -17,8 +17,7 @@ Boundaries:
 - Do not render UI here.
 - Do not introduce dummy data or guessed odds.
 
-Next split targets:
+Remaining split targets:
 
-- `training-ai.mjs`
 - `value-ai.mjs`
 - `verdict-engine.mjs`

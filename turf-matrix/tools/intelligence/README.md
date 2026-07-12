@@ -5,7 +5,7 @@ This directory owns deterministic analysis after TARGET parser/normalizer output
 Current scope:
 
 - TM INDEX v0 scoring
-- Blood AI v1 race-bias scoring
+- Blood AI v1 race-bias scoring (`blood-ai.mjs`)
 - Training AI v0 scoring
 - Value scoring from odds
 - Verdict / evidence assembly
@@ -19,8 +19,6 @@ Boundaries:
 
 Next split targets:
 
-- `blood-ai.mjs`
 - `training-ai.mjs`
 - `value-ai.mjs`
 - `verdict-engine.mjs`
-

@@ -12,6 +12,7 @@
     "detect:jvlink": "powershell -ExecutionPolicy Bypass -File tools/jvlink/jvlink-cli.ps1 -Action detect",
     "probe:jvlink": "powershell -ExecutionPolicy Bypass -File tools/jvlink/jvlink-cli.ps1 -Action probe",
     "inspect:jvlink-week": "powershell -ExecutionPolicy Bypass -File tools/jvlink/jvlink-cli.ps1 -Action inspect-week",
+    "export:jvlink-week": "powershell -ExecutionPolicy Bypass -File tools/jvlink/jvlink-cli.ps1 -Action export-week",
     "detect:html": "node tools/target-html/detect-html-inputs.mjs",
     "inspect:rc1b": "node tools/rc1b-inspect-inputs.mjs",
     "inspect:race-batch": "node tools/inspect-race-batch.mjs",

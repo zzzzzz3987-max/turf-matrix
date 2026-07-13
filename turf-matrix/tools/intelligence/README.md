@@ -8,7 +8,7 @@ Current scope:
 - Blood AI v1 race-bias scoring (`blood-ai.mjs`)
 - Training AI v1 workout scoring (`training-ai.mjs`)
 - Value AI v1 odds-value scoring (`value-ai.mjs`)
-- Verdict / evidence assembly
+- Verdict Engine v1 evidence assembly (`verdict-engine.mjs`)
 
 Boundaries:
 
@@ -19,4 +19,5 @@ Boundaries:
 
 Remaining split targets:
 
-- `verdict-engine.mjs`
+- course / pace scoring modules
+- form scoring module

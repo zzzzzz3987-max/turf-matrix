@@ -739,7 +739,7 @@ const SectionLabel = ({ icon: Icon, children }) => (
 const ProsConsList = ({ pros, cons }) => (
   <div className="grid gap-5 sm:grid-cols-2">
     <div>
-      <SectionLabel>プラス要因</SectionLabel>
+      <SectionLabel>評価ポイント</SectionLabel>
       <ul className="mt-2 space-y-2">
         {pros.map((p, i) => (
           <li key={i} className="flex gap-2 text-[13px] leading-relaxed text-gray-700">
@@ -750,7 +750,7 @@ const ProsConsList = ({ pros, cons }) => (
       </ul>
     </div>
     <div>
-      <SectionLabel>マイナス要因</SectionLabel>
+      <SectionLabel>注意ポイント</SectionLabel>
       <ul className="mt-2 space-y-2">
         {cons.map((c, i) => (
           <li key={i} className="flex gap-2 text-[13px] leading-relaxed text-gray-700">

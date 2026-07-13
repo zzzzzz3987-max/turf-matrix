@@ -5,7 +5,7 @@ const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.ro
 
 const trainingThreshold = (type, stableSide) => {
   if (type === "slope") {
-    return stableSide === "栗"
+    return stableSide === "栗東"
       ? { "4F": 52.9, "3F": 38.9, "2F": 25.9, "1F": 13.4 }
       : { "4F": 49.9, "3F": 35.9, "2F": 23.9, "1F": 12.8 };
   }
@@ -18,11 +18,6 @@ const toSessionDateValue = (dateText) => {
   return Number(match[1]) * 10000 + Number(match[2]) * 100 + Number(match[3]);
 };
 
-const sessionDay = (dateText) => {
-  const match = String(dateText ?? "").match(/\d{4}\.\s*\d{1,2}\.\s*(\d{1,2})/);
-  return match ? Number(match[1]) : null;
-};
-
 const lapValues = (lap) =>
   [lap?.lap4, lap?.lap3, lap?.lap2, lap?.lap1].filter((value) => typeof value === "number" && Number.isFinite(value));
 
@@ -30,7 +25,7 @@ const formatSession = (session) => {
   if (!session) return "時計未取得";
   const type = session.type === "wood" ? "ウッド" : "坂路";
   const course = session.course ? `${session.course}` : type;
-  return `${session.date ?? "日付不明"} ${course} 4F${session.f4 ?? "-"}-1F${session.f1 ?? "-"}`;
+  return `${session.date ?? "日付未取得"} ${course} 4F${session.f4 ?? "-"}-1F${session.f1 ?? "-"}`;
 };
 
 const sessionScore = (session, stableSide) => {
@@ -81,6 +76,14 @@ const collectTrainingSessions = (horse) => {
   return [...slope, ...wood].filter((session) => typeof session.f1 === "number" || typeof session.f4 === "number");
 };
 
+const findFinalWorkout = (sessions) => {
+  const wednesdayThursday = sessions.filter((session) => {
+    const value = session.dateValue % 100;
+    return value >= 8 && value <= 9;
+  });
+  return wednesdayThursday[0] ?? sessions[0] ?? null;
+};
+
 const buildTrainingAnalysis = (horse) => {
   const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
   const sessions = collectTrainingSessions(horse)
@@ -94,16 +97,15 @@ const buildTrainingAnalysis = (horse) => {
       grade: "C",
       status: "未取得",
       count: 0,
-      summary: "調教時計は未取得。調教面は評価に強く反映していません。",
-      finalText: "最終追切の時計が取れていないため、調教評価は参考扱いです。",
-      patternText: "調教時計の裏付けは未取得です。",
-      strengths: ["調教時計は未取得"],
+      summary: "調教時計は未取得です。調教面は強く評価せず、近走・血統・オッズを中心に見ます。",
+      finalText: "最終追切の時計が未取得です。別馬の時計は使わず、調教評価は控えめにしています。",
+      patternText: "調教パターンは未判定です。",
+      strengths: ["調教時計未取得"],
     };
   }
 
   const best = [...sessions].sort((a, b) => b.score - a.score)[0];
-  const finalCandidates = sessions.filter((session) => session.dateValue >= 20260708 && session.dateValue <= 20260709);
-  const final = finalCandidates[0] ?? sessions[0];
+  const final = findFinalWorkout(sessions);
   const latest = sessions[0];
   const lightAfterFinal = latest?.dateValue > final?.dateValue ? latest : null;
   const fastFinish = sessions.filter((session) => {
@@ -138,9 +140,9 @@ const buildTrainingAnalysis = (horse) => {
     accelCount,
     activeCount,
     strengths,
-    summary: `${sessions.length}本の時計から、${strengths.join(" / ")}。`,
-    finalText: `${formatSession(final)}。水曜/木曜の最終追切として${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。${lightAfterFinal ? ` ${formatSession(lightAfterFinal)}は直前軽めとして扱います。` : ""}`,
-    patternText: `${formatSession(best)}が最も評価できる時計。${fastFinish ? "終いの反応も確認できます。" : "終いの反応は強調しすぎない評価です。"}`,
+    summary: `${sessions.length}本の時計を確認。${strengths.join(" / ")}。`,
+    finalText: `${formatSession(final)}。水曜・木曜の最終追切候補として${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。${lightAfterFinal ? ` ${formatSession(lightAfterFinal)}は直前の軽め調整として扱います。` : ""}`,
+    patternText: `${formatSession(best)}が最も評価できる時計です。${fastFinish ? "終いの反応も確認できます。" : "終いの反応は強調しすぎません。"}`,
   };
 };
 

@@ -54,7 +54,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const tmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace });
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
-  const trainingReadable = trainingAnalysis.count ? trainingAnalysis.summary : "調教データは一部未取得のため参考評価。";
+  const trainingReadable = trainingAnalysis.count ? trainingAnalysis.summary : "調教時計は未取得です。調教面は控えめに評価します。";
   const verdict = buildVerdictPayload({
     horse,
     context,

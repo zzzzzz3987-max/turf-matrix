@@ -35,14 +35,14 @@ export const extractionTargets = Object.freeze([
   "currentRace.raceEntryId",
 ]);
 
-export const inspect = () =>
+export const inspect = ({ path = source.path } = {}) =>
   inspectTextInput({
     parserId,
-    source,
+    source: { ...source, path },
     extractionTargets,
     required: true,
     minBytes: 1024,
-    minRows: 16,
+    minRows: 1,
   });
 
 const valueAt = (row, oneBasedIndex) => String(row[oneBasedIndex - 1] ?? "").trim();
@@ -110,14 +110,13 @@ const distinctValues = (entries, key) => [...new Set(entries.map((entry) => entr
 
 export const validateEntries = (entries) => {
   const errors = [];
-  if (entries.length !== 16) errors.push(`current-race-detail.csv rows must be 16 but got ${entries.length}`);
+  if (!entries.length) errors.push("current-race-detail.csv has no entries");
 
   const requiredKeys = [
     "raceDate",
     "course",
     "raceNo",
     "raceName",
-    "grade",
     "surface",
     "distance",
     "horseNumber",
@@ -149,16 +148,16 @@ export const validateEntries = (entries) => {
   }
 
   const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
-  const expected = Array.from({ length: 16 }, (_, index) => index + 1);
+  const expected = Array.from({ length: entries.length }, (_, index) => index + 1);
   if (horseNumbers.some((value, index) => value !== expected[index])) {
-    errors.push(`horseNumber must be 1-16: ${horseNumbers.join(", ")}`);
+    errors.push(`horseNumber must be 1-${entries.length}: ${horseNumbers.join(", ")}`);
   }
 
   return errors;
 };
 
-export const parse = () => {
-  const path = resolveFromRepo(source.path);
+export const parse = ({ path: sourcePath = source.path } = {}) => {
+  const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
   const entries = rows.map(normalizeEntry);

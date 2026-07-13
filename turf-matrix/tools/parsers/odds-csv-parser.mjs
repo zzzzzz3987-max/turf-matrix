@@ -21,14 +21,14 @@ export const extractionTargets = Object.freeze([
   "odds.winOdds",
 ]);
 
-export const inspect = () =>
+export const inspect = ({ path = source.path, minRows = 2 } = {}) =>
   inspectTextInput({
     parserId,
-    source,
+    source: { ...source, path },
     extractionTargets,
     required: true,
     minBytes: 1024,
-    minRows: 17,
+    minRows,
   });
 
 const splitRows = (text) => {
@@ -68,9 +68,12 @@ const duplicates = (entries, key) => {
   return [...duplicated];
 };
 
-const validateEntries = (entries) => {
+const validateEntries = (entries, expectedFieldSize = entries.length) => {
   const errors = [];
-  if (entries.length !== 16) errors.push(`odds.csv entries must be 16 but got ${entries.length}`);
+  if (!entries.length) errors.push("odds.csv has no entries");
+  if (entries.length !== expectedFieldSize) {
+    errors.push(`odds.csv entries must be ${expectedFieldSize} but got ${entries.length}`);
+  }
 
   entries.forEach((entry, index) => {
     for (const key of ["popularity", "horseNumber", "horseName", "winOdds"]) {
@@ -86,19 +89,19 @@ const validateEntries = (entries) => {
 
   const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
   const popularities = entries.map((entry) => entry.popularity).sort((a, b) => a - b);
-  const expected = Array.from({ length: 16 }, (_, index) => index + 1);
+  const expected = Array.from({ length: expectedFieldSize }, (_, index) => index + 1);
   if (horseNumbers.some((value, index) => value !== expected[index])) {
-    errors.push(`horseNumber must be 1-16: ${horseNumbers.join(", ")}`);
+    errors.push(`horseNumber must be 1-${expectedFieldSize}: ${horseNumbers.join(", ")}`);
   }
   if (popularities.some((value, index) => value !== expected[index])) {
-    errors.push(`popularity must be 1-16: ${popularities.join(", ")}`);
+    errors.push(`popularity must be 1-${expectedFieldSize}: ${popularities.join(", ")}`);
   }
 
   return errors;
 };
 
-export const parse = () => {
-  const path = resolveFromRepo(source.path);
+export const parse = ({ path: sourcePath = source.path, expectedFieldSize } = {}) => {
+  const path = resolveFromRepo(sourcePath);
   const stats = statSync(path);
   const { text, encoding } = readTextSmart(path);
   const rows = splitRows(text);
@@ -111,7 +114,7 @@ export const parse = () => {
 
   const headerMap = indexByHeader(header);
   const entries = rows.slice(1).map((row) => normalizeEntry(row, headerMap));
-  const errors = validateEntries(entries);
+  const errors = validateEntries(entries, expectedFieldSize ?? entries.length);
   if (errors.length) {
     const error = new Error(`odds.csv validation failed:\n${errors.join("\n")}`);
     error.errors = errors;

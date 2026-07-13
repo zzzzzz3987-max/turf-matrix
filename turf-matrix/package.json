@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "detect:html": "node tools/target-html/detect-html-inputs.mjs",
     "inspect:rc1b": "node tools/rc1b-inspect-inputs.mjs",
+    "inspect:race-batch": "node tools/inspect-race-batch.mjs",
     "normalize:rc1b": "node tools/normalizers/normalized-horse.mjs",
     "generate:candidate": "node tools/generate-week-candidate.mjs",
     "test:intelligence": "node --test tools/intelligence/tests/*.test.mjs",

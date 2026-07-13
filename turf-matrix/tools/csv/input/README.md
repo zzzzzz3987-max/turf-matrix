@@ -16,3 +16,5 @@ Power Automate Desktop saves TARGET CSV files here.
 - Do not update production `week-data.json` until `odds.csv` exists and the weekly pipeline succeeds.
 - Do not commit exported CSV files.
 - `README.md` and `.gitkeep` stay managed by git.
+
+For multiple races, save one input set per race under `tools/csv/input/races/<bundle-id>/`. See [`races/README.md`](races/README.md).

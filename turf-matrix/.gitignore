@@ -2,10 +2,13 @@ node_modules/
 dist/
 
 tools/csv/input/*.csv
+tools/csv/input/races/**/*.csv
 tools/target-html/input/*.html
 tools/target-html/input/*.htm
 tools/target-html/input/pedigree/*.html
 tools/target-html/input/pedigree/*.htm
+tools/target-html/input/races/**/*.html
+tools/target-html/input/races/**/*.htm
 tools/week-data.preodds.json
 tools/week-data.normalized.json
 tools/week-data.candidate.json

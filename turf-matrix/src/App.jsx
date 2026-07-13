@@ -1879,10 +1879,23 @@ const HomePage = ({ onOpenRace }) => {
   }, [races]);
   const raceGroups = useMemo(() => {
     const available = races ?? [];
+    const trackOrder = [...new Set(available.map((race) => race.track))];
+    const groupByTrack = (items) =>
+      trackOrder
+        .map((track) => ({
+          track,
+          races: items.filter((race) => race.track === track).sort((a, b) => a.number - b.number),
+        }))
+        .filter((group) => group.races.length > 0);
+    const special = available.filter((race) => gradeScore(race.grade) === 0 && race.category === "special");
+    const standard = available.filter((race) => gradeScore(race.grade) === 0 && race.category !== "special");
+
     return {
       graded: available.filter((race) => gradeScore(race.grade) > 0).sort((a, b) => (a.time ?? "").localeCompare(b.time ?? "")),
-      special: available.filter((race) => gradeScore(race.grade) === 0 && race.category === "special").sort((a, b) => (a.time ?? "").localeCompare(b.time ?? "")),
-      standard: available.filter((race) => gradeScore(race.grade) === 0 && race.category !== "special").sort((a, b) => (a.track ?? "").localeCompare(b.track ?? "") || a.number - b.number),
+      special,
+      standard,
+      specialByTrack: groupByTrack(special),
+      standardByTrack: groupByTrack(standard),
     };
   }, [races]);
 
@@ -1983,9 +1996,20 @@ const HomePage = ({ onOpenRace }) => {
                     <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Special Races</span>
                     <span className="text-[10px] font-medium text-slate-400">特別レース</span>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                    {raceGroups.special.map((race) => (
-                      <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                  <div className="space-y-6">
+                    {raceGroups.specialByTrack.map((group) => (
+                      <div key={group.track}>
+                        <div className="mb-2.5 flex items-center gap-3">
+                          <span className="text-[11px] font-bold text-slate-700">{group.track}</span>
+                          <span className="h-px flex-1 bg-white/75" />
+                          <span className="text-[9px] font-medium text-slate-400">{group.races.length}レース</span>
+                        </div>
+                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                          {group.races.map((race) => (
+                            <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -1997,9 +2021,20 @@ const HomePage = ({ onOpenRace }) => {
                     <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">All Races</span>
                     <span className="text-[10px] font-medium text-slate-400">全レース</span>
                   </div>
-                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
-                    {raceGroups.standard.map((race) => (
-                      <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                  <div className="space-y-6">
+                    {raceGroups.standardByTrack.map((group) => (
+                      <div key={group.track}>
+                        <div className="mb-2.5 flex items-center gap-3">
+                          <span className="text-[11px] font-bold text-slate-700">{group.track}</span>
+                          <span className="h-px flex-1 bg-white/75" />
+                          <span className="text-[9px] font-medium text-slate-400">{group.races.length}レース</span>
+                        </div>
+                        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                          {group.races.map((race) => (
+                            <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>

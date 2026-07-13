@@ -20,18 +20,18 @@ export const extractionTargets = Object.freeze([
   "training.evaluation",
 ]);
 
-export const inspect = () =>
+export const inspect = ({ path = source.path } = {}) =>
   inspectTextInput({
     parserId,
-    source,
+    source: { ...source, path },
     extractionTargets,
     required: false,
     minBytes: 512,
     minRows: 2,
   });
 
-export const parse = () => {
-  const path = resolveFromRepo(source.path);
+export const parse = ({ path: sourcePath = source.path } = {}) => {
+  const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseTargetHtmlRows(text).filter((row) => row[0] !== "場所");
 

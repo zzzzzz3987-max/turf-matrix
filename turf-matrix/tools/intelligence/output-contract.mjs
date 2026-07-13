@@ -26,7 +26,7 @@ const validateIntelligenceOutput = (weekData) => {
   const races = weekData?.races ?? [];
 
   if (!weekData || typeof weekData !== "object") errors.push("week data is missing");
-  if (!races.length) errors.push("races are missing");
+  if (!races.length && weekData?.meta?.dataStatus !== "missing") errors.push("races are missing");
 
   for (const race of races) {
     const horses = race?.horses ?? [];

@@ -979,7 +979,7 @@ const PedigreeCard = ({ pedigree }) => {
       {raceBias ? (
         <div className="mt-4 rounded-lg border border-teal-100/80 bg-white/75 px-3 py-3">
           <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[12px] font-semibold text-slate-900">七夕賞血統適合</span>
+            <span className="text-[12px] font-semibold text-slate-900">血統適合</span>
             <span className="text-[10px] font-semibold text-teal-700">{raceBias.grade}</span>
           </div>
           <p className="mt-1.5 text-[11px] leading-relaxed text-slate-500">{raceBias.summary}</p>

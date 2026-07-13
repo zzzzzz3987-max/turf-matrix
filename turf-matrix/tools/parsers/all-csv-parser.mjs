@@ -36,10 +36,10 @@ export const extractionTargets = Object.freeze([
   "horse.pedigree.damSire",
 ]);
 
-export const inspect = () =>
+export const inspect = ({ path = source.path } = {}) =>
   inspectTextInput({
     parserId,
-    source,
+    source: { ...source, path },
     extractionTargets,
     required: true,
     minBytes: 1024,
@@ -122,8 +122,8 @@ const extractRow = (row) => ({
   },
 });
 
-export const parse = () => {
-  const path = resolveFromRepo(source.path);
+export const parse = ({ path: sourcePath = source.path } = {}) => {
+  const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
   const byHorse = new Map();

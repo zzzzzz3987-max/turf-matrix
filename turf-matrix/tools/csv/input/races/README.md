@@ -40,3 +40,14 @@ The planned Sunday scope is 10 bundles. Confirm the final race card in TARGET af
 | Hakodate | 11R | 函館2歳ステークス GIII |
 
 Recommended bundle IDs use ASCII and stay unchanged through the week, for example `2026-07-19-kokura-11R`.
+
+## Batch workflow
+
+```powershell
+npm run inspect:race-batch
+npm run generate:race-batch
+npm run build:race-batch
+npm run dev:race-batch
+```
+
+`generate:race-batch` writes ignored intermediate JSON only. It never overwrites `tools/week-data.json`. The batch candidate keeps TM INDEX and AI commentary pending until the Intelligence Layer is connected with race-specific context.

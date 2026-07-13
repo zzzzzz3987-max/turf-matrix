@@ -92,10 +92,6 @@ const bundleDirs = existsSync(RACES_INPUT)
   : [];
 const bundles = bundleDirs.map((entry) => inspectBundle(entry.name, join(RACES_INPUT, entry.name)));
 
-if (!bundles.length && existsSync(join(CSV_INPUT, "current-race-detail.csv"))) {
-  bundles.push(inspectBundle("legacy-current", CSV_INPUT, { legacy: true }));
-}
-
 const summary = {
   bundleCount: bundles.length,
   previewReady: bundles.filter((bundle) => bundle.previewReady).length,

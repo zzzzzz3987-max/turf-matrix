@@ -20,8 +20,8 @@ export const extractionTargets = Object.freeze([
   "pedigree.generation4",
 ]);
 
-export const inspect = () => {
-  const dir = resolveFromRepo(source.path);
+export const inspect = ({ path = source.path } = {}) => {
+  const dir = resolveFromRepo(path);
   const warnings = [];
 
   if (!existsSync(dir)) {
@@ -142,8 +142,8 @@ const parsePedigreeFile = (dir, fileName) => {
   };
 };
 
-export const parse = () => {
-  const dir = resolveFromRepo(source.path);
+export const parse = ({ path = source.path } = {}) => {
+  const dir = resolveFromRepo(path);
   if (!existsSync(dir)) {
     return { parserId, records: [], warnings: [`pedigree input directory is missing at ${dir}`] };
   }

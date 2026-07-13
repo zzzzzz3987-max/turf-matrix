@@ -1,12 +1,14 @@
 import officialWeekData from "../../tools/week-data.json";
 
-const candidateModules = import.meta.glob("../../tools/week-data.candidate.json", {
+const candidateModules = import.meta.glob("../../tools/week-data.batch-candidate.json", {
   eager: true,
   import: "default",
 });
 
-const candidateWeekData = candidateModules["../../tools/week-data.candidate.json"] ?? null;
-export const dataMode = import.meta.env.VITE_TURF_DATA_MODE === "candidate" && candidateWeekData ? "candidate" : "official";
+const batchCandidateWeekData = candidateModules["../../tools/week-data.batch-candidate.json"] ?? null;
+const requestedMode = import.meta.env.VITE_TURF_DATA_MODE;
+export const dataMode =
+  (requestedMode === "batch" || requestedMode === "candidate") && batchCandidateWeekData ? "candidate" : "official";
 
 const isCandidatePayload = (data) =>
   data?.mode === "candidate" || data?.mode === "candidate-preodds" || Boolean(data?.races?.[0]?.horses?.[0]?.currentRace);
@@ -59,6 +61,7 @@ const buildSummary = (candidate, horses) => {
   const top = [...horses].filter((horse) => horse.aiScore != null).sort((a, b) => b.aiScore - a.aiScore)[0];
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
+  const pastRunCount = horses.reduce((sum, horse) => sum + (horse.pastRuns?.length ?? 0), 0);
 
   return {
     text: top
@@ -66,7 +69,7 @@ const buildSummary = (candidate, horses) => {
       : `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEXは分析準備中です。`,
     highlights: [
       `出走馬${horses.length}頭をcurrent-race-detail.csvから取得`,
-      `過去走${candidate.join?.pastRunCount ?? "311"}件、血統${horses.filter((horse) => horse.dataStatus?.pedigree === "active").length}頭、調教${trainingCount}頭を接続`,
+      `過去走${pastRunCount}件、血統${horses.filter((horse) => horse.dataStatus?.pedigree === "active").length}頭、調教${trainingCount}頭を接続`,
       `単勝オッズ${oddsCount}頭分をValue評価へ反映`,
     ],
   };
@@ -85,10 +88,32 @@ const buildFeatured = (race, horses) =>
     }));
 
 const adaptCandidate = (candidate, { previewMode = false } = {}) => {
-  const race = candidate.races?.[0];
-  if (!race) return officialWeekData;
-
-  const horses = (race.horses ?? []).map(adaptCandidateHorse);
+  const sourceRaces = candidate.races ?? [];
+  if (!sourceRaces.length) return officialWeekData;
+  const races = sourceRaces.map((race) => {
+    const horses = (race.horses ?? []).map(adaptCandidateHorse);
+    return {
+      id: race.id,
+      track: race.track,
+      number: race.number,
+      name: race.name,
+      nameRaw: race.nameRaw,
+      grade: race.grade,
+      time: race.time ?? null,
+      surface: race.surface,
+      distance: race.distance,
+      going: race.going ?? null,
+      fieldSize: race.fieldSize,
+      oddsUpdatedAt: race.oddsUpdatedAt ?? candidate.meta?.oddsUpdatedAt ?? null,
+      oddsStatus: race.oddsStatus ?? race.dataStatus?.odds ?? candidate.meta?.oddsStatus ?? "missing",
+      oddsSource: race.oddsSource ?? null,
+      featured: race.id === candidate.meta?.featuredRaceId,
+      category: race.category ?? (race.grade ? "grade" : "special"),
+      dataStatus: race.dataStatus,
+      horses,
+    };
+  });
+  const horses = races.flatMap((race) => race.horses);
 
   return {
     meta: {
@@ -104,40 +129,19 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
       dataStatus: candidate.meta?.dataStatus ?? "odds-ready",
       oddsUpdatedAt: candidate.meta?.oddsUpdatedAt ?? race.oddsUpdatedAt ?? null,
       oddsStatus: candidate.meta?.oddsStatus ?? race.oddsStatus ?? race.dataStatus?.odds ?? "missing",
-      featuredRaceId: race.id,
+      featuredRaceId: candidate.meta?.featuredRaceId ?? races[0]?.id ?? null,
       previewMode,
       intelligenceLayerConnected: candidate.intelligenceLayerConnected,
       intelligenceStage: candidate.intelligenceStage ?? null,
     },
     dailySummary: buildSummary(candidate, horses),
-    races: [
-      {
-        id: race.id,
-        track: race.track,
-        number: race.number,
-        name: race.name,
-        nameRaw: race.nameRaw,
-        grade: race.grade,
-        time: null,
-        surface: race.surface,
-        distance: race.distance,
-        going: null,
-        fieldSize: race.fieldSize,
-        oddsUpdatedAt: race.oddsUpdatedAt ?? candidate.meta?.oddsUpdatedAt ?? null,
-        oddsStatus: race.oddsStatus ?? race.dataStatus?.odds ?? candidate.meta?.oddsStatus ?? "missing",
-        oddsSource: race.oddsSource ?? null,
-        featured: true,
-        category: "grade",
-        dataStatus: race.dataStatus,
-        horses,
-      },
-    ],
-    featured: buildFeatured(race, horses),
+    races,
+    featured: races.flatMap((race) => buildFeatured(race, race.horses)),
   };
 };
 
-const selectedWeekData = dataMode === "candidate" ? candidateWeekData : officialWeekData;
+const selectedWeekData = dataMode === "candidate" ? batchCandidateWeekData : officialWeekData;
 
 export const weekData = isCandidatePayload(selectedWeekData)
-  ? adaptCandidate(selectedWeekData, { previewMode: dataMode === "candidate" })
+  ? adaptCandidate(selectedWeekData, { previewMode: dataMode !== "official" })
   : selectedWeekData;

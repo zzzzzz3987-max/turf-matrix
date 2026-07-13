@@ -1891,7 +1891,9 @@ const HomePage = ({ onOpenRace }) => {
     const standard = available.filter((race) => gradeScore(race.grade) === 0 && race.category !== "special");
 
     return {
-      graded: available.filter((race) => gradeScore(race.grade) > 0).sort((a, b) => (a.time ?? "").localeCompare(b.time ?? "")),
+      graded: available
+        .filter((race) => gradeScore(race.grade) > 0)
+        .sort((a, b) => Number(b.featuredRace) - Number(a.featuredRace) || (a.time ?? "").localeCompare(b.time ?? "")),
       special,
       standard,
       specialByTrack: groupByTrack(special),

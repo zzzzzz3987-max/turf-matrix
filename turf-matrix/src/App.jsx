@@ -1799,6 +1799,64 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
  * ===================================================================== */
 
 /* ---- トップページ ---- */
+const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
+  const featured = variant === "featured";
+  const score = race.topHorse.available ? displayScore(race.topHorse.aiScore) : "--";
+
+  return (
+    <button
+      onClick={() => onOpen(race.id)}
+      className={`group relative overflow-hidden ${GLASS.surface} ${GLASS.interactive} text-left ${
+        featured ? "p-6 md:p-7" : "p-4"
+      }`}
+    >
+      <div className={`pointer-events-none absolute rounded-full bg-emerald-100/40 blur-3xl ${featured ? "-right-8 -top-12 h-40 w-40" : "-right-10 -top-12 h-28 w-28"}`} />
+      <div className="relative">
+        <div className="flex items-center justify-between gap-3 text-[10px] font-medium text-slate-400">
+          <span>
+            {race.track}<Num>{race.number}</Num>R
+            <span className="mx-1.5 text-slate-300">/</span>
+            <Num>{displayRaceValue(race.time, "取得待ち")}</Num>
+          </span>
+          <span className="flex items-center gap-2">
+            {featured && race.grade && (
+              <span className="rounded-full border border-emerald-100 bg-emerald-50/70 px-2 py-0.5 text-[9px] font-semibold text-emerald-700">
+                {race.grade}
+              </span>
+            )}
+            <ChevronRight size={featured ? 15 : 13} strokeWidth={1.75} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </div>
+
+        <div className={`truncate font-bold tracking-tight text-slate-950 ${featured ? "mt-3 text-[19px] md:text-[20px]" : "mt-2 text-[14px]"}`}>
+          {race.name}
+        </div>
+
+        <div className={`flex items-end justify-between gap-4 border-t border-white/70 ${featured ? "mt-8 pt-5" : "mt-5 pt-3.5"}`}>
+          <div className="min-w-0">
+            <span className={`font-semibold uppercase text-slate-400 ${featured ? "text-[9px] tracking-[0.14em]" : "text-[8px] tracking-[0.1em]"}`}>
+              Top Signal
+            </span>
+            <span className={`block min-w-0 truncate font-bold text-slate-900 ${featured ? "mt-2 text-[14px]" : "mt-1 text-[11px]"}`}>
+              {race.topHorse.available ? race.topHorse.name : "分析準備中"}
+            </span>
+          </div>
+          <div className="shrink-0 text-right">
+            <Num className={`block font-bold leading-none tracking-tight text-emerald-600 ${featured ? "text-[38px] md:text-[42px]" : "text-[24px]"}`}>
+              {score}
+            </Num>
+            {featured && race.topHorse.available && (
+              <span className="mt-2 block text-[9px] font-medium text-slate-400">
+                Confidence {confidenceMeta(race.confidence).label}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </button>
+  );
+};
+
 const HomePage = ({ onOpenRace }) => {
   const [meta, setMeta] = useState(null);
   const [summary, setSummary] = useState(null);
@@ -1818,6 +1876,14 @@ const HomePage = ({ onOpenRace }) => {
     const raceWithData = races.filter((race) => race.topHorse.available);
     if (!raceWithData.length) return null;
     return raceWithData.find((race) => race.featuredRace) ?? [...raceWithData].sort((a, b) => (b.topHorse.aiScore ?? 0) - (a.topHorse.aiScore ?? 0))[0];
+  }, [races]);
+  const raceGroups = useMemo(() => {
+    const available = races ?? [];
+    return {
+      graded: available.filter((race) => gradeScore(race.grade) > 0).sort((a, b) => (a.time ?? "").localeCompare(b.time ?? "")),
+      special: available.filter((race) => gradeScore(race.grade) === 0 && race.category === "special").sort((a, b) => (a.time ?? "").localeCompare(b.time ?? "")),
+      standard: available.filter((race) => gradeScore(race.grade) === 0 && race.category !== "special").sort((a, b) => (a.track ?? "").localeCompare(b.track ?? "") || a.number - b.number),
+    };
   }, [races]);
 
   return (
@@ -1894,58 +1960,61 @@ const HomePage = ({ onOpenRace }) => {
           </div>
           <span className="text-[11px] font-medium text-slate-400">{meta?.venue}開催</span>
         </div>
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
-          {races
-            ? races.length
-              ? [...races]
-                .sort((a, b) => b.number - a.number)
-                .map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => onOpenRace(r.id)}
-                    className={`group relative overflow-hidden ${GLASS.surface} ${GLASS.interactive} p-5 text-left md:p-5`}
-                  >
-                    <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-emerald-100/45 blur-3xl" />
-                    <div className="relative">
-                      <div className="flex items-center justify-between gap-3 text-[10px] font-medium text-slate-400">
-                        <span>
-                          {r.track}<Num>{r.number}</Num>R
-                          <span className="mx-1.5 text-slate-300">/</span>
-                          <Num>{displayRaceValue(r.time, "取得待ち")}</Num>
-                        </span>
-                        <ChevronRight size={14} strokeWidth={1.75} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
-                      </div>
-                      <div className="mt-2 truncate text-[16px] font-bold tracking-tight text-slate-950 md:text-[14px]">
-                        {r.name}
-                      </div>
-                      <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/70 pt-4">
-                        <div className="min-w-0">
-                          <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-slate-400">Top Signal</span>
-                          <span className="mt-1.5 block min-w-0 truncate text-[12px] font-bold text-slate-900">
-                            {r.topHorse.name}
-                          </span>
-                        </div>
-                        <div className="text-right">
-                          <Num className="block shrink-0 text-[30px] font-bold leading-none tracking-tight text-emerald-600 md:text-[28px]">
-                            {displayScore(r.topHorse.aiScore)}
-                          </Num>
-                          {r.topHorse.available && (
-                            <span className="mt-1.5 block text-[9px] font-medium text-slate-400">
-                              {confidenceMeta(r.confidence).label}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </button>
-                ))
-              : (
-                <div className={`${GLASS.surface} p-6 text-[13px] font-medium text-slate-400 md:col-span-3`}>
-                  データ未取得
+        {races ? (
+          races.length ? (
+            <div className="mt-5 space-y-9">
+              {raceGroups.graded.length > 0 && (
+                <div>
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Featured Intelligence</span>
+                    <span className="text-[10px] font-medium text-slate-400">重賞</span>
+                  </div>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {raceGroups.graded.map((race) => (
+                      <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} variant="featured" />
+                    ))}
+                  </div>
                 </div>
-              )
-            : [0, 1, 2].map((i) => <Skeleton key={i} className="h-44" />)}
-        </div>
+              )}
+
+              {raceGroups.special.length > 0 && (
+                <div>
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">Special Races</span>
+                    <span className="text-[10px] font-medium text-slate-400">特別レース</span>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                    {raceGroups.special.map((race) => (
+                      <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {raceGroups.standard.length > 0 && (
+                <div>
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-slate-400">All Races</span>
+                    <span className="text-[10px] font-medium text-slate-400">全レース</span>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+                    {raceGroups.standard.map((race) => (
+                      <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className={`${GLASS.surface} mt-5 p-6 text-[13px] font-medium text-slate-400`}>
+              データ未取得
+            </div>
+          )
+        ) : (
+          <div className="mt-5 grid gap-5 md:grid-cols-3">
+            {[0, 1, 2].map((i) => <Skeleton key={i} className="h-44" />)}
+          </div>
+        )}
       </section>
 
       {/* AI分析サマリー */}

@@ -59,6 +59,16 @@ const adaptCandidateHorse = (horse) => {
 };
 
 const buildSummary = (candidate, horses) => {
+  if (!horses.length) {
+    return {
+      text: "レース番組を確認済みです。出走馬データの取得後にTM INDEXを生成します。",
+      highlights: [
+        `${candidate.races?.length ?? 0}レースを表示予定`,
+        "単勝オッズ取得前はTM VALUEを未評価として扱います。",
+      ],
+    };
+  }
+
   const top = [...horses].filter((horse) => horse.aiScore != null).sort((a, b) => b.aiScore - a.aiScore)[0];
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
@@ -128,8 +138,8 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
       week: "2026-W28",
       source: "target-frontier-jv-candidate",
       dataStatus: candidate.meta?.dataStatus ?? "odds-ready",
-      oddsUpdatedAt: candidate.meta?.oddsUpdatedAt ?? race.oddsUpdatedAt ?? null,
-      oddsStatus: candidate.meta?.oddsStatus ?? race.oddsStatus ?? race.dataStatus?.odds ?? "missing",
+      oddsUpdatedAt: candidate.meta?.oddsUpdatedAt ?? races[0]?.oddsUpdatedAt ?? null,
+      oddsStatus: candidate.meta?.oddsStatus ?? races[0]?.oddsStatus ?? races[0]?.dataStatus?.odds ?? "missing",
       featuredRaceId: candidate.meta?.featuredRaceId ?? races[0]?.id ?? null,
       previewMode,
       intelligenceLayerConnected: candidate.intelligenceLayerConnected,

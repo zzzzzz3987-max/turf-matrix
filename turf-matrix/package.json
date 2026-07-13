@@ -17,6 +17,7 @@
     "inspect:rc1b": "node tools/rc1b-inspect-inputs.mjs",
     "inspect:race-batch": "node tools/inspect-race-batch.mjs",
     "scaffold:race-batch": "node tools/scaffold-race-batch-inputs.mjs",
+    "pad:manifest": "node tools/generate-pad-race-batch-manifest.mjs",
     "normalize:rc1b": "node tools/normalizers/normalized-horse.mjs",
     "normalize:race-batch": "node tools/normalizers/race-batch.mjs",
     "generate:race-batch": "npm run normalize:race-batch && node tools/generate-race-batch-candidate.mjs",

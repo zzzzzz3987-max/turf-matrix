@@ -11,6 +11,8 @@
     "inspect:rc1b": "node tools/rc1b-inspect-inputs.mjs",
     "normalize:rc1b": "node tools/normalizers/normalized-horse.mjs",
     "generate:candidate": "node tools/generate-week-candidate.mjs",
+    "test:intelligence": "node --test tools/intelligence/tests/*.test.mjs",
+    "verify:intelligence": "npm run generate:candidate && npm run test:intelligence",
     "generate:preodds": "node tools/generate-preodds.mjs",
     "validate:csv": "node tools/validate-csv-inputs.mjs",
     "generate-week": "node tools/generate-week-safe.mjs",

@@ -4,6 +4,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FACTOR_KEYS, RACE_DAY_CONDITION, buildAnalysis, normalizeHorseKey, findInvalidNumbers, duplicates } from "./intelligence/index.mjs";
+import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const NORMALIZED_PATH = join(SCRIPT_DIR, "week-data.normalized.json");
@@ -177,6 +178,7 @@ const validateCandidate = (candidate) => {
 
 const normalized = JSON.parse(readFileSync(NORMALIZED_PATH, "utf8"));
 const candidate = buildCandidate(normalized);
+candidate.meta.featuredRaceId = selectFeaturedRace(candidate)?.id ?? null;
 const validation = validateCandidate(candidate);
 
 if (validation.errors.length) {

@@ -1,40 +1,59 @@
-# TURF MATRIX PAD race batch automation
+# TURF MATRIX PAD レース一括保存 手順書
 
-This is the practical automation plan for the remaining human work:
+この手順書は、木曜・金曜に TARGET frontier JV から必要データを保存し、TURF MATRIX の週次更新へつなぐための運用メモです。
+
+今週は新機能を増やさず、以下を最優先にします。
 
 ```text
-TARGET screen export for selected races
+重賞2レース: 七夕賞を超える分析品質
+特別レース: 軽量分析で安定掲載
 ```
 
-The goal is not to make Power Automate Desktop understand racing data. The goal
-is to make PAD repeat the same export/save actions against fixed paths generated
-by TURF MATRIX.
+## 目的
 
-## Automation boundary
+人間が毎週やる作業を、できるだけ以下に近づけます。
 
-Automated by TURF MATRIX:
+```text
+1. TARGETを更新する
+2. PADを実行してCSV/HTMLを固定フォルダへ保存する
+3. 確認コマンドを実行する
+4. 土曜にオッズを入れて公開する
+```
 
-- creates race input folders
-- generates PAD save-path manifest
-- validates exported files
-- generates preview candidate
-- builds production app
-- publishes on Saturday after odds are present
+PADに競馬データの意味を理解させる必要はありません。
+PADには、TARGET画面を開いて、決められたファイル名で保存する作業だけを任せます。
 
-Automated by PAD:
+## 役割分担
 
-- launches TARGET
-- opens each configured race
-- exports fixed TARGET screens
-- saves files to the manifest paths
+TURF MATRIX側で自動化すること:
 
-Still intentionally manual:
+- レース入力フォルダを作る
+- PAD用の保存先一覧を作る
+- 入力ファイルを検証する
+- プレビュー用データを生成する
+- TM INDEX / TM VALUE / AI総評を生成する
+- buildする
+- 土曜に本番公開する
 
-- choosing the official weekly race set in `tools/race-batch-config.json`
-- confirming TARGET has been updated
-- checking preview before publish
+PAD側で自動化すること:
 
-## One-time setup
+- TARGETを起動する
+- TARGETを更新する
+- 対象レースを開く
+- CSV/HTMLを保存する
+- 保存後に確認コマンドを実行する
+
+人間が確認すること:
+
+- 今週の対象レースが正しいか
+- TARGET更新が完了しているか
+- 重賞の血統・調教データが取れているか
+- プレビューが崩れていないか
+- 公開前に `inspect:race-batch` が通っているか
+
+## 事前準備
+
+PowerShellで以下を実行します。
 
 ```powershell
 Set-Location "C:\Users\R\Documents\Codex\2026-07-05\turf-matrix-lead-frontend-engineer-ui\work\turf-matrix\turf-matrix"
@@ -42,106 +61,59 @@ npm run scaffold:race-batch
 npm run pad:manifest
 ```
 
-Generated files:
+生成されるファイル:
 
 ```text
 tools/pad-runtime/race-batch-manifest.json
 tools/pad-runtime/race-batch-manifest.md
 ```
 
-Both files are git-ignored. Recreate them whenever
-`tools/race-batch-config.json` changes.
+この2つはPAD用の保存先一覧です。
+git管理外なので、毎週作り直してOKです。
 
-## Thursday PAD flow
+## 木曜にやること
 
-Record this once in Power Automate Desktop.
+木曜はオッズなしで、出走馬・近走・血統・調教を先に取り込みます。
+本番公開はしません。
 
-1. Launch TARGET frontier JV.
-2. Wait for TARGET main window.
-3. Run or confirm data update.
-4. For each bundle in `tools/pad-runtime/race-batch-manifest.md`:
-   - open the race in TARGET
-   - export current race detail CSV
-   - save as `current-race-detail.csv`
-   - export TARGET all CSV
-   - save as `all.csv`
-   - if available, save slope training HTML as `training-slope.html`
-   - if available, save wood/CW/D training HTML as `training-wood.html`
-   - if available, save horse pedigree HTML files into the `pedigree` folder
-5. Run:
+### 木曜の取得優先度
 
-```powershell
-npm run inspect:race-batch
-npm run thursday:preview
-```
+| レース種別 | 必須 | できれば取得 |
+| --- | --- | --- |
+| 重賞 | `current-race-detail.csv`, `all.csv`, `training-slope.html`, `training-wood.html`, `pedigree/*.html` | 追加の血統HTML |
+| 特別レース | `current-race-detail.csv`, `all.csv` | `training-slope.html`, `training-wood.html`, `pedigree/*.html` |
 
-Thursday must not publish production data.
+重賞はTURF MATRIXの顔なので、血統と調教をできるだけ厚く取ります。
+特別レースは軽量分析でよいので、最低限 `current-race-detail.csv` と `all.csv` があれば進めます。
 
-## Thursday operator checklist
+### 木曜PADフロー
 
-Goal:
+Power Automate Desktopで、以下の流れを記録します。
 
 ```text
-Grade races must be updated every week with analysis quality above the
-2026-07-12 Tanabata Sho release. Special races may use the lighter analysis
-path, but they must still receive TM INDEX, course/distance, form, blood, and
-training where data exists.
+フロー名:
+TURF MATRIX 木曜データ保存
+
+1. TARGET frontier JVを起動
+2. TARGETのメイン画面が表示されるまで待つ
+3. TARGETデータ更新を実行、または更新済みであることを確認
+4. tools/pad-runtime/race-batch-manifest.md を開く
+5. マニフェストの対象レースごとに以下を繰り返す
+   5-1. TARGETで対象レースを開く
+   5-2. 出馬表詳細CSVを出力
+   5-3. current-race-detail.csv として保存
+   5-4. TARGETの「全て」CSVを出力
+   5-5. all.csv として保存
+   5-6. 重賞なら坂路調教HTMLを保存
+   5-7. training-slope.html として保存
+   5-8. 重賞ならウッド/CW/D調教HTMLを保存
+   5-9. training-wood.html として保存
+   5-10. 重賞なら馬ごとの4代血統HTMLを pedigree フォルダへ保存
+6. PowerShellで npm run inspect:race-batch を実行
+7. PowerShellで npm run thursday:preview を実行
 ```
 
-Before running PAD:
-
-1. Confirm the weekly target race list in `tools/race-batch-config.json`.
-2. Run:
-
-```powershell
-Set-Location "C:\Users\R\Documents\Codex\2026-07-05\turf-matrix-lead-frontend-engineer-ui\work\turf-matrix\turf-matrix"
-npm run scaffold:race-batch
-npm run pad:manifest
-```
-
-3. Open `tools/pad-runtime/race-batch-manifest.md`.
-4. Keep it visible while recording or running PAD.
-
-Thursday required files per race:
-
-| Race type | Required | Optional but recommended |
-| --- | --- | --- |
-| Grade race | `current-race-detail.csv`, `all.csv`, `training-slope.html`, `training-wood.html`, horse-level `pedigree/*.html` | extra pedigree pages if TARGET exposes them |
-| Special race | `current-race-detail.csv`, `all.csv` | `training-slope.html`, `training-wood.html`, horse-level `pedigree/*.html` |
-
-Why this split exists:
-
-- Grade races are the weekly showcase. They should have deep Blood AI and
-  Training AI evidence.
-- Special races still receive Stage 1 Intelligence, but missing optional
-  training or pedigree should not block Thursday preview.
-
-After PAD finishes:
-
-```powershell
-npm run inspect:race-batch
-npm run thursday:preview
-```
-
-Expected Thursday result:
-
-- all configured bundles exist
-- grade race bundles have current race, all, training, and pedigree evidence
-- special race bundles at least have current race and all
-- `tools/week-data.json` is not updated
-- no commit or push is made
-
-If grade race training or pedigree is missing:
-
-1. Do not ignore it silently.
-2. Re-run only the missing TARGET export step for that grade race.
-3. Run `npm run inspect:race-batch` again.
-4. If TARGET genuinely has no data for that horse or race, publish with the
-   honest `未取得` / `一部取得` display.
-
-## PAD recording details
-
-Use fixed variables in Power Automate Desktop:
+PADで使う固定変数:
 
 ```text
 RepoRoot = C:\Users\R\Documents\Codex\2026-07-05\turf-matrix-lead-frontend-engineer-ui\work\turf-matrix\turf-matrix
@@ -149,176 +121,177 @@ ManifestMd = %RepoRoot%\tools\pad-runtime\race-batch-manifest.md
 ManifestJson = %RepoRoot%\tools\pad-runtime\race-batch-manifest.json
 ```
 
-Recommended PAD structure:
+### PADで使う主なアクション
 
-```text
-Flow: TURF MATRIX Thursday Export
-
-1. Launch TARGET frontier JV
-2. Wait for TARGET main window
-3. Run TARGET data update
-4. Open ManifestMd so the save paths are visible
-5. For each target race:
-   5-1. Open race in TARGET
-   5-2. Export current race detail CSV
-   5-3. Save to the race folder as current-race-detail.csv
-   5-4. Export TARGET all CSV
-   5-5. Save to the race folder as all.csv
-   5-6. If this is a grade race, export slope training HTML
-   5-7. Save as training-slope.html
-   5-8. If this is a grade race, export wood/CW/D training HTML
-   5-9. Save as training-wood.html
-   5-10. If this is a grade race, save horse-level pedigree HTML into pedigree folder
-6. Run PowerShell command: npm run inspect:race-batch
-7. Run PowerShell command: npm run thursday:preview
-```
-
-Recommended PAD actions:
-
-| PAD action | Purpose |
+| PADアクション | 用途 |
 | --- | --- |
-| `Run application` | Launch TARGET |
-| `Wait for window` | Wait until TARGET is ready |
-| `Send keys` / `Click UI element` | Operate TARGET menus |
-| `Populate text field in window` | Set save file name |
-| `If file exists` | Confirm export succeeded |
-| `Run PowerShell script` | Run TURF MATRIX verification commands |
+| アプリケーションの実行 | TARGETを起動 |
+| ウィンドウを待機 | TARGET画面の表示待ち |
+| キーの送信 | TARGETのメニュー操作 |
+| UI要素のクリック | TARGET画面操作 |
+| テキストフィールドに入力 | 保存ファイル名を指定 |
+| ファイルが存在する場合 | 保存成功チェック |
+| PowerShellスクリプトの実行 | 確認コマンド実行 |
 
-Save dialog rule:
+### 保存ルール
 
 ```text
-Always overwrite the manifest path.
-Never add date, venue, race name, or Japanese title to the filename.
+必ずマニフェストに書かれたパスへ上書き保存する
+日付・開催場・レース名をファイル名に足さない
+日本語レース名をファイル名に使わない
 ```
 
-Failure detection in PAD:
-
-- after each export, check that the saved file exists
-- check file size is greater than 1 KB
-- for CSV, check the first line or row count is not empty
-- if a required grade file is missing, stop the flow and show a message
-- if an optional special-race file is missing, log it and continue
-
-Suggested stop message:
+正しいファイル名:
 
 ```text
-TURF MATRIX export stopped.
-Missing required grade-race file:
+current-race-detail.csv
+all.csv
+training-slope.html
+training-wood.html
+odds.csv
+```
+
+## 木曜の確認コマンド
+
+PAD保存後に実行します。
+
+```powershell
+npm run inspect:race-batch
+npm run thursday:preview
+```
+
+木曜の成功条件:
+
+- 設定済みのレースフォルダが存在する
+- 重賞に `current-race-detail.csv` と `all.csv` がある
+- 重賞に調教HTMLと血統HTMLができるだけ揃っている
+- 特別レースに `current-race-detail.csv` と `all.csv` がある
+- `tools/week-data.json` は更新されない
+- commit / push は行われない
+
+重賞の調教・血統が足りない場合:
+
+1. そのまま無視しない
+2. 該当重賞だけTARGETから再保存する
+3. `npm run inspect:race-batch` を再実行する
+4. TARGET側に本当にデータがない場合だけ、`未取得` または `一部取得` として扱う
+
+## 金曜・土曜にやること
+
+金曜または土曜はオッズを追加します。
+ここで初めて本番公開へ進めます。
+
+### 金曜・土曜PADフロー
+
+```text
+フロー名:
+TURF MATRIX オッズ保存
+
+1. TARGET frontier JVを起動
+2. TARGETデータ更新を実行
+3. tools/pad-runtime/race-batch-manifest.md を開く
+4. 対象レースごとにオッズ画面を開く
+5. オッズCSVを出力
+6. 各レースフォルダへ odds.csv として保存
+7. PowerShellで npm run inspect:race-batch を実行
+8. 問題なければ npm run saturday:publish を実行
+```
+
+金曜・土曜の必須ファイル:
+
+| レース種別 | 必須 |
+| --- | --- |
+| 重賞 | `odds.csv` |
+| 特別レース | `odds.csv` |
+
+## 金曜・土曜の確認コマンド
+
+```powershell
+npm run inspect:race-batch
+npm run saturday:publish
+```
+
+土曜の成功条件:
+
+- 全レースに `odds.csv` がある
+- オッズ件数と出走頭数が一致する
+- TM VALUEが実オッズから計算される
+- buildが成功する
+- `week-data.json` が安全に更新される
+- commit / push が安全な公開フローで実行される
+
+## 失敗時の止め方
+
+PAD内で最低限チェックすること:
+
+- 保存したファイルが存在する
+- ファイルサイズが1KB以上
+- CSVが空ではない
+- 重賞の必須ファイルがない場合は停止
+- 特別レースの任意HTMLがない場合はログだけ残して続行
+
+停止メッセージ例:
+
+```text
+TURF MATRIXの保存処理を停止しました。
+重賞の必須ファイルが不足しています。
+
+不足ファイル:
 %MissingPath%
-Re-export this TARGET screen and rerun inspect:race-batch.
+
+TARGETから再保存して、npm run inspect:race-batch を再実行してください。
 ```
 
-## Saturday PAD flow
+## 公開してはいけない状態
 
-1. Launch TARGET frontier JV.
-2. Update TARGET.
-3. For each bundle in `tools/pad-runtime/race-batch-manifest.md`:
-   - open the race odds screen
-   - export odds CSV
-   - save as `odds.csv`
-4. Run:
+以下の場合は公開しません。
 
-```powershell
-npm run inspect:race-batch
-npm run saturday:publish
-```
+- 重賞のレース名・開催場・R番号が違う
+- 重賞の出走頭数が違う
+- オッズが0埋めされている
+- 人気を推測している
+- TM INDEXやAI総評が別レースから流用されている
+- `git status --short` に生CSV/HTMLが出ている
+- `inspect:race-batch` が失敗している
+- buildが失敗している
 
-Production update is allowed only when all required odds files pass validation.
+## 今週の品質基準
 
-## Friday/Saturday operator checklist
+重賞:
 
-Goal:
+- 七夕賞より分析文が読みやすい
+- 血統は4ライン表示だけでなく、強みまで説明する
+- 調教は最終追切・終い・加速ラップを説明する
+- AI総評が日本語で自然に読める
+- TM INDEX / TM VALUE が実データから出る
+
+特別レース:
+
+- 軽量分析でよい
+- TM INDEXを出す
+- オッズ後にTM VALUEを出す
+- 短めのAI総評を出す
+- 調教・血統がない場合は正直に `未取得` と表示する
+
+## 今後の方向性
+
+短期:
 
 ```text
-Add real odds only. Do not estimate odds, popularity, TM VALUE, or Value AI.
+PAD + マニフェスト方式で木曜保存を安定化
 ```
 
-Required files per race:
+中期:
 
-| Race type | Required |
-| --- | --- |
-| Grade race | `odds.csv` |
-| Special race | `odds.csv` |
-
-Run after PAD odds export:
-
-```powershell
-npm run inspect:race-batch
-npm run saturday:publish
+```text
+JV-Link直取得で出馬表・出走馬・オッズを置き換える
 ```
 
-Expected Saturday result:
+長期:
 
-- every race has `odds.csv`
-- odds count matches the race entry count
-- TM VALUE is calculated from real odds
-- `week-data.json` is updated only after validation and build succeed
-- commit / push runs through the safe publish path
+```text
+PAD依存を重賞の補助HTMLだけに減らす
+```
 
-If `inspect:race-batch` fails:
-
-- do not run `saturday:publish`
-- re-export the failed race odds file
-- rerun `inspect:race-batch`
-
-If a race is cancelled or TARGET odds are unavailable:
-
-- do not fabricate odds
-- leave the race as `未取得` / `未評価`
-- publish only if the release gate accepts the explicit missing state
-
-## Weekly quality bar
-
-Grade race quality bar:
-
-- current race data present
-- runner count correct
-- all.csv present
-- odds.csv present before publish
-- training evidence should be present when TARGET provides it
-- pedigree evidence should be present when TARGET provides it
-- Blood AI explains the strength, not just the four-line names
-- Training AI explains final workout, finish, and acceleration where available
-- AI verdict must be readable in Japanese
-
-Special race quality bar:
-
-- current race data present
-- all.csv present
-- odds.csv present before publish
-- TM INDEX generated
-- TM VALUE generated after odds
-- short AI verdict generated
-- missing training/pedigree is allowed, but must be displayed honestly
-
-Do not publish if:
-
-- grade race runner count is wrong
-- grade race name/course/race number is wrong
-- odds are zero-filled or guessed
-- `TM INDEX` or AI verdict is copied from another race
-- raw CSV/HTML appears in `git status --short`
-
-## Recommended hybrid direction
-
-JV-Link direct intake should gradually replace PAD exports for:
-
-- race details
-- runners
-- odds
-
-PAD should remain as the fallback for:
-
-- TARGET-specific training HTML
-- horse-level pedigree HTML
-
-This keeps the weekly operation practical while JV-Link coverage is still being
-validated.
-
-## Failure rules
-
-- If a race folder is missing, run `npm run scaffold:race-batch`.
-- If the manifest is stale, run `npm run pad:manifest`.
-- If `inspect:race-batch` fails, do not publish.
-- If `odds.csv` is missing on Saturday, do not publish.
-- Do not commit raw `.csv`, `.html`, or `.htm` files.
+今週は拡張しません。
+まずは、重賞2レースを毎週きちんと更新できる運用を成功させます。

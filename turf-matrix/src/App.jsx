@@ -1903,42 +1903,39 @@ const HomePage = ({ onOpenRace }) => {
                   <button
                     key={r.id}
                     onClick={() => onOpenRace(r.id)}
-                    className={`group relative overflow-hidden ${GLASS.surface} ${GLASS.interactive} p-6 text-left`}
+                    className={`group relative overflow-hidden ${GLASS.surface} ${GLASS.interactive} p-5 text-left md:p-5`}
                   >
                     <div className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-emerald-100/45 blur-3xl" />
                     <div className="relative">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0">
-                        <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">Race Signal</div>
-                        <div className="mt-3 truncate text-[16px] font-bold tracking-tight text-slate-950 md:text-[14px]">
-                          {r.name}
-                        </div>
+                      <div className="flex items-center justify-between gap-3 text-[10px] font-medium text-slate-400">
+                        <span>
+                          {r.track}<Num>{r.number}</Num>R
+                          <span className="mx-1.5 text-slate-300">/</span>
+                          <Num>{displayRaceValue(r.time, "取得待ち")}</Num>
+                        </span>
+                        <ChevronRight size={14} strokeWidth={1.75} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
                       </div>
-                      <span className="inline-flex shrink-0 items-center gap-0.5 rounded-full bg-white/55 px-2 py-1 text-[11px] font-semibold text-slate-500">
-                        詳細
-                        <ChevronRight size={12} strokeWidth={1.75} />
-                      </span>
-                    </div>
-                    <div className="mt-9">
-                      <div className="flex items-end justify-between gap-4">
+                      <div className="mt-2 truncate text-[16px] font-bold tracking-tight text-slate-950 md:text-[14px]">
+                        {r.name}
+                      </div>
+                      <div className="mt-6 flex items-end justify-between gap-4 border-t border-white/70 pt-4">
                         <div className="min-w-0">
-                          <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Top Signal</span>
-                          <span className="mt-2 block min-w-0 truncate text-[12px] font-bold text-slate-900">
+                          <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-slate-400">Top Signal</span>
+                          <span className="mt-1.5 block min-w-0 truncate text-[12px] font-bold text-slate-900">
                             {r.topHorse.name}
                           </span>
                         </div>
-                        <Num className="shrink-0 text-[36px] font-bold leading-none tracking-tight text-emerald-600 md:text-[30px]">
+                        <div className="text-right">
+                          <Num className="block shrink-0 text-[30px] font-bold leading-none tracking-tight text-emerald-600 md:text-[28px]">
                             {displayScore(r.topHorse.aiScore)}
                           </Num>
+                          {r.topHorse.available && (
+                            <span className="mt-1.5 block text-[9px] font-medium text-slate-400">
+                              {confidenceMeta(r.confidence).label}
+                            </span>
+                          )}
+                        </div>
                       </div>
-                      <div className="mt-6 flex items-center justify-between border-t border-white/70 pt-4">
-                        <span className="text-[10px] font-medium text-slate-400">
-                          <Clock size={10} strokeWidth={1.75} className="mr-1 inline-block align-[-1px]" />
-                          <Num>{displayRaceValue(r.time, "取得待ち")}</Num> ・ {r.track}<Num>{r.number}</Num>R
-                        </span>
-                        <span className="text-[10px] font-medium text-slate-400">Confidence {confidenceMeta(r.confidence).label}</span>
-                      </div>
-                    </div>
                     </div>
                   </button>
                 ))

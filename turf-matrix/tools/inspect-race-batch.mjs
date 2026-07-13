@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join, relative } from "node:path";
 import * as currentRaceParser from "./parsers/current-race-detail-parser.mjs";
 import * as oddsParser from "./parsers/odds-csv-parser.mjs";
@@ -9,6 +9,7 @@ const CSV_INPUT = join(REPO_ROOT, "tools", "csv", "input");
 const HTML_INPUT = join(REPO_ROOT, "tools", "target-html", "input");
 const RACES_INPUT = join(CSV_INPUT, "races");
 const HTML_RACES_INPUT = join(HTML_INPUT, "races");
+const CONFIG = JSON.parse(readFileSync(join(REPO_ROOT, "tools", "race-batch-config.json"), "utf8"));
 
 const repoPath = (path) => relative(REPO_ROOT, path).replaceAll("\\", "/");
 const htmlStatus = (bundleId) => {
@@ -91,12 +92,15 @@ const bundleDirs = existsSync(RACES_INPUT)
   ? readdirSync(RACES_INPUT, { withFileTypes: true }).filter((entry) => entry.isDirectory())
   : [];
 const bundles = bundleDirs.map((entry) => inspectBundle(entry.name, join(RACES_INPUT, entry.name)));
+const missingBundles = CONFIG.bundles.filter((bundleId) => !bundleDirs.some((entry) => entry.name === bundleId));
 
 const summary = {
   bundleCount: bundles.length,
+  expectedRaceCount: CONFIG.expectedRaceCount,
+  missingBundles,
   previewReady: bundles.filter((bundle) => bundle.previewReady).length,
   productionReady: bundles.filter((bundle) => bundle.productionReady).length,
-  errorCount: bundles.reduce((sum, bundle) => sum + bundle.errors.length, 0),
+  errorCount: bundles.reduce((sum, bundle) => sum + bundle.errors.length, 0) + missingBundles.length,
 };
 
 console.log(JSON.stringify({ summary, bundles }, null, 2));

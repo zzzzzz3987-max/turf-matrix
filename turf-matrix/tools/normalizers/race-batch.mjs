@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readdirSync, writeFileSync } from "node:fs";
+import { readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeRaceBundle } from "./race-bundle.mjs";
@@ -9,12 +9,22 @@ const REPO_ROOT = join(TOOLS_DIR, "..");
 const CSV_RACES = join(TOOLS_DIR, "csv", "input", "races");
 const HTML_RACES = join(TOOLS_DIR, "target-html", "input", "races");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
+const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const repoPath = (path) => relative(REPO_ROOT, path).replaceAll("\\", "/");
+const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 
 const bundleIds = readdirSync(CSV_RACES, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .sort();
+
+if (bundleIds.length) {
+  const missing = config.bundles.filter((bundleId) => !bundleIds.includes(bundleId));
+  const unexpected = bundleIds.filter((bundleId) => !config.bundles.includes(bundleId));
+  if (missing.length || unexpected.length || bundleIds.length !== config.expectedRaceCount) {
+    throw new Error(`Race bundle set mismatch. missing=${missing.join(",") || "none"} unexpected=${unexpected.join(",") || "none"}`);
+  }
+}
 
 const races = bundleIds.map((bundleId) => {
   const csvDir = join(CSV_RACES, bundleId);
@@ -34,6 +44,12 @@ const races = bundleIds.map((bundleId) => {
   });
 });
 
+for (const bundle of races) {
+  if (bundle.race.raceDate !== config.raceDate) {
+    throw new Error(`${bundle.bundleId}: race date ${bundle.race.raceDate} does not match ${config.raceDate}`);
+  }
+}
+
 const output = {
   schemaVersion: 1,
   mode: "race-batch-normalized",
@@ -41,6 +57,8 @@ const output = {
   generatedAt: null,
   productionWeekDataUpdated: false,
   raceCount: races.length,
+  expectedRaceCount: config.expectedRaceCount,
+  raceDate: config.raceDate,
   races,
 };
 

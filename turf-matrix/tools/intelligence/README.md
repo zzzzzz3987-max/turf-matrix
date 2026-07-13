@@ -15,6 +15,7 @@ Current scope:
 - Value AI v1 odds-value scoring (`value-ai.mjs`)
 - Verdict Engine v1 evidence assembly (`verdict-engine.mjs`)
 - Race selector v1 deterministic featured-race selection (`race-selector.mjs`)
+- Race Context v1 per-race surface and distance profile (`race-context.mjs`)
 - Output contract validation (`output-contract.mjs`)
 - Live-data regression suite (`tests/intelligence-regression.test.mjs`)
 
@@ -27,8 +28,8 @@ Boundaries:
 
 Remaining split targets:
 
-- multi-race TARGET input integration
-- Intelligence Engine version promotion after regression baselines are approved
+- course-specific bias profiles backed by reviewed evidence
+- Intelligence Engine version promotion after multi-race regression baselines are approved
 
 Verification:
 

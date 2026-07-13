@@ -7,12 +7,12 @@ Power Automate Desktop saves TARGET CSV files here.
 | File | Timing | Role |
 | --- | --- | --- |
 | `all.csv` | Thursday | Main input |
-| `odds.csv` | Friday | Value AI input |
+| `odds.csv` | Saturday | Value AI input |
 
 ## Rules
 
 - `all.csv` is the primary TARGET export.
-- `odds.csv` is added on Friday.
+- `odds.csv` is added on Saturday after odds become available.
 - Do not update production `week-data.json` until `odds.csv` exists and the weekly pipeline succeeds.
 - Do not commit exported CSV files.
 - `README.md` and `.gitkeep` stay managed by git.

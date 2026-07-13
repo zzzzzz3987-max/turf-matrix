@@ -1,15 +1,12 @@
-import { RACE_DAY_CONDITION } from "./constants.mjs";
-
-const confidenceFor = (horse, factors) => {
-  if (horse.dataStatus?.training === "missing") return "mid";
-  if (horse.pastRuns?.length >= 8 && horse.pedigree && horse.odds?.status === "active") return "high";
+const confidenceFor = (horse, trainingAnalysis) => {
+  if (!horse.pastRuns?.length) return "low";
+  if (horse.pastRuns.length >= 8 && horse.pedigree && trainingAnalysis.count && horse.odds?.status === "active") return "high";
   return "mid";
 };
 
-const gradeForTraining = (score) => (score >= 82 ? "A" : score >= 72 ? "B" : score >= 60 ? "C" : "D");
-
 const buildVerdictPayload = ({
   horse,
+  context,
   displayName,
   displayNumber,
   tmIndex,
@@ -22,109 +19,61 @@ const buildVerdictPayload = ({
   bloodSummary,
 }) => {
   const { ability, form, course, pace, training, blood, stable, frame } = scores;
-  const confidence = confidenceFor(horse, factors);
-  const trainingStatus =
-    trainingAnalysis.count
-      ? trainingAnalysis.summary
-      : "調教データは一部取得";
+  const confidence = confidenceFor(horse, trainingAnalysis);
   const recent = horse.pastRuns?.[0];
-  const recentText = recent ? `直近は${recent.course}${recent.raceName}で${recent.finishPosition}着` : "近走データは不足";
-  const valueText = horse.odds?.popularity
-    ? `単勝${horse.odds.winOdds}倍・${horse.odds.popularity}人気を妙味評価へ反映`
-    : "オッズ未取得";
-  const abilityText = horse.odds?.zi
-    ? `TARGET基礎指数${horse.odds.zi}から能力の土台を確認`
-    : "TARGET基礎指数は未取得";
+  const recentText = recent
+    ? `直近は${recent.course ?? ""}${recent.raceName ?? "前走"}で${recent.finishPosition ?? "—"}着`
+    : "近走データ未取得";
+  const valueText = value == null
+    ? "オッズ未取得のためValueは未評価"
+    : `単勝${horse.odds.winOdds}倍・${horse.odds.popularity}人気をValue評価へ反映`;
+  const abilityText = horse.odds?.zi ? `ZI ${horse.odds.zi}を能力評価へ反映` : "近走実績から能力を評価";
+  const contextSummary = context?.summary ?? "レース条件を取得データから評価";
+  const trainingStatus = trainingAnalysis.count ? trainingAnalysis.summary : "調教データは一部未取得";
+
   return {
     comment: `${recentText}。${bloodSummary}。`,
     analysis: {
-      status: "tm-index-v0",
+      status: value == null ? "preodds" : "tm-index-v1",
       confidence,
       confidenceReasons: [
         `過去走${horse.pastRuns?.length ?? 0}件を参照`,
         trainingStatus,
-        horse.pedigree ? "4代血統を接続済み" : "血統データ未取得",
-        RACE_DAY_CONDITION.summary,
+        horse.pedigree ? "4代血統を接続済み" : "血統は基本情報のみ参照",
+        contextSummary,
         valueText,
       ],
-      tags: [
-        abilityText,
-        `単勝人気 ${horse.odds?.popularity ?? "未取得"}`,
-        `${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}補正`,
-        horse.dataStatus?.training === "active" ? "調教データ取得済み" : "調教データ一部取得",
-      ],
+      tags: [abilityText, valueText, context?.profile ?? "条件評価", trainingAnalysis.count ? "調教取得済み" : "調教一部未取得"],
       factors,
       factorsDetail: {
-        blood: { key: "blood", label: "血統", score: blood, maxScore: 100, status: horse.pedigree ? "active" : "missing", summary: bloodSummary },
-        training: { key: "training", label: "調教", score: training, maxScore: 100, status: trainingAnalysis.count ? "active" : "partial", summary: trainingReadable },
-        course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: `${horse.currentRace?.course}${horse.currentRace?.surface}${horse.currentRace?.distance}m / ${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}を評価` },
-        pace: { key: "pace", label: "展開", score: pace, maxScore: 100, status: "active", summary: "近走の通過順から脚質バランスを評価" },
-        stable: { key: "stable", label: "厩舎", score: stable, maxScore: 100, status: "active", summary: "厩舎情報と調教取得状態を補助評価" },
-        form: { key: "form", label: "近走", score: form, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "近走着順と着差を中心に評価" },
-        value: { key: "value", label: "妙味", score: value, maxScore: 100, status: horse.odds?.status === "active" ? "active" : "missing", summary: "人気・単勝オッズと基礎能力の差を評価" },
+        blood: { key: "blood", label: "血統", score: blood, maxScore: 100, status: pedigreeAnalysis ? "active" : "partial", summary: bloodSummary, evidence: pedigreeAnalysis?.strengths ?? [] },
+        training: { key: "training", label: "調教", score: training, maxScore: 100, status: trainingAnalysis.count ? "active" : "partial", summary: trainingReadable, evidence: trainingAnalysis.strengths ?? [] },
+        course: { key: "course", label: "コース", score: course, maxScore: 100, status: "active", summary: contextSummary, evidence: [] },
+        pace: { key: "pace", label: "展開", score: pace, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "近走の通過順から位置取り傾向を評価", evidence: [] },
+        stable: { key: "stable", label: "厩舎", score: stable, maxScore: 100, status: "active", summary: "所属と調教取得状態を補助評価", evidence: [] },
+        form: { key: "form", label: "近走", score: form, maxScore: 100, status: horse.pastRuns?.length ? "active" : "missing", summary: "着順・着差・近走推移を評価", evidence: [] },
+        value: { key: "value", label: "妙味", score: value, maxScore: 100, status: value == null ? "missing" : "active", summary: valueText, evidence: [] },
       },
       insight: [
-        `${displayName}は総合指数${tmIndex}。${recentText}。`,
-        `血統面は${bloodSummary}。人気だけに寄せず、近走内容と適性を分けて評価しています。`,
-        `当日条件は${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}。馬力、持続力、底力を補正して評価しています。`,
-        horse.dataStatus?.training === "active"
-          ? trainingAnalysis.summary
-          : "調教データは一部取得のため、調教評価は控えめに扱っています。",
+        `${displayName}はTM INDEX ${tmIndex ?? "未評価"}。${recentText}。`,
+        `血統面は${bloodSummary}。`,
+        `${contextSummary} ${valueText}。`,
+        trainingAnalysis.count ? trainingAnalysis.summary : "調教データ不足のため調教評価は控えめ。",
       ],
-      pros: [
-        abilityText,
-        `過去走${horse.pastRuns?.length ?? 0}件から近走傾向を確認`,
-        horse.pedigree ? `血統面は${bloodSummary}` : "血統データは未取得",
-      ],
-      cons: [
-        horse.dataStatus?.training === "missing" ? "最終追切データが未取得のため調教面は参考評価" : "調教評価は取得できた範囲での初期評価",
-        `${RACE_DAY_CONDITION.weather}・${RACE_DAY_CONDITION.going}のため、軽い瞬発力だけの評価は控えめ`,
-      ],
-      commentary: `${displayName}は、近走内容・コース距離・血統の強み・調教取得状態・オッズ妙味を統合し、総合指数${tmIndex}と評価しました。現段階ではTARGET実データに基づく初期分析です。`,
-      frameEval: {
-        score: frame,
-        text: `馬番${displayNumber ?? "未取得"}を補助評価に使用。枠順の高度な有利不利判定は次フェーズで拡張します。`,
-      },
+      pros: [abilityText, `過去走${horse.pastRuns?.length ?? 0}件から近走傾向を確認`, bloodSummary],
+      cons: [trainingAnalysis.count ? "調教評価は取得範囲内の判定" : "調教データが一部不足", valueText],
+      commentary: `${displayName}は近走、コース・距離、血統、調教、${value == null ? "オッズを除く要素" : "オッズ妙味"}を統合してTM INDEX ${tmIndex ?? "未評価"}と評価しました。TARGET実データに基づく決定的な初期分析です。`,
+      frameEval: { score: frame, text: `馬番${displayNumber ?? "未取得"}を補助情報として評価。枠順の高度な有利不利判定は今後拡張します。` },
       trainingEval: {
         grade: trainingAnalysis.grade,
-        oneWeek: {
-          score: training,
-          text: trainingReadable,
-        },
-        final: {
-          status: trainingAnalysis.count ? "確認済み" : "一部取得",
-          text: trainingAnalysis.finalText,
-        },
-        stablePattern: {
-          match: trainingAnalysis.score >= 74,
-          text: trainingAnalysis.patternText,
-        },
+        oneWeek: { score: training, text: trainingReadable },
+        final: { status: trainingAnalysis.count ? "確認済み" : "一部未取得", text: trainingAnalysis.finalText },
+        stablePattern: { match: trainingAnalysis.score >= 74, text: trainingAnalysis.patternText },
         details: {
           count: trainingAnalysis.count,
-          best: trainingAnalysis.best ? {
-            type: trainingAnalysis.best.type,
-            date: trainingAnalysis.best.date,
-            course: trainingAnalysis.best.course ?? null,
-            f4: trainingAnalysis.best.f4 ?? null,
-            f1: trainingAnalysis.best.f1 ?? null,
-            score: trainingAnalysis.best.score,
-          } : null,
-          final: trainingAnalysis.final ? {
-            type: trainingAnalysis.final.type,
-            date: trainingAnalysis.final.date,
-            course: trainingAnalysis.final.course ?? null,
-            f4: trainingAnalysis.final.f4 ?? null,
-            f1: trainingAnalysis.final.f1 ?? null,
-            score: trainingAnalysis.final.score,
-          } : null,
-          lightAfterFinal: trainingAnalysis.lightAfterFinal ? {
-            type: trainingAnalysis.lightAfterFinal.type,
-            date: trainingAnalysis.lightAfterFinal.date,
-            course: trainingAnalysis.lightAfterFinal.course ?? null,
-            f4: trainingAnalysis.lightAfterFinal.f4 ?? null,
-            f1: trainingAnalysis.lightAfterFinal.f1 ?? null,
-            score: trainingAnalysis.lightAfterFinal.score,
-          } : null,
+          best: trainingAnalysis.best ?? null,
+          final: trainingAnalysis.final ?? null,
+          lightAfterFinal: trainingAnalysis.lightAfterFinal ?? null,
           fastFinish: trainingAnalysis.fastFinish ?? 0,
           accelCount: trainingAnalysis.accelCount ?? 0,
           strengths: trainingAnalysis.strengths ?? [],
@@ -135,18 +84,9 @@ const buildVerdictPayload = ({
         status: "active",
         label: tmIndex >= 82 ? "最上位評価" : tmIndex >= 74 ? "高評価" : "注視",
         summary: `${recentText}。${bloodSummary}。${valueText}。`,
-        evidence: [
-          `総合指数 ${tmIndex}`,
-          `近走 ${form} / 調教 ${training} / 血統 ${blood} / 妙味 ${value}`,
-          RACE_DAY_CONDITION.summary,
-          trainingReadable,
-        ],
+        evidence: [`TM INDEX ${tmIndex}`, `近走 ${form} / 調教 ${training} / 血統 ${blood} / Value ${value ?? "未評価"}`, contextSummary, trainingReadable],
       },
-      topSignal: {
-        status: "active",
-        label: tmIndex >= 82 ? "最上位評価" : "注目評価",
-        summary: `${displayName} / 総合指数 ${tmIndex}`,
-      },
+      topSignal: { status: "active", label: tmIndex >= 82 ? "最上位評価" : "注目評価", summary: `${displayName} / TM INDEX ${tmIndex}` },
     },
   };
 };

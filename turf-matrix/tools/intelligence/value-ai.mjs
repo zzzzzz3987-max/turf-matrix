@@ -4,7 +4,7 @@
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
 const scoreValue = (horse, abilityScore) => {
-  if (!horse.odds?.winOdds || !horse.odds?.popularity) return 50;
+  if (!horse.odds?.winOdds || !horse.odds?.popularity) return null;
   const popularity = horse.odds.popularity;
   const odds = horse.odds.winOdds;
   const gapBonus = (abilityScore - 65) * 0.45 + Math.max(0, popularity - 4) * 2.2;
@@ -13,4 +13,3 @@ const scoreValue = (horse, abilityScore) => {
 };
 
 export { scoreValue };
-

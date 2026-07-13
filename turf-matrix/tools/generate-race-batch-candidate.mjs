@@ -3,14 +3,58 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
+import { buildAnalysis, buildRaceContext } from "./intelligence/index.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
+const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
+const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 
 const races = normalized.races.map((bundle) => {
   const race = bundle.race;
+  const context = buildRaceContext(race);
+  const oddsStatus = bundle.productionReady ? "active" : "preodds";
+  const horses = bundle.horses.map((horse) => {
+    const dataStatus = {
+      currentRace: "active",
+      pastRuns: horse.pastRuns.length ? "active" : "missing",
+      training: horse.missing.includes("training") ? "missing" : "active",
+      pedigree: horse.missing.includes("pedigree") ? "partial" : "active",
+      odds: horse.odds ? "active" : "missing",
+      intelligence: "tm-index-v1",
+    };
+    const analysisHorse = { ...horse, dataStatus };
+    const intelligence = buildAnalysis(analysisHorse, context);
+    return {
+      id: horse.raceEntryId,
+      number: horse.horseNumber,
+      name: horse.horseName,
+      sex: horse.currentRace.sex,
+      age: horse.currentRace.age,
+      sexAge: horse.currentRace.sexAge,
+      jockey: horse.currentRace.jockey,
+      carriedWeight: horse.currentRace.carriedWeight,
+      trainer: horse.currentRace.trainer,
+      stableSide: horse.currentRace.stableSide,
+      owner: horse.currentRace.owner,
+      breeder: horse.currentRace.breeder,
+      coatColor: horse.currentRace.coatColor,
+      odds: horse.odds?.winOdds ?? null,
+      popularity: horse.odds?.popularity ?? null,
+      oddsDetail: horse.odds,
+      tmIndex: intelligence.tmIndex,
+      tmValue: intelligence.tmValue,
+      comment: intelligence.comment,
+      analysis: intelligence.analysis,
+      currentRace: horse.currentRace,
+      pastRuns: horse.pastRuns,
+      training: horse.training,
+      pedigree: horse.pedigree,
+      dataStatus,
+    };
+  });
   return {
     id: `${race.raceDate}-${race.course}-${race.raceNo}R`,
     bundleId: bundle.bundleId,
@@ -29,40 +73,23 @@ const races = normalized.races.map((bundle) => {
     conditionSummary: null,
     fieldSize: race.fieldSize,
     oddsUpdatedAt: bundle.source.odds.updatedAt,
-    oddsStatus: bundle.productionReady ? "active" : "missing",
+    oddsStatus,
     oddsSource: bundle.source.odds.source,
     dataStatus: {
       currentRace: "active",
       pastRuns: bundle.horses.every((horse) => horse.pastRuns.length) ? "active" : "partial",
-      odds: bundle.productionReady ? "active" : "missing",
-      intelligence: "pending",
+      odds: oddsStatus,
+      intelligence: "tm-index-v1",
     },
-    horses: bundle.horses.map((horse) => ({
-      id: horse.raceEntryId,
-      number: horse.horseNumber,
-      name: horse.horseName,
-      jockey: horse.currentRace.jockey,
-      odds: horse.odds?.winOdds ?? null,
-      popularity: horse.odds?.popularity ?? null,
-      tmIndex: null,
-      tmValue: null,
-      comment: null,
-      analysis: null,
-      currentRace: horse.currentRace,
-      pastRuns: horse.pastRuns,
-      training: horse.training,
-      pedigree: horse.pedigree,
-      dataStatus: {
-        currentRace: "active",
-        pastRuns: horse.pastRuns.length ? "active" : "missing",
-        training: horse.missing.includes("training") ? "missing" : "active",
-        pedigree: horse.missing.includes("pedigree") ? "missing" : "active",
-        odds: horse.odds ? "active" : "missing",
-        intelligence: "pending",
-      },
-    })),
+    raceContext: context,
+    horses,
   };
 });
+const oddsUpdatedAt = races
+  .map((race) => race.oddsUpdatedAt)
+  .filter(Boolean)
+  .sort()
+  .slice(-1)[0] ?? null;
 
 const draft = {
   schemaVersion: 2,
@@ -70,18 +97,18 @@ const draft = {
   deterministicOutput: true,
   generatedAt: null,
   productionWeekDataUpdated: false,
-  intelligenceLayerConnected: false,
-  intelligenceStage: "pending",
+  intelligenceLayerConnected: races.length > 0,
+  intelligenceStage: races.length ? "tm-index-v1" : "pending",
   uiConnected: true,
   meta: {
-    date: races[0]?.id.slice(0, 10) ?? "2026-07-19",
-    dateLabel: races[0]?.id.slice(0, 10) ?? "2026-07-19",
+    date: races[0]?.id.slice(0, 10) ?? config.raceDate,
+    dateLabel: races[0]?.id.slice(0, 10) ?? config.raceDate,
     venue: [...new Set(races.map((race) => race.track))].join(" / ") || "更新準備中",
-    dataStatus: races.length ? "input-ready" : "missing",
+    dataStatus: races.length ? (races.every((race) => race.oddsStatus === "active") ? "odds-ready" : "preodds") : "missing",
     source: "target-frontier-jv-race-batch",
     featuredRaceId: null,
-    oddsUpdatedAt: null,
-    oddsStatus: races.length && races.every((race) => race.oddsStatus === "active") ? "active" : "missing",
+    oddsUpdatedAt,
+    oddsStatus: races.length && races.every((race) => race.oddsStatus === "active") ? "active" : races.length ? "preodds" : "missing",
   },
   races,
 };

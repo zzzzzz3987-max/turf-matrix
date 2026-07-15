@@ -4,6 +4,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext } from "./intelligence/index.mjs";
+import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
@@ -23,7 +24,7 @@ const races = normalized.races.map((bundle) => {
       training: horse.missing.includes("training") ? "missing" : "active",
       pedigree: horse.missing.includes("pedigree") ? "partial" : "active",
       odds: horse.odds ? "active" : "missing",
-      intelligence: "tm-index-v1",
+      intelligence: "tm-index-v1.5",
     };
     const analysisHorse = { ...horse, dataStatus };
     const intelligence = buildAnalysis(analysisHorse, context);
@@ -55,7 +56,8 @@ const races = normalized.races.map((bundle) => {
       dataStatus,
     };
   });
-  return {
+
+  return calibrateRaceIntelligence({
     id: `${race.raceDate}-${race.course}-${race.raceNo}R`,
     bundleId: bundle.bundleId,
     track: race.course,
@@ -79,12 +81,13 @@ const races = normalized.races.map((bundle) => {
       currentRace: "active",
       pastRuns: bundle.horses.every((horse) => horse.pastRuns.length) ? "active" : "partial",
       odds: oddsStatus,
-      intelligence: "tm-index-v1",
+      intelligence: "tm-index-v1.5",
     },
     raceContext: context,
     horses,
-  };
+  });
 });
+
 const oddsUpdatedAt = races
   .map((race) => race.oddsUpdatedAt)
   .filter(Boolean)
@@ -98,7 +101,7 @@ const draft = {
   generatedAt: null,
   productionWeekDataUpdated: false,
   intelligenceLayerConnected: races.length > 0,
-  intelligenceStage: races.length ? "tm-index-v1" : "pending",
+  intelligenceStage: races.length ? "tm-index-v1.5" : "pending",
   uiConnected: true,
   meta: {
     date: races[0]?.id.slice(0, 10) ?? config.raceDate,
@@ -112,6 +115,7 @@ const draft = {
   },
   races,
 };
+
 draft.meta.featuredRaceId = selectFeaturedRace(draft)?.id ?? null;
 
 writeFileSync(OUT_PATH, JSON.stringify(draft, null, 2) + "\n");

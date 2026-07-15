@@ -1,21 +1,14 @@
-// Training AI v1 deterministic workout scoring.
-// Consumes normalized TARGET training data only.
+import { trainingThreshold } from "./dictionaries/training-thresholds.mjs";
 
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
-const trainingThreshold = (type, stableSide) => {
-  if (type === "slope") {
-    return stableSide === "栗東"
-      ? { "4F": 52.9, "3F": 38.9, "2F": 25.9, "1F": 13.4 }
-      : { "4F": 49.9, "3F": 35.9, "2F": 23.9, "1F": 12.8 };
-  }
-  return { "4F": 50.0, "3F": 36.8, "2F": 24.4, "1F": 12.0 };
-};
-
 const toSessionDateValue = (dateText) => {
-  const match = String(dateText ?? "").match(/(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/);
-  if (!match) return 0;
-  return Number(match[1]) * 10000 + Number(match[2]) * 100 + Number(match[3]);
+  const text = String(dateText ?? "");
+  const full = text.match(/(\d{4})[./-]\s*(\d{1,2})[./-]\s*(\d{1,2})/);
+  if (full) return Number(full[1]) * 10000 + Number(full[2]) * 100 + Number(full[3]);
+  const short = text.match(/(\d{1,2})[./-]\s*(\d{1,2})/);
+  if (short) return Number(short[1]) * 100 + Number(short[2]);
+  return 0;
 };
 
 const lapValues = (lap) =>
@@ -76,14 +69,6 @@ const collectTrainingSessions = (horse) => {
   return [...slope, ...wood].filter((session) => typeof session.f1 === "number" || typeof session.f4 === "number");
 };
 
-const findFinalWorkout = (sessions) => {
-  const wednesdayThursday = sessions.filter((session) => {
-    const value = session.dateValue % 100;
-    return value >= 8 && value <= 9;
-  });
-  return wednesdayThursday[0] ?? sessions[0] ?? null;
-};
-
 const buildTrainingAnalysis = (horse) => {
   const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
   const sessions = collectTrainingSessions(horse)
@@ -98,16 +83,14 @@ const buildTrainingAnalysis = (horse) => {
       status: "未取得",
       count: 0,
       summary: "調教時計は未取得です。調教面は強く評価せず、近走・血統・オッズを中心に見ます。",
-      finalText: "最終追切の時計が未取得です。別馬の時計は使わず、調教評価は控えめにしています。",
+      finalText: "最終追切の時計が未取得です。別馬の時計を補完せず、調教評価は控えめに扱います。",
       patternText: "調教パターンは未判定です。",
       strengths: ["調教時計未取得"],
     };
   }
 
   const best = [...sessions].sort((a, b) => b.score - a.score)[0];
-  const final = findFinalWorkout(sessions);
-  const latest = sessions[0];
-  const lightAfterFinal = latest?.dateValue > final?.dateValue ? latest : null;
+  const final = sessions[0];
   const fastFinish = sessions.filter((session) => {
     const threshold = trainingThreshold(session.type, stableSide);
     return typeof session.f1 === "number" && session.f1 <= threshold["1F"];
@@ -120,11 +103,10 @@ const buildTrainingAnalysis = (horse) => {
   const score = clamp(best.score * 0.5 + final.score * 0.3 + Math.min(10, activeCount * 2) + Math.min(8, fastFinish * 2));
   const lapScore = clamp(score + Math.min(6, accelCount * 1.5) - (accelCount ? 0 : 4));
   const grade = score >= 84 ? "A" : score >= 74 ? "B" : score >= 62 ? "C" : "D";
-
   const strengths = [
     best.score >= 76 ? `好時計: ${formatSession(best)}` : `基準時計: ${formatSession(best)}`,
     fastFinish ? `終い基準クリア ${fastFinish}本` : "終いの強調材料は控えめ",
-    accelCount ? `加速ラップ ${accelCount}本` : "加速ラップは目立たず",
+    accelCount ? `加速ラップ ${accelCount}本` : "加速ラップは目立たない",
   ];
 
   return {
@@ -135,13 +117,13 @@ const buildTrainingAnalysis = (horse) => {
     count: sessions.length,
     best,
     final,
-    lightAfterFinal,
+    lightAfterFinal: null,
     fastFinish,
     accelCount,
     activeCount,
     strengths,
-    summary: `${sessions.length}本の時計を確認。${strengths.join(" / ")}。`,
-    finalText: `${formatSession(final)}。水曜・木曜の最終追切候補として${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。${lightAfterFinal ? ` ${formatSession(lightAfterFinal)}は直前の軽め調整として扱います。` : ""}`,
+    summary: `${sessions.length}本の調教時計を確認。${strengths.join(" / ")}。`,
+    finalText: `${formatSession(final)}。最終追切の確認材料として${final.score >= 74 ? "動きの良さを評価できます" : final.score >= 62 ? "標準的な内容です" : "強調材料は控えめです"}。`,
     patternText: `${formatSession(best)}が最も評価できる時計です。${fastFinish ? "終いの反応も確認できます。" : "終いの反応は強調しすぎません。"}`,
   };
 };

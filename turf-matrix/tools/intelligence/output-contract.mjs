@@ -1,5 +1,8 @@
 import { FACTOR_KEYS } from "./constants.mjs";
 
+const MOJIBAKE_PATTERN = /譛|繧|邉|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
+const CORE_DETAIL_KEYS = ["blood", "training", "course", "pace", "form", "value"];
+
 const collectDuplicates = (values) => {
   const seen = new Set();
   const duplicates = new Set();
@@ -54,14 +57,27 @@ const validateIntelligenceOutput = (weekData) => {
           errors.push(`${horsePrefix}: factors.${factor} is missing`);
         }
       }
+      for (const key of CORE_DETAIL_KEYS) {
+        if (!horse.analysis?.factorsDetail?.[key]) {
+          errors.push(`${horsePrefix}: factorsDetail.${key} is missing`);
+        }
+      }
       if (!horse.analysis?.verdict || !horse.analysis?.topSignal) {
         errors.push(`${horsePrefix}: verdict output is incomplete`);
+      }
+      if (horse.analysis?.dataQuality && !Number.isFinite(horse.analysis.dataQuality.score)) {
+        errors.push(`${horsePrefix}: dataQuality.score is missing`);
+      }
+      if (horse.analysis?.relative) {
+        if (!Number.isFinite(horse.analysis.relative.rank)) errors.push(`${horsePrefix}: relative.rank is missing`);
+        if (!Number.isFinite(horse.analysis.relative.percentile)) errors.push(`${horsePrefix}: relative.percentile is missing`);
       }
     }
   }
 
   const invalidNumbers = collectInvalidNumbers(weekData);
   if (invalidNumbers.length) errors.push(`invalid numeric values: ${invalidNumbers.join(", ")}`);
+  if (MOJIBAKE_PATTERN.test(JSON.stringify(weekData))) errors.push("mojibake markers detected");
 
   return { valid: errors.length === 0, errors };
 };

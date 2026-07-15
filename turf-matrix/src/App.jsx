@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
 import {
@@ -74,6 +74,7 @@ const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
 const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "取得待ち");
 const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "取得待ち");
 const displayRaceValue = (value, fallback = "取得待ち") => (value == null || value === "" ? fallback : value);
+const WEEK_PREPARING_TEXT = "今週のレースは準備中です";
 const oddsStatusLabel = (status) => ({
   active: "最終更新",
   preodds: "発売前",
@@ -296,7 +297,7 @@ const dataProvider = {
         horses: undefined,
         topHorse: top
           ? { name: top.name, aiScore: top.aiScore, available: true }
-          : { name: "データ未取得", aiScore: null, available: false },
+          : { name: WEEK_PREPARING_TEXT, aiScore: null, available: false },
         confidence: raceConfidence(r.horses),
       };
     });
@@ -465,7 +466,7 @@ const sortHorses = (horses, sortKey, evMap) => {
   return arr;
 };
 
-const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-400" : v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
+const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
 const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
 
@@ -529,11 +530,11 @@ const MetricCard = ({ label, value, className = "", valueClassName = "", labelCl
 
 const GLASS = {
   surface:
-    "rounded-[2rem] border border-white/90 bg-white/[0.74] shadow-[0_26px_76px_-56px_rgba(15,23,42,0.42)] backdrop-blur-xl ring-1 ring-slate-900/[0.02]",
+    "rounded-[2rem] border border-gray-200 bg-white shadow-sm",
   inner:
-    "rounded-[1.35rem] border border-white/85 bg-white/[0.62] shadow-[0_18px_44px_-38px_rgba(15,23,42,0.32)] backdrop-blur-lg ring-1 ring-slate-900/[0.015]",
+    "rounded-[1.35rem] border border-gray-200 bg-white shadow-sm",
   interactive:
-    "transition-all duration-200 hover:-translate-y-0.5 hover:border-white hover:bg-white/82 hover:shadow-[0_30px_84px_-58px_rgba(15,23,42,0.5)] active:translate-y-0 active:shadow-sm",
+    "transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-200 hover:bg-white hover:shadow-sm active:translate-y-0 active:shadow-sm",
   padding: "p-6 sm:p-7",
 };
 
@@ -543,15 +544,9 @@ const GlassPanel = ({ children, className = "" }) => (
   </div>
 );
 
-const BetaBadge = () => (
-  <Badge className="inline-flex items-center gap-1 rounded-full border border-white/90 bg-white/70 px-2 py-0.5 text-[10px] font-medium text-slate-600 shadow-sm backdrop-blur sm:text-[11px]">
-    β v0.3
-  </Badge>
-);
-
 const PlatformBadge = () => (
-  <Badge className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-teal-100/80 bg-white/75 px-2.5 py-1 text-[10px] font-semibold text-slate-600 shadow-[0_10px_24px_-20px_rgba(15,118,110,0.6)] backdrop-blur-xl sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]">
-    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_0_4px_rgba(16,185,129,0.12)]" />
+  <Badge className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-semibold text-slate-600 shadow-sm sm:gap-2 sm:px-3 sm:py-1.5 sm:text-[11px]">
+    <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
     <span>
       <span className="hidden sm:inline">AI Racing </span>
       <span className="sm:hidden">AI </span>
@@ -579,13 +574,12 @@ const OfficialLogo = ({ className = "" }) => (
 );
 
 const Header = ({ onHome, meta }) => (
-  <header className="sticky top-0 z-40 border-b border-white/80 bg-white/75 shadow-[0_12px_40px_-34px_rgba(15,23,42,0.35)] backdrop-blur-2xl">
+  <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/70 shadow-sm backdrop-blur-xl">
     <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5">
       <button onClick={onHome} className="flex min-w-0 items-center" aria-label="トップへ戻る">
         <OfficialLogo />
       </button>
       <div className="flex items-center gap-2 text-[11px] text-slate-500">
-        <BetaBadge />
         {meta ? (
           <span className="hidden sm:inline">
             {meta.dateLabel} <span className="text-slate-300">/</span> <Num>{meta.updatedAt}</Num>
@@ -597,27 +591,26 @@ const Header = ({ onHome, meta }) => (
 );
 
 const Footer = () => (
-  <footer className="mt-20 border-t border-white/80 bg-white/55 backdrop-blur-2xl">
+  <footer className="mt-20 border-t border-gray-200 bg-white">
     <div className="mx-auto max-w-5xl px-5 py-12">
       <div className="flex flex-wrap items-center gap-2.5">
         <span className="text-sm font-bold tracking-tight text-gray-900">
-          TURF <span className="tm-gradient-text">MATRIX</span>
+          TURF <span className="text-slate-700">MATRIX</span>
         </span>
-        <BetaBadge />
         <PlatformBadge />
       </div>
       <p className="mt-4 max-w-2xl text-xs leading-relaxed text-gray-500">
         本サービスは分析情報の提供を目的としており、的中や利益を保証するものではありません。
         馬券の購入はご自身の判断と責任でお願いします。20歳未満の方は馬券を購入できません。
       </p>
-      <p className="mt-2 max-w-2xl text-xs leading-relaxed text-gray-400">
+      <p className="mt-2 max-w-2xl text-xs leading-relaxed text-gray-500">
         分析ポリシー: 人気を後追いする評価は行いません。AIは能力・血統・調教・ラップ・オッズ妙味などから
         期待値を独立に算出します。
       </p>
-      <p className="mt-2 text-xs text-gray-400">
+      <p className="mt-2 text-xs text-gray-500">
         β版のため、一部AI分析項目は準備中です。過去分析ログ(検証・回顧・回収率の透明化)は今後のバージョンで公開予定です。
       </p>
-      <p className="mt-6 text-[11px] text-gray-400">© 2026 TURF MATRIX — AI Racing Intelligence Platform</p>
+      <p className="mt-6 text-[11px] text-gray-500">© 2026 TURF MATRIX — AI Racing Intelligence Platform</p>
     </div>
   </footer>
 );
@@ -688,13 +681,13 @@ const TMFactorsCard = () => (
           TM INDEXを7つの視点で整理します。
         </p>
       </div>
-      <span className="shrink-0 rounded-full border border-white/80 bg-white/65 px-2 py-0.5 text-[10px] font-medium text-slate-500">
+        <span className="shrink-0 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-slate-500">
         Data pending
       </span>
     </div>
     <div className="mt-4 grid gap-2.5 md:grid-cols-2">
       {TM_FACTOR_DEFS.map((factor) => (
-        <div key={factor.key} className="rounded-2xl border border-white/80 bg-white/60 p-3 shadow-[0_14px_34px_-30px_rgba(15,118,110,0.45)]">
+        <div key={factor.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <div className="text-[12px] font-semibold text-slate-900">{factor.label}</div>
@@ -754,7 +747,7 @@ const ProsConsList = ({ pros, cons }) => (
       <ul className="mt-2 space-y-2">
         {cons.map((c, i) => (
           <li key={i} className="flex gap-2 text-[13px] leading-relaxed text-gray-700">
-            <span className="mt-0.5 shrink-0 font-semibold text-gray-400">−</span>
+            <span className="mt-0.5 shrink-0 font-semibold text-gray-500">−</span>
             {c}
           </li>
         ))}
@@ -796,7 +789,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-2xl border border-white/90 bg-white/60">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-2xl border border-gray-200 bg-white">
                       <Num className="text-[12px] font-bold text-slate-600">{h.number}</Num>
                     </span>
                     <span className="truncate text-[16px] font-bold text-slate-950">{h.name}</span>
@@ -814,7 +807,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2">
                 {factors.map((f) => (
-                  <div key={f.key} className="rounded-[1.15rem] border border-white/80 bg-white/45 p-2.5">
+                  <div key={f.key} className="rounded-[1.15rem] border border-gray-200 bg-white p-2.5">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
                       <Num className="text-[14px] font-bold text-slate-800">{f.value}</Num>
@@ -836,7 +829,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         >
           <thead>
             <tr>
-              <th className="sticky left-0 z-10 rounded-l-2xl bg-white/80 px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-400 backdrop-blur-xl">
+              <th className="sticky left-0 z-10 rounded-l-2xl bg-white px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-500">
                 指数順
               </th>
               {sorted.map((h) => (
@@ -846,7 +839,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                     className="mx-auto flex w-full flex-col items-center gap-1"
                     aria-label={`${h.name}の詳細`}
                   >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-white/90 bg-white/75 shadow-sm">
+                    <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm">
                       <Num className="text-[11px] font-semibold text-gray-700">{h.number}</Num>
                     </span>
                     <span className="w-12 truncate text-[9px] font-medium leading-tight text-gray-500">
@@ -859,8 +852,8 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           </thead>
           <tbody>
             {COMPARE_DEFS.map((d) => (
-              <tr key={d.key} className="border-t border-white/70">
-                <th className="sticky left-0 z-10 whitespace-nowrap bg-white/80 px-3 py-1.5 text-left text-[11px] font-medium text-gray-500 backdrop-blur-xl">
+              <tr key={d.key} className="border-t border-gray-200">
+                <th className="sticky left-0 z-10 whitespace-nowrap bg-white px-3 py-1.5 text-left text-[11px] font-medium text-gray-500">
                   {d.label}
                 </th>
                 {sorted.map((h) => {
@@ -886,7 +879,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           </tbody>
         </table>
       </div>
-      <p className="mt-3 text-[11px] text-gray-400">
+      <p className="mt-3 text-[11px] text-gray-500">
         馬名をタップすると分析詳細が開きます。期待値は推定勝率×単勝オッズ(1.00が損益分岐の目安)。
       </p>
     </section>
@@ -898,12 +891,12 @@ const ValueCard = ({ ev, rank, popularity }) => {
   if (!ev) return null;
   const vs = valueStars(ev.ev);
   return (
-    <div className="rounded-xl border border-teal-100 bg-white p-4 md:p-5">
+    <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-5">
       <div className="flex items-center justify-between">
         <SectionLabel icon={TrendingUp}>TM Value — 期待値評価</SectionLabel>
         <span
           className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${
-            ev.verdict.tone === "blue" ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
+            ev.verdict.tone === "blue" ? "bg-white text-teal-700 ring-1 ring-gray-200" : "bg-gray-100 text-gray-500"
           }`}
         >
           {ev.verdict.label}
@@ -912,29 +905,29 @@ const ValueCard = ({ ev, rank, popularity }) => {
       <div className="mt-3 flex items-center gap-2.5">
         <StarRating value={vs} size={18} />
         <Num className="text-[13px] font-bold text-gray-900">{vs}.0</Num>
-        <span className="text-[11px] text-gray-400">/ 5</span>
+        <span className="text-[11px] text-gray-500">/ 5</span>
       </div>
       <div className="mt-4 flex flex-wrap items-end gap-x-7 gap-y-3 border-t border-gray-100 pt-3.5">
         <div>
           <Num className={`block text-[24px] font-bold leading-none tracking-tight ${evTone(ev.ev)}`}>
             {ev.ev.toFixed(2)}
           </Num>
-          <span className="mt-1.5 block text-[10px] text-gray-400">単勝期待値</span>
+          <span className="mt-1.5 block text-[10px] text-gray-500">単勝期待値</span>
         </div>
         <div>
           <Num className="block text-[16px] font-semibold leading-none text-gray-800">
             {(ev.prob * 100).toFixed(1)}%
           </Num>
-          <span className="mt-1.5 block text-[10px] text-gray-400">推定勝率</span>
+          <span className="mt-1.5 block text-[10px] text-gray-500">推定勝率</span>
         </div>
         <div>
           <span className="block text-[13px] font-semibold leading-none text-gray-800">
             指数<Num>{rank}</Num>位 / <Num>{popularity}</Num>人気
           </span>
-          <span className="mt-1.5 block text-[10px] text-gray-400">市場評価との乖離</span>
+          <span className="mt-1.5 block text-[10px] text-gray-500">市場評価との乖離</span>
         </div>
       </div>
-      <p className="mt-3.5 text-[11px] leading-relaxed text-gray-400">
+      <p className="mt-3.5 text-[11px] leading-relaxed text-gray-500">
         推定勝率 × 単勝オッズで算出。<span className="font-medium text-gray-500">1.00が損益分岐の目安</span>です。
         本サービスは人気ではなく、期待値を分析します。
       </p>
@@ -972,12 +965,12 @@ const PedigreeCard = ({ pedigree }) => {
         </div>
         <span className="flex shrink-0 items-baseline gap-1">
           <Num className={`text-sm font-semibold ${scoreTone(idx)}`}>{idx}</Num>
-          <span className="text-[10px] text-gray-400">血統指数</span>
+          <span className="text-[10px] text-gray-500">血統指数</span>
         </span>
       </div>
 
       {raceBias ? (
-        <div className="mt-4 rounded-lg border border-teal-100/80 bg-white/75 px-3 py-3">
+        <div className="mt-4 rounded-lg border border-gray-200 bg-white px-3 py-3">
           <div className="flex items-baseline justify-between gap-3">
             <span className="text-[12px] font-semibold text-slate-900">血統適合</span>
             <span className="text-[10px] font-semibold text-teal-700">{raceBias.grade}</span>
@@ -986,7 +979,7 @@ const PedigreeCard = ({ pedigree }) => {
           {raceBias.matched?.length ? (
             <div className="mt-2 flex flex-wrap gap-1.5">
               {raceBias.matched.map((item) => (
-                <span key={item.key} className="rounded-full border border-teal-100 bg-teal-50/70 px-2 py-1 text-[10px] font-semibold text-teal-700">
+                <span key={item.key} className="rounded-full border border-gray-200 bg-white px-2 py-1 text-[10px] font-semibold text-slate-600">
                   {item.label}
                 </span>
               ))}
@@ -998,10 +991,10 @@ const PedigreeCard = ({ pedigree }) => {
       {pedigree.strengths?.length ? (
         <div className="mt-4 grid gap-2">
           {pedigree.strengths.map((item) => (
-            <div key={item.label} className="rounded-lg border border-emerald-100/80 bg-emerald-50/45 px-3 py-2.5">
+            <div key={item.label} className="rounded-lg border border-gray-200 bg-white px-3 py-2.5">
               <div className="flex items-baseline justify-between gap-3">
                 <span className="text-[12px] font-semibold text-slate-900">{item.label}</span>
-                <span className="text-[10px] font-semibold text-emerald-700">{strengthLabel(item.score)}</span>
+                <span className="text-[10px] font-semibold text-slate-600">{strengthLabel(item.score)}</span>
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{item.text}</p>
             </div>
@@ -1011,9 +1004,9 @@ const PedigreeCard = ({ pedigree }) => {
 
       <div className="mt-4 grid grid-cols-2 gap-2.5">
         {focusScores.map((d, i) => (
-          <div key={d.key} className="rounded-lg border border-white/80 bg-white/70 p-3 shadow-[0_14px_34px_-28px_rgba(15,23,42,0.45)]">
+          <div key={d.key} className="rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
             <div className="flex items-baseline justify-between">
-              <span className="text-[10px] font-semibold tracking-wide text-gray-400">{d.label}</span>
+              <span className="text-[10px] font-semibold tracking-wide text-gray-500">{d.label}</span>
               <Num className={`text-[15px] font-semibold ${scoreTone(pedigree.scores[d.key])}`}>
                 {pedigree.scores[d.key]}
               </Num>
@@ -1032,9 +1025,9 @@ const PedigreeCard = ({ pedigree }) => {
 
       <div className="mt-4 space-y-2.5">
         {pedigree.lines.map((l) => (
-          <div key={l.role} className="rounded-lg border border-gray-200/70 bg-white/65 p-3">
+          <div key={l.role} className="rounded-lg border border-gray-200 bg-white p-3">
             <div className="flex items-baseline justify-between gap-3">
-              <span className="text-[10px] font-semibold tracking-wide text-gray-400">{l.role}</span>
+              <span className="text-[10px] font-semibold tracking-wide text-gray-500">{l.role}</span>
               <span className="min-w-0 truncate text-right text-[12px] font-semibold text-gray-900">{l.name}</span>
             </div>
             <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">{l.note}</p>
@@ -1045,8 +1038,8 @@ const PedigreeCard = ({ pedigree }) => {
       {lineGroups.some((group) => group.value?.length) ? (
         <div className="mt-4 border-t border-gray-200/70 pt-3.5">
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-[10px] font-semibold tracking-wide text-gray-400">4代接続</span>
-            <span className="text-[10px] text-gray-400">
+            <span className="text-[10px] font-semibold tracking-wide text-gray-500">4代接続</span>
+            <span className="text-[10px] text-gray-500">
               {structure.ancestorCount ?? "-"} 要素 / {structure.completeness ?? "一部取得"}
             </span>
           </div>
@@ -1054,7 +1047,7 @@ const PedigreeCard = ({ pedigree }) => {
             {lineGroups.map((group) =>
               group.value?.length ? (
                 <div key={group.label} className="flex gap-2 text-[11px] leading-relaxed">
-                  <span className="w-9 shrink-0 font-semibold text-gray-400">{group.label}</span>
+                  <span className="w-9 shrink-0 font-semibold text-gray-500">{group.label}</span>
                   <span className="min-w-0 text-gray-600">{group.value.slice(0, 5).join(" → ")}</span>
                 </div>
               ) : null
@@ -1109,27 +1102,27 @@ const TrainingEvalCard = ({ evalData }) => {
         </div>
         <span className="flex shrink-0 items-baseline gap-1">
           <Num className="text-lg font-semibold text-gray-900">{evalData.grade}</Num>
-          <span className="text-[10px] text-gray-400">総合</span>
+          <span className="text-[10px] text-gray-500">総合</span>
         </span>
       </div>
 
       <div className="mt-4 grid grid-cols-3 gap-2">
-        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
-          <div className="text-[10px] font-semibold text-gray-400">時計本数</div>
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5">
+          <div className="text-[10px] font-semibold text-gray-500">時計本数</div>
           <Num className="mt-1 block text-[16px] font-bold text-slate-900">{details.count ?? 0}</Num>
         </div>
-        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
-          <div className="text-[10px] font-semibold text-gray-400">終い基準</div>
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5">
+          <div className="text-[10px] font-semibold text-gray-500">終い基準</div>
           <Num className="mt-1 block text-[16px] font-bold text-emerald-600">{details.fastFinish ?? 0}</Num>
         </div>
-        <div className="rounded-lg border border-white/80 bg-white/70 p-2.5">
-          <div className="text-[10px] font-semibold text-gray-400">加速ラップ</div>
+        <div className="rounded-lg border border-gray-200 bg-white p-2.5">
+          <div className="text-[10px] font-semibold text-gray-500">加速ラップ</div>
           <Num className="mt-1 block text-[16px] font-bold text-emerald-600">{details.accelCount ?? 0}</Num>
         </div>
       </div>
 
       <div className="mt-3 space-y-3">
-        <div className="rounded-lg border border-teal-100 bg-white p-3">
+        <div className="rounded-lg border border-gray-200 bg-white p-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="text-[13px] font-semibold text-gray-900">調教の強み</span>
@@ -1174,7 +1167,7 @@ const TrainingEvalCard = ({ evalData }) => {
             <span className="text-[13px] font-medium text-gray-700">ベスト時計</span>
             <span
               className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${
-                evalData.stablePattern.match ? "bg-teal-50 text-teal-700" : "bg-gray-100 text-gray-500"
+                evalData.stablePattern.match ? "bg-white text-teal-700 ring-1 ring-gray-200" : "bg-gray-100 text-gray-500"
               }`}
             >
               {evalData.stablePattern.match ? "強調材料" : "参考材料"}
@@ -1189,7 +1182,7 @@ const TrainingEvalCard = ({ evalData }) => {
         </div>
       </div>
 
-      <p className="mt-3 text-[11px] leading-relaxed text-gray-400">
+      <p className="mt-3 text-[11px] leading-relaxed text-gray-500">
         評価方針: 軽めの時計を平均せず、基準を超えた時計・終いの反応・加速ラップを重視します。
       </p>
     </div>
@@ -1200,10 +1193,10 @@ const TrainingEvalCard = ({ evalData }) => {
 const StatusChip = ({ children, tone = "slate" }) => (
   <span className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold ${
     tone === "ok"
-      ? "border-emerald-100 bg-emerald-50/70 text-emerald-700"
+      ? "border-gray-200 bg-white text-emerald-700"
       : tone === "wait"
-        ? "border-amber-100 bg-amber-50/70 text-amber-700"
-        : "border-slate-100 bg-white/60 text-slate-500"
+        ? "border-gray-200 bg-white text-amber-700"
+        : "border-gray-200 bg-white text-slate-500"
   }`}>
     {children}
   </span>
@@ -1259,7 +1252,7 @@ const HorseDataPreviewContent = ({ horse }) => {
         <SectionLabel icon={Activity}>Past Runs</SectionLabel>
         <div className="mt-4 space-y-2">
           {pastRuns.slice(0, 8).map((run, index) => (
-            <div key={`${run.date}-${run.raceName}-${index}`} className="grid grid-cols-[5.5rem_1fr_auto] gap-3 rounded-2xl border border-white/80 bg-white/50 px-3 py-2 text-[12px]">
+            <div key={`${run.date}-${run.raceName}-${index}`} className="grid grid-cols-[5.5rem_1fr_auto] gap-3 rounded-2xl border border-gray-200 bg-white px-3 py-2 text-[12px]">
               <Num className="text-slate-500">{run.date}</Num>
               <span className="min-w-0 truncate font-semibold text-slate-800">{run.course} {run.raceName}</span>
               <span className="text-right text-slate-500">{run.surface}<Num>{run.distance}</Num>m / <Num>{run.finishPosition}</Num>着</span>
@@ -1324,7 +1317,6 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
     <div className="space-y-7">
       {/* TM INDEX — 指数のブランドブロック */}
       <GlassPanel className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -right-14 -top-16 h-40 w-40 rounded-full bg-teal-100/60 blur-3xl" />
         <div className="relative">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400">
@@ -1332,7 +1324,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           </span>
           {ev && (
             <span className="flex items-center gap-1.5">
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">TM Value</span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">TM Value</span>
               <StarRating value={valueStars(ev.ev)} size={11} />
             </span>
           )}
@@ -1343,14 +1335,14 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               <Num className={`text-[52px] font-bold leading-none tracking-tight md:text-[56px] ${scoreTone(horse.aiScore)}`}>
                 {horse.aiScore}
               </Num>
-              <span className="text-xs text-gray-400">/ 100</span>
+              <span className="text-xs text-gray-500">/ 100</span>
             </div>
           )}
           <div className="flex flex-col items-end gap-1.5 pb-1">
             {rank != null && (
               <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[11px] font-medium text-gray-600">
                 Rank <Num className="font-bold text-teal-600">{rank}</Num>
-                <span className="text-gray-400">/ {fieldSize}頭</span>
+                <span className="text-gray-500">/ {fieldSize}頭</span>
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium text-gray-600">
@@ -1365,8 +1357,8 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
         {/* なぜこの指数なのか — 内訳の開示 */}
         <div className={`mt-4 ${GLASS.inner} p-4`}>
           <div className="flex items-baseline justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">指数の根拠</span>
-            <span className="text-[10px] text-gray-400">ファクター × 重みの寄与</span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">指数の根拠</span>
+            <span className="text-[10px] text-gray-500">ファクター × 重みの寄与</span>
           </div>
           <div className="mt-2.5 grid grid-cols-2 gap-x-6 gap-y-1.5 md:grid-cols-4">
             {bd.items.map((it) => (
@@ -1378,7 +1370,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           </div>
           <div className="mt-2.5 space-y-1 border-t border-gray-100 pt-2">
             <div className="flex items-baseline justify-between text-[12px]">
-              <span className="text-gray-400">総合補正(相手関係など)</span>
+              <span className="text-gray-500">総合補正(相手関係など)</span>
               <Num className="text-gray-500">{bd.adjust >= 0 ? `+${bd.adjust}` : bd.adjust}</Num>
             </div>
             <div className="flex items-baseline justify-between text-[12px]">
@@ -1393,7 +1385,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
         {/* 信頼度は必ず理由とセットで */}
         <div className={`mt-3 ${GLASS.inner} p-4`}>
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">分析信頼度</span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">分析信頼度</span>
             <span className="flex items-center gap-1.5">
               <StarRating value={confidenceStars(a)} size={11} />
               <span className="text-[11px] font-medium text-gray-700">{CONFIDENCE[a.confidence].label}</span>
@@ -1414,7 +1406,6 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
       {/* AI Insight — AIが今回最も伝えたいこと */}
       {insights.length > 0 && (
         <GlassPanel className="relative overflow-hidden">
-          <div className="pointer-events-none absolute -right-10 -top-14 h-32 w-32 rounded-full bg-cyan-100/70 blur-3xl" />
           <div className="relative">
           <div className="flex items-center gap-1.5">
             <Sparkles size={13} strokeWidth={1.75} className="text-slate-400" />
@@ -1425,7 +1416,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           <ul className="mt-3 space-y-2">
             {insights.map((t, i) => (
               <li key={i} className="flex gap-2.5 text-[13px] leading-relaxed text-gray-700">
-                <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-emerald-500" />
+                <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-slate-300" />
                 {t}
               </li>
             ))}
@@ -1570,18 +1561,16 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
   const modal = (
     <div className="tm-modal-root fixed inset-0 z-[9999] overflow-hidden overscroll-none" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
-      <div className="tm-fade absolute inset-0 bg-slate-900/15 backdrop-blur-[3px]" onClick={onClose} />
-      <div ref={sheetRef} className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[2rem] border-t border-white/90 bg-white/[0.9] shadow-[0_-34px_100px_-54px_rgba(15,118,110,0.62)] backdrop-blur-2xl">
-        <div className="shrink-0 overflow-hidden border-b border-white/80 bg-white/[0.84] px-5 pb-5 pt-2.5 backdrop-blur-2xl">
-          <div className="pointer-events-none absolute -right-12 -top-16 h-44 w-44 rounded-full bg-emerald-100/75 blur-3xl" />
-          <div className="pointer-events-none absolute -left-16 bottom-0 h-36 w-36 rounded-full bg-cyan-100/70 blur-3xl" />
+      <div className="tm-fade absolute inset-0 bg-slate-900/15" onClick={onClose} />
+      <div ref={sheetRef} className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[2rem] border-t border-gray-200 bg-white shadow-sm">
+        <div className="shrink-0 overflow-hidden border-b border-gray-200 bg-white px-5 pb-5 pt-2.5">
           <div className="relative">
             <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
                 <div className="flex items-center gap-2">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm">
                     <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
                   </span>
                   <div className="min-w-0">
@@ -1594,7 +1583,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
               </div>
               <button
                 onClick={onClose}
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/80 bg-white/65 text-slate-400 shadow-sm transition-colors hover:bg-white hover:text-slate-600 active:bg-gray-100"
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white text-slate-500 shadow-sm transition-colors hover:bg-white hover:text-slate-600 active:bg-gray-100"
                 aria-label="閉じる"
               >
                 <X size={18} strokeWidth={1.75} />
@@ -1615,7 +1604,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                 {displayScore(horse.aiScore)}
               </Num>
             </div>
-            <div className="min-w-[112px] rounded-[1.35rem] border border-white/85 bg-white/52 px-3 py-3 text-right">
+            <div className="min-w-[112px] rounded-[1.35rem] border border-gray-200 bg-white px-3 py-3 text-right">
               <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM VALUE</div>
               <div className={`mt-2 text-[18px] ${ev && ev.ev >= 1.15 ? "font-bold text-slate-900" : "text-gray-500"}`}>
                 {ev ? (
@@ -1627,7 +1616,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                 )}
               </div>
               {rank != null && (
-                <div className="mt-1 text-[10px] text-gray-400">
+                <div className="mt-1 text-[10px] text-gray-500">
                   Rank <Num>{rank}</Num> / {fieldSize}頭
                 </div>
               )}
@@ -1647,7 +1636,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
           <div className="mt-4 grid grid-cols-2 gap-2">
             {command.map((f) => (
-              <div key={f.key} className="rounded-2xl border border-white/80 bg-white/45 p-2.5">
+              <div key={f.key} className="rounded-2xl border border-gray-200 bg-white p-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
                   <Num className="text-[15px] font-bold text-slate-800">{f.value ?? f.status ?? "未評価"}</Num>
@@ -1660,7 +1649,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
           </div>
 
           {insightLead && (
-            <div className="mt-4 flex gap-2 rounded-2xl border border-white/80 bg-white/45 px-3.5 py-3 text-[12px] leading-relaxed text-slate-600">
+            <div className="mt-4 flex gap-2 rounded-2xl border border-gray-200 bg-white px-3.5 py-3 text-[12px] leading-relaxed text-slate-600">
               <Sparkles size={14} strokeWidth={1.75} className="mt-[3px] shrink-0 text-slate-400" />
               <span className="line-clamp-2">{insightLead}</span>
             </div>
@@ -1684,19 +1673,19 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
 /* ---- 出走馬の1行(クリックで詳細) ---- */
 const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop }) => (
-  <div className="border-b border-white/70 last:border-b-0">
+  <div className="border-b border-gray-200 last:border-b-0">
     <button
       onClick={onToggle}
       aria-expanded={expanded}
-      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-white/70 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
-        expanded ? "bg-teal-50/45" : "bg-white/20"
+      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
+        expanded ? "bg-gray-50" : "bg-white"
       }`}
     >
       <span className="md:contents">
         <span className="flex items-start justify-between gap-3 md:contents">
           <span className="flex min-w-0 items-start gap-3 md:contents">
             {/* 馬番 */}
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/90 bg-white/75 shadow-sm md:h-8 md:w-8 md:rounded-xl">
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm md:h-8 md:w-8 md:rounded-xl">
               <Num className="text-[13px] font-semibold text-gray-700">{horse.number}</Num>
             </span>
 
@@ -1713,7 +1702,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
 
           {/* AI指数(モバイルでは右端の主役) */}
           <span className="shrink-0 text-right md:hidden">
-            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400 md:hidden">
+            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500 md:hidden">
               TM INDEX
             </span>
             <Num className={`block text-[28px] font-bold leading-none tracking-tight ${scoreTone(horse.aiScore)}`}>
@@ -1722,9 +1711,9 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
           </span>
         </span>
 
-        <span className="mt-3 flex items-center justify-between gap-3 border-t border-white/70 pt-3 md:hidden">
+        <span className="mt-3 flex items-center justify-between gap-3 border-t border-gray-200 pt-3 md:hidden">
           <span className="min-w-0">
-            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-400">TM VALUE</span>
+            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">TM VALUE</span>
             <span
               className={`mt-0.5 block text-[12px] ${
                 ev && ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-500"
@@ -1752,14 +1741,14 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
       <span className="hidden truncate text-[13px] text-gray-600 md:block">{horse.jockey}</span>
       <span className="hidden text-right md:block">
         <Num className="text-[13px] text-gray-600">{displayPopularity(horse.popularity)}</Num>
-        <span className="text-[11px] text-gray-400">人気</span>
+        <span className="text-[11px] text-gray-500">人気</span>
       </span>
       <span className="hidden text-right md:block">
         <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
         {ev && (
           <Num
             className={`block text-[10px] leading-tight ${
-              ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-400"
+              ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-500"
             }`}
           >
             EV {ev.ev.toFixed(2)}
@@ -1810,7 +1799,6 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
         featured ? "p-6 md:p-7" : "p-4"
       }`}
     >
-      <div className={`pointer-events-none absolute rounded-full bg-emerald-100/40 blur-3xl ${featured ? "-right-8 -top-12 h-40 w-40" : "-right-10 -top-12 h-28 w-28"}`} />
       <div className="relative">
         <div className="flex items-center justify-between gap-3 text-[10px] font-medium text-slate-400">
           <span>
@@ -1820,7 +1808,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
           </span>
           <span className="flex items-center gap-2">
             {featured && race.grade && (
-              <span className="rounded-full border border-emerald-100 bg-emerald-50/70 px-2 py-0.5 text-[9px] font-semibold text-emerald-700">
+              <span className="rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[9px] font-semibold text-slate-600">
                 {race.grade}
               </span>
             )}
@@ -1832,7 +1820,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
           {race.name}
         </div>
 
-        <div className={`flex items-end justify-between gap-4 border-t border-white/70 ${featured ? "mt-8 pt-5" : "mt-5 pt-3.5"}`}>
+        <div className={`flex items-end justify-between gap-4 border-t border-gray-200 ${featured ? "mt-8 pt-5" : "mt-5 pt-3.5"}`}>
           <div className="min-w-0">
             <span className={`font-semibold uppercase text-slate-400 ${featured ? "text-[9px] tracking-[0.14em]" : "text-[8px] tracking-[0.1em]"}`}>
               Top Signal
@@ -1842,7 +1830,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
             </span>
           </div>
           <div className="shrink-0 text-right">
-            <Num className={`block font-bold leading-none tracking-tight text-emerald-600 ${featured ? "text-[38px] md:text-[42px]" : "text-[24px]"}`}>
+            <Num className={`block font-bold leading-none tracking-tight ${race.topHorse.available ? "text-emerald-600" : "text-gray-300"} ${featured ? "text-[38px] md:text-[42px]" : "text-[24px]"}`}>
               {score}
             </Num>
             {featured && race.topHorse.available && (
@@ -1905,13 +1893,9 @@ const HomePage = ({ onOpenRace }) => {
     <main className="mx-auto max-w-5xl px-5">
       {/* Hero */}
       <section className={`relative mt-6 overflow-hidden ${GLASS.surface} px-6 pb-8 pt-8 md:mt-10 md:px-10 md:pb-10 md:pt-10`}>
-        <div className="pointer-events-none absolute -left-24 -top-20 h-56 w-56 rounded-full bg-cyan-100/45 blur-3xl" />
-        <div className="pointer-events-none absolute -right-20 top-20 h-52 w-52 rounded-full bg-emerald-100/45 blur-3xl" />
-        <div className="pointer-events-none absolute inset-x-8 bottom-0 h-24 rounded-full bg-teal-50/55 blur-3xl" />
         <div className="relative">
           <div className="flex items-center justify-between gap-3">
             <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Today</span>
-            <BetaBadge />
           </div>
           {topSignal ? (
             <>
@@ -1930,18 +1914,18 @@ const HomePage = ({ onOpenRace }) => {
                 </div>
                 <button
                   onClick={() => onOpenRace(topSignal.id)}
-                  className="mb-4 inline-flex shrink-0 items-center gap-1 rounded-full border border-white/45 bg-white/15 px-2 py-1 text-[10px] font-semibold text-slate-400 backdrop-blur"
+                  className="mb-4 inline-flex shrink-0 items-center gap-1 rounded-full border border-gray-200 bg-white px-2 py-1 text-[10px] font-semibold text-slate-500 shadow-sm"
                 >
                   View Analysis
                   <ChevronRight size={13} strokeWidth={1.75} />
                 </button>
               </div>
               <div className="mt-7 grid grid-cols-2 gap-3">
-                <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
+                <div className="rounded-[1.35rem] border border-gray-200 bg-white p-4">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Confidence</div>
                   <div className="mt-2 text-[17px] font-bold text-slate-950">{confidenceMeta(topSignal.confidence).label}</div>
                 </div>
-                <div className="rounded-[1.35rem] border border-white/80 bg-white/45 p-4">
+                <div className="rounded-[1.35rem] border border-gray-200 bg-white p-4">
                   <div className="text-[9px] font-semibold uppercase tracking-[0.14em] text-slate-400">Race</div>
                   <div className="mt-2 truncate text-[17px] font-bold text-slate-950">{topSignal.name}</div>
                 </div>
@@ -1951,11 +1935,11 @@ const HomePage = ({ onOpenRace }) => {
             <div className="mt-9">
               <div className="text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
               <div className="mt-4 text-[20px] font-bold leading-tight tracking-tight text-slate-950 md:text-[30px]">
-                データ未取得
+                {WEEK_PREPARING_TEXT}
               </div>
               <div className="mt-8">
                 <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM INDEX</div>
-                <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-emerald-600 md:text-[64px]">
+                <Num className="mt-4 block text-[52px] font-bold leading-none tracking-tight text-gray-300 md:text-[64px]">
                   --
                 </Num>
               </div>
@@ -2003,7 +1987,7 @@ const HomePage = ({ onOpenRace }) => {
                       <div key={group.track}>
                         <div className="mb-2.5 flex items-center gap-3">
                           <span className="text-[11px] font-bold text-slate-700">{group.track}</span>
-                          <span className="h-px flex-1 bg-white/75" />
+                          <span className="h-px flex-1 bg-gray-200" />
                           <span className="text-[9px] font-medium text-slate-400">{group.races.length}レース</span>
                         </div>
                         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -2028,7 +2012,7 @@ const HomePage = ({ onOpenRace }) => {
                       <div key={group.track}>
                         <div className="mb-2.5 flex items-center gap-3">
                           <span className="text-[11px] font-bold text-slate-700">{group.track}</span>
-                          <span className="h-px flex-1 bg-white/75" />
+                          <span className="h-px flex-1 bg-gray-200" />
                           <span className="text-[9px] font-medium text-slate-400">{group.races.length}レース</span>
                         </div>
                         <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
@@ -2044,7 +2028,7 @@ const HomePage = ({ onOpenRace }) => {
             </div>
           ) : (
             <div className={`${GLASS.surface} mt-5 p-6 text-[13px] font-medium text-slate-400`}>
-              データ未取得
+              {WEEK_PREPARING_TEXT}
             </div>
           )
         ) : (
@@ -2063,10 +2047,9 @@ const HomePage = ({ onOpenRace }) => {
           </div>
         </div>
         <div className={`relative mt-4 overflow-hidden ${GLASS.surface} p-6`}>
-          <div className="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-cyan-100/70 blur-3xl" />
           {summary ? (
             <div className="relative">
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/55 px-2.5 py-1 text-[10px] font-semibold text-slate-500">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-semibold text-slate-500">
                 <Sparkles size={11} strokeWidth={1.75} />
                 AI Insight
               </div>
@@ -2094,7 +2077,7 @@ const HomePage = ({ onOpenRace }) => {
       <section className="mt-14">
         <div className="flex items-baseline justify-between">
           <h2 className="text-[15px] font-semibold text-gray-900">今日のAI注目馬</h2>
-          <span className="text-[11px] text-gray-400">AIが特に伝えたい3頭</span>
+          <span className="text-[11px] text-gray-500">AIが特に伝えたい3頭</span>
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {featured
@@ -2115,7 +2098,7 @@ const HomePage = ({ onOpenRace }) => {
                           <Num className="text-[10px] font-bold tracking-[0.18em] text-teal-600">
                             PICK 0{i + 1}
                           </Num>
-                          <span className="text-[11px] text-gray-400">{f.raceLabel}</span>
+                          <span className="text-[11px] text-gray-500">{f.raceLabel}</span>
                         </div>
                         <div
                           className={`mt-1.5 font-bold tracking-tight text-gray-900 ${
@@ -2142,11 +2125,11 @@ const HomePage = ({ onOpenRace }) => {
                         >
                           {f.horse.aiScore}
                         </Num>
-                        <div className="mt-1.5 text-[10px] uppercase tracking-wider text-gray-400">AI指数</div>
+                        <div className="mt-1.5 text-[10px] uppercase tracking-wider text-gray-500">AI指数</div>
                         <span className="mt-1 flex items-center justify-end gap-1">
                           <StarRating value={valueStars(f.ev)} size={9} />
                         </span>
-                        <Num className="mt-0.5 block text-[10px] text-gray-400">EV {f.ev.toFixed(2)}</Num>
+                        <Num className="mt-0.5 block text-[10px] text-gray-500">EV {f.ev.toFixed(2)}</Num>
                       </div>
                     </div>
                   </button>
@@ -2154,7 +2137,7 @@ const HomePage = ({ onOpenRace }) => {
               })
               : (
                 <div className={`${GLASS.surface} p-6 text-[13px] font-medium text-slate-400 md:col-span-2`}>
-                  データ未取得
+                  {WEEK_PREPARING_TEXT}
                 </div>
               )
             : [0, 1, 2].map((i) => (
@@ -2167,7 +2150,7 @@ const HomePage = ({ onOpenRace }) => {
       <section className="mt-14">
         <div className="flex items-baseline justify-between">
           <h2 className="text-[15px] font-semibold text-gray-900">AI指数ランキング</h2>
-          <span className="text-[11px] text-gray-400">本日 全レース</span>
+          <span className="text-[11px] text-gray-500">本日 全レース</span>
         </div>
         <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
           {ranking
@@ -2178,14 +2161,14 @@ const HomePage = ({ onOpenRace }) => {
                   onClick={() => onOpenRace(item.raceId, item.horse.id)}
                   className="grid w-full grid-cols-[1.5rem_auto_1fr_2.5rem] items-center gap-3 border-b border-gray-100 px-4 py-3.5 text-left transition-colors duration-150 last:border-b-0 hover:bg-gray-50/70 active:bg-gray-100/60 md:px-5"
                 >
-                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-emerald-600" : "text-gray-400"}`}>
+                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-emerald-600" : "text-gray-500"}`}>
                     {i + 1}
                   </Num>
                   <span className="min-w-0">
                     <span className="block truncate text-[13px] font-semibold text-gray-900">
                       {item.horse.name}
                     </span>
-                    <span className="text-[11px] text-gray-400">{item.raceLabel}</span>
+                    <span className="text-[11px] text-gray-500">{item.raceLabel}</span>
                   </span>
                   <span className="flex items-center">
                     <AnimatedBar value={item.horse.aiScore} delay={i * 70} />
@@ -2197,7 +2180,7 @@ const HomePage = ({ onOpenRace }) => {
               ))
               : (
                 <div className="px-5 py-8 text-center text-[13px] font-medium text-slate-400">
-                  データ未取得
+                  {WEEK_PREPARING_TEXT}
                 </div>
               )
             : [0, 1, 2, 3, 4].map((i) => <Skeleton key={i} className="m-3 h-10" />)}
@@ -2270,12 +2253,11 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
 
         {race ? (
           <div className={`relative mt-4 overflow-hidden ${GLASS.surface} p-5 md:p-7`}>
-            <div className="pointer-events-none absolute -right-12 -top-14 h-40 w-40 rounded-full bg-emerald-100/70 blur-3xl" />
             <div className="relative">
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="inline-flex items-center gap-1 rounded-full border border-white/80 bg-white/70 px-2.5 py-1 text-gray-500 shadow-sm">
+                  <span className="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-gray-500 shadow-sm">
                     <Clock size={11} strokeWidth={1.75} />
                     <Num className="text-[12px] font-semibold text-slate-700">{displayRaceValue(race.time, "取得待ち")}</Num>
                   </span>
@@ -2284,7 +2266,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                     <Num>{race.number}</Num>R
                   </span>
                   {race.grade && (
-                    <span className="rounded border border-slate-200 bg-white/50 px-1.5 py-px text-[10px] font-bold leading-4 text-slate-500">
+                    <span className="rounded border border-gray-200 bg-white px-1.5 py-px text-[10px] font-bold leading-4 text-slate-500">
                       {race.grade}
                     </span>
                   )}
@@ -2293,7 +2275,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                   {race.name}
                 </h1>
               </div>
-              <span className="mt-0.5 shrink-0 rounded-full border border-emerald-100 bg-emerald-50/75 px-2.5 py-1 text-[10px] font-semibold text-emerald-700">
+              <span className="mt-0.5 shrink-0 rounded-full border border-gray-200 bg-white px-2.5 py-1 text-[10px] font-semibold text-slate-600">
                 分析済み
               </span>
             </div>
@@ -2309,7 +2291,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 <Num>{race.fieldSize}</Num>頭
               </span>
             </div>
-            <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-white/80 bg-white/55 px-3 py-2 text-[11px] font-medium text-slate-500 shadow-sm backdrop-blur-xl">
+            <div className="mt-4 inline-flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-3 py-2 text-[11px] font-medium text-slate-500 shadow-sm">
               <span className="text-slate-400">単勝オッズ</span>
               <span className="h-1 w-1 rounded-full bg-slate-300" />
               <span>{oddsStatusLabel(race.oddsStatus)}</span>
@@ -2344,7 +2326,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
           <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Runner Matrix</div>
           <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">出走馬 AI分析</h2>
         </div>
-        <div className="grid w-full grid-cols-4 rounded-2xl border border-white/80 bg-white/65 p-1 shadow-sm backdrop-blur-xl md:flex md:w-auto md:rounded-2xl md:p-1">
+        <div className="grid w-full grid-cols-4 rounded-2xl border border-gray-200 bg-white p-1 shadow-sm md:flex md:w-auto md:rounded-2xl md:p-1">
           {SORT_OPTIONS.map((o) => (
             <button
               key={o.key}
@@ -2364,7 +2346,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       {/* 出走馬一覧 */}
       <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
         {/* PC列ヘッダー */}
-        <div className="hidden grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-400 md:grid">
+        <div className="hidden grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:grid">
           <span>馬番</span>
           <span>馬名</span>
           <span>騎手</span>
@@ -2390,13 +2372,13 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
             ))
             : (
               <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
-                データ未取得
+                {WEEK_PREPARING_TEXT}
               </div>
             )
           : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}
       </div>
 
-      <p className="mt-3 text-[11px] text-gray-400">
+      <p className="mt-3 text-[11px] text-gray-500">
         {isDesktop ? "行をクリックすると分析詳細が展開されます。" : "馬をタップすると分析詳細が開きます。"}
         EVは推定勝率×単勝オッズの期待値(1.00が損益分岐の目安)です。
       </p>
@@ -2437,7 +2419,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#f7fbfb] text-gray-900 antialiased">
+    <div className="relative min-h-screen overflow-hidden bg-[#FAFAFA] text-gray-900 antialiased">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
         body, #root { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; }
@@ -2448,12 +2430,6 @@ export default function App() {
           height: 100vh;
           height: 100dvh;
           contain: layout size style;
-        }
-        /* TURF MATRIX ブランド(Teal → Blue → Emerald) */
-        .tm-gradient-text {
-          background: linear-gradient(90deg, #00C2B8, #2D7BFF, #22E6A2);
-          -webkit-background-clip: text; background-clip: text;
-          color: transparent;
         }
         /* ボトムシートのスクロール対策(iOS Safari / Android Chrome) */
         .tm-sheet {
@@ -2478,13 +2454,6 @@ export default function App() {
           .tm-bar { transition: none; }
         }
       `}</style>
-
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute -top-28 left-1/2 h-96 w-[42rem] -translate-x-1/2 rounded-full bg-cyan-100/55 blur-3xl" />
-        <div className="absolute right-[-10rem] top-48 h-96 w-96 rounded-full bg-emerald-100/60 blur-3xl" />
-        <div className="absolute bottom-20 left-[-10rem] h-80 w-80 rounded-full bg-teal-100/55 blur-3xl" />
-        <div className="absolute inset-x-0 top-0 h-px bg-white/80" />
-      </div>
 
       {DATA_ERRORS.length > 0 && (
         <div className="relative z-10 border-b border-amber-200 bg-amber-50 px-5 py-2 text-center text-[11px] text-amber-800">

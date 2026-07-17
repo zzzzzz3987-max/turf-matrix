@@ -8,7 +8,11 @@ const candidateModules = import.meta.glob("../../tools/week-data.batch-candidate
 const batchCandidateWeekData = candidateModules["../../tools/week-data.batch-candidate.json"] ?? null;
 const requestedMode = import.meta.env.VITE_TURF_DATA_MODE;
 export const dataMode =
-  (requestedMode === "batch" || requestedMode === "candidate") && batchCandidateWeekData ? "candidate" : "official";
+  requestedMode === "official" || requestedMode === "production"
+    ? "official"
+    : batchCandidateWeekData
+      ? "candidate"
+      : "official";
 
 const isCandidatePayload = (data) =>
   data?.mode === "candidate" || data?.mode === "candidate-preodds" || Boolean(data?.races?.[0]?.horses?.[0]?.currentRace);

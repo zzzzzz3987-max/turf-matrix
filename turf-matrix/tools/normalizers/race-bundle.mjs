@@ -1,5 +1,6 @@
 import { existsSync } from "node:fs";
 import * as allCsvParser from "../parsers/all-csv-parser.mjs";
+import * as basicTxtParser from "../parsers/basic-txt-parser.mjs";
 import * as currentRaceParser from "../parsers/current-race-detail-parser.mjs";
 import * as oddsParser from "../parsers/odds-csv-parser.mjs";
 import * as pedigreeParser from "../parsers/pedigree-html-parser.mjs";
@@ -30,6 +31,13 @@ const optionalParse = (parser, path, fallback) =>
 const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   const current = currentRaceParser.parse({ path: csv.currentRace });
   const all = allCsvParser.parse({ path: csv.all });
+  const basic = optionalParse(basicTxtParser, csv.basic, {
+    recordCount: 0,
+    ziCount: 0,
+    records: [],
+    ziRecords: [],
+    warnings: [],
+  });
   const odds = optionalParse(oddsParser, csv.odds, {
     rowCount: 0,
     entryCount: 0,
@@ -51,6 +59,7 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   const slopeByHorse = groupByHorse(slope.records);
   const woodByHorse = groupByHorse(wood.records);
   const pedigreeByHorse = mapByHorse(pedigree.records);
+  const basicByNumber = new Map(basic.records.map((record) => [record.horseNumber, record]));
   const failures = [];
 
   const horses = current.entries.map((entry) => {
@@ -58,7 +67,8 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
     const allRecord = allByHorse.get(key) ?? null;
     const oddsEntry = oddsByNumber.get(entry.horseNumber) ?? null;
     const training = { slope: slopeByHorse.get(key) ?? [], wood: woodByHorse.get(key) ?? [] };
-    const pedigreeRecord = pedigreeByHorse.get(key) ?? null;
+    const basicRecord = basicByNumber.get(entry.horseNumber) ?? null;
+    const pedigreeRecord = pedigreeByHorse.get(key) ?? (basicRecord ? { ...basicRecord, horseName: entry.horseName } : null);
     const missing = [];
     if (!allRecord) missing.push("pastRuns");
     if (!oddsEntry) missing.push("odds");
@@ -73,6 +83,9 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
       raceEntryId: entry.raceEntryId,
       currentRace: {
         ...entry,
+        sire: entry.sire ?? basicRecord?.sire ?? null,
+        dam: entry.dam ?? basicRecord?.dam ?? null,
+        broodmareSire: entry.broodmareSire ?? basicRecord?.broodmareSire ?? null,
         sexAge: `${entry.sex ?? ""}${entry.age ?? ""}` || null,
       },
       pastRuns: allRecord?.pastRuns ?? [],
@@ -109,6 +122,7 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
       trainingSlope: { rows: slope.rowCount, encoding: slope.encoding ?? null },
       trainingWood: { rows: wood.rowCount, encoding: wood.encoding ?? null },
       pedigree: { records: pedigree.recordCount ?? 0 },
+      basicTxt: { records: basic.recordCount ?? 0, zi: basic.ziCount ?? 0 },
     },
     join: {
       runners: horses.length,

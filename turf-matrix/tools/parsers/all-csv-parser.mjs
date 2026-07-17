@@ -48,6 +48,11 @@ export const inspect = ({ path = source.path } = {}) =>
 
 const valueAt = (row, oneBasedIndex) => String(row[oneBasedIndex - 1] ?? "").trim();
 
+const positiveNumber = (value) => {
+  const number = toNumber(value);
+  return typeof number === "number" && number > 0 ? number : null;
+};
+
 const normalizeYear = (value) => {
   const number = toNumber(value);
   if (number == null) return null;
@@ -85,10 +90,10 @@ const extractPastRun = (row) => ({
   surfaceCode: valueAt(row, 23) || null,
   margin: toNumber(valueAt(row, 24)),
   horseNumber: toNumber(valueAt(row, 25)),
-  timeSeconds: toNumber(valueAt(row, 26)),
+  timeSeconds: positiveNumber(valueAt(row, 26)),
   timeText: valueAt(row, 27) || null,
   passingOrder: [29, 30, 31, 32].map((column) => toNumber(valueAt(row, column))),
-  last3F: toNumber(valueAt(row, 33)),
+  last3F: positiveNumber(valueAt(row, 33)),
   bodyWeight: toNumber(valueAt(row, 34)),
   bodyWeightDiff: toNumber(valueAt(row, 66)),
 });

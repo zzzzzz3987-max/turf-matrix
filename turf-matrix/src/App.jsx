@@ -71,9 +71,15 @@ import {
 const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
 const isEvaluatedHorse = (horse) => isFiniteNumber(horse?.aiScore);
 const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
-const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "取得待ち");
-const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "取得待ち");
+const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "発売前");
+const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "発売前");
 const displayRaceValue = (value, fallback = "取得待ち") => (value == null || value === "" ? fallback : value);
+const isPendingText = (value) => {
+  const text = String(value ?? "").trim();
+  return !text || text === "取得待ち" || /^\?+$/.test(text);
+};
+const displayHorseName = (horse) => (isPendingText(horse?.name) ? horse?.currentRace?.horseName ?? "取得待ち" : horse.name);
+const displayJockeyName = (horse) => (isPendingText(horse?.jockey) ? horse?.currentRace?.jockey ?? "取得待ち" : horse.jockey);
 const WEEK_PREPARING_TEXT = "今週のレースは準備中です";
 const oddsStatusLabel = (status) => ({
   active: "最終更新",
@@ -315,7 +321,25 @@ const dataProvider = {
     return simulateLatency(race);
   },
   async getFeaturedHorses() {
-    if (dataMode === "candidate" || IS_INTELLIGENCE_PENDING) return simulateLatency([]);
+    if (dataMode === "candidate" || IS_INTELLIGENCE_PENDING) {
+      const derived = WEEK_DATA.races
+        .flatMap((race) =>
+          (race.horses ?? [])
+            .filter(isEvaluatedHorse)
+            .map((horse) => ({
+              id: `${race.id}-${horse.id}`,
+              raceId: race.id,
+              horseId: horse.id,
+              horse,
+              raceLabel: `${race.track}${race.number}R`,
+              note: horse.analysis?.verdict?.summary ?? horse.comment ?? "TARGET実データから算出した上位シグナルです。",
+              ev: evaluateValue(horse, race.horses)?.ev ?? null,
+            }))
+        )
+        .sort((a, b) => b.horse.aiScore - a.horse.aiScore)
+        .slice(0, 3);
+      return simulateLatency(derived);
+    }
     const items = WEEK_DATA.featured.flatMap((f) => {
       const race = WEEK_DATA.races.find((r) => r.id === f.raceId);
       const horse = race?.horses?.find((h) => h.id === f.horseId);
@@ -473,7 +497,7 @@ const sortHorses = (horses, sortKey, evMap) => {
   return arr;
 };
 
-const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : v >= 85 ? "text-emerald-600" : v >= 70 ? "text-slate-900" : "text-gray-500");
+const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
 const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
 
@@ -758,6 +782,43 @@ const TMFactorsCard = () => (
   </div>
 );
 
+const AbilityBreakdownCard = ({ detail }) => {
+  const components = detail?.components ?? [];
+  if (!detail || !components.length) return null;
+
+  return (
+    <div className={`mt-4 ${GLASS.inner} p-4`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Ability Detail</div>
+          <p className="mt-1 text-[11px] leading-relaxed text-gray-500">{detail.summary}</p>
+        </div>
+        <Num className={`shrink-0 text-[22px] font-bold leading-none ${scoreTone(detail.score)}`}>{detail.score}</Num>
+      </div>
+      <div className="mt-4 grid gap-2.5 md:grid-cols-2">
+        {components.map((component) => (
+          <div key={component.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <div className="text-[12px] font-semibold text-slate-900">{component.label}</div>
+                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-gray-500">{component.summary}</p>
+              </div>
+              <Num className={`shrink-0 text-[18px] font-bold leading-none ${scoreTone(component.score)}`}>
+                {isFiniteNumber(component.score) ? component.score : "—"}
+              </Num>
+            </div>
+            {isFiniteNumber(component.score) && (
+              <div className="mt-2">
+                <AnimatedBar value={component.score} trackClass="bg-gray-100" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const CONF_STARS = { high: 4, mid: 3, low: 2 };
 const ConfidenceIndicator = ({ level }) => {
   const c = CONFIDENCE[level];
@@ -804,8 +865,7 @@ const ProsConsList = ({ pros, cons }) => (
   </div>
 );
 
-/* ---- ファクター比較テーブル: 横=馬 / 縦=ファクター、色の濃淡で比較 ---- */
-const heat = (ratio) => Math.max(0.04, Math.min(0.85, ratio));
+/* ---- ファクター比較テーブル: 横=馬 / 縦=ファクター、行ごとの上位だけを静かに強調 ---- */
 const ComparisonTable = ({ horses, evMap, onSelect }) => {
   const sorted = [...horses].sort((a, b) => b.aiScore - a.aiScore);
   const cellValue = (d, h) =>
@@ -814,15 +874,25 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
       : d.type === "pedigree"
         ? pedigreeIndex(h.analysis.pedigree)
         : h.analysis.factors[d.key];
-  const cellAlpha = (d, v) => (d.type === "ev" ? heat((v - 0.55) / 0.9) : heat((v - 45) / 55));
+  const rowLeaders = useMemo(() => {
+    const leaders = {};
+    for (const d of COMPARE_DEFS) {
+      const values = sorted
+        .map((h) => ({ id: h.id, value: cellValue(d, h) }))
+        .filter((item) => Number.isFinite(item.value));
+      const ordered = values.sort((a, b) => b.value - a.value);
+      leaders[d.key] = new Set(ordered.slice(0, d.type === "ev" ? 1 : 2).map((item) => item.id));
+    }
+    return leaders;
+  }, [sorted, evMap]);
   return (
     <section className="mt-7">
       <div className="flex items-end justify-between gap-3">
         <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Factor Matrix</div>
-          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">Horse Comparison</h2>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.28em] text-slate-400">Runner Matrix</div>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">ファクター比較</h2>
         </div>
-        <span className="hidden text-right text-[11px] text-slate-400 md:block">濃いほど優位 ・ 横スクロール可</span>
+        <span className="hidden text-right text-[11px] text-slate-400 md:block">行ごとの上位のみ強調</span>
       </div>
       <div className="mt-5 grid gap-3 md:hidden">
         {sorted.slice(0, 4).map((h) => {
@@ -870,27 +940,26 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           );
         })}
       </div>
-      <div className={`mt-4 hidden overflow-x-auto ${GLASS.surface} p-2 md:block`}>
+      <div className={`mt-4 hidden overflow-x-auto ${GLASS.surface} p-0 md:block`}>
         <table
           className="border-collapse text-center"
-          style={{ minWidth: `${96 + sorted.length * 54}px`, width: "100%" }}
+          style={{ minWidth: `${112 + sorted.length * 76}px`, width: "100%" }}
         >
           <thead>
-            <tr>
-              <th className="sticky left-0 z-10 rounded-l-2xl bg-white px-3 py-2.5 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-500">
-                指数順
+            <tr className="border-b border-gray-200">
+              <th className="sticky left-0 z-10 bg-white px-4 py-3 text-left text-[10px] font-semibold uppercase tracking-wider text-gray-400">
               </th>
               {sorted.map((h) => (
-                <th key={h.id} className="px-1 py-2">
+                <th key={h.id} className="px-2 py-3">
                   <button
                     onClick={() => onSelect(h)}
-                    className="mx-auto flex w-full flex-col items-center gap-1"
+                    className="mx-auto flex w-full flex-col items-center gap-1.5"
                     aria-label={`${h.name}の詳細`}
                   >
-                    <span className="flex h-7 w-7 items-center justify-center rounded-xl border border-gray-200 bg-white shadow-sm">
-                      <Num className="text-[11px] font-semibold text-gray-700">{h.number}</Num>
+                    <span className="text-[10px] font-semibold text-slate-300">
+                      <Num>{h.number}</Num>
                     </span>
-                    <span className="w-12 truncate text-[9px] font-medium leading-tight text-gray-500">
+                    <span className="w-[68px] truncate text-[10px] font-semibold leading-tight text-slate-700">
                       {h.name}
                     </span>
                   </button>
@@ -900,21 +969,29 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
           </thead>
           <tbody>
             {COMPARE_DEFS.map((d) => (
-              <tr key={d.key} className="border-t border-gray-200">
-                <th className="sticky left-0 z-10 whitespace-nowrap bg-white px-3 py-1.5 text-left text-[11px] font-medium text-gray-500">
+              <tr key={d.key} className="border-b border-gray-100 last:border-b-0">
+                <th className="sticky left-0 z-10 whitespace-nowrap bg-white px-4 py-3 text-left text-[11px] font-medium text-slate-500">
                   {d.label}
                 </th>
                 {sorted.map((h) => {
                   const v = cellValue(d, h);
-                  const a = cellAlpha(d, v);
+                  const highlighted = rowLeaders[d.key]?.has(h.id);
+                  const isEvBreakout = d.type === "ev" && v >= 1.15;
                   return (
-                    <td key={h.id} className="px-0.5 py-0.5">
+                    <td key={h.id} className="px-1 py-1">
                       <div
-                        className="mx-auto flex h-8 w-[52px] items-center justify-center rounded-xl shadow-sm"
-                        style={{ backgroundColor: `rgba(15, 118, 110, ${a})` }}
+                        className={`mx-auto flex h-9 min-w-[68px] items-center justify-center rounded-lg ${
+                          highlighted ? "bg-teal-50" : "bg-transparent"
+                        }`}
                       >
                         <Num
-                          className={`text-[11px] font-semibold ${a > 0.45 ? "text-white" : "text-gray-700"}`}
+                          className={`text-[13px] ${
+                            isEvBreakout
+                              ? "font-bold text-[#00A9B8]"
+                              : highlighted
+                                ? "font-bold text-slate-950"
+                                : "font-medium text-slate-500"
+                          }`}
                         >
                           {d.type === "ev" ? v.toFixed(2) : v}
                         </Num>
@@ -928,7 +1005,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         </table>
       </div>
       <p className="mt-3 text-[11px] text-gray-500">
-        馬名をタップすると分析詳細が開きます。期待値は推定勝率×単勝オッズ(1.00が損益分岐の目安)。
+        期待値は推定勝率×単勝オッズ(1.00が損益分岐)。<span className="font-semibold text-[#00A9B8]">1.15以上のみ点灯</span> — 色は意味があるときだけ。
       </p>
     </section>
   );
@@ -1264,7 +1341,7 @@ const HorseDataPreviewContent = ({ horse }) => {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Current Race</div>
-            <h3 className="mt-2 text-[18px] font-bold text-slate-950">{horse.name}</h3>
+            <h3 className="mt-2 text-[18px] font-bold text-slate-950">{displayHorseName(horse)}</h3>
           </div>
           <StatusChip tone="wait">AI分析準備中</StatusChip>
         </div>
@@ -1277,7 +1354,7 @@ const HorseDataPreviewContent = ({ horse }) => {
             ["調教師", `${current.stableSide ?? ""}${current.trainer ?? ""}`],
             ["レース", `${current.course ?? ""}${current.raceNo ?? ""}R`],
             ["条件", `${current.surface ?? ""}${current.distance ?? ""}m`],
-            ["オッズ", "取得待ち"],
+            ["オッズ", "発売前"],
           ].map(([label, value]) => (
             <div key={label} className={`${GLASS.inner} p-3`}>
               <div className="text-[10px] font-semibold text-slate-400">{label}</div>
@@ -1394,7 +1471,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               </span>
             )}
             <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-[11px] font-medium text-gray-600">
-              <Num className={`font-bold ${horse.aiScore >= 80 ? "text-emerald-600" : "text-gray-500"}`}>
+              <Num className="font-bold text-slate-950">
                 {tier.label}
               </Num>
               {tier.text}
@@ -1429,6 +1506,8 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
         </div>
 
         <TMFactorsCard />
+
+        <AbilityBreakdownCard detail={a.factorsDetail?.ability} />
 
         {/* 信頼度は必ず理由とセットで */}
         <div className={`mt-3 ${GLASS.inner} p-4`}>
@@ -1608,7 +1687,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
   const confidence = confidenceMeta(horse.analysis?.confidence);
 
   const modal = (
-    <div className="tm-modal-root fixed inset-0 z-[9999] overflow-hidden overscroll-none" role="dialog" aria-modal="true" aria-label={`${horse.name}の分析詳細`}>
+    <div className="tm-modal-root fixed inset-0 z-[9999] overflow-hidden overscroll-none" role="dialog" aria-modal="true" aria-label={`${displayHorseName(horse)}の分析詳細`}>
       <div className="tm-fade absolute inset-0 bg-slate-900/15" onClick={onClose} />
       <div ref={sheetRef} className="tm-slideup tm-sheet absolute inset-x-0 bottom-0 flex flex-col overflow-hidden rounded-t-[2rem] border-t border-gray-200 bg-white shadow-sm">
         <div className="shrink-0 overflow-hidden border-b border-gray-200 bg-white px-5 pb-5 pt-2.5">
@@ -1622,9 +1701,9 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                     <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
                   </span>
                   <div className="min-w-0">
-                    <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{horse.name}</div>
+                    <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{displayHorseName(horse)}</div>
                     <div className="mt-1 text-[11px] font-medium text-slate-500">
-                      {horse.jockey} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
+                      {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
                     </div>
                   </div>
                 </div>
@@ -1742,10 +1821,10 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             {/* 馬名 + (モバイル: 騎手/人気/オッズ) */}
             <span className="min-w-0 md:block">
               <span className="block truncate text-[16px] font-bold text-slate-950 md:text-[14px]">
-                {horse.name}
+                {displayHorseName(horse)}
               </span>
               <span className="mt-1 block text-[11px] text-gray-500 md:hidden">
-                {horse.jockey} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
+                {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
               </span>
             </span>
           </span>
@@ -1788,10 +1867,16 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
       </span>
 
       {/* PC列: 騎手 / 人気 / オッズ+EV */}
-      <span className="hidden truncate text-[13px] text-gray-600 md:block">{horse.jockey}</span>
+      <span className="hidden truncate text-[13px] text-gray-600 md:block">{displayJockeyName(horse)}</span>
       <span className="hidden text-right md:block">
-        <Num className="text-[13px] text-gray-600">{displayPopularity(horse.popularity)}</Num>
-        <span className="text-[11px] text-gray-500">人気</span>
+        {isFiniteNumber(horse.popularity) && horse.popularity > 0 ? (
+          <>
+            <Num className="text-[13px] text-gray-600">{horse.popularity}</Num>
+            <span className="text-[11px] text-gray-500">人気</span>
+          </>
+        ) : (
+          <span className="text-[12px] text-gray-400">発売前</span>
+        )}
       </span>
       <span className="hidden text-right md:block">
         <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
@@ -1843,8 +1928,8 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   const ev = race.topHorse.ev;
   const signalLabel = race.topHorse.available
     ? race.topHorse.aiScore >= 80
-      ? `INDEX 首位 ${race.topHorse.name} ${score}`
-      : `VALUE ${race.topHorse.name}`
+      ? `${race.topHorse.name} ${score}`
+      : race.topHorse.name
     : WEEK_PREPARING_TEXT;
 
   return (
@@ -1876,26 +1961,43 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
               {race.surface}<Num>{race.distance}</Num>m
               <span className="mx-1">・</span>
               {displayRaceValue(race.going, "良")}
-              <span className="mx-1">・</span>
-              <Num>{race.fieldSize}</Num>頭
+              {isFiniteNumber(race.fieldSize) ? (
+                <>
+                  <span className="mx-1">・</span>
+                  <Num>{race.fieldSize}</Num>頭
+                </>
+              ) : null}
             </div>
           </div>
           <ChevronRight size={15} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[#CBD5E1] transition-transform group-hover:translate-x-0.5" />
         </div>
 
-        <div className="mt-4 border-t border-[#EDF0F3] pt-4">
-          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
-            {score !== "--" && score < 80 ? "VALUE" : "INDEX"}
-          </span>
-          <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
-            {signalLabel}
-            {isFiniteNumber(ev) ? <Num className="text-[#00A9B8]"> — EV {ev.toFixed(2)}</Num> : null}
-          </span>
-        </div>
+        {race.topHorse.available ? (
+          <div className="mt-4 border-t border-[#EDF0F3] pt-4">
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
+              {score !== "--" && score < 80 ? "VALUE" : "INDEX"}
+            </span>
+            <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
+              {signalLabel}
+              {isFiniteNumber(ev) ? <Num className="text-[#00A9B8]"> — EV {ev.toFixed(2)}</Num> : null}
+            </span>
+          </div>
+        ) : null}
       </div>
     </button>
   );
 };
+
+const raceTimeValue = (race) => {
+  const [hour, minute] = String(race?.time ?? "").split(":").map((part) => Number(part));
+  if (Number.isFinite(hour) && Number.isFinite(minute)) return hour * 60 + minute;
+  return 24 * 60 + Number(race?.number ?? 0);
+};
+
+const sortRaceByTime = (a, b) =>
+  raceTimeValue(a) - raceTimeValue(b) ||
+  String(a.track ?? "").localeCompare(String(b.track ?? ""), "ja") ||
+  Number(a.number ?? 0) - Number(b.number ?? 0);
 
 const HomePage = ({ onOpenRace }) => {
   const [meta, setMeta] = useState(null);
@@ -1911,15 +2013,15 @@ const HomePage = ({ onOpenRace }) => {
     dataProvider.getFeaturedHorses().then(setFeatured);
     dataProvider.getIndexRanking(5).then(setRanking);
   }, []);
-  const topSignal = useMemo(() => {
+  const featuredRace = useMemo(() => {
     if (!races?.length) return null;
     const raceWithData = races.filter((race) => race.topHorse.available);
-    if (!raceWithData.length) return null;
+    if (!raceWithData.length) return races.find((race) => race.featuredRace) ?? [...races].sort(sortRaceByTime)[0];
     return raceWithData.find((race) => race.featuredRace) ?? [...raceWithData].sort((a, b) => (b.topHorse.aiScore ?? 0) - (a.topHorse.aiScore ?? 0))[0];
   }, [races]);
   const visibleRaceCards = useMemo(
-    () => (races ?? []).filter((race) => race.id !== topSignal?.id),
-    [races, topSignal]
+    () => [...(races ?? [])].sort(sortRaceByTime),
+    [races]
   );
   const raceGroups = useMemo(() => {
     const available = races ?? [];
@@ -1950,52 +2052,69 @@ const HomePage = ({ onOpenRace }) => {
       {/* Hero */}
       <section className="relative mt-7 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white px-6 pb-7 pt-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] md:mt-8 md:px-7">
         <div className="relative">
-          {topSignal ? (
+          {featuredRace ? (
             <>
               <div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">Featured Race</div>
                 <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                  <h1 className="text-[23px] font-bold leading-none tracking-tight text-[#050B1E]">{topSignal.name}</h1>
-                  {topSignal.grade ? (
+                  <h1 className="text-[23px] font-bold leading-none tracking-tight text-[#050B1E]">{featuredRace.name}</h1>
+                  {featuredRace.grade ? (
                     <span className="rounded-md border border-[#BFDBFE] bg-white px-2.5 py-1 text-[11px] font-bold leading-none text-[#2D7BFF]">
-                      {topSignal.grade}
+                      {featuredRace.grade}
                     </span>
                   ) : null}
                   <span className="rounded-md border border-[#E2E8F0] bg-white px-2.5 py-1 text-[10px] font-bold leading-none text-[#64748B]">
-                    {topSignal.track}<Num>{topSignal.number}</Num>R
+                    {featuredRace.track}<Num>{featuredRace.number}</Num>R
                   </span>
                 </div>
                 <div className="mt-3 text-[13px] font-medium text-[#64748B]">
-                  {topSignal.surface}<Num>{topSignal.distance}</Num>m
+                  {featuredRace.surface}<Num>{featuredRace.distance}</Num>m
                   <span className="mx-1.5">・</span>
-                  {displayRaceValue(topSignal.going, "良")}
+                  {displayRaceValue(featuredRace.going, "良")}
+                  {isFiniteNumber(featuredRace.fieldSize) ? (
+                    <>
+                      <span className="mx-1.5">・</span>
+                      <Num>{featuredRace.fieldSize}</Num>頭
+                    </>
+                  ) : null}
                   <span className="mx-1.5">・</span>
-                  <Num>{topSignal.fieldSize}</Num>頭
-                  <span className="mx-1.5">・</span>
-                  発走 <Num>{displayRaceValue(topSignal.time, "取得待ち")}</Num>
+                  発走 <Num>{displayRaceValue(featuredRace.time, "取得待ち")}</Num>
                 </div>
               </div>
               <div className="mt-7 flex items-end justify-between gap-5">
                 <div className="min-w-0">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#A6AFBE]">TM INDEX 首位</div>
-                  <div className="mt-2 truncate text-[15px] font-bold leading-none text-[#050B1E]">{topSignal.topHorse.name}</div>
-                  <div className="mt-4 flex items-end gap-1.5">
-                  <AnimatedIndexValue
-                    value={topSignal.topHorse.aiScore}
-                      className="block text-[64px] font-bold leading-[0.82] tracking-tight text-[#050B1E]"
-                  />
-                    <span className="pb-1 text-[16px] font-bold text-[#CBD5E1]">/100</span>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#A6AFBE]">
+                    {featuredRace.topHorse.available ? "TM INDEX" : "TM INDEX"}
                   </div>
-                  {isFiniteNumber(topSignal.topHorse.aiScore) ? <IndexUnderline /> : null}
+                  {featuredRace.topHorse.available ? (
+                    <div className="mt-2 truncate text-[15px] font-bold leading-none text-[#050B1E]">{featuredRace.topHorse.name}</div>
+                  ) : null}
+                  <div className="mt-4 flex items-end gap-1.5">
+                    {featuredRace.topHorse.available ? (
+                      <AnimatedIndexValue
+                        value={featuredRace.topHorse.aiScore}
+                        className="block text-[64px] font-bold leading-[0.82] tracking-tight text-[#050B1E]"
+                      />
+                    ) : (
+                      <Num className="block text-[64px] font-bold leading-[0.82] tracking-tight text-gray-300">--</Num>
+                    )}
+                    {featuredRace.topHorse.available ? <span className="pb-1 text-[16px] font-bold text-[#CBD5E1]">/100</span> : null}
+                  </div>
+                  {featuredRace.topHorse.available ? null : (
+                    <div className="mt-3 text-xs font-medium text-gray-400">出走馬データ取得後に算出します</div>
+                  )}
+                  {isFiniteNumber(featuredRace.topHorse.aiScore) ? <IndexUnderline /> : null}
                 </div>
+                {featuredRace.topHorse.available ? (
                 <div className="pb-1 text-right">
                   <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#00A9B8]">Top Signal : Value</div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
-                    {isFiniteNumber(topSignal.topHorse.popularity) && isFiniteNumber(topSignal.topHorse.ev)
-                      ? <>指数1位が<Num>{topSignal.topHorse.popularity}</Num>人気に放置。 期待値 <Num>{topSignal.topHorse.ev.toFixed(2)}</Num></>
+                    {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
+                      ? <>指数1位が<Num>{featuredRace.topHorse.popularity}</Num>人気に放置。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
                       : "指数上位のシグナルを表示します"}
                   </div>
                 </div>
+                ) : null}
               </div>
             </>
           ) : races ? (
@@ -2114,7 +2233,7 @@ const HomePage = ({ onOpenRace }) => {
                             isMain ? "text-[22px]" : "text-[15px]"
                           }`}
                         >
-                          {f.horse.name}
+                          {displayHorseName(f.horse)}
                         </div>
                         <p
                           className={`text-gray-500 ${
@@ -2138,7 +2257,9 @@ const HomePage = ({ onOpenRace }) => {
                         <span className="mt-1 flex items-center justify-end gap-1">
                           <StarRating value={valueStars(f.ev)} size={9} />
                         </span>
-                        <Num className="mt-0.5 block text-[10px] text-gray-500">EV {f.ev.toFixed(2)}</Num>
+                        <Num className="mt-0.5 block text-[10px] text-gray-500">
+                          {isFiniteNumber(f.ev) ? `EV ${f.ev.toFixed(2)}` : "EV 未評価"}
+                        </Num>
                       </div>
                     </div>
                   </button>
@@ -2170,12 +2291,12 @@ const HomePage = ({ onOpenRace }) => {
                   onClick={() => onOpenRace(item.raceId, item.horse.id)}
                   className="grid w-full grid-cols-[1.5rem_auto_1fr_2.5rem] items-center gap-3 border-b border-gray-100 px-4 py-3.5 text-left transition-colors duration-150 last:border-b-0 hover:bg-gray-50/70 active:bg-gray-100/60 md:px-5"
                 >
-                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-emerald-600" : "text-gray-500"}`}>
+                  <Num className={`text-[13px] font-bold ${i === 0 ? "text-slate-950" : "text-gray-500"}`}>
                     {i + 1}
                   </Num>
                   <span className="min-w-0">
                     <span className="block truncate text-[13px] font-semibold text-gray-900">
-                      {item.horse.name}
+                    {displayHorseName(item.horse)}
                     </span>
                     <span className="text-[11px] text-gray-500">{item.raceLabel}</span>
                   </span>
@@ -2311,9 +2432,9 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 <div className="flex items-end justify-between gap-3">
                   <div className="min-w-0">
                     <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM INDEX Top</span>
-                    <span className="mt-1 block truncate text-[14px] font-bold text-slate-900">{topIndexHorse.name}</span>
+                    <span className="mt-1 block truncate text-[14px] font-bold text-slate-900">{displayHorseName(topIndexHorse)}</span>
                   </div>
-                  <Num className="text-[38px] font-bold leading-none text-emerald-600">
+                  <Num className="text-[38px] font-bold leading-none text-slate-950">
                       {topIndexHorse.aiScore}
                     </Num>
                 </div>
@@ -2342,7 +2463,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
               onClick={() => setSortKey(o.key)}
               className={`rounded-lg px-2 py-2.5 text-[11px] font-semibold transition-colors duration-150 md:rounded-md md:px-3 md:py-1.5 ${
                 sortKey === o.key
-                  ? "bg-white text-teal-700 shadow-sm ring-1 ring-teal-100"
+                  ? "bg-[#EAFBFA] text-[#00A9B8] shadow-sm ring-1 ring-[#BFEFED]"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >

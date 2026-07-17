@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeRaceBundle } from "./race-bundle.mjs";
@@ -13,17 +13,23 @@ const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const repoPath = (path) => relative(REPO_ROOT, path).replaceAll("\\", "/");
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 
-const bundleIds = readdirSync(CSV_RACES, { withFileTypes: true })
+const firstExistingRepoPath = (...paths) => {
+  const fsPath = paths.find((candidate) => existsSync(candidate));
+  return repoPath(fsPath ?? paths[0]);
+};
+
+const existingBundleIds = readdirSync(CSV_RACES, { withFileTypes: true })
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .sort();
+const unexpectedBundleIds = existingBundleIds.filter((bundleId) => !config.bundles.includes(bundleId));
+if (unexpectedBundleIds.length) {
+  console.warn(`Ignoring unconfigured race bundles: ${unexpectedBundleIds.join(", ")}`);
+}
 
-if (bundleIds.length) {
-  const missing = config.bundles.filter((bundleId) => !bundleIds.includes(bundleId));
-  const unexpected = bundleIds.filter((bundleId) => !config.bundles.includes(bundleId));
-  if (missing.length || unexpected.length || bundleIds.length !== config.expectedRaceCount) {
-    throw new Error(`Race bundle set mismatch. missing=${missing.join(",") || "none"} unexpected=${unexpected.join(",") || "none"}`);
-  }
+const bundleIds = config.bundles;
+if (bundleIds.length !== config.expectedRaceCount) {
+  throw new Error(`Race config mismatch. expected=${config.expectedRaceCount} configured=${bundleIds.length}`);
 }
 
 const races = bundleIds.map((bundleId) => {
@@ -34,11 +40,12 @@ const races = bundleIds.map((bundleId) => {
     csv: {
       currentRace: repoPath(join(csvDir, "current-race-detail.csv")),
       all: repoPath(join(csvDir, "all.csv")),
+      basic: repoPath(join(csvDir, "basic.txt")),
       odds: repoPath(join(csvDir, "odds.csv")),
     },
     html: {
-      trainingSlope: repoPath(join(htmlDir, "training-slope.html")),
-      trainingWood: repoPath(join(htmlDir, "training-wood.html")),
+      trainingSlope: firstExistingRepoPath(join(htmlDir, "training-slope.csv"), join(htmlDir, "training-slope.html")),
+      trainingWood: firstExistingRepoPath(join(htmlDir, "training-wood.csv"), join(htmlDir, "training-wood.html")),
       pedigree: repoPath(join(htmlDir, "pedigree")),
     },
   });
@@ -63,4 +70,4 @@ const output = {
 };
 
 writeFileSync(OUT_PATH, JSON.stringify(output, null, 2) + "\n");
-console.log(JSON.stringify({ out: OUT_PATH, raceCount: races.length, bundles: bundleIds }, null, 2));
+console.log(JSON.stringify({ out: OUT_PATH, raceCount: races.length, bundles: bundleIds, ignored: unexpectedBundleIds }, null, 2));

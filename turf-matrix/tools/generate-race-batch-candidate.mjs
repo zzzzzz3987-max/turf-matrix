@@ -13,11 +13,54 @@ const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 
+const raceRunKey = (run) =>
+  [run.date, run.course, run.raceName, run.distance].map((value) => String(value ?? "").trim()).join("|");
+
+const enrichPeerRuns = (horses) => {
+  const grouped = new Map();
+  for (const horse of horses) {
+    for (const run of horse.pastRuns ?? []) {
+      const key = raceRunKey(run);
+      if (!key.replace(/\|/g, "")) continue;
+      if (!grouped.has(key)) grouped.set(key, []);
+      grouped.get(key).push({ horseName: horse.horseName, horseNumber: horse.horseNumber, run });
+    }
+  }
+
+  return horses.map((horse) => {
+    const peerRuns = [];
+    for (const run of horse.pastRuns ?? []) {
+      const peers = (grouped.get(raceRunKey(run)) ?? [])
+        .filter((item) => item.horseName !== horse.horseName)
+        .map((item) => ({
+          horseName: item.horseName,
+          horseNumber: item.horseNumber,
+          finishPosition: item.run.finishPosition,
+          margin: item.run.margin,
+        }));
+      if (peers.length) {
+        peerRuns.push({
+          date: run.date,
+          course: run.course,
+          raceName: run.raceName,
+          grade: run.grade,
+          distance: run.distance,
+          finishPosition: run.finishPosition,
+          margin: run.margin,
+          peers,
+        });
+      }
+    }
+    return { ...horse, peerRuns };
+  });
+};
+
 const races = normalized.races.map((bundle) => {
   const race = bundle.race;
   const context = buildRaceContext(race);
   const oddsStatus = bundle.productionReady ? "active" : "preodds";
-  const horses = bundle.horses.map((horse) => {
+  const enrichedHorses = enrichPeerRuns(bundle.horses);
+  const horses = enrichedHorses.map((horse) => {
     const dataStatus = {
       currentRace: "active",
       pastRuns: horse.pastRuns.length ? "active" : "missing",
@@ -66,7 +109,7 @@ const races = normalized.races.map((bundle) => {
     nameRaw: race.raceNameRaw,
     grade: race.grade,
     category: race.grade ? "grade" : "special",
-    time: null,
+    time: race.time ?? null,
     surface: race.surface,
     distance: race.distance,
     weather: null,

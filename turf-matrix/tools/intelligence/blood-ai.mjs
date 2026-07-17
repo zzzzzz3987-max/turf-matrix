@@ -112,23 +112,41 @@ const buildLine = (role, name, note) => ({
   note: name ? note : "血統情報は一部未取得です。",
 });
 
+const traitText = (traits) => traits.slice(0, 2).map((item) => item.label).join("・") || "基礎適性";
+
+const fitText = (matches, fallback = "今回条件への適性") => {
+  const tags = [...new Set(matches.flatMap((match) => match.fit ?? []))]
+    .filter((tag) => !/系$/.test(tag))
+    .slice(0, 3);
+  return tags.length ? tags.join("・") : fallback;
+};
+
+const evaluationSummary = ({ traits, courseMatches, femaleCourseMatches, context, matches }) => {
+  const traitsLabel = traitText(traits);
+  const condition = context?.profile ?? "今回条件";
+  const courseFit = courseMatches.length
+    ? `${condition}で求められる${fitText(courseMatches, "立ち回り")}に合います。`
+    : `${condition}への基礎適性を評価します。`;
+  const familyFit = femaleCourseMatches.length ? "牝系側にも条件を支える補強材料があります。" : "";
+  const depth = matches.length >= 2 ? "父系と母系の両面から" : "取得済みの血統から";
+  return `${depth}、${traitsLabel}を主な強みとして評価。${courseFit}${familyFit}`;
+};
+
 const buildPedigreeAnalysis = (horse, bloodScore, context) => {
   const pedigree = horse.pedigree;
   const matches = matchLines(horse);
   const traits = leadingTraits(matches, context);
-  const topTraits = traits.slice(0, 2).map((item) => item.label).join("・");
-  const matchedLabels = matches.map((match) => match.label);
   const courseMatches = courseBloodMatches(matches, context);
   const femaleMatches = matchFemaleLines(horse);
   const femaleCourseMatches = courseFemaleMatches(femaleMatches, context);
   const baseSummary = matches.length
-    ? `${matchedLabels.slice(0, 2).join("・")}を確認。${topTraits}を今回条件の強みとして評価します。${courseMatches.length ? ` ${context?.profile ?? "今回条件"}で評価したい血統傾向とも合致。` : ""}${femaleCourseMatches.length ? " 牝系側も今回条件の補強材料になります。" : ""}`
+    ? evaluationSummary({ traits, courseMatches, femaleCourseMatches, context, matches })
     : `取得済みの4代血統から、${context?.profile ?? "今回条件"}への基礎適性を評価します。`;
 
   const strengths = matches.slice(0, context?.depth === "full" ? 4 : 2).map((match) => ({
     key: match.id,
     label: match.label,
-    text: `${match.hits.join("・")}を確認。${match.note}`,
+    text: `${fitText([match])}を補強。${match.note}`,
     score: bloodScore,
     fit: match.fit ?? [],
     courseFit: courseMatches.some((item) => item.id === match.id),
@@ -137,7 +155,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
   const femaleStrengths = femaleMatches.slice(0, context?.depth === "full" ? 3 : 1).map((match) => ({
     key: match.id,
     label: match.label,
-    text: `${match.hits.join("・")}を確認。${match.note}`,
+    text: `${fitText([match])}を牝系側から補強。${match.note}`,
     score: bloodScore,
     fit: match.fit ?? [],
     roles: match.roles ?? [],

@@ -7,8 +7,10 @@ const avg = (values, fallback = 60) => {
   return nums.length ? nums.reduce((sum, value) => sum + value, 0) / nums.length : fallback;
 };
 
+const isValidLast3F = (run) => typeof run.last3F === "number" && run.last3F > 0 && run.last3F < 45;
+
 const scoreLap = (horse) => {
-  const runs = (horse.pastRuns ?? []).filter((run) => typeof run.last3F === "number").slice(0, 8);
+  const runs = (horse.pastRuns ?? []).filter(isValidLast3F).slice(0, 8);
   if (!runs.length) return 55;
   return clamp(avg(runs.map((run) => 92 - (run.last3F - 33) * 8)));
 };
@@ -47,7 +49,7 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
   const style = runningStyle(horse);
   const firstPositions = runs.slice(0, 8).map(firstPassing).filter(Boolean);
   const meanPosition = firstPositions.length ? avg(firstPositions, 8) : null;
-  const lapRuns = runs.filter((run) => typeof run.last3F === "number").slice(0, 8);
+  const lapRuns = runs.filter(isValidLast3F).slice(0, 8);
   const bestLap = [...lapRuns].sort((a, b) => a.last3F - b.last3F)[0] ?? null;
   const paceScore = scores.pace ?? scorePace(horse);
   const lapScore = scores.lap ?? scoreLap(horse);

@@ -16,8 +16,8 @@ const htmlStatus = (bundleId) => {
   const dir = join(HTML_RACES_INPUT, bundleId);
   const pedigreeDir = join(dir, "pedigree");
   return {
-    trainingSlope: existsSync(join(dir, "training-slope.html")),
-    trainingWood: existsSync(join(dir, "training-wood.html")),
+    trainingSlope: existsSync(join(dir, "training-slope.csv")) || existsSync(join(dir, "training-slope.html")),
+    trainingWood: existsSync(join(dir, "training-wood.csv")) || existsSync(join(dir, "training-wood.html")),
     pedigreeFiles: existsSync(pedigreeDir)
       ? readdirSync(pedigreeDir).filter((name) => /\.html?$/i.test(name)).length
       : 0,
@@ -91,13 +91,16 @@ const inspectBundle = (bundleId, dir, { legacy = false } = {}) => {
 const bundleDirs = existsSync(RACES_INPUT)
   ? readdirSync(RACES_INPUT, { withFileTypes: true }).filter((entry) => entry.isDirectory())
   : [];
-const bundles = bundleDirs.map((entry) => inspectBundle(entry.name, join(RACES_INPUT, entry.name)));
+const existingBundleIds = bundleDirs.map((entry) => entry.name);
+const unexpectedBundles = existingBundleIds.filter((bundleId) => !CONFIG.bundles.includes(bundleId));
+const bundles = CONFIG.bundles.map((bundleId) => inspectBundle(bundleId, join(RACES_INPUT, bundleId)));
 const missingBundles = CONFIG.bundles.filter((bundleId) => !bundleDirs.some((entry) => entry.name === bundleId));
 
 const summary = {
   bundleCount: bundles.length,
   expectedRaceCount: CONFIG.expectedRaceCount,
   missingBundles,
+  unexpectedBundles,
   previewReady: bundles.filter((bundle) => bundle.previewReady).length,
   productionReady: bundles.filter((bundle) => bundle.productionReady).length,
   errorCount: bundles.reduce((sum, bundle) => sum + bundle.errors.length, 0) + missingBundles.length,

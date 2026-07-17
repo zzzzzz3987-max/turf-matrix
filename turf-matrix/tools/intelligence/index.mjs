@@ -3,7 +3,7 @@ import { scoreBlood, buildPedigreeAnalysis } from "./blood-ai.mjs";
 import { buildTrainingAnalysis } from "./training-ai.mjs";
 import { scoreValue, buildValueAnalysis } from "./value-ai.mjs";
 import { buildVerdictPayload } from "./verdict-engine.mjs";
-import { scoreZi, scoreRecentForm, buildFormAnalysis } from "./form-ai.mjs";
+import { scoreZi, scoreRecentForm, buildFormAnalysis, buildAbilityAnalysis } from "./form-ai.mjs";
 import { scoreDistance, scoreCourse, buildCourseAnalysis } from "./course-ai.mjs";
 import { scoreLap, scorePace, buildPaceAnalysis } from "./pace-ai.mjs";
 import { scoreStable, frameScore } from "./support-ai.mjs";
@@ -39,6 +39,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const displayName = horse.horseName ?? horse.name ?? horse.currentRace?.horseName ?? "対象馬";
   const displayNumber = horse.horseNumber ?? horse.number ?? horse.currentRace?.horseNumber;
   const ability = scoreZi(horse);
+  const abilityAnalysis = buildAbilityAnalysis(horse, ability);
   const form = scoreRecentForm(horse);
   const formAnalysis = buildFormAnalysis(horse, form);
   const distance = scoreDistance(horse);
@@ -79,6 +80,7 @@ const buildAnalysis = (horse, suppliedContext) => {
     trainingReadable,
     pedigreeAnalysis,
     bloodSummary,
+    abilityAnalysis,
     formAnalysis,
     courseAnalysis,
     paceAnalysis,

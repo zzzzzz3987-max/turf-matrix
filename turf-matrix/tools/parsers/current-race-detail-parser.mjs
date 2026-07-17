@@ -18,6 +18,7 @@ export const extractionTargets = Object.freeze([
   "currentRace.grade",
   "currentRace.surface",
   "currentRace.distance",
+  "currentRace.time",
   "currentRace.horseNumber",
   "currentRace.horseName",
   "currentRace.sex",
@@ -76,6 +77,7 @@ const normalizeEntry = (row) => {
     ...raceNameParts,
     surface: valueAt(row, 6) || null,
     distance: toNumber(valueAt(row, 7)),
+    time: valueAt(row, 34) || null,
     horseName: valueAt(row, 8) || null,
     sex: valueAt(row, 9) || null,
     age: toNumber(valueAt(row, 10)),
@@ -178,6 +180,7 @@ export const parse = ({ path: sourcePath = source.path } = {}) => {
     grade: entries[0].grade,
     surface: entries[0].surface,
     distance: entries[0].distance,
+    time: entries[0].time,
     fieldSize: entries.length,
   };
 

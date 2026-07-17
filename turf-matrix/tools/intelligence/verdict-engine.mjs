@@ -58,6 +58,7 @@ const buildVerdictPayload = ({
   trainingReadable,
   pedigreeAnalysis,
   bloodSummary,
+  abilityAnalysis,
   formAnalysis,
   courseAnalysis,
   paceAnalysis,
@@ -113,6 +114,16 @@ const buildVerdictPayload = ({
       tags: [abilityText, valueText, context?.profile ?? "条件評価", trainingAnalysis.count ? "調教取得済み" : "調教未取得"],
       factors,
       factorsDetail: {
+        ability: abilityAnalysis ?? {
+          key: "ability",
+          label: "能力",
+          score: ability,
+          maxScore: 100,
+          status: horse.pastRuns?.length ? "active" : "missing",
+          summary: abilityText,
+          evidence: [abilityText],
+          components: [],
+        },
         blood: {
           key: "blood",
           label: "血統",

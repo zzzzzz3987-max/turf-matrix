@@ -1,4 +1,4 @@
-import { inspectTextInput, parseTargetHtmlRows, readTextSmart, resolveFromRepo, toNumber } from "./parser-contract.mjs";
+import { inspectTextInput, parseCsvRows, parseTargetHtmlRows, readTextSmart, resolveFromRepo, toNumber } from "./parser-contract.mjs";
 
 export const parserId = "target-training-slope-html";
 
@@ -33,7 +33,9 @@ export const inspect = ({ path = source.path } = {}) =>
 export const parse = ({ path: sourcePath = source.path } = {}) => {
   const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
-  const rows = parseTargetHtmlRows(text).filter((row) => row[0] !== "場所");
+  const rows = sourcePath.toLowerCase().endsWith(".csv")
+    ? parseCsvRows(text).filter((row) => row[0] !== "場所")
+    : parseTargetHtmlRows(text).filter((row) => row[0] !== "場所");
 
   return {
     parserId,

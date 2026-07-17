@@ -895,7 +895,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         <span className="hidden text-right text-[11px] text-slate-400 md:block">行ごとの上位のみ強調</span>
       </div>
       <div className="mt-5 grid gap-3 md:hidden">
-        {sorted.slice(0, 4).map((h) => {
+        {sorted.map((h) => {
           const factors = commandFactors(h, evMap[h.id]);
           return (
             <button
@@ -2572,10 +2572,10 @@ export default function App() {
         }
         /* ボトムシートのスクロール対策(iOS Safari / Android Chrome) */
         .tm-sheet {
-          height: 90vh;          /* 背面の一覧を10%ほど残す */
-          height: 90dvh;         /* 100vh問題の回避(動的ビューポート) */
-          max-height: 90vh;      /* dvh非対応ブラウザ向けフォールバック */
-          max-height: 90dvh;
+          height: 94vh;          /* 背面を少しだけ残しつつ、主情報を上へ出す */
+          height: 94dvh;         /* 100vh問題の回避(動的ビューポート) */
+          max-height: 94vh;      /* dvh非対応ブラウザ向けフォールバック */
+          max-height: 94dvh;
           overscroll-behavior: contain;
         }
         .tm-sheet-body {

@@ -105,8 +105,9 @@ const winProbability = (horse, field, k = 7) => {
 /** 期待値評価: { prob, ev, verdict } */
 const evaluateValue = (horse, field) => {
   if (!isEvaluatedHorse(horse) || !isFiniteNumber(horse?.odds) || horse.odds <= 0) return null;
+  if (horse.oddsDetail?.status !== "active" && horse.dataStatus?.odds !== "active") return null;
   const prob = winProbability(horse, field);
-  if (prob == null) return null;
+  if (!isFiniteNumber(prob)) return null;
   const ev = prob * horse.odds;
   const verdict =
     ev >= 1.15 ? { label: "妙味あり", tone: "blue" }
@@ -514,7 +515,7 @@ const commandFactors = (horse, ev) => {
     ];
   }
   const factors = horse.analysis.factors;
-  const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : 50;
+  const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : null;
   return [
     { key: "blood", label: "Blood AI", value: pedigreeIndex(horse.analysis.pedigree) },
     { key: "training", label: "Training AI", value: factors.training },
@@ -522,7 +523,7 @@ const commandFactors = (horse, ev) => {
     { key: "pace", label: "Pace AI", value: factors.pace },
     { key: "stable", label: "Stable AI", value: factors.stable },
     { key: "form", label: "Form AI", value: Math.round((factors.ability + factors.lap) / 2) },
-    { key: "value", label: "Value AI", value: valueScore },
+    { key: "value", label: "Value AI", value: valueScore, status: "オッズ取得待ち" },
   ];
 };
 
@@ -1771,7 +1772,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                   <Num className="text-[15px] font-bold text-slate-800">{f.value ?? f.status ?? "未評価"}</Num>
                 </div>
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-                  <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${f.value ?? 0}%` }} />
+                  <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${isFiniteNumber(f.value) ? f.value : 0}%` }} />
                 </div>
               </div>
             ))}
@@ -2572,10 +2573,10 @@ export default function App() {
         }
         /* ボトムシートのスクロール対策(iOS Safari / Android Chrome) */
         .tm-sheet {
-          height: 94vh;          /* 背面を少しだけ残しつつ、主情報を上へ出す */
-          height: 94dvh;         /* 100vh問題の回避(動的ビューポート) */
-          max-height: 94vh;      /* dvh非対応ブラウザ向けフォールバック */
-          max-height: 94dvh;
+          height: 97vh;          /* 主情報をほぼ最上部まで持ち上げる */
+          height: 97dvh;         /* 100vh問題の回避(動的ビューポート) */
+          max-height: 97vh;      /* dvh非対応ブラウザ向けフォールバック */
+          max-height: 97dvh;
           overscroll-behavior: contain;
         }
         .tm-sheet-body {

@@ -153,7 +153,7 @@ const scoreTier = (v) =>
 /** TM VALUE: 期待値の5段階(1.00が損益分岐) */
 const valueStars = (ev) =>
   !isFiniteNumber(ev) ? 0 :
-  isHighEvReference(ev) ? 0 : ev >= 1.3 ? 5 : isValueSignalEv(ev) ? 4 : ev >= 1.0 ? 3 : ev >= 0.85 ? 2 : 1;
+  isHighEvReference(ev) ? 0 : ev >= 1.5 ? 5 : ev >= 1.2 ? 4 : ev >= 1.0 ? 3 : ev >= 0.8 ? 2 : 1;
 
 /** 分析信頼度の5段階(レベル + 調教評価の裏付けで加点) */
 const confidenceStars = (a) => {
@@ -619,7 +619,141 @@ const Header = ({ onHome, meta }) => (
   </header>
 );
 
-const Footer = () => (
+const GlossaryModal = ({ onClose }) => {
+  useEffect(() => {
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, []);
+
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  return createPortal(
+    <div className="fixed inset-0 z-[70] bg-slate-900/15 px-3 py-4 sm:px-5" role="dialog" aria-modal="true" aria-label="用語集">
+      <div className="mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[18px] border border-gray-200 bg-white shadow-sm">
+        <div className="flex shrink-0 items-center justify-between border-b border-gray-200 px-5 py-4">
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-gray-400">Glossary</div>
+            <h2 className="mt-1 text-[20px] font-bold tracking-tight text-gray-900">用語集</h2>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="grid h-10 w-10 place-items-center rounded-full border border-gray-200 bg-white text-gray-500 shadow-sm transition-colors hover:bg-gray-50"
+            aria-label="用語集を閉じる"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto px-5 py-6 sm:px-7">
+          <div className="space-y-7 text-[13px] leading-[1.9] text-gray-700">
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">TM INDEX(AI指数)</h3>
+              <p className="mt-2">
+                出走全馬をAIが多角的に分析し、100点満点で相対評価した総合指数です。能力・血統・調教・コース適性・展開など複数の視点を重み付けして算出します。人気やオッズは指数の算出に使いません。数値はレース内の相対評価のため、同じ80でもレースが違えば意味が変わります。
+              </p>
+              <div className="mt-4 rounded-[14px] border border-gray-200 bg-white p-4">
+                <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gray-400">評価の目安</div>
+                {[
+                  ["80以上", "S / 最有力"],
+                  ["75〜79", "A / 有力"],
+                  ["70〜74", "B / 上位"],
+                  ["65〜69", "C / 標準"],
+                  ["64以下", "D / 見送り検討"],
+                ].map(([range, label]) => (
+                  <div key={range} className="flex items-center justify-between border-t border-gray-100 py-2 first:border-t-0">
+                    <Num className="font-semibold text-gray-900">{range}</Num>
+                    <span className="font-medium text-gray-600">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">TM VALUE(期待値評価・星5段階)</h3>
+              <p className="mt-2">
+                AIが推定した勝率と、実際の単勝オッズの差を星で表します。人気ではなく「AIの見立てに対して馬券的な妙味があるか」を示します。オッズ確定後に評価されます。
+              </p>
+              <div className="mt-4 space-y-2 rounded-[14px] border border-gray-200 bg-white p-4">
+                {[
+                  [5, "EV 1.50以上(妙味大)"],
+                  [4, "EV 1.20〜1.49(妙味あり)"],
+                  [3, "EV 1.00〜1.19(やや妙味)"],
+                  [2, "EV 0.80〜0.99(やや過剰人気)"],
+                  [1, "EV 0.80未満(過剰人気)"],
+                ].map(([stars, text]) => (
+                  <div key={text} className="flex items-center justify-between gap-4">
+                    <StarRating value={stars} size={12} />
+                    <span className="text-right text-gray-700">{text}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">EV(期待値)</h3>
+              <p className="mt-2">
+                AI推定勝率 × 単勝オッズで計算します。1.00が損益分岐点です。1.00を超えるほど、AIは「オッズに対して過小評価されている(妙味がある)」と見ています。1.00未満は人気に見合わない、または過剰人気の目安です。極端に高いEV(3.0以上)は高オッズによる見かけ上の数値のため「参考」として扱います。
+              </p>
+            </section>
+
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">8つのファクター</h3>
+              <p className="mt-2">TM INDEXは以下の視点を統合して算出します。</p>
+              <div className="mt-4 divide-y divide-gray-100 rounded-[14px] border border-gray-200 bg-white">
+                {[
+                  ["能力", "スピード指数や近走の着差・相手関係から見た地力"],
+                  ["血統", "配合から見た、今回の距離・コース・馬場への適性"],
+                  ["調教", "一週前・最終追い切りの時計とラップ、厩舎の仕上げパターン"],
+                  ["コース適性", "コース形態や同コース実績への適合"],
+                  ["展開", "想定ペースと脚質・枠順の相性"],
+                  ["厩舎", "ローテーションや騎手起用など陣営の使い方"],
+                  ["調子", "近走成績の上昇・下降トレンド"],
+                  ["期待値", "市場(オッズ)との評価差 ※オッズ確定後に評価"],
+                ].map(([term, text]) => (
+                  <div key={term} className="grid gap-1 px-4 py-3 sm:grid-cols-[6rem_1fr]">
+                    <div className="font-bold text-gray-900">{term}</div>
+                    <div className="text-gray-600">{text}</div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">信頼度</h3>
+              <p className="mt-2">
+                その評価がどれだけ確かなデータに基づくかの度合いです(高・中・低)。出走数が少ない馬や、血統・調教データが未取得の馬は信頼度が下がります。
+              </p>
+            </section>
+
+            <section>
+              <h3 className="text-[15px] font-bold text-gray-900">サンプル不足補正</h3>
+              <p className="mt-2">
+                キャリアの浅い馬(2走以下)は評価の振れ幅が大きいため、指数を中立値へ寄せて過大評価を防ぎます。補正した量は各馬の「指数の根拠」に明示します。
+              </p>
+            </section>
+
+            <div className="border-t border-gray-200 pt-5 text-[12px] leading-[1.9] text-gray-600">
+              本サービスは分析情報の提供を目的としており、的中や利益を保証するものではありません。馬券の購入はご自身の判断と責任でお願いします。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+const Footer = ({ onOpenGlossary }) => (
   <footer className="mt-20 border-t border-gray-200 bg-white">
     <div className="mx-auto max-w-5xl px-5 py-12">
       <div className="flex flex-wrap items-center gap-2.5">
@@ -628,6 +762,13 @@ const Footer = () => (
         </span>
         <PlatformBadge />
       </div>
+      <button
+        type="button"
+        onClick={onOpenGlossary}
+        className="mt-5 inline-flex items-center rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[12px] font-semibold text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+      >
+        用語集
+      </button>
       <p className="mt-4 max-w-2xl text-xs leading-relaxed text-gray-500">
         本サービスは分析情報の提供を目的としており、的中や利益を保証するものではありません。
         馬券の購入はご自身の判断と責任でお願いします。20歳未満の方は馬券を購入できません。
@@ -2539,6 +2680,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
 export default function App() {
   const [route, setRoute] = useState({ page: "home" });
   const [meta, setMeta] = useState(null);
+  const [glossaryOpen, setGlossaryOpen] = useState(false);
 
   useEffect(() => {
     dataProvider.getMeta().then(setMeta);
@@ -2620,8 +2762,9 @@ export default function App() {
           />
         )}
 
-        <Footer />
+        <Footer onOpenGlossary={() => setGlossaryOpen(true)} />
       </div>
+      {glossaryOpen ? <GlossaryModal onClose={() => setGlossaryOpen(false)} /> : null}
     </div>
   );
 }

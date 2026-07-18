@@ -34,6 +34,14 @@ const duplicates = (values) => {
   return [...duplicated];
 };
 
+const applyExperienceCap = (score, horse) => {
+  if (!Number.isFinite(score)) return score;
+  const runCount = horse.pastRuns?.length ?? 0;
+  if (runCount <= 1) return Math.min(score, 79);
+  if (runCount === 2) return Math.min(score, 81);
+  return score;
+};
+
 const buildAnalysis = (horse, suppliedContext) => {
   const context = suppliedContext ?? buildRaceContext(horse.currentRace);
   const displayName = horse.horseName ?? horse.name ?? horse.currentRace?.horseName ?? "対象馬";
@@ -58,7 +66,8 @@ const buildAnalysis = (horse, suppliedContext) => {
   const stable = scoreStable(horse);
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
-  const tmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace }, context);
+  const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace }, context);
+  const tmIndex = applyExperienceCap(rawTmIndex, horse);
   const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, value, pace }, context);
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;

@@ -323,7 +323,7 @@ const dataProvider = {
   },
   async getFeaturedHorses() {
     if (dataMode === "candidate" || IS_INTELLIGENCE_PENDING) {
-      const derived = WEEK_DATA.races
+      const candidates = WEEK_DATA.races
         .flatMap((race) =>
           (race.horses ?? [])
             .filter(isEvaluatedHorse)
@@ -337,8 +337,20 @@ const dataProvider = {
               ev: evaluateValue(horse, race.horses)?.ev ?? null,
             }))
         )
-        .sort((a, b) => b.horse.aiScore - a.horse.aiScore)
-        .slice(0, 3);
+        .sort((a, b) =>
+          (b.horse.aiScore ?? -1) - (a.horse.aiScore ?? -1) ||
+          Number(b.raceLabel.includes("11R")) - Number(a.raceLabel.includes("11R")) ||
+          (a.horse.number ?? 999) - (b.horse.number ?? 999) ||
+          String(a.horse.name ?? "").localeCompare(String(b.horse.name ?? ""), "ja")
+        );
+      const usedRaceIds = new Set();
+      const derived = [];
+      for (const item of candidates) {
+        if (usedRaceIds.has(item.raceId)) continue;
+        usedRaceIds.add(item.raceId);
+        derived.push(item);
+        if (derived.length >= 3) break;
+      }
       return simulateLatency(derived);
     }
     const items = WEEK_DATA.featured.flatMap((f) => {
@@ -358,7 +370,12 @@ const dataProvider = {
     const all = WEEK_DATA.races.flatMap((r) =>
       (r.horses ?? []).map((h) => ({ horse: h, raceId: r.id, raceLabel: `${r.track}${r.number}R` }))
     ).filter((item) => isEvaluatedHorse(item.horse));
-    all.sort((a, b) => b.horse.aiScore - a.horse.aiScore);
+    all.sort((a, b) =>
+      (b.horse.aiScore ?? -1) - (a.horse.aiScore ?? -1) ||
+      Number(b.raceLabel.includes("11R")) - Number(a.raceLabel.includes("11R")) ||
+      (a.horse.number ?? 999) - (b.horse.number ?? 999) ||
+      String(a.horse.name ?? "").localeCompare(String(b.horse.name ?? ""), "ja")
+    );
     return simulateLatency(all.slice(0, limit));
   },
 };
@@ -387,7 +404,7 @@ const COMPARE_DEFS = [
   { key: "pace", label: "展開" },
   { key: "ev", label: "期待値", type: "ev" },
   { key: "training", label: "調教" },
-  { key: "pedigree", label: "血統", type: "pedigree" },
+  { key: "blood", label: "血統" },
 ];
 
 const PEDIGREE_SCORE_DEFS = [
@@ -415,80 +432,6 @@ const SORT_OPTIONS = [
   { key: "popularity", label: "人気" },
 ];
 
-/* TM FACTORS v1: 将来の analysis.factors[key] との対応表 */
-const TM_FACTOR_DEFS = [
-  {
-    key: "blood",
-    label: "Blood",
-    score: 82,
-    maxScore: 100,
-    stars: 4,
-    summary: "血統背景と距離適性の噛み合い",
-    evidence: "pedigree.lines / pedigree.scores を接続予定",
-    status: "missing",
-  },
-  {
-    key: "training",
-    label: "Training",
-    score: 91,
-    maxScore: 100,
-    stars: 5,
-    summary: "追い切り内容と上昇度の強さ",
-    evidence: "trainingEval / factors.training を接続予定",
-    status: "missing",
-  },
-  {
-    key: "course",
-    label: "Course",
-    score: 78,
-    maxScore: 100,
-    stars: 4,
-    summary: "コース形態と過去傾向への適合",
-    evidence: "factors.course / 距離条件を接続予定",
-    status: "missing",
-  },
-  {
-    key: "pace",
-    label: "Pace",
-    score: 68,
-    maxScore: 100,
-    stars: 3,
-    summary: "想定ラップと脚質の相性",
-    evidence: "factors.pace / factors.lap を接続予定",
-    status: "missing",
-  },
-  {
-    key: "stable",
-    label: "Stable",
-    score: 74,
-    maxScore: 100,
-    stars: 4,
-    summary: "厩舎パターンと仕上げ精度",
-    evidence: "factors.stable / stablePattern を接続予定",
-    status: "missing",
-  },
-  {
-    key: "form",
-    label: "Form",
-    score: 80,
-    maxScore: 100,
-    stars: 4,
-    summary: "近走内容と状態面の安定感",
-    evidence: "analysis.tags / comment / confidenceReasons を接続予定",
-    status: "missing",
-  },
-  {
-    key: "value",
-    label: "Value",
-    score: 88,
-    maxScore: 100,
-    stars: 5,
-    summary: "市場評価とのギャップ",
-    evidence: "evaluateValue のEV結果を接続予定",
-    status: "missing",
-  },
-];
-
 const sortHorses = (horses, sortKey, evMap) => {
   const arr = [...horses];
   if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
@@ -501,6 +444,15 @@ const sortHorses = (horses, sortKey, evMap) => {
 const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
 const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
+const factorDetailScore = (horse, key) => {
+  const detailScore = horse.analysis?.factorsDetail?.[key]?.score;
+  if (isFiniteNumber(detailScore)) return detailScore;
+  if (key === "blood") return horse.analysis?.scores?.blood ?? null;
+  if (key === "form") return horse.analysis?.scores?.form ?? null;
+  if (key === "value") return horse.tmValue ?? horse.analysis?.value?.score ?? null;
+  return horse.analysis?.factors?.[key] ?? horse.analysis?.scores?.[key] ?? null;
+};
+const signalTypeFor = (horse) => (isFiniteNumber(horse?.ev) && horse.ev >= 1.15 ? "VALUE" : "INDEX");
 
 const commandFactors = (horse, ev) => {
   if (!horse.analysis?.factors || !horse.analysis?.pedigree) {
@@ -517,12 +469,12 @@ const commandFactors = (horse, ev) => {
   const factors = horse.analysis.factors;
   const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : null;
   return [
-    { key: "blood", label: "Blood AI", value: pedigreeIndex(horse.analysis.pedigree) },
-    { key: "training", label: "Training AI", value: factors.training },
-    { key: "course", label: "Course AI", value: Math.round((factors.course + factors.distance) / 2) },
-    { key: "pace", label: "Pace AI", value: factors.pace },
-    { key: "stable", label: "Stable AI", value: factors.stable },
-    { key: "form", label: "Form AI", value: Math.round((factors.ability + factors.lap) / 2) },
+    { key: "blood", label: "Blood AI", value: factorDetailScore(horse, "blood") },
+    { key: "training", label: "Training AI", value: factorDetailScore(horse, "training") ?? factors.training },
+    { key: "course", label: "Course AI", value: factorDetailScore(horse, "course") ?? Math.round((factors.course + factors.distance) / 2) },
+    { key: "pace", label: "Pace AI", value: factorDetailScore(horse, "pace") ?? factors.pace },
+    { key: "stable", label: "Stable AI", value: factorDetailScore(horse, "stable") ?? factors.stable },
+    { key: "form", label: "Form AI", value: factorDetailScore(horse, "form") ?? Math.round((factors.ability + factors.lap) / 2) },
     { key: "value", label: "Value AI", value: valueScore, status: "オッズ取得待ち" },
   ];
 };
@@ -745,43 +697,69 @@ const StarRating = ({ value, size = 12, className = "" }) => (
 );
 const starText = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
-const TMFactorsCard = () => (
-  <div className={`mt-4 ${GLASS.inner} p-4`}>
-    <div className="flex items-start justify-between gap-3">
-      <div>
-        <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM FACTORS v1</div>
-        <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
-          TM INDEXを7つの視点で整理します。
-        </p>
-      </div>
-        <span className="shrink-0 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-slate-500">
-        Data pending
-      </span>
-    </div>
-    <div className="mt-4 grid gap-2.5 md:grid-cols-2">
-      {TM_FACTOR_DEFS.map((factor) => (
-        <div key={factor.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
-          <div className="flex items-center justify-between gap-3">
-            <div className="min-w-0">
-              <div className="text-[12px] font-semibold text-slate-900">{factor.label}</div>
-              <div className="mt-1 flex items-center gap-2">
-                <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
-                  <div
-                    className="h-full rounded-full bg-slate-800/80"
-                    style={{ width: `${Math.min(100, (factor.score / factor.maxScore) * 100)}%` }}
-                  />
-                </div>
-                <StarRating value={factor.stars} size={9} />
-              </div>
-            </div>
-            <Num className="shrink-0 text-[22px] font-bold leading-none text-slate-900">{factor.score}</Num>
-          </div>
-          <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-gray-500">{factor.summary}</p>
+const TMFactorsCard = ({ analysis }) => {
+  const factorsDetail = analysis?.factorsDetail ?? {};
+  const defs = [
+    ["blood", "Blood"],
+    ["training", "Training"],
+    ["course", "Course"],
+    ["pace", "Pace"],
+    ["stable", "Stable"],
+    ["form", "Form"],
+    ["value", "Value"],
+  ];
+  const factors = defs.map(([key, label]) => ({
+    key,
+    label,
+    ...(factorsDetail[key] ?? {}),
+  }));
+  const activeCount = factors.filter((factor) => factor.status === "active" && isFiniteNumber(factor.score)).length;
+
+  return (
+    <div className={`mt-4 ${GLASS.inner} p-4`}>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">TM FACTORS v1</div>
+          <p className="mt-1 text-[11px] leading-relaxed text-gray-500">
+            Intelligence Layerの確定ファクターだけを表示します。
+          </p>
         </div>
-      ))}
+        <span className="shrink-0 rounded-full border border-gray-200 bg-white px-2 py-0.5 text-[10px] font-medium text-slate-500">
+          {activeCount ? "Active" : "Data pending"}
+        </span>
+      </div>
+      <div className="mt-4 grid gap-2.5 md:grid-cols-2">
+        {factors.map((factor) => {
+          const active = factor.status === "active" && isFiniteNumber(factor.score);
+          return (
+            <div key={factor.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="text-[12px] font-semibold text-slate-900">{factor.label}</div>
+                  <div className="mt-1 flex items-center gap-2">
+                    <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
+                      <div
+                        className="h-full rounded-full bg-[#2D7BFF]"
+                        style={{ width: `${active ? Math.min(100, factor.score) : 0}%` }}
+                      />
+                    </div>
+                    <span className="text-[10px] font-medium text-slate-400">{active ? "確定" : "未評価"}</span>
+                  </div>
+                </div>
+                <Num className={`shrink-0 text-[22px] font-bold leading-none ${active ? "text-slate-900" : "text-gray-300"}`}>
+                  {active ? factor.score : "—"}
+                </Num>
+              </div>
+              <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-gray-500">
+                {factor.summary ?? (active ? "TARGET実データから評価済み" : "オッズまたは入力データ取得後に評価")}
+              </p>
+            </div>
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const AbilityBreakdownCard = ({ detail }) => {
   const components = detail?.components ?? [];
@@ -872,9 +850,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
   const cellValue = (d, h) =>
     d.type === "ev"
       ? evMap[h.id]?.ev ?? 0
-      : d.type === "pedigree"
-        ? pedigreeIndex(h.analysis.pedigree)
-        : h.analysis.factors[d.key];
+      : factorDetailScore(h, d.key);
   const rowLeaders = useMemo(() => {
     const leaders = {};
     for (const d of COMPARE_DEFS) {
@@ -932,7 +908,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                       <Num className="text-[14px] font-bold text-slate-800">{f.value}</Num>
                     </div>
                     <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-                      <div className="h-full rounded-full bg-slate-700/75" style={{ width: `${f.value}%` }} />
+                    <div className="h-full rounded-full bg-[#2D7BFF]" style={{ width: `${isFiniteNumber(f.value) ? f.value : 0}%` }} />
                     </div>
                   </div>
                 ))}
@@ -1506,7 +1482,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           </div>
         </div>
 
-        <TMFactorsCard />
+        <TMFactorsCard analysis={a} />
 
         <AbilityBreakdownCard detail={a.factorsDetail?.ability} />
 
@@ -1976,7 +1952,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
         {race.topHorse.available ? (
           <div className="mt-4 border-t border-[#EDF0F3] pt-4">
             <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
-              {score !== "--" && score < 80 ? "VALUE" : "INDEX"}
+              {signalTypeFor(race.topHorse)}
             </span>
             <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
               {signalLabel}
@@ -2108,7 +2084,7 @@ const HomePage = ({ onOpenRace }) => {
                 </div>
                 {featuredRace.topHorse.available ? (
                 <div className="pb-1 text-right">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#00A9B8]">Top Signal : Value</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#00A9B8]">Top Signal : {signalTypeFor(featuredRace.topHorse)}</div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
                       ? <>指数1位が<Num>{featuredRace.topHorse.popularity}</Num>人気に放置。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>

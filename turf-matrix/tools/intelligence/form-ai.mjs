@@ -32,6 +32,20 @@ const popularityGapScore = (run) => {
   return Math.max(-8, Math.min(10, gap * 1.8));
 };
 
+const sampleConfidence = (runCount) => {
+  if (runCount >= 6) return 1;
+  if (runCount >= 4) return 0.94;
+  if (runCount === 3) return 0.88;
+  if (runCount === 2) return 0.8;
+  if (runCount === 1) return 0.68;
+  return 0.6;
+};
+
+const applySampleDiscount = (score, runCount) => {
+  const confidence = sampleConfidence(runCount);
+  return clamp(score * confidence + 58 * (1 - confidence), 35, 92);
+};
+
 const classPerformanceScore = (run) => {
   const grade = classBonus(run);
   if (grade < 5) return null;
@@ -75,10 +89,10 @@ const scoreZi = (horse) => {
   if (typeof zi === "number" && Number.isFinite(zi)) {
     const ziScore = clamp(42 + (zi - 80) * 1.3);
     const classPart = relationScore ?? recentForm;
-    return clamp(ziScore * 0.42 + recentForm * 0.25 + classPart * 0.33);
+    return applySampleDiscount(clamp(ziScore * 0.42 + recentForm * 0.25 + classPart * 0.33), horse.pastRuns?.length ?? 0);
   }
 
-  return clamp(recentForm * 0.65 + (relationScore ?? recentForm) * 0.35);
+  return applySampleDiscount(clamp(recentForm * 0.65 + (relationScore ?? recentForm) * 0.35), horse.pastRuns?.length ?? 0);
 };
 
 const scoreRecentForm = (horse) => {

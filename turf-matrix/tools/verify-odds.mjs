@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { isValueSignalEv } from "../src/lib/value-rules.js";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -127,7 +128,7 @@ for (const race of candidate.races ?? []) {
   const signalCounts = {};
   for (const row of evRows) {
     const explicitType = row.horse.analysis?.topSignal?.type ?? row.horse.topSignal?.type;
-    const type = explicitType ?? (row.ev >= 1.15 ? "value" : "index");
+    const type = explicitType === "value" && !isValueSignalEv(row.ev) ? "index" : (explicitType ?? (isValueSignalEv(row.ev) ? "value" : "index"));
     signalCounts[type] = (signalCounts[type] ?? 0) + 1;
   }
 

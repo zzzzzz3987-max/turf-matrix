@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
+import { isHighEvReference, isValueSignalEv, valueDisplayLabel } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -110,7 +111,8 @@ const evaluateValue = (horse, field) => {
   if (!isFiniteNumber(prob)) return null;
   const ev = prob * horse.odds;
   const verdict =
-    ev >= 1.15 ? { label: "妙味あり", tone: "blue" }
+    isHighEvReference(ev) ? { label: "高オッズ妙味(参考)", tone: "gray" }
+    : isValueSignalEv(ev) ? { label: "妙味あり", tone: "blue" }
     : ev >= 0.95 ? { label: "中立", tone: "gray" }
     : { label: "過剰人気気味", tone: "gray" };
   return { prob, ev, verdict };
@@ -151,7 +153,7 @@ const scoreTier = (v) =>
 /** TM VALUE: 期待値の5段階(1.00が損益分岐) */
 const valueStars = (ev) =>
   !isFiniteNumber(ev) ? 0 :
-  ev >= 1.3 ? 5 : ev >= 1.15 ? 4 : ev >= 1.0 ? 3 : ev >= 0.85 ? 2 : 1;
+  isHighEvReference(ev) ? 0 : ev >= 1.3 ? 5 : isValueSignalEv(ev) ? 4 : ev >= 1.0 ? 3 : ev >= 0.85 ? 2 : 1;
 
 /** 分析信頼度の5段階(レベル + 調教評価の裏付けで加点) */
 const confidenceStars = (a) => {
@@ -444,7 +446,7 @@ const sortHorses = (horses, sortKey, evMap) => {
 };
 
 const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
-const evTone = (ev) => (ev >= 1.15 ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
+const evTone = (ev) => (isValueSignalEv(ev) ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
 const factorDetailScore = (horse, key) => {
   const detailScore = horse.analysis?.factorsDetail?.[key]?.score;
@@ -454,7 +456,7 @@ const factorDetailScore = (horse, key) => {
   if (key === "value") return horse.tmValue ?? horse.analysis?.value?.score ?? null;
   return horse.analysis?.factors?.[key] ?? horse.analysis?.scores?.[key] ?? null;
 };
-const signalTypeFor = (horse) => (isFiniteNumber(horse?.ev) && horse.ev >= 1.15 ? "VALUE" : "INDEX");
+const signalTypeFor = (horse) => (isValueSignalEv(horse?.ev) ? "VALUE" : "INDEX");
 
 const commandFactors = (horse, ev) => {
   if (!horse.analysis?.factors || !horse.analysis?.pedigree) {
@@ -956,7 +958,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                 {sorted.map((h) => {
                   const v = cellValue(d, h);
                   const highlighted = rowLeaders[d.key]?.has(h.id);
-                  const isEvBreakout = d.type === "ev" && v >= 1.15;
+                  const isEvBreakout = d.type === "ev" && isValueSignalEv(v);
                   return (
                     <td key={h.id} className="px-1 py-1">
                       <div
@@ -985,7 +987,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         </table>
       </div>
       <p className="mt-3 text-[11px] text-gray-500">
-        期待値は推定勝率×単勝オッズ(1.00が損益分岐)。<span className="font-semibold text-[#00A9B8]">1.15以上のみ点灯</span> — 色は意味があるときだけ。
+        期待値は推定勝率×単勝オッズ(1.00が損益分岐)。<span className="font-semibold text-[#00A9B8]">1.15〜3.00未満のみ点灯</span> — 3.00以上は参考値として扱います。
       </p>
     </section>
   );
@@ -1017,6 +1019,9 @@ const ValueCard = ({ ev, rank, popularity }) => {
           <Num className={`block text-[24px] font-bold leading-none tracking-tight ${evTone(ev.ev)}`}>
             {ev.ev.toFixed(2)}
           </Num>
+          {valueDisplayLabel(ev.ev) ? (
+            <span className="mt-1 block text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</span>
+          ) : null}
           <span className="mt-1.5 block text-[10px] text-gray-500">単勝期待値</span>
         </div>
         <div>
@@ -1430,7 +1435,11 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           {ev && (
             <span className="flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">TM Value</span>
-              <StarRating value={valueStars(ev.ev)} size={11} />
+              {valueDisplayLabel(ev.ev) ? (
+                <span className="text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</span>
+              ) : (
+                <StarRating value={valueStars(ev.ev)} size={11} />
+              )}
             </span>
           )}
         </div>
@@ -1721,7 +1730,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </div>
             <div className="min-w-[112px] rounded-[1.35rem] border border-gray-200 bg-white px-3 py-3 text-right">
               <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM VALUE</div>
-              <div className={`mt-2 text-[18px] ${ev && ev.ev >= 1.15 ? "font-bold text-slate-900" : "text-gray-500"}`}>
+              <div className={`mt-2 text-[18px] ${ev && isValueSignalEv(ev.ev) ? "font-bold text-slate-900" : "text-gray-500"}`}>
                 {ev ? (
                   <>
                     EV <Num>{ev.ev.toFixed(2)}</Num>
@@ -1730,6 +1739,9 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                   "未評価"
                 )}
               </div>
+              {ev && valueDisplayLabel(ev.ev) ? (
+                <div className="mt-1 text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</div>
+              ) : null}
               {rank != null && (
                 <div className="mt-1 text-[10px] text-gray-500">
                   Rank <Num>{rank}</Num> / {fieldSize}頭
@@ -1831,12 +1843,12 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">TM VALUE</span>
             <span
               className={`mt-0.5 block text-[12px] ${
-                ev && ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-500"
+                ev && isValueSignalEv(ev.ev) ? "font-semibold text-teal-600" : "text-gray-500"
               }`}
             >
               {ev ? (
                 <>
-                  EV <Num>{ev.ev.toFixed(2)}</Num> ・ {starText(valueStars(ev.ev))}
+                  EV <Num>{ev.ev.toFixed(2)}</Num> ・ {valueDisplayLabel(ev.ev) ?? starText(valueStars(ev.ev))}
                 </>
               ) : (
                 "未評価"
@@ -1869,10 +1881,10 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         {ev && (
           <Num
             className={`block text-[10px] leading-tight ${
-              ev.ev >= 1.15 ? "font-semibold text-teal-600" : "text-gray-500"
+              isValueSignalEv(ev.ev) ? "font-semibold text-teal-600" : "text-gray-500"
             }`}
           >
-            EV {ev.ev.toFixed(2)}
+            EV {ev.ev.toFixed(2)}{valueDisplayLabel(ev.ev) ? " 参考" : ""}
           </Num>
         )}
       </span>
@@ -1965,7 +1977,11 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
             </span>
             <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
               {signalLabel}
-              {isFiniteNumber(ev) ? <Num className="text-[#00A9B8]"> — EV {ev.toFixed(2)}</Num> : null}
+              {isFiniteNumber(ev) ? (
+                <Num className={isValueSignalEv(ev) ? "text-[#00A9B8]" : "text-gray-500"}>
+                  {" "}— EV {ev.toFixed(2)}{valueDisplayLabel(ev) ? " 参考" : ""}
+                </Num>
+              ) : null}
             </span>
           </div>
         ) : null}
@@ -2246,6 +2262,9 @@ const HomePage = ({ onOpenRace }) => {
                         <Num className="mt-0.5 block text-[10px] text-gray-500">
                           {isFiniteNumber(f.ev) ? `EV ${f.ev.toFixed(2)}` : "EV 未評価"}
                         </Num>
+                        {valueDisplayLabel(f.ev) ? (
+                          <span className="mt-0.5 block text-[10px] font-semibold text-gray-500">{valueDisplayLabel(f.ev)}</span>
+                        ) : null}
                       </div>
                     </div>
                   </button>

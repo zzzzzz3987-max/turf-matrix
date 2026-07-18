@@ -24,6 +24,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateWeekData } from "./lib-validate.mjs";
+import { isValueSignalEv } from "../src/lib/value-rules.js";
 
 /* =====================================================================
  * 0. CLI / ログ
@@ -694,12 +695,12 @@ const buildTexts = (h, race, rank, ev) => {
     ...(toNum(h.zensoDistance) === race.distance ? ["同距離実績"] : []),
     ...(toNum(h.intervalWeeks) >= 16 ? ["休み明け"] : []),
     ...(["A", "B"].includes(z2h(String(h.trainEvalResolved ?? "")).toUpperCase()) ? ["調教良好"] : []),
-    ...(ev.ev >= 1.15 ? ["妙味"] : []),
+    ...(isValueSignalEv(ev.ev) ? ["妙味"] : []),
   ].slice(0, 4);
   h.insight = [
     `TM INDEXはレース${rank}位。算出根拠は${h.abilityBasis}`,
     `${style}×${h.horseNo}番枠。${posText(style, inner)}想定`,
-    ev.ev >= 1.15
+    isValueSignalEv(ev.ev)
       ? `指数${rank}位に対して${h.popularity}人気。期待値${ev.ev.toFixed(2)}に妙味`
       : trText.slice(0, 34),
   ];

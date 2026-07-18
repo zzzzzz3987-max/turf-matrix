@@ -27,6 +27,8 @@
     "generate:candidate": "npm run generate:race-batch",
     "test:intelligence": "node --test tools/intelligence/tests/*.test.mjs",
     "verify:intelligence": "npm run generate:race-batch && npm run test:intelligence",
+    "verify:odds": "node tools/verify-odds.mjs",
+    "archive:preodds": "node tools/archive-race-release.mjs",
     "generate:preodds": "node tools/generate-preodds.mjs",
     "validate:csv": "node tools/validate-csv-inputs.mjs",
     "generate-week": "node tools/generate-week-safe.mjs",

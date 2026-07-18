@@ -9,7 +9,7 @@ import * as trainingWoodParser from "../parsers/training-wood-html-parser.mjs";
 import { resolveFromRepo } from "../parsers/parser-contract.mjs";
 
 const normalizeHorseKey = (value) =>
-  String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
+  String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
 
 const mapByHorse = (records) =>
   new Map(records.map((record) => [normalizeHorseKey(record.horseName), record]).filter(([key]) => key));

@@ -80,7 +80,7 @@ const buildSummary = (candidate, horses) => {
 
   return {
     text: top
-      ? `TARGET実データからTM INDEX v0を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
+      ? `TARGET実データからTM INDEX v1.5を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
       : `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEXは分析準備中です。`,
     highlights: [
       `出走馬${horses.length}頭をcurrent-race-detail.csvから取得`,
@@ -98,7 +98,7 @@ const buildFeatured = (race, horses) =>
     .map((horse, index) => ({
       raceId: race.id,
       horseId: horse.id,
-      note: horse.analysis?.verdict?.summary ?? horse.comment ?? `TM INDEX v0 ${horse.aiScore}`,
+      note: horse.analysis?.verdict?.summary ?? horse.comment ?? `TM INDEX v1.5 ${horse.aiScore}`,
       priority: index + 1,
     }));
 

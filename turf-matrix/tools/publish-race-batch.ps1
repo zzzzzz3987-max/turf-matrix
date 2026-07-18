@@ -29,6 +29,13 @@ try {
     Run-Step "Intelligence regression" { npm run test:intelligence }
     Run-Step "Production build" { npm run build }
     Run-Step "Whitespace validation" { git diff --check }
+    try {
+      Write-Host "==> Archive preodds snapshot"
+      npm run archive:preodds
+      if ($LASTEXITCODE -ne 0) { Write-Warning "Archive preodds snapshot failed, but publish will continue." }
+    } catch {
+      Write-Warning "Archive preodds snapshot failed, but publish will continue. $($_.Exception.Message)"
+    }
   } catch {
     Copy-Item -LiteralPath $BackupData -Destination $WeekData -Force
     throw

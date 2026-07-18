@@ -24,9 +24,9 @@ test("production data satisfies the shared output contract", () => {
   assert.equal(result.valid, true);
 });
 
-test("stale 七夕賞 production data has been removed", () => {
-  assert.equal(officialText.includes("七夕賞"), false);
-  assert.equal(officialText.includes("2026-07-12"), false);
+test("current production race date is active week", () => {
+  assert.equal(official.races.some((race) => race.id?.startsWith("2026-07-12")), false);
+  assert.equal(official.meta?.date, "2026-07-19");
 });
 
 test("published intelligence text contains no mojibake markers", () => {

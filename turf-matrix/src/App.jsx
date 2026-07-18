@@ -176,8 +176,10 @@ const scoreBreakdown = (horse) => {
   const f = horse.analysis.factors;
   const ped = pedigreeIndex(horse.analysis.pedigree);
   const items = BREAKDOWN_DEFS.map((d) => ({ label: d.label, value: Math.round(d.calc(f, ped)) }));
-  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0);
-  return { items, adjust };
+  const sampleAdjustment = Number.isFinite(horse.analysis.sampleAdjustment) ? horse.analysis.sampleAdjustment : 0;
+  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment;
+  const runCount = horse.pastRuns?.length ?? 0;
+  return { items, adjust, sampleAdjustment, sampleLabel: `サンプル不足補正(${runCount}走)` };
 };
 
 /** 週次データの検証(差し替えミスの検出。エラーはconsoleとUIバナーに出る) */
@@ -731,6 +733,7 @@ const TMFactorsCard = ({ analysis }) => {
       <div className="mt-4 grid gap-2.5 md:grid-cols-2">
         {factors.map((factor) => {
           const active = factor.status === "active" && isFiniteNumber(factor.score);
+          const pendingLabel = factor.key === "value" ? "オッズ取得待ち" : "未評価";
           return (
             <div key={factor.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
               <div className="flex items-center justify-between gap-3">
@@ -743,7 +746,7 @@ const TMFactorsCard = ({ analysis }) => {
                         style={{ width: `${active ? Math.min(100, factor.score) : 0}%` }}
                       />
                     </div>
-                    <span className="text-[10px] font-medium text-slate-400">{active ? "確定" : "未評価"}</span>
+                    <span className="text-[10px] font-medium text-slate-400">{active ? "確定" : pendingLabel}</span>
                   </div>
                 </div>
                 <Num className={`shrink-0 text-[22px] font-bold leading-none ${active ? "text-slate-900" : "text-gray-300"}`}>
@@ -751,7 +754,7 @@ const TMFactorsCard = ({ analysis }) => {
                 </Num>
               </div>
               <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-gray-500">
-                {factor.summary ?? (active ? "TARGET実データから評価済み" : "オッズまたは入力データ取得後に評価")}
+                {factor.summary ?? (active ? "TARGET実データから評価済み" : factor.key === "value" ? "単勝オッズ取得後に自動評価します" : "入力データ取得後に評価")}
               </p>
             </div>
           );
@@ -1475,6 +1478,12 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               <span className="text-gray-500">総合補正(相手関係など)</span>
               <Num className="text-gray-500">{bd.adjust >= 0 ? `+${bd.adjust}` : bd.adjust}</Num>
             </div>
+            {bd.sampleAdjustment ? (
+              <div className="flex items-baseline justify-between text-[12px]">
+                <span className="text-gray-500">{bd.sampleLabel}</span>
+                <Num className="text-gray-500">{bd.sampleAdjustment >= 0 ? `+${bd.sampleAdjustment}` : bd.sampleAdjustment}</Num>
+              </div>
+            ) : null}
             <div className="flex items-baseline justify-between text-[12px]">
               <span className="font-medium text-gray-700">合計 TM INDEX</span>
               <Num className="font-bold text-gray-900">{horse.aiScore}</Num>
@@ -1783,7 +1792,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
     <button
       onClick={onToggle}
       aria-expanded={expanded}
-      className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
+        className={`block w-full px-4 py-4 text-left transition-colors duration-150 hover:bg-gray-50 active:bg-gray-100/60 md:grid md:grid-cols-[2.5rem_minmax(10rem,2fr)_minmax(4rem,0.75fr)_3.5rem_5rem_3.5rem_minmax(12rem,1.15fr)] md:items-center md:gap-x-3 md:px-5 md:py-3.5 ${
         expanded ? "bg-gray-50" : "bg-white"
       }`}
     >
@@ -2087,7 +2096,7 @@ const HomePage = ({ onOpenRace }) => {
                   <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#00A9B8]">Top Signal : {signalTypeFor(featuredRace.topHorse)}</div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
-                      ? <>指数1位が<Num>{featuredRace.topHorse.popularity}</Num>人気に放置。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
+                      ? <>指数1位。市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
                       : "指数上位のシグナルを表示します"}
                   </div>
                 </div>
@@ -2453,7 +2462,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       {/* 出走馬一覧 */}
       <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
         {/* PC列ヘッダー */}
-        <div className="hidden grid-cols-[2.5rem_1.4fr_1fr_4rem_4.5rem_4rem_1.6fr] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:grid">
+        <div className="hidden grid-cols-[2.5rem_minmax(10rem,2fr)_minmax(4rem,0.75fr)_3.5rem_5rem_3.5rem_minmax(12rem,1.15fr)] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:grid">
           <span>馬番</span>
           <span>馬名</span>
           <span>騎手</span>

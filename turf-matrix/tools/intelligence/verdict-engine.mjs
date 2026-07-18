@@ -51,6 +51,8 @@ const buildVerdictPayload = ({
   displayName,
   displayNumber,
   tmIndex,
+  rawTmIndex,
+  sampleAdjustment,
   value,
   factors,
   scores,
@@ -113,6 +115,8 @@ const buildVerdictPayload = ({
       ],
       tags: [abilityText, valueText, context?.profile ?? "条件評価", trainingAnalysis.count ? "調教取得済み" : "調教未取得"],
       factors,
+      rawTmIndex,
+      sampleAdjustment,
       factorsDetail: {
         ability: abilityAnalysis ?? {
           key: "ability",

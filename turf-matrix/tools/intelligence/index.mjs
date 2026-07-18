@@ -34,12 +34,12 @@ const duplicates = (values) => {
   return [...duplicated];
 };
 
-const applyExperienceCap = (score, horse) => {
+const applyExperienceDiscount = (score, horse) => {
   if (!Number.isFinite(score)) return score;
   const runCount = horse.pastRuns?.length ?? 0;
-  if (runCount <= 1) return Math.min(score, 79);
-  if (runCount === 2) return Math.min(score, 81);
-  return score;
+  const neutral = 65;
+  const factor = runCount <= 0 ? 0.3 : runCount === 1 ? 0.5 : runCount === 2 ? 0.7 : 1;
+  return Math.round(neutral + (score - neutral) * factor);
 };
 
 const buildAnalysis = (horse, suppliedContext) => {
@@ -67,7 +67,9 @@ const buildAnalysis = (horse, suppliedContext) => {
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
   const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace }, context);
-  const tmIndex = applyExperienceCap(rawTmIndex, horse);
+  const tmIndex = applyExperienceDiscount(rawTmIndex, horse);
+  const runCount = horse.pastRuns?.length ?? 0;
+  const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(tmIndex) ? tmIndex - rawTmIndex : 0;
   const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, value, pace }, context);
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
@@ -82,6 +84,8 @@ const buildAnalysis = (horse, suppliedContext) => {
     displayName,
     displayNumber,
     tmIndex,
+    rawTmIndex,
+    sampleAdjustment,
     value,
     factors,
     scores: { ability, form, course, pace, training, blood, stable, frame },

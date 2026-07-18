@@ -13,12 +13,20 @@ const factorLabel = (score) => {
   return "控えめ";
 };
 
+const unsafeRaceNamePattern = /不明|QE|ＱＥ|^[A-Z]{1,3}\d?G\d?$/i;
+const cleanRaceLabelPart = (value) => {
+  const text = String(value ?? "").trim();
+  if (!text || unsafeRaceNamePattern.test(text)) return null;
+  return text;
+};
+
 const finishText = (run) => {
   if (!run) return "近走データ未取得";
-  const course = run.course ?? "";
-  const raceName = run.raceName ?? "前走";
+  const course = cleanRaceLabelPart(run.course);
+  const raceName = cleanRaceLabelPart(run.raceName);
   const finish = run.finishPosition ? `${run.finishPosition}着` : "着順未取得";
-  return `直近は${course}${raceName}で${finish}`;
+  const label = `${course ?? ""}${raceName ?? ""}`;
+  return label ? `直近は${label}で${finish}` : `直近は${finish}`;
 };
 
 const valueTextFor = (horse, value) => {

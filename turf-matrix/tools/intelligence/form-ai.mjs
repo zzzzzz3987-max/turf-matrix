@@ -16,6 +16,18 @@ const finishScore = (run) => {
 const marginScore = (run) => (run.margin == null ? 60 : 74 - run.margin * 18);
 
 const isValidLast3F = (run) => typeof run.last3F === "number" && run.last3F > 0 && run.last3F < 45;
+const unsafeRaceNamePattern = /不明|QE|ＱＥ|^[A-Z]{1,3}\d?G\d?$/i;
+const cleanRaceLabelPart = (value) => {
+  const text = String(value ?? "").trim();
+  if (!text || unsafeRaceNamePattern.test(text)) return null;
+  return text;
+};
+
+const displayRunLabel = (run, fallback = "直近") => {
+  const course = cleanRaceLabelPart(run?.course);
+  const raceName = cleanRaceLabelPart(run?.raceName);
+  return `${course ?? ""}${raceName ?? ""}` || fallback;
+};
 
 const classBonus = (run) => {
   const text = `${run.grade ?? ""}${run.raceName ?? ""}${run.className ?? ""}`;
@@ -184,7 +196,7 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       status: peerEvidence == null ? "missing" : "active",
       summary: peerEvidence == null
         ? "今週出走馬との直接対戦は未検出"
-        : `${peerRun.raceName ?? "過去走"}で${peerNames}と直接対戦`,
+        : `${displayRunLabel(peerRun, "過去走")}で${peerNames}と直接対戦`,
     },
     {
       key: "margin",
@@ -205,7 +217,7 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       label: "上がり性能",
       score: lapEvidence,
       status: lapEvidence == null ? "missing" : "active",
-      summary: fastLap ? `最速材料 ${fastLap.raceName ?? "過去走"} ${fastLap.last3F}` : "上がり時計は未取得",
+      summary: fastLap ? `最速材料 ${displayRunLabel(fastLap, "過去走")} ${fastLap.last3F}` : "上がり時計は未取得",
     },
     {
       key: "recent",
@@ -232,11 +244,10 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
 
 const formatRun = (run) => {
   if (!run) return "近走データ未取得";
-  const course = run.course ? `${run.course}` : "";
-  const name = run.raceName ?? "前走";
+  const label = displayRunLabel(run);
   const finish = run.finishPosition ? `${run.finishPosition}着` : "着順未取得";
   const distance = run.distance ? `${run.surface ?? ""}${run.distance}m` : "";
-  return `${course}${name}${distance ? `(${distance})` : ""}で${finish}`;
+  return `${label}${distance ? `(${distance})` : ""}で${finish}`;
 };
 
 const buildFormAnalysis = (horse, score = scoreRecentForm(horse)) => {

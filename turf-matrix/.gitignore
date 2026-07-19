@@ -1,6 +1,7 @@
 node_modules/
 dist/
 data/archive/
+data/target/
 
 tools/csv/input/*.csv
 tools/csv/input/races/**/*.csv
@@ -20,6 +21,8 @@ tools/week-data.candidate.json
 tools/week-data.next.json
 tools/week-data.backup.json
 tools/csv-config.runtime.json
+tools/jvfetch/bin/
+tools/jvfetch/obj/
 tools/jvlink/output/*
 !tools/jvlink/output/.gitkeep
 tools/pad-runtime/*

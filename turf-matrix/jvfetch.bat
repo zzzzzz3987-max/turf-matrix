@@ -1,5 +1,5 @@
 @echo off
 setlocal
 set ROOT=%~dp0
-"%ROOT%tools\jvfetch\bin\Release\jvfetch.exe" --week %*
+powershell -ExecutionPolicy Bypass -File "%ROOT%tools\jvfetch\run-jvfetch.ps1" --week %*
 exit /b %ERRORLEVEL%

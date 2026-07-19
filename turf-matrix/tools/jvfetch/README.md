@@ -41,6 +41,13 @@ C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe tools\jvfetch\TurfMatr
 
 The output under `tools/jvfetch/bin/` is gitignored.
 
+For normal operation, prefer the repository runner. It builds an x86 executable with a unique runtime name, which avoids local Windows file locks around `jvfetch.exe`.
+
+```powershell
+npm run jvfetch:check
+npm run jvfetch:odds
+```
+
 ## Check
 
 ```powershell
@@ -61,6 +68,14 @@ If `--sid` is omitted, `JVLINK_SID` is used. If neither is set, `UNKNOWN` is use
 tools\jvfetch\bin\Release\jvfetch.exe --odds-only
 ```
 
+Recommended:
+
+```powershell
+npm run jvfetch:odds
+npm run verify:jvfetch-odds
+npm run jvfetch:adopt-odds
+```
+
 Input:
 
 - `tools/race-batch-config.json`
@@ -79,6 +94,10 @@ CSV columns:
 The O1 realtime record does not include horse names. `jvfetch` therefore uses the existing production `tools/week-data.json` as a read-only name map keyed by track, race number, and horse number. Odds and popularity values remain JV-Link-derived.
 
 If `odds.csv` cannot be replaced, the command keeps the new file as `odds.next-YYYYMMDD-HHMMSS.csv` and exits with code `1`. This prevents downstream release scripts from silently using stale odds.
+
+`npm run verify:jvfetch-odds` validates the latest `odds.next-*` file against `tools/race-batch-config.json` and the current runner counts in `tools/week-data.json`.
+
+`npm run jvfetch:adopt-odds` copies the latest verified `odds.next-*` into `data/target/odds.csv` with a backup of the previous file. If the copy is blocked by Windows, it exits non-zero and leaves the candidate untouched.
 
 Specification source:
 

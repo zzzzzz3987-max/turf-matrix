@@ -33,7 +33,11 @@
     "validate:csv": "node tools/validate-csv-inputs.mjs",
     "generate-week": "node tools/generate-week-safe.mjs",
     "weekly:update": "powershell -ExecutionPolicy Bypass -File tools/weekly-update.ps1",
-    "update-data": "node tools/update-data.mjs tools/week-data.json src/App.jsx"
+    "update-data": "node tools/update-data.mjs tools/week-data.json src/App.jsx",
+    "jvfetch:check": "powershell -ExecutionPolicy Bypass -File tools/jvfetch/run-jvfetch.ps1 --check",
+    "jvfetch:odds": "powershell -ExecutionPolicy Bypass -File tools/jvfetch/run-jvfetch.ps1 --odds-only",
+    "jvfetch:adopt-odds": "powershell -ExecutionPolicy Bypass -File tools/adopt-jvfetch-odds.ps1",
+    "verify:jvfetch-odds": "node tools/verify-jvfetch-odds.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

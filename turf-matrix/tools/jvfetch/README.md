@@ -15,6 +15,13 @@ Implemented now:
   - reads `m_JVLinkVersion`
   - calls `JVInit`
   - writes diagnostics to `data/target/jvfetch-log.txt`
+- `--odds-only` command:
+  - reads `tools/race-batch-config.json`
+  - opens JV-Link realtime odds with `JVRTOpen("0B31", "YYYYMMDDJJRR")`
+  - parses O1 win odds using `tools/jvlink/output/JV-Data4901.xlsx`
+  - writes UTF-8 BOM CSV to `data/target/odds.csv`
+  - preserves generated data at `data/target/odds.next.csv` if `odds.csv` cannot be replaced
+  - fills horse names from read-only `tools/week-data.json` when available
 
 Not implemented in Step1:
 
@@ -22,11 +29,9 @@ Not implemented in Step1:
 - `shutuba.csv`
 - `pedigree.csv`
 - `training.csv`
-- `odds.csv`
 - `--week`
-- `--odds-only`
 
-Those are Step6+ / later steps in the design.
+Those are Step2+ / later steps in the design.
 
 ## Build
 
@@ -49,6 +54,40 @@ tools\jvfetch\bin\Release\jvfetch.exe --check --sid <JV-Link SID>
 ```
 
 If `--sid` is omitted, `JVLINK_SID` is used. If neither is set, `UNKNOWN` is used so the COM/JVInit path can still be diagnosed.
+
+## Odds Only
+
+```powershell
+tools\jvfetch\bin\Release\jvfetch.exe --odds-only
+```
+
+Input:
+
+- `tools/race-batch-config.json`
+
+Output:
+
+- `data/target/odds.csv`
+- `data/target/odds.next-YYYYMMDD-HHMMSS.csv` when the existing `odds.csv` cannot be replaced
+
+CSV columns:
+
+```text
+場所,R,馬番,馬名,単勝オッズ,人気,取得時刻,更新元,状態
+```
+
+The O1 realtime record does not include horse names. `jvfetch` therefore uses the existing production `tools/week-data.json` as a read-only name map keyed by track, race number, and horse number. Odds and popularity values remain JV-Link-derived.
+
+If `odds.csv` cannot be replaced, the command keeps the new file as `odds.next-YYYYMMDD-HHMMSS.csv` and exits with code `1`. This prevents downstream release scripts from silently using stale odds.
+
+Specification source:
+
+- realtime dataspec: `0B31`
+- record type: `O1`
+- key format: `YYYYMMDDJJRR`
+- O1 field positions: `tools/jvlink/output/JV-Data4901.xlsx`
+
+Do not commit generated `data/target/` files.
 
 ## Confirmed Local COM Registration
 

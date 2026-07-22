@@ -1,3 +1,8 @@
+param(
+  [string]$Races = "",
+  [switch]$AllRaces
+)
+
 $ErrorActionPreference = "Stop"
 
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
@@ -22,6 +27,18 @@ try {
     Write-Error "Node.js was not found. Install Node.js or add node.exe to PATH."
     exit 2
   }
+
+  $selectionArgs = @("tools\jvlink\select-week-races.mjs")
+  if ($AllRaces) {
+    $selectionArgs += "--all-races"
+  } elseif ($Races) {
+    $selectionArgs += @("--races", $Races)
+  }
+  & $nodePath @selectionArgs
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+  $env:TURF_MATRIX_RACE_CONFIG = Join-Path $RepoRoot "tools\jvlink\output\race-batch-runtime.json"
 
   & $nodePath "tools\jvlink\export-week-target.mjs"
   if ($LASTEXITCODE -ne 0) {

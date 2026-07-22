@@ -8,10 +8,10 @@ import { parse as parseSlope } from "./parsers/training-slope-html-parser.mjs";
 import { parse as parseWood } from "./parsers/training-wood-html-parser.mjs";
 
 const repoRoot = process.cwd();
-const readJson = (file) => JSON.parse(fs.readFileSync(path.join(repoRoot, file), "utf8").replace(/^\uFEFF/, ""));
+const readJson = (file) => JSON.parse(fs.readFileSync(path.isAbsolute(file) ? file : path.join(repoRoot, file), "utf8").replace(/^\uFEFF/, ""));
 const manifest = readJson("tools/jvlink/output/target-horses.json");
 const summary = readJson("tools/jvlink/output/intelligence-summary.json");
-const raceConfig = readJson("tools/race-batch-config.json");
+const raceConfig = readJson(process.env.TURF_MATRIX_RACE_CONFIG || "tools/race-batch-config.json");
 const errors = [];
 const normalize = (value) => String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\s+/g, "").trim();
 

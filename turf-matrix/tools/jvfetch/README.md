@@ -32,6 +32,12 @@ Implemented now:
   - writes one Normalizer-compatible `data/target/races/<bundle>/current-race-detail.csv` per configured race
   - writes `data/target/week-config.draft.json`
   - never updates production `tools/week-data.json`
+- `--week` command:
+  - provides the supported C# CLI entry point for the verified weekly adapter
+  - uses `tools/race-batch-config.json` when no race option is supplied
+  - accepts `--races "福島10,小倉11"` for an explicit subset
+  - accepts `--all-races` for every race on the configured date
+  - writes the selected race list only to ignored runtime output; the permanent config is not edited
 - current-runner pedigree and training adapter:
   - opens `RCVN` and reads the official UM three-generation pedigree block
   - opens `SLOP` / HC for the 45 days ending on race day
@@ -47,7 +53,7 @@ Implemented now:
 
 Not implemented yet:
 
-- direct C# RA/SE parsing inside `jvfetch.exe --week`
+- moving the verified 32-bit PowerShell JV-Data record reader itself into C#
 
 `pedigree.csv` and `training.csv` are now produced by the verified 32-bit
 adapter. The remaining work is moving that already-operational adapter into the
@@ -80,6 +86,23 @@ npm run jvfetch:odds
 ```powershell
 npm run jvfetch:week
 ```
+
+Direct C# CLI examples:
+
+```powershell
+# Existing configured races (currently each venue's 10R and 11R)
+tools\jvfetch\bin\Release\jvfetch.exe --week
+
+# Explicit subset
+tools\jvfetch\bin\Release\jvfetch.exe --week --races "福島10,小倉11"
+
+# Every race on the configured date
+tools\jvfetch\bin\Release\jvfetch.exe --week --all-races
+```
+
+`--races` and `--all-races` are mutually exclusive. Selection is derived from
+the RA records actually returned by JV-Link, so an unavailable race fails
+without changing the permanent batch configuration or production week data.
 
 Double-click operation:
 

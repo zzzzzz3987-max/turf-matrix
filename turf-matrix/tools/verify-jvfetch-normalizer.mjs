@@ -2,7 +2,7 @@
 import fs from "node:fs";
 import { normalizeRaceBundle } from "./normalizers/race-bundle.mjs";
 
-const config = JSON.parse(fs.readFileSync("tools/race-batch-config.json", "utf8"));
+const config = JSON.parse(fs.readFileSync(process.env.TURF_MATRIX_RACE_CONFIG || "tools/race-batch-config.json", "utf8"));
 const results = [];
 const errors = [];
 

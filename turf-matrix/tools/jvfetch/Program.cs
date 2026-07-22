@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -31,9 +32,7 @@ namespace TurfMatrix.JvFetch
 
                 if (options.Week)
                 {
-                    Log(logPath, "WARN", "--week is intentionally not implemented yet.");
-                    Console.Error.WriteLine("--week is later scope. Use --check or --odds-only.");
-                    return 2;
+                    return RunWeek(options, repoRoot, logPath);
                 }
 
                 if (options.OddsOnly)
@@ -453,6 +452,32 @@ namespace TurfMatrix.JvFetch
             return missing;
         }
 
+        private static int RunWeek(Options options, string repoRoot, string logPath)
+        {
+            var scriptPath = Path.Combine(repoRoot, "tools", "jvfetch", "run-week.ps1");
+            if (!File.Exists(scriptPath))
+            {
+                Console.Error.WriteLine("Weekly acquisition script was not found: " + scriptPath);
+                return 2;
+            }
+
+            var arguments = "-NoProfile -ExecutionPolicy Bypass -File \"" + scriptPath + "\"";
+            if (options.AllRaces) arguments += " -AllRaces";
+            if (!string.IsNullOrWhiteSpace(options.Races)) arguments += " -Races \"" + options.Races.Replace("\"", "") + "\"";
+
+            Log(logPath, "INFO", "jvfetch --week started. allRaces=" + options.AllRaces + " races=" + (options.Races ?? "(config)"));
+            var process = Process.Start(new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = arguments,
+                WorkingDirectory = repoRoot,
+                UseShellExecute = false
+            });
+            process.WaitForExit();
+            Log(logPath, process.ExitCode == 0 ? "INFO" : "ERROR", "jvfetch --week exitCode=" + process.ExitCode);
+            return process.ExitCode;
+        }
+
         private static Dictionary<string, string> LoadHorseNameMapFromManifest(string manifestPath)
         {
             var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
@@ -650,6 +675,7 @@ namespace TurfMatrix.JvFetch
                 else if (arg == "--sid" && i + 1 < args.Length) options.Sid = args[++i];
                 else if (arg == "--prog-id" && i + 1 < args.Length) options.ProgId = args[++i];
                 else if (arg == "--races" && i + 1 < args.Length) options.Races = args[++i];
+                else if (arg == "--all-races") options.AllRaces = true;
                 else
                 {
                     options.Help = true;
@@ -661,10 +687,10 @@ namespace TurfMatrix.JvFetch
 
         private static void WriteUsage()
         {
-            Console.WriteLine("TURF MATRIX jvfetch Step1");
+            Console.WriteLine("TURF MATRIX jvfetch");
             Console.WriteLine("Usage:");
             Console.WriteLine("  jvfetch.exe --check [--sid <JV-Link SID>] [--prog-id JVDTLab.JVLink]");
-            Console.WriteLine("  jvfetch.exe --week       (Step6+ scope; not implemented in Step1)");
+            Console.WriteLine("  jvfetch.exe --week [--races \"福島10,福島11\" | --all-races]");
             Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win odds for tools/race-batch-config.json)");
         }
 
@@ -706,6 +732,7 @@ namespace TurfMatrix.JvFetch
             public string Sid { get; set; }
             public string ProgId { get; set; }
             public string Races { get; set; }
+            public bool AllRaces { get; set; }
             public List<string> UnknownArgs { get { return _unknownArgs; } }
         }
 

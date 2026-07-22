@@ -14,6 +14,23 @@ const normalizeHorseKey = (value) =>
 const mapByHorse = (records) =>
   new Map(records.map((record) => [normalizeHorseKey(record.horseName), record]).filter(([key]) => key));
 
+const uniqueMapByHorse = (records, label) => {
+  const mapped = new Map();
+  for (const record of records) {
+    const key = normalizeHorseKey(record.horseName);
+    if (!key) continue;
+    if (mapped.has(key)) throw new Error(`${label}: duplicate normalized horse name ${record.horseName}`);
+    mapped.set(key, record);
+  }
+  return mapped;
+};
+
+const finalRaceEntryId = (raceEntryId, horseNumber) => {
+  const raw = String(raceEntryId ?? "").trim();
+  if (!raw || !Number.isFinite(horseNumber)) return raceEntryId ?? null;
+  return `${raw.slice(0, -2)}${String(horseNumber).padStart(2, "0")}`;
+};
+
 const groupByHorse = (records) => {
   const grouped = new Map();
   for (const record of records) {
@@ -55,7 +72,22 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   const pedigree = pedigreeParser.parse({ path: html.pedigree });
 
   const allByHorse = mapByHorse(all.horses);
-  const oddsByNumber = new Map(odds.entries.map((entry) => [entry.horseNumber, entry]));
+  const currentByHorse = uniqueMapByHorse(current.entries, `${bundleId}/currentRace`);
+  const oddsByHorse = uniqueMapByHorse(odds.entries, `${bundleId}/odds`);
+  if (odds.entries.length) {
+    const missingOddsNames = current.entries
+      .filter((entry) => !oddsByHorse.has(normalizeHorseKey(entry.horseName)))
+      .map((entry) => entry.horseName);
+    const unexpectedOddsNames = odds.entries
+      .filter((entry) => !currentByHorse.has(normalizeHorseKey(entry.horseName)))
+      .map((entry) => entry.horseName);
+    if (missingOddsNames.length || unexpectedOddsNames.length) {
+      throw new Error(
+        `${bundleId}: odds/current runner names do not match. ` +
+        `missing odds=[${missingOddsNames.join(", ")}], unexpected odds=[${unexpectedOddsNames.join(", ")}]`,
+      );
+    }
+  }
   const slopeByHorse = groupByHorse(slope.records);
   const woodByHorse = groupByHorse(wood.records);
   const pedigreeByHorse = mapByHorse(pedigree.records);
@@ -65,24 +97,35 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   const horses = current.entries.map((entry) => {
     const key = normalizeHorseKey(entry.horseName);
     const allRecord = allByHorse.get(key) ?? null;
-    const oddsEntry = oddsByNumber.get(entry.horseNumber) ?? null;
+    const oddsEntry = oddsByHorse.get(key) ?? null;
     const training = { slope: slopeByHorse.get(key) ?? [], wood: woodByHorse.get(key) ?? [] };
     const basicRecord = basicByNumber.get(entry.horseNumber) ?? null;
     const pedigreeRecord = pedigreeByHorse.get(key) ?? (basicRecord ? { ...basicRecord, horseName: entry.horseName } : null);
+    const availableIndex = basicRecord?.zi ?? pedigreeRecord?.zi ?? oddsEntry?.zi ?? null;
+    if (oddsEntry?.zi != null && availableIndex != null && oddsEntry.zi !== availableIndex) {
+      throw new Error(`${bundleId}/${entry.horseName}: ZI mismatch own=${availableIndex} odds=${oddsEntry.zi}`);
+    }
+    const horseNumber = oddsEntry?.horseNumber ?? entry.horseNumber;
+    const raceEntryId = finalRaceEntryId(entry.raceEntryId, horseNumber);
     const missing = [];
     if (!allRecord) missing.push("pastRuns");
     if (!oddsEntry) missing.push("odds");
     if (!training.slope.length && !training.wood.length) missing.push("training");
     if (!pedigreeRecord) missing.push("pedigree");
-    if (oddsEntry && normalizeHorseKey(oddsEntry.horseName) !== key) missing.push("oddsNameMismatch");
+    if (oddsEntry && normalizeHorseKey(oddsEntry.horseName) !== key) {
+      throw new Error(`${bundleId}/${entry.horseName}: oddsNameMismatch`);
+    }
     if (missing.length) failures.push({ horseName: entry.horseName, missing });
 
     return {
       horseName: entry.horseName,
-      horseNumber: entry.horseNumber,
-      raceEntryId: entry.raceEntryId,
+      horseNumber,
+      raceEntryId,
+      availableIndex,
       currentRace: {
         ...entry,
+        horseNumber,
+        raceEntryId,
         sire: entry.sire ?? basicRecord?.sire ?? null,
         dam: entry.dam ?? basicRecord?.dam ?? null,
         broodmareSire: entry.broodmareSire ?? basicRecord?.broodmareSire ?? null,

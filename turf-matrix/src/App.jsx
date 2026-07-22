@@ -1,7 +1,6 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
-import { isHighEvReference, isValueSignalEv, valueDisplayLabel } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -96,33 +95,16 @@ const formatOddsUpdatedAt = (value, status) => {
   return `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 };
 
-const winProbability = (horse, field, k = 7) => {
-  if (!isEvaluatedHorse(horse) || !field?.every(isEvaluatedHorse)) return null;
-  const w = (h) => Math.pow(h.aiScore / 100, k);
-  const total = field.reduce((s, h) => s + w(h), 0);
-  return w(horse) / total;
-};
-
-/** 期待値評価: { prob, ev, verdict } */
-const evaluateValue = (horse, field) => {
-  if (!isEvaluatedHorse(horse) || !isFiniteNumber(horse?.odds) || horse.odds <= 0) return null;
-  if (horse.oddsDetail?.status !== "active" && horse.dataStatus?.odds !== "active") return null;
-  const prob = winProbability(horse, field);
-  if (!isFiniteNumber(prob)) return null;
-  const ev = prob * horse.odds;
-  const verdict =
-    isHighEvReference(ev) ? { label: "高オッズ妙味(参考)", tone: "gray" }
-    : isValueSignalEv(ev) ? { label: "妙味あり", tone: "blue" }
-    : ev >= 0.95 ? { label: "中立", tone: "gray" }
-    : { label: "過剰人気気味", tone: "gray" };
-  return { prob, ev, verdict };
-};
-
-/** 血統指数 = 9項目の平均 */
-const pedigreeIndex = (pedigree) => {
-  if (!pedigree?.scores) return null;
-  const v = Object.values(pedigree.scores);
-  return Math.round(v.reduce((a, b) => a + b, 0) / v.length);
+const valueMetricsFor = (horse) => {
+  const value = horse?.analysis?.factorsDetail?.value;
+  if (!value || !isFiniteNumber(value.ev) || !isFiniteNumber(value.probability)) return null;
+  return {
+    score: value.score,
+    prob: value.probability,
+    ev: value.ev,
+    stars: value.stars,
+    verdict: value.verdict,
+  };
 };
 
 /** レース内Rank(AI指数順) { horseId: rank } */
@@ -150,11 +132,6 @@ const scoreTier = (v) =>
   : v >= 60 ? { label: "C", text: "割引評価" }
   : { label: "D", text: "厳しい評価" };
 
-/** TM VALUE: 期待値の5段階(1.00が損益分岐) */
-const valueStars = (ev) =>
-  !isFiniteNumber(ev) ? 0 :
-  isHighEvReference(ev) ? 0 : ev >= 1.5 ? 5 : ev >= 1.2 ? 4 : ev >= 1.0 ? 3 : ev >= 0.8 ? 2 : 1;
-
 /** 分析信頼度の5段階(レベル + 調教評価の裏付けで加点) */
 const confidenceStars = (a) => {
   if (!a?.confidence) return 0;
@@ -176,7 +153,7 @@ const BREAKDOWN_DEFS = [
 const scoreBreakdown = (horse) => {
   if (!isEvaluatedHorse(horse) || !horse.analysis?.factors || !horse.analysis?.pedigree) return null;
   const f = horse.analysis.factors;
-  const ped = pedigreeIndex(horse.analysis.pedigree);
+  const ped = horse.analysis.factorsDetail?.blood?.score;
   const items = BREAKDOWN_DEFS.map((d) => ({ label: d.label, value: Math.round(d.calc(f, ped)) }));
   const sampleAdjustment = Number.isFinite(horse.analysis.sampleAdjustment) ? horse.analysis.sampleAdjustment : 0;
   const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment;
@@ -312,7 +289,8 @@ const dataProvider = {
               aiScore: top.aiScore,
               popularity: top.popularity,
               odds: top.odds,
-              ev: evaluateValue(top, r.horses)?.ev ?? null,
+              ev: valueMetricsFor(top)?.ev ?? null,
+              value: valueMetricsFor(top),
               available: true,
             }
           : { name: WEEK_PREPARING_TEXT, aiScore: null, available: false },
@@ -338,7 +316,8 @@ const dataProvider = {
               horse,
               raceLabel: `${race.track}${race.number}R`,
               note: horse.analysis?.verdict?.summary ?? horse.comment ?? "TARGET実データから算出した上位シグナルです。",
-              ev: evaluateValue(horse, race.horses)?.ev ?? null,
+              ev: valueMetricsFor(horse)?.ev ?? null,
+              value: valueMetricsFor(horse),
             }))
         )
         .sort((a, b) =>
@@ -365,7 +344,8 @@ const dataProvider = {
         ...f,
         horse,
         raceLabel: `${race.track}${race.number}R`,
-        ev: evaluateValue(horse, race.horses)?.ev,
+        ev: valueMetricsFor(horse)?.ev,
+        value: valueMetricsFor(horse),
       }];
     });
     return simulateLatency(items);
@@ -446,19 +426,18 @@ const sortHorses = (horses, sortKey, evMap) => {
 };
 
 const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
-const evTone = (ev) => (isValueSignalEv(ev) ? "text-teal-600" : ev >= 0.95 ? "text-slate-900" : "text-gray-500");
+const isValueSignal = (value) => value?.verdict?.tone === "blue";
+const valueReferenceLabel = (value) => value?.verdict?.label === "高オッズ妙味(参考)" ? value.verdict.label : null;
+const evTone = (value) => (isValueSignal(value) ? "text-teal-600" : value?.ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
 const factorDetailScore = (horse, key) => {
   const detailScore = horse.analysis?.factorsDetail?.[key]?.score;
   if (isFiniteNumber(detailScore)) return detailScore;
-  if (key === "blood") return horse.analysis?.scores?.blood ?? null;
-  if (key === "form") return horse.analysis?.scores?.form ?? null;
-  if (key === "value") return horse.tmValue ?? horse.analysis?.value?.score ?? null;
-  return horse.analysis?.factors?.[key] ?? horse.analysis?.scores?.[key] ?? null;
+  return null;
 };
-const signalTypeFor = (horse) => (isValueSignalEv(horse?.ev) ? "VALUE" : "INDEX");
+const signalTypeFor = (horse) => (isValueSignal(horse?.value) ? "VALUE" : "INDEX");
 
-const commandFactors = (horse, ev) => {
+const commandFactors = (horse) => {
   if (!horse.analysis?.factors || !horse.analysis?.pedigree) {
     return [
       { key: "blood", label: "Blood AI", value: null, status: horse.pedigreeRaw ? "取得済み" : "未取得" },
@@ -467,19 +446,22 @@ const commandFactors = (horse, ev) => {
       { key: "pace", label: "Pace AI", value: null, status: "分析準備中" },
       { key: "stable", label: "Stable AI", value: null, status: "分析準備中" },
       { key: "form", label: "Form AI", value: null, status: horse.pastRuns?.length ? "過去走取得済み" : "未取得" },
-      { key: "value", label: "Value AI", value: null, status: "オッズ取得待ち" },
+      { key: "value", label: "Value AI（市場差）", value: null, status: "オッズ取得待ち" },
     ];
   }
-  const factors = horse.analysis.factors;
-  const valueScore = ev ? Math.max(35, Math.min(96, Math.round(ev.ev * 72))) : null;
   return [
     { key: "blood", label: "Blood AI", value: factorDetailScore(horse, "blood") },
-    { key: "training", label: "Training AI", value: factorDetailScore(horse, "training") ?? factors.training },
-    { key: "course", label: "Course AI", value: factorDetailScore(horse, "course") ?? Math.round((factors.course + factors.distance) / 2) },
-    { key: "pace", label: "Pace AI", value: factorDetailScore(horse, "pace") ?? factors.pace },
-    { key: "stable", label: "Stable AI", value: factorDetailScore(horse, "stable") ?? factors.stable },
-    { key: "form", label: "Form AI", value: factorDetailScore(horse, "form") ?? Math.round((factors.ability + factors.lap) / 2) },
-    { key: "value", label: "Value AI", value: valueScore, status: "オッズ取得待ち" },
+    { key: "training", label: "Training AI", value: factorDetailScore(horse, "training") },
+    { key: "course", label: "Course AI", value: factorDetailScore(horse, "course") },
+    { key: "pace", label: "Pace AI", value: factorDetailScore(horse, "pace") },
+    { key: "stable", label: "Stable AI", value: factorDetailScore(horse, "stable") },
+    { key: "form", label: "Form AI", value: factorDetailScore(horse, "form") },
+    {
+      key: "value",
+      label: "Value AI（市場差）",
+      value: factorDetailScore(horse, "value"),
+      status: horse.analysis?.factorsDetail?.value?.status === "active" ? undefined : "オッズ取得待ち",
+    },
   ];
 };
 
@@ -851,7 +833,7 @@ const TMFactorsCard = ({ analysis }) => {
     ["pace", "Pace"],
     ["stable", "Stable"],
     ["form", "Form"],
-    ["value", "Value"],
+    ["value", "Value（市場差）"],
   ];
   const factors = defs.map(([key, label]) => ({
     key,
@@ -1019,7 +1001,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
       </div>
       <div className="mt-5 grid gap-3 md:hidden">
         {sorted.map((h) => {
-          const factors = commandFactors(h, evMap[h.id]);
+          const factors = commandFactors(h);
           return (
             <button
               key={h.id}
@@ -1099,7 +1081,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                 {sorted.map((h) => {
                   const v = cellValue(d, h);
                   const highlighted = rowLeaders[d.key]?.has(h.id);
-                  const isEvBreakout = d.type === "ev" && isValueSignalEv(v);
+                  const isEvBreakout = d.type === "ev" && isValueSignal(evMap[h.id]);
                   return (
                     <td key={h.id} className="px-1 py-1">
                       <div
@@ -1137,7 +1119,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
 /* ---- 期待値評価: 人気ではなく期待値で読む、というサービス思想の中核カード ---- */
 const ValueCard = ({ ev, rank, popularity }) => {
   if (!ev) return null;
-  const vs = valueStars(ev.ev);
+  const vs = ev.stars;
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-4 md:p-5">
       <div className="flex items-center justify-between">
@@ -1157,11 +1139,11 @@ const ValueCard = ({ ev, rank, popularity }) => {
       </div>
       <div className="mt-4 flex flex-wrap items-end gap-x-7 gap-y-3 border-t border-gray-100 pt-3.5">
         <div>
-          <Num className={`block text-[24px] font-bold leading-none tracking-tight ${evTone(ev.ev)}`}>
+          <Num className={`block text-[24px] font-bold leading-none tracking-tight ${evTone(ev)}`}>
             {ev.ev.toFixed(2)}
           </Num>
-          {valueDisplayLabel(ev.ev) ? (
-            <span className="mt-1 block text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</span>
+          {valueReferenceLabel(ev) ? (
+            <span className="mt-1 block text-[10px] font-semibold text-gray-500">{valueReferenceLabel(ev)}</span>
           ) : null}
           <span className="mt-1.5 block text-[10px] text-gray-500">単勝期待値</span>
         </div>
@@ -1187,8 +1169,8 @@ const ValueCard = ({ ev, rank, popularity }) => {
 };
 
 /* ---- 血統評価: 4ライン分析(父系/母父系/母母父系/牝系) ---- */
-const PedigreeCard = ({ pedigree }) => {
-  const idx = pedigreeIndex(pedigree);
+const PedigreeCard = ({ pedigree, score }) => {
+  const idx = score;
   const structure = pedigree?.structure ?? {};
   const raceBias = pedigree?.raceBias;
   const strengthLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
@@ -1576,10 +1558,10 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           {ev && (
             <span className="flex items-center gap-1.5">
               <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-500">TM Value</span>
-              {valueDisplayLabel(ev.ev) ? (
-                <span className="text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</span>
+              {valueReferenceLabel(ev) ? (
+                <span className="text-[10px] font-semibold text-gray-500">{valueReferenceLabel(ev)}</span>
               ) : (
-                <StarRating value={valueStars(ev.ev)} size={11} />
+                <StarRating value={ev.stars} size={11} />
               )}
             </span>
           )}
@@ -1702,7 +1684,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               key={f.key}
               icon={f.icon}
               label={f.label}
-              value={f.derived ? pedigreeIndex(a.pedigree) : a.factors[f.key]}
+              value={f.derived ? a.factorsDetail?.blood?.score : a.factorsDetail?.[f.key]?.score ?? a.factors[f.key]}
               delay={i * 60}
             />
           ))}
@@ -1710,7 +1692,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
       </div>
 
       {/* 血統評価(4ライン) */}
-      <PedigreeCard pedigree={a.pedigree} />
+      <PedigreeCard pedigree={a.pedigree} score={a.factorsDetail?.blood?.score} />
 
       <ProsConsList pros={a.pros} cons={a.cons} />
 
@@ -1819,7 +1801,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 
   if (!horse) return null;
   const insightLead = horse.analysis?.insight?.[0];
-  const command = commandFactors(horse, ev);
+  const command = commandFactors(horse);
   const confidence = confidenceMeta(horse.analysis?.confidence);
 
   const modal = (
@@ -1871,7 +1853,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             </div>
             <div className="min-w-[112px] rounded-[1.35rem] border border-gray-200 bg-white px-3 py-3 text-right">
               <div className="text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-400">TM VALUE</div>
-              <div className={`mt-2 text-[18px] ${ev && isValueSignalEv(ev.ev) ? "font-bold text-slate-900" : "text-gray-500"}`}>
+              <div className={`mt-2 text-[18px] ${ev && isValueSignal(ev) ? "font-bold text-slate-900" : "text-gray-500"}`}>
                 {ev ? (
                   <>
                     EV <Num>{ev.ev.toFixed(2)}</Num>
@@ -1880,8 +1862,8 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                   "未評価"
                 )}
               </div>
-              {ev && valueDisplayLabel(ev.ev) ? (
-                <div className="mt-1 text-[10px] font-semibold text-gray-500">{valueDisplayLabel(ev.ev)}</div>
+              {ev && valueReferenceLabel(ev) ? (
+                <div className="mt-1 text-[10px] font-semibold text-gray-500">{valueReferenceLabel(ev)}</div>
               ) : null}
               {rank != null && (
                 <div className="mt-1 text-[10px] text-gray-500">
@@ -1984,12 +1966,12 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">TM VALUE</span>
             <span
               className={`mt-0.5 block text-[12px] ${
-                ev && isValueSignalEv(ev.ev) ? "font-semibold text-teal-600" : "text-gray-500"
+                ev && isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
               }`}
             >
               {ev ? (
                 <>
-                  EV <Num>{ev.ev.toFixed(2)}</Num> ・ {valueDisplayLabel(ev.ev) ?? starText(valueStars(ev.ev))}
+                  EV <Num>{ev.ev.toFixed(2)}</Num> ・ {valueReferenceLabel(ev) ?? starText(ev.stars)}
                 </>
               ) : (
                 "未評価"
@@ -2022,10 +2004,10 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         {ev && (
           <Num
             className={`block text-[10px] leading-tight ${
-              isValueSignalEv(ev.ev) ? "font-semibold text-teal-600" : "text-gray-500"
+              isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
             }`}
           >
-            EV {ev.ev.toFixed(2)}{valueDisplayLabel(ev.ev) ? " 参考" : ""}
+            EV {ev.ev.toFixed(2)}{valueReferenceLabel(ev) ? " 参考" : ""}
           </Num>
         )}
       </span>
@@ -2119,8 +2101,8 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
             <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
               {signalLabel}
               {isFiniteNumber(ev) ? (
-                <Num className={isValueSignalEv(ev) ? "text-[#00A9B8]" : "text-gray-500"}>
-                  {" "}— EV {ev.toFixed(2)}{valueDisplayLabel(ev) ? " 参考" : ""}
+                <Num className={isValueSignal(race.topHorse.value) ? "text-[#00A9B8]" : "text-gray-500"}>
+                  {" "}— EV {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 参考" : ""}
                 </Num>
               ) : null}
             </span>
@@ -2398,13 +2380,13 @@ const HomePage = ({ onOpenRace }) => {
                         </Num>
                         <div className="mt-1.5 text-[10px] uppercase tracking-wider text-gray-500">AI指数</div>
                         <span className="mt-1 flex items-center justify-end gap-1">
-                          <StarRating value={valueStars(f.ev)} size={9} />
+                          <StarRating value={f.value?.stars ?? 0} size={9} />
                         </span>
                         <Num className="mt-0.5 block text-[10px] text-gray-500">
                           {isFiniteNumber(f.ev) ? `EV ${f.ev.toFixed(2)}` : "EV 未評価"}
                         </Num>
-                        {valueDisplayLabel(f.ev) ? (
-                          <span className="mt-0.5 block text-[10px] font-semibold text-gray-500">{valueDisplayLabel(f.ev)}</span>
+                        {valueReferenceLabel(f.value) ? (
+                          <span className="mt-0.5 block text-[10px] font-semibold text-gray-500">{valueReferenceLabel(f.value)}</span>
                         ) : null}
                       </div>
                     </div>
@@ -2483,7 +2465,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
   const evMap = useMemo(
     () =>
       race && race.horses.length
-        ? Object.fromEntries(race.horses.map((h) => [h.id, evaluateValue(h, race.horses)]))
+        ? Object.fromEntries(race.horses.map((h) => [h.id, valueMetricsFor(h)]))
         : {},
     [race]
   );

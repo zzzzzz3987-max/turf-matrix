@@ -1,7 +1,70 @@
 import { FACTOR_KEYS } from "./constants.mjs";
+import { starsForEv } from "./value-ai.mjs";
 
 const MOJIBAKE_PATTERN = /譛|繧|邉|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
 const CORE_DETAIL_KEYS = ["blood", "training", "course", "pace", "form", "value"];
+const normalizeHorseKey = (value) =>
+  String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
+
+const validateOddsJoinIntegrity = (weekData) => {
+  const errors = [];
+  for (const race of weekData?.races ?? []) {
+    for (const horse of race?.horses ?? []) {
+      const prefix = `${race?.id ?? "unknown-race"}/${horse?.name ?? horse?.number ?? "unknown-horse"}`;
+      const detail = horse?.oddsDetail;
+      if (race?.oddsStatus === "active" && !detail) {
+        errors.push(`${prefix}: active odds are missing oddsDetail`);
+        continue;
+      }
+      if (!detail) continue;
+      if (normalizeHorseKey(detail.horseName) !== normalizeHorseKey(horse.name)) {
+        errors.push(`${prefix}: odds horse name mismatch (${detail.horseName ?? "missing"})`);
+      }
+      if (Number.isFinite(detail.horseNumber) && Number.isFinite(horse.number) && detail.horseNumber !== horse.number) {
+        errors.push(`${prefix}: odds horse number mismatch (${detail.horseNumber} != ${horse.number})`);
+      }
+    }
+  }
+  return errors;
+};
+
+const validateValueDisplayIntegrity = (weekData) => {
+  const errors = [];
+  for (const race of weekData?.races ?? []) {
+    const probabilities = [];
+    for (const horse of race?.horses ?? []) {
+      const prefix = `${race?.id ?? "unknown-race"}/${horse?.name ?? horse?.number ?? "unknown-horse"}`;
+      const value = horse?.analysis?.factorsDetail?.value;
+      if (!value) continue;
+      if (Number.isFinite(horse.tmValue) && value.score !== horse.tmValue) {
+        errors.push(`${prefix}: TM VALUE score mismatch (${value.score} != ${horse.tmValue})`);
+      }
+      if (horse?.analysis?.value?.score != null && horse.analysis.value.score !== value.score) {
+        errors.push(`${prefix}: analysis.value score mismatch (${horse.analysis.value.score} != ${value.score})`);
+      }
+      if (value.status !== "active") continue;
+      if (!Number.isFinite(value.probability) || !Number.isFinite(value.ev)) {
+        errors.push(`${prefix}: active Value metrics are missing probability or EV`);
+        continue;
+      }
+      probabilities.push(value.probability);
+      const expectedEv = value.probability * horse.odds;
+      if (!Number.isFinite(expectedEv) || Math.abs(value.ev - expectedEv) > 1e-9) {
+        errors.push(`${prefix}: EV does not equal probability x odds`);
+      }
+      if (value.stars !== starsForEv(value.ev)) {
+        errors.push(`${prefix}: TM VALUE stars mismatch (${value.stars} != ${starsForEv(value.ev)})`);
+      }
+    }
+    if (probabilities.length) {
+      const probabilitySum = probabilities.reduce((sum, value) => sum + value, 0);
+      if (Math.abs(probabilitySum - 1) > 0.01) {
+        errors.push(`${race?.id ?? "unknown-race"}: Value probabilities sum to ${probabilitySum}`);
+      }
+    }
+  }
+  return errors;
+};
 
 const collectDuplicates = (values) => {
   const seen = new Set();
@@ -78,8 +141,16 @@ const validateIntelligenceOutput = (weekData) => {
   const invalidNumbers = collectInvalidNumbers(weekData);
   if (invalidNumbers.length) errors.push(`invalid numeric values: ${invalidNumbers.join(", ")}`);
   if (MOJIBAKE_PATTERN.test(JSON.stringify(weekData))) errors.push("mojibake markers detected");
+  errors.push(...validateOddsJoinIntegrity(weekData));
+  errors.push(...validateValueDisplayIntegrity(weekData));
 
   return { valid: errors.length === 0, errors };
 };
 
-export { collectDuplicates, collectInvalidNumbers, validateIntelligenceOutput };
+export {
+  collectDuplicates,
+  collectInvalidNumbers,
+  validateIntelligenceOutput,
+  validateOddsJoinIntegrity,
+  validateValueDisplayIntegrity,
+};

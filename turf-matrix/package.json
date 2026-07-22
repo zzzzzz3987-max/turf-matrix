@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:race-batch": "npm run generate:race-batch && vite --mode batch",
-    "build": "vite build",
+    "build": "npm run verify:data-integrity && vite build",
     "build:race-batch": "npm run generate:race-batch && vite build --mode batch",
     "preview": "vite preview",
     "detect:jvlink": "powershell -ExecutionPolicy Bypass -File tools/jvlink/jvlink-cli.ps1 -Action detect",
@@ -27,6 +27,7 @@
     "generate:candidate": "npm run generate:race-batch",
     "test:intelligence": "node --test tools/intelligence/tests/*.test.mjs",
     "verify:intelligence": "npm run generate:race-batch && npm run test:intelligence",
+    "verify:data-integrity": "node tools/verify-data-integrity.mjs",
     "verify:odds": "node tools/verify-odds.mjs",
     "archive:preodds": "node tools/archive-race-release.mjs",
     "generate:preodds": "node tools/generate-preodds.mjs",

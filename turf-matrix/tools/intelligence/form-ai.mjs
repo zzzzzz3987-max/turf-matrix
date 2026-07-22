@@ -58,6 +58,9 @@ const applySampleDiscount = (score, runCount) => {
   return clamp(score * confidence + 58 * (1 - confidence), 35, 92);
 };
 
+const resolveAbilityZi = (horse) =>
+  horse.availableIndex ?? horse.pedigree?.zi ?? horse.odds?.zi ?? horse.currentRace?.zi;
+
 const classPerformanceScore = (run) => {
   const grade = classBonus(run);
   if (grade < 5) return null;
@@ -91,7 +94,7 @@ const runScore = (run, index, targetDistance) => {
 };
 
 const scoreZi = (horse) => {
-  const zi = horse.odds?.zi ?? horse.availableIndex ?? horse.currentRace?.zi;
+  const zi = resolveAbilityZi(horse);
   const recentForm = scoreRecentForm(horse);
   const classScores = (horse.pastRuns ?? []).slice(0, 8).map(classPerformanceScore).filter((score) => score != null);
   const classScore = classScores.length ? avg(classScores, 60) : null;
@@ -158,7 +161,7 @@ const scorePeerEvidence = (peerRuns = []) => {
 const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
   const runs = (horse.pastRuns ?? []).slice(0, 8);
   const recent = runs.slice(0, 5);
-  const zi = horse.odds?.zi ?? horse.availableIndex ?? horse.currentRace?.zi;
+  const zi = resolveAbilityZi(horse);
   const ziScore = typeof zi === "number" && Number.isFinite(zi) ? clamp(42 + (zi - 80) * 1.3) : null;
   const classScores = runs.map(classPerformanceScore).filter((item) => item != null);
   const classScore = classScores.length ? clamp(avg(classScores, 60)) : null;
@@ -280,4 +283,4 @@ const buildFormAnalysis = (horse, score = scoreRecentForm(horse)) => {
   };
 };
 
-export { scoreZi, scoreRecentForm, buildFormAnalysis, buildAbilityAnalysis };
+export { scoreZi, scoreRecentForm, buildFormAnalysis, buildAbilityAnalysis, resolveAbilityZi };

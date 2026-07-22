@@ -9,7 +9,7 @@ import { BLOODLINE_RULES } from "../dictionaries/bloodline-dictionary.mjs";
 import { COURSE_BIAS_PROFILES } from "../dictionaries/course-bias-dictionary.mjs";
 import { FEMALE_LINE_RULES } from "../dictionaries/female-line-dictionary.mjs";
 import { TRAINING_THRESHOLDS } from "../dictionaries/training-thresholds.mjs";
-import { validateIntelligenceOutput } from "../output-contract.mjs";
+import { validateIntelligenceOutput, validateOddsJoinIntegrity, validateValueDisplayIntegrity } from "../output-contract.mjs";
 import { selectFeaturedRace } from "../race-selector.mjs";
 
 const TEST_DIR = dirname(fileURLToPath(import.meta.url));
@@ -48,6 +48,30 @@ test("all published intelligence scores stay bounded", () => {
   const horses = official.races.flatMap((race) => race.horses ?? []);
   assert.ok(horses.every((horse) => Number.isFinite(horse.tmIndex)));
   assert.ok(horses.every((horse) => horse.tmIndex >= 0 && horse.tmIndex <= 100));
+});
+
+test("published odds are joined to the same horse name and number", () => {
+  const normalizeHorseKey = (value) =>
+    String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
+  for (const race of official.races ?? []) {
+    for (const horse of race.horses ?? []) {
+      if (!horse.oddsDetail) continue;
+      assert.equal(normalizeHorseKey(horse.oddsDetail.horseName), normalizeHorseKey(horse.name));
+      assert.equal(horse.oddsDetail.horseNumber, horse.number);
+    }
+  }
+});
+
+test("odds JOIN validation rejects a different horse", () => {
+  const errors = validateOddsJoinIntegrity({
+    races: [{
+      id: "join-check",
+      oddsStatus: "active",
+      horses: [{ name: "アロンズロッド", number: 4, oddsDetail: { horseName: "ジェットブレード", horseNumber: 1 } }],
+    }],
+  });
+  assert.ok(errors.some((error) => error.includes("odds horse name mismatch")));
+  assert.ok(errors.some((error) => error.includes("odds horse number mismatch")));
 });
 
 test("empty production state is explicit and contains no fabricated runners", () => {
@@ -120,6 +144,53 @@ test("race calibration adds deterministic relative ranks", () => {
   assert.equal(byName.C.analysis.relative.rank, 3);
   assert.equal(byName.B.analysis.topSignal.label, "Top Signal");
   assert.ok(byName.A.analysis.verdict.evidence.some((item) => item.includes("レース内順位")));
+});
+
+test("race calibration publishes a single consistent Value display payload", () => {
+  const race = calibrateRaceIntelligence({
+    id: "value-test",
+    horses: [
+      {
+        id: "a",
+        number: 1,
+        name: "A",
+        tmIndex: 80,
+        tmValue: 61,
+        odds: 3.2,
+        oddsDetail: { status: "active" },
+        dataStatus: { odds: "active" },
+        analysis: {
+          value: { score: 61 },
+          factorsDetail: { value: { score: 61, status: "active" } },
+          verdict: { evidence: [] },
+          topSignal: {},
+        },
+      },
+      {
+        id: "b",
+        number: 2,
+        name: "B",
+        tmIndex: 75,
+        tmValue: 55,
+        odds: 5,
+        oddsDetail: { status: "active" },
+        dataStatus: { odds: "active" },
+        analysis: {
+          value: { score: 55 },
+          factorsDetail: { value: { score: 55, status: "active" } },
+          verdict: { evidence: [] },
+          topSignal: {},
+        },
+      },
+    ],
+  });
+
+  const value = race.horses[0].analysis.factorsDetail.value;
+  assert.equal(value.score, 61);
+  assert.ok(Number.isFinite(value.probability));
+  assert.ok(Number.isFinite(value.ev));
+  assert.equal(value.stars, value.ev < 0.8 ? 1 : value.stars);
+  assert.deepEqual(validateValueDisplayIntegrity({ races: [race] }), []);
 });
 
 test("knowledge dictionaries are populated and readable", () => {

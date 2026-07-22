@@ -1,3 +1,5 @@
+import { buildRaceValueMetrics } from "./value-ai.mjs";
+
 const percentile = (rank, size) => {
   if (!size || size <= 1) return 100;
   return Math.round(((size - rank) / (size - 1)) * 100);
@@ -13,6 +15,7 @@ const labelForGap = (rank, gapToTop) => {
 
 const calibrateRaceIntelligence = (race) => {
   const horses = race.horses ?? [];
+  const valueMetricsById = buildRaceValueMetrics(horses);
   const ranked = [...horses]
     .filter((horse) => Number.isFinite(horse.tmIndex))
     .sort((a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999));
@@ -41,11 +44,24 @@ const calibrateRaceIntelligence = (race) => {
     horses: horses.map((horse) => {
       const relative = rankById.get(horse.id) ?? null;
       if (!relative) return horse;
+      const valueMetrics = valueMetricsById.get(horse.id) ?? null;
+      const valueDetail = {
+        ...horse.analysis?.factorsDetail?.value,
+        probability: valueMetrics?.probability ?? null,
+        ev: valueMetrics?.ev ?? null,
+        stars: valueMetrics?.stars ?? 0,
+        verdict: valueMetrics?.verdict ?? null,
+      };
       const rankText = `${relative.rank}/${relative.fieldSize}位`;
       return {
         ...horse,
         analysis: {
           ...horse.analysis,
+          value: valueDetail,
+          factorsDetail: {
+            ...horse.analysis?.factorsDetail,
+            value: valueDetail,
+          },
           relative,
           verdict: horse.analysis?.verdict
             ? {

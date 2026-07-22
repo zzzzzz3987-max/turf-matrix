@@ -16,6 +16,7 @@ const OUT_PATH = join(TOOLS_DIR, "week-data.normalized.json");
 const normalizeHorseKey = (value) =>
   String(value ?? "")
     .normalize("NFKC")
+    .replace(/[＊*$]/g, "")
     .replace(/\u3000/g, " ")
     .replace(/\s+/g, "")
     .trim();
@@ -41,13 +42,10 @@ const mapByHorse = (records) => {
   return map;
 };
 
-const mapByHorseNumber = (records) => {
-  const map = new Map();
-  for (const record of records) {
-    if (record.horseNumber == null) continue;
-    map.set(record.horseNumber, record);
-  }
-  return map;
+const finalRaceEntryId = (raceEntryId, horseNumber) => {
+  const raw = String(raceEntryId ?? "").trim();
+  if (!raw || !Number.isFinite(horseNumber)) return raceEntryId ?? null;
+  return `${raw.slice(0, -2)}${String(horseNumber).padStart(2, "0")}`;
 };
 
 const all = allCsvParser.parse();
@@ -59,7 +57,7 @@ const pedigree = pedigreeHtmlParser.parse();
 
 const allByHorse = mapByHorse(all.horses);
 const currentByHorse = mapByHorse(currentRaceDetail.entries);
-const oddsByHorseNumber = mapByHorseNumber(odds.entries);
+const oddsByHorse = mapByHorse(odds.entries);
 const slopeByHorse = groupByHorse(slope.records);
 const woodByHorse = groupByHorse(wood.records);
 const pedigreeByHorse = mapByHorse(pedigree.records);
@@ -70,13 +68,19 @@ const joinFailures = [];
 for (const [horseKey, allRecord] of allByHorse) {
   const horseName = allRecord.horseName;
   const currentEntry = currentByHorse.get(horseKey) ?? null;
-  const oddsEntry = currentEntry ? oddsByHorseNumber.get(currentEntry.horseNumber) ?? null : null;
+  const oddsEntry = oddsByHorse.get(horseKey) ?? null;
   const training = {
     slope: slopeByHorse.get(horseKey) ?? [],
     wood: woodByHorse.get(horseKey) ?? [],
   };
   const pedigreeRecord = pedigreeByHorse.get(horseKey) ?? null;
+  const horseNumber = oddsEntry?.horseNumber ?? currentEntry?.horseNumber ?? null;
+  const raceEntryId = finalRaceEntryId(currentEntry?.raceEntryId, horseNumber);
   const missing = [];
+
+  if (oddsEntry?.zi != null && pedigreeRecord?.zi != null && oddsEntry.zi !== pedigreeRecord.zi) {
+    throw new Error(`${horseName}: ZI mismatch own=${pedigreeRecord.zi} odds=${oddsEntry.zi}`);
+  }
 
   if (!currentEntry) missing.push("currentRace");
   if (!oddsEntry) missing.push("odds");
@@ -84,7 +88,7 @@ for (const [horseKey, allRecord] of allByHorse) {
   if (!pedigreeRecord) missing.push("pedigree");
 
   if (currentEntry && oddsEntry && normalizeHorseKey(currentEntry.horseName) !== normalizeHorseKey(oddsEntry.horseName)) {
-    missing.push("oddsNameMismatch");
+    throw new Error(`${horseName}: oddsNameMismatch`);
   }
 
   if (missing.length) {
@@ -93,8 +97,8 @@ for (const [horseKey, allRecord] of allByHorse) {
 
   normalized.push({
     horseName,
-    horseNumber: currentEntry?.horseNumber ?? null,
-    raceEntryId: currentEntry?.raceEntryId ?? null,
+    horseNumber,
+    raceEntryId,
     currentRace: currentEntry
       ? {
           raceDate: currentEntry.raceDate,
@@ -105,7 +109,7 @@ for (const [horseKey, allRecord] of allByHorse) {
           grade: currentEntry.grade,
           surface: currentEntry.surface,
           distance: currentEntry.distance,
-          horseNumber: currentEntry.horseNumber,
+          horseNumber,
           horseName: currentEntry.horseName,
           sex: currentEntry.sex,
           age: currentEntry.age,
@@ -120,10 +124,11 @@ for (const [horseKey, allRecord] of allByHorse) {
           dam: currentEntry.dam,
           broodmareSire: currentEntry.broodmareSire,
           coatColor: currentEntry.coatColor,
-          raceEntryId: currentEntry.raceEntryId,
+          raceEntryId,
         }
       : allRecord.currentRace,
     pastRuns: allRecord.pastRuns,
+    availableIndex: pedigreeRecord?.zi ?? oddsEntry?.zi ?? null,
     odds: oddsEntry
       ? {
           popularity: oddsEntry.popularity,
@@ -155,7 +160,7 @@ for (const [horseKey, currentEntry] of currentByHorse) {
 }
 
 for (const oddsEntry of odds.entries) {
-  const currentEntry = currentRaceDetail.entries.find((entry) => entry.horseNumber === oddsEntry.horseNumber);
+  const currentEntry = currentByHorse.get(normalizeHorseKey(oddsEntry.horseName));
   if (!currentEntry) joinFailures.push({ horseName: oddsEntry.horseName, missing: ["currentRace"] });
 }
 

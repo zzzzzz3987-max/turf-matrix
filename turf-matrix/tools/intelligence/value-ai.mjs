@@ -4,6 +4,51 @@
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
 const impliedProbability = (odds) => (odds > 0 ? 1 / odds : null);
+const WIN_PROBABILITY_POWER = 7;
+
+const starsForEv = (ev) => {
+  if (!Number.isFinite(ev)) return 0;
+  if (ev >= 3) return 0;
+  if (ev >= 1.5) return 5;
+  if (ev >= 1.2) return 4;
+  if (ev >= 1) return 3;
+  if (ev >= 0.8) return 2;
+  return 1;
+};
+
+const verdictForEv = (ev) => {
+  if (!Number.isFinite(ev)) return null;
+  if (ev >= 3) return { label: "高オッズ妙味(参考)", tone: "gray" };
+  if (ev >= 1.15) return { label: "妙味あり", tone: "blue" };
+  if (ev >= 0.95) return { label: "中立", tone: "gray" };
+  return { label: "過剰人気気味", tone: "gray" };
+};
+
+const buildRaceValueMetrics = (horses) => {
+  const evaluated = horses.filter((horse) => Number.isFinite(horse.tmIndex));
+  if (!evaluated.length || evaluated.length !== horses.length) return new Map();
+
+  const weights = evaluated.map((horse) => ({
+    horse,
+    weight: Math.pow(horse.tmIndex / 100, WIN_PROBABILITY_POWER),
+  }));
+  const total = weights.reduce((sum, item) => sum + item.weight, 0);
+  if (!(total > 0)) return new Map();
+
+  return new Map(weights.map(({ horse, weight }) => {
+    const oddsActive = horse.oddsDetail?.status === "active" || horse.dataStatus?.odds === "active";
+    const probability = weight / total;
+    const ev = oddsActive && Number.isFinite(horse.odds) && horse.odds > 0
+      ? probability * horse.odds
+      : null;
+    return [horse.id, {
+      probability,
+      ev,
+      stars: starsForEv(ev),
+      verdict: verdictForEv(ev),
+    }];
+  }));
+};
 
 const scoreValue = (horse, abilityScore, tmBaseScore = null) => {
   if (!horse.odds?.winOdds || !horse.odds?.popularity) return null;
@@ -49,4 +94,10 @@ const buildValueAnalysis = (horse, valueScore) => {
   };
 };
 
-export { scoreValue, buildValueAnalysis };
+export {
+  scoreValue,
+  buildValueAnalysis,
+  buildRaceValueMetrics,
+  starsForEv,
+  verdictForEv,
+};

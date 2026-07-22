@@ -38,14 +38,29 @@ const races = bundleIds.map((bundleId) => {
   return normalizeRaceBundle({
     bundleId,
     csv: {
-      currentRace: repoPath(join(csvDir, "current-race-detail.csv")),
-      all: repoPath(join(csvDir, "all.csv")),
+      currentRace: firstExistingRepoPath(
+        join(csvDir, "current-race-detail.csv"),
+        join(REPO_ROOT, "data", "target", "races", bundleId, "current-race-detail.csv"),
+      ),
+      all: firstExistingRepoPath(
+        join(csvDir, "all.csv"),
+        join(REPO_ROOT, "data", "target", "races", bundleId, "all.csv"),
+      ),
       basic: repoPath(join(csvDir, "basic.txt")),
       odds: repoPath(join(csvDir, "odds.csv")),
+      pedigree: repoPath(join(REPO_ROOT, "data", "target", "pedigree.csv")),
     },
     html: {
-      trainingSlope: firstExistingRepoPath(join(htmlDir, "training-slope.csv"), join(htmlDir, "training-slope.html")),
-      trainingWood: firstExistingRepoPath(join(htmlDir, "training-wood.csv"), join(htmlDir, "training-wood.html")),
+      trainingSlope: firstExistingRepoPath(
+        join(htmlDir, "training-slope.csv"),
+        join(htmlDir, "training-slope.html"),
+        join(REPO_ROOT, "data", "target", "training-slope.csv"),
+      ),
+      trainingWood: firstExistingRepoPath(
+        join(htmlDir, "training-wood.csv"),
+        join(htmlDir, "training-wood.html"),
+        join(REPO_ROOT, "data", "target", "training-wood.csv"),
+      ),
       pedigree: repoPath(join(htmlDir, "pedigree")),
     },
   });

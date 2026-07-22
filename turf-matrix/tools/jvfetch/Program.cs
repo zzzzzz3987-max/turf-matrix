@@ -174,7 +174,12 @@ namespace TurfMatrix.JvFetch
                 return 2;
             }
 
-            ApplyHorseNames(repoRoot, odds);
+            var missingHorseNames = ApplyHorseNames(repoRoot, odds);
+            if (missingHorseNames > 0)
+            {
+                Console.Error.WriteLine("Horse names could not be resolved for " + missingHorseNames + " odds rows. Existing data was not changed.");
+                return 2;
+            }
 
             var outputPath = Path.Combine(repoRoot, "data", "target", "odds.csv");
             var writtenPath = WriteOddsCsvSafely(outputPath, odds);
@@ -420,20 +425,79 @@ namespace TurfMatrix.JvFetch
             return "\"" + value.Replace("\"", "\"\"") + "\"";
         }
 
-        private static void ApplyHorseNames(string repoRoot, List<OddsRow> odds)
+        private static int ApplyHorseNames(string repoRoot, List<OddsRow> odds)
         {
+            var manifestPath = Path.Combine(repoRoot, "tools", "jvlink", "output", "target-horses.json");
             var weekDataPath = Path.Combine(repoRoot, "tools", "week-data.json");
-            if (!File.Exists(weekDataPath)) return;
-
-            var map = LoadHorseNameMap(weekDataPath);
+            var map = File.Exists(manifestPath)
+                ? LoadHorseNameMapFromManifest(manifestPath)
+                : new Dictionary<string, string>();
+            if (File.Exists(weekDataPath))
+            {
+                foreach (var pair in LoadHorseNameMap(weekDataPath))
+                {
+                    if (!map.ContainsKey(pair.Key)) map[pair.Key] = pair.Value;
+                }
+            }
+            var missing = 0;
             foreach (var row in odds)
             {
-                if (row.HorseNumber == null) continue;
+                if (row.HorseNumber == null) { missing++; continue; }
                 string name;
                 if (map.TryGetValue(HorseNameKey(row.Race.CourseName, row.Race.RaceNo, row.HorseNumber.Value), out name))
                 {
                     row.HorseName = name;
                 }
+                if (string.IsNullOrWhiteSpace(row.HorseName)) missing++;
+            }
+            return missing;
+        }
+
+        private static Dictionary<string, string> LoadHorseNameMapFromManifest(string manifestPath)
+        {
+            var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+            var root = serializer.DeserializeObject(File.ReadAllText(manifestPath, Encoding.UTF8)) as Dictionary<string, object>;
+            var map = new Dictionary<string, string>();
+            if (root == null || !root.ContainsKey("horses")) return map;
+
+            var horses = root["horses"] as object[];
+            if (horses == null) return map;
+            foreach (var horseObj in horses)
+            {
+                var horse = horseObj as Dictionary<string, object>;
+                if (horse == null) continue;
+                var name = Convert.ToString(GetValue(horse, "horseName") ?? "");
+                var entries = GetValue(horse, "entries") as object[];
+                if (name == "" || entries == null) continue;
+                foreach (var entryObj in entries)
+                {
+                    var entry = entryObj as Dictionary<string, object>;
+                    if (entry == null) continue;
+                    var courseName = CourseNameFromCode(Convert.ToString(GetValue(entry, "courseCode") ?? ""));
+                    var raceNo = ToInt(GetValue(entry, "raceNo"));
+                    var horseNo = ToInt(GetValue(entry, "horseNumber"));
+                    if (courseName == "" || raceNo == null || horseNo == null) continue;
+                    map[HorseNameKey(courseName, raceNo.Value, horseNo.Value)] = name;
+                }
+            }
+            return map;
+        }
+
+        private static string CourseNameFromCode(string code)
+        {
+            switch (code)
+            {
+                case "01": return CourseInfo.FromSlug("sapporo").Name;
+                case "02": return CourseInfo.FromSlug("hakodate").Name;
+                case "03": return CourseInfo.FromSlug("fukushima").Name;
+                case "04": return CourseInfo.FromSlug("niigata").Name;
+                case "05": return CourseInfo.FromSlug("tokyo").Name;
+                case "06": return CourseInfo.FromSlug("nakayama").Name;
+                case "07": return CourseInfo.FromSlug("chukyo").Name;
+                case "08": return CourseInfo.FromSlug("kyoto").Name;
+                case "09": return CourseInfo.FromSlug("hanshin").Name;
+                case "10": return CourseInfo.FromSlug("kokura").Name;
+                default: return "";
             }
         }
 

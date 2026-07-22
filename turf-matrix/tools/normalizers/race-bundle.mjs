@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import * as allCsvParser from "../parsers/all-csv-parser.mjs";
 import * as basicTxtParser from "../parsers/basic-txt-parser.mjs";
 import * as currentRaceParser from "../parsers/current-race-detail-parser.mjs";
+import * as jvlinkPedigreeParser from "../parsers/jvlink-pedigree-csv-parser.mjs";
 import * as oddsParser from "../parsers/odds-csv-parser.mjs";
 import * as pedigreeParser from "../parsers/pedigree-html-parser.mjs";
 import * as trainingSlopeParser from "../parsers/training-slope-html-parser.mjs";
@@ -46,6 +47,7 @@ const optionalParse = (parser, path, fallback) =>
   existsSync(resolveFromRepo(path)) ? parser.parse({ path }) : fallback;
 
 const normalizeRaceBundle = ({ bundleId, csv, html }) => {
+  const directCurrentRace = String(csv.currentRace ?? "").replaceAll("\\", "/").includes("data/target/races/");
   const current = currentRaceParser.parse({ path: csv.currentRace });
   const all = allCsvParser.parse({ path: csv.all });
   const basic = optionalParse(basicTxtParser, csv.basic, {
@@ -70,6 +72,7 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   const slope = optionalParse(trainingSlopeParser, html.trainingSlope, { rowCount: 0, records: [] });
   const wood = optionalParse(trainingWoodParser, html.trainingWood, { rowCount: 0, records: [] });
   const pedigree = pedigreeParser.parse({ path: html.pedigree });
+  const jvlinkPedigree = optionalParse(jvlinkPedigreeParser, csv.pedigree, { recordCount: 0, records: [] });
 
   const allByHorse = mapByHorse(all.horses);
   const currentByHorse = uniqueMapByHorse(current.entries, `${bundleId}/currentRace`);
@@ -90,7 +93,8 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
   }
   const slopeByHorse = groupByHorse(slope.records);
   const woodByHorse = groupByHorse(wood.records);
-  const pedigreeByHorse = mapByHorse(pedigree.records);
+  const pedigreeRecords = pedigree.records.length ? pedigree.records : jvlinkPedigree.records;
+  const pedigreeByHorse = mapByHorse(pedigreeRecords);
   const basicByNumber = new Map(basic.records.map((record) => [record.horseNumber, record]));
   const failures = [];
 
@@ -99,11 +103,14 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
     const allRecord = allByHorse.get(key) ?? null;
     const oddsEntry = oddsByHorse.get(key) ?? null;
     const training = { slope: slopeByHorse.get(key) ?? [], wood: woodByHorse.get(key) ?? [] };
-    const basicRecord = basicByNumber.get(entry.horseNumber) ?? null;
+    // TARGET basic.txt uses its display-row number, which is not guaranteed to
+    // equal JV-Link's actual horse number. Never apply it by number to a direct
+    // race card; the name-bearing odds record remains safe when available.
+    const basicRecord = directCurrentRace ? null : basicByNumber.get(entry.horseNumber) ?? null;
     const pedigreeRecord = pedigreeByHorse.get(key) ?? (basicRecord ? { ...basicRecord, horseName: entry.horseName } : null);
-    const availableIndex = basicRecord?.zi ?? pedigreeRecord?.zi ?? oddsEntry?.zi ?? null;
-    if (oddsEntry?.zi != null && availableIndex != null && oddsEntry.zi !== availableIndex) {
-      throw new Error(`${bundleId}/${entry.horseName}: ZI mismatch own=${availableIndex} odds=${oddsEntry.zi}`);
+    const availableIndex = oddsEntry?.zi ?? basicRecord?.zi ?? pedigreeRecord?.zi ?? null;
+    if (!directCurrentRace && oddsEntry?.zi != null && basicRecord?.zi != null && oddsEntry.zi !== basicRecord.zi) {
+      throw new Error(`${bundleId}/${entry.horseName}: ZI mismatch own=${basicRecord.zi} odds=${oddsEntry.zi}`);
     }
     const horseNumber = oddsEntry?.horseNumber ?? entry.horseNumber;
     const raceEntryId = finalRaceEntryId(entry.raceEntryId, horseNumber);
@@ -164,7 +171,10 @@ const normalizeRaceBundle = ({ bundleId, csv, html }) => {
       },
       trainingSlope: { rows: slope.rowCount, encoding: slope.encoding ?? null },
       trainingWood: { rows: wood.rowCount, encoding: wood.encoding ?? null },
-      pedigree: { records: pedigree.recordCount ?? 0 },
+      pedigree: {
+        records: pedigreeRecords.length,
+        source: pedigree.records.length ? "TARGET HTML" : jvlinkPedigree.records.length ? "JV-Link RCVN/UM" : "missing",
+      },
       basicTxt: { records: basic.recordCount ?? 0, zi: basic.ziCount ?? 0 },
     },
     join: {

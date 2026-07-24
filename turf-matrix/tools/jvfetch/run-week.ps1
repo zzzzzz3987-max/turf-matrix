@@ -1,6 +1,8 @@
 param(
   [string]$Races = "",
-  [switch]$AllRaces
+  [switch]$AllRaces,
+  [switch]$Specials,
+  [string]$RaceDate = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -8,7 +10,11 @@ $ErrorActionPreference = "Stop"
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 Push-Location $RepoRoot
 try {
-  powershell -ExecutionPolicy Bypass -File "tools\jvlink\jvlink-cli.ps1" -Action export-week
+  $jvLinkArgs = @("-ExecutionPolicy", "Bypass", "-File", "tools\jvlink\jvlink-cli.ps1", "-Action", "export-week")
+  if ($RaceDate) {
+    $jvLinkArgs += @("-RaceDate", $RaceDate)
+  }
+  powershell @jvLinkArgs
   if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
   }
@@ -29,8 +35,13 @@ try {
   }
 
   $selectionArgs = @("tools\jvlink\select-week-races.mjs")
+  if ($RaceDate) {
+    $selectionArgs += @("--date", $RaceDate)
+  }
   if ($AllRaces) {
     $selectionArgs += "--all-races"
+  } elseif ($Specials) {
+    $selectionArgs += "--specials"
   } elseif ($Races) {
     $selectionArgs += @("--races", $Races)
   }
@@ -46,6 +57,11 @@ try {
   }
 
   powershell -ExecutionPolicy Bypass -File "tools\jvlink\export-intelligence.ps1"
+  if ($LASTEXITCODE -ne 0) {
+    exit $LASTEXITCODE
+  }
+
+  & $nodePath "tools\jvlink\build-opponent-evidence.mjs"
   if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
   }

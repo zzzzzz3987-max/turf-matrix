@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
@@ -10,8 +10,15 @@ const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
+const opponentEvidence = existsSync(OPPONENT_PATH)
+  ? JSON.parse(readFileSync(OPPONENT_PATH, "utf8"))
+  : { records: [] };
+const opponentByRegistration = new Map(
+  (opponentEvidence.records ?? []).map((record) => [record.bloodRegistrationNumber, record]),
+);
 
 const raceRunKey = (run) =>
   [run.date, run.course, run.raceName, run.distance].map((value) => String(value ?? "").trim()).join("|");
@@ -51,7 +58,12 @@ const enrichPeerRuns = (horses) => {
         });
       }
     }
-    return { ...horse, peerRuns };
+    const registrationNumber = horse.currentRace?.horseId ?? horse.pedigree?.bloodRegistrationNumber;
+    return {
+      ...horse,
+      peerRuns,
+      opponentEvidence: registrationNumber ? opponentByRegistration.get(registrationNumber) ?? null : null,
+    };
   });
 };
 

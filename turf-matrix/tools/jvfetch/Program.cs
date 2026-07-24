@@ -427,17 +427,9 @@ namespace TurfMatrix.JvFetch
         private static int ApplyHorseNames(string repoRoot, List<OddsRow> odds)
         {
             var manifestPath = Path.Combine(repoRoot, "tools", "jvlink", "output", "target-horses.json");
-            var weekDataPath = Path.Combine(repoRoot, "tools", "week-data.json");
             var map = File.Exists(manifestPath)
                 ? LoadHorseNameMapFromManifest(manifestPath)
                 : new Dictionary<string, string>();
-            if (File.Exists(weekDataPath))
-            {
-                foreach (var pair in LoadHorseNameMap(weekDataPath))
-                {
-                    if (!map.ContainsKey(pair.Key)) map[pair.Key] = pair.Value;
-                }
-            }
             var missing = 0;
             foreach (var row in odds)
             {

@@ -16,6 +16,7 @@ const TEST_DIR = dirname(fileURLToPath(import.meta.url));
 const TOOLS_DIR = join(TEST_DIR, "..", "..");
 const officialText = readFileSync(join(TOOLS_DIR, "week-data.json"), "utf8");
 const official = JSON.parse(officialText);
+const raceConfig = JSON.parse(readFileSync(join(TOOLS_DIR, "race-batch-config.json"), "utf8"));
 const mojibakePattern = /譛|繧|邉|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
 
 test("production data satisfies the shared output contract", () => {
@@ -25,8 +26,8 @@ test("production data satisfies the shared output contract", () => {
 });
 
 test("current production race date is active week", () => {
-  assert.equal(official.races.some((race) => race.id?.startsWith("2026-07-12")), false);
-  assert.equal(official.meta?.date, "2026-07-19");
+  assert.equal(official.meta?.date, raceConfig.raceDate);
+  assert.equal(official.races.every((race) => race.id?.startsWith(raceConfig.raceDate)), true);
 });
 
 test("published intelligence text contains no mojibake markers", () => {

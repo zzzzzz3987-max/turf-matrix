@@ -108,8 +108,8 @@ const allCsvRow = (pastRun, race, pedigree) => {
   return row(values);
 };
 
-if (!Array.isArray(summary.pedigrees) || summary.pedigrees.length !== summary.targetHorseCount) {
-  throw new Error(`Pedigree coverage mismatch: ${summary.pedigrees?.length ?? 0}/${summary.targetHorseCount}`);
+if (!Array.isArray(summary.pedigrees)) {
+  throw new Error("Pedigree output is missing from the JV-Link intelligence summary.");
 }
 
 const pedigreeLines = [

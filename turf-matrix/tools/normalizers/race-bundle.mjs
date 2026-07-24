@@ -46,9 +46,9 @@ const groupByHorse = (records) => {
 const optionalParse = (parser, path, fallback) =>
   existsSync(resolveFromRepo(path)) ? parser.parse({ path }) : fallback;
 
-const normalizeRaceBundle = ({ bundleId, csv, html }) => {
+const normalizeRaceBundle = ({ bundleId, csv, html, provisional = false }) => {
   const directCurrentRace = String(csv.currentRace ?? "").replaceAll("\\", "/").includes("data/target/races/");
-  const current = currentRaceParser.parse({ path: csv.currentRace });
+  const current = currentRaceParser.parse({ path: csv.currentRace, allowProvisional: provisional });
   const all = allCsvParser.parse({ path: csv.all });
   const basic = optionalParse(basicTxtParser, csv.basic, {
     recordCount: 0,

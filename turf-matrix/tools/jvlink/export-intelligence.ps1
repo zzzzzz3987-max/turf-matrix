@@ -140,6 +140,7 @@ function Read-JvData {
 $pedigrees = [ordered]@{}
 $script:pastRaces = [ordered]@{}
 $script:pastRuns = @()
+$script:recentUniverseRuns = New-Object 'System.Collections.Generic.List[object]'
 $script:slope = @()
 $script:wood = @()
 $sources = @()
@@ -179,11 +180,23 @@ try {
 
     if ($recordId -eq "SE") {
       $registrationNumber = Get-JvField $bytes 31 10
-      if (-not $targetIds.Contains($registrationNumber)) { return }
       $raceDateRaw = "$(Get-JvField $bytes 12 4)$(Get-JvField $bytes 16 4)"
       if ($raceDateRaw -ge $raceDate.ToString("yyyyMMdd")) { return }
       $finishPosition = Convert-PositiveInteger (Get-JvField $bytes 335 2)
       if ($null -eq $finishPosition) { return }
+      $universeRun = [ordered]@{
+        raceKey = Get-RaceKey $bytes
+        raceDate = $raceDateRaw
+        bloodRegistrationNumber = $registrationNumber
+        horseName = Get-JvField $bytes 41 36
+        finishPosition = $finishPosition
+        margin = Convert-TimeDifference (Get-JvField $bytes 532 4) $finishPosition
+        popularity = Convert-PositiveInteger (Get-JvField $bytes 364 2)
+        last3F = Convert-TenthSeconds (Get-JvField $bytes 391 3)
+        horseNumber = Convert-PositiveInteger (Get-JvField $bytes 29 2)
+      }
+      $script:recentUniverseRuns.Add($universeRun) | Out-Null
+      if (-not $targetIds.Contains($registrationNumber)) { return }
       $bodyWeightDiff = Convert-PositiveInteger (Get-JvField $bytes 329 3)
       if ($null -ne $bodyWeightDiff -and (Get-JvField $bytes 328 1) -eq "-") { $bodyWeightDiff *= -1 }
       $script:pastRuns += [ordered]@{
@@ -302,6 +315,7 @@ try {
     pedigreeCount = $pedigrees.Count
     pastRaceCount = $script:pastRaces.Count
     pastRunCount = $script:pastRuns.Count
+    recentUniverseRunCount = $script:recentUniverseRuns.Count
     slopeCount = $script:slope.Count
     woodCount = $script:wood.Count
     missingPedigree = $missingPedigree
@@ -309,6 +323,7 @@ try {
     pedigrees = @($pedigrees.Values)
     pastRaces = @($script:pastRaces.Values)
     pastRuns = $script:pastRuns
+    recentUniverseRuns = $script:recentUniverseRuns.ToArray()
     slope = $script:slope
     wood = $script:wood
   }

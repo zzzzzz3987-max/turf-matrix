@@ -37,6 +37,7 @@ const races = bundleIds.map((bundleId) => {
   const htmlDir = join(HTML_RACES, bundleId);
   return normalizeRaceBundle({
     bundleId,
+    provisional: process.env.TURF_MATRIX_PREODDS_REGISTRATIONS === "1",
     csv: {
       currentRace: firstExistingRepoPath(
         join(csvDir, "current-race-detail.csv"),

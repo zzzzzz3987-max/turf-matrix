@@ -110,7 +110,7 @@ const duplicateValues = (entries, key) => {
 
 const distinctValues = (entries, key) => [...new Set(entries.map((entry) => entry[key]))];
 
-export const validateEntries = (entries) => {
+export const validateEntries = (entries, { allowProvisional = false } = {}) => {
   const errors = [];
   if (!entries.length) errors.push("current-race-detail.csv has no entries");
 
@@ -121,16 +121,11 @@ export const validateEntries = (entries) => {
     "raceName",
     "surface",
     "distance",
-    "horseNumber",
     "horseName",
-    "sex",
-    "age",
-    "jockey",
-    "carriedWeight",
-    "trainer",
-    "stableSide",
-    "raceEntryId",
   ];
+  if (!allowProvisional) {
+    requiredKeys.push("horseNumber", "sex", "age", "jockey", "carriedWeight", "trainer", "stableSide", "raceEntryId");
+  }
 
   entries.forEach((entry, index) => {
     for (const key of requiredKeys) {
@@ -144,26 +139,28 @@ export const validateEntries = (entries) => {
     if (values.length !== 1) errors.push(`${key} must be identical across all rows: ${values.join(", ")}`);
   }
 
-  for (const key of ["horseNumber", "horseName", "raceEntryId"]) {
+  for (const key of allowProvisional ? ["horseName"] : ["horseNumber", "horseName", "raceEntryId"]) {
     const duplicates = duplicateValues(entries, key);
     if (duplicates.length) errors.push(`${key} has duplicates: ${duplicates.join(", ")}`);
   }
 
-  const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
-  const expected = Array.from({ length: entries.length }, (_, index) => index + 1);
-  if (horseNumbers.some((value, index) => value !== expected[index])) {
-    errors.push(`horseNumber must be 1-${entries.length}: ${horseNumbers.join(", ")}`);
+  if (!allowProvisional) {
+    const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
+    const expected = Array.from({ length: entries.length }, (_, index) => index + 1);
+    if (horseNumbers.some((value, index) => value !== expected[index])) {
+      errors.push(`horseNumber must be 1-${entries.length}: ${horseNumbers.join(", ")}`);
+    }
   }
 
   return errors;
 };
 
-export const parse = ({ path: sourcePath = source.path } = {}) => {
+export const parse = ({ path: sourcePath = source.path, allowProvisional = false } = {}) => {
   const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
   const entries = rows.map(normalizeEntry);
-  const errors = validateEntries(entries);
+  const errors = validateEntries(entries, { allowProvisional });
 
   if (errors.length) {
     const error = new Error(`current-race-detail.csv validation failed:\n${errors.join("\n")}`);

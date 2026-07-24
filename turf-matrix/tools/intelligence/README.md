@@ -26,6 +26,15 @@ Stage 1.5 quality gates:
 - TM INDEX contributors are kept as structured output for future UI display.
 - data quality and race-relative ranks are stored when candidate generation has enough context.
 
+Offline learning:
+
+- `npm run learn:blood` aggregates pedigree roles against normalized past results into ignored `tools/jvlink/output/bloodlines.learned.json`.
+- A Blood statistic needs at least 12 runs from 5 different horses before it can affect a score.
+- `npm run approve:blood` explicitly promotes only qualified statistics to `data/master/bloodlines.json`. Weekly generation never promotes learned data automatically.
+- `npm run learn:stables` scans reviewed archives for trainer workout patterns and writes ignored `tools/jvlink/output/stables.learned.json`.
+- A learned stable pattern needs at least 20 reviewed runners. Runtime scoring reads only explicitly approved `data/master/stables.json`.
+- Learning remains offline. Weekly Intelligence execution only performs deterministic lookup and matching.
+
 Boundaries:
 
 - Do not parse raw CSV or HTML here.

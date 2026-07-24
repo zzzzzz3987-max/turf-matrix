@@ -1,0 +1,2604 @@
+{
+  "schemaVersion": 1,
+  "status": "approved",
+  "generatedForWeek": "2026-07-26",
+  "source": "TURF MATRIX normalized pastRuns + pedigree",
+  "sourceRaceCount": 9,
+  "sourceHorseCount": 126,
+  "observationCount": 1848,
+  "minimumSamples": {
+    "reference": 5,
+    "active": 12,
+    "high": 30,
+    "uniqueHorsesActive": 5,
+    "uniqueHorsesHigh": 10
+  },
+  "baseline": {
+    "sampleSize": 1848,
+    "uniqueHorseCount": 115,
+    "wins": 312,
+    "top3": 732,
+    "winRate": 0.1688,
+    "hitRate": 0.3961,
+    "avgFinish": 5.58,
+    "eligible": true,
+    "confidence": "high"
+  },
+  "approval": {
+    "rule": "sampleSize>=12 and uniqueHorseCount>=5",
+    "note": "集計候補のうち最低サンプル数と異なる産駒数を満たす統計だけを明示承認。"
+  },
+  "entities": {
+    "sire": {
+      "キズナ": {
+        "overall": {
+          "all": {
+            "sampleSize": 72,
+            "uniqueHorseCount": 7,
+            "wins": 16,
+            "top3": 30,
+            "winRate": 0.2222,
+            "hitRate": 0.4167,
+            "avgFinish": 5.63,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 8,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 55
+              },
+              "レイユール": {
+                "sampleSize": 14,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 118
+              },
+              "ホウオウタイタン": {
+                "sampleSize": 8,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 38
+              },
+              "マディソンガール": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 20
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 18,
+                "wins": 4,
+                "top3": 8,
+                "finishTotal": 106
+              },
+              "コーチェラバレー": {
+                "sampleSize": 9,
+                "wins": 3,
+                "top3": 5,
+                "finishTotal": 34
+              },
+              "ジェルブロア": {
+                "sampleSize": 8,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 34
+              }
+            }
+          }
+        },
+        "surfaceDistance": {
+          "芝|middle": {
+            "sampleSize": 22,
+            "uniqueHorseCount": 6,
+            "wins": 3,
+            "top3": 9,
+            "winRate": 0.1364,
+            "hitRate": 0.4091,
+            "avgFinish": 5.5,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 28
+              },
+              "ホウオウタイタン": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 32
+              },
+              "マディソンガール": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 35
+              },
+              "コーチェラバレー": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 8
+              },
+              "ジェルブロア": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 14
+              }
+            }
+          },
+          "芝|mile": {
+            "sampleSize": 25,
+            "uniqueHorseCount": 6,
+            "wins": 8,
+            "top3": 13,
+            "winRate": 0.32,
+            "hitRate": 0.52,
+            "avgFinish": 4.28,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 4,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 20
+              },
+              "レイユール": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 40
+              },
+              "ホウオウタイタン": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 6
+              },
+              "マディソンガール": {
+                "sampleSize": 6,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 16
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 5
+              },
+              "ジェルブロア": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 20
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "芝|autumn": {
+            "sampleSize": 19,
+            "uniqueHorseCount": 6,
+            "wins": 3,
+            "top3": 9,
+            "winRate": 0.1579,
+            "hitRate": 0.4737,
+            "avgFinish": 5.21,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 18
+              },
+              "レイユール": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 22
+              },
+              "マディソンガール": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 9
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 35
+              },
+              "コーチェラバレー": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 8
+              },
+              "ジェルブロア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              }
+            }
+          },
+          "芝|spring": {
+            "sampleSize": 20,
+            "uniqueHorseCount": 6,
+            "wins": 5,
+            "top3": 11,
+            "winRate": 0.25,
+            "hitRate": 0.55,
+            "avgFinish": 4.95,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 23
+              },
+              "ホウオウタイタン": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 19
+              },
+              "マディソンガール": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 5
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 5,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 31
+              },
+              "コーチェラバレー": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 13
+              },
+              "ジェルブロア": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 8
+              }
+            }
+          },
+          "芝|summer": {
+            "sampleSize": 14,
+            "uniqueHorseCount": 5,
+            "wins": 3,
+            "top3": 5,
+            "winRate": 0.2143,
+            "hitRate": 0.3571,
+            "avgFinish": 5.29,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "レイユール": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 31
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 22
+              },
+              "コーチェラバレー": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 5
+              },
+              "ジェルブロア": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 15
+              }
+            }
+          },
+          "芝|winter": {
+            "sampleSize": 14,
+            "uniqueHorseCount": 7,
+            "wins": 4,
+            "top3": 4,
+            "winRate": 0.2857,
+            "hitRate": 0.2857,
+            "avgFinish": 6.21,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ブラックルビー": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 6
+              },
+              "レイユール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 37
+              },
+              "ホウオウタイタン": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 19
+              },
+              "マディソンガール": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 6
+              },
+              "ギャンブルルーム": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 7
+              },
+              "コーチェラバレー": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 8
+              },
+              "ジェルブロア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              }
+            }
+          }
+        }
+      },
+      "ドレフォン": {
+        "overall": {
+          "all": {
+            "sampleSize": 97,
+            "uniqueHorseCount": 6,
+            "wins": 16,
+            "top3": 46,
+            "winRate": 0.1649,
+            "hitRate": 0.4742,
+            "avgFinish": 4.98,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "スピードリッチ": {
+                "sampleSize": 21,
+                "wins": 3,
+                "top3": 14,
+                "finishTotal": 72
+              },
+              "マテンロウコマンド": {
+                "sampleSize": 14,
+                "wins": 5,
+                "top3": 10,
+                "finishTotal": 52
+              },
+              "エターナルプロミス": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 58
+              },
+              "カーラデマドレ": {
+                "sampleSize": 9,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 43
+              },
+              "モモンウールー": {
+                "sampleSize": 23,
+                "wins": 2,
+                "top3": 9,
+                "finishTotal": 127
+              },
+              "レーヴドレフォン": {
+                "sampleSize": 23,
+                "wins": 2,
+                "top3": 6,
+                "finishTotal": 131
+              }
+            }
+          }
+        },
+        "surfaceDistance": {
+          "ダ|mile": {
+            "sampleSize": 43,
+            "uniqueHorseCount": 5,
+            "wins": 7,
+            "top3": 20,
+            "winRate": 0.1628,
+            "hitRate": 0.4651,
+            "avgFinish": 5.51,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "マテンロウコマンド": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 15
+              },
+              "エターナルプロミス": {
+                "sampleSize": 6,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 46
+              },
+              "カーラデマドレ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 21
+              },
+              "モモンウールー": {
+                "sampleSize": 11,
+                "wins": 2,
+                "top3": 7,
+                "finishTotal": 52
+              },
+              "レーヴドレフォン": {
+                "sampleSize": 19,
+                "wins": 2,
+                "top3": 6,
+                "finishTotal": 103
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "ダ|autumn": {
+            "sampleSize": 20,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 9,
+            "winRate": 0.1,
+            "hitRate": 0.45,
+            "avgFinish": 5.3,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "マテンロウコマンド": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 20
+              },
+              "エターナルプロミス": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 16
+              },
+              "カーラデマドレ": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 4
+              },
+              "モモンウールー": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 5
+              },
+              "レーヴドレフォン": {
+                "sampleSize": 10,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 61
+              }
+            }
+          },
+          "ダ|spring": {
+            "sampleSize": 14,
+            "uniqueHorseCount": 5,
+            "wins": 4,
+            "top3": 7,
+            "winRate": 0.2857,
+            "hitRate": 0.5,
+            "avgFinish": 6.21,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "マテンロウコマンド": {
+                "sampleSize": 3,
+                "wins": 3,
+                "top3": 3,
+                "finishTotal": 3
+              },
+              "エターナルプロミス": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 19
+              },
+              "カーラデマドレ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 17
+              },
+              "モモンウールー": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 37
+              },
+              "レーヴドレフォン": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 11
+              }
+            }
+          }
+        }
+      },
+      "ブリックスアンドモルタル": {
+        "overall": {
+          "all": {
+            "sampleSize": 69,
+            "uniqueHorseCount": 5,
+            "wins": 14,
+            "top3": 29,
+            "winRate": 0.2029,
+            "hitRate": 0.4203,
+            "avgFinish": 5.88,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "エアビッグマム": {
+                "sampleSize": 14,
+                "wins": 2,
+                "top3": 9,
+                "finishTotal": 61
+              },
+              "コリカンチャ": {
+                "sampleSize": 13,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 90
+              },
+              "ラスカンブレス": {
+                "sampleSize": 14,
+                "wins": 4,
+                "top3": 9,
+                "finishTotal": 68
+              },
+              "クランフォード": {
+                "sampleSize": 15,
+                "wins": 4,
+                "top3": 7,
+                "finishTotal": 87
+              },
+              "マハートマーベル": {
+                "sampleSize": 13,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 100
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "芝|autumn": {
+            "sampleSize": 14,
+            "uniqueHorseCount": 5,
+            "wins": 3,
+            "top3": 6,
+            "winRate": 0.2143,
+            "hitRate": 0.4286,
+            "avgFinish": 5.79,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "エアビッグマム": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 9
+              },
+              "コリカンチャ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 30
+              },
+              "ラスカンブレス": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 19
+              },
+              "クランフォード": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 15
+              },
+              "マハートマーベル": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 8
+              }
+            }
+          },
+          "芝|summer": {
+            "sampleSize": 15,
+            "uniqueHorseCount": 5,
+            "wins": 4,
+            "top3": 7,
+            "winRate": 0.2667,
+            "hitRate": 0.4667,
+            "avgFinish": 4.33,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "エアビッグマム": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 10
+              },
+              "コリカンチャ": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 6
+              },
+              "ラスカンブレス": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 7
+              },
+              "クランフォード": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 10
+              },
+              "マハートマーベル": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 32
+              }
+            }
+          }
+        }
+      }
+    },
+    "broodmareSire": {
+      "キングカメハメハ": {
+        "overall": {
+          "all": {
+            "sampleSize": 134,
+            "uniqueHorseCount": 10,
+            "wins": 33,
+            "top3": 60,
+            "winRate": 0.2463,
+            "hitRate": 0.4478,
+            "avgFinish": 5.57,
+            "eligible": true,
+            "confidence": "high",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 14,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 118
+              },
+              "コリカンチャ": {
+                "sampleSize": 13,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 90
+              },
+              "サヴォアフェール": {
+                "sampleSize": 5,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 11
+              },
+              "アマキヒ": {
+                "sampleSize": 11,
+                "wins": 4,
+                "top3": 7,
+                "finishTotal": 54
+              },
+              "レクスノヴァス": {
+                "sampleSize": 9,
+                "wins": 4,
+                "top3": 8,
+                "finishTotal": 22
+              },
+              "ハッピーマン": {
+                "sampleSize": 14,
+                "wins": 4,
+                "top3": 6,
+                "finishTotal": 71
+              },
+              "バトルクライ": {
+                "sampleSize": 29,
+                "wins": 7,
+                "top3": 13,
+                "finishTotal": 154
+              },
+              "クランフォード": {
+                "sampleSize": 15,
+                "wins": 4,
+                "top3": 7,
+                "finishTotal": 87
+              },
+              "カーラデマドレ": {
+                "sampleSize": 9,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 43
+              },
+              "ルトゥール": {
+                "sampleSize": 15,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 96
+              }
+            }
+          }
+        },
+        "surfaceDistance": {
+          "ダ|mile": {
+            "sampleSize": 22,
+            "uniqueHorseCount": 6,
+            "wins": 5,
+            "top3": 11,
+            "winRate": 0.2273,
+            "hitRate": 0.5,
+            "avgFinish": 5.95,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コリカンチャ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 6
+              },
+              "サヴォアフェール": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 3
+              },
+              "ハッピーマン": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 35
+              },
+              "バトルクライ": {
+                "sampleSize": 9,
+                "wins": 3,
+                "top3": 5,
+                "finishTotal": 52
+              },
+              "カーラデマドレ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 21
+              },
+              "ルトゥール": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 14
+              }
+            }
+          },
+          "芝|mile": {
+            "sampleSize": 37,
+            "uniqueHorseCount": 6,
+            "wins": 6,
+            "top3": 13,
+            "winRate": 0.1622,
+            "hitRate": 0.3514,
+            "avgFinish": 5.59,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 40
+              },
+              "コリカンチャ": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 36
+              },
+              "バトルクライ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 17
+              },
+              "クランフォード": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 27
+              },
+              "カーラデマドレ": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 22
+              },
+              "ルトゥール": {
+                "sampleSize": 11,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 65
+              }
+            }
+          }
+        },
+        "courseSurfaceGoing": {
+          "京都|芝|良": {
+            "sampleSize": 13,
+            "uniqueHorseCount": 5,
+            "wins": 3,
+            "top3": 5,
+            "winRate": 0.2308,
+            "hitRate": 0.3846,
+            "avgFinish": 5.31,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コリカンチャ": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 16
+              },
+              "サヴォアフェール": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "レクスノヴァス": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 3
+              },
+              "クランフォード": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 36
+              },
+              "ルトゥール": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              }
+            }
+          },
+          "東京|芝|良": {
+            "sampleSize": 13,
+            "uniqueHorseCount": 7,
+            "wins": 2,
+            "top3": 6,
+            "winRate": 0.1538,
+            "hitRate": 0.4615,
+            "avgFinish": 4.77,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 20
+              },
+              "コリカンチャ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              },
+              "アマキヒ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 18
+              },
+              "バトルクライ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "クランフォード": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 2
+              },
+              "カーラデマドレ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 2
+              },
+              "ルトゥール": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "ダ|spring": {
+            "sampleSize": 18,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 6,
+            "winRate": 0.1111,
+            "hitRate": 0.3333,
+            "avgFinish": 7.33,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 27
+              },
+              "ハッピーマン": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 26
+              },
+              "バトルクライ": {
+                "sampleSize": 9,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 55
+              },
+              "カーラデマドレ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 17
+              },
+              "ルトゥール": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              }
+            }
+          },
+          "ダ|winter": {
+            "sampleSize": 19,
+            "uniqueHorseCount": 6,
+            "wins": 6,
+            "top3": 11,
+            "winRate": 0.3158,
+            "hitRate": 0.5789,
+            "avgFinish": 4.79,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "コリカンチャ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 21
+              },
+              "サヴォアフェール": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 3
+              },
+              "ハッピーマン": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 28
+              },
+              "バトルクライ": {
+                "sampleSize": 9,
+                "wins": 3,
+                "top3": 6,
+                "finishTotal": 31
+              },
+              "ルトゥール": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              }
+            }
+          },
+          "芝|autumn": {
+            "sampleSize": 19,
+            "uniqueHorseCount": 8,
+            "wins": 2,
+            "top3": 6,
+            "winRate": 0.1053,
+            "hitRate": 0.3158,
+            "avgFinish": 6.53,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 22
+              },
+              "コリカンチャ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 30
+              },
+              "アマキヒ": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 12
+              },
+              "レクスノヴァス": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "バトルクライ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "クランフォード": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 15
+              },
+              "カーラデマドレ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 2
+              },
+              "ルトゥール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 25
+              }
+            }
+          },
+          "芝|spring": {
+            "sampleSize": 22,
+            "uniqueHorseCount": 7,
+            "wins": 5,
+            "top3": 10,
+            "winRate": 0.2273,
+            "hitRate": 0.4545,
+            "avgFinish": 5.41,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コリカンチャ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 33
+              },
+              "サヴォアフェール": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 7
+              },
+              "アマキヒ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 18
+              },
+              "レクスノヴァス": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 3
+              },
+              "クランフォード": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 33
+              },
+              "カーラデマドレ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 8
+              },
+              "ルトゥール": {
+                "sampleSize": 4,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 17
+              }
+            }
+          },
+          "芝|summer": {
+            "sampleSize": 22,
+            "uniqueHorseCount": 9,
+            "wins": 9,
+            "top3": 11,
+            "winRate": 0.4091,
+            "hitRate": 0.5,
+            "avgFinish": 3.91,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 31
+              },
+              "コリカンチャ": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 6
+              },
+              "サヴォアフェール": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "アマキヒ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "レクスノヴァス": {
+                "sampleSize": 4,
+                "wins": 3,
+                "top3": 4,
+                "finishTotal": 5
+              },
+              "バトルクライ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "クランフォード": {
+                "sampleSize": 3,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 10
+              },
+              "カーラデマドレ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 11
+              },
+              "ルトゥール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 17
+              }
+            }
+          },
+          "芝|winter": {
+            "sampleSize": 19,
+            "uniqueHorseCount": 7,
+            "wins": 3,
+            "top3": 8,
+            "winRate": 0.1579,
+            "hitRate": 0.4211,
+            "avgFinish": 6.63,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "レイユール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 37
+              },
+              "アマキヒ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 23
+              },
+              "レクスノヴァス": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 5
+              },
+              "バトルクライ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 8
+              },
+              "クランフォード": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 29
+              },
+              "カーラデマドレ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "ルトゥール": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 23
+              }
+            }
+          }
+        }
+      },
+      "クロフネ": {
+        "overall": {
+          "all": {
+            "sampleSize": 112,
+            "uniqueHorseCount": 6,
+            "wins": 12,
+            "top3": 46,
+            "winRate": 0.1071,
+            "hitRate": 0.4107,
+            "avgFinish": 5.17,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 34,
+                "wins": 2,
+                "top3": 13,
+                "finishTotal": 184
+              },
+              "ノボリクレバー": {
+                "sampleSize": 23,
+                "wins": 2,
+                "top3": 9,
+                "finishTotal": 129
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 19,
+                "wins": 2,
+                "top3": 7,
+                "finishTotal": 111
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 9,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 39
+              },
+              "スルーザナイト": {
+                "sampleSize": 13,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 67
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 14,
+                "wins": 2,
+                "top3": 9,
+                "finishTotal": 49
+              }
+            }
+          }
+        },
+        "courseSurfaceDistance": {
+          "京都|ダ|mile": {
+            "sampleSize": 19,
+            "uniqueHorseCount": 5,
+            "wins": 4,
+            "top3": 12,
+            "winRate": 0.2105,
+            "hitRate": 0.6316,
+            "avgFinish": 4.11,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 9,
+                "wins": 1,
+                "top3": 5,
+                "finishTotal": 37
+              },
+              "ノボリクレバー": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 14
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 8
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 5,
+                "wins": 2,
+                "top3": 5,
+                "finishTotal": 9
+              }
+            }
+          },
+          "阪神|ダ|mile": {
+            "sampleSize": 24,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 9,
+            "winRate": 0.0833,
+            "hitRate": 0.375,
+            "avgFinish": 4.88,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 46
+              },
+              "ノボリクレバー": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 26
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 3
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 7,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 33
+              }
+            }
+          },
+          "中京|ダ|mile": {
+            "sampleSize": 13,
+            "uniqueHorseCount": 5,
+            "wins": 1,
+            "top3": 9,
+            "winRate": 0.0769,
+            "hitRate": 0.6923,
+            "avgFinish": 3.77,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 4
+              },
+              "ノボリクレバー": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 20
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 13
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 5
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 7
+              }
+            }
+          }
+        },
+        "surfaceDistance": {
+          "ダ|middle": {
+            "sampleSize": 30,
+            "uniqueHorseCount": 5,
+            "wins": 3,
+            "top3": 11,
+            "winRate": 0.1,
+            "hitRate": 0.3667,
+            "avgFinish": 5.77,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 14,
+                "wins": 1,
+                "top3": 5,
+                "finishTotal": 76
+              },
+              "ノボリクレバー": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 38
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 41
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 14
+              }
+            }
+          },
+          "ダ|mile": {
+            "sampleSize": 74,
+            "uniqueHorseCount": 6,
+            "wins": 9,
+            "top3": 34,
+            "winRate": 0.1216,
+            "hitRate": 0.4595,
+            "avgFinish": 4.74,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 18,
+                "wins": 1,
+                "top3": 7,
+                "finishTotal": 99
+              },
+              "ノボリクレバー": {
+                "sampleSize": 15,
+                "wins": 2,
+                "top3": 7,
+                "finishTotal": 79
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 12,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 70
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 25
+              },
+              "スルーザナイト": {
+                "sampleSize": 8,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 29
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 14,
+                "wins": 2,
+                "top3": 9,
+                "finishTotal": 49
+              }
+            }
+          }
+        },
+        "courseSurfaceGoing": {
+          "京都|ダ|良": {
+            "sampleSize": 20,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 11,
+            "winRate": 0.1,
+            "hitRate": 0.55,
+            "avgFinish": 4.35,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 10,
+                "wins": 0,
+                "top3": 5,
+                "finishTotal": 43
+              },
+              "ノボリクレバー": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 28
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              },
+              "スルーザナイト": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 5
+              }
+            }
+          },
+          "阪神|ダ|良": {
+            "sampleSize": 20,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 9,
+            "winRate": 0.1,
+            "hitRate": 0.45,
+            "avgFinish": 4.25,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 26
+              },
+              "ノボリクレバー": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 19
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 2
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 29
+              }
+            }
+          },
+          "中京|ダ|良": {
+            "sampleSize": 15,
+            "uniqueHorseCount": 5,
+            "wins": 0,
+            "top3": 7,
+            "winRate": 0,
+            "hitRate": 0.4667,
+            "avgFinish": 6.33,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 36
+              },
+              "ノボリクレバー": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 27
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 13
+              },
+              "スルーザナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 16
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 3
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "ダ|autumn": {
+            "sampleSize": 25,
+            "uniqueHorseCount": 6,
+            "wins": 3,
+            "top3": 7,
+            "winRate": 0.12,
+            "hitRate": 0.28,
+            "avgFinish": 5.68,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 10,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 68
+              },
+              "ノボリクレバー": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 34
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 19
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "スルーザナイト": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 5,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 10
+              }
+            }
+          },
+          "ダ|spring": {
+            "sampleSize": 36,
+            "uniqueHorseCount": 6,
+            "wins": 4,
+            "top3": 18,
+            "winRate": 0.1111,
+            "hitRate": 0.5,
+            "avgFinish": 4.67,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 10,
+                "wins": 1,
+                "top3": 5,
+                "finishTotal": 50
+              },
+              "ノボリクレバー": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 19
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 8,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 40
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 10
+              },
+              "スルーザナイト": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 31
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 18
+              }
+            }
+          },
+          "ダ|summer": {
+            "sampleSize": 20,
+            "uniqueHorseCount": 5,
+            "wins": 3,
+            "top3": 10,
+            "winRate": 0.15,
+            "hitRate": 0.5,
+            "avgFinish": 4.35,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 26
+              },
+              "ノボリクレバー": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 38
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 12
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 10
+              }
+            }
+          },
+          "ダ|winter": {
+            "sampleSize": 28,
+            "uniqueHorseCount": 6,
+            "wins": 2,
+            "top3": 11,
+            "winRate": 0.0714,
+            "hitRate": 0.3929,
+            "avgFinish": 5.43,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジョータルマエ": {
+                "sampleSize": 8,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 40
+              },
+              "ノボリクレバー": {
+                "sampleSize": 7,
+                "wins": 0,
+                "top3": 3,
+                "finishTotal": 38
+              },
+              "ヴァズレーヌ": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 40
+              },
+              "ケイツーリーブル": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 14
+              },
+              "スルーザナイト": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 9
+              },
+              "ヴァンアグレアブル": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 11
+              }
+            }
+          }
+        }
+      },
+      "ディープインパクト": {
+        "overall": {
+          "all": {
+            "sampleSize": 161,
+            "uniqueHorseCount": 9,
+            "wins": 24,
+            "top3": 58,
+            "winRate": 0.1491,
+            "hitRate": 0.3602,
+            "avgFinish": 5.45,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 18,
+                "wins": 2,
+                "top3": 6,
+                "finishTotal": 95
+              },
+              "コンフェルマ": {
+                "sampleSize": 7,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 36
+              },
+              "カワキタマナレア": {
+                "sampleSize": 16,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 120
+              },
+              "エコロレイズ": {
+                "sampleSize": 26,
+                "wins": 3,
+                "top3": 8,
+                "finishTotal": 118
+              },
+              "パトリックハンサム": {
+                "sampleSize": 26,
+                "wins": 4,
+                "top3": 7,
+                "finishTotal": 184
+              },
+              "ミラージュナイト": {
+                "sampleSize": 11,
+                "wins": 4,
+                "top3": 8,
+                "finishTotal": 28
+              },
+              "ブエナオンダ": {
+                "sampleSize": 22,
+                "wins": 5,
+                "top3": 10,
+                "finishTotal": 107
+              },
+              "クリスレジーナ": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 25
+              },
+              "デルシエロ": {
+                "sampleSize": 30,
+                "wins": 1,
+                "top3": 10,
+                "finishTotal": 164
+              }
+            }
+          }
+        },
+        "courseSurfaceDistance": {
+          "京都|芝|mile": {
+            "sampleSize": 23,
+            "uniqueHorseCount": 5,
+            "wins": 4,
+            "top3": 7,
+            "winRate": 0.1739,
+            "hitRate": 0.3043,
+            "avgFinish": 5.48,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 30
+              },
+              "カワキタマナレア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 18
+              },
+              "エコロレイズ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "ブエナオンダ": {
+                "sampleSize": 6,
+                "wins": 3,
+                "top3": 4,
+                "finishTotal": 24
+              },
+              "デルシエロ": {
+                "sampleSize": 8,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 50
+              }
+            }
+          }
+        },
+        "surfaceDistance": {
+          "芝|long": {
+            "sampleSize": 15,
+            "uniqueHorseCount": 5,
+            "wins": 1,
+            "top3": 5,
+            "winRate": 0.0667,
+            "hitRate": 0.3333,
+            "avgFinish": 4.8,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コンフェルマ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 2
+              },
+              "エコロレイズ": {
+                "sampleSize": 9,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 35
+              },
+              "パトリックハンサム": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 17
+              },
+              "ミラージュナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              },
+              "デルシエロ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 8
+              }
+            }
+          },
+          "芝|middle": {
+            "sampleSize": 59,
+            "uniqueHorseCount": 7,
+            "wins": 12,
+            "top3": 28,
+            "winRate": 0.2034,
+            "hitRate": 0.4746,
+            "avgFinish": 4.78,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コンフェルマ": {
+                "sampleSize": 4,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 15
+              },
+              "エコロレイズ": {
+                "sampleSize": 13,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 57
+              },
+              "パトリックハンサム": {
+                "sampleSize": 12,
+                "wins": 2,
+                "top3": 3,
+                "finishTotal": 96
+              },
+              "ミラージュナイト": {
+                "sampleSize": 9,
+                "wins": 4,
+                "top3": 8,
+                "finishTotal": 18
+              },
+              "ブエナオンダ": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 16
+              },
+              "クリスレジーナ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 15
+              },
+              "デルシエロ": {
+                "sampleSize": 12,
+                "wins": 0,
+                "top3": 5,
+                "finishTotal": 65
+              }
+            }
+          },
+          "芝|mile": {
+            "sampleSize": 64,
+            "uniqueHorseCount": 7,
+            "wins": 9,
+            "top3": 20,
+            "winRate": 0.1406,
+            "hitRate": 0.3125,
+            "avgFinish": 5.58,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 17,
+                "wins": 2,
+                "top3": 6,
+                "finishTotal": 80
+              },
+              "カワキタマナレア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 18
+              },
+              "エコロレイズ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 26
+              },
+              "パトリックハンサム": {
+                "sampleSize": 12,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 71
+              },
+              "ブエナオンダ": {
+                "sampleSize": 16,
+                "wins": 4,
+                "top3": 7,
+                "finishTotal": 79
+              },
+              "クリスレジーナ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              },
+              "デルシエロ": {
+                "sampleSize": 13,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 73
+              }
+            }
+          }
+        },
+        "courseSurfaceGoing": {
+          "京都|芝|良": {
+            "sampleSize": 34,
+            "uniqueHorseCount": 7,
+            "wins": 7,
+            "top3": 13,
+            "winRate": 0.2059,
+            "hitRate": 0.3824,
+            "avgFinish": 5.03,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 26
+              },
+              "カワキタマナレア": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 34
+              },
+              "エコロレイズ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "ミラージュナイト": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 4
+              },
+              "ブエナオンダ": {
+                "sampleSize": 9,
+                "wins": 4,
+                "top3": 5,
+                "finishTotal": 34
+              },
+              "クリスレジーナ": {
+                "sampleSize": 2,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 4
+              },
+              "デルシエロ": {
+                "sampleSize": 11,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 65
+              }
+            }
+          },
+          "中山|芝|良": {
+            "sampleSize": 25,
+            "uniqueHorseCount": 5,
+            "wins": 2,
+            "top3": 6,
+            "winRate": 0.08,
+            "hitRate": 0.24,
+            "avgFinish": 6.32,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "コンフェルマ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "エコロレイズ": {
+                "sampleSize": 14,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 64
+              },
+              "パトリックハンサム": {
+                "sampleSize": 8,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 76
+              },
+              "ブエナオンダ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              },
+              "クリスレジーナ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 10
+              }
+            }
+          },
+          "東京|芝|良": {
+            "sampleSize": 15,
+            "uniqueHorseCount": 5,
+            "wins": 1,
+            "top3": 4,
+            "winRate": 0.0667,
+            "hitRate": 0.2667,
+            "avgFinish": 5.73,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "カワキタマナレア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 12
+              },
+              "エコロレイズ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 24
+              },
+              "パトリックハンサム": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 19
+              },
+              "ミラージュナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 8
+              },
+              "ブエナオンダ": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 23
+              }
+            }
+          }
+        },
+        "surfaceSeason": {
+          "芝|autumn": {
+            "sampleSize": 41,
+            "uniqueHorseCount": 8,
+            "wins": 9,
+            "top3": 18,
+            "winRate": 0.2195,
+            "hitRate": 0.439,
+            "avgFinish": 4.61,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 14
+              },
+              "コンフェルマ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "カワキタマナレア": {
+                "sampleSize": 4,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 32
+              },
+              "エコロレイズ": {
+                "sampleSize": 8,
+                "wins": 1,
+                "top3": 4,
+                "finishTotal": 37
+              },
+              "パトリックハンサム": {
+                "sampleSize": 5,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 30
+              },
+              "ミラージュナイト": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 12
+              },
+              "ブエナオンダ": {
+                "sampleSize": 7,
+                "wins": 3,
+                "top3": 5,
+                "finishTotal": 17
+              },
+              "デルシエロ": {
+                "sampleSize": 10,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 46
+              }
+            }
+          },
+          "芝|spring": {
+            "sampleSize": 41,
+            "uniqueHorseCount": 9,
+            "wins": 2,
+            "top3": 11,
+            "winRate": 0.0488,
+            "hitRate": 0.2683,
+            "avgFinish": 5.56,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 22
+              },
+              "コンフェルマ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 23
+              },
+              "カワキタマナレア": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 9
+              },
+              "エコロレイズ": {
+                "sampleSize": 8,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 39
+              },
+              "パトリックハンサム": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 38
+              },
+              "ミラージュナイト": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 6
+              },
+              "ブエナオンダ": {
+                "sampleSize": 6,
+                "wins": 1,
+                "top3": 2,
+                "finishTotal": 31
+              },
+              "クリスレジーナ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 13
+              },
+              "デルシエロ": {
+                "sampleSize": 9,
+                "wins": 0,
+                "top3": 2,
+                "finishTotal": 47
+              }
+            }
+          },
+          "芝|summer": {
+            "sampleSize": 31,
+            "uniqueHorseCount": 9,
+            "wins": 7,
+            "top3": 15,
+            "winRate": 0.2258,
+            "hitRate": 0.4839,
+            "avgFinish": 4.68,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 3,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 16
+              },
+              "コンフェルマ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "カワキタマナレア": {
+                "sampleSize": 3,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 14
+              },
+              "エコロレイズ": {
+                "sampleSize": 4,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 21
+              },
+              "パトリックハンサム": {
+                "sampleSize": 9,
+                "wins": 3,
+                "top3": 4,
+                "finishTotal": 46
+              },
+              "ミラージュナイト": {
+                "sampleSize": 2,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 2
+              },
+              "ブエナオンダ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 7
+              },
+              "クリスレジーナ": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 11
+              },
+              "デルシエロ": {
+                "sampleSize": 6,
+                "wins": 0,
+                "top3": 4,
+                "finishTotal": 27
+              }
+            }
+          },
+          "芝|winter": {
+            "sampleSize": 39,
+            "uniqueHorseCount": 9,
+            "wins": 6,
+            "top3": 13,
+            "winRate": 0.1538,
+            "hitRate": 0.3333,
+            "avgFinish": 6.18,
+            "eligible": true,
+            "confidence": "mid",
+            "horseContributions": {
+              "ジャズ": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 28
+              },
+              "コンフェルマ": {
+                "sampleSize": 1,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 4
+              },
+              "カワキタマナレア": {
+                "sampleSize": 2,
+                "wins": 0,
+                "top3": 0,
+                "finishTotal": 25
+              },
+              "エコロレイズ": {
+                "sampleSize": 6,
+                "wins": 2,
+                "top3": 2,
+                "finishTotal": 21
+              },
+              "パトリックハンサム": {
+                "sampleSize": 8,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 70
+              },
+              "ミラージュナイト": {
+                "sampleSize": 4,
+                "wins": 2,
+                "top3": 4,
+                "finishTotal": 8
+              },
+              "ブエナオンダ": {
+                "sampleSize": 7,
+                "wins": 1,
+                "top3": 3,
+                "finishTotal": 40
+              },
+              "クリスレジーナ": {
+                "sampleSize": 1,
+                "wins": 1,
+                "top3": 1,
+                "finishTotal": 1
+              },
+              "デルシエロ": {
+                "sampleSize": 5,
+                "wins": 0,
+                "top3": 1,
+                "finishTotal": 44
+              }
+            }
+          }
+        }
+      }
+    },
+    "femaleLine": {}
+  }
+}

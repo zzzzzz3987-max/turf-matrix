@@ -94,6 +94,13 @@ const formatOddsUpdatedAt = (value, status) => {
   if (Number.isNaN(date.getTime())) return oddsStatusLabel(status);
   return `${date.getMonth() + 1}/${date.getDate()} ${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 };
+const formatRaceWeekday = (value) => {
+  if (!value) return "本日";
+  const date = new Date(`${value}T00:00:00+09:00`);
+  return Number.isNaN(date.getTime())
+    ? "本日"
+    : date.toLocaleDateString("ja-JP", { weekday: "short", timeZone: "Asia/Tokyo" });
+};
 
 const valueMetricsFor = (horse) => {
   const value = horse?.analysis?.factorsDetail?.value;
@@ -2269,7 +2276,7 @@ const HomePage = ({ onOpenRace }) => {
             <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">今日のレース</h2>
           </div>
           <span className="text-[11px] font-semibold text-[#A6AFBE]">
-            日曜・<Num>{races?.length ?? meta?.raceCount ?? 0}</Num>レース
+            {formatRaceWeekday(meta?.date)}曜・<Num>{races?.length ?? meta?.raceCount ?? 0}</Num>レース
           </span>
         </div>
         {races ? (

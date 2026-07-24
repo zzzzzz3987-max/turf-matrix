@@ -1,4 +1,5 @@
 // Form AI v1.5 deterministic ability and recent-form scoring.
+import { calculateAbilityProfile, resolveAbilityZi } from "./ability-ai.mjs";
 
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
@@ -44,23 +45,6 @@ const popularityGapScore = (run) => {
   return Math.max(-8, Math.min(10, gap * 1.8));
 };
 
-const sampleConfidence = (runCount) => {
-  if (runCount >= 6) return 1;
-  if (runCount >= 4) return 0.94;
-  if (runCount === 3) return 0.88;
-  if (runCount === 2) return 0.8;
-  if (runCount === 1) return 0.68;
-  return 0.6;
-};
-
-const applySampleDiscount = (score, runCount) => {
-  const confidence = sampleConfidence(runCount);
-  return clamp(score * confidence + 58 * (1 - confidence), 35, 92);
-};
-
-const resolveAbilityZi = (horse) =>
-  horse.availableIndex ?? horse.pedigree?.zi ?? horse.odds?.zi ?? horse.currentRace?.zi;
-
 const classPerformanceScore = (run) => {
   const grade = classBonus(run);
   if (grade < 5) return null;
@@ -94,20 +78,7 @@ const runScore = (run, index, targetDistance) => {
 };
 
 const scoreZi = (horse) => {
-  const zi = resolveAbilityZi(horse);
-  const recentForm = scoreRecentForm(horse);
-  const classScores = (horse.pastRuns ?? []).slice(0, 8).map(classPerformanceScore).filter((score) => score != null);
-  const classScore = classScores.length ? avg(classScores, 60) : null;
-  const peerScore = scorePeerEvidence(horse.peerRuns ?? []);
-  const relationScore = peerScore != null && classScore != null ? Math.max(peerScore, classScore) : (peerScore ?? classScore);
-
-  if (typeof zi === "number" && Number.isFinite(zi)) {
-    const ziScore = clamp(42 + (zi - 80) * 1.3);
-    const classPart = relationScore ?? recentForm;
-    return applySampleDiscount(clamp(ziScore * 0.42 + recentForm * 0.25 + classPart * 0.33), horse.pastRuns?.length ?? 0);
-  }
-
-  return applySampleDiscount(clamp(recentForm * 0.65 + (relationScore ?? recentForm) * 0.35), horse.pastRuns?.length ?? 0);
+  return calculateAbilityProfile(horse).score;
 };
 
 const scoreRecentForm = (horse) => {
@@ -159,17 +130,18 @@ const scorePeerEvidence = (peerRuns = []) => {
 };
 
 const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
+  const profile = calculateAbilityProfile(horse);
   const runs = (horse.pastRuns ?? []).slice(0, 8);
   const recent = runs.slice(0, 5);
   const zi = resolveAbilityZi(horse);
-  const ziScore = typeof zi === "number" && Number.isFinite(zi) ? clamp(42 + (zi - 80) * 1.3) : null;
-  const classScores = runs.map(classPerformanceScore).filter((item) => item != null);
-  const classScore = classScores.length ? clamp(avg(classScores, 60)) : null;
-  const recentScore = recent.length ? scoreRecentForm({ ...horse, pastRuns: recent }) : null;
-  const marginEvidence = scoreMarginEvidence(recent);
-  const distanceEvidence = scoreDistanceEvidence(recent, horse.currentRace?.distance);
-  const lapEvidence = scoreLapEvidence(recent);
-  const peerEvidence = scorePeerEvidence(horse.peerRuns ?? []);
+  const ziScore = profile.ziScore;
+  const classScore = profile.opponentScore;
+  const recentScore = recent.length ? profile.recentScore : null;
+  const marginEvidence = profile.marginScore;
+  const distanceEvidence = profile.distanceScore;
+  const lapEvidence = profile.closingScore;
+  const peerEvidence = profile.peerScore;
+  const careerOpponentEvidence = profile.careerOpponentScore;
   const gradedCount = runs.filter((run) => classBonus(run) >= 5).length;
   const closeRuns = recent.filter((run) => typeof run.margin === "number" && run.margin <= 0.5).length;
   const distanceRuns = recent.filter((run) => distanceFitBonus(run, horse.currentRace?.distance) >= 4).length;
@@ -200,6 +172,15 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       summary: peerEvidence == null
         ? "今週出走馬との直接対戦は未検出"
         : `${displayRunLabel(peerRun, "過去走")}で${peerNames}と直接対戦`,
+    },
+    {
+      key: "opponentCareer",
+      label: "対戦相手品質",
+      score: careerOpponentEvidence,
+      status: careerOpponentEvidence == null ? "missing" : horse.opponentEvidence?.status ?? "partial",
+      summary: careerOpponentEvidence == null
+        ? "対戦相手のその後の実績は未取得"
+        : `過去${horse.opponentEvidence.encounterCount}戦の対戦相手${horse.opponentEvidence.profiledPeerCount}頭を追跡`,
     },
     {
       key: "margin",
@@ -235,6 +216,7 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
     key: "ability",
     label: "能力",
     score,
+    confidence: profile.confidence,
     maxScore: 100,
     status: runs.length ? "active" : "missing",
     summary: runs.length
@@ -242,6 +224,18 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       : "近走データが未取得のため、能力評価は控えめに扱います。",
     evidence: components.map((component) => component.summary),
     components,
+    inputs: {
+      opponentQuality: horse.opponentEvidence
+        ? {
+            status: horse.opponentEvidence.status,
+            score: horse.opponentEvidence.score,
+            encounterCount: horse.opponentEvidence.encounterCount,
+            peerCount: horse.opponentEvidence.peerCount,
+            profiledPeerCount: horse.opponentEvidence.profiledPeerCount,
+            strongest: horse.opponentEvidence.strongest,
+          }
+        : null,
+    },
   };
 };
 

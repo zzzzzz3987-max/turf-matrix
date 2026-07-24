@@ -1,6 +1,7 @@
 param(
   [ValidateSet("detect", "probe", "inspect-week", "export-week")]
-  [string]$Action = "detect"
+  [string]$Action = "detect",
+  [string]$RaceDate = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -12,7 +13,11 @@ if ([Environment]::Is64BitOperatingSystem -and [Environment]::Is64BitProcess) {
     exit 1
   }
 
-  & $PowerShell32 -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath -Action $Action
+  $childArgs = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $PSCommandPath, "-Action", $Action)
+  if ($RaceDate) {
+    $childArgs += @("-RaceDate", $RaceDate)
+  }
+  & $PowerShell32 @childArgs
   exit $LASTEXITCODE
 }
 
@@ -47,9 +52,10 @@ try {
     }
 
     $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
-    $raceDate = [DateTime]::ParseExact([string]$config.raceDate, "yyyy-MM-dd", $null)
-    $daysFromMonday = (7 + [int]$raceDate.DayOfWeek - 1) % 7
-    $fromTime = $raceDate.AddDays(-$daysFromMonday).ToString("yyyyMMdd000000")
+    $raceDateText = if ($RaceDate) { $RaceDate } else { [string]$config.raceDate }
+    $targetRaceDate = [DateTime]::ParseExact($raceDateText, "yyyy-MM-dd", $null)
+    $daysFromMonday = (7 + [int]$targetRaceDate.DayOfWeek - 1) % 7
+    $fromTime = $targetRaceDate.AddDays(-$daysFromMonday).ToString("yyyyMMdd000000")
 
     [int]$readCount = 0
     [int]$downloadCount = 0
@@ -208,7 +214,7 @@ try {
     $hasRunnerRecords = $recordCounts.Contains("SE") -and [int]$recordCounts["SE"] -gt 0
     $result.status = if ($completed -and $hasRaceRecords -and $hasRunnerRecords) { "ready" } else { "incomplete" }
     $result.dataDownloaded = $downloadCount -gt 0
-    $result["configuredRaceDate"] = $raceDate.ToString("yyyy-MM-dd")
+    $result["configuredRaceDate"] = $targetRaceDate.ToString("yyyy-MM-dd")
     $result["fromTime"] = $fromTime
     $result["openResult"] = $openResult
     $result["expectedRecords"] = $readCount
@@ -224,7 +230,7 @@ try {
       $outDir = Join-Path $repoRoot "tools\jvlink\output"
       New-Item -ItemType Directory -Force -Path $outDir | Out-Null
       $raceList = @($races.Values | Sort-Object raceDate, courseCode, raceNo)
-      $targetRaceList = @($raceList | Where-Object { $_.raceDate -eq $raceDate.ToString("yyyy-MM-dd") })
+      $targetRaceList = @($raceList | Where-Object { $_.raceDate -eq $targetRaceDate.ToString("yyyy-MM-dd") })
       $runnerGroups = $runners | Group-Object raceKey
       $runnersByRace = [ordered]@{}
       foreach ($group in $runnerGroups) {
@@ -235,7 +241,7 @@ try {
         mode = "jvlink-week-summary"
         productionWeekDataUpdated = $false
         generatedAt = (Get-Date).ToString("s")
-        configuredRaceDate = $raceDate.ToString("yyyy-MM-dd")
+        configuredRaceDate = $targetRaceDate.ToString("yyyy-MM-dd")
         fromTime = $fromTime
         dataDownloaded = $result.dataDownloaded
         records = $recordCounts

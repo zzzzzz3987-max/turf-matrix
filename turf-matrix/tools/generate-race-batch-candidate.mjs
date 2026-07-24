@@ -11,8 +11,12 @@ const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
+const CONDITIONS_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
+const currentConditions = existsSync(CONDITIONS_PATH)
+  ? JSON.parse(readFileSync(CONDITIONS_PATH, "utf8"))
+  : { conditions: {} };
 const opponentEvidence = existsSync(OPPONENT_PATH)
   ? JSON.parse(readFileSync(OPPONENT_PATH, "utf8"))
   : { records: [] };
@@ -68,7 +72,13 @@ const enrichPeerRuns = (horses) => {
 };
 
 const races = normalized.races.map((bundle) => {
-  const race = bundle.race;
+  const condition = currentConditions.conditions?.[bundle.bundleId] ?? null;
+  const race = {
+    ...bundle.race,
+    weather: condition?.status === "active" ? condition.weather : null,
+    going: condition?.status === "active" ? condition.going : null,
+    goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
+  };
   const context = buildRaceContext(race);
   const oddsStatus = bundle.productionReady ? "active" : "preodds";
   const enrichedHorses = enrichPeerRuns(bundle.horses);
@@ -124,8 +134,9 @@ const races = normalized.races.map((bundle) => {
     time: race.time ?? null,
     surface: race.surface,
     distance: race.distance,
-    weather: null,
-    going: null,
+    weather: race.weather,
+    going: race.going,
+    goingUpdatedAt: race.goingUpdatedAt,
     courseType: null,
     conditionSummary: null,
     fieldSize: race.fieldSize,

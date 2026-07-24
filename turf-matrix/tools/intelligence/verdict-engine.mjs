@@ -61,6 +61,8 @@ const buildVerdictPayload = ({
   tmIndex,
   rawTmIndex,
   sampleAdjustment,
+  goingAdjustment,
+  goingAnalysis,
   value,
   factors,
   scores,
@@ -118,6 +120,9 @@ const buildVerdictPayload = ({
         trainingStatus,
         horse.pedigree ? "4代血統をBlood評価に使用" : "血統情報は一部未取得",
         contextSummary,
+        ...(goingAnalysis?.status && !["missing", "not_applicable"].includes(goingAnalysis.status)
+          ? [goingAnalysis.summary]
+          : []),
         valueText,
         dataQuality?.summary ?? "データ充足度を評価中",
       ],
@@ -125,6 +130,8 @@ const buildVerdictPayload = ({
       factors,
       rawTmIndex,
       sampleAdjustment,
+      goingAdjustment,
+      goingAnalysis,
       factorsDetail: {
         ability: abilityAnalysis ?? {
           key: "ability",

@@ -10,6 +10,7 @@ import { scoreStable, frameScore } from "./support-ai.mjs";
 import { calculateTmIndex, buildIndexContributions } from "./tm-index-engine.mjs";
 import { buildRaceContext } from "./race-context.mjs";
 import { assessDataQuality } from "./data-quality-ai.mjs";
+import { buildGoingAdjustment } from "./going-adjustment.mjs";
 
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
@@ -67,9 +68,16 @@ const buildAnalysis = (horse, suppliedContext) => {
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
   const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace }, context);
-  const tmIndex = applyExperienceDiscount(rawTmIndex, horse);
+  const experienceAdjustedIndex = applyExperienceDiscount(rawTmIndex, horse);
+  const goingAnalysis = buildGoingAdjustment(horse, context);
+  const goingAdjustment = goingAnalysis.adjustment ?? 0;
+  const tmIndex = Number.isFinite(experienceAdjustedIndex)
+    ? Math.max(45, Math.min(92, experienceAdjustedIndex + goingAdjustment))
+    : experienceAdjustedIndex;
   const runCount = horse.pastRuns?.length ?? 0;
-  const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(tmIndex) ? tmIndex - rawTmIndex : 0;
+  const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(experienceAdjustedIndex)
+    ? experienceAdjustedIndex - rawTmIndex
+    : 0;
   const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, value, pace }, context);
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
@@ -86,6 +94,8 @@ const buildAnalysis = (horse, suppliedContext) => {
     tmIndex,
     rawTmIndex,
     sampleAdjustment,
+    goingAdjustment,
+    goingAnalysis,
     value,
     factors,
     scores: { ability, form, course, pace, training, blood, stable, frame },

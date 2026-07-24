@@ -166,9 +166,17 @@ const scoreBreakdown = (horse) => {
   const ped = horse.analysis.factorsDetail?.blood?.score;
   const items = BREAKDOWN_DEFS.map((d) => ({ label: d.label, value: Math.round(d.calc(f, ped)) }));
   const sampleAdjustment = Number.isFinite(horse.analysis.sampleAdjustment) ? horse.analysis.sampleAdjustment : 0;
-  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment;
+  const goingAdjustment = Number.isFinite(horse.analysis.goingAdjustment) ? horse.analysis.goingAdjustment : 0;
+  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment - goingAdjustment;
   const runCount = horse.pastRuns?.length ?? 0;
-  return { items, adjust, sampleAdjustment, sampleLabel: `サンプル不足補正(${runCount}走)` };
+  return {
+    items,
+    adjust,
+    sampleAdjustment,
+    sampleLabel: `サンプル不足補正(${runCount}走)`,
+    goingAdjustment,
+    goingLabel: `馬場適性補正(${horse.analysis.goingAnalysis?.going ?? "公式馬場"})`,
+  };
 };
 
 /** 週次データの検証(差し替えミスの検出。エラーはconsoleとUIバナーに出る) */
@@ -1637,6 +1645,12 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
                 <Num className="text-gray-500">{bd.sampleAdjustment >= 0 ? `+${bd.sampleAdjustment}` : bd.sampleAdjustment}</Num>
               </div>
             ) : null}
+            {bd.goingAdjustment ? (
+              <div className="flex items-baseline justify-between text-[12px]">
+                <span className="text-gray-500">{bd.goingLabel}</span>
+                <Num className="text-gray-500">{bd.goingAdjustment >= 0 ? `+${bd.goingAdjustment}` : bd.goingAdjustment}</Num>
+              </div>
+            ) : null}
             <div className="flex items-baseline justify-between text-[12px]">
               <span className="font-medium text-gray-700">合計 TM INDEX</span>
               <Num className="font-bold text-gray-900">{horse.aiScore}</Num>
@@ -2112,7 +2126,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
               <span className="mx-2 text-[#CBD5E1]"> </span>
               {race.surface}<Num>{race.distance}</Num>m
               <span className="mx-1">・</span>
-              {displayRaceValue(race.going, "良")}
+              {displayRaceValue(race.going, "取得待ち")}
               {isFiniteNumber(race.fieldSize) ? (
                 <>
                   <span className="mx-1">・</span>
@@ -2226,7 +2240,7 @@ const HomePage = ({ onOpenRace }) => {
                 <div className="mt-3 text-[13px] font-medium text-[#64748B]">
                   {featuredRace.surface}<Num>{featuredRace.distance}</Num>m
                   <span className="mx-1.5">・</span>
-                  {displayRaceValue(featuredRace.going, "良")}
+                  {displayRaceValue(featuredRace.going, "取得待ち")}
                   {isFiniteNumber(featuredRace.fieldSize) ? (
                     <>
                       <span className="mx-1.5">・</span>

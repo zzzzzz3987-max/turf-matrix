@@ -135,12 +135,16 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
   const recent = runs.slice(0, 5);
   const zi = resolveAbilityZi(horse);
   const ziScore = profile.ziScore;
-  const classScore = profile.opponentScore;
+  const baseAbilityScore = recent.length ? profile.recentScore : null;
+  const classScore = [profile.opponentScore, profile.peerScore, profile.encounterScore, profile.careerOpponentScore]
+    .some(Number.isFinite)
+    ? profile.relationScore
+    : null;
   const recentScore = recent.length ? profile.recentScore : null;
   const marginEvidence = profile.marginScore;
   const distanceEvidence = profile.distanceScore;
   const lapEvidence = profile.closingScore;
-  const peerEvidence = profile.peerScore;
+  const peerEvidence = profile.encounterScore;
   const careerOpponentEvidence = profile.careerOpponentScore;
   const gradedCount = runs.filter((run) => classBonus(run) >= 5).length;
   const closeRuns = recent.filter((run) => typeof run.margin === "number" && run.margin <= 0.5).length;
@@ -148,21 +152,32 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
   const fastLap = runs.filter(isValidLast3F).sort((a, b) => a.last3F - b.last3F)[0] ?? null;
   const peerRun = (horse.peerRuns ?? [])[0] ?? null;
   const peerNames = peerRun?.peers?.slice(0, 2).map((peer) => peer.horseName).join("・") ?? null;
+  const encounterCount = horse.opponentEvidence?.encounterCount ?? 0;
+  const profiledPeerCount = horse.opponentEvidence?.profiledPeerCount ?? 0;
+  const relationSources = [
+    gradedCount ? `上級条件${gradedCount}走` : null,
+    peerRun ? "今回メンバーとの直接対戦" : null,
+    encounterCount ? `過去対戦${encounterCount}戦` : null,
+  ].filter(Boolean);
 
   const components = [
     {
-      key: "zi",
-      label: "ZI",
-      score: ziScore,
-      status: ziScore == null ? "missing" : "active",
-      summary: ziScore == null ? "ZI未取得" : `能力指標ZI ${zi}を基礎評価に使用`,
+      key: "baseAbility",
+      label: ziScore == null ? "基礎能力" : "ZI",
+      score: ziScore ?? baseAbilityScore,
+      status: ziScore != null || baseAbilityScore != null ? "active" : "missing",
+      summary: ziScore == null
+        ? baseAbilityScore == null
+          ? "過去走データ未取得"
+          : `直近${recent.length}走の着順・着差・クラス・上がりから算出`
+        : `能力指標ZI ${zi}を基礎評価に使用`,
     },
     {
       key: "class",
       label: "相手関係",
       score: classScore,
       status: classScore == null ? "missing" : "active",
-      summary: gradedCount ? `重賞/上級条件の実績 ${gradedCount}走を評価` : "上級条件の比較材料は限定的",
+      summary: classScore == null ? "相手関係データ未取得" : `${relationSources.join("・")}を統合評価`,
     },
     {
       key: "peer",
@@ -170,8 +185,10 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       score: peerEvidence,
       status: peerEvidence == null ? "missing" : "active",
       summary: peerEvidence == null
-        ? "今週出走馬との直接対戦は未検出"
-        : `${displayRunLabel(peerRun, "過去走")}で${peerNames}と直接対戦`,
+        ? "過去の同走馬データ未取得"
+        : peerRun
+          ? `${displayRunLabel(peerRun, "過去走")}で${peerNames}と直接対戦。全${profiledPeerCount}頭も評価`
+          : `過去${encounterCount}戦・同走馬${profiledPeerCount}頭との着順関係を評価`,
     },
     {
       key: "opponentCareer",
@@ -220,11 +237,16 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
     maxScore: 100,
     status: runs.length ? "active" : "missing",
     summary: runs.length
-      ? "ZI、相手関係、同走馬、着差、距離一致、上がり性能、近走推移を分解して能力評価に反映。"
+      ? "基礎能力、相手関係、同走馬、着差、距離一致、上がり性能、近走推移を分解して能力評価に反映。"
       : "近走データが未取得のため、能力評価は控えめに扱います。",
     evidence: components.map((component) => component.summary),
     components,
     inputs: {
+      baseAbility: {
+        source: ziScore == null ? "JV-Link過去走" : "TARGET ZI",
+        score: ziScore ?? baseAbilityScore,
+        runCount: recent.length,
+      },
       opponentQuality: horse.opponentEvidence
         ? {
             status: horse.opponentEvidence.status,

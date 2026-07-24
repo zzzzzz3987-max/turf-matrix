@@ -117,7 +117,10 @@ const valueMetricsFor = (horse) => {
 /** レース内Rank(AI指数順) { horseId: rank } */
 const rankByScore = (horses) =>
   Object.fromEntries(
-    [...horses].filter(isEvaluatedHorse).sort((a, b) => b.aiScore - a.aiScore).map((h, i) => [h.id, i + 1])
+    [...horses]
+      .filter(isEvaluatedHorse)
+      .sort((a, b) => b.aiScore - a.aiScore || a.number - b.number)
+      .map((h, i) => [h.id, i + 1])
   );
 
 /** レース単位の分析信頼度(全馬の信頼度の加重平均) */
@@ -423,10 +426,21 @@ const SORT_OPTIONS = [
   { key: "popularity", label: "人気" },
 ];
 
-const sortHorses = (horses, sortKey, evMap) => {
+const marketGapFor = (horse, rankMap) =>
+  isFiniteNumber(horse.popularity) && isFiniteNumber(rankMap[horse.id])
+    ? horse.popularity - rankMap[horse.id]
+    : Number.NEGATIVE_INFINITY;
+
+const sortHorses = (horses, sortKey, evMap, rankMap) => {
   const arr = [...horses];
   if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
-  if (sortKey === "ev") arr.sort((a, b) => (evMap[b.id]?.ev ?? 0) - (evMap[a.id]?.ev ?? 0));
+  if (sortKey === "ev") {
+    arr.sort((a, b) =>
+      marketGapFor(b, rankMap) - marketGapFor(a, rankMap) ||
+      (evMap[b.id]?.ev ?? Number.NEGATIVE_INFINITY) - (evMap[a.id]?.ev ?? Number.NEGATIVE_INFINITY) ||
+      a.number - b.number
+    );
+  }
   if (sortKey === "number") arr.sort((a, b) => a.number - b.number);
   if (sortKey === "popularity") arr.sort((a, b) => (a.popularity ?? 999) - (b.popularity ?? 999) || a.number - b.number);
   return arr;
@@ -1984,6 +1998,11 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
                 "未評価"
               )}
             </span>
+            {rank != null && isFiniteNumber(horse.popularity) ? (
+              <span className="mt-1 block text-[10px] text-gray-500">
+                指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+              </span>
+            ) : null}
           </span>
           <span className="inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium text-teal-600">
             詳細を見る
@@ -2017,6 +2036,11 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             EV {ev.ev.toFixed(2)}{valueReferenceLabel(ev) ? " 参考" : ""}
           </Num>
         )}
+        {rank != null && isFiniteNumber(horse.popularity) ? (
+          <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
+            指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+          </span>
+        ) : null}
       </span>
 
       {/* PC列: AI指数 */}
@@ -2623,7 +2647,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
 
         {race
           ? race.horses.length
-            ? sortHorses(race.horses, sortKey, evMap).map((h) => (
+            ? sortHorses(race.horses, sortKey, evMap, rankMap).map((h) => (
               <HorseRow
                 key={h.id}
                 horse={h}
@@ -2645,7 +2669,9 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
 
       <p className="mt-3 text-[11px] text-gray-500">
         {isDesktop ? "行をクリックすると分析詳細が展開されます。" : "馬をタップすると分析詳細が開きます。"}
-        EVは推定勝率×単勝オッズの期待値(1.00が損益分岐の目安)です。
+        {sortKey === "ev"
+          ? "期待値タブは、AI指数順位と人気順位の乖離が大きい順です。EVは推定勝率×単勝オッズの値を維持しています。"
+          : "EVは推定勝率×単勝オッズの期待値(1.00が損益分岐の目安)です。"}
       </p>
 
       {/* モバイル: ボトムシート */}

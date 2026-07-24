@@ -102,6 +102,30 @@ const peerQuality = (peerRuns = []) => {
   })));
 };
 
+const encounterQuality = (opponentEvidence) => {
+  const encounters = opponentEvidence?.encounters ?? [];
+  if (!encounters.length) return null;
+  const scored = encounters.flatMap((encounter) => {
+    const finish = Number(encounter.finishPosition);
+    return (encounter.peers ?? []).map((peer) => {
+      const peerFinish = Number(peer.finishPosition);
+      if (!Number.isFinite(finish) || !Number.isFinite(peerFinish)) return null;
+      const relationScore = finish < peerFinish
+        ? 78
+        : finish === peerFinish
+          ? 65
+          : peerFinish - finish >= -2
+            ? 58
+            : 46;
+      return {
+        value: relationScore,
+        weight: Number(peer.laterStarts) > 0 ? 1 : 0.75,
+      };
+    });
+  }).filter(Boolean);
+  return scored.length ? clamp(weightedAverage(scored)) : null;
+};
+
 const trendQuality = (runs, targetDistance) => {
   if (runs.length < 2) return null;
   const recent = runs.slice(0, 2).map((run) => runAbility(run, targetDistance));
@@ -126,13 +150,15 @@ const calculateAbilityProfile = (horse) => {
   const recentScore = runs.length ? recentAbility(runs, targetDistance) : 50;
   const opponentScore = opponentQuality(runs);
   const peerScore = peerQuality(horse.peerRuns ?? []);
+  const encounterScore = encounterQuality(horse.opponentEvidence);
   const careerOpponentScore = Number.isFinite(horse.opponentEvidence?.score)
     ? clamp(horse.opponentEvidence.score)
     : null;
   const relationScore = weightedAverage([
-    { value: opponentScore, weight: opponentScore == null ? 0 : 0.35 },
-    { value: peerScore, weight: peerScore == null ? 0 : 0.2 },
-    { value: careerOpponentScore, weight: careerOpponentScore == null ? 0 : 0.45 },
+    { value: opponentScore, weight: opponentScore == null ? 0 : 0.25 },
+    { value: peerScore, weight: peerScore == null ? 0 : 0.15 },
+    { value: encounterScore, weight: encounterScore == null ? 0 : 0.25 },
+    { value: careerOpponentScore, weight: careerOpponentScore == null ? 0 : 0.35 },
   ], recentScore);
   const distanceScore = runs.length
     ? clamp(weightedAverage(runs.slice(0, 5).map((run, index) => ({
@@ -178,6 +204,7 @@ const calculateAbilityProfile = (horse) => {
     recentScore,
     opponentScore,
     peerScore,
+    encounterScore,
     careerOpponentScore,
     relationScore: clamp(relationScore),
     distanceScore,

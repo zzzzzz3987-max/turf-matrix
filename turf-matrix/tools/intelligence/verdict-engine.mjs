@@ -167,6 +167,15 @@ const buildVerdictPayload = ({
           summary: courseAnalysis?.summary ?? contextSummary,
           evidence: courseAnalysis?.strengths ?? [`コース適性は${factorLabel(course)}`, `距離適性は${factorLabel(factors.distance)}`],
         },
+        distance: {
+          key: "distance",
+          label: "距離適性",
+          score: factors.distance,
+          maxScore: 100,
+          status: horse.pastRuns?.length ? "active" : "missing",
+          summary: courseAnalysis?.distanceSummary ?? `今回の${horse.currentRace?.distance ?? "対象"}mに対する近走距離実績を評価`,
+          evidence: courseAnalysis?.strengths?.filter((item) => /距離|m前後/.test(item)) ?? [],
+        },
         pace: {
           key: "pace",
           label: "展開",

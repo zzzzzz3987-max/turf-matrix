@@ -108,3 +108,25 @@ test("tracked opponent careers contribute without replacing direct evidence", ()
   assert.ok(strongOpponents.relationScore > unknownOpponents.relationScore);
   assert.ok(strongOpponents.score > unknownOpponents.score);
 });
+
+test("historical co-runner results contribute without TARGET ZI", () => {
+  const profile = calculateAbilityProfile(horse([
+    run({ finishPosition: 2, margin: 0.2 }),
+    run({ finishPosition: 4, margin: 0.5 }),
+  ], {
+    opponentEvidence: {
+      score: 68,
+      encounters: [{
+        finishPosition: 2,
+        peers: [
+          { horseName: "A", finishPosition: 5, laterStarts: 2 },
+          { horseName: "B", finishPosition: 1, laterStarts: 1 },
+        ],
+      }],
+    },
+  }));
+
+  assert.equal(profile.ziScore, null);
+  assert.ok(Number.isFinite(profile.encounterScore));
+  assert.ok(Number.isFinite(profile.relationScore));
+});

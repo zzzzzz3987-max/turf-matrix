@@ -29,6 +29,7 @@ The user performs the final editorial check and note publication.
 - Finish positions of EV ranks 1-3.
 - Win hit rate and win return rate.
 - Place hit rate and place return rate.
+- Side-by-side EV-band and market-gap performance summaries.
 - Separate summaries for graded and special races.
 - Performance by confidence level.
 - Review of Blood, Training, and Pace evidence.
@@ -46,6 +47,29 @@ place return rate = total official place payout / total simulated place stake * 
 Report simulated returns separately from any real betting activity. When a horse
 appears in more than one strategy, count it once only in a combined portfolio and
 retain it in each strategy-specific report.
+
+## Market-Gap Performance
+
+Use the publication snapshot to calculate each runner's TM INDEX rank. Use the
+official popularity stored at publication time for the market rank.
+
+```text
+market gap = popularity rank - TM INDEX rank
+```
+
+Aggregate all reviewed runners into these mutually exclusive bands:
+
+| Market-gap band | Included runners | Required output |
+| --- | --- | --- |
+| +5 or higher | market gap >= 5 | runners / top-three finishes / win return rate |
+| 0 to +4 | market gap >= 0 and market gap <= 4 | runners / top-three finishes / win return rate |
+| Negative | market gap < 0 | runners / top-three finishes / win return rate |
+
+For each band, calculate win return rate using a simulated JPY 100 win stake on
+every included runner. Show this table beside the EV-band summary so the weekly
+review can compare whether market gap or EV contributed more strongly to returns.
+Do not recompute TM INDEX ranks from post-race data or substitute final popularity
+when publication-time popularity is missing.
 
 ## Safety Rules
 

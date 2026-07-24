@@ -907,7 +907,7 @@ const TMFactorsCard = ({ analysis }) => {
                   {active ? factor.score : "—"}
                 </Num>
               </div>
-              <p className="mt-2 line-clamp-2 text-[11px] leading-relaxed text-gray-500">
+              <p className="mt-2 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">
                 {factor.summary ?? (active ? "TARGET実データから評価済み" : factor.key === "value" ? "単勝オッズ取得後に自動評価します" : "入力データ取得後に評価")}
               </p>
             </div>
@@ -937,7 +937,7 @@ const AbilityBreakdownCard = ({ detail }) => {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="text-[12px] font-semibold text-slate-900">{component.label}</div>
-                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-gray-500">{component.summary}</p>
+                <p className="mt-1 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">{component.summary}</p>
               </div>
               <Num className={`shrink-0 text-[18px] font-bold leading-none ${scoreTone(component.score)}`}>
                 {isFiniteNumber(component.score) ? component.score : "—"}

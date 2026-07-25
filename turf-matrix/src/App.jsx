@@ -895,6 +895,8 @@ const TMFactorsCard = ({ analysis }) => {
       <div className="mt-4 grid gap-2.5 md:grid-cols-2">
         {factors.map((factor) => {
           const active = factor.status === "active" && isFiniteNumber(factor.score);
+          const reference = factor.key === "blood" && factor.status === "partial" && isFiniteNumber(factor.score);
+          const displayable = active || reference;
           const pendingLabel = factor.key === "value" ? "オッズ取得待ち" : "未評価";
           return (
             <div key={factor.key} className="rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
@@ -905,14 +907,16 @@ const TMFactorsCard = ({ analysis }) => {
                     <div className="h-1.5 w-20 overflow-hidden rounded-full bg-slate-100">
                       <div
                         className="h-full rounded-full bg-[#2D7BFF]"
-                        style={{ width: `${active ? Math.min(100, factor.score) : 0}%` }}
+                        style={{ width: `${displayable ? Math.min(100, factor.score) : 0}%` }}
                       />
                     </div>
-                    <span className="text-[10px] font-medium text-slate-400">{active ? "確定" : pendingLabel}</span>
+                    <span className="text-[10px] font-medium text-slate-400">
+                      {active ? "確定" : reference ? "参考評価" : pendingLabel}
+                    </span>
                   </div>
                 </div>
-                <Num className={`shrink-0 text-[22px] font-bold leading-none ${active ? "text-slate-900" : "text-gray-300"}`}>
-                  {active ? factor.score : "—"}
+                <Num className={`shrink-0 text-[22px] font-bold leading-none ${displayable ? "text-slate-900" : "text-gray-300"}`}>
+                  {displayable ? factor.score : "—"}
                 </Num>
               </div>
               <p className="mt-2 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">

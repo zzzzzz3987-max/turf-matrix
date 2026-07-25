@@ -932,7 +932,7 @@ allH.sort((a, b) => b.h.aiScore - a.h.aiScore);
 const featured = allH.slice(0, 2).map(({ r, h }) => ({
   horseId: h.id, raceId: r.id, note: `${r.track}${r.number}R TM INDEX top. TM INDEX ${h.aiScore}`,
 }));
-/* 妙味枠: 指数順位が人気より2つ以上上で、EV 1.15〜3.00未満の馬から選ぶ */
+/* 妙味枠: 指数順位が人気より2つ以上上で、EV 1.00〜3.00未満の馬から選ぶ */
 const rankOf = new Map();
 for (const r of racesOut) {
   [...r.horses].sort((a, b) => b.aiScore - a.aiScore).forEach((h, i) => rankOf.set(h.id, i + 1));

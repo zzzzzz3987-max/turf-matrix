@@ -90,17 +90,17 @@ test("TM INDEX weights exclude Value while Value remains independently available
   );
 });
 
-test("Value signal range starts at 1.15 and excludes EV 3.00 or higher", () => {
-  assert.notEqual(verdictForEv(1.14)?.tone, "blue");
-  assert.equal(verdictForEv(1.15)?.tone, "blue");
+test("Value signal range starts at 1.00 and excludes EV 3.00 or higher", () => {
+  assert.notEqual(verdictForEv(0.99)?.tone, "blue");
+  assert.equal(verdictForEv(1.0)?.tone, "blue");
   assert.equal(verdictForEv(2.99)?.tone, "blue");
   assert.notEqual(verdictForEv(3)?.tone, "blue");
 });
 
 test("Value candidates require both market gap and EV support", () => {
   const horse = { tmIndex: 74 };
-  assert.equal(valueCandidateEligibility(horse, 1.15, 2).eligible, true);
-  assert.equal(valueCandidateEligibility(horse, 1.14, 2).eligible, false);
+  assert.equal(valueCandidateEligibility(horse, 1.0, 2).eligible, true);
+  assert.equal(valueCandidateEligibility(horse, 0.99, 2).eligible, false);
   assert.equal(valueCandidateEligibility(horse, 1.8, 1).eligible, false);
   assert.equal(valueCandidateEligibility(horse, 3, 6).eligible, false);
 });

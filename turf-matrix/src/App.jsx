@@ -2109,7 +2109,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
       onClick={() => onOpen(race.id)}
       className={`group relative w-full overflow-hidden rounded-[18px] border bg-white px-6 py-5 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors active:bg-[#F8FAFC] ${
         isGradedRace
-          ? "border-[#2D7BFF]/50 hover:border-[#2D7BFF]/70"
+          ? "border-[1.5px] border-[#2D7BFF]/95 before:absolute before:inset-y-4 before:left-0 before:w-1 before:rounded-r-full before:bg-[#2D7BFF] hover:border-[#2D7BFF]"
           : "border-[#DDE3EA] hover:border-[#CBD5E1]"
       }`}
     >

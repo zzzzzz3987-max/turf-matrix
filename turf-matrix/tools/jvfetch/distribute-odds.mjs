@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const CONFIG_PATH = join(REPO_ROOT, "tools", "race-batch-config.json");
-const SOURCE_PATH = join(REPO_ROOT, "data", "target", "odds.csv");
+const SOURCE_PATH = process.argv[2]
+  ? resolve(process.argv[2])
+  : join(REPO_ROOT, "data", "target", "odds.csv");
 const RACES_DIR = join(REPO_ROOT, "tools", "csv", "input", "races");
 
 const TRACK_BY_SLUG = {

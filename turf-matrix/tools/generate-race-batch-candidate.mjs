@@ -78,6 +78,7 @@ const races = normalized.races.map((bundle) => {
     weather: condition?.status === "active" ? condition.weather : null,
     going: condition?.status === "active" ? condition.going : null,
     goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
+    trackBias: condition?.status === "active" ? condition.trackBias ?? null : null,
   };
   const context = buildRaceContext(race);
   const oddsStatus = bundle.productionReady ? "active" : "preodds";
@@ -137,6 +138,7 @@ const races = normalized.races.map((bundle) => {
     weather: race.weather,
     going: race.going,
     goingUpdatedAt: race.goingUpdatedAt,
+    trackBias: race.trackBias,
     courseType: null,
     conditionSummary: null,
     fieldSize: race.fieldSize,

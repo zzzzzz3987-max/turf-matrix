@@ -55,7 +55,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const course = scoreCourse(horse);
   const courseAnalysis = buildCourseAnalysis(horse, context, { course, distance });
   const lap = scoreLap(horse);
-  const pace = scorePace(horse);
+  const pace = scorePace(horse, context);
   const paceAnalysis = buildPaceAnalysis(horse, context, { pace, lap });
   const trainingAnalysis = buildTrainingAnalysis(horse);
   const training = trainingAnalysis.score;

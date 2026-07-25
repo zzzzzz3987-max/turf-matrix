@@ -132,7 +132,12 @@ const main = () => {
       failures.push(`${race.track}${race.raceNo}R: expected ${expectedSize} rows but got ${raceRows.length}`);
     }
     if (duplicateHorseNumbers.length) failures.push(`${race.track}${race.raceNo}R: duplicate horse numbers ${duplicateHorseNumbers.join(", ")}`);
-    if (duplicatePopularities.length) failures.push(`${race.track}${race.raceNo}R: duplicate popularities ${duplicatePopularities.join(", ")}`);
+    for (const popularity of duplicatePopularities) {
+      const tiedRows = raceRows.filter((row) => row.popularity === popularity);
+      if (new Set(tiedRows.map((row) => row.winOdds)).size !== 1) {
+        failures.push(`${race.track}${race.raceNo}R: popularity ${popularity} is duplicated across different odds`);
+      }
+    }
     return {
       race: `${race.track}${race.raceNo}R`,
       rows: raceRows.length,

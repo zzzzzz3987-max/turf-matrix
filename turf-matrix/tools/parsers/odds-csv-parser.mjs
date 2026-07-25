@@ -82,19 +82,35 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
     if (entry.winOdds != null && entry.winOdds <= 0) errors.push(`row ${index + 1}: winOdds must be positive`);
   });
 
-  for (const key of ["popularity", "horseNumber", "horseName"]) {
+  for (const key of ["horseNumber", "horseName"]) {
     const dupes = duplicates(entries, key);
     if (dupes.length) errors.push(`${key} has duplicates: ${dupes.join(", ")}`);
   }
 
+  for (const popularity of duplicates(entries, "popularity")) {
+    const tiedEntries = entries.filter((entry) => entry.popularity === popularity);
+    if (new Set(tiedEntries.map((entry) => entry.winOdds)).size !== 1) {
+      errors.push(`popularity ${popularity} is duplicated across different odds`);
+    }
+  }
+
   const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
-  const popularities = entries.map((entry) => entry.popularity).sort((a, b) => a - b);
   const expected = Array.from({ length: expectedFieldSize }, (_, index) => index + 1);
   if (horseNumbers.some((value, index) => value !== expected[index])) {
     errors.push(`horseNumber must be 1-${expectedFieldSize}: ${horseNumbers.join(", ")}`);
   }
-  if (popularities.some((value, index) => value !== expected[index])) {
-    errors.push(`popularity must be 1-${expectedFieldSize}: ${popularities.join(", ")}`);
+  const orderedByOdds = [...entries].sort((a, b) => a.winOdds - b.winOdds || a.horseNumber - b.horseNumber);
+  let expectedPopularity = 0;
+  let previousOdds = null;
+  orderedByOdds.forEach((entry, index) => {
+    if (previousOdds !== entry.winOdds) expectedPopularity = index + 1;
+    if (entry.popularity !== expectedPopularity) {
+      errors.push(`horse ${entry.horseNumber}: popularity ${entry.popularity} does not match odds rank ${expectedPopularity}`);
+    }
+    previousOdds = entry.winOdds;
+  });
+  if (orderedByOdds.some((entry) => entry.popularity < 1 || entry.popularity > expectedFieldSize)) {
+    errors.push(`popularity must be within 1-${expectedFieldSize}`);
   }
 
   return errors;

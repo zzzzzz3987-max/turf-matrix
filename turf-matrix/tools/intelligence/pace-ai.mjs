@@ -32,7 +32,19 @@ const runningStyle = (horse) => {
   return "追込";
 };
 
-const scorePace = (horse) => {
+const trackBiasAdjustment = (horse, context) => {
+  const bias = context?.trackBias;
+  if (!bias || bias.style !== "front") return 0;
+  const positions = (horse.pastRuns ?? []).slice(0, 8).map(firstPassing).filter(Boolean);
+  if (!positions.length) return 0;
+  const mean = avg(positions, 8);
+  const strong = bias.strength === "strong";
+  if (mean <= 5.5) return strong ? 4 : 2;
+  if (mean >= 9) return strong ? -3 : -1;
+  return 0;
+};
+
+const scorePace = (horse, context) => {
   const orders = (horse.pastRuns ?? [])
     .slice(0, 8)
     .flatMap((run) => run.passingOrder ?? [])
@@ -41,7 +53,7 @@ const scorePace = (horse) => {
   const mean = avg(orders, 8);
   const style = runningStyle(horse);
   const styleBonus = style === "先行" || style === "差し" ? 4 : style === "逃げ" ? 1 : 0;
-  return clamp(76 - Math.abs(mean - 6) * 3.5 + styleBonus);
+  return clamp(76 - Math.abs(mean - 6) * 3.5 + styleBonus + trackBiasAdjustment(horse, context));
 };
 
 const buildPaceAnalysis = (horse, context, scores = {}) => {
@@ -51,8 +63,10 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
   const meanPosition = firstPositions.length ? avg(firstPositions, 8) : null;
   const lapRuns = runs.filter(isValidLast3F).slice(0, 8);
   const bestLap = [...lapRuns].sort((a, b) => a.last3F - b.last3F)[0] ?? null;
-  const paceScore = scores.pace ?? scorePace(horse);
+  const paceScore = scores.pace ?? scorePace(horse, context);
   const lapScore = scores.lap ?? scoreLap(horse);
+  const liveBias = context?.trackBias ?? null;
+  const liveBiasAdjustment = trackBiasAdjustment(horse, context);
 
   return {
     score: paceScore,
@@ -64,12 +78,14 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
       meanPosition ? `平均位置取り ${meanPosition.toFixed(1)}番手` : "位置取りデータは限定的",
       bestLap ? `最速上がり材料: ${bestLap.raceName ?? "過去走"} ${bestLap.last3F}` : "上がり時計は未取得",
       context?.profile ? `${context.profile}条件での脚質バランスを確認` : "条件別の脚質評価は今後拡張",
+      liveBias ? `当日傾向: ${liveBias.summary}` : "当日トラックバイアスは未取得",
     ],
     evidence: [
       `展開適性 ${paceScore}`,
       `上がり/ラップ適性 ${lapScore}`,
+      ...(liveBias ? [`当日トラックバイアス補正 ${liveBiasAdjustment >= 0 ? "+" : ""}${liveBiasAdjustment}`] : []),
     ],
   };
 };
 
-export { scoreLap, scorePace, buildPaceAnalysis };
+export { scoreLap, scorePace, buildPaceAnalysis, trackBiasAdjustment };

@@ -41,6 +41,7 @@ const buildRaceContext = (race) => {
     distance,
     weather: race?.weather ?? null,
     going: race?.going ?? null,
+    trackBias: race?.trackBias ?? null,
     condition,
     profile: bias?.label ?? profile.label,
     traits,

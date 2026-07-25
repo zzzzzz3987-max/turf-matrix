@@ -2097,6 +2097,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
 const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   const score = race.topHorse.available ? displayScore(race.topHorse.aiScore) : "--";
   const ev = race.topHorse.ev;
+  const isGradedRace = race.raceType === "重賞" || race.category === "grade" || gradeScore(race.grade) > 0;
   const signalLabel = race.topHorse.available
     ? race.topHorse.aiScore >= 80
       ? `${race.topHorse.name} ${score}`
@@ -2106,7 +2107,11 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   return (
     <button
       onClick={() => onOpen(race.id)}
-      className="group relative w-full overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white px-6 py-5 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors hover:border-[#CBD5E1] active:bg-[#F8FAFC]"
+      className={`group relative w-full overflow-hidden rounded-[18px] border bg-white px-6 py-5 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors active:bg-[#F8FAFC] ${
+        isGradedRace
+          ? "border-[#2D7BFF]/50 hover:border-[#2D7BFF]/70"
+          : "border-[#DDE3EA] hover:border-[#CBD5E1]"
+      }`}
     >
       <div className="relative">
         <div className="flex items-start justify-between gap-3">

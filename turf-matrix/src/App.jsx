@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
-import { isValueSignalMetrics } from "./lib/value-rules.js";
+import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -443,7 +443,9 @@ const marketGapFor = (horse, rankMap) =>
     : Number.NEGATIVE_INFINITY;
 
 const sortHorses = (horses, sortKey, evMap, rankMap) => {
-  const arr = [...horses];
+  const arr = sortKey === "ev"
+    ? horses.filter((horse) => isValueSignalEv(evMap[horse.id]?.ev))
+    : [...horses];
   if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
   if (sortKey === "ev") {
     arr.sort((a, b) =>
@@ -2692,7 +2694,11 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
             ))
             : (
               <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
-                {sortKey === "ev" ? "期待値の算出に必要なオッズを取得待ちです" : WEEK_PREPARING_TEXT}
+                {sortKey === "ev"
+                  ? race.oddsStatus === "active"
+                    ? "EV 1.00〜3.00未満に該当する馬はいません"
+                    : "期待値の算出に必要なオッズを取得待ちです"
+                  : WEEK_PREPARING_TEXT}
               </div>
             )
           : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}
@@ -2701,7 +2707,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       <p className="mt-3 text-[11px] text-gray-500">
         {isDesktop ? "行をクリックすると分析詳細が展開されます。" : "馬をタップすると分析詳細が開きます。"}
         {sortKey === "ev"
-          ? "期待値タブは乖離度順です。乖離+2以上かつEV 1.00〜3.00未満の馬だけを妙味として点灯します。"
+          ? "期待値タブはEV 1.00〜3.00未満の馬を乖離度順で表示し、乖離+2以上を妙味として点灯します。"
           : "EVは推定勝率×単勝オッズの期待値(1.00が損益分岐の目安)です。"}
       </p>
 

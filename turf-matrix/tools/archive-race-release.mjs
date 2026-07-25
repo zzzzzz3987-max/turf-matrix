@@ -17,17 +17,44 @@ const readWeekData = () => JSON.parse(readFileSync(WEEK_DATA_PATH, "utf8"));
 const archiveName = (date, suffix) => join(ARCHIVE_DIR, `${date}-${suffix}`);
 
 const buildResultTemplate = (weekData) => {
-  const rows = [["場所", "R", "馬番", "馬名", "TM_INDEX", "人気", "単勝オッズ", "馬場", "天候", "着順", "払戻"]];
+  const rows = [[
+    "場所",
+    "R",
+    "馬番",
+    "馬名",
+    "TM_INDEX",
+    "指数順位",
+    "人気",
+    "乖離度",
+    "単勝オッズ",
+    "EV",
+    "妙味フラグ",
+    "馬場",
+    "天候",
+    "着順",
+    "払戻",
+  ]];
   for (const race of weekData.races ?? []) {
     for (const horse of race.horses ?? []) {
+      const value = horse.analysis?.factorsDetail?.value ?? horse.analysis?.value ?? {};
+      const indexRank = value.indexRank ?? horse.analysis?.relative?.rank ?? "";
+      const marketGap = Number.isFinite(value.marketGap)
+        ? value.marketGap
+        : Number.isFinite(horse.popularity) && Number.isFinite(indexRank)
+          ? horse.popularity - indexRank
+          : "";
       rows.push([
         race.track ?? race.course ?? "",
         race.number ?? race.raceNo ?? "",
         horse.number ?? horse.horseNumber ?? "",
         horse.name ?? horse.horseName ?? "",
         horse.tmIndex ?? horse.aiScore ?? "",
+        indexRank,
         horse.popularity ?? "",
+        marketGap,
         horse.odds ?? horse.oddsDetail?.winOdds ?? "",
+        value.ev ?? "",
+        value.highlighted === true || value.eligible === true ? "TRUE" : "FALSE",
         race.going ?? "",
         race.weather ?? "",
         "",

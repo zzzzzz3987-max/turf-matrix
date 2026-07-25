@@ -24,7 +24,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateWeekData } from "./lib-validate.mjs";
-import { isValueSignalEv } from "../src/lib/value-rules.js";
+import { isValueSignalMetrics } from "../src/lib/value-rules.js";
 
 /* =====================================================================
  * 0. CLI / ログ
@@ -695,12 +695,12 @@ const buildTexts = (h, race, rank, ev) => {
     ...(toNum(h.zensoDistance) === race.distance ? ["同距離実績"] : []),
     ...(toNum(h.intervalWeeks) >= 16 ? ["休み明け"] : []),
     ...(["A", "B"].includes(z2h(String(h.trainEvalResolved ?? "")).toUpperCase()) ? ["調教良好"] : []),
-    ...(isValueSignalEv(ev.ev) ? ["妙味"] : []),
+    ...(isValueSignalMetrics(ev.ev, h.popularity - rank) ? ["妙味"] : []),
   ].slice(0, 4);
   h.insight = [
     `TM INDEXはレース${rank}位。算出根拠は${h.abilityBasis}`,
     `${style}×${h.horseNo}番枠。${posText(style, inner)}想定`,
-    isValueSignalEv(ev.ev)
+    isValueSignalMetrics(ev.ev, h.popularity - rank)
       ? `指数${rank}位に対して${h.popularity}人気。期待値${ev.ev.toFixed(2)}に妙味`
       : trText.slice(0, 34),
   ];
@@ -932,7 +932,7 @@ allH.sort((a, b) => b.h.aiScore - a.h.aiScore);
 const featured = allH.slice(0, 2).map(({ r, h }) => ({
   horseId: h.id, raceId: r.id, note: `${r.track}${r.number}R TM INDEX top. TM INDEX ${h.aiScore}`,
 }));
-/* 妙味枠: 指数順位が人気より明確に上(2つ以上) かつ 指数が上位半分の馬から、EV最大を選ぶ */
+/* 妙味枠: 指数順位が人気より2つ以上上で、EV 1.15〜3.00未満の馬から選ぶ */
 const rankOf = new Map();
 for (const r of racesOut) {
   [...r.horses].sort((a, b) => b.aiScore - a.aiScore).forEach((h, i) => rankOf.set(h.id, i + 1));
@@ -941,8 +941,8 @@ const valuePick = allH
   .filter(({ r, h, ev }) => {
     const rank = rankOf.get(h.id);
     return (
-      h.popularity >= 4 && ev >= 1.0 && h.popularity - rank >= 2 &&
-      rank <= Math.ceil(r.horses.length / 2) && !featured.some((f) => f.horseId === h.id)
+      isValueSignalMetrics(ev, h.popularity - rank) &&
+      !featured.some((f) => f.horseId === h.id)
     );
   })
   .sort((a, b) => b.ev - a.ev)[0];

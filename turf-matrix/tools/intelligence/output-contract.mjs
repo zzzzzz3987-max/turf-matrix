@@ -1,5 +1,6 @@
 import { FACTOR_KEYS } from "./constants.mjs";
 import { starsForEv } from "./value-ai.mjs";
+import { isValueSignalMetrics } from "../../src/lib/value-rules.js";
 
 const MOJIBAKE_PATTERN = /譛|繧|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
 const CORE_DETAIL_KEYS = ["blood", "training", "course", "distance", "pace", "form", "value"];
@@ -54,6 +55,11 @@ const validateValueDisplayIntegrity = (weekData) => {
       }
       if (value.stars !== starsForEv(value.ev)) {
         errors.push(`${prefix}: TM VALUE stars mismatch (${value.stars} != ${starsForEv(value.ev)})`);
+      }
+      if (!Number.isFinite(value.indexRank) || !Number.isFinite(value.marketGap)) {
+        errors.push(`${prefix}: active Value metrics are missing index rank or market gap`);
+      } else if (value.eligible !== isValueSignalMetrics(value.ev, value.marketGap)) {
+        errors.push(`${prefix}: Value highlight mismatch`);
       }
     }
     if (probabilities.length) {

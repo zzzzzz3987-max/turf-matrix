@@ -1,22 +1,22 @@
 // Value AI v1.5 deterministic odds-value scoring.
 // Runs only from normalized odds data; no dummy odds or guessed popularity.
 
+import {
+  HIGH_EV_REFERENCE_THRESHOLD,
+  VALUE_SIGNAL_MIN_EV,
+  VALUE_SIGNAL_MIN_MARKET_GAP,
+  isValueSignalMetrics,
+} from "../../src/lib/value-rules.js";
+
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
 const impliedProbability = (odds) => (odds > 0 ? 1 / odds : null);
 const WIN_PROBABILITY_POWER = 7;
-const VALUE_SIGNAL_MIN_EV = 1.5;
-const VALUE_SIGNAL_MAX_EV = 3;
-const VALUE_MIN_TM_INDEX = 70;
-const VALUE_MIN_ABILITY = 65;
 
-const valueCandidateEligibility = (horse, ev) => {
-  const ability = horse.analysis?.factorsDetail?.ability;
+const valueCandidateEligibility = (horse, ev, marketGap) => {
   const reasons = [];
-  if (!(ev >= VALUE_SIGNAL_MIN_EV && ev < VALUE_SIGNAL_MAX_EV)) reasons.push("ev_range");
-  if (!(horse.tmIndex >= VALUE_MIN_TM_INDEX)) reasons.push("tm_index");
-  if (!(ability?.score >= VALUE_MIN_ABILITY)) reasons.push("ability");
-  if (ability?.confidence === "low") reasons.push("ability_confidence");
+  if (!(ev >= VALUE_SIGNAL_MIN_EV && ev < HIGH_EV_REFERENCE_THRESHOLD)) reasons.push("ev_range");
+  if (!(marketGap >= VALUE_SIGNAL_MIN_MARKET_GAP)) reasons.push("market_gap");
   return { eligible: reasons.length === 0, reasons };
 };
 
@@ -33,7 +33,7 @@ const starsForEv = (ev) => {
 const verdictForEv = (ev) => {
   if (!Number.isFinite(ev)) return null;
   if (ev >= 3) return { label: "高オッズ妙味(参考)", tone: "gray" };
-  if (ev >= 1.5) return { label: "妙味あり", tone: "blue" };
+  if (ev >= VALUE_SIGNAL_MIN_EV) return { label: "妙味あり", tone: "blue" };
   if (ev >= 0.95) return { label: "中立", tone: "gray" };
   return { label: "過剰人気気味", tone: "gray" };
 };
@@ -41,6 +41,10 @@ const verdictForEv = (ev) => {
 const buildRaceValueMetrics = (horses) => {
   const evaluated = horses.filter((horse) => Number.isFinite(horse.tmIndex));
   if (!evaluated.length || evaluated.length !== horses.length) return new Map();
+  const ranked = [...evaluated].sort(
+    (a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999),
+  );
+  const rankById = new Map(ranked.map((horse, index) => [horse.id, index + 1]));
 
   const weights = evaluated.map((horse) => ({
     horse,
@@ -55,7 +59,11 @@ const buildRaceValueMetrics = (horses) => {
     const ev = oddsActive && Number.isFinite(horse.odds) && horse.odds > 0
       ? probability * horse.odds
       : null;
-    const eligibility = valueCandidateEligibility(horse, ev);
+    const indexRank = rankById.get(horse.id) ?? null;
+    const marketGap = Number.isFinite(horse.popularity) && Number.isFinite(indexRank)
+      ? horse.popularity - indexRank
+      : null;
+    const eligibility = valueCandidateEligibility(horse, ev, marketGap);
     const verdict = eligibility.eligible
       ? verdictForEv(ev)
       : Number.isFinite(ev)
@@ -64,6 +72,9 @@ const buildRaceValueMetrics = (horses) => {
     return [horse.id, {
       probability,
       ev,
+      indexRank,
+      marketGap,
+      highlighted: isValueSignalMetrics(ev, marketGap),
       stars: starsForEv(ev),
       verdict,
       ...eligibility,

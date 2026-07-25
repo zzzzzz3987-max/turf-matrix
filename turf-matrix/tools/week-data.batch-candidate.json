@@ -398,6 +398,9 @@
                 ],
                 "probability": 0.09822776443069729,
                 "ev": 0.5304299279257654,
+                "indexRank": 6,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -405,7 +408,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -622,6 +626,9 @@
               ],
               "probability": 0.09822776443069729,
               "ev": 0.5304299279257654,
+              "indexRank": 6,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -629,7 +636,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -1386,6 +1394,9 @@
                 ],
                 "probability": 0.06583686975510294,
                 "ev": 0.7176218803306221,
+                "indexRank": 8,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -1394,8 +1405,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -1947,6 +1957,9 @@
               ],
               "probability": 0.06583686975510294,
               "ev": 0.7176218803306221,
+              "indexRank": 8,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -1955,8 +1968,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -3131,16 +3143,16 @@
                 ],
                 "probability": 0.07292063135626756,
                 "ev": 1.5167491322103652,
+                "indexRank": 7,
+                "marketGap": 2,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "tm_index",
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -3507,16 +3519,16 @@
               ],
               "probability": 0.07292063135626756,
               "ev": 1.5167491322103652,
+              "indexRank": 7,
+              "marketGap": 2,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "tm_index",
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -5013,6 +5025,9 @@
                 ],
                 "probability": 0.053421285423518594,
                 "ev": 1.4103219351808909,
+                "indexRank": 10,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -5020,9 +5035,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -5439,6 +5452,9 @@
               ],
               "probability": 0.053421285423518594,
               "ev": 1.4103219351808909,
+              "indexRank": 10,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -5446,9 +5462,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -6556,6 +6570,9 @@
                 ],
                 "probability": 0.13071807051371706,
                 "ev": 0.8888828794932759,
+                "indexRank": 2,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -6563,7 +6580,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -6805,6 +6823,9 @@
               ],
               "probability": 0.13071807051371706,
               "ev": 0.8888828794932759,
+              "indexRank": 2,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -6812,7 +6833,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -7721,6 +7743,9 @@
                 ],
                 "probability": 0.13071807051371706,
                 "ev": 1.1895344416748252,
+                "indexRank": 3,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -7728,7 +7753,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "market_gap"
                 ]
               }
             },
@@ -8080,6 +8105,9 @@
               ],
               "probability": 0.13071807051371706,
               "ev": 1.1895344416748252,
+              "indexRank": 3,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -8087,7 +8115,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -8919,6 +8947,9 @@
                 ],
                 "probability": 0.06583686975510294,
                 "ev": 1.2838189602245074,
+                "indexRank": 9,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -8926,9 +8957,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -9416,6 +9445,9 @@
               ],
               "probability": 0.06583686975510294,
               "ev": 1.2838189602245074,
+              "indexRank": 9,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -9423,9 +9455,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -10300,16 +10330,16 @@
                 ],
                 "probability": 0.14341742840872898,
                 "ev": 1.3050985985194337,
+                "indexRank": 1,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -10676,16 +10706,16 @@
               ],
               "probability": 0.14341742840872898,
               "ev": 1.3050985985194337,
+              "indexRank": 1,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range",
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -11586,6 +11616,9 @@
                 ],
                 "probability": 0.13071807051371706,
                 "ev": 1.9346274436030126,
+                "indexRank": 4,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -12083,6 +12116,9 @@
               ],
               "probability": 0.13071807051371706,
               "ev": 1.9346274436030126,
+              "indexRank": 4,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -13341,6 +13377,9 @@
                 ],
                 "probability": 0.10818493932943055,
                 "ev": 0.2596438543906333,
+                "indexRank": 5,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -13348,7 +13387,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -13631,6 +13671,9 @@
               ],
               "probability": 0.10818493932943055,
               "ev": 0.2596438543906333,
+              "indexRank": 5,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -13638,7 +13681,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -14435,6 +14479,9 @@
                 ],
                 "probability": 0.18660545059055972,
                 "ev": 0.5971374418897911,
+                "indexRank": 1,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -14442,7 +14489,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -15022,6 +15070,9 @@
               ],
               "probability": 0.18660545059055972,
               "ev": 0.5971374418897911,
+              "indexRank": 1,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -15029,7 +15080,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -16195,6 +16247,9 @@
                 ],
                 "probability": 0.12079247980125545,
                 "ev": 0.43485292728451963,
+                "indexRank": 5,
+                "marketGap": -3,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -16202,7 +16257,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -16634,6 +16690,9 @@
               ],
               "probability": 0.12079247980125545,
               "ev": 0.43485292728451963,
+              "indexRank": 5,
+              "marketGap": -3,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -16641,7 +16700,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -17745,15 +17805,16 @@
                 ],
                 "probability": 0.06254406715187133,
                 "ev": 2.8019742084038355,
+                "indexRank": 6,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -18130,15 +18191,16 @@
               ],
               "probability": 0.06254406715187133,
               "ev": 2.8019742084038355,
+              "indexRank": 6,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -19415,6 +19477,9 @@
                 ],
                 "probability": 0.030243879304196516,
                 "ev": 3.0092659907675534,
+                "indexRank": 10,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -19423,8 +19488,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -19688,6 +19752,9 @@
               ],
               "probability": 0.030243879304196516,
               "ev": 3.0092659907675534,
+              "indexRank": 10,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -19696,8 +19763,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -21042,6 +21108,9 @@
                 ],
                 "probability": 0.15731596928958294,
                 "ev": 0.9753590095954142,
+                "indexRank": 2,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -21554,6 +21623,9 @@
               ],
               "probability": 0.15731596928958294,
               "ev": 0.9753590095954142,
+              "indexRank": 2,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -22652,6 +22724,9 @@
                 ],
                 "probability": 0.14421405460451375,
                 "ev": 0.5624348129576037,
+                "indexRank": 3,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -22659,7 +22734,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -23172,6 +23248,9 @@
               ],
               "probability": 0.14421405460451375,
               "ev": 0.5624348129576037,
+              "indexRank": 3,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -23179,7 +23258,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -24221,6 +24301,9 @@
                 ],
                 "probability": 0.05663226851042031,
                 "ev": 0.906116296166725,
+                "indexRank": 7,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -24229,7 +24312,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -24844,6 +24927,9 @@
               ],
               "probability": 0.05663226851042031,
               "ev": 0.906116296166725,
+              "indexRank": 7,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -24852,7 +24938,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -25801,6 +25887,9 @@
                 ],
                 "probability": 0.051206054428738,
                 "ev": 1.4696137621047805,
+                "indexRank": 8,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -25808,9 +25897,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -26176,6 +26263,9 @@
               ],
               "probability": 0.051206054428738,
               "ev": 1.4696137621047805,
+              "indexRank": 8,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -26183,9 +26273,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -27652,6 +27740,9 @@
                 ],
                 "probability": 0.046231721714348216,
                 "ev": 0.8183014743439634,
+                "indexRank": 9,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -27660,8 +27751,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -28119,6 +28209,9 @@
               ],
               "probability": 0.046231721714348216,
               "ev": 0.8183014743439634,
+              "indexRank": 9,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -28127,8 +28220,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -29425,13 +29517,18 @@
                 ],
                 "probability": 0.14421405460451375,
                 "ev": 2.2064750354490603,
+                "indexRank": 4,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
-                  "label": "妙味あり",
-                  "tone": "blue"
+                  "label": "参考",
+                  "tone": "gray"
                 },
-                "eligible": true,
-                "eligibilityReasons": []
+                "eligible": false,
+                "eligibilityReasons": [
+                  "market_gap"
+                ]
               }
             },
             "insight": [
@@ -29686,13 +29783,18 @@
               ],
               "probability": 0.14421405460451375,
               "ev": 2.2064750354490603,
+              "indexRank": 4,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
-                "label": "妙味あり",
-                "tone": "blue"
+                "label": "参考",
+                "tone": "gray"
               },
-              "eligible": true,
-              "eligibilityReasons": []
+              "eligible": false,
+              "eligibilityReasons": [
+                "market_gap"
+              ]
             },
             "indexContributions": [
               {
@@ -31029,15 +31131,16 @@
                 ],
                 "probability": 0.14904621985754826,
                 "ev": 1.192369758860386,
+                "indexRank": 1,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 3,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -31300,15 +31403,16 @@
               ],
               "probability": 0.14904621985754826,
               "ev": 1.192369758860386,
+              "indexRank": 1,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 3,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -32688,15 +32792,16 @@
                 ],
                 "probability": 0.13601319284684138,
                 "ev": 1.9041846998557794,
+                "indexRank": 3,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -32959,15 +33064,16 @@
               ],
               "probability": 0.13601319284684138,
               "ev": 1.9041846998557794,
+              "indexRank": 3,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -33859,6 +33965,9 @@
                 ],
                 "probability": 0.10259965737359492,
                 "ev": 0.8105372932513999,
+                "indexRank": 4,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -33867,7 +33976,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -34339,6 +34448,9 @@
               ],
               "probability": 0.10259965737359492,
               "ev": 0.8105372932513999,
+              "indexRank": 4,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -34347,7 +34459,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -35583,6 +35695,9 @@
                 ],
                 "probability": 0.0691559457258389,
                 "ev": 1.0857483478956707,
+                "indexRank": 6,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -35591,8 +35706,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -35977,6 +36091,9 @@
               ],
               "probability": 0.0691559457258389,
               "ev": 1.0857483478956707,
+              "indexRank": 6,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -35985,8 +36102,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -37004,6 +37120,9 @@
                 ],
                 "probability": 0.0624378986695607,
                 "ev": 2.709804802258934,
+                "indexRank": 8,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -37011,8 +37130,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -37318,6 +37436,9 @@
               ],
               "probability": 0.0624378986695607,
               "ev": 2.709804802258934,
+              "indexRank": 8,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -37325,8 +37446,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -38825,6 +38945,9 @@
                 ],
                 "probability": 0.14904621985754826,
                 "ev": 1.7438407723333145,
+                "indexRank": 2,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -39227,6 +39350,9 @@
               ],
               "probability": 0.14904621985754826,
               "ev": 1.7438407723333145,
+              "indexRank": 2,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -40388,6 +40514,9 @@
                 ],
                 "probability": 0.09315654320861728,
                 "ev": 0.18631308641723457,
+                "indexRank": 5,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -40396,7 +40525,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -40652,6 +40781,9 @@
               ],
               "probability": 0.09315654320861728,
               "ev": 0.18631308641723457,
+              "indexRank": 5,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -40660,7 +40792,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -41555,6 +41687,9 @@
                 ],
                 "probability": 0.0691559457258389,
                 "ev": 0.38035770149211395,
+                "indexRank": 7,
+                "marketGap": -5,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -41563,8 +41698,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -41820,6 +41954,9 @@
               ],
               "probability": 0.0691559457258389,
               "ev": 0.38035770149211395,
+              "indexRank": 7,
+              "marketGap": -5,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -41828,8 +41965,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -42964,6 +43100,9 @@
                 ],
                 "probability": 0.050663295786671295,
                 "ev": 1.0740618706774314,
+                "indexRank": 11,
+                "marketGap": -3,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -42972,8 +43111,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -43237,6 +43375,9 @@
               ],
               "probability": 0.050663295786671295,
               "ev": 1.0740618706774314,
+              "indexRank": 11,
+              "marketGap": -3,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -43245,8 +43386,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -44414,6 +44554,9 @@
                 ],
                 "probability": 0.0624378986695607,
                 "ev": 3.434084426825838,
+                "indexRank": 9,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -44422,8 +44565,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -44742,6 +44884,9 @@
               ],
               "probability": 0.0624378986695607,
               "ev": 3.434084426825838,
+              "indexRank": 9,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -44750,8 +44895,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -45904,6 +46048,9 @@
                 ],
                 "probability": 0.05628718227837932,
                 "ev": 3.3603447820192454,
+                "indexRank": 10,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -45912,8 +46059,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -46299,6 +46445,9 @@
               ],
               "probability": 0.05628718227837932,
               "ev": 3.3603447820192454,
+              "indexRank": 10,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -46307,8 +46456,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -47491,6 +47639,9 @@
                 ],
                 "probability": 0.08339388804201145,
                 "ev": 1.5427869287772118,
+                "indexRank": 5,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -47926,6 +48077,9 @@
               ],
               "probability": 0.08339388804201145,
               "ev": 1.5427869287772118,
+              "indexRank": 5,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -49113,6 +49267,9 @@
                 ],
                 "probability": 0.13026693905631032,
                 "ev": 0.32566734764077576,
+                "indexRank": 2,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -49120,7 +49277,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -49574,6 +49732,9 @@
               ],
               "probability": 0.13026693905631032,
               "ev": 0.32566734764077576,
+              "indexRank": 2,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -49581,7 +49742,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -50652,6 +50814,9 @@
                 ],
                 "probability": 0.1419502111845292,
                 "ev": 0.5819958658565696,
+                "indexRank": 1,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -50659,7 +50824,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -51057,6 +51223,9 @@
               ],
               "probability": 0.1419502111845292,
               "ev": 0.5819958658565696,
+              "indexRank": 1,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -51064,7 +51233,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -52173,6 +52343,9 @@
                 ],
                 "probability": 0.046894872173387364,
                 "ev": 0.7878338525129077,
+                "indexRank": 11,
+                "marketGap": -5,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -52180,7 +52353,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -52606,6 +52780,9 @@
               ],
               "probability": 0.046894872173387364,
               "ev": 0.7878338525129077,
+              "indexRank": 11,
+              "marketGap": -5,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -52613,7 +52790,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -53678,6 +53856,9 @@
                 ],
                 "probability": 0.09138483930659416,
                 "ev": 1.0052332323725357,
+                "indexRank": 3,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -54132,6 +54313,9 @@
               ],
               "probability": 0.09138483930659416,
               "ev": 1.0052332323725357,
+              "indexRank": 3,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -55127,6 +55311,9 @@
                 ],
                 "probability": 0.046894872173387364,
                 "ev": 1.7304207831979936,
+                "indexRank": 12,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -55134,7 +55321,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -55588,6 +55775,9 @@
               ],
               "probability": 0.046894872173387364,
               "ev": 1.7304207831979936,
+              "indexRank": 12,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -55595,7 +55785,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -57043,6 +57233,9 @@
                 ],
                 "probability": 0.04240164556532547,
                 "ev": 0.7547492910627934,
+                "indexRank": 13,
+                "marketGap": -6,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -57051,7 +57244,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index"
+                  "market_gap"
                 ]
               }
             },
@@ -57341,6 +57534,9 @@
               ],
               "probability": 0.04240164556532547,
               "ev": 0.7547492910627934,
+              "indexRank": 13,
+              "marketGap": -6,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -57349,7 +57545,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -58750,6 +58946,9 @@
                 ],
                 "probability": 0.09138483930659416,
                 "ev": 0.7402171983834127,
+                "indexRank": 4,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -58757,7 +58956,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -59132,6 +59332,9 @@
               ],
               "probability": 0.09138483930659416,
               "ev": 0.7402171983834127,
+              "indexRank": 4,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -59139,7 +59342,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -60305,6 +60509,9 @@
                 ],
                 "probability": 0.08339388804201145,
                 "ev": 5.737499497290387,
+                "indexRank": 6,
+                "marketGap": 6,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -60811,6 +61018,9 @@
               ],
               "probability": 0.08339388804201145,
               "ev": 5.737499497290387,
+              "indexRank": 6,
+              "marketGap": 6,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -62277,6 +62487,9 @@
                 ],
                 "probability": 0.05179019155397407,
                 "ev": 3.718535753575338,
+                "indexRank": 10,
+                "marketGap": 3,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -62284,8 +62497,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
+                  "ev_range"
                 ]
               }
             },
@@ -62597,6 +62809,9 @@
               ],
               "probability": 0.05179019155397407,
               "ev": 3.718535753575338,
+              "indexRank": 10,
+              "marketGap": 3,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -62604,8 +62819,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "ability"
+                "ev_range"
               ]
             },
             "indexContributions": [
@@ -63678,6 +63892,9 @@
                 ],
                 "probability": 0.0760095077595548,
                 "ev": 0.6384798651802603,
+                "indexRank": 7,
+                "marketGap": -3,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -63685,7 +63902,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -64145,6 +64363,9 @@
               ],
               "probability": 0.0760095077595548,
               "ev": 0.6384798651802603,
+              "indexRank": 7,
+              "marketGap": -3,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -64152,7 +64373,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -65514,6 +65736,9 @@
                 ],
                 "probability": 0.05711715291816005,
                 "ev": 2.061929220345578,
+                "indexRank": 8,
+                "marketGap": 2,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -65761,6 +65986,9 @@
               ],
               "probability": 0.05711715291816005,
               "ev": 2.061929220345578,
+              "indexRank": 8,
+              "marketGap": 2,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -66858,13 +67086,18 @@
                 ],
                 "probability": 0.05711715291816005,
                 "ev": 1.9077129074665458,
+                "indexRank": 9,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
-                  "label": "妙味あり",
-                  "tone": "blue"
+                  "label": "参考",
+                  "tone": "gray"
                 },
-                "eligible": true,
-                "eligibilityReasons": []
+                "eligible": false,
+                "eligibilityReasons": [
+                  "market_gap"
+                ]
               }
             },
             "insight": [
@@ -67105,13 +67338,18 @@
               ],
               "probability": 0.05711715291816005,
               "ev": 1.9077129074665458,
+              "indexRank": 9,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
-                "label": "妙味あり",
-                "tone": "blue"
+                "label": "参考",
+                "tone": "gray"
               },
-              "eligible": true,
-              "eligibilityReasons": []
+              "eligible": false,
+              "eligibilityReasons": [
+                "market_gap"
+              ]
             },
             "indexContributions": [
               {
@@ -68383,13 +68621,18 @@
                 ],
                 "probability": 0.05850521566682229,
                 "ev": 2.3343581051062094,
+                "indexRank": 8,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
-                  "label": "妙味あり",
-                  "tone": "blue"
+                  "label": "参考",
+                  "tone": "gray"
                 },
-                "eligible": true,
-                "eligibilityReasons": []
+                "eligible": false,
+                "eligibilityReasons": [
+                  "market_gap"
+                ]
               }
             },
             "insight": [
@@ -68646,13 +68889,18 @@
               ],
               "probability": 0.05850521566682229,
               "ev": 2.3343581051062094,
+              "indexRank": 8,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
-                "label": "妙味あり",
-                "tone": "blue"
+                "label": "参考",
+                "tone": "gray"
               },
-              "eligible": true,
-              "eligibilityReasons": []
+              "eligible": false,
+              "eligibilityReasons": [
+                "market_gap"
+              ]
             },
             "indexContributions": [
               {
@@ -70101,6 +70349,9 @@
                 ],
                 "probability": 0.03986338572111598,
                 "ev": 4.2016008550056245,
+                "indexRank": 13,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -70109,7 +70360,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -70367,6 +70618,9 @@
               ],
               "probability": 0.03986338572111598,
               "ev": 4.2016008550056245,
+              "indexRank": 13,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -70375,7 +70629,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -71584,6 +71838,9 @@
                 ],
                 "probability": 0.053258358778476664,
                 "ev": 2.4978170267105555,
+                "indexRank": 11,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -71591,7 +71848,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -72009,6 +72266,9 @@
               ],
               "probability": 0.053258358778476664,
               "ev": 2.4978170267105555,
+              "indexRank": 11,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -72016,7 +72276,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -73156,6 +73416,9 @@
                 ],
                 "probability": 0.05850521566682229,
                 "ev": 7.16688891918573,
+                "indexRank": 9,
+                "marketGap": 4,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -73163,8 +73426,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
+                  "ev_range"
                 ]
               }
             },
@@ -73565,6 +73827,9 @@
               ],
               "probability": 0.05850521566682229,
               "ev": 7.16688891918573,
+              "indexRank": 9,
+              "marketGap": 4,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -73572,8 +73837,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "ability"
+                "ev_range"
               ]
             },
             "indexContributions": [
@@ -75034,6 +75298,9 @@
                 ],
                 "probability": 0.0919169594638971,
                 "ev": 0.22060070271335303,
+                "indexRank": 3,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -75041,7 +75308,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -75299,6 +75567,9 @@
               ],
               "probability": 0.0919169594638971,
               "ev": 0.22060070271335303,
+              "indexRank": 3,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -75306,7 +75577,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -76713,6 +76985,9 @@
                 ],
                 "probability": 0.04396359676900761,
                 "ev": 5.860347449308715,
+                "indexRank": 12,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -76720,8 +76995,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
+                  "ev_range"
                 ]
               }
             },
@@ -76979,6 +77253,9 @@
               ],
               "probability": 0.04396359676900761,
               "ev": 5.860347449308715,
+              "indexRank": 12,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -76986,8 +77263,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "ability"
+                "ev_range"
               ]
             },
             "indexContributions": [
@@ -78668,6 +78944,9 @@
                 ],
                 "probability": 0.10026765845997988,
                 "ev": 0.44117769722391154,
+                "indexRank": 2,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -78675,7 +78954,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -78933,6 +79213,9 @@
               ],
               "probability": 0.10026765845997988,
               "ev": 0.44117769722391154,
+              "indexRank": 2,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -78940,7 +79223,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -80176,6 +80460,9 @@
                 ],
                 "probability": 0.10926038023523299,
                 "ev": 0.9724173840935737,
+                "indexRank": 1,
+                "marketGap": 3,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -80514,6 +80801,9 @@
               ],
               "probability": 0.10926038023523299,
               "ev": 0.9724173840935737,
+              "indexRank": 1,
+              "marketGap": 3,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -81709,6 +81999,9 @@
                 ],
                 "probability": 0.0919169594638971,
                 "ev": 0.9651280743709195,
+                "indexRank": 4,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -81716,7 +82009,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -81974,6 +82268,9 @@
               ],
               "probability": 0.0919169594638971,
               "ev": 0.9651280743709195,
+              "indexRank": 4,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -81981,7 +82278,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -83406,6 +83704,9 @@
                 ],
                 "probability": 0.03986338572111598,
                 "ev": 4.2255188864382935,
+                "indexRank": 14,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -83414,7 +83715,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -83806,6 +84107,9 @@
               ],
               "probability": 0.03986338572111598,
               "ev": 4.2255188864382935,
+              "indexRank": 14,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -83814,7 +84118,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -85319,6 +85623,9 @@
                 ],
                 "probability": 0.0919169594638971,
                 "ev": 1.26845404060178,
+                "indexRank": 5,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -85326,7 +85633,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "market_gap"
                 ]
               }
             },
@@ -85584,6 +85891,9 @@
               ],
               "probability": 0.0919169594638971,
               "ev": 1.26845404060178,
+              "indexRank": 5,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -85591,7 +85901,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -86793,6 +87103,9 @@
                 ],
                 "probability": 0.05850521566682229,
                 "ev": 1.3807230897370062,
+                "indexRank": 10,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -86800,7 +87113,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "market_gap"
                 ]
               }
             },
@@ -87222,6 +87535,9 @@
               ],
               "probability": 0.05850521566682229,
               "ev": 1.3807230897370062,
+              "indexRank": 10,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -87229,7 +87545,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -89097,6 +89413,9 @@
                 ],
                 "probability": 0.07033974945901567,
                 "ev": 0.46424234642950335,
+                "indexRank": 7,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -89104,7 +89423,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -89362,6 +89682,9 @@
               ],
               "probability": 0.07033974945901567,
               "ev": 0.46424234642950335,
+              "indexRank": 7,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -89369,7 +89692,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -90412,13 +90736,18 @@
                 ],
                 "probability": 0.0919169594638971,
                 "ev": 1.58097170277903,
+                "indexRank": 6,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
-                  "label": "妙味あり",
-                  "tone": "blue"
+                  "label": "参考",
+                  "tone": "gray"
                 },
-                "eligible": true,
-                "eligibilityReasons": []
+                "eligible": false,
+                "eligibilityReasons": [
+                  "market_gap"
+                ]
               }
             },
             "insight": [
@@ -90744,13 +91073,18 @@
               ],
               "probability": 0.0919169594638971,
               "ev": 1.58097170277903,
+              "indexRank": 6,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
-                "label": "妙味あり",
-                "tone": "blue"
+                "label": "参考",
+                "tone": "gray"
               },
-              "eligible": true,
-              "eligibilityReasons": []
+              "eligible": false,
+              "eligibilityReasons": [
+                "market_gap"
+              ]
             },
             "indexContributions": [
               {
@@ -92160,6 +92494,9 @@
                 ],
                 "probability": 0.10288724407719868,
                 "ev": 0.7510768817635504,
+                "indexRank": 2,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -92167,7 +92504,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -92558,6 +92896,9 @@
               ],
               "probability": 0.10288724407719868,
               "ev": 0.7510768817635504,
+              "indexRank": 2,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -92565,7 +92906,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -93913,6 +94255,9 @@
                 ],
                 "probability": 0.05509261812142601,
                 "ev": 2.165139892172042,
+                "indexRank": 10,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -94249,6 +94594,9 @@
               ],
               "probability": 0.05509261812142601,
               "ev": 2.165139892172042,
+              "indexRank": 10,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -95221,6 +95569,9 @@
                 ],
                 "probability": 0.10288724407719868,
                 "ev": 0.5555911180168729,
+                "indexRank": 3,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -95228,7 +95579,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -95494,6 +95846,9 @@
               ],
               "probability": 0.10288724407719868,
               "ev": 0.5555911180168729,
+              "indexRank": 3,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -95501,7 +95856,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -96658,6 +97014,9 @@
                 ],
                 "probability": 0.045595773603011674,
                 "ev": 1.9742969970104054,
+                "indexRank": 13,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -96665,7 +97024,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -96985,6 +97344,9 @@
               ],
               "probability": 0.045595773603011674,
               "ev": 1.9742969970104054,
+              "indexRank": 13,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -96992,7 +97354,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -98620,6 +98982,9 @@
                 ],
                 "probability": 0.0662368459210709,
                 "ev": 1.0730369039213485,
+                "indexRank": 7,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -99017,6 +99382,9 @@
               ],
               "probability": 0.0662368459210709,
               "ev": 1.0730369039213485,
+              "indexRank": 7,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -100378,6 +100746,9 @@
                 ],
                 "probability": 0.06044490699891361,
                 "ev": 0.7434723560866374,
+                "indexRank": 9,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -100385,7 +100756,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -100715,6 +101087,9 @@
               ],
               "probability": 0.06044490699891361,
               "ev": 0.7434723560866374,
+              "indexRank": 9,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -100722,7 +101097,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -102087,6 +102463,9 @@
                 ],
                 "probability": 0.07926002532742156,
                 "ev": 0.966972308994543,
+                "indexRank": 4,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -102539,6 +102918,9 @@
               ],
               "probability": 0.07926002532742156,
               "ev": 0.966972308994543,
+              "indexRank": 4,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -104208,6 +104590,9 @@
                 ],
                 "probability": 0.11199824422591281,
                 "ev": 0.5039920990166077,
+                "indexRank": 1,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -104215,7 +104600,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -104607,6 +104993,9 @@
               ],
               "probability": 0.11199824422591281,
               "ev": 0.5039920990166077,
+              "indexRank": 1,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -104614,7 +105003,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -105759,6 +106149,9 @@
                 ],
                 "probability": 0.0662368459210709,
                 "ev": 0.5431421365527813,
+                "indexRank": 8,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -105766,7 +106159,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -106105,6 +106499,9 @@
               ],
               "probability": 0.0662368459210709,
               "ev": 0.5431421365527813,
+              "indexRank": 8,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -106112,7 +106509,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -107181,6 +107579,9 @@
                 ],
                 "probability": 0.045595773603011674,
                 "ev": 0.40580238506680394,
+                "indexRank": 14,
+                "marketGap": -9,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -107188,7 +107589,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -107582,6 +107984,9 @@
               ],
               "probability": 0.045595773603011674,
               "ev": 0.40580238506680394,
+              "indexRank": 14,
+              "marketGap": -9,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -107589,7 +107994,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -108807,6 +109213,9 @@
                 ],
                 "probability": 0.05509261812142601,
                 "ev": 1.0908338388042351,
+                "indexRank": 11,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -108814,7 +109223,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -109202,6 +109612,9 @@
               ],
               "probability": 0.05509261812142601,
               "ev": 1.0908338388042351,
+              "indexRank": 11,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -109209,7 +109622,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -110902,15 +111316,16 @@
                 ],
                 "probability": 0.07926002532742156,
                 "ev": 1.3394944280334242,
+                "indexRank": 5,
+                "marketGap": 5,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -111319,15 +111734,16 @@
               ],
               "probability": 0.07926002532742156,
               "ev": 1.3394944280334242,
+              "indexRank": 5,
+              "marketGap": 5,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -112435,6 +112851,9 @@
                 ],
                 "probability": 0.07926002532742156,
                 "ev": 2.6552108484686223,
+                "indexRank": 6,
+                "marketGap": 6,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -112960,6 +113379,9 @@
               ],
               "probability": 0.07926002532742156,
               "ev": 2.6552108484686223,
+              "indexRank": 6,
+              "marketGap": 6,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -114286,6 +114708,9 @@
                 ],
                 "probability": 0.05015180934749435,
                 "ev": 0.7422467783429164,
+                "indexRank": 12,
+                "marketGap": -4,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -114294,7 +114719,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -114704,6 +115129,9 @@
               ],
               "probability": 0.05015180934749435,
               "ev": 0.7422467783429164,
+              "indexRank": 12,
+              "marketGap": -4,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -114712,7 +115140,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -116820,6 +117248,9 @@
                 ],
                 "probability": 0.1438716090815653,
                 "ev": 0.41722766633653935,
+                "indexRank": 3,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -116827,7 +117258,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -117350,6 +117782,9 @@
               ],
               "probability": 0.1438716090815653,
               "ev": 0.41722766633653935,
+              "indexRank": 3,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -117357,7 +117792,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -117997,6 +118433,9 @@
                 ],
                 "probability": 0.1438716090815653,
                 "ev": 2.5896889634681752,
+                "indexRank": 4,
+                "marketGap": 3,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
                   "label": "妙味あり",
@@ -118240,6 +118679,9 @@
               ],
               "probability": 0.1438716090815653,
               "ev": 2.5896889634681752,
+              "indexRank": 4,
+              "marketGap": 3,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
                 "label": "妙味あり",
@@ -119382,6 +119824,9 @@
                 ],
                 "probability": 0.07031388953070374,
                 "ev": 3.2485016963185127,
+                "indexRank": 7,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 0,
                 "verdict": {
                   "label": "参考",
@@ -119389,9 +119834,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "tm_index",
-                  "ability"
+                  "ev_range"
                 ]
               }
             },
@@ -119629,6 +120072,9 @@
               ],
               "probability": 0.07031388953070374,
               "ev": 3.2485016963185127,
+              "indexRank": 7,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 0,
               "verdict": {
                 "label": "参考",
@@ -119636,9 +120082,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "tm_index",
-                "ability"
+                "ev_range"
               ]
             },
             "indexContributions": [
@@ -121628,6 +122072,9 @@
                 ],
                 "probability": 0.1068049204751242,
                 "ev": 0.8223978876584563,
+                "indexRank": 5,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -121636,8 +122083,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -121993,6 +122439,9 @@
               ],
               "probability": 0.1068049204751242,
               "ev": 0.8223978876584563,
+              "indexRank": 5,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -122001,8 +122450,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -123578,6 +124026,9 @@
                 ],
                 "probability": 0.05051140540899096,
                 "ev": 0.47480721084451505,
+                "indexRank": 8,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -123586,8 +124037,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -123914,6 +124364,9 @@
               ],
               "probability": 0.05051140540899096,
               "ev": 0.47480721084451505,
+              "indexRank": 8,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -123922,8 +124375,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -124686,6 +125138,9 @@
                 ],
                 "probability": 0.04507715216952467,
                 "ev": 0.8204041694853489,
+                "indexRank": 9,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -124694,8 +125149,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -125068,6 +125522,9 @@
               ],
               "probability": 0.04507715216952467,
               "ev": 0.8204041694853489,
+              "indexRank": 9,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -125076,8 +125533,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -126218,6 +126674,9 @@
                 ],
                 "probability": 0.1068049204751242,
                 "ev": 0.7583149353733818,
+                "indexRank": 6,
+                "marketGap": -2,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -126226,8 +126685,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -126591,6 +127049,9 @@
               ],
               "probability": 0.1068049204751242,
               "ev": 0.7583149353733818,
+              "indexRank": 6,
+              "marketGap": -2,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -126599,8 +127060,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -127482,6 +127942,9 @@
                 ],
                 "probability": 0.17428887392362705,
                 "ev": 0.6797266083021455,
+                "indexRank": 1,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -127489,7 +127952,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -128018,6 +128482,9 @@
               ],
               "probability": 0.17428887392362705,
               "ev": 0.6797266083021455,
+              "indexRank": 1,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -128025,7 +128492,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -129515,6 +129983,9 @@
                 ],
                 "probability": 0.15845561985377457,
                 "ev": 1.0933437769910446,
+                "indexRank": 2,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -129523,7 +129994,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -129886,6 +130357,9 @@
               ],
               "probability": 0.15845561985377457,
               "ev": 1.0933437769910446,
+              "indexRank": 2,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -129894,7 +130368,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -131303,6 +131777,9 @@
                 ],
                 "probability": 0.06322342185248236,
                 "ev": 1.4098823073103568,
+                "indexRank": 9,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -131310,9 +131787,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -131698,6 +132173,9 @@
               ],
               "probability": 0.06322342185248236,
               "ev": 1.4098823073103568,
+              "indexRank": 9,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -131705,9 +132183,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -132774,6 +133250,9 @@
                 ],
                 "probability": 0.11333478004947277,
                 "ev": 0.5440069442374693,
+                "indexRank": 2,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -132782,7 +133261,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -133046,6 +133525,9 @@
               ],
               "probability": 0.11333478004947277,
               "ev": 0.5440069442374693,
+              "indexRank": 2,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -133054,7 +133536,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -134043,6 +134525,9 @@
                 ],
                 "probability": 0.09379817385141048,
                 "ev": 0.7691450255815658,
+                "indexRank": 3,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -134051,7 +134536,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -134307,6 +134792,9 @@
               ],
               "probability": 0.09379817385141048,
               "ev": 0.7691450255815658,
+              "indexRank": 3,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -134315,7 +134803,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -135377,6 +135865,9 @@
                 ],
                 "probability": 0.09379817385141048,
                 "ev": 0.5346495909530398,
+                "indexRank": 4,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -135385,7 +135876,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -135777,6 +136268,9 @@
               ],
               "probability": 0.09379817385141048,
               "ev": 0.5346495909530398,
+              "indexRank": 4,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -135785,7 +136279,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -137427,6 +137921,9 @@
                 ],
                 "probability": 0.07722231259617478,
                 "ev": 0.6718341195867205,
+                "indexRank": 6,
+                "marketGap": -1,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -137435,7 +137932,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -137691,6 +138188,9 @@
               ],
               "probability": 0.07722231259617478,
               "ev": 0.6718341195867205,
+              "indexRank": 6,
+              "marketGap": -1,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -137699,7 +138199,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -138857,6 +139357,9 @@
                 ],
                 "probability": 0.04162247095089517,
                 "ev": 2.2268021958728914,
+                "indexRank": 12,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -138864,8 +139367,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -139194,6 +139696,9 @@
               ],
               "probability": 0.04162247095089517,
               "ev": 2.2268021958728914,
+              "indexRank": 12,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -139201,8 +139706,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -141183,6 +141687,9 @@
                 ],
                 "probability": 0.1630512007507123,
                 "ev": 0.6032894427776355,
+                "indexRank": 1,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -141190,7 +141697,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -141624,6 +142132,9 @@
               ],
               "probability": 0.1630512007507123,
               "ev": 0.6032894427776355,
+              "indexRank": 1,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -141631,7 +142142,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -142838,6 +143350,9 @@
                 ],
                 "probability": 0.05708168062393015,
                 "ev": 0.6164821507384457,
+                "indexRank": 11,
+                "marketGap": -5,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -142846,8 +143361,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -143103,6 +143617,9 @@
               ],
               "probability": 0.05708168062393015,
               "ev": 0.6164821507384457,
+              "indexRank": 11,
+              "marketGap": -5,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -143111,8 +143628,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -144463,6 +144979,9 @@
                 ],
                 "probability": 0.06992309488480929,
                 "ev": 1.1397464466223914,
+                "indexRank": 7,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -144471,7 +144990,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -144735,6 +145254,9 @@
               ],
               "probability": 0.06992309488480929,
               "ev": 1.1397464466223914,
+              "indexRank": 7,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -144743,7 +145265,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -146055,16 +146577,16 @@
                 ],
                 "probability": 0.09379817385141048,
                 "ev": 1.4538716946968624,
+                "indexRank": 5,
+                "marketGap": 2,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -146451,16 +146973,16 @@
               ],
               "probability": 0.09379817385141048,
               "ev": 1.4538716946968624,
+              "indexRank": 5,
+              "marketGap": 2,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range",
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -148139,6 +148661,9 @@
                 ],
                 "probability": 0.06992309488480929,
                 "ev": 1.2935772553689717,
+                "indexRank": 8,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 4,
                 "verdict": {
                   "label": "参考",
@@ -148146,8 +148671,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -148407,6 +148931,9 @@
               ],
               "probability": 0.06992309488480929,
               "ev": 1.2935772553689717,
+              "indexRank": 8,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 4,
               "verdict": {
                 "label": "参考",
@@ -148414,8 +148941,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -150017,6 +150543,9 @@
                 ],
                 "probability": 0.06322342185248236,
                 "ev": 1.9662484196122016,
+                "indexRank": 10,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -150024,8 +150553,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -150345,6 +150873,9 @@
               ],
               "probability": 0.06322342185248236,
               "ev": 1.9662484196122016,
+              "indexRank": 10,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -150352,8 +150883,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -152363,6 +152893,9 @@
                 ],
                 "probability": 0.09849743720771684,
                 "ev": 1.1425702716095152,
+                "indexRank": 1,
+                "marketGap": 3,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -152699,6 +153232,9 @@
               ],
               "probability": 0.09849743720771684,
               "ev": 1.1425702716095152,
+              "indexRank": 1,
+              "marketGap": 3,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -153733,15 +154269,16 @@
                 ],
                 "probability": 0.08212168616019061,
                 "ev": 1.2728861354829544,
+                "indexRank": 3,
+                "marketGap": 6,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -154000,15 +154537,16 @@
               ],
               "probability": 0.08212168616019061,
               "ev": 1.2728861354829544,
+              "indexRank": 3,
+              "marketGap": 6,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -155082,15 +155620,16 @@
                 ],
                 "probability": 0.06813727329706486,
                 "ev": 1.2741670106551128,
+                "indexRank": 6,
+                "marketGap": 7,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -155476,15 +156015,16 @@
               ],
               "probability": 0.06813727329706486,
               "ev": 1.2741670106551128,
+              "indexRank": 6,
+              "marketGap": 7,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -156621,6 +157161,9 @@
                 ],
                 "probability": 0.04617947508581331,
                 "ev": 0.5910972810984104,
+                "indexRank": 14,
+                "marketGap": -8,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -156629,7 +157172,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -157011,6 +157554,9 @@
               ],
               "probability": 0.04617947508581331,
               "ev": 0.5910972810984104,
+              "indexRank": 14,
+              "marketGap": -8,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -157019,7 +157565,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -158421,6 +158967,9 @@
                 ],
                 "probability": 0.06813727329706486,
                 "ev": 0.9334806441697885,
+                "indexRank": 7,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -158429,7 +158978,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -158888,6 +159437,9 @@
               ],
               "probability": 0.06813727329706486,
               "ev": 0.9334806441697885,
+              "indexRank": 7,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -158896,7 +159448,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -159942,6 +160494,9 @@
                 ],
                 "probability": 0.061947350007915916,
                 "ev": 0.6442524400823255,
+                "indexRank": 9,
+                "marketGap": -6,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -159950,7 +160505,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -160210,6 +160765,9 @@
               ],
               "probability": 0.061947350007915916,
               "ev": 0.6442524400823255,
+              "indexRank": 9,
+              "marketGap": -6,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -160218,7 +160776,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -161245,6 +161803,9 @@
                 ],
                 "probability": 0.08212168616019061,
                 "ev": 0.3038502387927053,
+                "indexRank": 4,
+                "marketGap": -3,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -161252,7 +161813,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -161717,6 +162279,9 @@
               ],
               "probability": 0.08212168616019061,
               "ev": 0.3038502387927053,
+              "indexRank": 4,
+              "marketGap": -3,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -161724,7 +162289,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -162769,15 +163335,16 @@
                 ],
                 "probability": 0.061947350007915916,
                 "ev": 2.471699265315845,
+                "indexRank": 10,
+                "marketGap": 5,
+                "highlighted": true,
                 "stars": 5,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -163157,15 +163724,16 @@
               ],
               "probability": 0.061947350007915916,
               "ev": 2.471699265315845,
+              "indexRank": 10,
+              "marketGap": 5,
+              "highlighted": true,
               "stars": 5,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -164348,6 +164916,9 @@
                 ],
                 "probability": 0.051000114718587335,
                 "ev": 0.591601330735613,
+                "indexRank": 12,
+                "marketGap": -8,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -164356,7 +164927,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -164743,6 +165314,9 @@
               ],
               "probability": 0.051000114718587335,
               "ev": 0.591601330735613,
+              "indexRank": 12,
+              "marketGap": -8,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -164751,7 +165325,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -165974,16 +166548,16 @@
                 ],
                 "probability": 0.06813727329706486,
                 "ev": 1.2400983740065803,
+                "indexRank": 8,
+                "marketGap": 4,
+                "highlighted": true,
                 "stars": 4,
                 "verdict": {
-                  "label": "参考",
-                  "tone": "gray"
+                  "label": "妙味あり",
+                  "tone": "blue"
                 },
-                "eligible": false,
-                "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
-                ]
+                "eligible": true,
+                "eligibilityReasons": []
               }
             },
             "insight": [
@@ -166377,16 +166951,16 @@
               ],
               "probability": 0.06813727329706486,
               "ev": 1.2400983740065803,
+              "indexRank": 8,
+              "marketGap": 4,
+              "highlighted": true,
               "stars": 4,
               "verdict": {
-                "label": "参考",
-                "tone": "gray"
+                "label": "妙味あり",
+                "tone": "blue"
               },
-              "eligible": false,
-              "eligibilityReasons": [
-                "ev_range",
-                "ability"
-              ]
+              "eligible": true,
+              "eligibilityReasons": []
             },
             "indexContributions": [
               {
@@ -167766,6 +168340,9 @@
                 ],
                 "probability": 0.08999073276874842,
                 "ev": 0.6479332759349886,
+                "indexRank": 2,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -167773,7 +168350,8 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range"
+                  "ev_range",
+                  "market_gap"
                 ]
               }
             },
@@ -168097,6 +168675,9 @@
               ],
               "probability": 0.08999073276874842,
               "ev": 0.6479332759349886,
+              "indexRank": 2,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -168104,7 +168685,8 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range"
+                "ev_range",
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -169126,6 +169708,9 @@
                 ],
                 "probability": 0.051000114718587335,
                 "ev": 1.7238038774882518,
+                "indexRank": 13,
+                "marketGap": 1,
+                "highlighted": false,
                 "stars": 5,
                 "verdict": {
                   "label": "参考",
@@ -169133,7 +169718,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -169525,6 +170110,9 @@
               ],
               "probability": 0.051000114718587335,
               "ev": 1.7238038774882518,
+              "indexRank": 13,
+              "marketGap": 1,
+              "highlighted": false,
               "stars": 5,
               "verdict": {
                 "label": "参考",
@@ -169532,7 +170120,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -170640,6 +171228,9 @@
                 ],
                 "probability": 0.07484995708889572,
                 "ev": 0.9655644464467548,
+                "indexRank": 5,
+                "marketGap": 2,
+                "highlighted": false,
                 "stars": 2,
                 "verdict": {
                   "label": "参考",
@@ -170647,8 +171238,7 @@
                 },
                 "eligible": false,
                 "eligibilityReasons": [
-                  "ev_range",
-                  "ability"
+                  "ev_range"
                 ]
               }
             },
@@ -171098,6 +171688,9 @@
               ],
               "probability": 0.07484995708889572,
               "ev": 0.9655644464467548,
+              "indexRank": 5,
+              "marketGap": 2,
+              "highlighted": false,
               "stars": 2,
               "verdict": {
                 "label": "参考",
@@ -171105,8 +171698,7 @@
               },
               "eligible": false,
               "eligibilityReasons": [
-                "ev_range",
-                "ability"
+                "ev_range"
               ]
             },
             "indexContributions": [
@@ -172217,6 +172809,9 @@
                 ],
                 "probability": 0.03398492617632757,
                 "ev": 0.5301648483507101,
+                "indexRank": 15,
+                "marketGap": -5,
+                "highlighted": false,
                 "stars": 1,
                 "verdict": {
                   "label": "参考",
@@ -172225,8 +172820,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "tm_index",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -172559,6 +173153,9 @@
               ],
               "probability": 0.03398492617632757,
               "ev": 0.5301648483507101,
+              "indexRank": 15,
+              "marketGap": -5,
+              "highlighted": false,
               "stars": 1,
               "verdict": {
                 "label": "参考",
@@ -172567,8 +173164,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "tm_index",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [
@@ -173665,6 +174261,9 @@
                 ],
                 "probability": 0.061947350007915916,
                 "ev": 1.0283260101314042,
+                "indexRank": 11,
+                "marketGap": 0,
+                "highlighted": false,
                 "stars": 3,
                 "verdict": {
                   "label": "参考",
@@ -173673,7 +174272,7 @@
                 "eligible": false,
                 "eligibilityReasons": [
                   "ev_range",
-                  "ability"
+                  "market_gap"
                 ]
               }
             },
@@ -174002,6 +174601,9 @@
               ],
               "probability": 0.061947350007915916,
               "ev": 1.0283260101314042,
+              "indexRank": 11,
+              "marketGap": 0,
+              "highlighted": false,
               "stars": 3,
               "verdict": {
                 "label": "参考",
@@ -174010,7 +174612,7 @@
               "eligible": false,
               "eligibilityReasons": [
                 "ev_range",
-                "ability"
+                "market_gap"
               ]
             },
             "indexContributions": [

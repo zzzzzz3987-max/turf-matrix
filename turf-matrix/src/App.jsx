@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
-import { isValueSignalEv } from "./lib/value-rules.js";
+import { isValueSignalMetrics } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -443,9 +443,7 @@ const marketGapFor = (horse, rankMap) =>
     : Number.NEGATIVE_INFINITY;
 
 const sortHorses = (horses, sortKey, evMap, rankMap) => {
-  const arr = sortKey === "ev"
-    ? horses.filter((horse) => isValueSignal(evMap[horse.id]))
-    : [...horses];
+  const arr = [...horses];
   if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
   if (sortKey === "ev") {
     arr.sort((a, b) =>
@@ -460,7 +458,10 @@ const sortHorses = (horses, sortKey, evMap, rankMap) => {
 };
 
 const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
-const isValueSignal = (value) => value?.eligible === true && isValueSignalEv(value?.ev);
+const isValueSignal = (value) =>
+  value?.eligible === true && isValueSignalMetrics(value?.ev, value?.marketGap);
+const displayMarketGap = (marketGap) =>
+  isFiniteNumber(marketGap) ? `${marketGap >= 0 ? "+" : ""}${marketGap}` : null;
 const valueReferenceLabel = (value) => value?.verdict?.label === "高オッズ妙味(参考)" ? value.verdict.label : null;
 const evTone = (value) => (isValueSignal(value) ? "text-teal-600" : value?.ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
@@ -2020,6 +2021,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
             {rank != null && isFiniteNumber(horse.popularity) ? (
               <span className="mt-1 block text-[10px] text-gray-500">
                 指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+                {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
               </span>
             ) : null}
           </span>
@@ -2058,6 +2060,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         {rank != null && isFiniteNumber(horse.popularity) ? (
           <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
             指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+            {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
           </span>
         ) : null}
       </span>
@@ -2689,7 +2692,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
             ))
             : (
               <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
-                {sortKey === "ev" ? "EV 1.50〜3.00未満の期待値候補はありません" : WEEK_PREPARING_TEXT}
+                {sortKey === "ev" ? "期待値の算出に必要なオッズを取得待ちです" : WEEK_PREPARING_TEXT}
               </div>
             )
           : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}
@@ -2698,7 +2701,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
       <p className="mt-3 text-[11px] text-gray-500">
         {isDesktop ? "行をクリックすると分析詳細が展開されます。" : "馬をタップすると分析詳細が開きます。"}
         {sortKey === "ev"
-          ? "期待値タブは、AI指数順位と人気順位の乖離が大きい順です。EVは推定勝率×単勝オッズの値を維持しています。"
+          ? "期待値タブは乖離度順です。乖離+2以上かつEV 1.15〜3.00未満の馬だけを妙味として点灯します。"
           : "EVは推定勝率×単勝オッズの期待値(1.00が損益分岐の目安)です。"}
       </p>
 

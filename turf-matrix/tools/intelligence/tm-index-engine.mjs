@@ -7,7 +7,6 @@ const BASE_WEIGHTS = {
   course: 0.1,
   training: 0.12,
   blood: 0.1,
-  value: 0.06,
   pace: 0.03,
 };
 
@@ -17,7 +16,6 @@ const GRADE_WEIGHTS = {
   form: 0.2,
   training: 0.13,
   blood: 0.12,
-  value: 0.05,
 };
 
 const SPECIAL_WEIGHTS = {
@@ -26,7 +24,6 @@ const SPECIAL_WEIGHTS = {
   form: 0.2,
   course: 0.11,
   blood: 0.08,
-  value: 0.07,
 };
 
 const weightsFor = (context) => {

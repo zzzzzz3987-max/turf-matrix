@@ -67,7 +67,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const stable = scoreStable(horse);
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
-  const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, value, pace }, context);
+  const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
   const experienceAdjustedIndex = applyExperienceDiscount(rawTmIndex, horse);
   const goingAnalysis = buildGoingAdjustment(horse, context);
   const goingAdjustment = goingAnalysis.adjustment ?? 0;
@@ -78,7 +78,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(experienceAdjustedIndex)
     ? experienceAdjustedIndex - rawTmIndex
     : 0;
-  const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, value, pace }, context);
+  const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, pace }, context);
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
   const trainingReadable = trainingAnalysis.count

@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
+import { isValueSignalEv } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
@@ -111,6 +112,8 @@ const valueMetricsFor = (horse) => {
     ev: value.ev,
     stars: value.stars,
     verdict: value.verdict,
+    eligible: value.eligible === true,
+    eligibilityReasons: value.eligibilityReasons ?? [],
   };
 };
 
@@ -440,7 +443,9 @@ const marketGapFor = (horse, rankMap) =>
     : Number.NEGATIVE_INFINITY;
 
 const sortHorses = (horses, sortKey, evMap, rankMap) => {
-  const arr = [...horses];
+  const arr = sortKey === "ev"
+    ? horses.filter((horse) => isValueSignal(evMap[horse.id]))
+    : [...horses];
   if (sortKey === "score") arr.sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number);
   if (sortKey === "ev") {
     arr.sort((a, b) =>
@@ -455,7 +460,7 @@ const sortHorses = (horses, sortKey, evMap, rankMap) => {
 };
 
 const scoreTone = (v) => (!isFiniteNumber(v) ? "text-gray-300" : "text-slate-950");
-const isValueSignal = (value) => value?.verdict?.tone === "blue";
+const isValueSignal = (value) => value?.eligible === true && isValueSignalEv(value?.ev);
 const valueReferenceLabel = (value) => value?.verdict?.label === "高オッズ妙味(参考)" ? value.verdict.label : null;
 const evTone = (value) => (isValueSignal(value) ? "text-teal-600" : value?.ev >= 0.95 ? "text-slate-900" : "text-gray-500");
 const confidenceMeta = (level) => CONFIDENCE[level] ?? { label: "未評価", dots: 0, note: "分析準備中" };
@@ -1139,7 +1144,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
         </table>
       </div>
       <p className="mt-3 text-[11px] text-gray-500">
-        期待値は推定勝率×単勝オッズ(1.00が損益分岐)。<span className="font-semibold text-[#00A9B8]">1.15〜3.00未満のみ点灯</span> — 3.00以上は参考値として扱います。
+        期待値は推定勝率×単勝オッズ(1.00が損益分岐)。<span className="font-semibold text-[#00A9B8]">1.50〜3.00未満のみ表示</span> — 3.00以上は検証用の参考値として扱います。
       </p>
     </section>
   );
@@ -2514,6 +2519,10 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         : {},
     [race]
   );
+  const visibleHorses = useMemo(
+    () => (race ? sortHorses(race.horses, sortKey, evMap, rankMap) : []),
+    [race, sortKey, evMap, rankMap]
+  );
 
   useEffect(() => {
     setRace(null);
@@ -2660,8 +2669,8 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         </div>
 
         {race
-          ? race.horses.length
-            ? sortHorses(race.horses, sortKey, evMap, rankMap).map((h) => (
+          ? visibleHorses.length
+            ? visibleHorses.map((h) => (
               <HorseRow
                 key={h.id}
                 horse={h}
@@ -2675,7 +2684,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
             ))
             : (
               <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
-                {WEEK_PREPARING_TEXT}
+                {sortKey === "ev" ? "EV 1.50〜3.00未満の期待値候補はありません" : WEEK_PREPARING_TEXT}
               </div>
             )
           : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}

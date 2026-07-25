@@ -1,4 +1,4 @@
-export const VALUE_SIGNAL_MIN_EV = 1.15;
+export const VALUE_SIGNAL_MIN_EV = 1.5;
 export const HIGH_EV_REFERENCE_THRESHOLD = 3.0;
 
 export const isHighEvReference = (ev) =>

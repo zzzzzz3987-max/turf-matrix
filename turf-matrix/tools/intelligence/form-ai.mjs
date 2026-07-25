@@ -1,5 +1,6 @@
 // Form AI v1.5 deterministic ability and recent-form scoring.
 import { calculateAbilityProfile, resolveAbilityZi } from "./ability-ai.mjs";
+import { isLocalRun, splitRunsByOrigin } from "./race-origin.mjs";
 
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
@@ -74,7 +75,7 @@ const runScore = (run, index, targetDistance) => {
     marginScore(run) * 0.28 +
     (isValidLast3F(run) ? clamp(90 - (run.last3F - 33.5) * 7, 45, 92) : 60) * 0.15 +
     60 * 0.15;
-  return (base + classBonus(run) + popularityGapScore(run) + distanceFitBonus(run, targetDistance)) * recentWeight;
+  return (base + classBonus(run) + distanceFitBonus(run, targetDistance)) * recentWeight;
 };
 
 const scoreZi = (horse) => {
@@ -82,9 +83,21 @@ const scoreZi = (horse) => {
 };
 
 const scoreRecentForm = (horse) => {
-  const runs = (horse.pastRuns ?? []).slice(0, 5);
+  const runs = horse.pastRuns ?? [];
   if (!runs.length) return 50;
-  return clamp(avg(runs.map((run, index) => runScore(run, index, horse.currentRace?.distance))));
+  const { central, local } = splitRunsByOrigin(runs);
+  const centralScore = central.length
+    ? avg(central.slice(0, 5).map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    : null;
+  const localScore = local.length
+    ? avg(local.slice(0, 5).map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    : null;
+
+  if (centralScore != null && localScore != null) {
+    return clamp(centralScore * 0.85 + localScore * 0.15);
+  }
+  if (centralScore != null) return clamp(centralScore);
+  return clamp(50 + (localScore - 50) * 0.35);
 };
 
 const scoreDistanceEvidence = (runs, targetDistance) => {
@@ -131,7 +144,8 @@ const scorePeerEvidence = (peerRuns = []) => {
 
 const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
   const profile = calculateAbilityProfile(horse);
-  const runs = (horse.pastRuns ?? []).slice(0, 8);
+  const runs = (horse.pastRuns ?? []).filter((run) => !isLocalRun(run)).slice(0, 8);
+  const localRunCount = profile.localRunCount ?? 0;
   const recent = runs.slice(0, 5);
   const zi = resolveAbilityZi(horse);
   const ziScore = profile.ziScore;
@@ -239,7 +253,10 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
     summary: runs.length
       ? "基礎能力、相手関係、同走馬、着差、距離一致、上がり性能、近走推移を分解して能力評価に反映。"
       : "近走データが未取得のため、能力評価は控えめに扱います。",
-    evidence: components.map((component) => component.summary),
+    evidence: [
+      ...components.map((component) => component.summary),
+      ...(localRunCount ? [`地方実績 ${localRunCount}走は中央実績より低い重みで補助評価`] : []),
+    ],
     components,
     inputs: {
       baseAbility: {

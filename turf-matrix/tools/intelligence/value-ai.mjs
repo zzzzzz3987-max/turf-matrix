@@ -5,6 +5,20 @@ const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.ro
 
 const impliedProbability = (odds) => (odds > 0 ? 1 / odds : null);
 const WIN_PROBABILITY_POWER = 7;
+const VALUE_SIGNAL_MIN_EV = 1.5;
+const VALUE_SIGNAL_MAX_EV = 3;
+const VALUE_MIN_TM_INDEX = 70;
+const VALUE_MIN_ABILITY = 65;
+
+const valueCandidateEligibility = (horse, ev) => {
+  const ability = horse.analysis?.factorsDetail?.ability;
+  const reasons = [];
+  if (!(ev >= VALUE_SIGNAL_MIN_EV && ev < VALUE_SIGNAL_MAX_EV)) reasons.push("ev_range");
+  if (!(horse.tmIndex >= VALUE_MIN_TM_INDEX)) reasons.push("tm_index");
+  if (!(ability?.score >= VALUE_MIN_ABILITY)) reasons.push("ability");
+  if (ability?.confidence === "low") reasons.push("ability_confidence");
+  return { eligible: reasons.length === 0, reasons };
+};
 
 const starsForEv = (ev) => {
   if (!Number.isFinite(ev)) return 0;
@@ -19,7 +33,7 @@ const starsForEv = (ev) => {
 const verdictForEv = (ev) => {
   if (!Number.isFinite(ev)) return null;
   if (ev >= 3) return { label: "高オッズ妙味(参考)", tone: "gray" };
-  if (ev >= 1.15) return { label: "妙味あり", tone: "blue" };
+  if (ev >= 1.5) return { label: "妙味あり", tone: "blue" };
   if (ev >= 0.95) return { label: "中立", tone: "gray" };
   return { label: "過剰人気気味", tone: "gray" };
 };
@@ -41,11 +55,18 @@ const buildRaceValueMetrics = (horses) => {
     const ev = oddsActive && Number.isFinite(horse.odds) && horse.odds > 0
       ? probability * horse.odds
       : null;
+    const eligibility = valueCandidateEligibility(horse, ev);
+    const verdict = eligibility.eligible
+      ? verdictForEv(ev)
+      : Number.isFinite(ev)
+        ? { label: "参考", tone: "gray" }
+        : null;
     return [horse.id, {
       probability,
       ev,
       stars: starsForEv(ev),
-      verdict: verdictForEv(ev),
+      verdict,
+      ...eligibility,
     }];
   }));
 };
@@ -100,4 +121,5 @@ export {
   buildRaceValueMetrics,
   starsForEv,
   verdictForEv,
+  valueCandidateEligibility,
 };

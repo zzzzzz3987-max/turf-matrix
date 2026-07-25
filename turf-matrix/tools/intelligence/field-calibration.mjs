@@ -51,6 +51,8 @@ const calibrateRaceIntelligence = (race) => {
         ev: valueMetrics?.ev ?? null,
         stars: valueMetrics?.stars ?? 0,
         verdict: valueMetrics?.verdict ?? null,
+        eligible: valueMetrics?.eligible ?? false,
+        eligibilityReasons: valueMetrics?.reasons ?? [],
       };
       const rankText = `${relative.rank}/${relative.fieldSize}位`;
       return {

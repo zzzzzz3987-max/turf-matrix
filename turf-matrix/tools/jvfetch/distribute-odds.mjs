@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, utimesSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -49,7 +49,7 @@ const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 const lines = readFileSync(SOURCE_PATH, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
 const header = parseCsvLine(lines.shift() ?? "");
 const index = new Map(header.map((name, position) => [name, position]));
-const required = ["場所", "R", "馬番", "馬名", "単勝オッズ", "人気"];
+const required = ["場所", "R", "馬番", "馬名", "単勝オッズ", "人気", "取得時刻"];
 const missing = required.filter((name) => !index.has(name));
 if (missing.length) throw new Error(`JV-Link odds headers missing: ${missing.join(", ")}`);
 
@@ -63,6 +63,7 @@ const rows = lines.map((line) => {
     horseName: get("馬名"),
     winOdds: Number(get("単勝オッズ")),
     popularity: Number(get("人気")),
+    updatedAt: get("取得時刻"),
   };
 });
 
@@ -99,6 +100,8 @@ for (const bundleId of config.bundles) {
     ].join(",")),
   ].join("\n");
   writeFileSync(outputPath, `${output}\n`, "utf8");
+  const acquiredAt = new Date(raceRows[0].updatedAt);
+  if (!Number.isNaN(acquiredAt.getTime())) utimesSync(outputPath, acquiredAt, acquiredAt);
   reports.push({ bundleId, track, raceNo, rows: raceRows.length, output: outputPath });
 }
 

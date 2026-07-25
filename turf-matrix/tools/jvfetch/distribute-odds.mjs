@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-import { mkdirSync, readFileSync, utimesSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, unlinkSync, utimesSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const CONFIG_PATH = join(REPO_ROOT, "tools", "race-batch-config.json");
-const SOURCE_PATH = process.argv[2]
-  ? resolve(process.argv[2])
+const args = process.argv.slice(2);
+const allowPartial = args.includes("--allow-partial");
+const sourceArg = args.find((arg) => !arg.startsWith("--"));
+const SOURCE_PATH = sourceArg
+  ? resolve(sourceArg)
   : join(REPO_ROOT, "data", "target", "odds.csv");
 const RACES_DIR = join(REPO_ROOT, "tools", "csv", "input", "races");
 
@@ -68,6 +71,7 @@ const rows = lines.map((line) => {
 });
 
 const reports = [];
+const skipped = [];
 for (const bundleId of config.bundles) {
   const match = bundleId.match(/^(\d{4}-\d{2}-\d{2})-([a-z]+)-(\d{1,2})R$/);
   if (!match) throw new Error(`Invalid bundle id: ${bundleId}`);
@@ -76,7 +80,13 @@ for (const bundleId of config.bundles) {
   const raceRows = rows
     .filter((row) => row.track === track && row.raceNo === raceNo)
     .sort((a, b) => a.horseNumber - b.horseNumber);
-  if (!raceRows.length) throw new Error(`${track}${raceNo}R: JV-Link odds are missing`);
+  if (!raceRows.length) {
+    if (!allowPartial) throw new Error(`${track}${raceNo}R: JV-Link odds are missing`);
+    const stalePath = join(RACES_DIR, bundleId, "odds.csv");
+    if (existsSync(stalePath)) unlinkSync(stalePath);
+    skipped.push({ bundleId, track, raceNo, reason: "JV-Link odds are not provided yet" });
+    continue;
+  }
   if (new Set(raceRows.map((row) => row.horseNumber)).size !== raceRows.length) {
     throw new Error(`${track}${raceNo}R: duplicate horse number in JV-Link odds`);
   }
@@ -110,4 +120,10 @@ if (selectedRows !== rows.length) {
   throw new Error(`JV-Link odds coverage mismatch: selected=${selectedRows}, source=${rows.length}`);
 }
 
-console.log(JSON.stringify({ status: "ready", source: SOURCE_PATH, totalRows: rows.length, races: reports }, null, 2));
+console.log(JSON.stringify({
+  status: skipped.length ? "partial" : "ready",
+  source: SOURCE_PATH,
+  totalRows: rows.length,
+  races: reports,
+  skipped,
+}, null, 2));

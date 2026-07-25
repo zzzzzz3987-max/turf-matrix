@@ -4,7 +4,9 @@ import path from "node:path";
 const repoRoot = process.cwd();
 const summaryPath = path.join(repoRoot, "tools", "jvlink", "output", "intelligence-summary.json");
 const manifestPath = path.join(repoRoot, "tools", "jvlink", "output", "target-horses.json");
-const configPath = path.join(repoRoot, "tools", "race-batch-config.json");
+const configPath = process.env.TURF_MATRIX_RACE_CONFIG
+  ? path.resolve(repoRoot, process.env.TURF_MATRIX_RACE_CONFIG)
+  : path.join(repoRoot, "tools", "race-batch-config.json");
 const targetDir = path.join(repoRoot, "data", "target");
 const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8").replace(/^\uFEFF/, ""));
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8").replace(/^\uFEFF/, ""));

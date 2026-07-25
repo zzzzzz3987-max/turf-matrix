@@ -1,7 +1,7 @@
 import { FACTOR_KEYS } from "./constants.mjs";
 import { starsForEv } from "./value-ai.mjs";
 
-const MOJIBAKE_PATTERN = /譛|繧|邉|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
+const MOJIBAKE_PATTERN = /譛|繧|隱|陦|蠑|荳|縺|逶|髯|蜿|鬥|雎|蟇/;
 const CORE_DETAIL_KEYS = ["blood", "training", "course", "distance", "pace", "form", "value"];
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();

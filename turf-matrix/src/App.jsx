@@ -1969,7 +1969,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 };
 
 /* ---- 出走馬の1行(クリックで詳細) ---- */
-const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop }) => (
+const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isDesktop }) => (
   <div className="border-b border-gray-200 last:border-b-0">
     <button
       onClick={onToggle}
@@ -2010,26 +2010,45 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
 
         <span className="mt-3 flex items-center justify-between gap-3 border-t border-gray-200 pt-3 md:hidden">
           <span className="min-w-0">
-            <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">TM VALUE</span>
-            <span
-              className={`mt-0.5 block text-[12px] ${
-                ev && isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
-              }`}
-            >
-              {ev ? (
-                <>
+            {sortKey === "ev" && displayMarketGap(ev?.marketGap) ? (
+              <>
+                <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">乖離度</span>
+                <span className={`mt-0.5 block text-[18px] font-bold leading-tight ${isValueSignal(ev) ? "text-teal-600" : "text-slate-900"}`}>
+                  乖離 <Num>{displayMarketGap(ev.marketGap)}</Num>
+                </span>
+                {rank != null && isFiniteNumber(horse.popularity) ? (
+                  <span className="mt-1 block text-[10px] text-gray-500">
+                    指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+                  </span>
+                ) : null}
+                <span className="mt-0.5 block text-[10px] text-gray-500">
                   EV <Num>{ev.ev.toFixed(2)}</Num> ・ {valueReferenceLabel(ev) ?? starText(ev.stars)}
-                </>
-              ) : (
-                "未評価"
-              )}
-            </span>
-            {rank != null && isFiniteNumber(horse.popularity) ? (
-              <span className="mt-1 block text-[10px] text-gray-500">
-                指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
-                {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
-              </span>
-            ) : null}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="block text-[10px] font-medium uppercase tracking-wider text-gray-500">TM VALUE</span>
+                <span
+                  className={`mt-0.5 block text-[12px] ${
+                    ev && isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
+                  }`}
+                >
+                  {ev ? (
+                    <>
+                      EV <Num>{ev.ev.toFixed(2)}</Num> ・ {valueReferenceLabel(ev) ?? starText(ev.stars)}
+                    </>
+                  ) : (
+                    "未評価"
+                  )}
+                </span>
+                {rank != null && isFiniteNumber(horse.popularity) ? (
+                  <span className="mt-1 block text-[10px] text-gray-500">
+                    指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+                    {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
+                  </span>
+                ) : null}
+              </>
+            )}
           </span>
           <span className="inline-flex shrink-0 items-center gap-0.5 text-[11px] font-medium text-teal-600">
             詳細を見る
@@ -2053,22 +2072,43 @@ const HorseRow = ({ horse, rank, fieldSize, ev, expanded, onToggle, isDesktop })
         )}
       </span>
       <span className="hidden text-right md:block">
-        <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
-        {ev && (
-          <Num
-            className={`block text-[10px] leading-tight ${
-              isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
-            }`}
-          >
-            EV {ev.ev.toFixed(2)}{valueReferenceLabel(ev) ? " 参考" : ""}
-          </Num>
+        {sortKey === "ev" && displayMarketGap(ev?.marketGap) ? (
+          <>
+            <span className={`block whitespace-nowrap text-[14px] font-bold leading-tight ${isValueSignal(ev) ? "text-teal-600" : "text-slate-900"}`}>
+              乖離 <Num>{displayMarketGap(ev.marketGap)}</Num>
+            </span>
+            {rank != null && isFiniteNumber(horse.popularity) ? (
+              <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
+                指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+              </span>
+            ) : null}
+            <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
+              単勝 <Num>{displayOdds(horse.odds)}</Num>
+            </span>
+            <span className="block whitespace-nowrap text-[9px] text-gray-500">
+              EV <Num>{ev.ev.toFixed(2)}</Num>
+            </span>
+          </>
+        ) : (
+          <>
+            <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
+            {ev && (
+              <Num
+                className={`block text-[10px] leading-tight ${
+                  isValueSignal(ev) ? "font-semibold text-teal-600" : "text-gray-500"
+                }`}
+              >
+                EV {ev.ev.toFixed(2)}{valueReferenceLabel(ev) ? " 参考" : ""}
+              </Num>
+            )}
+            {rank != null && isFiniteNumber(horse.popularity) ? (
+              <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
+                指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
+                {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
+              </span>
+            ) : null}
+          </>
         )}
-        {rank != null && isFiniteNumber(horse.popularity) ? (
-          <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
-            指数<Num>{rank}</Num>位 / <Num>{horse.popularity}</Num>人気
-            {displayMarketGap(ev?.marketGap) ? <>（乖離<Num>{displayMarketGap(ev.marketGap)}</Num>）</> : null}
-          </span>
-        ) : null}
       </span>
 
       {/* PC列: AI指数 */}
@@ -2677,7 +2717,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
           <span>馬名</span>
           <span>騎手</span>
           <span className="text-right">人気</span>
-          <span className="text-right">単勝 / EV</span>
+          <span className="text-right">{sortKey === "ev" ? "乖離 / EV" : "単勝 / EV"}</span>
           <span className="text-right">AI指数</span>
           <span>短評</span>
         </div>
@@ -2691,6 +2731,7 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
                 rank={rankMap[h.id]}
                 fieldSize={race.fieldSize}
                 ev={evMap[h.id]}
+                sortKey={sortKey}
                 expanded={expandedId === h.id}
                 onToggle={() => handleToggle(h)}
                 isDesktop={isDesktop}

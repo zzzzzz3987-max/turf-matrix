@@ -26,6 +26,8 @@ export const extractionTargets = Object.freeze([
   "pastRuns.surface",
   "pastRuns.distance",
   "pastRuns.trackCondition",
+  "pastRuns.weightRuleCode",
+  "pastRuns.weightRule",
   "pastRuns.finishPosition",
   "pastRuns.popularity",
   "pastRuns.passingOrder",
@@ -73,30 +75,42 @@ const sexAgeFromRow = (row) => {
   return sex || age ? `${sex}${age}` : null;
 };
 
-const extractPastRun = (row) => ({
-  date: parseRaceDate(row),
-  course: valueAt(row, 5) || null,
-  raceNumber: toNumber(valueAt(row, 7)),
-  raceName: valueAt(row, 8) || null,
-  surface: valueAt(row, 10) || null,
-  distance: toNumber(valueAt(row, 12)),
-  trackCondition: valueAt(row, 13) || null,
-  jockey: valueAt(row, 17) || null,
-  carriedWeight: toNumber(valueAt(row, 18)),
-  fieldSize: toNumber(valueAt(row, 19)),
-  popularity: toNumber(valueAt(row, 20)),
-  finishPosition: toNumber(valueAt(row, 21)),
-  confirmedFinishPosition: toNumber(valueAt(row, 22)),
-  surfaceCode: valueAt(row, 23) || null,
-  margin: toNumber(valueAt(row, 24)),
-  horseNumber: toNumber(valueAt(row, 25)),
-  timeSeconds: positiveNumber(valueAt(row, 26)),
-  timeText: valueAt(row, 27) || null,
-  passingOrder: [29, 30, 31, 32].map((column) => toNumber(valueAt(row, column))),
-  last3F: positiveNumber(valueAt(row, 33)),
-  bodyWeight: toNumber(valueAt(row, 34)),
-  bodyWeightDiff: toNumber(valueAt(row, 66)),
+const WEIGHT_RULES = Object.freeze({
+  "1": "ハンデ",
+  "2": "別定",
+  "3": "馬齢",
+  "4": "定量",
 });
+
+const extractPastRun = (row) => {
+  const weightRuleCode = valueAt(row, 67) || null;
+  return ({
+    date: parseRaceDate(row),
+    course: valueAt(row, 5) || null,
+    raceNumber: toNumber(valueAt(row, 7)),
+    raceName: valueAt(row, 8) || null,
+    surface: valueAt(row, 10) || null,
+    distance: toNumber(valueAt(row, 12)),
+    trackCondition: valueAt(row, 13) || null,
+    jockey: valueAt(row, 17) || null,
+    carriedWeight: toNumber(valueAt(row, 18)),
+    fieldSize: toNumber(valueAt(row, 19)),
+    popularity: toNumber(valueAt(row, 20)),
+    finishPosition: toNumber(valueAt(row, 21)),
+    confirmedFinishPosition: toNumber(valueAt(row, 22)),
+    surfaceCode: valueAt(row, 23) || null,
+    margin: toNumber(valueAt(row, 24)),
+    horseNumber: toNumber(valueAt(row, 25)),
+    timeSeconds: positiveNumber(valueAt(row, 26)),
+    timeText: valueAt(row, 27) || null,
+    passingOrder: [29, 30, 31, 32].map((column) => toNumber(valueAt(row, column))),
+    last3F: positiveNumber(valueAt(row, 33)),
+    bodyWeight: toNumber(valueAt(row, 34)),
+    bodyWeightDiff: toNumber(valueAt(row, 66)),
+    weightRuleCode,
+    weightRule: valueAt(row, 68) || WEIGHT_RULES[weightRuleCode] || null,
+  });
+};
 
 const extractRow = (row) => ({
   horseName: valueAt(row, 14) || null,

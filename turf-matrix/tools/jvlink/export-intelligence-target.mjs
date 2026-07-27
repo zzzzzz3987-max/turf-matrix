@@ -51,6 +51,7 @@ const COURSE_CODES = {
 };
 const GRADE_NAMES = { A: "G1", B: "G2", C: "G3", D: "重賞", E: "特別", F: "J-G1", G: "J-G2", H: "J-G3", L: "L" };
 const TRACK_CONDITIONS = { "1": "良", "2": "稍重", "3": "重", "4": "不良" };
+const WEIGHT_RULES = { "1": "ハンデ", "2": "別定", "3": "馬齢", "4": "定量" };
 const SEX_NAMES = { "1": "牡", "2": "牝", "3": "セ" };
 const RUNNING_STYLES = { "1": "逃", "2": "先", "3": "差", "4": "追" };
 const raceGradeSuffix = (code) => ({ A: "G1", B: "G2", C: "G3", F: "J-G1", G: "J-G2", H: "J-G3" })[code] ?? "";
@@ -70,7 +71,7 @@ const formatRaceTime = (secondsValue) => {
 };
 
 const allCsvRow = (pastRun, race, pedigree) => {
-  const values = Array(66).fill("");
+  const values = Array(68).fill("");
   const [year = "", month = "", day = ""] = String(race.raceDate ?? "").split("-");
   const surface = surfaceFromTrackCode(race.trackCode);
   const trackConditionCode = surface === "芝" ? race.turfConditionCode : race.dirtConditionCode;
@@ -107,6 +108,8 @@ const allCsvRow = (pastRun, race, pedigree) => {
   values[45] = pedigree?.ancestors?.[4]?.name ?? "";
   values[53] = RUNNING_STYLES[pastRun.runningStyleCode] ?? "";
   values[65] = pastRun.bodyWeightDiff ?? "";
+  values[66] = race.weightRuleCode ?? "";
+  values[67] = WEIGHT_RULES[race.weightRuleCode] ?? "";
   return row(values);
 };
 

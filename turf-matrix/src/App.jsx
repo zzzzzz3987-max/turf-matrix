@@ -140,10 +140,10 @@ const raceConfidence = (horses) => {
 const scoreTier = (v) =>
   !isFiniteNumber(v) ? { label: "未評価", text: "分析準備中" }
   :
-  v >= 90 ? { label: "S", text: "TOP評価" }
-  : v >= 80 ? { label: "A", text: "有力評価" }
-  : v >= 70 ? { label: "B", text: "標準評価" }
-  : v >= 60 ? { label: "C", text: "割引評価" }
+  v >= 80 ? { label: "S", text: "最有力" }
+  : v >= 75 ? { label: "A", text: "有力" }
+  : v >= 70 ? { label: "B", text: "上位" }
+  : v >= 65 ? { label: "C", text: "標準" }
   : { label: "D", text: "厳しい評価" };
 
 /** 分析信頼度の5段階(レベル + 調教評価の裏付けで加点) */
@@ -2150,11 +2150,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   const score = race.topHorse.available ? displayScore(race.topHorse.aiScore) : "--";
   const ev = race.topHorse.ev;
   const isGradedRace = race.raceType === "重賞" || race.category === "grade" || gradeScore(race.grade) > 0;
-  const signalLabel = race.topHorse.available
-    ? race.topHorse.aiScore >= 80
-      ? `${race.topHorse.name} ${score}`
-      : race.topHorse.name
-    : WEEK_PREPARING_TEXT;
+  const isTopTier = race.topHorse.available && scoreTier(race.topHorse.aiScore).label === "S";
 
   return (
     <button
@@ -2200,21 +2196,22 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
           <ChevronRight size={15} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[#CBD5E1] transition-transform group-hover:translate-x-0.5" />
         </div>
 
-        {race.topHorse.available ? (
-          <div className="mt-4 border-t border-[#EDF0F3] pt-4">
-            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
-              {signalTypeFor(race.topHorse)}
-            </span>
-            <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
-              {signalLabel}
-              {isFiniteNumber(ev) ? (
-                <Num className={isValueSignal(race.topHorse.value) ? "text-[#00A9B8]" : "text-gray-500"}>
-                  {" "}— EV {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 参考" : ""}
-                </Num>
-              ) : null}
-            </span>
-          </div>
-        ) : null}
+        <div className="mt-4 border-t border-[#EDF0F3] pt-4">
+          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
+            {race.topHorse.available ? signalTypeFor(race.topHorse) : "INDEX"}
+          </span>
+          <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
+            {race.topHorse.available ? `${race.topHorse.name} ` : null}
+            <Num className={isTopTier ? "text-[#2D7BFF]" : race.topHorse.available ? "text-gray-900" : "text-gray-300"}>
+              {score}
+            </Num>
+            {isFiniteNumber(ev) ? (
+              <Num className={isValueSignal(race.topHorse.value) ? "text-[#00A9B8]" : "text-gray-500"}>
+                {" "}— EV {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 参考" : ""}
+              </Num>
+            ) : null}
+          </span>
+        </div>
       </div>
     </button>
   );

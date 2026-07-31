@@ -1,6 +1,7 @@
 const FEMALE_LINE_RULES = [
   {
     id: "almahmoud",
+    depth: 1,
     label: "Almahmoud牝系",
     terms: ["almahmoud", "アルマームード", "natalma", "ナタルマ", "cosmah", "コスマー"],
     traits: { speed: 0.9, power: 0.55, stamina: 0.45, sustain: 0.72 },
@@ -9,6 +10,7 @@ const FEMALE_LINE_RULES = [
   },
   {
     id: "la_troienne",
+    depth: 1,
     label: "La Troienne牝系",
     terms: ["latroienne", "la troienne", "ラトロワンヌ", "busanda", "ブサンダ", "buckpasser", "バックパサー", "busher", "ブッシャー"],
     traits: { speed: 0.55, power: 0.95, stamina: 0.82, sustain: 0.82 },
@@ -17,6 +19,7 @@ const FEMALE_LINE_RULES = [
   },
   {
     id: "somethingroyal",
+    depth: 1,
     label: "Somethingroyal牝系",
     terms: ["somethingroyal", "サムシングロイヤル", "secretariat", "セクレタリアト", "sir gaylord", "サーゲイロード"],
     traits: { speed: 0.88, power: 0.58, stamina: 0.66, sustain: 0.74 },
@@ -25,6 +28,7 @@ const FEMALE_LINE_RULES = [
   },
   {
     id: "best_in_show",
+    depth: 1,
     label: "Best in Show牝系",
     terms: ["bestinshow", "best in show", "ベストインショウ", "sex appeal", "セックスアピール", "try my best", "トライマイベスト"],
     traits: { speed: 0.84, power: 0.62, stamina: 0.55, sustain: 0.78 },
@@ -33,6 +37,7 @@ const FEMALE_LINE_RULES = [
   },
   {
     id: "special",
+    depth: 1,
     label: "Special牝系",
     terms: ["special", "スペシャル", "nureyev", "ヌレイエフ", "fairy bridge", "フェアリーブリッジ", "sadler's wells", "サドラーズウェルズ"],
     traits: { speed: 0.62, power: 0.78, stamina: 0.86, sustain: 0.88 },
@@ -41,6 +46,7 @@ const FEMALE_LINE_RULES = [
   },
   {
     id: "rough_shod",
+    depth: 1,
     label: "Rough Shod牝系",
     terms: ["roughshod", "rough shod", "ラフショッド", "special", "lisadell", "リサデル"],
     traits: { speed: 0.68, power: 0.76, stamina: 0.82, sustain: 0.88 },

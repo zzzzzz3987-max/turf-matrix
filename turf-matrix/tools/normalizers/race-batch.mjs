@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { dirname, isAbsolute, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeRaceBundle } from "./race-bundle.mjs";
 
@@ -9,7 +9,11 @@ const REPO_ROOT = join(TOOLS_DIR, "..");
 const CSV_RACES = join(TOOLS_DIR, "csv", "input", "races");
 const HTML_RACES = join(TOOLS_DIR, "target-html", "input", "races");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
-const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
+  ? (isAbsolute(process.env.TURF_MATRIX_RACE_CONFIG)
+      ? process.env.TURF_MATRIX_RACE_CONFIG
+      : join(REPO_ROOT, process.env.TURF_MATRIX_RACE_CONFIG))
+  : join(TOOLS_DIR, "race-batch-config.json");
 const repoPath = (path) => relative(REPO_ROOT, path).replaceAll("\\", "/");
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 
@@ -37,7 +41,7 @@ const races = bundleIds.map((bundleId) => {
   const htmlDir = join(HTML_RACES, bundleId);
   return normalizeRaceBundle({
     bundleId,
-    provisional: process.env.TURF_MATRIX_PREODDS_REGISTRATIONS === "1",
+    provisional: Boolean(config.provisional) || process.env.TURF_MATRIX_PREODDS_REGISTRATIONS === "1",
     csv: {
       currentRace: firstExistingRepoPath(
         join(csvDir, "current-race-detail.csv"),

@@ -72,6 +72,7 @@ import {
 const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
 const isEvaluatedHorse = (horse) => isFiniteNumber(horse?.aiScore);
 const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
+const displayFactorScore = (value) => (isFiniteNumber(value) ? Math.round(value) : "—");
 const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "発売前");
 const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "発売前");
 const displayRaceValue = (value, fallback = "取得待ち") => (value == null || value === "" ? fallback : value);
@@ -829,7 +830,7 @@ const FactorBar = ({ icon: Icon, label, value, delay = 0 }) => (
       {label}
     </span>
     <AnimatedBar value={value} delay={delay} />
-    <Num className={`w-9 shrink-0 text-right text-[13px] font-semibold ${scoreTone(value)}`}>{value}</Num>
+    <Num className={`w-9 shrink-0 text-right text-[13px] font-semibold ${scoreTone(value)}`}>{displayFactorScore(value)}</Num>
   </div>
 );
 
@@ -916,7 +917,7 @@ const TMFactorsCard = ({ analysis }) => {
                   </div>
                 </div>
                 <Num className={`shrink-0 text-[22px] font-bold leading-none ${displayable ? "text-slate-900" : "text-gray-300"}`}>
-                  {displayable ? factor.score : "—"}
+                  {displayable ? displayFactorScore(factor.score) : "—"}
                 </Num>
               </div>
               <p className="mt-2 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">
@@ -1074,7 +1075,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                   <div key={f.key} className="rounded-[1.15rem] border border-gray-200 bg-white p-2.5">
                     <div className="flex items-center justify-between gap-2">
                       <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
-                      <Num className="text-[14px] font-bold text-slate-800">{f.value}</Num>
+                      <Num className="text-[14px] font-bold text-slate-800">{displayFactorScore(f.value)}</Num>
                     </div>
                     <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
                     <div className="h-full rounded-full bg-[#2D7BFF]" style={{ width: `${isFiniteNumber(f.value) ? f.value : 0}%` }} />
@@ -1139,7 +1140,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                                 : "font-medium text-slate-500"
                           }`}
                         >
-                          {d.type === "ev" ? v.toFixed(2) : v}
+                          {d.type === "ev" ? v.toFixed(2) : displayFactorScore(v)}
                         </Num>
                       </div>
                     </td>
@@ -1238,7 +1239,7 @@ const PedigreeCard = ({ pedigree, score }) => {
           </p>
         </div>
         <span className="flex shrink-0 items-baseline gap-1">
-          <Num className={`text-sm font-semibold ${scoreTone(idx)}`}>{idx}</Num>
+          <Num className={`text-sm font-semibold ${scoreTone(idx)}`}>{displayFactorScore(idx)}</Num>
           <span className="text-[10px] text-gray-500">血統指数</span>
         </span>
       </div>
@@ -1282,7 +1283,7 @@ const PedigreeCard = ({ pedigree, score }) => {
             <div className="flex items-baseline justify-between">
               <span className="text-[10px] font-semibold tracking-wide text-gray-500">{d.label}</span>
               <Num className={`text-[15px] font-semibold ${scoreTone(pedigree.scores[d.key])}`}>
-                {pedigree.scores[d.key]}
+                {displayFactorScore(pedigree.scores[d.key])}
               </Num>
             </div>
             <div className="mt-2 flex">
@@ -1336,7 +1337,7 @@ const PedigreeCard = ({ pedigree, score }) => {
             <div className="flex items-baseline justify-between">
               <span className="text-[10px] text-gray-500">{d.label}</span>
               <Num className={`text-[12px] font-semibold ${scoreTone(pedigree.scores[d.key])}`}>
-                {pedigree.scores[d.key]}
+                {displayFactorScore(pedigree.scores[d.key])}
               </Num>
             </div>
             <div className="mt-1 flex">
@@ -1936,7 +1937,9 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
               <div key={f.key} className="rounded-2xl border border-gray-200 bg-white p-2.5">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-[10px] font-semibold text-slate-400">{f.label}</span>
-                  <Num className="text-[15px] font-bold text-slate-800">{f.value ?? f.status ?? "未評価"}</Num>
+                  <Num className="text-[15px] font-bold text-slate-800">
+                    {isFiniteNumber(f.value) ? displayFactorScore(f.value) : f.status ?? "未評価"}
+                  </Num>
                 </div>
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
                   <div className="h-full rounded-full bg-slate-800/80" style={{ width: `${isFiniteNumber(f.value) ? f.value : 0}%` }} />

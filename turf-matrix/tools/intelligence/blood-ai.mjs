@@ -4,17 +4,20 @@ import { FEMALE_LINE_RULES } from "./dictionaries/female-line-dictionary.mjs";
 
 const require = createRequire(import.meta.url);
 const BLOOD_STATISTICS = require("../../data/master/bloodlines.json");
-const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
+const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, value));
+const displayScore = (value) => Math.round(value);
 const normalizeName = (value) => String(value ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
+const BLOOD_NEUTRAL_SCORE = 65;
+const BLOOD_TANH_AMPLITUDE = 7.5;
+const BLOOD_TANH_SCALE = 7.5;
 
-const ROLE_WEIGHTS = {
-  sire: 1,
-  broodmareSire: 0.9,
-  damDam: 0.78,
-  sireSire: 0.68,
-  sireDam: 0.58,
-  dam: 0.55,
-  ancestor: 0.42,
+const BRANCH_WEIGHTS = {
+  sire: 0.4,
+  broodmareSire: 0.25,
+  sireSire: 0.12,
+  damDam: 0.1,
+  generation3: 0.08,
+  distant: 0.05,
 };
 
 const ROLE_LABELS = {
@@ -27,118 +30,281 @@ const ROLE_LABELS = {
   ancestor: "祖先",
 };
 
+const entryMeta = ({ branch, generation }) => {
+  if (branch === "sire") return { role: "sire", scoreWeight: BRANCH_WEIGHTS.sire, coverageWeight: BRANCH_WEIGHTS.sire };
+  if (branch === "dam.sire") return { role: "broodmareSire", scoreWeight: BRANCH_WEIGHTS.broodmareSire, coverageWeight: BRANCH_WEIGHTS.broodmareSire };
+  if (branch === "sire.sire") return { role: "sireSire", scoreWeight: BRANCH_WEIGHTS.sireSire, coverageWeight: BRANCH_WEIGHTS.sireSire };
+  if (branch === "dam.dam") return { role: "damDam", scoreWeight: BRANCH_WEIGHTS.damDam, coverageWeight: BRANCH_WEIGHTS.damDam };
+  if (generation === 3) {
+    return { role: "ancestor", scoreWeight: BRANCH_WEIGHTS.generation3 / 8, coverageWeight: BRANCH_WEIGHTS.generation3 / 8 };
+  }
+  if (generation === 4 || generation === 5) {
+    return { role: "ancestor", scoreWeight: 0, coverageWeight: BRANCH_WEIGHTS.distant / 48 };
+  }
+  return {
+    role: branch === "dam" ? "dam" : branch === "sire.dam" ? "sireDam" : "ancestor",
+    scoreWeight: 0,
+    coverageWeight: 0,
+  };
+};
+
 const pedigreeEntries = (horse) => {
   const pedigree = horse.pedigree;
   const base = [
-    { role: "sire", name: pedigree?.sire ?? horse.currentRace?.sire },
-    { role: "dam", name: pedigree?.dam ?? horse.currentRace?.dam },
-    { role: "broodmareSire", name: pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire },
-    { role: "sireSire", name: pedigree?.sireSire },
-    { role: "sireDam", name: pedigree?.sireDam },
-    { role: "damDam", name: pedigree?.damDam },
+    { branch: "sire", generation: 1, name: pedigree?.sire ?? horse.currentRace?.sire },
+    { branch: "dam", generation: 1, name: pedigree?.dam ?? horse.currentRace?.dam },
+    { branch: "dam.sire", generation: 2, name: pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire },
+    { branch: "sire.sire", generation: 2, name: pedigree?.sireSire },
+    { branch: "sire.dam", generation: 2, name: pedigree?.sireDam },
+    { branch: "dam.dam", generation: 2, name: pedigree?.damDam },
   ];
-  const ancestors = (pedigree?.ancestors ?? []).map((ancestor) => ({
-    role:
-      ancestor.branch === "sire" ? "sire" :
-      ancestor.branch === "dam" ? "dam" :
-      ancestor.branch === "dam.sire" ? "broodmareSire" :
-      ancestor.branch === "dam.dam" ? "damDam" :
-      "ancestor",
-    name: ancestor.name,
-    generation: ancestor.generation,
-    branch: ancestor.branch,
-  }));
+  const ancestors = (pedigree?.ancestors ?? []).map((ancestor) => ({ ...ancestor }));
   const seen = new Set();
   return [...base, ...ancestors]
     .filter((entry) => entry.name)
     .filter((entry) => {
-      const key = `${entry.role}:${normalizeName(entry.name)}`;
+      const key = `${entry.branch}:${normalizeName(entry.name)}`;
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     })
-    .map((entry) => ({
-      ...entry,
-      roleLabel: ROLE_LABELS[entry.role] ?? ROLE_LABELS.ancestor,
-      roleWeight: ROLE_WEIGHTS[entry.role] ?? ROLE_WEIGHTS.ancestor,
-    }));
+    .map((entry) => {
+      const meta = entryMeta(entry);
+      return {
+        ...entry,
+        ...meta,
+        roleLabel: ROLE_LABELS[meta.role] ?? ROLE_LABELS.ancestor,
+        roleWeight: meta.scoreWeight,
+      };
+    });
 };
 
-const matchRules = (entries, rules) =>
+const matchRules = (entries, rules, source) =>
   rules
     .map((rule) => {
       const hits = entries.filter((entry) =>
         rule.terms.some((term) => normalizeName(entry.name).includes(normalizeName(term)))
       );
       if (!hits.length) return null;
+      const scoredHits = rule.scoreEligible === false
+        ? hits.map((hit) => ({ ...hit, scoreWeight: 0 }))
+        : hits;
       return {
         ...rule,
+        source,
+        depth: Number(rule.depth) || 1,
         hits: [...new Set(hits.map((hit) => hit.name))].slice(0, 4),
-        hitEntries: hits,
-        roleWeight: Math.max(...hits.map((hit) => hit.roleWeight)),
+        hitEntries: scoredHits,
+        roleWeight: Math.max(...scoredHits.map((hit) => hit.scoreWeight)),
+        coverageWeight: Math.max(...hits.map((hit) => hit.coverageWeight)),
         roles: [...new Set(hits.map((hit) => hit.roleLabel))],
       };
     })
     .filter(Boolean);
 
-const matchLines = (horse) => matchRules(pedigreeEntries(horse), BLOODLINE_RULES);
+const matchLines = (horse) => matchRules(pedigreeEntries(horse), BLOODLINE_RULES, "bloodline");
 const matchFemaleLines = (horse) => matchRules(pedigreeEntries(horse).filter((entry) =>
   ["dam", "broodmareSire", "damDam", "ancestor"].includes(entry.role)
-), FEMALE_LINE_RULES);
+), FEMALE_LINE_RULES, "femaleLine");
 
-const weightedAffinity = (matches, trait, fallback = 0.5) => {
+const weightedAffinity = (matches, trait) => {
   const weighted = matches
-    .map((match) => ({ value: match.traits?.[trait], weight: match.roleWeight ?? 0.4 }))
-    .filter((item) => Number.isFinite(item.value));
+    .map((match) => ({ value: match.traits?.[trait], weight: match.roleWeight ?? 0 }))
+    .filter((item) => Number.isFinite(item.value) && item.weight > 0);
   const totalWeight = weighted.reduce((sum, item) => sum + item.weight, 0);
   return totalWeight
     ? weighted.reduce((sum, item) => sum + item.value * item.weight, 0) / totalWeight
-    : fallback;
+    : null;
 };
 
 const traitScore = (matches, context, trait) => {
   const affinity = weightedAffinity(matches, trait);
+  if (!Number.isFinite(affinity)) return BLOOD_NEUTRAL_SCORE;
   const raceNeed = context?.traits?.[trait] ?? 0.5;
   const suitability = 1 - Math.abs(affinity - raceNeed);
   return clamp(46 + affinity * 24 + suitability * 18, 42, 90);
 };
 
-const courseBloodMatches = (matches, context) => {
-  const desired = context?.bloodBias ?? [];
+const courseMatchStrength = (match, context) => {
   const desiredIds = context?.bloodBiasIds ?? [];
-  const desiredTags = context?.bloodFitTags ?? [];
-  if (!desired.length && !desiredIds.length && !desiredTags.length) return [];
-  return matches.filter((match) => {
-    const labelMatched = desired.some((label) => label === match.label || label.includes(match.label) || match.label.includes(label));
-    const idMatched = desiredIds.includes(match.id);
-    const tagMatched = (match.fit ?? []).some((tag) => desiredTags.includes(tag));
-    return labelMatched || idMatched || tagMatched;
-  });
+  if (desiredIds.includes(match.id)) return 1;
+  const majorTags = context?.bloodMajorTags ?? [];
+  const overlap = [...new Set((match.fit ?? []).filter((tag) => majorTags.includes(tag)))];
+  return overlap.length >= 2 ? 0.5 : 0;
 };
 
-const courseFemaleMatches = (matches, context) => {
-  const desiredTags = context?.bloodFitTags ?? [];
-  if (!desiredTags.length) return [];
-  return matches.filter((match) => (match.fit ?? []).some((tag) => desiredTags.includes(tag)));
-};
+const withCourseMatch = (matches, context) => matches.map((match) => ({
+  ...match,
+  courseMatchStrength: courseMatchStrength(match, context),
+}));
+
+const courseBloodMatches = (matches) => matches.filter((match) => match.courseMatchStrength > 0);
+const courseFemaleMatches = (matches) => matches.filter((match) => match.courseMatchStrength > 0);
 
 const leadingTraits = (matches, context) =>
   ["speed", "power", "stamina", "sustain"]
     .map((trait) => ({ trait, label: TRAIT_LABELS[trait], score: traitScore(matches, context, trait) }))
     .sort((a, b) => b.score - a.score);
 
-const componentScore = (matches, context, roleFilter) => {
-  const selected = matches.filter((match) => match.hitEntries?.some((entry) => roleFilter.includes(entry.role)));
-  if (!selected.length) return 50;
-  const traits = ["speed", "power", "stamina", "sustain"].map((trait) => traitScore(selected, context, trait));
-  const courseMatches = courseBloodMatches(selected, context);
-  return clamp(
-    traits.reduce((sum, score) => sum + score, 0) / traits.length +
-      Math.min(8, courseMatches.reduce((sum, match) => sum + (match.roleWeight ?? 0.4) * 3, 0)),
-    45,
-    90
-  );
+const matchedCoverage = (matches) => {
+  const entries = new Map();
+  for (const match of matches) {
+    for (const entry of match.hitEntries ?? []) {
+      if (!(entry.coverageWeight > 0)) continue;
+      const key = `${entry.branch}:${normalizeName(entry.name)}`;
+      entries.set(key, Math.max(entries.get(key) ?? 0, entry.coverageWeight));
+    }
+  }
+  return Number(Math.min(1, [...entries.values()].reduce((sum, value) => sum + value, 0)).toFixed(4));
 };
+
+const compatibilityFor = (rule, context, traits = ["speed", "power", "stamina", "sustain"]) => {
+  const values = traits
+    .map((trait) => {
+      const affinity = rule.traits?.[trait];
+      if (!Number.isFinite(affinity)) return null;
+      const raceNeed = context?.traits?.[trait] ?? 0.5;
+      return 1 - Math.abs(affinity - raceNeed);
+    })
+    .filter(Number.isFinite);
+  const traitCompatibility = values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : 0.5;
+  const explicitCourseFit = 0.08 * (rule.courseMatchStrength ?? courseMatchStrength(rule, context));
+  return Math.min(1, traitCompatibility + explicitCourseFit);
+};
+
+const median = (values) => {
+  const sorted = [...values].sort((left, right) => left - right);
+  if (!sorted.length) return null;
+  const middle = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+};
+
+const dictionaryRuleCompatibilities = (
+  context,
+  rules = [...BLOODLINE_RULES, ...FEMALE_LINE_RULES],
+) => rules.map((rule) => ({
+  id: rule.id,
+  compatibility: compatibilityFor(rule, context) * 100,
+}));
+
+const dictionaryCompatibilityCenter = (
+  context,
+  rules = [...BLOODLINE_RULES, ...FEMALE_LINE_RULES],
+) => {
+  const compatibilities = dictionaryRuleCompatibilities(context, rules);
+  return {
+    center: median(compatibilities.map((item) => item.compatibility)),
+    ruleCount: compatibilities.length,
+    compatibilities,
+  };
+};
+
+const lineageSide = (entry) => entry.branch?.startsWith("dam") ? "dam" : "sire";
+const rawRuleAdjustment = (match, context, traits = ["speed", "power", "stamina", "sustain"]) => {
+  const compatibility = compatibilityFor(match, context, traits);
+  return (compatibility * 100 - 82) * 1.5;
+};
+const ruleAdjustment = (match, context, traits = ["speed", "power", "stamina", "sustain"]) => {
+  const raw = rawRuleAdjustment(match, context, traits);
+  return BLOOD_TANH_AMPLITUDE * Math.tanh(raw / BLOOD_TANH_SCALE);
+};
+const candidateAdjustment = (match, entry, context) => {
+  return ruleAdjustment(match, context) * entry.scoreWeight;
+};
+
+const resolveRuleMatches = (rawMatches, context) => {
+  const candidates = rawMatches.flatMap((match) => (match.hitEntries ?? []).map((entry) => ({ match, entry })));
+  const byAncestor = new Map();
+  const backgrounds = [];
+
+  for (const candidate of candidates) {
+    const key = `${candidate.entry.branch}:${normalizeName(candidate.entry.name)}`;
+    const current = byAncestor.get(key);
+    const candidateIsScored = candidate.entry.scoreWeight > 0;
+    const currentIsScored = current?.entry.scoreWeight > 0;
+    const shouldReplace = !current
+      || (candidateIsScored !== currentIsScored
+        ? candidateIsScored
+        : candidate.match.depth > current.match.depth);
+    if (shouldReplace) {
+      if (current) backgrounds.push({ ...current, reason: "less-specific" });
+      byAncestor.set(key, candidate);
+    } else {
+      backgrounds.push({
+        ...candidate,
+        reason: candidateIsScored ? "less-specific" : "reference-only",
+      });
+    }
+  }
+
+  const bySide = new Map();
+  for (const candidate of byAncestor.values()) {
+    if (!(candidate.entry.scoreWeight > 0)) {
+      backgrounds.push({ ...candidate, reason: "distant-signal-only" });
+      continue;
+    }
+    const side = lineageSide(candidate.entry);
+    const current = bySide.get(side);
+    if (!current || candidateAdjustment(candidate.match, candidate.entry, context) > candidateAdjustment(current.match, current.entry, context)) {
+      if (current) backgrounds.push({ ...current, reason: "branch-lower-value" });
+      bySide.set(side, candidate);
+    } else {
+      backgrounds.push({ ...candidate, reason: "branch-lower-value" });
+    }
+  }
+
+  const adopted = withCourseMatch([...bySide.values()].map(({ match, entry }) => ({
+    ...match,
+    hits: [entry.name],
+    hitEntries: [entry],
+    roleWeight: entry.scoreWeight,
+    coverageWeight: entry.coverageWeight,
+    roles: [entry.roleLabel],
+  })), context);
+  const backgroundMatches = backgrounds.map(({ match, entry, reason }) => ({
+    ...match,
+    hits: [entry.name],
+    hitEntries: [entry],
+    roleWeight: entry.scoreWeight,
+    coverageWeight: entry.coverageWeight,
+    roles: [entry.roleLabel],
+    reason,
+    signal: `背景: ${match.label}`,
+  }));
+  return { adopted, backgroundMatches };
+};
+
+const branchAdjustmentDetails = (
+  matches,
+  context,
+  predicate = () => true,
+  traits = ["speed", "power", "stamina", "sustain"]
+) => {
+  const evidence = [];
+  for (const match of matches) {
+    for (const entry of match.hitEntries ?? []) {
+      if (!(entry.scoreWeight > 0) || !predicate(entry)) continue;
+      evidence.push({
+        ruleId: match.id,
+        branch: entry.branch,
+        raw: rawRuleAdjustment(match, context, traits),
+        adjusted: ruleAdjustment(match, context, traits),
+        weight: entry.scoreWeight,
+      });
+    }
+  }
+  const totalWeight = evidence.reduce((sum, item) => sum + item.weight, 0);
+  if (!totalWeight) return { raw: 0, adjusted: 0, totalWeight: 0, scale: BLOOD_TANH_SCALE, evidence };
+  const raw = evidence.reduce((sum, item) => sum + item.raw * item.weight, 0) / totalWeight * BRANCH_WEIGHTS.sire;
+  const adjusted = evidence.reduce((sum, item) => sum + item.adjusted * item.weight, 0) / totalWeight * BRANCH_WEIGHTS.sire;
+  return { raw, adjusted, totalWeight, scale: BLOOD_TANH_SCALE, evidence };
+};
+
+const branchAdjustment = (matches, context, predicate, traits) =>
+  branchAdjustmentDetails(matches, context, predicate, traits).adjusted;
+
+const evidenceScore = (matches, context, predicate, traits) =>
+  clamp(BLOOD_NEUTRAL_SCORE + branchAdjustment(matches, context, predicate, traits), 45, 90);
 
 const distanceBand = (distance) => {
   const value = Number(distance);
@@ -220,7 +386,8 @@ const buildBloodProfile = (horse, context) => {
   const entries = pedigreeEntries(horse);
   if (!entries.length) {
     return {
-      score: 50,
+      score: BLOOD_NEUTRAL_SCORE,
+      displayScore: BLOOD_NEUTRAL_SCORE,
       status: "missing",
       confidence: "low",
       coverage: 0,
@@ -228,49 +395,42 @@ const buildBloodProfile = (horse, context) => {
       femaleMatches: [],
       courseMatches: [],
       femaleCourseMatches: [],
+      backgroundMatches: [],
       statistics: [],
+      contributionDiagnostics: { raw: 0, adjusted: 0, totalWeight: 0, scale: BLOOD_TANH_SCALE, evidence: [] },
       traits: leadingTraits([], context),
-      components: { paternal: 50, maternal: 50, course: 50, distance: 50, blend: 50, statistics: 50 },
+      components: {
+        paternal: BLOOD_NEUTRAL_SCORE,
+        maternal: BLOOD_NEUTRAL_SCORE,
+        course: BLOOD_NEUTRAL_SCORE,
+        distance: BLOOD_NEUTRAL_SCORE,
+        blend: BLOOD_NEUTRAL_SCORE,
+        statistics: BLOOD_NEUTRAL_SCORE,
+      },
     };
   }
 
-  const matches = matchLines(horse);
-  const femaleMatches = matchFemaleLines(horse);
-  const courseMatches = courseBloodMatches(matches, context);
-  const femaleCourseMatches = courseFemaleMatches(femaleMatches, context);
-  const allMatches = [...matches, ...femaleMatches];
+  const rawMatches = matchLines(horse);
+  const rawFemaleMatches = matchFemaleLines(horse);
+  const { adopted, backgroundMatches } = resolveRuleMatches([...rawMatches, ...rawFemaleMatches], context);
+  const matches = adopted.filter((match) => match.source === "bloodline");
+  const femaleMatches = adopted.filter((match) => match.source === "femaleLine");
+  const courseMatches = courseBloodMatches(matches);
+  const femaleCourseMatches = courseFemaleMatches(femaleMatches);
+  const allMatches = adopted;
   const traits = leadingTraits(allMatches, context);
-  const paternal = componentScore(matches, context, ["sire", "sireSire", "sireDam"]);
+  const paternal = evidenceScore(matches, context, (entry) => entry.branch?.startsWith("sire"));
   const maternalLines = [...matches, ...femaleMatches];
-  const maternal = componentScore(maternalLines, context, ["dam", "broodmareSire", "damDam", "ancestor"]);
-  const course = clamp(
-    48 +
-      Math.min(24, courseMatches.reduce((sum, match) => sum + (match.roleWeight ?? 0.4) * 7, 0)) +
-      Math.min(10, femaleCourseMatches.reduce((sum, match) => sum + (match.roleWeight ?? 0.4) * 5, 0)),
-    45,
-    90
-  );
+  const maternal = evidenceScore(maternalLines, context, (entry) => entry.branch?.startsWith("dam"));
+  const course = evidenceScore([...courseMatches, ...femaleCourseMatches], context);
   const distanceNeed =
     Number(horse.currentRace?.distance) >= 2200 ? ["stamina", "sustain"] :
     Number(horse.currentRace?.distance) <= 1400 ? ["speed", "power"] :
     ["speed", "sustain", "stamina"];
-  const distance = clamp(
-    distanceNeed.reduce((sum, trait) => sum + traitScore(allMatches, context, trait), 0) / distanceNeed.length,
-    45,
-    90
-  );
-  const traitValues = traits.map((item) => item.score);
-  const blend = clamp(
-    traitValues.reduce((sum, score) => sum + score, 0) / traitValues.length -
-      (Math.max(...traitValues) - Math.min(...traitValues)) * 0.15,
-    45,
-    88
-  );
-  const sireMatched = matches.some((match) => match.hitEntries?.some((entry) => entry.role === "sire"));
-  const bmsMatched = maternalLines.some((match) => match.hitEntries?.some((entry) => entry.role === "broodmareSire"));
-  const coverageFields = ["sire", "dam", "broodmareSire", "damDam"]
-    .filter((role) => entries.some((entry) => entry.role === role)).length;
-  const coverage = coverageFields / 4;
+  const distance = evidenceScore(allMatches, context, undefined, distanceNeed);
+  const hasScoredEvidence = allMatches.some((match) => (match.roleWeight ?? 0) > 0);
+  const blend = hasScoredEvidence ? evidenceScore(allMatches, context) : BLOOD_NEUTRAL_SCORE;
+  const coverage = matchedCoverage([...rawMatches, ...rawFemaleMatches]);
   const statistics = buildBloodStatistics(horse);
   const statisticsAdjustment = Math.max(
     -5,
@@ -282,22 +442,16 @@ const buildBloodProfile = (horse, context) => {
       }, 0))
     )
   );
-  const statisticsScore = clamp(65 + statisticsAdjustment * 5, 45, 85);
-  const confidence = sireMatched && bmsMatched ? "high" : sireMatched || bmsMatched || femaleMatches.length ? "mid" : "low";
-  const status = matches.length || femaleMatches.length ? (confidence === "low" ? "partial" : "active") : "partial";
-  const baseScore = clamp(
-    paternal * 0.24 +
-      maternal * 0.2 +
-      course * 0.27 +
-      distance * 0.19 +
-      blend * 0.1,
-    42,
-    92
-  );
-  const score = clamp(baseScore + statisticsAdjustment, 42, 92);
+  const statisticsScore = clamp(BLOOD_NEUTRAL_SCORE + statisticsAdjustment * 5, 45, 85);
+  const confidence = coverage >= 0.65 ? "high" : coverage >= 0.35 ? "mid" : "low";
+  const status = hasScoredEvidence ? (confidence === "low" ? "partial" : "active") : "partial";
+  const baseScore = evidenceScore(allMatches, context);
+  const contributionDiagnostics = branchAdjustmentDetails(allMatches, context);
+  const score = clamp(baseScore, 42, 92);
 
   return {
     score,
+    displayScore: displayScore(score),
     baseScore,
     status,
     confidence,
@@ -307,8 +461,13 @@ const buildBloodProfile = (horse, context) => {
     femaleMatches,
     courseMatches,
     femaleCourseMatches,
+    backgroundMatches,
+    rawMatches,
+    rawFemaleMatches,
     statistics,
     statisticsAdjustment,
+    statisticsApplied: false,
+    contributionDiagnostics,
     traits,
     components: { paternal, maternal, course, distance, blend, statistics: statisticsScore },
   };
@@ -407,8 +566,8 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     statisticsAdjustment: profile.statisticsAdjustment,
     strengths: [...strengths, ...femaleStrengths, ...statisticStrengths],
     lines: [
-      buildLine("父系", pedigree?.sire ?? horse.currentRace?.sire, `父系の主軸。今回条件への適性は${profile.components.paternal}。`),
-      buildLine("母系", pedigree?.dam ?? horse.currentRace?.dam, `母系の補完力を評価。母系総合は${profile.components.maternal}。`),
+      buildLine("父系", pedigree?.sire ?? horse.currentRace?.sire, `父系の主軸。今回条件への適性は${Math.round(profile.components.paternal)}。`),
+      buildLine("母系", pedigree?.dam ?? horse.currentRace?.dam, `母系の補完力を評価。母系総合は${Math.round(profile.components.maternal)}。`),
       buildLine("母父", pedigree?.broodmareSire ?? horse.currentRace?.broodmareSire, "パワー、馬場適性、距離適性の補強要素として見ます。"),
       buildLine("牝系", pedigree?.damDam, femaleStrengths.length ? `${femaleStrengths[0].label}の特徴を確認。` : "牝系側のスタミナと底力を確認します。"),
     ],
@@ -430,4 +589,12 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
   };
 };
 
-export { scoreBlood, buildBloodProfile, buildPedigreeAnalysis };
+export {
+  scoreBlood,
+  buildBloodProfile,
+  buildPedigreeAnalysis,
+  resolveRuleMatches,
+  dictionaryRuleCompatibilities,
+  dictionaryCompatibilityCenter,
+  compatibilityFor,
+};

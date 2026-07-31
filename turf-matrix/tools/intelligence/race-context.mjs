@@ -49,6 +49,7 @@ const buildRaceContext = (race) => {
     bloodBias: bias?.bloodBias ?? [],
     bloodBiasIds: bias?.bloodBiasIds ?? [],
     bloodFitTags: bias?.bloodFitTags ?? [],
+    bloodMajorTags: bias?.bloodMajorTags ?? [],
     caution: bias?.caution ?? [],
     sourceRefs: bias?.sourceRefs ?? [],
     summary: `${summary} ${condition !== "馬場情報取得待ち" ? `現在の条件は${condition}です。` : condition}`,

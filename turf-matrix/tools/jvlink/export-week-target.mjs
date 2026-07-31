@@ -123,7 +123,9 @@ function currentRaceDetailRow(race, runner) {
   fields[13] = affiliation(runner.affiliationCode);
   fields[14] = runner.ownerName || "";
   fields[18] = runner.bloodRegistrationNumber || "";
-  fields[32] = `${raceDate}${String(race.raceNo || "").padStart(2, "0")}${String(runner.horseNumber || "").padStart(2, "0")}`;
+  fields[32] = runner.horseNumber
+    ? `${raceDate}${String(race.raceNo || "").padStart(2, "0")}${String(runner.horseNumber).padStart(2, "0")}`
+    : "";
   fields[33] = postTime(race.postTime);
   return fields.map(csv).join(",");
 }
@@ -299,14 +301,19 @@ const weekConfig = {
 const racesWithoutRunners = sortedRaces
   .filter((race) => !runnerCountByRace.get(race.raceKey))
   .map((race) => `${COURSE_NAMES[race.courseCode] || race.courseCode}${race.raceNo}R`);
-const invalidRunners = sortedRunners.filter(
-  (runner) => !runner.horseNumber || !String(runner.horseName || "").trim(),
+const invalidRunners = sortedRunners.filter((runner) =>
+  !String(runner.horseName || "").trim()
+  || (!config.provisional && !runner.horseNumber),
 );
+const partiallyNumbered = config.provisional
+  ? sortedRunners.some((runner) => Number(runner.horseNumber) > 0)
+  : false;
 const ready =
   races.length === keys.size &&
   currentRaceDetailFiles.length === keys.size &&
   racesWithoutRunners.length === 0 &&
-  invalidRunners.length === 0;
+  invalidRunners.length === 0 &&
+  !partiallyNumbered;
 
 const shutubaPath = safeWrite(path.join(targetDir, "shutuba.csv"), `${shutubaLines.join("\n")}\n`);
 const weekConfigPath = safeWrite(
@@ -325,6 +332,8 @@ const result = {
   currentRaceDetailFiles,
   racesWithoutRunners,
   invalidRunnerCount: invalidRunners.length,
+  provisional: Boolean(config.provisional),
+  partiallyNumbered,
   shutuba: shutubaPath,
   weekConfigDraft: weekConfigPath,
 };

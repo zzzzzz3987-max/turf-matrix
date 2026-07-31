@@ -26,7 +26,7 @@ const directPastRuns = [];
 for (const bundleId of raceConfig.bundles) {
   const file = `data/target/races/${bundleId}/current-race-detail.csv`;
   try {
-    const parsed = parseCurrentRace({ path: file });
+    const parsed = parseCurrentRace({ path: file, allowProvisional: Boolean(raceConfig.provisional) });
     directRaces.push({ bundleId, ...parsed });
     const all = parseAllCsv({ path: `data/target/races/${bundleId}/all.csv` });
     directPastRuns.push({ bundleId, ...all });

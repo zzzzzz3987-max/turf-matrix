@@ -1,4 +1,7 @@
-param()
+param(
+  [string]$TargetDate = "",
+  [string]$RaceSelection = ""
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -8,7 +11,10 @@ if ([Environment]::Is64BitOperatingSystem -and [Environment]::Is64BitProcess) {
     Write-Error "32-bit PowerShell was not found. JV-Link requires a 32-bit process."
     exit 2
   }
-  & $powershell32 -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath
+  $forwardArgs = @()
+  if ($TargetDate) { $forwardArgs += @("-TargetDate", $TargetDate) }
+  if ($RaceSelection) { $forwardArgs += @("-RaceSelection", $RaceSelection) }
+  & $powershell32 -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath @forwardArgs
   exit $LASTEXITCODE
 }
 
@@ -17,7 +23,11 @@ $configPath = Join-Path $repoRoot "tools\race-batch-config.json"
 $outputPath = Join-Path $PSScriptRoot "output\week-registrations.json"
 $manifestPath = Join-Path $PSScriptRoot "output\target-horses.json"
 $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
-$raceDate = [DateTime]::ParseExact([string]$config.raceDate, "yyyy-MM-dd", $null)
+$raceDate = if ($TargetDate) {
+  [DateTime]::ParseExact($TargetDate, "yyyy-MM-dd", $null)
+} else {
+  [DateTime]::ParseExact([string]$config.raceDate, "yyyy-MM-dd", $null)
+}
 $fromTime = $raceDate.AddDays(-7).ToString("yyyyMMdd000000")
 $encoding = [System.Text.Encoding]::GetEncoding(932)
 
@@ -124,14 +134,25 @@ try {
     throw "JVRead(TOKU) failed with result $readResult."
   }
 
+  $courseCodes = @{
+    sapporo = "01"; hakodate = "02"; fukushima = "03"; niigata = "04"; tokyo = "05"
+    nakayama = "06"; chukyo = "07"; kyoto = "08"; hanshin = "09"; kokura = "10"
+  }
   $configured = New-Object 'System.Collections.Generic.HashSet[string]'
-  foreach ($bundle in $config.bundles) {
-    if ([string]$bundle -match '^\d{4}-\d{2}-\d{2}-([a-z]+)-(\d{1,2})R$') {
-      $courseCode = @{
-        sapporo = "01"; hakodate = "02"; fukushima = "03"; niigata = "04"; tokyo = "05"
-        nakayama = "06"; chukyo = "07"; kyoto = "08"; hanshin = "09"; kokura = "10"
-      }[$Matches[1]]
-      if ($courseCode) { $configured.Add("$courseCode|$([int]$Matches[2])") | Out-Null }
+  if ($RaceSelection) {
+    foreach ($selection in $RaceSelection.Split(',')) {
+      $value = $selection.Trim()
+      if ($value -notmatch '^(.+?)(\d{1,2})R?$') { throw "Invalid race selection: $value" }
+      $courseCode = $courseCodes[$Matches[1].ToLowerInvariant()]
+      if (-not $courseCode) { throw "Unsupported course in race selection: $value" }
+      $configured.Add("$courseCode|$([int]$Matches[2])") | Out-Null
+    }
+  } else {
+    foreach ($bundle in $config.bundles) {
+      if ([string]$bundle -match '^\d{4}-\d{2}-\d{2}-([a-z]+)-(\d{1,2})R$') {
+        $courseCode = $courseCodes[$Matches[1]]
+        if ($courseCode) { $configured.Add("$courseCode|$([int]$Matches[2])") | Out-Null }
+      }
     }
   }
   $selectedRaces = @($races | Where-Object { $configured.Contains("$($_.courseCode)|$([int]$_.raceNo)") })

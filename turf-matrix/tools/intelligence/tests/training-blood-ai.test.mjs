@@ -95,14 +95,17 @@ test("Blood specialist measures the broodmare sire as maternal evidence", () => 
   const matched = buildBloodProfile(bloodHorse(), bloodContext(["roberto"]));
   const unknown = buildBloodProfile(bloodHorse({ broodmareSire: "未登録血統" }), bloodContext(["roberto"]));
 
-  assert.ok(matched.components.maternal > unknown.components.maternal);
+  assert.ok(matched.coverage > unknown.coverage);
+  assert.ok(matched.matches.some((match) =>
+    match.hitEntries?.some((entry) => entry.role === "broodmareSire")
+  ));
   assert.equal(matched.confidence, "high");
   assert.equal(unknown.confidence, "mid");
 });
 
 test("Blood specialist keeps missing pedigree neutral and explicit", () => {
   const profile = buildBloodProfile({ currentRace: { distance: 2000 } }, bloodContext(["kingmambo"]));
-  assert.equal(profile.score, 50);
+  assert.equal(profile.score, 65);
   assert.equal(profile.status, "missing");
   assert.equal(profile.confidence, "low");
 });

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext } from "./intelligence/index.mjs";
@@ -9,7 +9,11 @@ import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs"
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
 const OUT_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
-const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
+  ? (isAbsolute(process.env.TURF_MATRIX_RACE_CONFIG)
+      ? process.env.TURF_MATRIX_RACE_CONFIG
+      : join(TOOLS_DIR, "..", process.env.TURF_MATRIX_RACE_CONFIG))
+  : join(TOOLS_DIR, "race-batch-config.json");
 const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
 const CONDITIONS_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));

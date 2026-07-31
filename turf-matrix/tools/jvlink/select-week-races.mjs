@@ -84,7 +84,22 @@ if (allRaces) {
 
 bundles = [...new Set(bundles)];
 if (!bundles.length) throw new Error("No target races were selected.");
-const runtime = { raceDate: date, expectedRaceCount: bundles.length, bundles };
+const selectedRaceKeys = new Set(
+  available.filter(({ bundle }) => bundles.includes(bundle)).map(({ race }) => race.raceKey),
+);
+const selectedRunners = Object.values(summary.runnersByRace || {})
+  .flatMap((runners) => Array.isArray(runners) ? runners : [])
+  .filter((runner) => selectedRaceKeys.has(runner.raceKey));
+const numberedRunnerCount = selectedRunners.filter((runner) => Number(runner.horseNumber) > 0).length;
+const provisional = selectedRunners.length > 0 && numberedRunnerCount === 0;
+const runtime = {
+  raceDate: date,
+  expectedRaceCount: bundles.length,
+  bundles,
+  provisional,
+  runnerCount: selectedRunners.length,
+  numberedRunnerCount,
+};
 fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(path.join(outputDir, "race-batch-runtime.json"), `${JSON.stringify(runtime, null, 2)}\n`);
 console.log(JSON.stringify({

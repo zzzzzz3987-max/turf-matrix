@@ -206,6 +206,46 @@ Specification source:
 
 Do not commit generated `data/target/` files.
 
+## Live Weather And Going
+
+Race-day weather and turf/dirt going are acquired from the JV-Link realtime
+meeting feed rather than the accumulated RA record:
+
+```powershell
+npm run jvfetch:conditions
+npm run verify:jvfetch-conditions
+```
+
+To refresh both win odds and track conditions:
+
+```powershell
+npm run jvfetch:live
+```
+
+Input:
+
+- `tools/race-batch-config.json`
+
+Generated outputs (gitignored):
+
+- `data/target/race-conditions.latest.json` — latest course-level WE state
+- `tools/race-conditions.current.json` — conditions distributed to configured races
+
+Specification source:
+
+- realtime dataspec: `0B14`
+- record type: `WE`
+- key format: `YYYYMMDD`
+- current weather: byte 35
+- current turf going: byte 36
+- current dirt going: byte 37
+- announcement month/day/hour/minute: bytes 26-33
+
+The reader consumes every WE record in order. Initial state and later weather
+or going changes are merged per course; the last valid state is then applied
+to each configured race according to its surface. Unknown or missing codes are
+never estimated.
+
 ## Confirmed Local COM Registration
 
 - ProgID: `JVDTLab.JVLink`

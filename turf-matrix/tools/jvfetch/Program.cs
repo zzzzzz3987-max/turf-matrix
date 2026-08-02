@@ -14,6 +14,7 @@ namespace TurfMatrix.JvFetch
     {
         private const string DefaultProgId = "JVDTLab.JVLink";
         private const string OddsDataSpec = "0B31";
+        private const string ConditionsDataSpec = "0B14";
 
         private static int Main(string[] args)
         {
@@ -38,6 +39,11 @@ namespace TurfMatrix.JvFetch
                 if (options.OddsOnly)
                 {
                     return RunOddsOnly(options, repoRoot, logPath);
+                }
+
+                if (options.ConditionsOnly)
+                {
+                    return RunConditionsOnly(options, repoRoot, logPath);
                 }
 
                 if (!options.Check)
@@ -197,6 +203,200 @@ namespace TurfMatrix.JvFetch
 
             foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
             return warnings.Count == 0 ? 0 : 1;
+        }
+
+        private static int RunConditionsOnly(Options options, string repoRoot, string logPath)
+        {
+            var progId = string.IsNullOrWhiteSpace(options.ProgId) ? DefaultProgId : options.ProgId;
+            var sid = FirstNonEmpty(options.Sid, Environment.GetEnvironmentVariable("JVLINK_SID"), "UNKNOWN");
+            var configPath = Path.Combine(repoRoot, "tools", "race-batch-config.json");
+            var races = LoadRaceTargets(configPath);
+            var raceDate = races[0].RaceDate;
+            var states = new Dictionary<string, ConditionState>();
+            var warnings = new List<string>();
+
+            Log(logPath, "INFO", "jvfetch --conditions-only started.");
+
+            if (Environment.Is64BitProcess)
+            {
+                Console.Error.WriteLine("JV-Link requires x86 process. Build/run jvfetch as x86.");
+                return 2;
+            }
+
+            object jvLink = null;
+            try
+            {
+                var type = Type.GetTypeFromProgID(progId);
+                if (type == null)
+                {
+                    Console.Error.WriteLine("COM ProgID was not found: " + progId);
+                    return 2;
+                }
+
+                jvLink = Activator.CreateInstance(type);
+                var initResult = InvokeInt(jvLink, "JVInit", sid);
+                if (initResult != 0)
+                {
+                    Console.Error.WriteLine("JVInit failed: " + initResult);
+                    return 2;
+                }
+
+                var openResult = InvokeInt(jvLink, "JVRTOpen", ConditionsDataSpec, raceDate.Replace("-", ""));
+                if (openResult < 0)
+                {
+                    Console.Error.WriteLine("JVRTOpen failed: " + openResult);
+                    return 2;
+                }
+
+                ReadConditionRecords(jvLink, raceDate, states, warnings);
+            }
+            finally
+            {
+                if (jvLink != null)
+                {
+                    TryInvoke(jvLink, "JVClose");
+                    Marshal.FinalReleaseComObject(jvLink);
+                }
+            }
+
+            if (states.Count == 0)
+            {
+                Console.Error.WriteLine("No WE condition records were acquired. Existing data was not changed.");
+                foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
+                return 2;
+            }
+
+            var selectedCourses = new HashSet<string>();
+            foreach (var race in races) selectedCourses.Add(race.CourseCode);
+            foreach (var courseCode in selectedCourses)
+            {
+                if (!states.ContainsKey(courseCode)) warnings.Add("course " + courseCode + " WE record not found");
+            }
+
+            var outputPath = Path.Combine(repoRoot, "data", "target", "race-conditions.latest.json");
+            WriteConditionsJson(outputPath, raceDate, states);
+
+            Console.WriteLine("{");
+            Console.WriteLine("  \"status\": \"" + (warnings.Count == 0 ? "ready" : "partial") + "\",");
+            Console.WriteLine("  \"dataspec\": \"" + ConditionsDataSpec + "\",");
+            Console.WriteLine("  \"raceDate\": \"" + raceDate + "\",");
+            Console.WriteLine("  \"courseCount\": " + states.Count + ",");
+            Console.WriteLine("  \"output\": \"" + EscapeJson(outputPath) + "\"");
+            Console.WriteLine("}");
+
+            foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
+            return warnings.Count == 0 ? 0 : 1;
+        }
+
+        private static void ReadConditionRecords(object jvLink, string raceDate, Dictionary<string, ConditionState> states, List<string> warnings)
+        {
+            var encoding = Encoding.GetEncoding(932);
+
+            for (var iteration = 0; iteration < 10000; iteration++)
+            {
+                var buffer = new string(' ', 512);
+                var fileName = "";
+                var readArgs = new object[] { buffer, 512, fileName };
+                var readResult = InvokeJvRead(jvLink, readArgs);
+                buffer = Convert.ToString(readArgs[0] ?? "");
+
+                if (readResult > 0)
+                {
+                    var bytes = encoding.GetBytes(buffer);
+                    if (GetJvField(bytes, 1, 2) != "WE") continue;
+
+                    var courseCode = GetJvField(bytes, 20, 2);
+                    if (string.IsNullOrWhiteSpace(courseCode)) continue;
+
+                    ConditionState state;
+                    if (!states.TryGetValue(courseCode, out state))
+                    {
+                        state = new ConditionState { CourseCode = courseCode };
+                        states[courseCode] = state;
+                    }
+
+                    var changeType = GetJvField(bytes, 34, 1);
+                    var weatherCode = ValidConditionCode(GetJvField(bytes, 35, 1), 6);
+                    var turfGoingCode = ValidConditionCode(GetJvField(bytes, 36, 1), 4);
+                    var dirtGoingCode = ValidConditionCode(GetJvField(bytes, 37, 1), 4);
+
+                    if (changeType == "1")
+                    {
+                        if (weatherCode != "") state.WeatherCode = weatherCode;
+                        if (turfGoingCode != "") state.TurfGoingCode = turfGoingCode;
+                        if (dirtGoingCode != "") state.DirtGoingCode = dirtGoingCode;
+                    }
+                    else if (changeType == "2")
+                    {
+                        if (weatherCode != "") state.WeatherCode = weatherCode;
+                    }
+                    else if (changeType == "3")
+                    {
+                        if (turfGoingCode != "") state.TurfGoingCode = turfGoingCode;
+                        if (dirtGoingCode != "") state.DirtGoingCode = dirtGoingCode;
+                    }
+                    else
+                    {
+                        if (weatherCode != "") state.WeatherCode = weatherCode;
+                        if (turfGoingCode != "") state.TurfGoingCode = turfGoingCode;
+                        if (dirtGoingCode != "") state.DirtGoingCode = dirtGoingCode;
+                    }
+
+                    state.ChangeType = changeType;
+                    state.UpdatedAt = BuildConditionUpdatedAt(raceDate, GetJvField(bytes, 26, 8));
+                    state.RecordCount++;
+                }
+                else if (readResult == -3)
+                {
+                    System.Threading.Thread.Sleep(200);
+                }
+                else if (readResult == -1)
+                {
+                    continue;
+                }
+                else if (readResult == 0)
+                {
+                    break;
+                }
+                else
+                {
+                    warnings.Add("JVRead=" + readResult);
+                    break;
+                }
+            }
+        }
+
+        private static string ValidConditionCode(string raw, int max)
+        {
+            int value;
+            return int.TryParse((raw ?? "").Trim(), out value) && value >= 1 && value <= max
+                ? value.ToString()
+                : "";
+        }
+
+        private static string BuildConditionUpdatedAt(string raceDate, string announce)
+        {
+            if (!string.IsNullOrWhiteSpace(announce) && announce.Length == 8 && announce != "00000000")
+            {
+                return raceDate.Substring(0, 4) + "-" + announce.Substring(0, 2) + "-" + announce.Substring(2, 2)
+                    + "T" + announce.Substring(4, 2) + ":" + announce.Substring(6, 2) + ":00+09:00";
+            }
+            return DateTimeOffset.Now.ToString("yyyy-MM-ddTHH:mm:sszzz");
+        }
+
+        private static void WriteConditionsJson(string outputPath, string raceDate, Dictionary<string, ConditionState> states)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+            var payload = new ConditionsPayload
+            {
+                SchemaVersion = 1,
+                GeneratedAt = DateTimeOffset.Now.ToString("o"),
+                Source = "JV-Link 0B14 WE",
+                RaceDate = raceDate,
+                Courses = states
+            };
+            var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+            File.WriteAllText(outputPath, serializer.Serialize(payload), new UTF8Encoding(true));
         }
 
         private static void ReadOddsRecords(object jvLink, RaceTarget race, List<OddsRow> rows, List<string> warnings)
@@ -663,6 +863,7 @@ namespace TurfMatrix.JvFetch
                 if (arg == "--check") options.Check = true;
                 else if (arg == "--week") options.Week = true;
                 else if (arg == "--odds-only") options.OddsOnly = true;
+                else if (arg == "--conditions-only") options.ConditionsOnly = true;
                 else if (arg == "--help" || arg == "-h") options.Help = true;
                 else if (arg == "--sid" && i + 1 < args.Length) options.Sid = args[++i];
                 else if (arg == "--prog-id" && i + 1 < args.Length) options.ProgId = args[++i];
@@ -684,6 +885,7 @@ namespace TurfMatrix.JvFetch
             Console.WriteLine("  jvfetch.exe --check [--sid <JV-Link SID>] [--prog-id JVDTLab.JVLink]");
             Console.WriteLine("  jvfetch.exe --week [--races \"福島10,福島11\" | --all-races]");
             Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win odds for tools/race-batch-config.json)");
+            Console.WriteLine("  jvfetch.exe --conditions-only  (fetch WE weather and turf/dirt going for the configured date)");
         }
 
         private static void Log(string path, string level, string message)
@@ -720,6 +922,7 @@ namespace TurfMatrix.JvFetch
             public bool Check { get; set; }
             public bool Week { get; set; }
             public bool OddsOnly { get; set; }
+            public bool ConditionsOnly { get; set; }
             public bool Help { get; set; }
             public string Sid { get; set; }
             public string ProgId { get; set; }
@@ -751,6 +954,26 @@ namespace TurfMatrix.JvFetch
             public string Status { get; set; }
             public string DataKubun { get; set; }
             public int? Runners { get; set; }
+        }
+
+        private sealed class ConditionsPayload
+        {
+            public int SchemaVersion { get; set; }
+            public string GeneratedAt { get; set; }
+            public string Source { get; set; }
+            public string RaceDate { get; set; }
+            public Dictionary<string, ConditionState> Courses { get; set; }
+        }
+
+        private sealed class ConditionState
+        {
+            public string CourseCode { get; set; }
+            public string WeatherCode { get; set; }
+            public string TurfGoingCode { get; set; }
+            public string DirtGoingCode { get; set; }
+            public string UpdatedAt { get; set; }
+            public string ChangeType { get; set; }
+            public int RecordCount { get; set; }
         }
 
         private sealed class CourseInfo

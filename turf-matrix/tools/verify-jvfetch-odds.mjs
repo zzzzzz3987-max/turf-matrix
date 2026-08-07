@@ -8,6 +8,7 @@ const REPO_ROOT = join(TOOLS_DIR, "..");
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
+const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 
 const COURSE_BY_SLUG = {
   sapporo: "札幌",
@@ -94,9 +95,15 @@ const expectedRaces = () => {
   });
 };
 
-const fieldSizes = () => {
-  if (!existsSync(WEEK_DATA_PATH)) return new Map();
-  const week = JSON.parse(readFileSync(WEEK_DATA_PATH, "utf8"));
+const fieldSizes = (raceDate) => {
+  const paths = [CANDIDATE_PATH, WEEK_DATA_PATH];
+  const selectedPath = paths.find((path) => {
+    if (!existsSync(path)) return false;
+    const week = JSON.parse(readFileSync(path, "utf8"));
+    return week.meta?.date === raceDate;
+  });
+  if (!selectedPath) return new Map();
+  const week = JSON.parse(readFileSync(selectedPath, "utf8"));
   return new Map(
     (week.races ?? []).map((race) => [`${race.track}|${race.number}`, race.horses?.length ?? race.fieldSize ?? 0]),
   );
@@ -105,7 +112,7 @@ const fieldSizes = () => {
 const main = () => {
   const { path, rows } = loadOdds(process.argv[2] ? resolve(process.argv[2]) : latestOddsPath());
   const expected = expectedRaces();
-  const sizes = fieldSizes();
+  const sizes = fieldSizes(expected[0]?.date);
   const failures = [];
   const warnings = [];
 

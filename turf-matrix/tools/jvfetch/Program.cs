@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
@@ -15,6 +16,7 @@ namespace TurfMatrix.JvFetch
         private const string DefaultProgId = "JVDTLab.JVLink";
         private const string OddsDataSpec = "0B31";
         private const string ConditionsDataSpec = "0B14";
+        private const string ResultsDataSpec = "0B12";
 
         private static int Main(string[] args)
         {
@@ -44,6 +46,11 @@ namespace TurfMatrix.JvFetch
                 if (options.ConditionsOnly)
                 {
                     return RunConditionsOnly(options, repoRoot, logPath);
+                }
+
+                if (options.ResultsOnly)
+                {
+                    return RunResultsOnly(options, repoRoot, logPath);
                 }
 
                 if (!options.Check)
@@ -286,6 +293,190 @@ namespace TurfMatrix.JvFetch
 
             foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
             return warnings.Count == 0 ? 0 : 1;
+        }
+
+        private static int RunResultsOnly(Options options, string repoRoot, string logPath)
+        {
+            var progId = string.IsNullOrWhiteSpace(options.ProgId) ? DefaultProgId : options.ProgId;
+            var sid = FirstNonEmpty(options.Sid, Environment.GetEnvironmentVariable("JVLINK_SID"), "UNKNOWN");
+            var races = LoadRaceTargets(Path.Combine(repoRoot, "tools", "race-batch-config.json"));
+            var results = new List<RaceResult>();
+            var warnings = new List<string>();
+
+            Log(logPath, "INFO", "jvfetch --results-only started.");
+            if (Environment.Is64BitProcess)
+            {
+                Console.Error.WriteLine("JV-Link requires x86 process. Build/run jvfetch as x86.");
+                return 2;
+            }
+
+            object jvLink = null;
+            try
+            {
+                var type = Type.GetTypeFromProgID(progId);
+                if (type == null)
+                {
+                    Console.Error.WriteLine("COM ProgID was not found: " + progId);
+                    return 2;
+                }
+
+                jvLink = Activator.CreateInstance(type);
+                var initResult = InvokeInt(jvLink, "JVInit", sid);
+                if (initResult != 0)
+                {
+                    Console.Error.WriteLine("JVInit failed: " + initResult);
+                    return 2;
+                }
+
+                foreach (var race in races)
+                {
+                    var result = new RaceResult { Race = race };
+                    var openResult = InvokeInt(jvLink, "JVRTOpen", ResultsDataSpec, race.JvKey);
+                    if (openResult < 0)
+                    {
+                        warnings.Add(race.Label + " JVRTOpen=" + openResult);
+                        continue;
+                    }
+
+                    ReadResultRecords(jvLink, result, warnings);
+                    TryInvoke(jvLink, "JVClose");
+                    if (result.Horses.Count > 0 || result.Payouts.Count > 0) results.Add(result);
+                }
+            }
+            finally
+            {
+                if (jvLink != null)
+                {
+                    TryInvoke(jvLink, "JVClose");
+                    Marshal.FinalReleaseComObject(jvLink);
+                }
+            }
+
+            foreach (var result in results)
+            {
+                if (!result.IsFinal)
+                {
+                    var pending = result.Horses.FindAll(h => h.FinishPosition == null && (h.AbnormalityCode == "" || h.AbnormalityCode == "0"));
+                    warnings.Add(result.Race.Label + " final order is not yet available; records=" + result.Horses.Count
+                        + " kubun=" + string.Join("/", result.Horses.Select(h => h.DataKubun).Distinct().ToArray())
+                        + " order=" + string.Join("/", result.Horses.Select(h => h.HorseNumber + ":" + (h.FinishPosition == null ? "--" : h.FinishPosition.Value.ToString()) + ":" + h.AbnormalityCode).ToArray())
+                        + " pending=" + string.Join("/", pending.Select(h => h.HorseNumber + ":" + h.HorseName).ToArray()));
+                }
+                if (!result.HasPayouts) warnings.Add(result.Race.Label + " payouts are not yet available");
+            }
+            if (results.Count != races.Count || results.Exists(r => !r.IsFinal || !r.HasPayouts))
+            {
+                Console.Error.WriteLine("Final results are incomplete. No archive file was written.");
+                foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
+                return 1;
+            }
+
+            var outputPath = Path.Combine(repoRoot, "data", "target", "results.latest.json");
+            WriteResultsJson(outputPath, results);
+            Console.WriteLine("{");
+            Console.WriteLine("  \"status\": \"ready\",");
+            Console.WriteLine("  \"dataspec\": \"" + ResultsDataSpec + "\",");
+            Console.WriteLine("  \"raceCount\": " + results.Count + ",");
+            Console.WriteLine("  \"horseCount\": " + results.ConvertAll(r => r.Horses.Count).ToArray().Sum() + ",");
+            Console.WriteLine("  \"output\": \"" + EscapeJson(outputPath) + "\"");
+            Console.WriteLine("}");
+            return 0;
+        }
+
+        private static void ReadResultRecords(object jvLink, RaceResult result, List<string> warnings)
+        {
+            var horses = new Dictionary<int, ResultHorse>();
+
+            for (var iteration = 0; iteration < 10000; iteration++)
+            {
+                var buffer = new string(' ', 4096);
+                var readArgs = new object[] { buffer, 4096, "" };
+                var readResult = InvokeJvRead(jvLink, readArgs);
+                buffer = Convert.ToString(readArgs[0] ?? "");
+
+                if (readResult > 0)
+                {
+                    var recordId = GetJvTextField(buffer, 1, 2);
+                    if (recordId == "SE")
+                    {
+                        var horseNumber = ParseNullableInt(GetJvTextField(buffer, 29, 2));
+                        if (horseNumber == null) continue;
+                        var finish = ParseNullableInt(GetJvTextField(buffer, 335, 2));
+                        var dataKubun = GetJvTextField(buffer, 3, 1);
+                        var candidate = new ResultHorse
+                        {
+                            HorseNumber = horseNumber.Value,
+                            HorseName = DecodeJvText(GetJvTextField(buffer, 41, 36)),
+                            FinishPosition = finish,
+                            AbnormalityCode = GetJvTextField(buffer, 332, 1),
+                            DataKubun = dataKubun
+                        };
+                        ResultHorse existing;
+                        if (!horses.TryGetValue(horseNumber.Value, out existing)
+                            || ResultDataRank(candidate.DataKubun) >= ResultDataRank(existing.DataKubun))
+                        {
+                            horses[horseNumber.Value] = candidate;
+                        }
+                    }
+                    else if (recordId == "HR")
+                    {
+                        result.PayoutDataKubun = GetJvTextField(buffer, 3, 1);
+                        result.Payouts.Clear();
+                        ParsePayoutEntries(buffer, 103, 3, "win", result.Payouts);
+                        ParsePayoutEntries(buffer, 142, 5, "place", result.Payouts);
+                    }
+                }
+                else if (readResult == -3) System.Threading.Thread.Sleep(200);
+                else if (readResult == -1) continue;
+                else if (readResult == 0) break;
+                else
+                {
+                    warnings.Add(result.Race.Label + " JVRead=" + readResult);
+                    break;
+                }
+            }
+
+            result.Horses.AddRange(horses.Values);
+            result.Horses.Sort((a, b) => a.HorseNumber.CompareTo(b.HorseNumber));
+        }
+
+        private static int ResultDataRank(string dataKubun)
+        {
+            int rank;
+            return int.TryParse(dataKubun, out rank) ? rank : 0;
+        }
+
+        private static void ParsePayoutEntries(string record, int start, int count, string type, List<ResultPayout> payouts)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var offset = start + i * 13;
+                var horseNumber = ParseNullableInt(GetJvTextField(record, offset, 2));
+                var payout = ParseNullableInt(GetJvTextField(record, offset + 2, 9));
+                if (horseNumber == null || payout == null) continue;
+                payouts.Add(new ResultPayout
+                {
+                    Type = type,
+                    HorseNumber = horseNumber.Value,
+                    Payout = payout.Value,
+                    Popularity = ParseNullableInt(GetJvTextField(record, offset + 11, 2))
+                });
+            }
+        }
+
+        private static void WriteResultsJson(string outputPath, List<RaceResult> results)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+            var payload = new ResultsPayload
+            {
+                SchemaVersion = 1,
+                GeneratedAt = DateTimeOffset.Now.ToString("o"),
+                Source = "JV-Link 0B12 SE/HR",
+                RaceDate = results[0].Race.RaceDate,
+                Races = results
+            };
+            var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+            File.WriteAllText(outputPath, serializer.Serialize(payload), new UTF8Encoding(true));
         }
 
         private static void ReadConditionRecords(object jvLink, string raceDate, Dictionary<string, ConditionState> states, List<string> warnings)
@@ -644,6 +835,19 @@ namespace TurfMatrix.JvFetch
             return missing;
         }
 
+        private static string GetJvTextField(string record, int start, int length)
+        {
+            if (string.IsNullOrEmpty(record) || record.Length < start) return "";
+            var available = Math.Min(length, record.Length - start + 1);
+            return available <= 0 ? "" : record.Substring(start - 1, available).Trim();
+        }
+
+        private static string DecodeJvText(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value)) return "";
+            return Encoding.GetEncoding(932).GetString(Encoding.GetEncoding(1252).GetBytes(value)).Trim();
+        }
+
         private static int RunWeek(Options options, string repoRoot, string logPath)
         {
             var scriptPath = Path.Combine(repoRoot, "tools", "jvfetch", "run-week.ps1");
@@ -864,6 +1068,7 @@ namespace TurfMatrix.JvFetch
                 else if (arg == "--week") options.Week = true;
                 else if (arg == "--odds-only") options.OddsOnly = true;
                 else if (arg == "--conditions-only") options.ConditionsOnly = true;
+                else if (arg == "--results-only") options.ResultsOnly = true;
                 else if (arg == "--help" || arg == "-h") options.Help = true;
                 else if (arg == "--sid" && i + 1 < args.Length) options.Sid = args[++i];
                 else if (arg == "--prog-id" && i + 1 < args.Length) options.ProgId = args[++i];
@@ -886,6 +1091,7 @@ namespace TurfMatrix.JvFetch
             Console.WriteLine("  jvfetch.exe --week [--races \"福島10,福島11\" | --all-races]");
             Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win odds for tools/race-batch-config.json)");
             Console.WriteLine("  jvfetch.exe --conditions-only  (fetch WE weather and turf/dirt going for the configured date)");
+            Console.WriteLine("  jvfetch.exe --results-only  (fetch finalized SE order and HR win/place payouts)");
         }
 
         private static void Log(string path, string level, string message)
@@ -923,6 +1129,7 @@ namespace TurfMatrix.JvFetch
             public bool Week { get; set; }
             public bool OddsOnly { get; set; }
             public bool ConditionsOnly { get; set; }
+            public bool ResultsOnly { get; set; }
             public bool Help { get; set; }
             public string Sid { get; set; }
             public string ProgId { get; set; }
@@ -974,6 +1181,45 @@ namespace TurfMatrix.JvFetch
             public string UpdatedAt { get; set; }
             public string ChangeType { get; set; }
             public int RecordCount { get; set; }
+        }
+
+        private sealed class ResultsPayload
+        {
+            public int SchemaVersion { get; set; }
+            public string GeneratedAt { get; set; }
+            public string Source { get; set; }
+            public string RaceDate { get; set; }
+            public List<RaceResult> Races { get; set; }
+        }
+
+        private sealed class RaceResult
+        {
+            private readonly List<ResultHorse> _horses = new List<ResultHorse>();
+            private readonly List<ResultPayout> _payouts = new List<ResultPayout>();
+
+            public RaceTarget Race { get; set; }
+            public List<ResultHorse> Horses { get { return _horses; } }
+            public List<ResultPayout> Payouts { get { return _payouts; } }
+            public string PayoutDataKubun { get; set; }
+            public bool IsFinal { get { return Horses.Count > 0 && Horses.TrueForAll(h => h.FinishPosition != null || h.AbnormalityCode != "0"); } }
+            public bool HasPayouts { get { return PayoutDataKubun == "1" && Payouts.Count > 0; } }
+        }
+
+        private sealed class ResultHorse
+        {
+            public int HorseNumber { get; set; }
+            public string HorseName { get; set; }
+            public int? FinishPosition { get; set; }
+            public string AbnormalityCode { get; set; }
+            public string DataKubun { get; set; }
+        }
+
+        private sealed class ResultPayout
+        {
+            public string Type { get; set; }
+            public int HorseNumber { get; set; }
+            public int Payout { get; set; }
+            public int? Popularity { get; set; }
         }
 
         private sealed class CourseInfo

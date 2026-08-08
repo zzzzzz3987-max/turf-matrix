@@ -11,8 +11,10 @@ const STATE_PATH = join(RUNTIME_DIR, "odds-auto-update-state.json");
 const LOCK_PATH = join(RUNTIME_DIR, "odds-auto-update.lock");
 const LOG_PATH = join(RUNTIME_DIR, "odds-auto-update.log");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
+const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const NEXT_DATA_PATH = join(TOOLS_DIR, "week-data.next.json");
 const BACKUP_DATA_PATH = join(TOOLS_DIR, "week-data.auto-backup.json");
+const CANDIDATE_BACKUP_PATH = join(RUNTIME_DIR, "week-data.batch-candidate.backup.json");
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
@@ -56,11 +58,14 @@ const run = (command, commandArgs, { allowFailure = false, quiet = false } = {})
     cwd: REPO_ROOT,
     env: { ...process.env, PATH: `${dirname(process.execPath)};${process.env.PATH ?? ""}` },
     encoding: "utf8",
-    stdio: quiet ? "pipe" : "inherit",
+    stdio: "pipe",
   });
   if (result.error) throw result.error;
+  if (!quiet && result.stdout) appendFileSync(LOG_PATH, result.stdout, "utf8");
+  if (!quiet && result.stderr) appendFileSync(LOG_PATH, result.stderr, "utf8");
   if (!allowFailure && result.status !== 0) {
-    throw new Error(`${command} ${commandArgs.join(" ")} failed with exit code ${result.status}`);
+    const detail = String(result.stderr || result.stdout || "").trim();
+    throw new Error(`${command} ${commandArgs.join(" ")} failed with exit code ${result.status}${detail ? `: ${detail}` : ""}`);
   }
   return result;
 };
@@ -116,6 +121,8 @@ const assertCleanTrackedTree = (git) => {
 };
 
 const generateAndPublish = (git, commitMessage) => {
+  const candidateExisted = existsSync(CANDIDATE_PATH);
+  if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
   runNode("tools/normalizers/race-batch.mjs");
   runNode("tools/generate-race-batch-candidate.mjs");
   runNode("tools/prepare-race-batch-release.mjs");
@@ -151,6 +158,12 @@ const generateAndPublish = (git, commitMessage) => {
   } finally {
     if (existsSync(NEXT_DATA_PATH)) rmSync(NEXT_DATA_PATH, { force: true });
     if (existsSync(BACKUP_DATA_PATH)) rmSync(BACKUP_DATA_PATH, { force: true });
+    if (candidateExisted && existsSync(CANDIDATE_BACKUP_PATH)) {
+      copyFileSync(CANDIDATE_BACKUP_PATH, CANDIDATE_PATH);
+    } else if (!candidateExisted && existsSync(CANDIDATE_PATH)) {
+      rmSync(CANDIDATE_PATH, { force: true });
+    }
+    if (existsSync(CANDIDATE_BACKUP_PATH)) rmSync(CANDIDATE_BACKUP_PATH, { force: true });
   }
 };
 

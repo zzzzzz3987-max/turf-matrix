@@ -164,6 +164,7 @@ const buildVerdictPayload = ({
           summary: trainingReadable,
           evidence: trainingAnalysis.strengths ?? [],
           components: trainingAnalysis.components ?? {},
+          ...(trainingAnalysis.videoReview ? { videoReview: trainingAnalysis.videoReview } : {}),
         },
         course: {
           key: "course",
@@ -249,6 +250,7 @@ const buildVerdictPayload = ({
           fastFinish: trainingAnalysis.fastFinish ?? 0,
           accelCount: trainingAnalysis.accelCount ?? 0,
           strengths: trainingAnalysis.strengths ?? [],
+          ...(trainingAnalysis.videoReview ? { videoReview: trainingAnalysis.videoReview } : {}),
         },
       },
       pedigree: pedigreeAnalysis,

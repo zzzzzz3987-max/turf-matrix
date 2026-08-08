@@ -63,6 +63,35 @@ test("Training specialist does not add an unlearned stable pattern", () => {
   assert.equal(profile.score, profile.baseScore);
 });
 
+test("Training specialist applies a bounded official-video review only to the exact date and horse", () => {
+  const reviewed = buildTrainingProfile({
+    horseName: "レイピア",
+    currentRace: { raceDate: "2026-08-09", stableSide: "栗東" },
+    training: { slope: [slope("20260805", 51.9, 13.2)], wood: [] },
+  });
+  const otherDate = buildTrainingProfile({
+    horseName: "レイピア",
+    currentRace: { raceDate: "2026-08-10", stableSide: "栗東" },
+    training: { slope: [slope("20260805", 51.9, 13.2)], wood: [] },
+  });
+
+  assert.equal(reviewed.videoReview?.source, "JRA Racing Viewer");
+  assert.equal(reviewed.videoReview?.adjustment, 0);
+  assert.equal(reviewed.score, reviewed.clockScore);
+  assert.equal(otherDate.videoReview, null);
+});
+
+test("Training specialist keeps video adjustments within the declared two-point range", () => {
+  const reviewed = buildTrainingProfile({
+    horseName: "タマモイカロス",
+    currentRace: { raceDate: "2026-08-09", stableSide: "栗東" },
+    training: { slope: [slope("20260805", 51.9, 11.9)], wood: [] },
+  });
+
+  assert.equal(reviewed.videoReview?.adjustment, 2);
+  assert.equal(reviewed.score - reviewed.clockScore, 2);
+});
+
 const bloodContext = (bloodBiasIds, traits = { speed: 0.8, power: 0.65, stamina: 0.6, sustain: 0.8 }) => ({
   profile: "テスト条件",
   traits,

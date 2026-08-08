@@ -127,6 +127,71 @@ const weightedAverage = (items) => {
   return weight ? valid.reduce((sum, item) => sum + item.value * item.weight, 0) / weight : 50;
 };
 
+const finishPosition = (run) => {
+  const value = Number(run?.finish ?? run?.finishPosition ?? run?.rank);
+  return Number.isFinite(value) && value > 0 ? value : null;
+};
+
+const raceDateOf = (run) => run?.raceDate ?? run?.date ?? null;
+
+const phaseQualityForRace = (sessions, raceDate) => {
+  const eligible = sessions
+    .map((session) => {
+      const days = daysBeforeRace(session.date, raceDate);
+      return { ...session, comparisonDays: days, comparisonPhase: phaseForDays(days) };
+    })
+    .filter((session) => Number.isFinite(session.comparisonDays) && session.comparisonDays >= 1 && session.comparisonDays <= 12);
+  if (!eligible.length) return null;
+  const representatives = ["final", "oneWeek"]
+    .map((phase) => ({ phase, session: bestSession(eligible.filter((item) => item.comparisonPhase === phase)) }))
+    .filter((item) => item.session);
+  if (!representatives.length) return null;
+  return {
+    score: weightedAverage(representatives.map(({ phase, session }) => ({ value: session.score, weight: PHASE_WEIGHTS[phase] }))),
+    sessions: representatives.map(({ phase, session }) => ({ phase, date: session.date, score: session.score, type: session.type })),
+  };
+};
+
+const buildGoodRunComparison = (horse, sessions, currentPhaseQuality) => {
+  const baselines = (horse.pastRuns ?? [])
+    .filter((run) => finishPosition(run) != null && finishPosition(run) <= 3)
+    .map((run) => {
+      const profile = phaseQualityForRace(sessions, raceDateOf(run));
+      return profile
+        ? { raceDate: raceDateOf(run), finish: finishPosition(run), raceName: run.raceName ?? run.name ?? null, ...profile }
+        : null;
+    })
+    .filter(Boolean);
+
+  if (!baselines.length) {
+    return {
+      status: "missing",
+      sampleSize: 0,
+      adjustment: 0,
+      currentScore: clamp(currentPhaseQuality),
+      baselineScore: null,
+      delta: null,
+      baselines: [],
+      text: "過去好走時と重なる調教時計は未蓄積です。",
+    };
+  }
+
+  const baselineScore = weightedAverage(baselines.map((item) => ({ value: item.score, weight: 1 })));
+  const delta = currentPhaseQuality - baselineScore;
+  const adjustment = delta >= 6 ? 2 : delta >= 3 ? 1 : delta <= -6 ? -2 : delta <= -3 ? -1 : 0;
+  const direction = delta >= 3 ? "上回る" : delta <= -3 ? "下回る" : "同水準";
+  return {
+    status: baselines.length >= 2 ? "active" : "partial",
+    sampleSize: baselines.length,
+    adjustment,
+    currentScore: Number(currentPhaseQuality.toFixed(1)),
+    baselineScore: Number(baselineScore.toFixed(1)),
+    delta: Number(delta.toFixed(1)),
+    baselines,
+    text: `3着以内時${baselines.length}走の調教水準${baselineScore.toFixed(1)}に対し今回は${currentPhaseQuality.toFixed(1)}で${direction}評価です。`,
+  };
+};
+
 const matchStablePattern = (horse, sessions, phaseRepresentatives) => {
   const trainer = horse.currentRace?.trainer ?? horse.trainer;
   const stable = STABLE_PATTERNS.stables?.find((item) => normalizeKey(item.name) === normalizeKey(trainer));
@@ -246,7 +311,8 @@ const buildTrainingProfile = (horse) => {
       freshness * 0.06
   );
   const stablePattern = matchStablePattern(horse, sessions, phaseRepresentatives);
-  const clockScore = clamp(baseScore + stablePattern.adjustment);
+  const goodRunComparison = buildGoodRunComparison(horse, sessions, phaseQuality);
+  const clockScore = clamp(baseScore + stablePattern.adjustment + goodRunComparison.adjustment);
   const videoReview = findVideoReview(horse);
   const score = clamp(clockScore + (videoReview?.adjustment ?? 0));
   const accelCount = recent28.filter((session) => {
@@ -268,6 +334,7 @@ const buildTrainingProfile = (horse) => {
     sessions,
     phaseRepresentatives,
     stablePattern,
+    goodRunComparison,
     videoReview,
     components: {
       phaseQuality: clamp(phaseQuality),
@@ -276,6 +343,9 @@ const buildTrainingProfile = (horse) => {
       volume,
       freshness,
       stablePattern: clamp(50 + stablePattern.adjustment * 6, 50, 80),
+      ...(goodRunComparison.status !== "missing"
+        ? { goodRunComparison: clamp(65 + goodRunComparison.adjustment * 5, 55, 75) }
+        : {}),
     },
     recentCounts: { days14: recent14.length, days21: recent21.length, days28: recent28.length },
     accelCount,
@@ -316,6 +386,7 @@ const buildTrainingAnalysis = (horse) => {
     profile.accelCount ? `加速ラップ ${profile.accelCount}本` : "加速ラップは目立たない",
     `直近21日 ${profile.recentCounts.days21}本`,
     ...(profile.stablePattern.status === "DB未登録" ? [] : [profile.stablePattern.text]),
+    ...(profile.goodRunComparison?.status !== "missing" ? [profile.goodRunComparison.text] : []),
     ...(profile.videoReview ? [`映像確認 ${profile.videoReview.adjustment >= 0 ? "+" : ""}${profile.videoReview.adjustment}: ${profile.videoReview.note}`] : []),
   ];
 

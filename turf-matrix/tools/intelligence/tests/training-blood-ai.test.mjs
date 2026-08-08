@@ -92,6 +92,38 @@ test("Training specialist keeps video adjustments within the declared two-point 
   assert.equal(reviewed.score - reviewed.clockScore, 2);
 });
 
+test("Training specialist compares current preparation with the same horse's top-three runs", () => {
+  const profile = buildTrainingProfile({
+    horseName: "比較馬",
+    currentRace: { raceDate: "2026-07-26", stableSide: "美浦" },
+    pastRuns: [{ raceDate: "2026-07-12", finish: 2, raceName: "比較レース" }],
+    training: {
+      slope: [slope("20260709", 50.0, 11.8), slope("20260723", 56.0, 13.5)],
+      wood: [],
+    },
+  });
+
+  assert.equal(profile.goodRunComparison.sampleSize, 1);
+  assert.equal(profile.goodRunComparison.status, "partial");
+  assert.ok(profile.goodRunComparison.delta < 0);
+  assert.ok(profile.goodRunComparison.adjustment < 0);
+});
+
+test("Training specialist never treats an unplaced run as a good-run baseline", () => {
+  const profile = buildTrainingProfile({
+    horseName: "比較馬",
+    currentRace: { raceDate: "2026-07-26", stableSide: "美浦" },
+    pastRuns: [{ raceDate: "2026-07-12", finish: 8, raceName: "比較レース" }],
+    training: {
+      slope: [slope("20260709", 50.0, 11.8), slope("20260723", 56.0, 13.5)],
+      wood: [],
+    },
+  });
+
+  assert.equal(profile.goodRunComparison.status, "missing");
+  assert.equal(profile.goodRunComparison.adjustment, 0);
+});
+
 const bloodContext = (bloodBiasIds, traits = { speed: 0.8, power: 0.65, stamina: 0.6, sustain: 0.8 }) => ({
   profile: "テスト条件",
   traits,

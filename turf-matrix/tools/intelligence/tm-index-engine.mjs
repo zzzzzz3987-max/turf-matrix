@@ -26,6 +26,34 @@ const SPECIAL_WEIGHTS = {
   blood: 0.08,
 };
 
+// Frozen from publication snapshots through 2026-08-08 (45 races / 545 runners).
+// Only engines whose observed dispersion materially exceeded Ability/Form are calibrated.
+const DISPERSION_BASIS = {
+  "芝": {
+    course: { mean: 69.44, sourceSd: 9.84, targetSd: 6.89 },
+    training: { mean: 66.16, sourceSd: 8.96, targetSd: 6.89 },
+    pace: { mean: 72.04, sourceSd: 6.67, targetSd: 6.89 },
+  },
+  "ダ": {
+    course: { mean: 69.70, sourceSd: 9.52, targetSd: 6.85 },
+    training: { mean: 67.25, sourceSd: 7.56, targetSd: 6.85 },
+    pace: { mean: 71.25, sourceSd: 7.56, targetSd: 6.85 },
+  },
+};
+
+const normalizeSurface = (value) => String(value ?? "").startsWith("ダ") ? "ダ" : value;
+
+const calibrateIndexScores = (scores, context = null) => {
+  const basis = DISPERSION_BASIS[normalizeSurface(context?.surface)];
+  if (!basis) return { ...scores };
+  return Object.fromEntries(Object.entries(scores).map(([key, score]) => {
+    const stats = basis[key];
+    if (!stats || !Number.isFinite(score) || !stats.sourceSd) return [key, score];
+    const calibrated = stats.mean + (score - stats.mean) * (stats.targetSd / stats.sourceSd);
+    return [key, calibrated];
+  }));
+};
+
 const weightsFor = (context) => {
   if (context?.category === "grade") return GRADE_WEIGHTS;
   if (context?.category === "special") return SPECIAL_WEIGHTS;
@@ -34,24 +62,27 @@ const weightsFor = (context) => {
 
 const calculateTmIndex = (scores, context = null) => {
   const weights = weightsFor(context);
-  const available = Object.entries(weights).filter(([key]) => Number.isFinite(scores[key]));
+  const effectiveScores = calibrateIndexScores(scores, context);
+  const available = Object.entries(weights).filter(([key]) => Number.isFinite(effectiveScores[key]));
   const totalWeight = available.reduce((sum, [, weight]) => sum + weight, 0);
   if (!totalWeight) return null;
-  const weighted = available.reduce((sum, [key, weight]) => sum + scores[key] * weight, 0) / totalWeight;
+  const weighted = available.reduce((sum, [key, weight]) => sum + effectiveScores[key] * weight, 0) / totalWeight;
   return clamp(weighted + 8);
 };
 
 const buildIndexContributions = (scores, context = null) => {
   const weights = weightsFor(context);
+  const effectiveScores = calibrateIndexScores(scores, context);
   return Object.entries(weights)
-    .filter(([key]) => Number.isFinite(scores[key]))
+    .filter(([key]) => Number.isFinite(effectiveScores[key]))
     .map(([key, weight]) => ({
       key,
       score: scores[key],
+      effectiveScore: Math.round(effectiveScores[key] * 10) / 10,
       weight,
-      contribution: Math.round(scores[key] * weight * 10) / 10,
+      contribution: Math.round(effectiveScores[key] * weight * 10) / 10,
     }))
     .sort((a, b) => b.contribution - a.contribution);
 };
 
-export { calculateTmIndex, buildIndexContributions, weightsFor };
+export { DISPERSION_BASIS, calculateTmIndex, buildIndexContributions, calibrateIndexScores, weightsFor };

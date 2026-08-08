@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { calculateAbilityProfile } from "../ability-ai.mjs";
-import { calculateTmIndex, weightsFor } from "../tm-index-engine.mjs";
+import { buildIndexContributions, calculateTmIndex, calibrateIndexScores, weightsFor } from "../tm-index-engine.mjs";
 import { isLocalRun } from "../race-origin.mjs";
 import { valueCandidateEligibility, verdictForEv } from "../value-ai.mjs";
 
@@ -88,6 +88,28 @@ test("TM INDEX weights exclude Value while Value remains independently available
     calculateTmIndex({ ...scores, value: 35 }, { category: "special" }),
     calculateTmIndex({ ...scores, value: 95 }, { category: "special" }),
   );
+});
+
+test("TM INDEX calibration reduces excessive Course and Training dispersion", () => {
+  const scores = { ability: 70, form: 68, course: 90, training: 45, pace: 72 };
+  const calibrated = calibrateIndexScores(scores, { surface: "芝" });
+
+  assert.equal(calibrated.ability, scores.ability);
+  assert.equal(calibrated.form, scores.form);
+  assert.ok(calibrated.course < scores.course);
+  assert.ok(calibrated.training > scores.training);
+});
+
+test("TM INDEX calibration is surface-specific and disclosed in contributions", () => {
+  const scores = { ability: 70, form: 68, distance: 72, course: 90, training: 80, blood: 64, pace: 69 };
+  const turf = calculateTmIndex(scores, { category: "special", surface: "芝" });
+  const unknown = calculateTmIndex(scores, { category: "special" });
+  const course = buildIndexContributions(scores, { category: "special", surface: "芝" })
+    .find((item) => item.key === "course");
+
+  assert.notEqual(turf, unknown);
+  assert.equal(course.score, 90);
+  assert.ok(course.effectiveScore < course.score);
 });
 
 test("Value signal range starts at 1.00 and excludes EV 3.00 or higher", () => {

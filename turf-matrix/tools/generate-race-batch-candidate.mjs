@@ -3,7 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
-import { buildAnalysis, buildRaceContext } from "./intelligence/index.mjs";
+import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intelligence/index.mjs";
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
@@ -84,9 +84,12 @@ const races = normalized.races.map((bundle) => {
     goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
     trackBias: condition?.status === "active" ? condition.trackBias ?? null : null,
   };
-  const context = buildRaceContext(race);
   const oddsStatus = bundle.productionReady ? "active" : "preodds";
   const enrichedHorses = enrichPeerRuns(bundle.horses);
+  const context = {
+    ...buildRaceContext(race),
+    paceScenario: buildRacePaceScenario(enrichedHorses),
+  };
   const horses = enrichedHorses.map((horse) => {
     const dataStatus = {
       currentRace: "active",

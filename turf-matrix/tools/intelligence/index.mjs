@@ -5,7 +5,7 @@ import { scoreValue, buildValueAnalysis } from "./value-ai.mjs";
 import { buildVerdictPayload } from "./verdict-engine.mjs";
 import { scoreZi, scoreRecentForm, buildFormAnalysis, buildAbilityAnalysis } from "./form-ai.mjs";
 import { scoreDistance, scoreCourse, buildCourseAnalysis } from "./course-ai.mjs";
-import { scoreLap, scorePace, buildPaceAnalysis } from "./pace-ai.mjs";
+import { scoreLap, scorePace, buildPaceAnalysis, buildRacePaceScenario } from "./pace-ai.mjs";
 import { scoreStable, frameScore } from "./support-ai.mjs";
 import { calculateTmIndex, buildIndexContributions } from "./tm-index-engine.mjs";
 import { buildRaceContext } from "./race-context.mjs";
@@ -115,4 +115,4 @@ const buildAnalysis = (horse, suppliedContext) => {
   return { tmIndex, tmValue: value, comment: verdict.comment, analysis: verdict.analysis };
 };
 
-export { FACTOR_KEYS, buildAnalysis, buildRaceContext, normalizeHorseKey, findInvalidNumbers, duplicates };
+export { FACTOR_KEYS, buildAnalysis, buildRaceContext, buildRacePaceScenario, normalizeHorseKey, findInvalidNumbers, duplicates };

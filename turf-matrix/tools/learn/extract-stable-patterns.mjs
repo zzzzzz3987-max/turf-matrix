@@ -17,6 +17,7 @@ const files = existsSync(archiveDir)
   : [];
 const normalize = (value) => String(value ?? "").normalize("NFKC").replace(/\s+/g, "").trim();
 const resultLookup = new Map();
+const resultByBundleHorse = new Map();
 if (existsSync(archiveDir)) {
   for (const name of readdirSync(archiveDir).filter((file) => file.endsWith("-result-template.csv"))) {
     const rows = parseCsvRows(readFileSync(join(archiveDir, name), "utf8"));
@@ -34,6 +35,21 @@ if (existsSync(archiveDir)) {
       resultLookup.set(key, finish);
     }
   }
+  for (const name of readdirSync(archiveDir).filter((file) => file.endsWith("-results.json"))) {
+    const payload = JSON.parse(readFileSync(join(archiveDir, name), "utf8"));
+    for (const race of payload.races ?? []) {
+      for (const horse of race.horses ?? []) {
+        const finish = Number(horse.finishPosition);
+        if (!Number.isFinite(finish) || finish <= 0) continue;
+        const key = [
+          race.bundleId,
+          Number(horse.horseNumber),
+          normalize(horse.horseName),
+        ].join("|");
+        resultByBundleHorse.set(key, finish);
+      }
+    }
+  }
 }
 const examples = [];
 
@@ -48,6 +64,11 @@ for (const file of files) {
         normalize(horse.name ?? horse.horseName),
       ].join("|");
       const finish = Number(
+        resultByBundleHorse.get([
+          race.bundleId,
+          Number(horse.number ?? horse.horseNumber),
+          normalize(horse.name ?? horse.horseName),
+        ].join("|")) ??
         resultLookup.get(resultKey) ??
         horse.review?.finishPosition ??
         horse.raw?.review?.finishPosition ??
@@ -125,6 +146,7 @@ const output = {
   source: "data/archive reviewed races",
   archiveFiles: files.length,
   resultRows: resultLookup.size,
+  resultJsonRows: resultByBundleHorse.size,
   reviewedExamples: examples.length,
   minimumSampleSize,
   stables: stables.sort((a, b) => a.name.localeCompare(b.name, "ja")),
@@ -135,6 +157,7 @@ console.log(JSON.stringify({
   output: outputPath,
   archiveFiles: files.length,
   resultRows: resultLookup.size,
+  resultJsonRows: resultByBundleHorse.size,
   reviewedExamples: examples.length,
   learnedStableCount: output.stables.length,
   note: examples.length ? null : "着順付き調教アーカイブがないため、承認候補は生成されていません。",

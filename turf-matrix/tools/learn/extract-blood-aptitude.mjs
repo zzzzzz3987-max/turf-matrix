@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
 
 const args = process.argv.slice(2);
 const valueAfter = (flag, fallback) => {
@@ -9,6 +9,7 @@ const valueAfter = (flag, fallback) => {
 
 const inputPath = resolve(valueAfter("--input", "tools/week-data.preodds.json"));
 const outputPath = resolve(valueAfter("--output", "tools/jvlink/output/bloodlines.learned.json"));
+const archiveDir = resolve(valueAfter("--archive", "data/archive"));
 const minimumSamples = {
   reference: 5,
   active: 12,
@@ -43,6 +44,27 @@ const season = (date) => {
 
 const rows = [];
 const seen = new Set();
+const addObservation = ({ horseName, pedigree, date, course, surface, distance, going, finish, fieldSize, raceNumber, raceName }) => {
+  if (!pedigree || !Number.isFinite(finish) || finish <= 0) return;
+  const normalizedHorseName = normalize(horseName);
+  const observationKey = [normalizedHorseName, date, course, raceNumber, raceName, finish].join("|");
+  if (seen.has(observationKey)) return;
+  seen.add(observationKey);
+  rows.push({
+    horseName: normalizedHorseName,
+    sire: normalize(pedigree.sire),
+    broodmareSire: normalize(pedigree.broodmareSire),
+    femaleLine: normalize(pedigree.damDam),
+    date,
+    course: course ?? "unknown",
+    surface: surface ?? "unknown",
+    distanceBand: distanceBand(distance),
+    going: going ?? "unknown",
+    season: season(date),
+    finish,
+    fieldSize: Number(fieldSize) || null,
+  });
+};
 for (const race of source.races ?? []) {
   for (const horse of race.horses ?? []) {
     const pedigree = horse.pedigree;
@@ -50,31 +72,58 @@ for (const race of source.races ?? []) {
     for (const run of horse.pastRuns ?? []) {
       const finish = Number(run.confirmedFinishPosition ?? run.finishPosition);
       if (!Number.isFinite(finish) || finish <= 0) continue;
-      const horseName = normalize(horse.name ?? horse.horseName);
-      const observationKey = [
-        horseName,
-        run.date,
-        run.course,
-        run.raceNumber,
-        run.raceName,
+      addObservation({
+        horseName: horse.name ?? horse.horseName,
+        pedigree,
+        date: run.date ?? run.raceDate,
+        course: run.course,
+        surface: run.surface,
+        distance: run.distance,
+        going: run.trackCondition,
         finish,
-      ].join("|");
-      if (seen.has(observationKey)) continue;
-      seen.add(observationKey);
-      rows.push({
-        horseName,
-        sire: normalize(pedigree.sire),
-        broodmareSire: normalize(pedigree.broodmareSire),
-        femaleLine: normalize(pedigree.damDam),
-        date: run.date,
-        course: run.course ?? "unknown",
-        surface: run.surface ?? "unknown",
-        distanceBand: distanceBand(run.distance),
-        going: run.trackCondition ?? "unknown",
-        season: season(run.date),
-        finish,
-        fieldSize: Number(run.fieldSize) || null,
+        fieldSize: run.fieldSize,
+        raceNumber: run.raceNumber,
+        raceName: run.raceName,
       });
+    }
+  }
+}
+
+let archivePairCount = 0;
+if (existsSync(archiveDir)) {
+  const dates = readdirSync(archiveDir)
+    .map((name) => name.match(/^(\d{4}-\d{2}-\d{2})-preodds\.json$/)?.[1])
+    .filter(Boolean)
+    .sort();
+  for (const date of dates) {
+    const snapshotPath = join(archiveDir, `${date}-preodds.json`);
+    const resultsPath = join(archiveDir, `${date}-results.json`);
+    if (!existsSync(resultsPath)) continue;
+    archivePairCount += 1;
+    const snapshot = JSON.parse(readFileSync(snapshotPath, "utf8"));
+    const results = JSON.parse(readFileSync(resultsPath, "utf8"));
+    const resultsByBundle = new Map((results.races ?? []).map((race) => [race.bundleId, race]));
+    for (const race of snapshot.races ?? []) {
+      const resultRace = resultsByBundle.get(race.bundleId);
+      if (!resultRace) continue;
+      const resultByNumber = new Map((resultRace.horses ?? []).map((horse) => [Number(horse.horseNumber), horse]));
+      for (const horse of race.horses ?? []) {
+        const resultHorse = resultByNumber.get(Number(horse.number ?? horse.horseNumber));
+        if (!resultHorse || normalize(resultHorse.horseName) !== normalize(horse.name ?? horse.horseName)) continue;
+        addObservation({
+          horseName: horse.name ?? horse.horseName,
+          pedigree: horse.pedigree,
+          date,
+          course: race.track ?? race.course ?? race.venue,
+          surface: race.surface,
+          distance: race.distance,
+          going: resultRace.going ?? race.going ?? race.trackCondition,
+          finish: Number(resultHorse.finishPosition),
+          fieldSize: race.horses?.length,
+          raceNumber: race.number ?? race.raceNo,
+          raceName: race.name ?? race.raceName,
+        });
+      }
     }
   }
 }
@@ -159,6 +208,7 @@ const output = {
   source: "TURF MATRIX normalized pastRuns + pedigree",
   sourceRaceCount: source.races?.length ?? 0,
   sourceHorseCount: source.races?.reduce((sum, race) => sum + (race.horses?.length ?? 0), 0) ?? 0,
+  archivePairCount,
   observationCount: rows.length,
   minimumSamples,
   baseline,
@@ -174,6 +224,7 @@ writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`, "utf8");
 console.log(JSON.stringify({
   output: outputPath,
   observations: rows.length,
+  archivePairs: archivePairCount,
   sireCount: Object.keys(output.entities.sire).length,
   broodmareSireCount: Object.keys(output.entities.broodmareSire).length,
   femaleLineCount: Object.keys(output.entities.femaleLine).length,

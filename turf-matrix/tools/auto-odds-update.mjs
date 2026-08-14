@@ -144,9 +144,10 @@ const generateAndPublish = (git, commitMessage) => {
       log("WARN", "Release archive failed; publish continues", { error: error.message });
     }
 
-    const diff = run(git, ["diff", "--quiet", "--", "tools/week-data.json"], { allowFailure: true, quiet: true });
+    const publishPaths = ["tools/week-data.json", "tools/week-data.batch-candidate.json"];
+    const diff = run(git, ["diff", "--quiet", "--", ...publishPaths], { allowFailure: true, quiet: true });
     if (diff.status === 0) return { changed: false, commit: null };
-    run(git, ["add", "tools/week-data.json"]);
+    run(git, ["add", ...publishPaths]);
     run(git, ["commit", "-m", commitMessage]);
     committed = true;
     const commit = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();

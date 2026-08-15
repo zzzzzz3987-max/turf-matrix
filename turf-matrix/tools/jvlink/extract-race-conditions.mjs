@@ -81,7 +81,9 @@ for (const race of summary.races ?? []) {
   const weatherCode = String(live?.WeatherCode ?? live?.weatherCode ?? race.weatherCode ?? "").trim();
   const turfGoingCode = String(live?.TurfGoingCode ?? live?.turfGoingCode ?? race.turfConditionCode ?? "").trim();
   const dirtGoingCode = String(live?.DirtGoingCode ?? live?.dirtGoingCode ?? race.dirtConditionCode ?? "").trim();
-  const goingCode = surface === "芝" ? turfGoingCode : surface === "ダート" ? dirtGoingCode : "";
+  const goingCode = surface === "芝" || surface === "障害"
+    ? turfGoingCode
+    : surface === "ダート" ? dirtGoingCode : "";
   const weather = WEATHER[weatherCode] ?? null;
   const going = GOING[goingCode] ?? null;
   const updatedAt = live?.UpdatedAt ?? live?.updatedAt ?? fallbackUpdatedAt;

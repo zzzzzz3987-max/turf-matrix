@@ -56,7 +56,7 @@ const strategySummary = (horses) => {
     bets,
     stake: bets * 100,
     winHits: horses.filter((horse) => horse.finishPosition === 1).length,
-    placeHits: horses.filter((horse) => horse.finishPosition != null && horse.finishPosition <= 3).length,
+    placeHits: horses.filter((horse) => horse.finishPosition >= 1 && horse.finishPosition <= 3).length,
     winReturn,
     placeReturn,
     winReturnRate: bets ? pct(winReturn / (bets * 100)) : 0,

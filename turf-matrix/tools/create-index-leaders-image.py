@@ -1,4 +1,6 @@
 from pathlib import Path
+import argparse
+from datetime import date as date_type
 import json
 import re
 
@@ -6,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_PATH = ROOT / "tools" / "week-data.json"
+DEFAULT_DATA_PATH = ROOT / "tools" / "week-data.json"
 OUTPUT_DIR = ROOT / "docs" / "social"
 FONT_REGULAR = r"C:\Windows\Fonts\YuGothR.ttc"
 FONT_BOLD = r"C:\Windows\Fonts\YuGothB.ttc"
@@ -202,7 +204,11 @@ def race_label(race):
     return f"{race.get('track', '')}{race.get('number', '')}R  {condition}"
 
 
-with DATA_PATH.open(encoding="utf-8") as file:
+parser = argparse.ArgumentParser()
+parser.add_argument("--data", type=Path, default=DEFAULT_DATA_PATH)
+args = parser.parse_args()
+
+with args.data.open(encoding="utf-8") as file:
     week = json.load(file)
 
 leaders = []
@@ -230,7 +236,14 @@ draw.text((64, 44), "TURF", fill=NAVY, font=font(30, True))
 turf_width = text_width(draw, "TURF", font(30, True))
 draw.text((64 + turf_width + 10, 44), "MATRIX", fill=BLUE, font=font(30, True))
 draw.text((64, 94), "TM INDEX 1位", fill=NAVY, font=font(46, True))
-draw.text((64, 168), "8月15日 土曜｜対象11レース", fill=GRAY_500, font=font(21))
+date_value = str(week.get("meta", {}).get("date") or "")
+try:
+    parsed_date = date_type.fromisoformat(date_value)
+    weekday = "月火水木金土日"[parsed_date.weekday()]
+    subtitle = f"{parsed_date.month}月{parsed_date.day}日 {weekday}曜｜対象{len(leaders)}レース"
+except ValueError:
+    subtitle = f"対象{len(leaders)}レース"
+draw.text((64, 168), subtitle, fill=GRAY_500, font=font(21))
 
 draw.rounded_rectangle((903, 50, 1136, 116), radius=12, fill=NAVY)
 draw.text((936, 67), "RACE INTELLIGENCE", fill=WHITE, font=font(17, True))
@@ -286,7 +299,7 @@ draw.text((64, footer_y), "指数はレース内の相対評価です。馬券�
 draw.text((1018, footer_y - 5), "turf-matrix.vercel.app", fill=BLUE, font=font(15, True))
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-date = str(week.get("meta", {}).get("date") or "weekly")
-output_path = OUTPUT_DIR / f"{date}-index-leaders.png"
+output_date = date_value or "weekly"
+output_path = OUTPUT_DIR / f"{output_date}-index-leaders.png"
 image.save(output_path, format="PNG", optimize=True)
 print(output_path)

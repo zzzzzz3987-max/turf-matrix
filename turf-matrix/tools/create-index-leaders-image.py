@@ -87,9 +87,18 @@ def previous_run_text(horse):
         race_label = f"{run.get('course') or ''}{run.get('surface') or ''}{run.get('distance') or ''}m"
     finish = run.get("confirmedFinishPosition") or run.get("finishPosition")
     finish_text = f"{finish}着" if isinstance(finish, (int, float)) else "着順未取得"
-    margin = run.get("margin")
-    if isinstance(margin, (int, float)) and margin > 0:
-        detail = f"{margin:g}秒差"
+    margin = run.get("winningMargin")
+    passing_order = [value for value in (run.get("passingOrder") or []) if isinstance(value, (int, float))]
+    if finish == 1 and isinstance(margin, (int, float)) and margin >= 0.5:
+        detail = f"{margin:g}秒差圧勝"
+    elif finish == 1 and passing_order and passing_order[-1] == 1 and 1 in passing_order[:-1]:
+        first_turn = passing_order.index(1) + 1
+        if first_turn <= max(1, len(passing_order) - 1):
+            detail = "早め先頭から押し切り"
+        else:
+            detail = "先頭で押し切り"
+    elif isinstance(run.get("margin"), (int, float)) and run.get("margin") > 0:
+        detail = f"{run['margin']:g}秒差"
     elif isinstance(run.get("last3F"), (int, float)):
         detail = f"上がり{run['last3F']:g}"
     else:
@@ -146,6 +155,19 @@ def overall_assessment(factors, confidence, horse, race):
     return "各ファクター安定"
 
 
+def display_running_style(horse, style):
+    if style != "逃げ":
+        return style
+    recent_first_corners = []
+    for run in (horse.get("pastRuns") or [])[:5]:
+        passing = [value for value in (run.get("passingOrder") or []) if isinstance(value, (int, float))]
+        if passing:
+            recent_first_corners.append(passing[-1])
+    if 1 in recent_first_corners and 2 in recent_first_corners:
+        return "逃げ〜先行"
+    return style
+
+
 def pace_scenario_text(horse):
     pace = horse.get("analysis", {}).get("pace", {})
     expected = pace.get("expectedPace")
@@ -163,7 +185,27 @@ def pace_scenario_text(horse):
         fit_label = "やや不利"
     else:
         fit_label = "影響小"
-    return f"{expected}想定・近走脚質 {style}・{fit_label}"
+    return f"{expected}想定・近走脚質 {display_running_style(horse, style)}・{fit_label}"
+
+
+def ability_rank_text(horse, race):
+    score = horse.get("analysis", {}).get("factorsDetail", {}).get("ability", {}).get("score")
+    if not isinstance(score, (int, float)):
+        return None
+    field_scores = [
+        runner.get("analysis", {}).get("factorsDetail", {}).get("ability", {}).get("score")
+        for runner in race.get("horses", [])
+    ]
+    numeric_scores = [value for value in field_scores if isinstance(value, (int, float))]
+    if not numeric_scores:
+        return None
+    rank = 1 + sum(value > score for value in numeric_scores)
+    tied = sum(value == score for value in numeric_scores)
+    if rank == 1 and tied == 1:
+        return f"能力最上位（能力指数{round(score):d}）"
+    if rank == 1:
+        return f"能力1位タイ（能力指数{round(score):d}）"
+    return None
 
 
 def comprehensive_review(horse, race):
@@ -176,7 +218,9 @@ def comprehensive_review(horse, race):
             scored.append((float(score), label))
     scored.sort(reverse=True)
     strengths = scored[:2]
-    strength_text = "・".join(f"{label}{round(score):d}" for score, label in strengths)
+    strength_text = ability_rank_text(horse, race)
+    if not strength_text:
+        strength_text = "・".join(f"{label}{round(score):d}" for score, label in strengths)
 
     confidence = analysis.get("confidence")
 

@@ -159,9 +159,9 @@ const generateAndPublish = (git, commitMessage) => {
   } finally {
     if (existsSync(NEXT_DATA_PATH)) rmSync(NEXT_DATA_PATH, { force: true });
     if (existsSync(BACKUP_DATA_PATH)) rmSync(BACKUP_DATA_PATH, { force: true });
-    if (candidateExisted && existsSync(CANDIDATE_BACKUP_PATH)) {
+    if (!committed && candidateExisted && existsSync(CANDIDATE_BACKUP_PATH)) {
       copyFileSync(CANDIDATE_BACKUP_PATH, CANDIDATE_PATH);
-    } else if (!candidateExisted && existsSync(CANDIDATE_PATH)) {
+    } else if (!committed && !candidateExisted && existsSync(CANDIDATE_PATH)) {
       rmSync(CANDIDATE_PATH, { force: true });
     }
     if (existsSync(CANDIDATE_BACKUP_PATH)) rmSync(CANDIDATE_BACKUP_PATH, { force: true });

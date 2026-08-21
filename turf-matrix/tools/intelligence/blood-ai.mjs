@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
 import { BLOODLINE_RULES, TRAIT_LABELS } from "./dictionaries/bloodline-dictionary.mjs";
 import { FEMALE_LINE_RULES } from "./dictionaries/female-line-dictionary.mjs";
+import { buildBloodEvidenceV2 } from "./blood-features.mjs";
 
 const require = createRequire(import.meta.url);
 const BLOOD_STATISTICS = require("../../data/master/bloodlines.json");
@@ -555,12 +556,24 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     burst: traitScore([...matches, ...femaleMatches], context, "speed"),
     sustain: traitScore([...matches, ...femaleMatches], context, "sustain"),
   };
+  const bloodV2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore });
 
   return {
-    headline: baseSummary,
+    headline: bloodV2.summary,
+    version: bloodV2.version,
     status: profile.status,
     confidence: profile.confidence,
+    confidenceGrade: bloodV2.confidenceGrade,
+    confidenceBasis: bloodV2.confidenceBasis,
     coverage: profile.coverage,
+    identity: bloodV2.identity,
+    sireProfile: bloodV2.sireProfile,
+    crosses: bloodV2.crosses,
+    crossStatus: bloodV2.crossStatus,
+    dataCompleteness: bloodV2.completeness,
+    componentDetails: bloodV2.components,
+    evidenceV2: bloodV2.evidence,
+    unavailable: bloodV2.unavailable,
     components: profile.components,
     statistics: profile.statistics,
     statisticsAdjustment: profile.statisticsAdjustment,
@@ -573,7 +586,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     ],
     structure: {
       ancestorCount: pedigree?.ancestors?.length ?? 0,
-      completeness: pedigree?.ancestors?.length >= 28 ? "4代取得済み" : pedigree ? "一部取得" : "未取得",
+      completeness: bloodV2.completeness.label,
     },
     raceBias: {
       score: bloodScore,
@@ -582,7 +595,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
       courseMatched: courseMatches,
       femaleMatched: femaleMatches,
       femaleCourseMatched: femaleCourseMatches,
-      summary: `${context?.summary ?? "レース条件未取得"} ${baseSummary}`,
+      summary: `${context?.summary ?? "レース条件未取得"} ${bloodV2.summary}`,
     },
     traits,
     scores,

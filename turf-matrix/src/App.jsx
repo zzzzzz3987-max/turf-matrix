@@ -1229,6 +1229,17 @@ const PedigreeCard = ({ pedigree, score }) => {
   const idx = score;
   const structure = pedigree?.structure ?? {};
   const raceBias = pedigree?.raceBias;
+  const identity = pedigree?.identity ?? {};
+  const componentDetails = pedigree?.componentDetails ?? {};
+  const crosses = pedigree?.crosses ?? [];
+  const confidenceGrade = pedigree?.confidenceGrade ?? "Low";
+  const confidenceLabel = confidenceGrade === "Low" ? "低" : confidenceGrade;
+  const bloodComponents = [
+    { key: "sireTrait", label: "父" },
+    { key: "broodmareSire", label: "母父" },
+    { key: "distanceFit", label: "距離" },
+    { key: "courseFit", label: "コース" },
+  ];
   const strengthLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
   const focusScores = [
     { key: "stamina", label: "スタミナ" },
@@ -1257,6 +1268,67 @@ const PedigreeCard = ({ pedigree, score }) => {
           <span className="text-[10px] text-gray-500">血統指数</span>
         </span>
       </div>
+
+      {identity.pairLabel ? (
+        <div className="mt-4 rounded-lg border border-gray-200 bg-white px-3 py-3">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <span className="block text-[10px] font-semibold tracking-wide text-gray-500">配合</span>
+              <span className="mt-1 block text-[13px] font-semibold leading-snug text-gray-900">{identity.pairLabel}</span>
+              {identity.sireSire || identity.sireDam ? (
+                <span className="mt-1 block text-[10px] leading-relaxed text-gray-500">
+                  父系背景: {[identity.sireSire, identity.sireDam].filter(Boolean).join(" × ")}
+                </span>
+              ) : null}
+              {pedigree.sireProfile?.summary ? (
+                <span className="mt-2 block text-[11px] leading-relaxed text-gray-600">
+                  {pedigree.sireProfile.summary}
+                </span>
+              ) : null}
+            </div>
+            <div className="shrink-0 text-right">
+              <span className="block text-[10px] text-gray-500">Confidence</span>
+              <Num className="mt-1 block text-[14px] font-semibold text-gray-900">{confidenceLabel}</Num>
+            </div>
+          </div>
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-600">
+              {pedigree.dataCompleteness?.label ?? structure.completeness ?? "取得状況不明"}
+            </span>
+            {crosses.length ? crosses.slice(0, 3).map((cross) => (
+              <span key={`${cross.ancestor}-${cross.pattern}`} className="rounded-full border border-gray-200 px-2 py-1 text-[10px] font-medium text-gray-700">
+                {cross.ancestor} {cross.pattern}
+              </span>
+            )) : (
+              <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-500">
+                {pedigree.crossStatus === "none_detected" ? "4代内クロスなし" : "クロス未確定"}
+              </span>
+            )}
+          </div>
+        </div>
+      ) : null}
+
+      {bloodComponents.some((item) => componentDetails[item.key]) ? (
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          {bloodComponents.map((item) => {
+            const detail = componentDetails[item.key];
+            if (!detail) return null;
+            return (
+              <div key={item.key} className="rounded-lg border border-gray-200 bg-white px-3 py-2.5">
+                <div className="flex items-baseline justify-between gap-2">
+                  <span className="text-[10px] font-semibold text-gray-500">{item.label}</span>
+                  {Number.isFinite(detail.score) ? (
+                    <Num className={`text-[13px] font-semibold ${scoreTone(detail.score)}`}>{displayFactorScore(detail.score)}</Num>
+                  ) : (
+                    <span className="text-[10px] text-gray-400">未判定</span>
+                  )}
+                </div>
+                <p className="mt-1 text-[10px] leading-relaxed text-gray-500">{detail.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
 
       {raceBias ? (
         <div className="mt-4 rounded-lg border border-gray-200 bg-white px-3 py-3">

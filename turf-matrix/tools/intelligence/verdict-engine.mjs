@@ -118,7 +118,7 @@ const buildVerdictPayload = ({
       confidenceReasons: [
         `過去走${horse.pastRuns?.length ?? 0}件を参照`,
         trainingStatus,
-        horse.pedigree ? "4代血統をBlood評価に使用" : "血統情報は一部未取得",
+        pedigreeAnalysis?.dataCompleteness?.label ?? (horse.pedigree ? "血統情報をBlood評価に使用" : "血統情報は一部未取得"),
         contextSummary,
         ...(goingAnalysis?.status && !["missing", "not_applicable"].includes(goingAnalysis.status)
           ? [goingAnalysis.summary]
@@ -150,9 +150,20 @@ const buildVerdictPayload = ({
           maxScore: 100,
           status: pedigreeAnalysis?.status ?? "missing",
           confidence: pedigreeAnalysis?.confidence ?? "low",
+          confidenceGrade: pedigreeAnalysis?.confidenceGrade ?? "Low",
+          confidenceBasis: pedigreeAnalysis?.confidenceBasis ?? null,
+          version: pedigreeAnalysis?.version ?? "blood-v1",
+          coverage: pedigreeAnalysis?.coverage ?? 0,
+          identity: pedigreeAnalysis?.identity ?? null,
+          sireProfile: pedigreeAnalysis?.sireProfile ?? null,
+          crosses: pedigreeAnalysis?.crosses ?? [],
+          crossStatus: pedigreeAnalysis?.crossStatus ?? "unavailable",
+          dataCompleteness: pedigreeAnalysis?.dataCompleteness ?? null,
           summary: bloodSummary,
           evidence: pedigreeAnalysis?.strengths ?? [],
+          evidenceV2: pedigreeAnalysis?.evidenceV2 ?? [],
           components: pedigreeAnalysis?.components ?? {},
+          componentDetails: pedigreeAnalysis?.componentDetails ?? {},
         },
         training: {
           key: "training",

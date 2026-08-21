@@ -474,7 +474,6 @@ const factorDetailScore = (horse, key) => {
   if (isFiniteNumber(detailScore)) return detailScore;
   return null;
 };
-const signalTypeFor = (horse) => (isValueSignal(horse?.value) ? "VALUE" : "INDEX");
 
 const commandFactors = (horse) => {
   if (!horse.analysis?.factors || !horse.analysis?.pedigree) {
@@ -1862,7 +1861,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             <div className="mx-auto mb-3 h-1 w-9 rounded-full bg-gray-200" />
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Top Signal</div>
+                <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Runner Analysis</div>
                 <div className="flex items-center gap-2">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm">
                     <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
@@ -2198,8 +2197,8 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
         </div>
 
         <div className="mt-4 border-t border-[#EDF0F3] pt-4">
-          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">
-            {race.topHorse.available ? signalTypeFor(race.topHorse) : "INDEX"}
+          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#2D7BFF]">
+            TM INDEX 1位
           </span>
           <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
             {race.topHorse.available ? `${race.topHorse.name} ` : null}
@@ -2337,7 +2336,7 @@ const HomePage = ({ onOpenRace }) => {
                 </div>
                 {featuredRace.topHorse.available ? (
                 <div className="pb-1 text-right">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#00A9B8]">Top Signal : {signalTypeFor(featuredRace.topHorse)}</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">TM INDEX 1位</div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
                       ? <>指数1位。市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
@@ -2431,11 +2430,11 @@ const HomePage = ({ onOpenRace }) => {
         </div>
       </section>
 
-      {/* 今日のAI注目馬 */}
+      {/* 掲載レース横断のTM INDEX上位 */}
       <section className="mt-14">
         <div className="flex items-baseline justify-between">
-          <h2 className="text-[15px] font-semibold text-gray-900">今日のAI注目馬</h2>
-          <span className="text-[11px] text-gray-500">AIが特に伝えたい3頭</span>
+          <h2 className="text-[15px] font-semibold text-gray-900">TM INDEX 上位3頭</h2>
+          <span className="text-[11px] text-gray-500">掲載レースを横断して比較</span>
         </div>
         <div className="mt-4 grid gap-3 md:grid-cols-2">
           {featured
@@ -2454,7 +2453,7 @@ const HomePage = ({ onOpenRace }) => {
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <Num className="text-[10px] font-bold tracking-[0.18em] text-teal-600">
-                            PICK 0{i + 1}
+                            INDEX 0{i + 1}
                           </Num>
                           <span className="text-[11px] text-gray-500">{f.raceLabel}</span>
                         </div>

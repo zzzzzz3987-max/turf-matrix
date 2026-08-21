@@ -1,6 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, weekData } from "./data/week-data-loader.js";
+import allRaceSignals from "../tools/all-race-signals.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
@@ -2217,6 +2218,148 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   );
 };
 
+const BattleRacePanel = ({ race, onOpen }) => {
+  if (!race?.indexTop) return null;
+  const [opponentA, opponentB] = race.opponents ?? [];
+  const axis = race.indexTop;
+  const pairs = [opponentA, opponentB]
+    .filter(Boolean)
+    .map((horse) => `${axis.number}-${horse.number}`);
+
+  return (
+    <section className="mt-12">
+      <div className="flex items-end justify-between">
+        <div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">Race Selection</div>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">本日の勝負レース</h2>
+        </div>
+        <span className="text-[11px] font-semibold text-[#A6AFBE]">
+          {race.valuePending ? "オッズ反映前" : "オッズ反映済み"}
+        </span>
+      </div>
+      <div className="mt-4 overflow-hidden rounded-[18px] border border-[#2D7BFF] bg-white">
+        <div className="px-5 py-5 sm:px-6">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] font-semibold text-[#64748B]">
+                <Num>{race.time}</Num>
+                <span>{race.track}<Num>{race.number}</Num>R</span>
+                <span>{race.surface}<Num>{race.distance}</Num>m</span>
+              </div>
+              <div className="mt-2 text-[19px] font-bold tracking-tight text-[#050B1E]">{race.name}</div>
+            </div>
+            <div className="shrink-0 text-right">
+              <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">TM INDEX</div>
+              <Num className="mt-1 block text-[34px] font-bold leading-none text-[#2D7BFF]">{axis.tmIndex}</Num>
+            </div>
+          </div>
+
+          <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="min-w-0 rounded-lg border border-[#E2E8F0] px-2.5 py-3 sm:px-4">
+              <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">軸</div>
+              <div className="mt-1.5 truncate text-[11px] font-bold text-[#050B1E] sm:text-[14px]">
+                <Num>{axis.number}</Num> {axis.name}
+              </div>
+              <div className="mt-1 text-[10px] text-[#64748B]">TM INDEX 1位</div>
+            </div>
+            {[opponentA, opponentB].filter(Boolean).map((horse, index) => (
+              <div key={horse.id} className="min-w-0 rounded-lg border border-[#E2E8F0] px-2.5 py-3 sm:px-4">
+                <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">相手 {index + 1}</div>
+                <div className="mt-1.5 truncate text-[11px] font-bold text-[#050B1E] sm:text-[14px]">
+                  <Num>{horse.number}</Num> {horse.name}
+                </div>
+                <div className="mt-1 text-[10px] text-[#64748B]">
+                  {horse.source === "value1" ? "VALUE 1位" : `TM INDEX ${index + 2}位`}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-5 border-t border-[#E5E7EB] pt-4">
+            <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">参考買い目</div>
+            <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
+              <span>単勝 <Num>{axis.number}</Num></span>
+              {pairs.length ? <span>馬連 <Num>{pairs.join(" / ")}</Num></span> : null}
+              {pairs.length ? <span>ワイド <Num>{pairs.join(" / ")}</Num></span> : null}
+            </div>
+            {race.valuePending ? (
+              <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">
+                相手2は暫定INDEX 3位。オッズ取得後にVALUE 1位を再判定します。
+              </div>
+            ) : null}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={() => onOpen(race.id, axis.id)}
+          className="flex w-full items-center justify-between border-t border-[#E5E7EB] px-5 py-3 text-left text-[11px] font-semibold text-[#2D7BFF] sm:px-6"
+        >
+          分析を見る
+          <ChevronRight size={15} />
+        </button>
+      </div>
+    </section>
+  );
+};
+
+const AllRaceSignalsPanel = ({ data }) => {
+  if (!data?.races?.length) return null;
+  const tracks = [...new Set(data.races.map((race) => race.track))];
+
+  return (
+    <section className="mt-14">
+      <div className="flex items-end justify-between">
+        <div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">All Race Signals</div>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">3会場 全レース</h2>
+        </div>
+        <span className="text-[11px] font-semibold text-[#A6AFBE]"><Num>{data.raceCount}</Num>レース</span>
+      </div>
+      <div className="mt-4 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white">
+        <div className="grid md:grid-cols-3 md:divide-x md:divide-[#E5E7EB]">
+          {tracks.map((track) => {
+            const races = data.races
+              .filter((race) => race.track === track)
+              .sort((left, right) => left.number - right.number);
+            return (
+              <div key={track} className="border-b border-[#E5E7EB] last:border-b-0 md:border-b-0">
+                <div className="border-b border-[#E5E7EB] px-4 py-3 text-[12px] font-bold text-[#050B1E]">{track}</div>
+                <div className="divide-y divide-[#F1F5F9]">
+                  {races.map((race) => (
+                    <div key={race.id} className="grid grid-cols-[34px_minmax(0,1fr)] gap-2.5 px-4 py-3">
+                      <Num className="pt-0.5 text-[11px] font-bold text-[#64748B]">{race.number}R</Num>
+                      <div className="min-w-0">
+                        {race.category !== "race" ? (
+                          <div className="mb-1 truncate text-[9px] font-semibold text-[#94A3B8]">{race.name}</div>
+                        ) : null}
+                        <div className="flex min-w-0 items-baseline justify-between gap-2">
+                          <div className="truncate text-[12px] font-bold text-[#050B1E]">
+                            <Num className="mr-1 text-[#64748B]">{race.indexTop?.number}</Num>
+                            {race.indexTop?.name ?? "未評価"}
+                          </div>
+                          <Num className={`shrink-0 text-[14px] font-bold ${race.indexTop?.tmIndex >= 80 ? "text-[#2D7BFF]" : "text-[#050B1E]"}`}>
+                            {race.indexTop?.tmIndex ?? "--"}
+                          </Num>
+                        </div>
+                        <div className="mt-1 truncate text-[9px] text-[#94A3B8]">
+                          相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
+          相手はTM INDEX 2位とVALUE 1位。オッズ取得前、または重複時はTM INDEX 3位を表示します。
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const raceTimeValue = (race) => {
   const [hour, minute] = String(race?.time ?? "").split(":").map((part) => Number(part));
   if (Number.isFinite(hour) && Number.isFinite(minute)) return hour * 60 + minute;
@@ -2252,6 +2395,8 @@ const HomePage = ({ onOpenRace }) => {
     () => [...(races ?? [])].sort(sortRaceByTime),
     [races]
   );
+  const allRaceSignalData = meta?.date === allRaceSignals.date ? allRaceSignals : null;
+  const battleRace = allRaceSignalData?.races?.find((race) => race.id === allRaceSignalData.battleRaceId) ?? null;
   const raceGroups = useMemo(() => {
     const available = races ?? [];
     const trackOrder = [...new Set(available.map((race) => race.track))];
@@ -2365,12 +2510,15 @@ const HomePage = ({ onOpenRace }) => {
         </div>
       </section>
 
+      <BattleRacePanel race={battleRace} onOpen={onOpenRace} />
+      <AllRaceSignalsPanel data={allRaceSignalData} />
+
       {/* 今日のレース */}
       <section className="mt-12">
         <div className="flex items-end justify-between">
           <div>
             <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">Race Intelligence</div>
-            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">今日のレース</h2>
+            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">掲載レース詳細</h2>
           </div>
           <span className="text-[11px] font-semibold text-[#A6AFBE]">
             {formatRaceWeekday(meta?.date)}曜・<Num>{races?.length ?? meta?.raceCount ?? 0}</Num>レース

@@ -110,7 +110,7 @@ const duplicateValues = (entries, key) => {
 
 const distinctValues = (entries, key) => [...new Set(entries.map((entry) => entry[key]))];
 
-export const validateEntries = (entries, { allowProvisional = false } = {}) => {
+export const validateEntries = (entries, { allowProvisional = false, allowMissingRaceName = false } = {}) => {
   const errors = [];
   if (!entries.length) errors.push("current-race-detail.csv has no entries");
 
@@ -118,11 +118,11 @@ export const validateEntries = (entries, { allowProvisional = false } = {}) => {
     "raceDate",
     "course",
     "raceNo",
-    "raceName",
     "surface",
     "distance",
     "horseName",
   ];
+  if (!allowMissingRaceName) requiredKeys.push("raceName");
   if (!allowProvisional) {
     requiredKeys.push("horseNumber", "sex", "age", "jockey", "carriedWeight", "trainer", "stableSide", "raceEntryId");
   }
@@ -155,12 +155,16 @@ export const validateEntries = (entries, { allowProvisional = false } = {}) => {
   return errors;
 };
 
-export const parse = ({ path: sourcePath = source.path, allowProvisional = false } = {}) => {
+export const parse = ({
+  path: sourcePath = source.path,
+  allowProvisional = false,
+  allowMissingRaceName = false,
+} = {}) => {
   const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
   const entries = rows.map(normalizeEntry);
-  const errors = validateEntries(entries, { allowProvisional });
+  const errors = validateEntries(entries, { allowProvisional, allowMissingRaceName });
 
   if (errors.length) {
     const error = new Error(`current-race-detail.csv validation failed:\n${errors.join("\n")}`);

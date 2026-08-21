@@ -22,6 +22,7 @@
     "normalize:rc1b": "node tools/normalizers/normalized-horse.mjs",
     "normalize:race-batch": "node tools/normalizers/race-batch.mjs",
     "generate:race-batch": "npm run normalize:race-batch && node tools/generate-race-batch-candidate.mjs",
+    "generate:all-race-signals": "node tools/generate-all-race-signals.mjs",
     "thursday:preview": "npm run build:race-batch",
     "prepare:race-release": "node tools/prepare-race-batch-release.mjs",
     "saturday:publish": "powershell -ExecutionPolicy Bypass -File tools/publish-race-batch.ps1",

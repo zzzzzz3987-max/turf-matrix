@@ -8,7 +8,11 @@ const TOOLS_DIR = join(dirname(fileURLToPath(import.meta.url)), "..");
 const REPO_ROOT = join(TOOLS_DIR, "..");
 const CSV_RACES = join(TOOLS_DIR, "csv", "input", "races");
 const HTML_RACES = join(TOOLS_DIR, "target-html", "input", "races");
-const OUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
+const OUT_PATH = process.env.TURF_MATRIX_BATCH_NORMALIZED_OUT
+  ? (isAbsolute(process.env.TURF_MATRIX_BATCH_NORMALIZED_OUT)
+      ? process.env.TURF_MATRIX_BATCH_NORMALIZED_OUT
+      : join(REPO_ROOT, process.env.TURF_MATRIX_BATCH_NORMALIZED_OUT))
+  : join(TOOLS_DIR, "week-data.batch-normalized.json");
 const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
   ? (isAbsolute(process.env.TURF_MATRIX_RACE_CONFIG)
       ? process.env.TURF_MATRIX_RACE_CONFIG
@@ -42,6 +46,8 @@ const races = bundleIds.map((bundleId) => {
   return normalizeRaceBundle({
     bundleId,
     provisional: Boolean(config.provisional) || process.env.TURF_MATRIX_PREODDS_REGISTRATIONS === "1",
+    allowMissingRaceName: Boolean(config.allowMissingRaceName),
+    allowMissingPastRuns: Boolean(config.allowMissingPastRuns),
     csv: {
       currentRace: firstExistingRepoPath(
         join(csvDir, "current-race-detail.csv"),

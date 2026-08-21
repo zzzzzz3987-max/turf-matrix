@@ -15,6 +15,9 @@ const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const NEXT_DATA_PATH = join(TOOLS_DIR, "week-data.next.json");
 const BACKUP_DATA_PATH = join(TOOLS_DIR, "week-data.auto-backup.json");
 const CANDIDATE_BACKUP_PATH = join(RUNTIME_DIR, "week-data.batch-candidate.backup.json");
+const ALL_RACE_SIGNALS_PATH = join(TOOLS_DIR, "all-race-signals.json");
+const ALL_RACE_SIGNALS_NEXT_PATH = join(RUNTIME_DIR, "all-race-signals.next.json");
+const ALL_RACE_SIGNALS_BACKUP_PATH = join(RUNTIME_DIR, "all-race-signals.backup.json");
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
@@ -71,6 +74,21 @@ const run = (command, commandArgs, { allowFailure = false, quiet = false } = {})
 };
 
 const runNode = (...nodeArgs) => run(process.execPath, nodeArgs);
+const runNodeWithEnv = (extraEnv, ...nodeArgs) => {
+  const previous = {};
+  for (const [key, value] of Object.entries(extraEnv)) {
+    previous[key] = process.env[key];
+    process.env[key] = value;
+  }
+  try {
+    return runNode(...nodeArgs);
+  } finally {
+    for (const [key, value] of Object.entries(previous)) {
+      if (value == null) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+};
 const runPowerShell = (...scriptArgs) => run("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", ...scriptArgs]);
 
 const parseSchedule = (weekData) => {
@@ -123,6 +141,12 @@ const assertCleanTrackedTree = (git) => {
 const generateAndPublish = (git, commitMessage) => {
   const candidateExisted = existsSync(CANDIDATE_PATH);
   if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
+  if (existsSync(ALL_RACE_SIGNALS_PATH)) copyFileSync(ALL_RACE_SIGNALS_PATH, ALL_RACE_SIGNALS_BACKUP_PATH);
+  runNodeWithEnv(
+    { TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH },
+    "tools/generate-all-race-signals.mjs",
+  );
+  copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);
   runNode("tools/normalizers/race-batch.mjs");
   runNode("tools/generate-race-batch-candidate.mjs");
   runNode("tools/prepare-race-batch-release.mjs");
@@ -144,7 +168,7 @@ const generateAndPublish = (git, commitMessage) => {
       log("WARN", "Release archive failed; publish continues", { error: error.message });
     }
 
-    const publishPaths = ["tools/week-data.json", "tools/week-data.batch-candidate.json"];
+    const publishPaths = ["tools/week-data.json", "tools/week-data.batch-candidate.json", "tools/all-race-signals.json"];
     const diff = run(git, ["diff", "--quiet", "--", ...publishPaths], { allowFailure: true, quiet: true });
     if (diff.status === 0) return { changed: false, commit: null };
     run(git, ["add", ...publishPaths]);
@@ -164,7 +188,12 @@ const generateAndPublish = (git, commitMessage) => {
     } else if (!committed && !candidateExisted && existsSync(CANDIDATE_PATH)) {
       rmSync(CANDIDATE_PATH, { force: true });
     }
+    if (!committed && existsSync(ALL_RACE_SIGNALS_BACKUP_PATH)) {
+      copyFileSync(ALL_RACE_SIGNALS_BACKUP_PATH, ALL_RACE_SIGNALS_PATH);
+    }
     if (existsSync(CANDIDATE_BACKUP_PATH)) rmSync(CANDIDATE_BACKUP_PATH, { force: true });
+    if (existsSync(ALL_RACE_SIGNALS_NEXT_PATH)) rmSync(ALL_RACE_SIGNALS_NEXT_PATH, { force: true });
+    if (existsSync(ALL_RACE_SIGNALS_BACKUP_PATH)) rmSync(ALL_RACE_SIGNALS_BACKUP_PATH, { force: true });
   }
 };
 

@@ -7,8 +7,18 @@ import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intell
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
-const INPUT_PATH = join(TOOLS_DIR, "week-data.batch-normalized.json");
-const OUT_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
+const REPO_ROOT = join(TOOLS_DIR, "..");
+const resolveOutputPath = (value, fallback) => value
+  ? (isAbsolute(value) ? value : join(REPO_ROOT, value))
+  : fallback;
+const INPUT_PATH = resolveOutputPath(
+  process.env.TURF_MATRIX_BATCH_NORMALIZED_IN,
+  join(TOOLS_DIR, "week-data.batch-normalized.json"),
+);
+const OUT_PATH = resolveOutputPath(
+  process.env.TURF_MATRIX_BATCH_CANDIDATE_OUT,
+  join(TOOLS_DIR, "week-data.batch-candidate.json"),
+);
 const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
   ? (isAbsolute(process.env.TURF_MATRIX_RACE_CONFIG)
       ? process.env.TURF_MATRIX_RACE_CONFIG
@@ -27,6 +37,14 @@ const opponentEvidence = existsSync(OPPONENT_PATH)
 const opponentByRegistration = new Map(
   (opponentEvidence.records ?? []).map((record) => [record.bloodRegistrationNumber, record]),
 );
+
+const categoryForRace = (race) => {
+  const grade = String(race.grade ?? "").trim();
+  const name = String(race.raceName ?? "").trim();
+  if (/^G[1-3]$|^G[ⅠⅡⅢ]$|^J[.・]G[1-3ⅠⅡⅢ]$/i.test(grade)) return "grade";
+  if (grade || /特別|ステークス|S$|賞|記念/.test(name)) return "special";
+  return "race";
+};
 
 const raceRunKey = (run) =>
   [run.date, run.course, run.raceName, run.distance].map((value) => String(value ?? "").trim()).join("|");
@@ -135,10 +153,10 @@ const races = normalized.races.map((bundle) => {
     bundleId: bundle.bundleId,
     track: race.course,
     number: race.raceNo,
-    name: race.raceName,
+    name: race.raceName || `${race.course}${race.raceNo}R`,
     nameRaw: race.raceNameRaw,
     grade: race.grade,
-    category: race.grade ? "grade" : "special",
+    category: categoryForRace(race),
     time: race.time ?? null,
     surface: race.surface,
     distance: race.distance,

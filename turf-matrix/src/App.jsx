@@ -2591,7 +2591,7 @@ const HomePage = ({ onOpenRace }) => {
                 const isMain = i === 0;
                 return (
                   <button
-                    key={f.horseId}
+                    key={`${f.raceId}-${f.horseId}`}
                     onClick={() => onOpenRace(f.raceId, f.horseId)}
                     className={`group ${GLASS.surface} ${GLASS.interactive} text-left ${
                       isMain ? "p-6 md:col-span-2 md:p-8" : "p-5 md:p-6"
@@ -2667,7 +2667,7 @@ const HomePage = ({ onOpenRace }) => {
             ? ranking.length
               ? ranking.map((item, i) => (
                 <button
-                  key={item.horse.id}
+                  key={`${item.raceId}-${item.horse.id}`}
                   onClick={() => onOpenRace(item.raceId, item.horse.id)}
                   className="grid w-full grid-cols-[1.5rem_auto_1fr_2.5rem] items-center gap-3 border-b border-gray-100 px-4 py-3.5 text-left transition-colors duration-150 last:border-b-0 hover:bg-gray-50/70 active:bg-gray-100/60 md:px-5"
                 >

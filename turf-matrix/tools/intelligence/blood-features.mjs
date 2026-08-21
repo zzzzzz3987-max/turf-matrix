@@ -149,23 +149,36 @@ const matchForRole = (profile, role) =>
     match.hitEntries?.some((entry) => entry.role === role)
   );
 
-const buildSireFeature = ({ sire, pedigree, sireMatch }) => {
+const uniqueMatches = (matches) => [...new Map(
+  (matches ?? []).filter(Boolean).map((match) => [match.id, match])
+).values()];
+
+const matchFitLabels = (matches, limit = 3) => [...new Set(
+  uniqueMatches(matches).flatMap((match) => match.fit ?? [])
+)].filter((label) => !/系$/.test(label)).slice(0, limit);
+
+const buildSireFeature = ({ sire, pedigree, sireMatch, paternalMatches }) => {
   if (!sire) return null;
   const curated = findSireProfile(sire);
   const recordedAncestry = [pedigree.sireSire, pedigree.sireDam].filter(Boolean);
   const ancestry = curated?.ancestry?.length ? curated.ancestry : recordedAncestry;
   const ancestryText = ancestry.length ? `${ancestry.join(" × ")}。` : "父方祖先は一部未取得。";
+  const adoptedMatches = uniqueMatches([sireMatch, ...(paternalMatches ?? [])]);
+  const lineLabels = adoptedMatches.slice(0, 2).map((match) => match.label);
+  const fitLabels = matchFitLabels(adoptedMatches);
+  const evidenceText = lineLabels.length
+    ? `取得済み祖先から${lineLabels.join("と")}を確認。${fitLabels.length ? `${fitLabels.join("・")}を父方の評価材料にします。` : "父方の系統Evidenceとして保持します。"}`
+    : "父方の個別系統辞書は未照合のため、祖先構成をEvidenceとして保持し、加点は行いません。";
   const summary = curated?.summary
     ? `父${sire}は${ancestryText}${curated.summary}`
-    : sireMatch
-      ? `父${sire}は${ancestryText}${sireMatch.label}の特性を基礎に評価します。`
-      : `父${sire}は${ancestryText}固有プロフィールは未登録のため、取得済み祖先から評価します。`;
+    : `父${sire}は${ancestryText}${evidenceText}`;
 
   return {
     id: curated?.id ?? null,
     sire,
     ancestry,
-    traits: curated?.traits ?? [],
+    traits: curated?.traits ?? fitLabels,
+    evidenceLines: lineLabels,
     summary,
     status: curated ? "curated" : recordedAncestry.length ? "ancestry_fallback" : "unavailable",
     sourceType: curated?.sourceType ?? "pedigree_structure",
@@ -182,7 +195,10 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
   const broodmareSire = pedigree.broodmareSire ?? horse?.currentRace?.broodmareSire ?? null;
   const sireMatch = matchForRole(profile, "sire");
   const bmsMatch = matchForRole(profile, "broodmareSire");
-  const sireProfile = buildSireFeature({ sire, pedigree, sireMatch });
+  const paternalMatches = [...profile.matches, ...profile.femaleMatches].filter((match) =>
+    match.hitEntries?.some((entry) => entry.branch?.startsWith("sire"))
+  );
+  const sireProfile = buildSireFeature({ sire, pedigree, sireMatch, paternalMatches });
   const bestStatistic = [...profile.statistics].sort((left, right) =>
     (right.sampleSize ?? 0) - (left.sampleSize ?? 0)
   )[0] ?? null;
@@ -191,7 +207,10 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
   const coverageGrade = profile.coverage >= 0.65 ? "B" : profile.coverage >= 0.35 ? "C" : profile.coverage > 0 ? "D" : "Low";
   const confidenceGrade = lowerConfidence(sampleGrade, completenessGrade, coverageGrade);
   const pairLabel = sire && broodmareSire ? `${sire} × ${broodmareSire}` : [sire, broodmareSire].filter(Boolean).join(" × ") || "配合未取得";
-  const lineText = bmsMatch ? `母父は${bmsMatch.label}` : "母父系の固有辞書は未照合";
+  const bmsFit = matchFitLabels([bmsMatch]);
+  const lineText = bmsMatch
+    ? `母父${broodmareSire}は${bmsMatch.label}として、${bmsFit.length ? bmsFit.join("・") : "母系の補完力"}を評価`
+    : `母父${broodmareSire ?? "未取得"}は個別系統辞書が未照合のため中立評価`;
   const condition = [context?.course, context?.surface, Number(context?.distance) ? `${context.distance}m` : null]
     .filter(Boolean).join("");
   const matchText = profile.courseMatches.length || profile.femaleCourseMatches.length

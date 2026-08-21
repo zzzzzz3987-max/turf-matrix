@@ -108,7 +108,28 @@ test("Blood v2 expands an unregistered sire through recorded parents before line
 
   assert.equal(v2.sireProfile.status, "ancestry_fallback");
   assert.match(v2.sireProfile.summary, /父父テスト × 父母テスト/);
-  assert.match(v2.sireProfile.summary, /固有プロフィールは未登録/);
+  assert.match(v2.sireProfile.summary, /祖先構成をEvidenceとして保持/);
+});
+
+test("Blood v2 turns recorded ancestry rules into a specific sire explanation", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-08-22", course: "新潟", surface: "芝", distance: 1600 },
+    pedigree: {
+      sire: "テスト種牡馬",
+      sireSire: "ディープインパクト",
+      sireDam: "テスト父母",
+      dam: "テスト母",
+      broodmareSire: "ハーツクライ",
+      ancestors: [],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const profile = buildBloodProfile(horse, context);
+  const v2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore: profile.score });
+
+  assert.match(v2.sireProfile.summary, /Deep Impact系/);
+  assert.doesNotMatch(v2.sireProfile.summary, /固有プロフィールは未登録/);
+  assert.ok(v2.sireProfile.traits.length > 0);
 });
 
 test("Blood v2 evidence does not alter the production Blood score", () => {

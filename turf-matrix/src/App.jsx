@@ -2307,9 +2307,8 @@ const BattleRacePanel = ({ race, onOpen }) => {
   if (!race?.indexTop) return null;
   const [opponentA, opponentB] = race.opponents ?? [];
   const axis = race.indexTop;
-  const pairs = [opponentA, opponentB]
-    .filter(Boolean)
-    .map((horse) => `${axis.number}-${horse.number}`);
+  const exactaPair = opponentA ? `${axis.number}-${opponentA.number}` : null;
+  const widePair = opponentB ? `${axis.number}-${opponentB.number}` : null;
 
   return (
     <section className="mt-12">
@@ -2364,7 +2363,8 @@ const BattleRacePanel = ({ race, onOpen }) => {
             <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">参考買い目</div>
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
               <span>単勝 <Num>{axis.number}</Num></span>
-              {pairs.length ? <span>馬連 <Num>{pairs.join(" / ")}</Num></span> : null}
+              {exactaPair ? <span>馬連 <Num>{exactaPair}</Num></span> : null}
+              {widePair ? <span>ワイド <Num>{widePair}</Num></span> : null}
             </div>
             {race.valuePending ? (
               <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">

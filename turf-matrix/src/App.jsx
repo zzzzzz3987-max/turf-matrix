@@ -371,8 +371,21 @@ const dataProvider = {
         ev: valueMetricsFor(horse)?.ev,
         value: valueMetricsFor(horse),
       }];
-    });
-    return simulateLatency(items);
+    }).sort((a, b) =>
+      (b.horse.aiScore ?? -1) - (a.horse.aiScore ?? -1) ||
+      Number(b.raceLabel.includes("11R")) - Number(a.raceLabel.includes("11R")) ||
+      (a.horse.number ?? 999) - (b.horse.number ?? 999) ||
+      String(a.horse.name ?? "").localeCompare(String(b.horse.name ?? ""), "ja")
+    );
+    const usedRaceIds = new Set();
+    const selected = [];
+    for (const item of items) {
+      if (usedRaceIds.has(item.raceId)) continue;
+      usedRaceIds.add(item.raceId);
+      selected.push(item);
+      if (selected.length >= 3) break;
+    }
+    return simulateLatency(selected);
   },
   async getIndexRanking(limit = 5) {
     const all = WEEK_DATA.races.flatMap((r) =>
@@ -2280,7 +2293,6 @@ const BattleRacePanel = ({ race, onOpen }) => {
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
               <span>単勝 <Num>{axis.number}</Num></span>
               {pairs.length ? <span>馬連 <Num>{pairs.join(" / ")}</Num></span> : null}
-              {pairs.length ? <span>ワイド <Num>{pairs.join(" / ")}</Num></span> : null}
             </div>
             {race.valuePending ? (
               <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">
@@ -2305,22 +2317,26 @@ const BattleRacePanel = ({ race, onOpen }) => {
 const AllRaceSignalsPanel = ({ data }) => {
   if (!data?.races?.length) return null;
   const tracks = [...new Set(data.races.map((race) => race.track))];
+  const evaluatedRaces = data.races.filter((race) => isFiniteNumber(race.indexTop?.tmIndex));
 
   return (
     <section className="mt-14">
       <div className="flex items-end justify-between">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">All Race Signals</div>
-          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">3会場 全レース</h2>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">3会場 レースシグナル</h2>
         </div>
-        <span className="text-[11px] font-semibold text-[#A6AFBE]"><Num>{data.raceCount}</Num>レース</span>
+        <span className="text-[11px] font-semibold text-[#A6AFBE]">
+          <Num className="text-[#64748B]">{evaluatedRaces.length}</Num>レース掲載
+        </span>
       </div>
       <div className="mt-4 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white">
         <div className="grid md:grid-cols-3 md:divide-x md:divide-[#E5E7EB]">
           {tracks.map((track) => {
-            const races = data.races
+            const races = evaluatedRaces
               .filter((race) => race.track === track)
               .sort((left, right) => left.number - right.number);
+            if (!races.length) return null;
             return (
               <div key={track} className="border-b border-[#E5E7EB] last:border-b-0 md:border-b-0">
                 <div className="border-b border-[#E5E7EB] px-4 py-3 text-[12px] font-bold text-[#050B1E]">{track}</div>
@@ -2341,7 +2357,7 @@ const AllRaceSignalsPanel = ({ data }) => {
                             {race.indexTop?.tmIndex ?? "--"}
                           </Num>
                         </div>
-                        <div className="mt-1 truncate text-[9px] text-[#94A3B8]">
+                        <div className="mt-1 truncate text-[9px] font-medium text-[#64748B]">
                           相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
                         </div>
                       </div>
@@ -2352,9 +2368,12 @@ const AllRaceSignalsPanel = ({ data }) => {
             );
           })}
         </div>
-        <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
-          相手はTM INDEX 2位とVALUE 1位。オッズ取得前、または重複時はTM INDEX 3位を表示します。
-        </div>
+        {evaluatedRaces.length ? (
+          <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
+            <div className="font-medium text-[#64748B]">分析データを取得できたレースのみ掲載しています。</div>
+            <div className="mt-1">相手はTM INDEX 2位とVALUE 1位。オッズ取得前、または重複時はTM INDEX 3位を表示します。</div>
+          </div>
+        ) : null}
       </div>
     </section>
   );
@@ -2584,74 +2603,43 @@ const HomePage = ({ onOpenRace }) => {
           <h2 className="text-[15px] font-semibold text-gray-900">TM INDEX 上位3頭</h2>
           <span className="text-[11px] text-gray-500">掲載レースを横断して比較</span>
         </div>
-        <div className="mt-4 grid gap-3 md:grid-cols-2">
+        <div className="mt-4 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white divide-y divide-[#E5E7EB]">
           {featured
             ? featured.length
-              ? featured.map((f, i) => {
-                const isMain = i === 0;
-                return (
+              ? featured.map((f, i) => (
                   <button
                     key={`${f.raceId}-${f.horseId}`}
                     onClick={() => onOpenRace(f.raceId, f.horseId)}
-                    className={`group ${GLASS.surface} ${GLASS.interactive} text-left ${
-                      isMain ? "p-6 md:col-span-2 md:p-8" : "p-5 md:p-6"
-                    }`}
+                    className="grid w-full grid-cols-[34px_minmax(0,1fr)_54px] items-start gap-3 px-4 py-4 text-left transition-colors hover:bg-gray-50/70 focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#2D7BFF] sm:grid-cols-[42px_minmax(0,1fr)_68px] sm:px-5"
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <Num className="text-[10px] font-bold tracking-[0.18em] text-teal-600">
-                            INDEX 0{i + 1}
-                          </Num>
-                          <span className="text-[11px] text-gray-500">{f.raceLabel}</span>
-                        </div>
-                        <div
-                          className={`mt-1.5 font-bold tracking-tight text-gray-900 ${
-                            isMain ? "text-[22px]" : "text-[15px]"
-                          }`}
-                        >
-                          {displayHorseName(f.horse)}
-                        </div>
-                        <p
-                          className={`text-gray-500 ${
-                            isMain
-                              ? "mt-2.5 max-w-md text-[13px] leading-relaxed"
-                              : "mt-2 text-[12px] leading-relaxed"
-                          }`}
-                        >
-                          {f.note}
-                        </p>
+                    <Num className={`pt-0.5 text-[12px] font-bold ${i === 0 ? "text-[#2D7BFF]" : "text-[#94A3B8]"}`}>
+                      {String(i + 1).padStart(2, "0")}
+                    </Num>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-semibold text-[#64748B]">{f.raceLabel}</span>
+                        <Num className="text-[10px] text-[#94A3B8]">{f.horse.number}番</Num>
                       </div>
-                      <div className="shrink-0 text-right">
-                        <Num
-                          className={`font-bold tracking-tight ${scoreTone(f.horse.aiScore)} ${
-                            isMain ? "text-[52px] leading-none" : "text-[30px] leading-none"
-                          }`}
-                        >
-                          {f.horse.aiScore}
-                        </Num>
-                        <div className="mt-1.5 text-[10px] uppercase tracking-wider text-gray-500">AI指数</div>
-                        <span className="mt-1 flex items-center justify-end gap-1">
-                          <StarRating value={f.value?.stars ?? 0} size={9} />
-                        </span>
-                        <Num className="mt-0.5 block text-[10px] text-gray-500">
-                          {isFiniteNumber(f.ev) ? `EV ${f.ev.toFixed(2)}` : "EV 未評価"}
-                        </Num>
-                        {valueReferenceLabel(f.value) ? (
-                          <span className="mt-0.5 block text-[10px] font-semibold text-gray-500">{valueReferenceLabel(f.value)}</span>
-                        ) : null}
+                      <div className="mt-1 truncate text-[15px] font-bold tracking-tight text-[#050B1E]">
+                        {displayHorseName(f.horse)}
                       </div>
+                      <p className="mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-[#64748B]">{f.note}</p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <div className="text-[8px] font-bold uppercase tracking-[0.16em] text-[#94A3B8]">TM INDEX</div>
+                      <Num className={`mt-1 block text-[28px] font-bold leading-none tracking-tight ${scoreTone(f.horse.aiScore)}`}>
+                        {f.horse.aiScore}
+                      </Num>
                     </div>
                   </button>
-                );
-              })
+                ))
               : (
-                <div className={`${GLASS.surface} p-6 text-[13px] font-medium text-slate-400 md:col-span-2`}>
+                <div className="p-6 text-[13px] font-medium text-slate-400">
                   {WEEK_PREPARING_TEXT}
                 </div>
               )
             : [0, 1, 2].map((i) => (
-                <Skeleton key={i} className={i === 0 ? "h-36 md:col-span-2" : "h-28"} />
+                <Skeleton key={i} className="h-28" />
               ))}
         </div>
       </section>

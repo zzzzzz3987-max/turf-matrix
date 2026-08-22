@@ -48,32 +48,34 @@ Register-ScheduledTask `
 
 $WatchdogTaskName = "TURF MATRIX Odds Watchdog"
 $WatchdogScript = Join-Path $PSScriptRoot "ensure-auto-odds-running.ps1"
-$WatchdogAction = New-ScheduledTaskAction `
-  -Execute "powershell.exe" `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$WatchdogScript`" -TaskName `"$TaskName`"" `
-  -WorkingDirectory $RepoRoot
-$WatchdogStart = [DateTime]::Today.AddHours(7).AddMinutes(55)
-if ($WatchdogStart -lt [DateTime]::Now) {
-  $WatchdogStart = [DateTime]::Now.AddMinutes(1)
-}
-$WatchdogTrigger = New-ScheduledTaskTrigger `
-  -Once `
-  -At $WatchdogStart `
-  -RepetitionInterval (New-TimeSpan -Minutes 5) `
-  -RepetitionDuration (New-TimeSpan -Days 3650)
-$WatchdogSettings = New-ScheduledTaskSettingsSet `
-  -StartWhenAvailable `
-  -WakeToRun `
-  -ExecutionTimeLimit (New-TimeSpan -Minutes 2) `
-  -MultipleInstances IgnoreNew
+$WatchdogArguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$WatchdogScript`" -TaskName `"$TaskName`""
+$UserSid = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
+$EscapedArguments = [Security.SecurityElement]::Escape($WatchdogArguments)
+$EscapedRepoRoot = [Security.SecurityElement]::Escape($RepoRoot)
+$WatchdogXml = @"
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo><Description>TURF MATRIX: weekend race-hours live-odds watchdog.</Description></RegistrationInfo>
+  <Triggers>
+    <CalendarTrigger>
+      <Repetition><Interval>PT5M</Interval><Duration>PT8H</Duration><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>
+      <StartBoundary>2026-08-22T09:00:00+09:00</StartBoundary><Enabled>true</Enabled>
+      <ScheduleByWeek><WeeksInterval>1</WeeksInterval><DaysOfWeek><Saturday /></DaysOfWeek></ScheduleByWeek>
+    </CalendarTrigger>
+    <CalendarTrigger>
+      <Repetition><Interval>PT5M</Interval><Duration>PT8H</Duration><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>
+      <StartBoundary>2026-08-23T09:00:00+09:00</StartBoundary><Enabled>true</Enabled>
+      <ScheduleByWeek><WeeksInterval>1</WeeksInterval><DaysOfWeek><Sunday /></DaysOfWeek></ScheduleByWeek>
+    </CalendarTrigger>
+  </Triggers>
+  <Principals><Principal id="Author"><UserId>$UserSid</UserId><LogonType>InteractiveToken</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals>
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy><DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries><StopIfGoingOnBatteries>false</StopIfGoingOnBatteries><AllowHardTerminate>true</AllowHardTerminate><StartWhenAvailable>true</StartWhenAvailable><RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable><IdleSettings><StopOnIdleEnd>true</StopOnIdleEnd><RestartOnIdle>false</RestartOnIdle></IdleSettings><AllowStartOnDemand>true</AllowStartOnDemand><Enabled>true</Enabled><Hidden>false</Hidden><RunOnlyIfIdle>false</RunOnlyIfIdle><WakeToRun>true</WakeToRun><ExecutionTimeLimit>PT2M</ExecutionTimeLimit><Priority>7</Priority>
+  </Settings>
+  <Actions Context="Author"><Exec><Command>powershell.exe</Command><Arguments>$EscapedArguments</Arguments><WorkingDirectory>$EscapedRepoRoot</WorkingDirectory></Exec></Actions>
+</Task>
+"@
 
-Register-ScheduledTask `
-  -TaskName $WatchdogTaskName `
-  -Action $WatchdogAction `
-  -Trigger $WatchdogTrigger `
-  -Settings $WatchdogSettings `
-  -Principal $Principal `
-  -Description "TURF MATRIX: restart the live-odds watcher and report missed update windows." `
-  -Force | Out-Null
+Register-ScheduledTask -TaskName $WatchdogTaskName -Xml $WatchdogXml -Force | Out-Null
 
 Get-ScheduledTask -TaskName $TaskName, $WatchdogTaskName | Select-Object TaskName, State, Description

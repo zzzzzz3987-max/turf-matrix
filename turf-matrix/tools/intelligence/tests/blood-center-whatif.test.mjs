@@ -34,14 +34,17 @@ test("adding a dictionary rule recalculates rather than reuses a fixed center", 
   const context = buildRaceContext({ course: "新潟", surface: "芝", distance: 1000 });
   const rules = [...BLOODLINE_RULES, ...FEMALE_LINE_RULES];
   const before = dictionaryCompatibilityCenter(context, rules);
-  const after = dictionaryCompatibilityCenter(context, [
+  const expandedRules = [
     ...rules,
     {
       id: "center-recalculation-probe",
       traits: { speed: 0, power: 0, stamina: 0, sustain: 0 },
       fit: [],
     },
-  ]);
+  ];
+  const after = dictionaryCompatibilityCenter(context, expandedRules);
+  const expected = median(dictionaryRuleCompatibilities(context, expandedRules).map((item) => item.compatibility));
   assert.equal(after.ruleCount, before.ruleCount + 1);
-  assert.notEqual(after.center, before.center);
+  assert.equal(after.center, expected);
+  assert.equal(after.compatibilities.some((item) => item.id === "center-recalculation-probe"), true);
 });

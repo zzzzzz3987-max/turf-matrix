@@ -35,6 +35,24 @@ test("course sire evidence stays missing when the source table has no matching s
   assert.equal(evidence, null);
 });
 
+for (const pedigree of [
+  { sire: "ニューイヤーズデイ", sireSire: "Street Cry" },
+  { sire: "タワーオブロンドン", sireSire: "Raven's Pass" },
+  { sire: "Charlatan", sireSire: "Speightstown", broodmareSire: "Unbridled's Song" },
+]) {
+  test(`foreign intermediate ancestors resolve to a reusable root: ${pedigree.sire}`, () => {
+    const context = buildRaceContext({ course: "中京", surface: "ダート", distance: 1200 });
+    const profile = buildBloodProfile({
+      horseName: "外国血統検証馬",
+      currentRace: { course: "中京", surface: "ダート", distance: 1200 },
+      pedigree,
+    }, context);
+    assert.equal(profile.rawMatches.some((match) => match.id === "mr_prospector_bridge"), true);
+    assert.equal(profile.matches.length, 0);
+    assert.equal(profile.coverage > 0, true);
+  });
+}
+
 test("Hennessy sprint blood is recognized as direct paternal evidence at Niigata 1000m", () => {
   const context = buildRaceContext({ course: "新潟", surface: "芝", distance: 1000 });
   const profile = buildBloodProfile({

@@ -550,6 +550,18 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     confidence: statistic.confidence,
     adjustment: statistic.adjustment,
   }));
+  const structuralStrengths = profile.backgroundMatches
+    .filter((match) => match.evidenceStatus === "structure-only")
+    .slice(0, 2)
+    .map((match) => ({
+      key: `structure-${match.id}`,
+      label: match.label,
+      text: `${match.hits.join("・")}から${match.label}の系統構造を確認。系統名だけでは加点せず、実績統計を優先します。`,
+      score: bloodScore,
+      confidence: "low",
+      adjustment: 0,
+      scoreApplied: false,
+    }));
 
   const strengths = matches.slice(0, context?.depth === "full" ? 4 : 2).map((match) => ({
     key: match.id,
@@ -603,7 +615,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     components: profile.components,
     statistics: profile.statistics,
     statisticsAdjustment: profile.statisticsAdjustment,
-    strengths: [...strengths, ...femaleStrengths, ...statisticStrengths],
+    strengths: [...strengths, ...femaleStrengths, ...structuralStrengths, ...statisticStrengths],
     lines: [
       buildLine("父系", pedigree?.sire ?? horse.currentRace?.sire, `父系の主軸。今回条件への適性は${Math.round(profile.components.paternal)}。`),
       buildLine("母系", pedigree?.dam ?? horse.currentRace?.dam, `母系の補完力を評価。母系総合は${Math.round(profile.components.maternal)}。`),

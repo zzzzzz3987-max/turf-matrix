@@ -316,6 +316,16 @@ const distanceBand = (distance) => {
   return "long";
 };
 
+const ancestorName = (pedigree, branch) =>
+  pedigree?.ancestors?.find((ancestor) => ancestor.branch === branch)?.name ?? null;
+
+const shrinkHitRate = (statistic, baseline, priorSampleSize = 24) => {
+  if (!Number.isFinite(baseline) || !Number.isFinite(statistic?.top3) || !Number.isFinite(statistic?.sampleSize)) {
+    return statistic?.hitRate ?? null;
+  }
+  return (statistic.top3 + baseline * priorSampleSize) / (statistic.sampleSize + priorSampleSize);
+};
+
 const leaveOneHorseOut = (statistic, horseName) => {
   if (!statistic) return null;
   const contribution = statistic.horseContributions?.[normalizeName(horseName)];
@@ -353,22 +363,28 @@ const statisticFor = (entityType, name, horse) => {
   const race = horse.currentRace ?? {};
   const exactKey = `${race.course ?? "unknown"}|${race.surface ?? "unknown"}|${distanceBand(race.distance)}`;
   const broadKey = `${race.surface ?? "unknown"}|${distanceBand(race.distance)}`;
+  const goingKey = `${race.course ?? "unknown"}|${race.surface ?? "unknown"}|${race.trackCondition ?? race.going ?? "unknown"}`;
   const horseName = horse.name ?? horse.horseName ?? horse.currentRace?.horseName;
   const candidates = [
     { scope: "今回コース・距離帯", value: leaveOneHorseOut(entity.courseSurfaceDistance?.[exactKey], horseName), weight: 1 },
+    { scope: "今回コース・馬場", value: leaveOneHorseOut(entity.courseSurfaceGoing?.[goingKey], horseName), weight: 0.85 },
     { scope: "同馬場・距離帯", value: leaveOneHorseOut(entity.surfaceDistance?.[broadKey], horseName), weight: 0.75 },
     { scope: "保有データ全体", value: leaveOneHorseOut(entity.overall?.all, horseName), weight: 0.45 },
   ];
   const selected = candidates.find((candidate) => candidate.value?.eligible);
   if (!selected) return null;
   const baseline = BLOOD_STATISTICS.baseline?.hitRate;
-  const lift = Number.isFinite(baseline) ? selected.value.hitRate - baseline : 0;
+  const posteriorHitRate = shrinkHitRate(selected.value, baseline);
+  const lift = Number.isFinite(baseline) && Number.isFinite(posteriorHitRate) ? posteriorHitRate - baseline : 0;
   return {
     entityType,
     name,
     scope: selected.scope,
     weight: selected.weight,
     ...selected.value,
+    rawHitRate: selected.value.hitRate,
+    shrunkHitRate: Number.isFinite(posteriorHitRate) ? Number(posteriorHitRate.toFixed(4)) : null,
+    priorSampleSize: 24,
     adjustment: Math.max(-4, Math.min(4, Math.round(lift * 18 * selected.weight))),
   };
 };
@@ -376,11 +392,11 @@ const statisticFor = (entityType, name, horse) => {
 const buildBloodStatistics = (horse) => {
   if (BLOOD_STATISTICS.status !== "approved") return [];
   const pedigree = horse.pedigree ?? {};
-  return [
-    statisticFor("sire", pedigree.sire ?? horse.currentRace?.sire, horse),
-    statisticFor("broodmareSire", pedigree.broodmareSire ?? horse.currentRace?.broodmareSire, horse),
-    statisticFor("femaleLine", pedigree.damDam, horse),
-  ].filter(Boolean);
+  const sire = statisticFor("sire", pedigree.sire ?? horse.currentRace?.sire, horse)
+    ?? statisticFor("sireLine", pedigree.sireSire ?? ancestorName(pedigree, "sire.sire"), horse);
+  const broodmareSire = statisticFor("broodmareSire", pedigree.broodmareSire ?? horse.currentRace?.broodmareSire, horse)
+    ?? statisticFor("broodmareSireLine", ancestorName(pedigree, "dam.sire.sire"), horse);
+  return [sire, broodmareSire, statisticFor("femaleLine", pedigree.damDam, horse)].filter(Boolean);
 };
 
 const buildBloodProfile = (horse, context) => {
@@ -438,17 +454,23 @@ const buildBloodProfile = (horse, context) => {
     Math.min(
       5,
       Math.round(statistics.reduce((sum, item) => {
-        const roleWeight = item.entityType === "sire" ? 0.6 : item.entityType === "broodmareSire" ? 0.35 : 0.2;
+        const roleWeight =
+          item.entityType === "sire" ? 0.6 :
+          item.entityType === "broodmareSire" ? 0.35 :
+          item.entityType === "sireLine" ? 0.25 :
+          item.entityType === "broodmareSireLine" ? 0.15 :
+          0.1;
         return sum + item.adjustment * roleWeight;
       }, 0))
     )
   );
-  const statisticsScore = clamp(BLOOD_NEUTRAL_SCORE + statisticsAdjustment * 5, 45, 85);
+  const boundedStatisticsAdjustment = clamp(statisticsAdjustment, -3, 3);
+  const statisticsScore = clamp(BLOOD_NEUTRAL_SCORE + boundedStatisticsAdjustment, 45, 85);
   const confidence = coverage >= 0.65 ? "high" : coverage >= 0.35 ? "mid" : "low";
   const status = hasScoredEvidence ? (confidence === "low" ? "partial" : "active") : "partial";
   const baseScore = evidenceScore(allMatches, context);
   const contributionDiagnostics = branchAdjustmentDetails(allMatches, context);
-  const score = clamp(baseScore, 42, 92);
+  const score = clamp(baseScore + boundedStatisticsAdjustment, 42, 92);
 
   return {
     score,
@@ -466,8 +488,8 @@ const buildBloodProfile = (horse, context) => {
     rawMatches,
     rawFemaleMatches,
     statistics,
-    statisticsAdjustment,
-    statisticsApplied: false,
+    statisticsAdjustment: boundedStatisticsAdjustment,
+    statisticsApplied: statistics.length > 0,
     contributionDiagnostics,
     traits,
     components: { paternal, maternal, course, distance, blend, statistics: statisticsScore },
@@ -514,13 +536,17 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     label:
       statistic.entityType === "sire" ? `${statistic.name}産駒実績` :
       statistic.entityType === "broodmareSire" ? `母父${statistic.name}実績` :
+      statistic.entityType === "sireLine" ? `父系${statistic.name}実績` :
+      statistic.entityType === "broodmareSireLine" ? `母父系${statistic.name}実績` :
       `${statistic.name}牝系実績`,
-    text: `${statistic.scope}で${statistic.sampleSize}走・${statistic.uniqueHorseCount}頭、勝率${(statistic.winRate * 100).toFixed(1)}%、複勝率${(statistic.hitRate * 100).toFixed(1)}%。`,
+    text: `${statistic.scope}で${statistic.sampleSize}走・${statistic.uniqueHorseCount}頭、勝率${(statistic.winRate * 100).toFixed(1)}%、複勝率${(statistic.hitRate * 100).toFixed(1)}%（平均回帰後${(statistic.shrunkHitRate * 100).toFixed(1)}%）。`,
     score: bloodScore,
     sampleSize: statistic.sampleSize,
     uniqueHorseCount: statistic.uniqueHorseCount,
     winRate: statistic.winRate,
     hitRate: statistic.hitRate,
+    shrunkHitRate: statistic.shrunkHitRate,
+    priorSampleSize: statistic.priorSampleSize,
     confidence: statistic.confidence,
     adjustment: statistic.adjustment,
   }));

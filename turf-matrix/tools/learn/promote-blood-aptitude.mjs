@@ -60,6 +60,8 @@ const approved = {
   sourceRaceCount: learned.sourceRaceCount,
   sourceHorseCount: learned.sourceHorseCount,
   observationCount: learned.observationCount,
+  evaluationCutoff: learned.evaluationCutoff,
+  futureObservationCount: learned.futureObservationCount,
   minimumSamples: learned.minimumSamples,
   baseline: Object.fromEntries(Object.entries(learned.baseline ?? {}).filter(([key]) => key !== "horseContributions")),
   approval: {

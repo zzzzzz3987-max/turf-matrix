@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { pedigreeCompleteness, structureUmAncestors } from "../pedigree/jvlink-ancestor-tree.mjs";
 
 const repoRoot = process.cwd();
 const summaryPath = path.join(repoRoot, "tools", "jvlink", "output", "intelligence-summary.json");
@@ -118,18 +119,24 @@ if (!Array.isArray(summary.pedigrees)) {
 }
 
 const pedigreeLines = [
-  row(["馬名", "父", "母", "母父", "母の母", "父父", "父母", "血統登録番号", "取得元"]),
-  ...summary.pedigrees.map((pedigree) => row([
-    pedigree.horseName,
-    pedigree.ancestors?.[0]?.name,
-    pedigree.ancestors?.[1]?.name,
-    pedigree.ancestors?.[4]?.name,
-    pedigree.ancestors?.[5]?.name,
-    pedigree.ancestors?.[2]?.name,
-    pedigree.ancestors?.[3]?.name,
-    pedigree.bloodRegistrationNumber,
-    "JV-Link RCVN/UM",
-  ])),
+  row(["馬名", "父", "母", "母父", "母の母", "父父", "父母", "血統登録番号", "取得元", "祖先JSON", "血統完全度"]),
+  ...summary.pedigrees.map((pedigree) => {
+    const ancestors = structureUmAncestors(pedigree.ancestors);
+    const byBranch = new Map(ancestors.map((ancestor) => [ancestor.branch, ancestor]));
+    return row([
+      pedigree.horseName,
+      byBranch.get("sire")?.name,
+      byBranch.get("dam")?.name,
+      byBranch.get("dam.sire")?.name,
+      byBranch.get("dam.dam")?.name,
+      byBranch.get("sire.sire")?.name,
+      byBranch.get("sire.dam")?.name,
+      pedigree.bloodRegistrationNumber,
+      "JV-Link RCVN/UM",
+      JSON.stringify(ancestors),
+      pedigreeCompleteness(ancestors),
+    ]);
+  }),
 ];
 
 const slopeLines = [

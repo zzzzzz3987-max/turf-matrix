@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
+import { dateKey, isObservationBeforeCutoff, resolveEvaluationCutoff } from "./blood-statistics-policy.mjs";
 
 const args = process.argv.slice(2);
 const valueAfter = (flag, fallback) => {
@@ -25,6 +26,12 @@ if (!existsSync(inputPath)) {
 
 const source = JSON.parse(readFileSync(inputPath, "utf8"));
 const normalize = (value) => String(value ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, "").trim();
+const evaluationCutoff = resolveEvaluationCutoff(source);
+if (!evaluationCutoff) {
+  console.error("[ERROR] 評価基準日を特定できないため、未来情報を除外できません。");
+  process.exit(2);
+}
+let futureObservationCount = 0;
 const distanceBand = (distance) => {
   const value = Number(distance);
   if (!Number.isFinite(value)) return "unknown";
@@ -46,6 +53,11 @@ const rows = [];
 const seen = new Set();
 const addObservation = ({ horseName, pedigree, date, course, surface, distance, going, finish, fieldSize, raceNumber, raceName }) => {
   if (!pedigree || !Number.isFinite(finish) || finish <= 0) return;
+  if (!isObservationBeforeCutoff(date, evaluationCutoff)) {
+    futureObservationCount += 1;
+    return;
+  }
+  const ancestor = (branch) => pedigree.ancestors?.find((item) => item.branch === branch)?.name;
   const normalizedHorseName = normalize(horseName);
   const observationKey = [normalizedHorseName, date, course, raceNumber, raceName, finish].join("|");
   if (seen.has(observationKey)) return;
@@ -54,6 +66,8 @@ const addObservation = ({ horseName, pedigree, date, course, surface, distance, 
     horseName: normalizedHorseName,
     sire: normalize(pedigree.sire),
     broodmareSire: normalize(pedigree.broodmareSire),
+    sireLine: normalize(pedigree.sireSire ?? ancestor("sire.sire")),
+    broodmareSireLine: normalize(ancestor("dam.sire.sire")),
     femaleLine: normalize(pedigree.damDam),
     date,
     course: course ?? "unknown",
@@ -96,6 +110,7 @@ if (existsSync(archiveDir)) {
     .filter(Boolean)
     .sort();
   for (const date of dates) {
+    if (!isObservationBeforeCutoff(date, evaluationCutoff)) continue;
     const snapshotPath = join(archiveDir, `${date}-preodds.json`);
     const resultsPath = join(archiveDir, `${date}-results.json`);
     if (!existsSync(resultsPath)) continue;
@@ -202,19 +217,23 @@ const aggregateEntity = (field) => {
 };
 
 const output = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   status: "learned",
-  generatedForWeek: source.meta?.date ?? null,
+  generatedForWeek: source.meta?.date ?? source.raceDate ?? evaluationCutoff,
   source: "TURF MATRIX normalized pastRuns + pedigree",
   sourceRaceCount: source.races?.length ?? 0,
   sourceHorseCount: source.races?.reduce((sum, race) => sum + (race.horses?.length ?? 0), 0) ?? 0,
   archivePairCount,
+  evaluationCutoff: evaluationCutoff || null,
+  futureObservationCount,
   observationCount: rows.length,
   minimumSamples,
   baseline,
   entities: {
     sire: aggregateEntity("sire"),
     broodmareSire: aggregateEntity("broodmareSire"),
+    sireLine: aggregateEntity("sireLine"),
+    broodmareSireLine: aggregateEntity("broodmareSireLine"),
     femaleLine: aggregateEntity("femaleLine"),
   },
 };
@@ -225,8 +244,12 @@ console.log(JSON.stringify({
   output: outputPath,
   observations: rows.length,
   archivePairs: archivePairCount,
+  evaluationCutoff: output.evaluationCutoff,
+  futureObservationsSkipped: futureObservationCount,
   sireCount: Object.keys(output.entities.sire).length,
   broodmareSireCount: Object.keys(output.entities.broodmareSire).length,
+  sireLineCount: Object.keys(output.entities.sireLine).length,
+  broodmareSireLineCount: Object.keys(output.entities.broodmareSireLine).length,
   femaleLineCount: Object.keys(output.entities.femaleLine).length,
   baseline: Object.fromEntries(Object.entries(output.baseline).filter(([key]) => key !== "horseContributions")),
 }, null, 2));

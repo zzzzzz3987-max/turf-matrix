@@ -195,3 +195,16 @@ test("Blood specialist exposes only sample-qualified aggregate statistics", () =
   assert.ok(profile.statistics.every((item) => item.sampleSize >= 12));
   assert.ok(profile.statistics.every((item) => item.uniqueHorseCount >= 5));
 });
+
+test("Blood specialist applies approved historical evidence as a bounded adjustment", () => {
+  const profile = buildBloodProfile(
+    bloodHorse({ sire: "ドレフォン", broodmareSire: "キングカメハメハ" }),
+    bloodContext(["northern_dancer"])
+  );
+
+  assert.equal(profile.statisticsApplied, true);
+  assert.ok(Math.abs(profile.statisticsAdjustment) <= 3);
+  assert.equal(profile.score, profile.baseScore + profile.statisticsAdjustment);
+  assert.ok(profile.statistics.every((item) => item.priorSampleSize === 24));
+  assert.ok(profile.statistics.every((item) => Number.isFinite(item.shrunkHitRate)));
+});

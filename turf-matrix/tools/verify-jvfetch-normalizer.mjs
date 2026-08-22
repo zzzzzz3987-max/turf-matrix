@@ -5,6 +5,7 @@ import { normalizeRaceBundle } from "./normalizers/race-bundle.mjs";
 const config = JSON.parse(fs.readFileSync(process.env.TURF_MATRIX_RACE_CONFIG || "tools/race-batch-config.json", "utf8"));
 const results = [];
 const errors = [];
+const warnings = [];
 
 for (const bundleId of config.bundles) {
   try {
@@ -43,7 +44,7 @@ for (const bundleId of config.bundles) {
 
     const missingPastRuns = bundle.horses.filter((horse) => !horse.pastRuns.length).map((horse) => horse.horseName);
     const missingPedigree = bundle.horses.filter((horse) => !horse.pedigree).map((horse) => horse.horseName);
-    if (missingPastRuns.length) errors.push(`${bundleId}: past runs missing for ${missingPastRuns.join(", ")}`);
+    if (missingPastRuns.length) warnings.push(`${bundleId}: past runs missing for ${missingPastRuns.join(", ")}; keep pastRuns empty.`);
     if (missingPedigree.length) errors.push(`${bundleId}: pedigree missing for ${missingPedigree.join(", ")}`);
     if (preoddsBundle.join.oddsSuccess !== 0) errors.push(`${bundleId}: preodds path unexpectedly joined odds.`);
     if (preoddsBundle.horses.some((horse) => Number.isFinite(horse.availableIndex))) {
@@ -75,6 +76,7 @@ console.log(JSON.stringify({
   runnerCount: results.reduce((total, race) => total + race.runners, 0),
   pastRunRows: results.reduce((total, race) => total + race.pastRunRows, 0),
   races: results,
+  warnings,
   errors,
 }, null, 2));
 

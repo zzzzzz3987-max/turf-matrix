@@ -13,6 +13,7 @@ const manifest = readJson("tools/jvlink/output/target-horses.json");
 const summary = readJson("tools/jvlink/output/intelligence-summary.json");
 const raceConfig = readJson(process.env.TURF_MATRIX_RACE_CONFIG || "tools/race-batch-config.json");
 const errors = [];
+const warnings = [];
 const normalize = (value) => String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\s+/g, "").trim();
 
 const expectedByRegistration = new Map(manifest.horses.map((horse) => [horse.bloodRegistrationNumber, horse]));
@@ -56,7 +57,7 @@ for (const bundle of directPastRuns) {
   const pastNames = new Set(bundle.horses.map((horse) => normalize(horse.horseName)));
   for (const entry of current?.entries ?? []) {
     if (!pastNames.has(normalize(entry.horseName))) {
-      errors.push(`${bundle.bundleId}: no past-run record for ${entry.horseName}.`);
+      warnings.push(`${bundle.bundleId}: no past-run record for ${entry.horseName}; keep pastRuns empty.`);
     }
   }
 }
@@ -101,6 +102,7 @@ const result = {
   woodRows: wood.records.length,
   trainingHorseCoverage: trainingNames.size,
   trainingMissing: manifest.horses.map((horse) => horse.horseName).filter((name) => !trainingNames.has(normalize(name))),
+  warnings,
   errors,
 };
 

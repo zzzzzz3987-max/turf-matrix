@@ -956,7 +956,7 @@ const TMFactorsCard = ({ analysis }) => {
                   {displayable ? displayFactorScore(factor.score) : "—"}
                 </Num>
               </div>
-              <p className="mt-2 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">
+              <p className="mt-2 break-words text-[11px] leading-relaxed text-gray-500">
                 {factor.summary ?? (active ? "TARGET実データから評価済み" : factor.key === "value" ? "単勝オッズ取得後に自動評価します" : "入力データ取得後に評価")}
               </p>
             </div>
@@ -986,7 +986,7 @@ const AbilityBreakdownCard = ({ detail }) => {
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="text-[12px] font-semibold text-slate-900">{component.label}</div>
-                <p className="mt-1 text-[11px] leading-relaxed text-gray-500 md:line-clamp-2">{component.summary}</p>
+                <p className="mt-1 break-words text-[11px] leading-relaxed text-gray-500">{component.summary}</p>
               </div>
               <Num className={`shrink-0 text-[18px] font-bold leading-none ${scoreTone(component.score)}`}>
                 {isFiniteNumber(component.score) ? component.score : "—"}
@@ -1256,6 +1256,16 @@ const PedigreeCard = ({ pedigree, score }) => {
   const crosses = pedigree?.crosses ?? [];
   const confidenceGrade = pedigree?.confidenceGrade ?? "Low";
   const confidenceLabel = confidenceGrade === "Low" ? "低" : confidenceGrade;
+  const sourceCompleteness = pedigree?.dataCompleteness?.sourceCompleteness;
+  const completenessLabel = sourceCompleteness === "three-generation-14"
+    ? "3代相当取得済み"
+    : sourceCompleteness === "basic-4-line"
+      ? "基本血統取得済み"
+      : pedigree?.dataCompleteness?.label ?? structure.completeness ?? "取得状況不明";
+  const pedigreeHeadline = (pedigree?.headline
+    ?? "4代血統から父系・母系・母父・牝系を分解し、距離適性や持続力の補助評価に接続。")
+    .replace("コース固有の明示一致は未確認。", "コース固有の血統ルールは未登録です。")
+    .replace("4代血統が一部取得のため、クロスは未確定です。", "取得済みの基本血統では重複祖先なし。4代目以降は未取得です。");
   const bloodComponents = [
     { key: "sireTrait", label: "父" },
     { key: "broodmareSire", label: "母父" },
@@ -1282,7 +1292,7 @@ const PedigreeCard = ({ pedigree, score }) => {
         <div>
           <SectionLabel icon={Dna}>血統評価(4ライン)</SectionLabel>
           <p className="mt-1.5 text-[11px] leading-relaxed text-gray-500">
-            {pedigree.headline ?? "4代血統から父系・母系・母父・牝系を分解し、距離適性や持続力の補助評価に接続。"}
+            {pedigreeHeadline}
           </p>
         </div>
         <span className="flex shrink-0 items-baseline gap-1">
@@ -1315,7 +1325,7 @@ const PedigreeCard = ({ pedigree, score }) => {
           </div>
           <div className="mt-2.5 flex flex-wrap gap-1.5">
             <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-600">
-              {pedigree.dataCompleteness?.label ?? structure.completeness ?? "取得状況不明"}
+              {completenessLabel}
             </span>
             {crosses.length ? crosses.slice(0, 3).map((cross) => (
               <span key={`${cross.ancestor}-${cross.pattern}`} className="rounded-full border border-gray-200 px-2 py-1 text-[10px] font-medium text-gray-700">
@@ -1323,7 +1333,11 @@ const PedigreeCard = ({ pedigree, score }) => {
               </span>
             )) : (
               <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-500">
-                {pedigree.crossStatus === "none_detected" ? "4代内クロスなし" : "クロス未確定"}
+                {pedigree.crossStatus === "none_detected"
+                  ? "4代内クロスなし"
+                  : pedigree.dataCompleteness?.sourceCompleteness === "three-generation-14"
+                    ? "取得済み3代内クロスなし"
+                    : "取得範囲内クロスなし"}
               </span>
             )}
           </div>

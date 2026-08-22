@@ -84,7 +84,8 @@ test("Court Alisian-style basic pedigree remains partial and gets horse-specific
   assert.equal(v2.sireProfile.status, "curated");
   assert.deepEqual(v2.sireProfile.ancestry, ["ロードカナロア", "シーザリオ"]);
   assert.match(v2.summary, /新潟芝1600m/);
-  assert.match(v2.summary, /クロスは未確定/);
+  assert.match(v2.summary, /取得済みの基本血統/);
+  assert.equal(v2.completeness.label, "基本血統取得済み");
   assert.equal(v2.confidenceGrade, "D");
   assert.ok(v2.evidence.some((item) => item.type === "sire"));
   assert.ok(v2.evidence.some((item) => item.type === "broodmareSire"));

@@ -21,6 +21,7 @@ const ALL_RACE_SIGNALS_BACKUP_PATH = join(RUNTIME_DIR, "all-race-signals.backup.
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
+const LOCK_MAX_AGE_MS = 18 * 60 * 60 * 1_000;
 
 const args = process.argv.slice(2);
 const hasFlag = (flag) => args.includes(flag);
@@ -272,8 +273,12 @@ const main = async () => {
       let active = false;
       try {
         const lock = JSON.parse(readFileSync(LOCK_PATH, "utf8"));
-        process.kill(Number(lock.pid), 0);
-        active = true;
+        const startedAt = new Date(lock.startedAt).getTime();
+        const lockIsCurrent = Number.isFinite(startedAt) && Date.now() - startedAt <= LOCK_MAX_AGE_MS;
+        if (lockIsCurrent) {
+          process.kill(Number(lock.pid), 0);
+          active = true;
+        }
       } catch {
         active = false;
       }

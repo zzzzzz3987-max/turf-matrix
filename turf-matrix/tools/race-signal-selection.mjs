@@ -2,6 +2,7 @@ const EVIDENCE_FACTOR_KEYS = ["ability", "form", "training", "pace"];
 const VALUE_WATCH_MIN_EV = 1.15;
 const VALUE_WATCH_MAX_EV = 3.0;
 const VALUE_WATCH_MIN_GAP = 2;
+const CLEAR_LEADER_MIN_GAP = 3;
 
 const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
 const scoreOf = (horse) => horse?.tmIndex ?? horse?.aiScore ?? horse?.analysis?.tmIndex ?? null;
@@ -35,6 +36,21 @@ const evidenceOpponent = (race) => {
       || left.horse.number - right.horse.number)[0] ?? null;
 };
 
+const leaderState = (race) => {
+  const ranked = indexRanking(race);
+  const leader = ranked[0] ?? null;
+  const second = ranked[1] ?? null;
+  if (!leader) return { status: "missing", gap: null, leader: null, contenders: [] };
+  if (!second) return { status: "clear", gap: null, leader, contenders: [leader] };
+  const gap = scoreOf(leader) - scoreOf(second);
+  return {
+    status: gap >= CLEAR_LEADER_MIN_GAP ? "clear" : "contested",
+    gap,
+    leader,
+    contenders: ranked.filter((horse) => scoreOf(leader) - scoreOf(horse) < CLEAR_LEADER_MIN_GAP),
+  };
+};
+
 const valueWatch = (race, excluded = new Set()) => [...(race.horses ?? [])]
   .filter((horse) => {
     const value = valueOf(horse);
@@ -56,6 +72,7 @@ const valueWatch = (race, excluded = new Set()) => [...(race.horses ?? [])]
 
 export {
   EVIDENCE_FACTOR_KEYS,
+  CLEAR_LEADER_MIN_GAP,
   VALUE_WATCH_MAX_EV,
   VALUE_WATCH_MIN_EV,
   VALUE_WATCH_MIN_GAP,
@@ -63,6 +80,7 @@ export {
   evidenceProfile,
   horseKey,
   indexRanking,
+  leaderState,
   isFiniteNumber,
   scoreOf,
   valueOf,

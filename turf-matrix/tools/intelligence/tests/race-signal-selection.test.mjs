@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { evidenceOpponent, valueWatch } from "../../race-signal-selection.mjs";
+import { evidenceOpponent, leaderState, valueWatch } from "../../race-signal-selection.mjs";
 
 const horse = (number, tmIndex, factors, ev, marketGap = 0) => ({
   id: String(number),
@@ -45,4 +45,19 @@ test("high EV alone is separated as a value watch and never becomes opponent two
 
   assert.equal(evidenceOpponent(race).horse.number, 3);
   assert.equal(valueWatch(race, new Set(["1", "2", "3"])).number, 6);
+});
+
+test("a leader needs a three-point gap to be treated as clear", () => {
+  const closeRace = { horses: [
+    horse(1, 81, [80, 80, 80, 80], 0.5),
+    horse(2, 79, [78, 78, 78, 78], 0.8),
+  ] };
+  const clearRace = { horses: [
+    horse(1, 81, [80, 80, 80, 80], 0.5),
+    horse(2, 78, [78, 78, 78, 78], 0.8),
+  ] };
+
+  assert.equal(leaderState(closeRace).status, "contested");
+  assert.equal(leaderState(closeRace).contenders.length, 2);
+  assert.equal(leaderState(clearRace).status, "clear");
 });

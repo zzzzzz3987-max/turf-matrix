@@ -8,6 +8,7 @@ import {
   horseKey,
   indexRanking,
   isFiniteNumber,
+  leaderState,
   scoreOf,
   valueOf,
   valueWatch,
@@ -30,7 +31,7 @@ const OUTPUT = process.env.TURF_MATRIX_ALL_RACE_SIGNALS_OUT
   : join(TOOLS_DIR, "all-race-signals.json");
 
 const BATTLE_MIN_INDEX = 80;
-const BATTLE_MIN_GAP = 2;
+const BATTLE_MIN_GAP = 3;
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
 
 const compactHorse = (horse, source, selection = null) => horse ? {
@@ -52,6 +53,7 @@ const compactHorse = (horse, source, selection = null) => horse ? {
 
 const buildSignal = (race) => {
   const ranked = indexRanking(race);
+  const leadership = leaderState(race);
   const hasComparableScores = new Set(ranked.map(scoreOf)).size > 1;
   const indexTop = hasComparableScores ? ranked[0] ?? null : null;
   const indexSecond = hasComparableScores ? ranked[1] ?? null : null;
@@ -74,6 +76,8 @@ const buildSignal = (race) => {
     fieldSize: race.fieldSize,
     oddsStatus: race.oddsStatus ?? "missing",
     indexTop: compactHorse(indexTop, "index1"),
+    leaderStatus: leadership.status,
+    leaderContenders: leadership.contenders.slice(0, 3).map((horse) => compactHorse(horse, "leader-contender")),
     opponents: [
       compactHorse(indexSecond, "index2"),
       compactHorse(secondOpponent, "evidence", selectedEvidence?.profile),
@@ -139,6 +143,7 @@ try {
     thresholds: {
       battleMinIndex: BATTLE_MIN_INDEX,
       battleMinGap: BATTLE_MIN_GAP,
+      clearLeaderMinGap: BATTLE_MIN_GAP,
       opponent2Method: "index3to5-evidence",
     },
     raceCount: signals.length,

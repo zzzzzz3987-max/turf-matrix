@@ -5,8 +5,8 @@ const percentile = (rank, size) => {
   return Math.round(((size - rank) / (size - 1)) * 100);
 };
 
-const labelForGap = (rank, gapToTop) => {
-  if (rank === 1) return "Top Signal";
+const labelForGap = (rank, gapToTop, leaderGap) => {
+  if (rank === 1) return leaderGap >= 3 ? "Top Signal" : "首位圏";
   if (gapToTop <= 2) return "首位圏";
   if (gapToTop <= 5) return "上位圏";
   if (gapToTop <= 9) return "相手候補";
@@ -20,6 +20,7 @@ const calibrateRaceIntelligence = (race) => {
     .filter((horse) => Number.isFinite(horse.tmIndex))
     .sort((a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999));
   const topScore = ranked[0]?.tmIndex ?? null;
+  const leaderGap = ranked.length >= 2 ? ranked[0].tmIndex - ranked[1].tmIndex : null;
   const size = ranked.length;
 
   const rankById = new Map(
@@ -33,7 +34,7 @@ const calibrateRaceIntelligence = (race) => {
           fieldSize: size,
           percentile: percentile(rank, size),
           gapToTop,
-          label: labelForGap(rank, gapToTop ?? 99),
+          label: labelForGap(rank, gapToTop ?? 99, leaderGap ?? 99),
         },
       ];
     })

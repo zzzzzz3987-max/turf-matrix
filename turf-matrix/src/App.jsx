@@ -129,6 +129,21 @@ const rankByScore = (horses) =>
       .map((h, i) => [h.id, i + 1])
   );
 
+const leaderStateFor = (horses) => {
+  const ranked = [...(horses ?? [])]
+    .filter(isEvaluatedHorse)
+    .sort((a, b) => b.aiScore - a.aiScore || a.number - b.number);
+  const top = ranked[0] ?? null;
+  const second = ranked[1] ?? null;
+  const gap = top && second ? top.aiScore - second.aiScore : null;
+  return {
+    top,
+    second,
+    gap,
+    status: top && (!second || gap >= 3) ? "clear" : top ? "contested" : "missing",
+  };
+};
+
 /** レース単位の分析信頼度(全馬の信頼度の加重平均) */
 const raceConfidence = (horses) => {
   if (!horses?.length) return "low";
@@ -303,10 +318,17 @@ const dataProvider = {
   },
   async getRaces() {
     const list = WEEK_DATA.races.filter((r) => r.displayTarget !== false).map((r) => {
-      const top = [...r.horses].filter(isEvaluatedHorse).sort((a, b) => b.aiScore - a.aiScore)[0];
+      const leadership = leaderStateFor(r.horses);
+      const top = leadership.top;
       return {
         ...r,
         horses: undefined,
+        leaderStatus: leadership.status,
+        indexGap: leadership.gap,
+        secondHorse: leadership.second ? {
+          name: leadership.second.name,
+          aiScore: leadership.second.aiScore,
+        } : null,
         topHorse: top
           ? {
               name: top.name,
@@ -2237,6 +2259,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   const ev = race.topHorse.ev;
   const isGradedRace = race.raceType === "重賞" || race.category === "grade" || gradeScore(race.grade) > 0;
   const isTopTier = race.topHorse.available && scoreTier(race.topHorse.aiScore).label === "S";
+  const leaderLabel = race.leaderStatus === "contested" ? "TM INDEX 首位圏" : "TM INDEX 1位";
 
   return (
     <button
@@ -2284,7 +2307,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
 
         <div className="mt-4 border-t border-[#EDF0F3] pt-4">
           <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#2D7BFF]">
-            TM INDEX 1位
+            {leaderLabel}
           </span>
           <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
             {race.topHorse.available ? `${race.topHorse.name} ` : null}
@@ -2295,6 +2318,11 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
               <Num className={isValueSignal(race.topHorse.value) ? "text-[#00A9B8]" : "text-gray-500"}>
                 {" "}— EV {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 参考" : ""}
               </Num>
+            ) : null}
+            {race.leaderStatus === "contested" && race.secondHorse ? (
+              <span className="ml-2 text-[10px] font-medium text-[#94A3B8]">
+                次点 {race.secondHorse.name} <Num>{race.secondHorse.aiScore}</Num>
+              </span>
             ) : null}
           </span>
         </div>
@@ -2422,9 +2450,12 @@ const AllRaceSignalsPanel = ({ data }) => {
                           <div className="mb-1 truncate text-[9px] font-semibold text-[#94A3B8]">{race.name}</div>
                         ) : null}
                         <div className="flex min-w-0 items-baseline justify-between gap-2">
-                          <div className="truncate text-[12px] font-bold text-[#050B1E]">
+                          <div className="flex min-w-0 items-center gap-1.5 truncate text-[12px] font-bold text-[#050B1E]">
+                            {race.leaderStatus === "contested" ? (
+                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">首位圏</span>
+                            ) : null}
                             <Num className="mr-1 text-[#64748B]">{race.indexTop?.number}</Num>
-                            {race.indexTop?.name ?? "未評価"}
+                            <span className="truncate">{race.indexTop?.name ?? "未評価"}</span>
                           </div>
                           <Num className={`shrink-0 text-[14px] font-bold ${race.indexTop?.tmIndex >= 80 ? "text-[#2D7BFF]" : "text-[#050B1E]"}`}>
                             {race.indexTop?.tmIndex ?? "--"}
@@ -2449,7 +2480,7 @@ const AllRaceSignalsPanel = ({ data }) => {
         {evaluatedRaces.length ? (
           <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
             <div className="font-medium text-[#64748B]">分析データを取得できたレースのみ掲載しています。</div>
-            <div className="mt-1">相手1はTM INDEX 2位。相手2はTM INDEX 3〜5位から能力・近走・調教・展開のEvidenceで選びます。高EV馬は注目穴として分離します。</div>
+            <div className="mt-1">指数差2点以内は首位圏、3点以上は単独首位として扱います。相手1はTM INDEX 2位、相手2は3〜5位から総合Evidenceで選び、高EV馬は注目穴として分離します。</div>
           </div>
         ) : null}
       </div>
@@ -2578,10 +2609,12 @@ const HomePage = ({ onOpenRace }) => {
                 </div>
                 {featuredRace.topHorse.available ? (
                 <div className="pb-1 text-right">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">TM INDEX 1位</div>
+                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">
+                    {featuredRace.leaderStatus === "contested" ? "TM INDEX 首位圏" : "TM INDEX 1位"}
+                  </div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
-                      ? <>指数1位。市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
+                      ? <>{featuredRace.leaderStatus === "contested" ? "首位圏。" : "指数1位。"}市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
                       : "指数上位のシグナルを表示します"}
                   </div>
                 </div>

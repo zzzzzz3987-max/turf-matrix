@@ -157,6 +157,18 @@ test("race calibration adds deterministic relative ranks", () => {
   assert.ok(byName.A.analysis.verdict.evidence.some((item) => item.includes("レース内順位")));
 });
 
+test("race calibration does not call a close leader Top Signal", () => {
+  const race = calibrateRaceIntelligence({
+    id: "close-race",
+    horses: [
+      { id: "a", number: 1, name: "A", tmIndex: 80, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+      { id: "b", number: 2, name: "B", tmIndex: 78, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+    ],
+  });
+
+  assert.equal(race.horses.find((horse) => horse.id === "a").analysis.topSignal.label, "首位圏");
+});
+
 test("race calibration publishes a single consistent Value display payload", () => {
   const race = calibrateRaceIntelligence({
     id: "value-test",

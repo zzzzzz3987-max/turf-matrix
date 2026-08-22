@@ -2273,11 +2273,11 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
       <div className="relative">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="flex min-w-0 items-center gap-3">
+            <div className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2">
               <Num className="text-[17px] font-bold leading-none text-[#050B1E]">
                 {displayRaceValue(race.time, "取得待ち")}
               </Num>
-              <span className="truncate text-[16px] font-bold leading-none text-[#050B1E]">{race.name}</span>
+              <span className="min-w-0 break-words text-[16px] font-bold leading-tight text-[#050B1E]">{race.name}</span>
               {race.grade ? (
                 <span className="shrink-0 rounded-md border border-[#BFDBFE] bg-white px-2 py-0.5 text-[10px] font-bold text-[#2D7BFF]">
                   {race.grade}
@@ -2589,7 +2589,7 @@ const HomePage = ({ onOpenRace }) => {
                     {featuredRace.topHorse.available ? "TM INDEX" : "TM INDEX"}
                   </div>
                   {featuredRace.topHorse.available ? (
-                    <div className="mt-2 truncate text-[15px] font-bold leading-none text-[#050B1E]">{featuredRace.topHorse.name}</div>
+                    <div className="mt-2 break-words text-[15px] font-bold leading-tight text-[#050B1E]">{featuredRace.topHorse.name}</div>
                   ) : null}
                   <div className="mt-4 flex items-end gap-1.5">
                     {featuredRace.topHorse.available ? (

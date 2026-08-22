@@ -5,10 +5,9 @@
   "thresholds": {
     "battleMinIndex": 80,
     "battleMinGap": 2,
-    "valueMinEv": 1,
-    "valueMaxEv": 3
+    "opponent2Method": "index3to5-evidence"
   },
-  "raceCount": 31,
+  "raceCount": 36,
   "battleRaceId": null,
   "races": [
     {
@@ -28,7 +27,7 @@
         "id": "2608230112",
         "number": 12,
         "name": "ノーセット",
-        "tmIndex": 76,
+        "tmIndex": 75,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -36,17 +35,6 @@
         "source": "index1"
       },
       "opponents": [
-        {
-          "id": "2608230106",
-          "number": 6,
-          "name": "クールボビー",
-          "tmIndex": 73,
-          "popularity": null,
-          "odds": null,
-          "ev": null,
-          "marketGap": null,
-          "source": "index2"
-        },
         {
           "id": "2608230102",
           "number": 2,
@@ -56,9 +44,29 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "index2"
+        },
+        {
+          "id": "2608230106",
+          "number": 6,
+          "name": "クールボビー",
+          "tmIndex": 72,
+          "popularity": null,
+          "odds": null,
+          "ev": null,
+          "marketGap": null,
+          "source": "evidence",
+          "selectionScore": 65.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 66,
+            "form": 64,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
       "indexGap": 3
@@ -108,9 +116,18 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 73.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 75,
+            "form": 82,
+            "training": 60,
+            "pace": 77
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
       "indexGap": 1
@@ -132,7 +149,7 @@
         "id": "2608230112",
         "number": 12,
         "name": "メイショウマドンナ",
-        "tmIndex": 72,
+        "tmIndex": 73,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -141,10 +158,10 @@
       },
       "opponents": [
         {
-          "id": "2608230105",
-          "number": 5,
-          "name": "シェイプオブユー",
-          "tmIndex": 70,
+          "id": "2608230103",
+          "number": 3,
+          "name": "アイビーミャーオ",
+          "tmIndex": 71,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -152,20 +169,69 @@
           "source": "index2"
         },
         {
-          "id": "2608230103",
-          "number": 3,
-          "name": "アイビーミャーオ",
-          "tmIndex": 69,
+          "id": "2608230105",
+          "number": 5,
+          "name": "シェイプオブユー",
+          "tmIndex": 71,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 62.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 63,
+            "form": 56,
+            "training": 60,
+            "pace": 72
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
       "indexGap": 2
+    },
+    {
+      "id": "2026-08-23-新潟-2R",
+      "bundleId": "2026-08-23-niigata-02R",
+      "track": "新潟",
+      "number": 2,
+      "name": "新潟2R",
+      "grade": null,
+      "category": "race",
+      "time": "10:10",
+      "surface": "芝",
+      "distance": 2000,
+      "fieldSize": 11,
+      "oddsStatus": "preodds",
+      "indexTop": null,
+      "opponents": [],
+      "valueWatch": null,
+      "valuePending": true,
+      "topConfidence": null,
+      "indexGap": null
+    },
+    {
+      "id": "2026-08-23-中京-2R",
+      "bundleId": "2026-08-23-chukyo-02R",
+      "track": "中京",
+      "number": 2,
+      "name": "中京2R",
+      "grade": null,
+      "category": "race",
+      "time": "10:20",
+      "surface": "芝",
+      "distance": 2000,
+      "fieldSize": 8,
+      "oddsStatus": "preodds",
+      "indexTop": null,
+      "opponents": [],
+      "valueWatch": null,
+      "valuePending": true,
+      "topConfidence": null,
+      "indexGap": null
     },
     {
       "id": "2026-08-23-札幌-2R",
@@ -196,7 +262,7 @@
           "id": "2608230205",
           "number": 5,
           "name": "ティアラード",
-          "tmIndex": 75,
+          "tmIndex": 74,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -212,12 +278,61 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 69,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 69,
+            "form": 77,
+            "training": 60,
+            "pace": 70
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 1
+      "indexGap": 2
+    },
+    {
+      "id": "2026-08-23-新潟-3R",
+      "bundleId": "2026-08-23-niigata-03R",
+      "track": "新潟",
+      "number": 3,
+      "name": "新潟3R",
+      "grade": null,
+      "category": "race",
+      "time": "10:40",
+      "surface": "芝",
+      "distance": 1600,
+      "fieldSize": 12,
+      "oddsStatus": "preodds",
+      "indexTop": null,
+      "opponents": [],
+      "valueWatch": null,
+      "valuePending": true,
+      "topConfidence": null,
+      "indexGap": null
+    },
+    {
+      "id": "2026-08-23-中京-3R",
+      "bundleId": "2026-08-23-chukyo-03R",
+      "track": "中京",
+      "number": 3,
+      "name": "中京3R",
+      "grade": null,
+      "category": "race",
+      "time": "10:50",
+      "surface": "芝",
+      "distance": 1400,
+      "fieldSize": 9,
+      "oddsStatus": "preodds",
+      "indexTop": null,
+      "opponents": [],
+      "valueWatch": null,
+      "valuePending": true,
+      "topConfidence": null,
+      "indexGap": null
     },
     {
       "id": "2026-08-23-札幌-3R",
@@ -248,7 +363,7 @@
           "id": "2608230307",
           "number": 7,
           "name": "ジェイストリーク",
-          "tmIndex": 72,
+          "tmIndex": 74,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -259,17 +374,26 @@
           "id": "2608230313",
           "number": 13,
           "name": "ファイアリービート",
-          "tmIndex": 72,
+          "tmIndex": 73,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 63.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 66,
+            "form": 56,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
-      "topConfidence": "high",
-      "indexGap": 3
+      "topConfidence": "mid",
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-新潟-4R",
@@ -297,17 +421,6 @@
       },
       "opponents": [
         {
-          "id": "2608230408",
-          "number": 8,
-          "name": "ヴェロシスタ",
-          "tmIndex": 74,
-          "popularity": null,
-          "odds": null,
-          "ev": null,
-          "marketGap": null,
-          "source": "index2"
-        },
-        {
           "id": "2608230406",
           "number": 6,
           "name": "ユイハホンキダゼ",
@@ -316,12 +429,32 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "index2"
+        },
+        {
+          "id": "2608230410",
+          "number": 10,
+          "name": "ジーティーニッツァ",
+          "tmIndex": 73,
+          "popularity": null,
+          "odds": null,
+          "ev": null,
+          "marketGap": null,
+          "source": "evidence",
+          "selectionScore": 63.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 62,
+            "form": 59,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 2
+      "indexGap": 3
     },
     {
       "id": "2026-08-23-中京-4R",
@@ -340,7 +473,7 @@
         "id": "2608230402",
         "number": 2,
         "name": "グリーンゴー",
-        "tmIndex": 79,
+        "tmIndex": 78,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -363,17 +496,26 @@
           "id": "2608230408",
           "number": 8,
           "name": "クリノリキオー",
-          "tmIndex": 72,
+          "tmIndex": 73,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 61.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 63,
+            "form": 57,
+            "training": 60,
+            "pace": 67
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 1
+      "indexGap": 0
     },
     {
       "id": "2026-08-23-札幌-4R",
@@ -392,7 +534,7 @@
         "id": "2608230405",
         "number": 5,
         "name": "メイショウテンジン",
-        "tmIndex": 78,
+        "tmIndex": 77,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -404,7 +546,7 @@
           "id": "2608230410",
           "number": 10,
           "name": "リネアベルタ",
-          "tmIndex": 75,
+          "tmIndex": 77,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -412,20 +554,29 @@
           "source": "index2"
         },
         {
-          "id": "2608230403",
-          "number": 3,
-          "name": "ロジスカヤ",
+          "id": "2608230408",
+          "number": 8,
+          "name": "リアララ",
           "tmIndex": 73,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 70,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 73,
+            "form": 77,
+            "training": 60,
+            "pace": 70
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 3
+      "indexGap": 0
     },
     {
       "id": "2026-08-23-新潟-5R",
@@ -467,14 +618,23 @@
           "id": "2608230502",
           "number": 2,
           "name": "ソロンゴ",
-          "tmIndex": 76,
+          "tmIndex": 75,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 64,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 68,
+            "form": 61,
+            "training": 60,
+            "pace": 67
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
       "indexGap": 4
@@ -493,9 +653,9 @@
       "fieldSize": 11,
       "oddsStatus": "preodds",
       "indexTop": {
-        "id": "2608230501",
-        "number": 1,
-        "name": "ベルシュヴァル",
+        "id": "2608230506",
+        "number": 6,
+        "name": "ヴィスコンテッサ",
         "tmIndex": 76,
         "popularity": null,
         "odds": null,
@@ -505,10 +665,10 @@
       },
       "opponents": [
         {
-          "id": "2608230506",
-          "number": 6,
-          "name": "ヴィスコンテッサ",
-          "tmIndex": 76,
+          "id": "2608230501",
+          "number": 1,
+          "name": "ベルシュヴァル",
+          "tmIndex": 75,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -524,12 +684,41 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 65,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 69,
+            "form": 59,
+            "training": 60,
+            "pace": 72
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 0
+      "indexGap": 1
+    },
+    {
+      "id": "2026-08-23-札幌-5R",
+      "bundleId": "2026-08-23-sapporo-05R",
+      "track": "札幌",
+      "number": 5,
+      "name": "札幌5R",
+      "grade": null,
+      "category": "race",
+      "time": "12:20",
+      "surface": "芝",
+      "distance": 2000,
+      "fieldSize": 7,
+      "oddsStatus": "preodds",
+      "indexTop": null,
+      "opponents": [],
+      "valueWatch": null,
+      "valuePending": true,
+      "topConfidence": null,
+      "indexGap": null
     },
     {
       "id": "2026-08-23-札幌-6R",
@@ -545,10 +734,10 @@
       "fieldSize": 14,
       "oddsStatus": "preodds",
       "indexTop": {
-        "id": "2608230604",
-        "number": 4,
-        "name": "モノポリオ",
-        "tmIndex": 79,
+        "id": "2608230606",
+        "number": 6,
+        "name": "モルニケ",
+        "tmIndex": 81,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -557,9 +746,9 @@
       },
       "opponents": [
         {
-          "id": "2608230606",
-          "number": 6,
-          "name": "モルニケ",
+          "id": "2608230602",
+          "number": 2,
+          "name": "ルールザウェイヴ",
           "tmIndex": 79,
           "popularity": null,
           "odds": null,
@@ -568,20 +757,29 @@
           "source": "index2"
         },
         {
-          "id": "2608230602",
-          "number": 2,
-          "name": "ルールザウェイヴ",
+          "id": "2608230604",
+          "number": 4,
+          "name": "モノポリオ",
           "tmIndex": 78,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 70.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 73,
+            "form": 72,
+            "training": 60,
+            "pace": 76
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 0
+      "indexGap": 2
     },
     {
       "id": "2026-08-23-札幌-7R",
@@ -600,7 +798,7 @@
         "id": "2608230704",
         "number": 4,
         "name": "リバーソニック",
-        "tmIndex": 71,
+        "tmIndex": 73,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -609,10 +807,10 @@
       },
       "opponents": [
         {
-          "id": "2608230709",
-          "number": 9,
-          "name": "ステイアンビシャス",
-          "tmIndex": 71,
+          "id": "2608230703",
+          "number": 3,
+          "name": "タイキフィアリーベ",
+          "tmIndex": 72,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -620,20 +818,29 @@
           "source": "index2"
         },
         {
-          "id": "2608230703",
-          "number": 3,
-          "name": "タイキフィアリーベ",
-          "tmIndex": 70,
+          "id": "2608230710",
+          "number": 10,
+          "name": "ダイシンレアレア",
+          "tmIndex": 72,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 64,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 65,
+            "form": 58,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 0
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-札幌-8R",
@@ -652,7 +859,7 @@
         "id": "2608230801",
         "number": 1,
         "name": "シニャンガ",
-        "tmIndex": 78,
+        "tmIndex": 79,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -680,12 +887,21 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 68.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 69,
+            "form": 67,
+            "training": 60,
+            "pace": 77
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 0
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-札幌-9R",
@@ -707,7 +923,7 @@
         "tmIndex": 77,
         "popularity": 2,
         "odds": 5.9,
-        "ev": 0.7133033962137928,
+        "ev": 0.6629189935755201,
         "marketGap": 1,
         "source": "index1"
       },
@@ -716,28 +932,37 @@
           "id": "2608230913",
           "number": 13,
           "name": "エイシンインアウト",
-          "tmIndex": 76,
+          "tmIndex": 77,
           "popularity": 3,
           "odds": 6.1,
-          "ev": 0.672995538155295,
+          "ev": 0.6853908238662155,
           "marketGap": 1,
           "source": "index2"
         },
         {
-          "id": "2608230907",
-          "number": 7,
-          "name": "ドーギッド",
-          "tmIndex": 71,
-          "popularity": 9,
-          "odds": 20.7,
-          "ev": 1.4182931012850624,
+          "id": "2608230903",
+          "number": 3,
+          "name": "デルシエロ",
+          "tmIndex": 75,
+          "popularity": 6,
+          "odds": 12.9,
+          "ev": 1.205568601771409,
           "marketGap": 1,
-          "source": "value1"
+          "source": "evidence",
+          "selectionScore": 64.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 65,
+            "form": 61,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": false,
       "topConfidence": "high",
-      "indexGap": 1
+      "indexGap": 0
     },
     {
       "id": "2026-08-23-新潟-6R",
@@ -776,17 +1001,36 @@
           "source": "index2"
         },
         {
-          "id": "2608230615",
-          "number": 15,
-          "name": "モモンウールー",
-          "tmIndex": 75,
-          "popularity": 8,
-          "odds": 16.1,
-          "ev": 1.2215129492288372,
+          "id": "2608230605",
+          "number": 5,
+          "name": "パフ",
+          "tmIndex": 76,
+          "popularity": 6,
+          "odds": 13,
+          "ev": 1.0821360214070577,
           "marketGap": 3,
-          "source": "value1"
+          "source": "evidence",
+          "selectionScore": 67.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 65,
+            "form": 62,
+            "training": 70,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": {
+        "id": "2608230615",
+        "number": 15,
+        "name": "モモンウールー",
+        "tmIndex": 75,
+        "popularity": 8,
+        "odds": 16.1,
+        "ev": 1.2215129492288372,
+        "marketGap": 3,
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 2
@@ -811,7 +1055,7 @@
         "tmIndex": 81,
         "popularity": 3,
         "odds": 8.4,
-        "ev": 0.9209151067566456,
+        "ev": 0.9174457829718823,
         "marketGap": 2,
         "source": "index1"
       },
@@ -823,22 +1067,41 @@
           "tmIndex": 80,
           "popularity": 3,
           "odds": 8.4,
-          "ev": 0.8442175456927294,
+          "ev": 0.8410371613236409,
           "marketGap": 1,
           "source": "index2"
         },
         {
-          "id": "2608230609",
-          "number": 9,
-          "name": "オックスアイ",
-          "tmIndex": 76,
-          "popularity": 11,
-          "odds": 32.1,
-          "ev": 2.252917857307642,
-          "marketGap": 3,
-          "source": "value1"
+          "id": "2608230603",
+          "number": 3,
+          "name": "ジーティーマン",
+          "tmIndex": 78,
+          "popularity": 2,
+          "odds": 7,
+          "ev": 0.5870380467879829,
+          "marketGap": -3,
+          "source": "evidence",
+          "selectionScore": 70.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 70,
+            "form": 67,
+            "training": 73,
+            "pace": 72
+          }
         }
       ],
+      "valueWatch": {
+        "id": "2608230609",
+        "number": 9,
+        "name": "オックスアイ",
+        "tmIndex": 76,
+        "popularity": 11,
+        "odds": 32.1,
+        "ev": 2.2444305369779722,
+        "marketGap": 3,
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 1
@@ -863,7 +1126,7 @@
         "tmIndex": 78,
         "popularity": 1,
         "odds": 5.5,
-        "ev": 0.7179079477664874,
+        "ev": 0.6824901484229404,
         "marketGap": 0,
         "source": "index1"
       },
@@ -875,22 +1138,41 @@
           "tmIndex": 78,
           "popularity": 3,
           "odds": 6.7,
-          "ev": 0.8745424090973574,
+          "ev": 0.8313970898970365,
           "marketGap": 1,
           "source": "index2"
         },
         {
-          "id": "2608231004",
-          "number": 4,
-          "name": "セイントホース",
-          "tmIndex": 75,
-          "popularity": 8,
-          "odds": 13.4,
-          "ev": 1.3291607101474558,
-          "marketGap": 5,
-          "source": "value1"
+          "id": "2608231009",
+          "number": 9,
+          "name": "ヒミノエトワール",
+          "tmIndex": 74,
+          "popularity": 7,
+          "odds": 12.7,
+          "ev": 1.0901775580363902,
+          "marketGap": 3,
+          "source": "evidence",
+          "selectionScore": 64.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 67,
+            "form": 58,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": {
+        "id": "2608231004",
+        "number": 4,
+        "name": "セイントホース",
+        "tmIndex": 75,
+        "popularity": 8,
+        "odds": 13.4,
+        "ev": 1.2635869169142304,
+        "marketGap": 5,
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 0
@@ -932,17 +1214,26 @@
           "source": "index2"
         },
         {
-          "id": "2608230709",
-          "number": 9,
-          "name": "スイートアリッサム",
-          "tmIndex": 73,
-          "popularity": 6,
-          "odds": 15.7,
-          "ev": 1.5818315770512128,
+          "id": "2608230710",
+          "number": 10,
+          "name": "インカルナータ",
+          "tmIndex": 76,
+          "popularity": 4,
+          "odds": 4.8,
+          "ev": 0.6411164951709806,
           "marketGap": 0,
-          "source": "value1"
+          "source": "evidence",
+          "selectionScore": 80.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 82,
+            "form": 90,
+            "training": 73,
+            "pace": 77
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": false,
       "topConfidence": "mid",
       "indexGap": 0
@@ -984,17 +1275,26 @@
           "source": "index2"
         },
         {
-          "id": "2608230711",
-          "number": 11,
-          "name": "マリオロード",
-          "tmIndex": 68,
-          "popularity": 15,
-          "odds": 62.7,
-          "ev": 2.171298289576111,
-          "marketGap": 1,
-          "source": "value1"
+          "id": "2608230701",
+          "number": 1,
+          "name": "トリポリタニア",
+          "tmIndex": 77,
+          "popularity": 1,
+          "odds": 3.1,
+          "ev": 0.256263250492003,
+          "marketGap": -2,
+          "source": "evidence",
+          "selectionScore": 67.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 65,
+            "form": 59,
+            "training": 73,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 1
@@ -1012,30 +1312,50 @@
       "distance": 1200,
       "fieldSize": 16,
       "oddsStatus": "active",
-    "indexTop": {
-      "id": "2608231103",
-      "number": 3,
-      "name": "パンジャタワー",
-      "tmIndex": 81,
-      "popularity": 1,
-      "odds": 2.1,
-      "ev": 0.18699757267021605,
-      "marketGap": 0,
-      "source": "index1"
-    },
-    "opponents": [
-      {
-        "id": "2608231113",
-        "number": 13,
-        "name": "ロジケープ",
+      "indexTop": {
+        "id": "2608231103",
+        "number": 3,
+        "name": "パンジャタワー",
         "tmIndex": 81,
-        "popularity": 2,
-        "odds": 6.7,
-        "ev": 0.5966113032811654,
+        "popularity": 1,
+        "odds": 2.1,
+        "ev": 0.18699757267021605,
         "marketGap": 0,
-        "source": "index2"
+        "source": "index1"
       },
-      {
+      "opponents": [
+        {
+          "id": "2608231113",
+          "number": 13,
+          "name": "ロジケープ",
+          "tmIndex": 81,
+          "popularity": 2,
+          "odds": 6.7,
+          "ev": 0.5966113032811654,
+          "marketGap": 0,
+          "source": "index2"
+        },
+        {
+          "id": "2608231104",
+          "number": 4,
+          "name": "エーティーマクフィ",
+          "tmIndex": 79,
+          "popularity": 4,
+          "odds": 10,
+          "ev": 0.7474999730594056,
+          "marketGap": 0,
+          "source": "evidence",
+          "selectionScore": 70,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 73,
+            "form": 70,
+            "training": 61,
+            "pace": 76
+          }
+        }
+      ],
+      "valueWatch": {
         "id": "2608231114",
         "number": 14,
         "name": "サウンドモリアーナ",
@@ -1044,12 +1364,11 @@
         "odds": 17.4,
         "ev": 1.4203674118943717,
         "marketGap": 4,
-        "source": "value1"
-      }
-      ],
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
-    "indexGap": 0
+      "indexGap": 0
     },
     {
       "id": "2026-08-23-新潟-8R",
@@ -1071,7 +1390,7 @@
         "tmIndex": 78,
         "popularity": 2,
         "odds": 5.5,
-        "ev": 0.7026324441944267,
+        "ev": 0.6982666171584053,
         "marketGap": 1,
         "source": "index1"
       },
@@ -1083,22 +1402,31 @@
           "tmIndex": 77,
           "popularity": 3,
           "odds": 6.3,
-          "ev": 0.7353242978050085,
+          "ev": 0.7307553389900178,
           "marketGap": 1,
           "source": "index2"
         },
         {
-          "id": "2608230805",
-          "number": 5,
-          "name": "シルバーレイン",
-          "tmIndex": 73,
-          "popularity": 7,
-          "odds": 18,
-          "ev": 1.4462248419196828,
-          "marketGap": 0,
-          "source": "value1"
+          "id": "2608230812",
+          "number": 12,
+          "name": "ホウオウシェリー",
+          "tmIndex": 77,
+          "popularity": 4,
+          "odds": 8.2,
+          "ev": 0.951141869796531,
+          "marketGap": 1,
+          "source": "evidence",
+          "selectionScore": 69,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 68,
+            "form": 63,
+            "training": 68,
+            "pace": 77
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 1
@@ -1140,17 +1468,36 @@
           "source": "index2"
         },
         {
-          "id": "2608230801",
-          "number": 1,
-          "name": "リトムテール",
-          "tmIndex": 73,
-          "popularity": 13,
-          "odds": 33.4,
-          "ev": 2.01483377487949,
-          "marketGap": 5,
-          "source": "value1"
+          "id": "2608230805",
+          "number": 5,
+          "name": "サンライズブレイク",
+          "tmIndex": 76,
+          "popularity": 7,
+          "odds": 12.5,
+          "ev": 0.9996268060848684,
+          "marketGap": 2,
+          "source": "evidence",
+          "selectionScore": 68.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 64,
+            "form": 61,
+            "training": 73,
+            "pace": 76
+          }
         }
       ],
+      "valueWatch": {
+        "id": "2608230801",
+        "number": 1,
+        "name": "リトムテール",
+        "tmIndex": 73,
+        "popularity": 13,
+        "odds": 33.4,
+        "ev": 2.01483377487949,
+        "marketGap": 5,
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 2
@@ -1175,11 +1522,22 @@
         "tmIndex": 78,
         "popularity": 3,
         "odds": 8.8,
-        "ev": 1.121914629074819,
+        "ev": 1.0792035821154293,
         "marketGap": 2,
         "source": "index1"
       },
       "opponents": [
+        {
+          "id": "2608231208",
+          "number": 8,
+          "name": "ウインベラーノ",
+          "tmIndex": 77,
+          "popularity": 7,
+          "odds": 10,
+          "ev": 1.1204527926910925,
+          "marketGap": 5,
+          "source": "index2"
+        },
         {
           "id": "2608231201",
           "number": 1,
@@ -1187,25 +1545,33 @@
           "tmIndex": 76,
           "popularity": 5,
           "odds": 9.1,
-          "ev": 0.9672783298658151,
-          "marketGap": 3,
-          "source": "index2"
-        },
-        {
-          "id": "2608231214",
-          "number": 14,
-          "name": "ワザモノ",
-          "tmIndex": 76,
-          "popularity": 9,
-          "odds": 15.8,
-          "ev": 1.679450287019767,
-          "marketGap": 5,
-          "source": "value1"
+          "ev": 0.9304542533282197,
+          "marketGap": 2,
+          "source": "evidence",
+          "selectionScore": 68.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 68,
+            "form": 62,
+            "training": 69,
+            "pace": 76
+          }
         }
       ],
+      "valueWatch": {
+        "id": "2608231214",
+        "number": 14,
+        "name": "ワザモノ",
+        "tmIndex": 76,
+        "popularity": 9,
+        "odds": 15.8,
+        "ev": 1.6155139783061399,
+        "marketGap": 5,
+        "source": "valueWatch"
+      },
       "valuePending": false,
       "topConfidence": "high",
-      "indexGap": 2
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-新潟-9R",
@@ -1224,7 +1590,7 @@
         "id": "2608230915",
         "number": 15,
         "name": "ベルゼビュート",
-        "tmIndex": 79,
+        "tmIndex": 78,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -1244,20 +1610,29 @@
           "source": "index2"
         },
         {
-          "id": "2608230911",
-          "number": 11,
-          "name": "ティピティーナ",
-          "tmIndex": 75,
+          "id": "2608230903",
+          "number": 3,
+          "name": "カサブランカキッド",
+          "tmIndex": 72,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 63.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 64,
+            "form": 58,
+            "training": 60,
+            "pace": 72
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 3
+      "indexGap": 2
     },
     {
       "id": "2026-08-23-中京-9R",
@@ -1288,7 +1663,7 @@
           "id": "2608230904",
           "number": 4,
           "name": "メイショウゲキリン",
-          "tmIndex": 70,
+          "tmIndex": 69,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -1304,12 +1679,21 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 60,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 62,
+            "form": 48,
+            "training": 60,
+            "pace": 70
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
-      "topConfidence": "high",
-      "indexGap": 4
+      "topConfidence": "mid",
+      "indexGap": 5
     },
     {
       "id": "2026-08-23-新潟-10R",
@@ -1328,7 +1712,7 @@
         "id": "2608231006",
         "number": 6,
         "name": "ルーリングクラス",
-        "tmIndex": 81,
+        "tmIndex": 80,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -1351,17 +1735,26 @@
           "id": "2608231011",
           "number": 11,
           "name": "イモータリス",
-          "tmIndex": 79,
+          "tmIndex": 78,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 68.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 70,
+            "form": 71,
+            "training": 60,
+            "pace": 72
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 2
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-中京-10R",
@@ -1380,7 +1773,7 @@
         "id": "2608231012",
         "number": 12,
         "name": "メイショウナナシロ",
-        "tmIndex": 73,
+        "tmIndex": 74,
         "popularity": null,
         "odds": null,
         "ev": null,
@@ -1408,12 +1801,21 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 65,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 68,
+            "form": 62,
+            "training": 60,
+            "pace": 70
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
-      "indexGap": 0
+      "indexGap": 1
     },
     {
       "id": "2026-08-23-新潟-11R",
@@ -1444,7 +1846,7 @@
           "id": "2608231107",
           "number": 7,
           "name": "ミエノブラボー",
-          "tmIndex": 75,
+          "tmIndex": 76,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -1452,20 +1854,29 @@
           "source": "index2"
         },
         {
-          "id": "2608231117",
-          "number": 17,
-          "name": "ヨドノティアラ",
-          "tmIndex": 75,
+          "id": "2608231104",
+          "number": 4,
+          "name": "テンペストヒロイン",
+          "tmIndex": 74,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 65,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 65,
+            "form": 66,
+            "training": 60,
+            "pace": 69
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
-      "topConfidence": "high",
-      "indexGap": 3
+      "topConfidence": "mid",
+      "indexGap": 2
     },
     {
       "id": "2026-08-23-中京-11R",
@@ -1504,17 +1915,26 @@
           "source": "index2"
         },
         {
-          "id": "2608231109",
-          "number": 9,
-          "name": "メイクワンズデイ",
-          "tmIndex": 78,
+          "id": "2608231105",
+          "number": 5,
+          "name": "ペールノエル",
+          "tmIndex": 76,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 68.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 70,
+            "form": 67,
+            "training": 60,
+            "pace": 76
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
       "topConfidence": "mid",
       "indexGap": 1
@@ -1548,7 +1968,7 @@
           "id": "2608231208",
           "number": 8,
           "name": "トルネードアイル",
-          "tmIndex": 75,
+          "tmIndex": 77,
           "popularity": null,
           "odds": null,
           "ev": null,
@@ -1559,17 +1979,26 @@
           "id": "2608231203",
           "number": 3,
           "name": "フォンドルレール",
-          "tmIndex": 69,
+          "tmIndex": 70,
           "popularity": null,
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 62,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 64,
+            "form": 54,
+            "training": 60,
+            "pace": 70
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
-      "topConfidence": "high",
-      "indexGap": 2
+      "topConfidence": "mid",
+      "indexGap": 0
     },
     {
       "id": "2026-08-23-中京-12R",
@@ -1616,11 +2045,20 @@
           "odds": null,
           "ev": null,
           "marketGap": null,
-          "source": "index3"
+          "source": "evidence",
+          "selectionScore": 63.75,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 64,
+            "form": 58,
+            "training": 60,
+            "pace": 73
+          }
         }
       ],
+      "valueWatch": null,
       "valuePending": true,
-      "topConfidence": "high",
+      "topConfidence": "mid",
       "indexGap": 0
     }
   ]

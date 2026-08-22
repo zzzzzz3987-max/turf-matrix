@@ -2353,7 +2353,7 @@ const BattleRacePanel = ({ race, onOpen }) => {
                   <Num>{horse.number}</Num> {horse.name}
                 </div>
                 <div className="mt-1 text-[10px] text-[#64748B]">
-                  {horse.source === "value1" ? "VALUE 1位" : `TM INDEX ${index + 2}位`}
+                  {horse.source === "evidence" ? "総合Evidence" : `TM INDEX ${index + 2}位`}
                 </div>
               </div>
             ))}
@@ -2366,9 +2366,10 @@ const BattleRacePanel = ({ race, onOpen }) => {
               {exactaPair ? <span>馬連 <Num>{exactaPair}</Num></span> : null}
               {widePair ? <span>ワイド <Num>{widePair}</Num></span> : null}
             </div>
-            {race.valuePending ? (
+            {race.valueWatch ? (
               <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">
-                相手2は暫定INDEX 3位。オッズ取得後にVALUE 1位を再判定します。
+                注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}
+                {isFiniteNumber(race.valueWatch.ev) ? <Num> / EV {race.valueWatch.ev.toFixed(2)}</Num> : null}
               </div>
             ) : null}
           </div>
@@ -2432,6 +2433,11 @@ const AllRaceSignalsPanel = ({ data }) => {
                         <div className="mt-1 truncate text-[9px] font-medium text-[#64748B]">
                           相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
                         </div>
+                        {race.valueWatch ? (
+                          <div className="mt-0.5 truncate text-[9px] font-medium text-[#00A9B8]">
+                            注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}
+                          </div>
+                        ) : null}
                       </div>
                     </div>
                   ))}
@@ -2443,7 +2449,7 @@ const AllRaceSignalsPanel = ({ data }) => {
         {evaluatedRaces.length ? (
           <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
             <div className="font-medium text-[#64748B]">分析データを取得できたレースのみ掲載しています。</div>
-            <div className="mt-1">相手はTM INDEX 2位とVALUE 1位。オッズ取得前、または重複時はTM INDEX 3位を表示します。</div>
+            <div className="mt-1">相手1はTM INDEX 2位。相手2はTM INDEX 3〜5位から能力・近走・調教・展開のEvidenceで選びます。高EV馬は注目穴として分離します。</div>
           </div>
         ) : null}
       </div>

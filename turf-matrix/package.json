@@ -42,6 +42,7 @@
     "analyze:whatif": "node tools/analyze/normalize-what-if.mjs",
     "analyze:whatif:selective": "node tools/analyze/normalize-what-if-selective.mjs",
     "analyze:weight": "node tools/analyze/weight-effect-whatif.mjs",
+    "analyze:opponents": "node tools/analyze/opponent-selection-whatif.mjs",
     "analyze:blood:renormalize": "node tools/analyze/blood-renormalize.mjs",
     "analyze:blood:center-trait": "node tools/analyze/blood-center-trait.mjs",
     "analyze:blood:center-compat-leaf": "node tools/analyze/blood-center-compat-leaf.mjs",

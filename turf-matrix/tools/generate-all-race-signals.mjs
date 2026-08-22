@@ -3,10 +3,23 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  evidenceOpponent,
+  horseKey,
+  indexRanking,
+  isFiniteNumber,
+  scoreOf,
+  valueOf,
+  valueWatch,
+} from "./race-signal-selection.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
-const RUNTIME_CONFIG = join(TOOLS_DIR, "jvlink", "output", "race-batch-runtime.json");
+const RUNTIME_CONFIG = process.env.TURF_MATRIX_ALL_RACE_RUNTIME
+  ? (isAbsolute(process.env.TURF_MATRIX_ALL_RACE_RUNTIME)
+      ? process.env.TURF_MATRIX_ALL_RACE_RUNTIME
+      : join(REPO_ROOT, process.env.TURF_MATRIX_ALL_RACE_RUNTIME))
+  : join(TOOLS_DIR, "jvlink", "output", "race-batch-runtime.json");
 const TEMP_CONFIG = join(TOOLS_DIR, "jvlink", "output", "all-races-summary-config.json");
 const TEMP_NORMALIZED = join(TOOLS_DIR, "week-data.all-races-normalized.json");
 const TEMP_CANDIDATE = join(TOOLS_DIR, "week-data.all-races-candidate.json");
@@ -18,39 +31,9 @@ const OUTPUT = process.env.TURF_MATRIX_ALL_RACE_SIGNALS_OUT
 
 const BATTLE_MIN_INDEX = 80;
 const BATTLE_MIN_GAP = 2;
-const VALUE_MIN_EV = 1.0;
-const VALUE_MAX_EV = 3.0;
-
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
-const scoreOf = (horse) => horse?.tmIndex ?? horse?.aiScore ?? horse?.analysis?.tmIndex ?? null;
-const valueOf = (horse) => horse?.analysis?.factorsDetail?.value ?? null;
-const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);
-const horseKey = (horse) => horse?.id ?? `${horse?.number}:${horse?.name}`;
 
-const indexRanking = (race) => [...(race.horses ?? [])]
-  .filter((horse) => isFiniteNumber(scoreOf(horse)))
-  .sort((left, right) => scoreOf(right) - scoreOf(left) || left.number - right.number);
-
-const valueRanking = (race, excluded) => [...(race.horses ?? [])]
-  .filter((horse) => {
-    const value = valueOf(horse);
-    return !excluded.has(horseKey(horse))
-      && isFiniteNumber(value?.ev)
-      && value.ev >= VALUE_MIN_EV
-      && value.ev < VALUE_MAX_EV
-      && isFiniteNumber(value?.marketGap)
-      && value.marketGap >= 0;
-  })
-  .sort((left, right) => {
-    const leftValue = valueOf(left);
-    const rightValue = valueOf(right);
-    return rightValue.marketGap - leftValue.marketGap
-      || rightValue.ev - leftValue.ev
-      || scoreOf(right) - scoreOf(left)
-      || left.number - right.number;
-  });
-
-const compactHorse = (horse, source) => horse ? {
+const compactHorse = (horse, source, selection = null) => horse ? {
   id: horse.id,
   number: horse.number,
   name: horse.name,
@@ -60,6 +43,11 @@ const compactHorse = (horse, source) => horse ? {
   ev: valueOf(horse)?.ev ?? null,
   marketGap: valueOf(horse)?.marketGap ?? null,
   source,
+  ...(selection ? {
+    selectionScore: selection.score,
+    selectionCoverage: selection.coverage,
+    selectionEvidence: selection.components,
+  } : {}),
 } : null;
 
 const buildSignal = (race) => {
@@ -67,12 +55,10 @@ const buildSignal = (race) => {
   const hasComparableScores = new Set(ranked.map(scoreOf)).size > 1;
   const indexTop = hasComparableScores ? ranked[0] ?? null : null;
   const indexSecond = hasComparableScores ? ranked[1] ?? null : null;
-  const excluded = new Set([horseKey(indexTop), horseKey(indexSecond)]);
-  const valueTop = valueRanking(race, excluded)[0] ?? null;
-  const fallback = hasComparableScores
-    ? ranked.find((horse) => !excluded.has(horseKey(horse))) ?? null
-    : null;
-  const secondOpponent = valueTop ?? fallback;
+  const selectedEvidence = hasComparableScores ? evidenceOpponent(race) : null;
+  const secondOpponent = selectedEvidence?.horse ?? null;
+  const excluded = new Set([indexTop, indexSecond, secondOpponent].filter(Boolean).map(horseKey));
+  const watchHorse = valueWatch(race, excluded);
 
   return {
     id: race.id,
@@ -90,9 +76,10 @@ const buildSignal = (race) => {
     indexTop: compactHorse(indexTop, "index1"),
     opponents: [
       compactHorse(indexSecond, "index2"),
-      compactHorse(secondOpponent, valueTop ? "value1" : "index3"),
+      compactHorse(secondOpponent, "evidence", selectedEvidence?.profile),
     ].filter(Boolean),
-    valuePending: !valueTop,
+    valueWatch: compactHorse(watchHorse, "valueWatch"),
+    valuePending: race.oddsStatus !== "active",
     topConfidence: indexTop?.analysis?.confidence ?? null,
     indexGap: indexTop && indexSecond ? scoreOf(indexTop) - scoreOf(indexSecond) : null,
   };
@@ -152,8 +139,7 @@ try {
     thresholds: {
       battleMinIndex: BATTLE_MIN_INDEX,
       battleMinGap: BATTLE_MIN_GAP,
-      valueMinEv: VALUE_MIN_EV,
-      valueMaxEv: VALUE_MAX_EV,
+      opponent2Method: "index3to5-evidence",
     },
     raceCount: signals.length,
     battleRaceId: battleRace?.id ?? null,

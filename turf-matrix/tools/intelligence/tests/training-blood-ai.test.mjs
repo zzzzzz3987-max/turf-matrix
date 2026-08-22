@@ -53,6 +53,20 @@ test("Training specialist keeps missing data explicit", () => {
   assert.equal(profile.confidence, "low");
 });
 
+test("Training specialist keeps an official-video review when clock data is missing", () => {
+  const profile = buildTrainingProfile({
+    horseName: "パンジャタワー",
+    currentRace: { raceDate: "2026-08-23", stableSide: "栗東" },
+    training: { slope: [], wood: [] },
+  });
+
+  assert.equal(profile.clockScore, 50);
+  assert.equal(profile.videoReview?.adjustment, 2);
+  assert.equal(profile.score, 52);
+  assert.equal(profile.status, "partial");
+  assert.equal(profile.confidence, "low");
+});
+
 test("Training specialist does not add an unlearned stable pattern", () => {
   const profile = buildTrainingProfile({
     ...trainingHorse([slope("20260718", 51.0, 12.0)]),

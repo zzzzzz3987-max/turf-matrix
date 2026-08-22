@@ -175956,8 +175956,8 @@
               "ability": 72,
               "distance": 82,
               "lap": 79,
-              "training": 50,
-              "trainingLap": 50,
+              "training": 51,
+              "trainingLap": 51,
               "stable": 58,
               "frame": 68,
               "course": 85,
@@ -176318,13 +176318,14 @@
               "training": {
                 "key": "training",
                 "label": "調教",
-                "score": 50,
+                "score": 51,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +1: 札幌芝の併せ馬で折り合い、終い11.7秒までフォームを保ちました。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -176333,6 +176334,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ナムラクララ",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "札幌芝の併せ馬で折り合い、終い11.7秒までフォームを保ちました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -176411,8 +176429,8 @@
                   "8人気",
                   "市場の単勝示唆確率 約5.6%"
                 ],
-                "probability": 0.06524778242648739,
-                "ev": 1.1744600836767731,
+                "probability": 0.06556689858760105,
+                "ev": 1.1802041745768188,
                 "indexRank": 7,
                 "marketGap": 1,
                 "highlighted": false,
@@ -176452,12 +176470,12 @@
             "trainingEval": {
               "grade": "C",
               "oneWeek": {
-                "score": 50,
+                "score": 51,
                 "text": "調教時計は未取得です。調教面は控えめに評価します。"
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: 札幌芝の併せ馬で折り合い、終い11.7秒までフォームを保ちました。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -176471,8 +176489,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +1: 札幌芝の併せ馬で折り合い、終い11.7秒までフォームを保ちました。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ナムラクララ",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "札幌芝の併せ馬で折り合い、終い11.7秒までフォームを保ちました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -176958,8 +176994,8 @@
                 "8人気",
                 "市場の単勝示唆確率 約5.6%"
               ],
-              "probability": 0.06524778242648739,
-              "ev": 1.1744600836767731,
+              "probability": 0.06556689858760105,
+              "ev": 1.1802041745768188,
               "indexRank": 7,
               "marketGap": 1,
               "highlighted": false,
@@ -177011,10 +177047,10 @@
               },
               {
                 "key": "training",
-                "score": 50,
-                "effectiveScore": 53.7,
+                "score": 51,
+                "effectiveScore": 54.5,
                 "weight": 0.13,
-                "contribution": 7
+                "contribution": 7.1
               },
               {
                 "key": "pace",
@@ -177042,7 +177078,7 @@
               "summary": "直近は札幌ＵＨＢ賞で1着。アドマイヤマーズ × Storm Cat。父アドマイヤマーズはダイワメジャー × ヴィアメディチ。取得済み祖先からSunday Silence系を確認。瞬発力・高速馬場・中距離を父方の評価材料にします。母父Storm CatはStorm Cat系として、スピード・パワー・短距離を評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。配合・系統の条件別統計はサンプル不足です。 Confidence D。 単勝18倍・8人気をValue評価へ反映。",
               "evidence": [
                 "TM INDEX 77",
-                "近走 63 / 調教 50 / 血統 66.18826839088179 / Value 65",
+                "近走 63 / 調教 51 / 血統 66.18826839088179 / Value 65",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
                 "レース内順位 7/16位",
@@ -177666,8 +177702,8 @@
               "ability": 69,
               "distance": 86,
               "lap": 82,
-              "training": 50,
-              "trainingLap": 50,
+              "training": 51,
+              "trainingLap": 51,
               "stable": 58,
               "frame": 68,
               "course": 83,
@@ -178054,13 +178090,14 @@
               "training": {
                 "key": "training",
                 "label": "調教",
-                "score": 50,
+                "score": 51,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +1: ダートの単走でリズム良く進み、終い12.1秒まで余力を確認しました。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -178069,6 +178106,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ルシード",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "ダートの単走でリズム良く進み、終い12.1秒まで余力を確認しました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -178147,8 +178201,8 @@
                   "9人気",
                   "市場の単勝示唆確率 約5.0%"
                 ],
-                "probability": 0.06524778242648739,
-                "ev": 1.3049556485297478,
+                "probability": 0.06556689858760105,
+                "ev": 1.311337971752021,
                 "indexRank": 8,
                 "marketGap": 1,
                 "highlighted": false,
@@ -178188,12 +178242,12 @@
             "trainingEval": {
               "grade": "C",
               "oneWeek": {
-                "score": 50,
+                "score": 51,
                 "text": "調教時計は未取得です。調教面は控えめに評価します。"
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: ダートの単走でリズム良く進み、終い12.1秒まで余力を確認しました。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -178207,8 +178261,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +1: ダートの単走でリズム良く進み、終い12.1秒まで余力を確認しました。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ルシード",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "ダートの単走でリズム良く進み、終い12.1秒まで余力を確認しました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -178786,8 +178858,8 @@
                 "9人気",
                 "市場の単勝示唆確率 約5.0%"
               ],
-              "probability": 0.06524778242648739,
-              "ev": 1.3049556485297478,
+              "probability": 0.06556689858760105,
+              "ev": 1.311337971752021,
               "indexRank": 8,
               "marketGap": 1,
               "highlighted": false,
@@ -178839,10 +178911,10 @@
               },
               {
                 "key": "training",
-                "score": 50,
-                "effectiveScore": 53.7,
+                "score": 51,
+                "effectiveScore": 54.5,
                 "weight": 0.13,
-                "contribution": 7
+                "contribution": 7.1
               },
               {
                 "key": "pace",
@@ -178870,7 +178942,7 @@
               "summary": "直近は札幌ＵＨＢ賞で2着。スクリーンヒーロー × ロージズインメイ。父スクリーンヒーローはグラスワンダー × ランニングヒロイン。取得済み祖先からRoberto系を確認。急坂・道悪・持続戦を父方の評価材料にします。母父ロージズインメイはRoses in May・Devil His Due系として、ダート・パワー・持続戦を評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。ロージズインメイの保有データ全体は38走・8頭を参照。 Confidence D。 単勝20倍・9人気をValue評価へ反映。",
               "evidence": [
                 "TM INDEX 77",
-                "近走 66 / 調教 50 / 血統 62.01679383251796 / Value 66",
+                "近走 66 / 調教 51 / 血統 62.01679383251796 / Value 66",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
                 "レース内順位 8/16位",
@@ -179556,8 +179628,8 @@
               "ability": 77,
               "distance": 79,
               "lap": 84,
-              "training": 50,
-              "trainingLap": 50,
+              "training": 52,
+              "trainingLap": 52,
               "stable": 58,
               "frame": 68,
               "course": 88,
@@ -179921,13 +179993,14 @@
               "training": {
                 "key": "training",
                 "label": "調教",
-                "score": 50,
+                "score": 52,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +2: 札幌芝の単走で反応が鋭く、終い11.1秒まで推進力を維持しました。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -179936,6 +180009,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "パンジャタワー",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 2,
+                  "status": "active",
+                  "note": "札幌芝の単走で反応が鋭く、終い11.1秒まで推進力を維持しました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -180014,8 +180104,8 @@
                   "1人気",
                   "市場の単勝示唆確率 約47.6%"
                 ],
-                "probability": 0.07807649678615418,
-                "ev": 0.16396064325092377,
+                "probability": 0.07845835607701471,
+                "ev": 0.16476254776173088,
                 "indexRank": 3,
                 "marketGap": -2,
                 "highlighted": false,
@@ -180056,12 +180146,12 @@
             "trainingEval": {
               "grade": "C",
               "oneWeek": {
-                "score": 50,
+                "score": 52,
                 "text": "調教時計は未取得です。調教面は控えめに評価します。"
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: 札幌芝の単走で反応が鋭く、終い11.1秒まで推進力を維持しました。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -180075,8 +180165,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +2: 札幌芝の単走で反応が鋭く、終い11.1秒まで推進力を維持しました。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "パンジャタワー",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 2,
+                  "status": "active",
+                  "note": "札幌芝の単走で反応が鋭く、終い11.1秒まで推進力を維持しました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -180557,8 +180665,8 @@
                 "1人気",
                 "市場の単勝示唆確率 約47.6%"
               ],
-              "probability": 0.07807649678615418,
-              "ev": 0.16396064325092377,
+              "probability": 0.07845835607701471,
+              "ev": 0.16476254776173088,
               "indexRank": 3,
               "marketGap": -2,
               "highlighted": false,
@@ -180611,10 +180719,10 @@
               },
               {
                 "key": "training",
-                "score": 50,
-                "effectiveScore": 53.7,
+                "score": 52,
+                "effectiveScore": 55.3,
                 "weight": 0.13,
-                "contribution": 7
+                "contribution": 7.2
               },
               {
                 "key": "pace",
@@ -180642,7 +180750,7 @@
               "summary": "直近は東京安田記念G1で5着。タワーオブロンドン × ヴィクトワールピサ。父タワーオブロンドンはRaven's Pass × スノーパイン。父方の個別系統辞書は未照合のため、祖先構成をEvidenceとして保持し、加点は行いません。母父ヴィクトワールピサはNeo Universe系として、中距離・パワー・持続戦を評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。ヴィクトワールピサの保有データ全体は14走・6頭を参照。 Confidence D。 単勝2.1倍・1人気をValue評価へ反映。",
               "evidence": [
                 "TM INDEX 79",
-                "近走 70 / 調教 50 / 血統 62.09781499622865 / Value 52",
+                "近走 70 / 調教 52 / 血統 62.09781499622865 / Value 52",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
                 "レース内順位 3/16位",
@@ -181111,8 +181219,8 @@
               "ability": 73,
               "distance": 80,
               "lap": 85,
-              "training": 50,
-              "trainingLap": 50,
+              "training": 51,
+              "trainingLap": 51,
               "stable": 58,
               "frame": 68,
               "course": 77,
@@ -181534,13 +181642,14 @@
               "training": {
                 "key": "training",
                 "label": "調教",
-                "score": 50,
+                "score": 51,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +1: 札幌芝の単走で重心が安定し、終い11.5秒までまとまりを保ちました。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -181549,6 +181658,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "エーティーマクフィ",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "札幌芝の単走で重心が安定し、終い11.5秒までまとまりを保ちました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -181627,8 +181753,8 @@
                   "4人気",
                   "市場の単勝示唆確率 約10.0%"
                 ],
-                "probability": 0.0714155686342801,
-                "ev": 0.714155686342801,
+                "probability": 0.07176485042223966,
+                "ev": 0.7176485042223967,
                 "indexRank": 5,
                 "marketGap": -1,
                 "highlighted": false,
@@ -181669,12 +181795,12 @@
             "trainingEval": {
               "grade": "C",
               "oneWeek": {
-                "score": 50,
+                "score": 51,
                 "text": "調教時計は未取得です。調教面は控えめに評価します。"
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: 札幌芝の単走で重心が安定し、終い11.5秒までまとまりを保ちました。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -181688,8 +181814,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +1: 札幌芝の単走で重心が安定し、終い11.5秒までまとまりを保ちました。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "エーティーマクフィ",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 1,
+                  "status": "active",
+                  "note": "札幌芝の単走で重心が安定し、終い11.5秒までまとまりを保ちました。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -182352,8 +182496,8 @@
                 "4人気",
                 "市場の単勝示唆確率 約10.0%"
               ],
-              "probability": 0.0714155686342801,
-              "ev": 0.714155686342801,
+              "probability": 0.07176485042223966,
+              "ev": 0.7176485042223967,
               "indexRank": 5,
               "marketGap": -1,
               "highlighted": false,
@@ -182406,10 +182550,10 @@
               },
               {
                 "key": "training",
-                "score": 50,
-                "effectiveScore": 53.7,
+                "score": 51,
+                "effectiveScore": 54.5,
                 "weight": 0.13,
-                "contribution": 7
+                "contribution": 7.1
               },
               {
                 "key": "pace",
@@ -182437,7 +182581,7 @@
               "summary": "直近は函館函館スプリントＳG3で2着。マクフィ × ハーツクライ。父マクフィはDubawi × Dhelaal。取得済み祖先からMr. Prospector系を確認。高速馬場・平坦・短距離を父方の評価材料にします。母父ハーツクライはHeart's Cry系として、長い直線・中距離・持続戦を評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。マクフィの保有データ全体は36走・6頭を参照。 Confidence D。 単勝10倍・4人気をValue評価へ反映。",
               "evidence": [
                 "TM INDEX 78",
-                "近走 70 / 調教 50 / 血統 65.49463335396938 / Value 57",
+                "近走 70 / 調教 51 / 血統 65.49463335396938 / Value 57",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
                 "レース内順位 5/16位",
@@ -184147,8 +184291,8 @@
                   "10人気",
                   "市場の単勝示唆確率 約3.1%"
                 ],
-                "probability": 0.04491492724701562,
-                "ev": 1.4642266282527092,
+                "probability": 0.04513459876115352,
+                "ev": 1.4713879196136048,
                 "indexRank": 13,
                 "marketGap": -3,
                 "highlighted": false,
@@ -184946,8 +185090,8 @@
                 "10人気",
                 "市場の単勝示唆確率 約3.1%"
               ],
-              "probability": 0.04491492724701562,
-              "ev": 1.4642266282527092,
+              "probability": 0.04513459876115352,
+              "ev": 1.4713879196136048,
               "indexRank": 13,
               "marketGap": -3,
               "highlighted": false,
@@ -186750,11 +186894,12 @@
                 "label": "調教",
                 "score": 50,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +0: 札幌ダートの単走でリズムは安定。時計どおりの評価です。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -186763,6 +186908,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ジョーメッドヴィン",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 0,
+                  "status": "active",
+                  "note": "札幌ダートの単走でリズムは安定。時計どおりの評価です。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -186841,10 +187003,10 @@
                   "14人気",
                   "市場の単勝示唆確率 約0.9%"
                 ],
-                "probability": 0.049402931240103386,
-                "ev": 5.735680316976003,
-                "indexRank": 12,
-                "marketGap": 2,
+                "probability": 0.04964455284284316,
+                "ev": 5.763732585054091,
+                "indexRank": 11,
+                "marketGap": 3,
                 "highlighted": false,
                 "stars": 0,
                 "verdict": {
@@ -186887,7 +187049,7 @@
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: 札幌ダートの単走でリズムは安定。時計どおりの評価です。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -186901,8 +187063,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +0: 札幌ダートの単走でリズムは安定。時計どおりの評価です。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ジョーメッドヴィン",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 0,
+                  "status": "active",
+                  "note": "札幌ダートの単走でリズムは安定。時計どおりの評価です。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -187509,10 +187689,10 @@
                 "14人気",
                 "市場の単勝示唆確率 約0.9%"
               ],
-              "probability": 0.049402931240103386,
-              "ev": 5.735680316976003,
-              "indexRank": 12,
-              "marketGap": 2,
+              "probability": 0.04964455284284316,
+              "ev": 5.763732585054091,
+              "indexRank": 11,
+              "marketGap": 3,
               "highlighted": false,
               "stars": 0,
               "verdict": {
@@ -187596,20 +187776,20 @@
                 "近走 59 / 調教 50 / 血統 65 / Value 63",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
-                "レース内順位 12/16位",
+                "レース内順位 11/16位",
                 "首位との差 7"
               ]
             },
             "topSignal": {
               "status": "active",
               "label": "相手候補",
-              "summary": "ジョーメッドヴィン / TM INDEX 74 / 12/16位"
+              "summary": "ジョーメッドヴィン / TM INDEX 74 / 11/16位"
             },
             "depth": "重賞詳細",
             "relative": {
-              "rank": 12,
+              "rank": 11,
               "fieldSize": 16,
-              "percentile": 27,
+              "percentile": 33,
               "gapToTop": 7,
               "label": "相手候補"
             }
@@ -189277,8 +189457,8 @@
                   "16人気",
                   "市場の単勝示唆確率 約0.4%"
                 ],
-                "probability": 0.03697763410189602,
-                "ev": 9.222221945012867,
+                "probability": 0.03715848562209838,
+                "ev": 9.267326314151335,
                 "indexRank": 15,
                 "marketGap": 1,
                 "highlighted": false,
@@ -189981,8 +190161,8 @@
                 "16人気",
                 "市場の単勝示唆確率 約0.4%"
               ],
-              "probability": 0.03697763410189602,
-              "ev": 9.222221945012867,
+              "probability": 0.03715848562209838,
+              "ev": 9.267326314151335,
               "indexRank": 15,
               "marketGap": 1,
               "highlighted": false,
@@ -192201,8 +192381,8 @@
                   "3人気",
                   "市場の単勝示唆確率 約11.2%"
                 ],
-                "probability": 0.07807649678615418,
-                "ev": 0.6948808213967722,
+                "probability": 0.07845835607701471,
+                "ev": 0.6982793690854309,
                 "indexRank": 4,
                 "marketGap": -1,
                 "highlighted": false,
@@ -192703,8 +192883,8 @@
                 "3人気",
                 "市場の単勝示唆確率 約11.2%"
               ],
-              "probability": 0.07807649678615418,
-              "ev": 0.6948808213967722,
+              "probability": 0.07845835607701471,
+              "ev": 0.6982793690854309,
               "indexRank": 4,
               "marketGap": -1,
               "highlighted": false,
@@ -194691,8 +194871,8 @@
                   "13人気",
                   "市場の単勝示唆確率 約1.9%"
                 ],
-                "probability": 0.06524778242648739,
-                "ev": 3.4581324686038317,
+                "probability": 0.06556689858760105,
+                "ev": 3.4750456251428554,
                 "indexRank": 9,
                 "marketGap": 4,
                 "highlighted": false,
@@ -195183,8 +195363,8 @@
                 "13人気",
                 "市場の単勝示唆確率 約1.9%"
               ],
-              "probability": 0.06524778242648739,
-              "ev": 3.4581324686038317,
+              "probability": 0.06556689858760105,
+              "ev": 3.4750456251428554,
               "indexRank": 9,
               "marketGap": 4,
               "highlighted": false,
@@ -196083,7 +196263,7 @@
             "status": "active",
             "sourceStatus": "active"
           },
-          "tmIndex": 75,
+          "tmIndex": 74,
           "tmValue": 57,
           "comment": "直近は札幌ＵＨＢ賞で4着。モーリス × Holy Roman Emperor。父モーリスはスクリーンヒーロー × メジロフランシス。取得済み祖先からRoberto系を確認。急坂・道悪・持続戦を父方の評価材料にします。母父Holy Roman Emperorは個別系統辞書が未照合のため中立評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。モーリスの同馬場・距離帯は25走・8頭を参照。 Confidence D。",
           "analysis": {
@@ -196107,14 +196287,14 @@
               "ability": 70,
               "distance": 79,
               "lap": 89,
-              "training": 50,
-              "trainingLap": 50,
+              "training": 49,
+              "trainingLap": 49,
               "stable": 58,
               "frame": 64,
               "course": 74,
               "pace": 77
             },
-            "rawTmIndex": 75,
+            "rawTmIndex": 74,
             "sampleAdjustment": 0,
             "goingAdjustment": 0,
             "goingAnalysis": {
@@ -196469,13 +196649,14 @@
               "training": {
                 "key": "training",
                 "label": "調教",
-                "score": 50,
+                "score": 49,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 -1: ウッドの単走でフォームは保ったものの、終い13.2秒で反応は控えめでした。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -196484,6 +196665,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ダノンマッキンリー",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": -1,
+                  "status": "active",
+                  "note": "ウッドの単走でフォームは保ったものの、終い13.2秒で反応は控えめでした。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -196562,10 +196760,10 @@
                   "5人気",
                   "市場の単勝示唆確率 約8.1%"
                 ],
-                "probability": 0.05426996274514399,
-                "ev": 0.6675205417652712,
-                "indexRank": 11,
-                "marketGap": -6,
+                "probability": 0.04964455284284316,
+                "ev": 0.6106279999669709,
+                "indexRank": 12,
+                "marketGap": -7,
                 "highlighted": false,
                 "stars": 1,
                 "verdict": {
@@ -196580,7 +196778,7 @@
               }
             },
             "insight": [
-              "ダノンマッキンリーはTM INDEX 75。直近は札幌ＵＨＢ賞で4着です。",
+              "ダノンマッキンリーはTM INDEX 74。直近は札幌ＵＨＢ賞で4着です。",
               "血統面はモーリス × Holy Roman Emperor。父モーリスはスクリーンヒーロー × メジロフランシス。取得済み祖先からRoberto系を確認。急坂・道悪・持続戦を父方の評価材料にします。母父Holy Roman Emperorは個別系統辞書が未照合のため中立評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。モーリスの同馬場・距離帯は25走・8頭を参照。 Confidence D。",
               "調教面は調教時計は未取得です。調教面は控えめに評価します。",
               "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち 単勝12.3倍・5人気をValue評価へ反映。",
@@ -196596,7 +196794,7 @@
               "人気とオッズのバランスは過剰人気に注意。",
               "調教時計が不足。"
             ],
-            "commentary": "ダノンマッキンリーは近走、コース・距離、血統、調教、オッズ妙味を統合してTM INDEX 75と評価しました。TARGET実データに基づく初期分析です。",
+            "commentary": "ダノンマッキンリーは近走、コース・距離、血統、調教、オッズ妙味を統合してTM INDEX 74と評価しました。TARGET実データに基づく初期分析です。",
             "frameEval": {
               "score": 64,
               "text": "馬番10を補助情報として評価。枠順の高度な有利不利判定は今後拡張します。"
@@ -196604,12 +196802,12 @@
             "trainingEval": {
               "grade": "C",
               "oneWeek": {
-                "score": 50,
+                "score": 49,
                 "text": "調教時計は未取得です。調教面は控えめに評価します。"
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: ウッドの単走でフォームは保ったものの、終い13.2秒で反応は控えめでした。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -196623,8 +196821,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 -1: ウッドの単走でフォームは保ったものの、終い13.2秒で反応は控えめでした。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ダノンマッキンリー",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": -1,
+                  "status": "active",
+                  "note": "ウッドの単走でフォームは保ったものの、終い13.2秒で反応は控えめでした。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -197121,10 +197337,10 @@
                 "5人気",
                 "市場の単勝示唆確率 約8.1%"
               ],
-              "probability": 0.05426996274514399,
-              "ev": 0.6675205417652712,
-              "indexRank": 11,
-              "marketGap": -6,
+              "probability": 0.04964455284284316,
+              "ev": 0.6106279999669709,
+              "indexRank": 12,
+              "marketGap": -7,
               "highlighted": false,
               "stars": 1,
               "verdict": {
@@ -197175,10 +197391,10 @@
               },
               {
                 "key": "training",
-                "score": 50,
-                "effectiveScore": 53.7,
+                "score": 49,
+                "effectiveScore": 53,
                 "weight": 0.13,
-                "contribution": 7
+                "contribution": 6.9
               },
               {
                 "key": "pace",
@@ -197205,25 +197421,25 @@
               "label": "高評価",
               "summary": "直近は札幌ＵＨＢ賞で4着。モーリス × Holy Roman Emperor。父モーリスはスクリーンヒーロー × メジロフランシス。取得済み祖先からRoberto系を確認。急坂・道悪・持続戦を父方の評価材料にします。母父Holy Roman Emperorは個別系統辞書が未照合のため中立評価。札幌芝1200mは距離・系統特性から評価し、コース固有の明示一致は未確認。4代血統が一部取得のため、クロスは未確定です。モーリスの同馬場・距離帯は25走・8頭を参照。 Confidence D。 単勝12.3倍・5人気をValue評価へ反映。",
               "evidence": [
-                "TM INDEX 75",
-                "近走 61 / 調教 50 / 血統 62.00090426214836 / Value 57",
+                "TM INDEX 74",
+                "近走 61 / 調教 49 / 血統 62.00090426214836 / Value 57",
                 "札幌芝1200m。短距離条件として評価します。 馬場情報取得待ち",
                 "調教時計は未取得です。調教面は控えめに評価します。",
-                "レース内順位 11/16位",
-                "首位との差 6"
+                "レース内順位 12/16位",
+                "首位との差 7"
               ]
             },
             "topSignal": {
               "status": "active",
               "label": "相手候補",
-              "summary": "ダノンマッキンリー / TM INDEX 75 / 11/16位"
+              "summary": "ダノンマッキンリー / TM INDEX 74 / 12/16位"
             },
             "depth": "重賞詳細",
             "relative": {
-              "rank": 11,
+              "rank": 12,
               "fieldSize": 16,
-              "percentile": 33,
-              "gapToTop": 6,
+              "percentile": 27,
+              "gapToTop": 7,
               "label": "相手候補"
             }
           },
@@ -198487,8 +198703,8 @@
                   "12人気",
                   "市場の単勝示唆確率 約2.4%"
                 ],
-                "probability": 0.03697763410189602,
-                "ev": 1.5419673420490643,
+                "probability": 0.03715848562209838,
+                "ev": 1.5495088504415024,
                 "indexRank": 16,
                 "marketGap": -4,
                 "highlighted": false,
@@ -199360,8 +199576,8 @@
                 "12人気",
                 "市場の単勝示唆確率 約2.4%"
               ],
-              "probability": 0.03697763410189602,
-              "ev": 1.5419673420490643,
+              "probability": 0.03715848562209838,
+              "ev": 1.5495088504415024,
               "indexRank": 16,
               "marketGap": -4,
               "highlighted": false,
@@ -200627,8 +200843,8 @@
                   "15人気",
                   "市場の単勝示唆確率 約0.7%"
                 ],
-                "probability": 0.04491492724701562,
-                "ev": 6.521647436266667,
+                "probability": 0.04513459876115352,
+                "ev": 6.5535437401194905,
                 "indexRank": 14,
                 "marketGap": 1,
                 "highlighted": false,
@@ -201294,8 +201510,8 @@
                 "15人気",
                 "市場の単勝示唆確率 約0.7%"
               ],
-              "probability": 0.04491492724701562,
-              "ev": 6.521647436266667,
+              "probability": 0.04513459876115352,
+              "ev": 6.5535437401194905,
               "indexRank": 14,
               "marketGap": 1,
               "highlighted": false,
@@ -202808,8 +203024,8 @@
                   "2人気",
                   "市場の単勝示唆確率 約14.9%"
                 ],
-                "probability": 0.09300917921838824,
-                "ev": 0.6231615007632012,
+                "probability": 0.09346407180043033,
+                "ev": 0.6262092810628832,
                 "indexRank": 1,
                 "marketGap": 1,
                 "highlighted": false,
@@ -203509,8 +203725,8 @@
                 "2人気",
                 "市場の単勝示唆確率 約14.9%"
               ],
-              "probability": 0.09300917921838824,
-              "ev": 0.6231615007632012,
+              "probability": 0.09346407180043033,
+              "ev": 0.6262092810628832,
               "indexRank": 1,
               "marketGap": 1,
               "highlighted": false,
@@ -204656,8 +204872,8 @@
                   "7人気",
                   "市場の単勝示唆確率 約5.7%"
                 ],
-                "probability": 0.08526299593800893,
-                "ev": 1.4835761293213552,
+                "probability": 0.08568000321299858,
+                "ev": 1.4908320559061752,
                 "indexRank": 2,
                 "marketGap": 5,
                 "highlighted": true,
@@ -205226,8 +205442,8 @@
                 "7人気",
                 "市場の単勝示唆確率 約5.7%"
               ],
-              "probability": 0.08526299593800893,
-              "ev": 1.4835761293213552,
+              "probability": 0.08568000321299858,
+              "ev": 1.4908320559061752,
               "indexRank": 2,
               "marketGap": 5,
               "highlighted": true,
@@ -206490,8 +206706,8 @@
                   "6人気",
                   "市場の単勝示唆確率 約6.7%"
                 ],
-                "probability": 0.0714155686342801,
-                "ev": 1.0640919726507736,
+                "probability": 0.07176485042223966,
+                "ev": 1.069296271291371,
                 "indexRank": 6,
                 "marketGap": 0,
                 "highlighted": false,
@@ -207572,8 +207788,8 @@
                 "6人気",
                 "市場の単勝示唆確率 約6.7%"
               ],
-              "probability": 0.0714155686342801,
-              "ev": 1.0640919726507736,
+              "probability": 0.07176485042223966,
+              "ev": 1.069296271291371,
               "indexRank": 6,
               "marketGap": 0,
               "highlighted": false,
@@ -208572,11 +208788,12 @@
                 "label": "調教",
                 "score": 50,
                 "maxScore": 100,
-                "status": "missing",
+                "status": "partial",
                 "confidence": "low",
                 "summary": "調教時計は未取得です。調教面は控えめに評価します。",
                 "evidence": [
-                  "調教時計未取得"
+                  "調教時計未取得",
+                  "映像確認 +0: 札幌芝の単走でフォームは安定。時計評価を据え置きます。"
                 ],
                 "components": {
                   "phaseQuality": 50,
@@ -208585,6 +208802,23 @@
                   "volume": 50,
                   "freshness": 50,
                   "stablePattern": 50
+                },
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ロードフォアエース",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 0,
+                  "status": "active",
+                  "note": "札幌芝の単走でフォームは安定。時計評価を据え置きます。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
                 }
               },
               "course": {
@@ -208663,8 +208897,8 @@
                   "11人気",
                   "市場の単勝示唆確率 約2.6%"
                 ],
-                "probability": 0.05954233004020153,
-                "ev": 2.3340593375759,
+                "probability": 0.05983354177306923,
+                "ev": 2.345474837504314,
                 "indexRank": 10,
                 "marketGap": 1,
                 "highlighted": false,
@@ -208709,7 +208943,7 @@
               },
               "final": {
                 "status": "未取得",
-                "text": "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。"
+                "text": "最終追い切りの時計は未取得ですが、公式映像確認: 札幌芝の単走でフォームは安定。時計評価を据え置きます。。映像評価のみを限定的に反映します。"
               },
               "stablePattern": {
                 "match": false,
@@ -208723,8 +208957,26 @@
                 "fastFinish": 0,
                 "accelCount": 0,
                 "strengths": [
-                  "調教時計未取得"
-                ]
+                  "調教時計未取得",
+                  "映像確認 +0: 札幌芝の単走でフォームは安定。時計評価を据え置きます。"
+                ],
+                "videoReview": {
+                  "raceDate": "2026-08-23",
+                  "horseName": "ロードフォアエース",
+                  "phase": "final",
+                  "videoDate": "2026-08-19",
+                  "adjustment": 0,
+                  "status": "active",
+                  "note": "札幌芝の単走でフォームは安定。時計評価を据え置きます。",
+                  "source": "JRA Racing Viewer",
+                  "dimensions": [
+                    "rhythm",
+                    "straightness",
+                    "response",
+                    "finish",
+                    "balance"
+                  ]
+                }
               }
             },
             "pedigree": {
@@ -209355,8 +209607,8 @@
                 "11人気",
                 "市場の単勝示唆確率 約2.6%"
               ],
-              "probability": 0.05954233004020153,
-              "ev": 2.3340593375759,
+              "probability": 0.05983354177306923,
+              "ev": 2.345474837504314,
               "indexRank": 10,
               "marketGap": 1,
               "highlighted": false,

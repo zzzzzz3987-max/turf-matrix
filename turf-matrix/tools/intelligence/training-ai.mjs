@@ -241,6 +241,7 @@ const matchStablePattern = (horse, sessions, phaseRepresentatives) => {
 const buildTrainingProfile = (horse) => {
   const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
   const raceDate = horse.currentRace?.raceDate;
+  const videoReview = findVideoReview(horse);
   const sessions = collectTrainingSessions(horse)
     .map((session) => {
       const date = toDate(session.date);
@@ -256,12 +257,15 @@ const buildTrainingProfile = (horse) => {
     .sort((a, b) => b.dateValue - a.dateValue);
 
   if (!sessions.length) {
+    const score = clamp(50 + (videoReview?.adjustment ?? 0));
     return {
-      score: 50,
-      lapScore: 50,
+      score,
+      clockScore: 50,
+      lapScore: score,
       confidence: "low",
-      status: "missing",
+      status: videoReview ? "partial" : "missing",
       sessions,
+      videoReview,
       phaseRepresentatives: {},
       stablePattern: {
         status: "DB未登録",
@@ -313,7 +317,6 @@ const buildTrainingProfile = (horse) => {
   const stablePattern = matchStablePattern(horse, sessions, phaseRepresentatives);
   const goodRunComparison = buildGoodRunComparison(horse, sessions, phaseQuality);
   const clockScore = clamp(baseScore + stablePattern.adjustment + goodRunComparison.adjustment);
-  const videoReview = findVideoReview(horse);
   const score = clamp(clockScore + (videoReview?.adjustment ?? 0));
   const accelCount = recent28.filter((session) => {
     const values = lapValues(session.lap);
@@ -357,14 +360,21 @@ const buildTrainingAnalysis = (horse) => {
   const sessions = profile.sessions;
 
   if (!sessions.length) {
+    const videoEvidence = profile.videoReview
+      ? `公式映像確認: ${profile.videoReview.note}`
+      : null;
     return {
       ...profile,
       grade: "C",
       count: 0,
-      summary: "調教時計は未取得です。調教面は強く評価せず、近走・血統・オッズを中心に見ます。",
-      finalText: "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。",
+      summary: videoEvidence
+        ? `調教時計は未取得です。${videoEvidence}。時計を推測せず、映像評価のみを限定的に反映します。`
+        : "調教時計は未取得です。調教面は強く評価せず、近走・血統・オッズを中心に見ます。",
+      finalText: videoEvidence
+        ? `最終追い切りの時計は未取得ですが、${videoEvidence}。映像評価のみを限定的に反映します。`
+        : "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。",
       patternText: "調教パターンは未判定です。",
-      strengths: ["調教時計未取得"],
+      strengths: ["調教時計未取得", ...(profile.videoReview ? [`映像確認 ${profile.videoReview.adjustment >= 0 ? "+" : ""}${profile.videoReview.adjustment}: ${profile.videoReview.note}`] : [])],
     };
   }
 

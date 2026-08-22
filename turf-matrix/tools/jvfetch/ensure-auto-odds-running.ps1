@@ -5,6 +5,7 @@ param(
 $ErrorActionPreference = "Stop"
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $WeekDataPath = Join-Path $RepoRoot "tools\week-data.json"
+$AllRaceSignalsPath = Join-Path $RepoRoot "tools\all-race-signals.json"
 $RuntimeDir = Join-Path $RepoRoot "tools\pad-runtime"
 $UpdaterStatePath = Join-Path $RuntimeDir "odds-auto-update-state.json"
 $WatchdogStatePath = Join-Path $RuntimeDir "odds-watchdog-state.json"
@@ -41,7 +42,15 @@ if ($raceDate -ne $today) {
   exit 0
 }
 
-$races = @($week.races | ForEach-Object {
+$scheduleSource = @($week.races)
+if (Test-Path -LiteralPath $AllRaceSignalsPath) {
+  $allRaceSignals = Get-Content -LiteralPath $AllRaceSignalsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+  if ([string]$allRaceSignals.date -eq $raceDate -and @($allRaceSignals.races).Count -gt 0) {
+    $scheduleSource = @($allRaceSignals.races)
+  }
+}
+
+$races = @($scheduleSource | ForEach-Object {
   $postTime = [DateTimeOffset]::Parse("$raceDate`T$($_.time):00+09:00")
   [PSCustomObject]@{
     Id = [string]$_.id

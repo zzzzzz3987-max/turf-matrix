@@ -4,6 +4,7 @@ import { trainingThreshold } from "./dictionaries/training-thresholds.mjs";
 const require = createRequire(import.meta.url);
 const STABLE_PATTERNS = require("../../data/master/stables.json");
 const VIDEO_REVIEWS = require("../../data/master/training-video-reviews.json");
+const TRAINING_NEUTRAL_SCORE = 60;
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 const normalizeKey = (value) => String(value ?? "").normalize("NFKC").replace(/\s+/g, "").trim();
 const MAX_VIDEO_ADJUSTMENT = Number(VIDEO_REVIEWS.policy?.maxAdjustment ?? 2);
@@ -257,10 +258,10 @@ const buildTrainingProfile = (horse) => {
     .sort((a, b) => b.dateValue - a.dateValue);
 
   if (!sessions.length) {
-    const score = clamp(50 + (videoReview?.adjustment ?? 0));
+    const score = clamp(TRAINING_NEUTRAL_SCORE + (videoReview?.adjustment ?? 0));
     return {
       score,
-      clockScore: 50,
+      clockScore: TRAINING_NEUTRAL_SCORE,
       lapScore: score,
       confidence: "low",
       status: videoReview ? "partial" : "missing",
@@ -276,7 +277,14 @@ const buildTrainingProfile = (horse) => {
         hitRate: null,
         text: "調教データ未取得のため厩舎パターンを照合できません。",
       },
-      components: { phaseQuality: 50, recentBest: 50, consistency: 50, volume: 50, freshness: 50, stablePattern: 50 },
+      components: {
+        phaseQuality: TRAINING_NEUTRAL_SCORE,
+        recentBest: TRAINING_NEUTRAL_SCORE,
+        consistency: TRAINING_NEUTRAL_SCORE,
+        volume: TRAINING_NEUTRAL_SCORE,
+        freshness: TRAINING_NEUTRAL_SCORE,
+        stablePattern: TRAINING_NEUTRAL_SCORE,
+      },
     };
   }
 

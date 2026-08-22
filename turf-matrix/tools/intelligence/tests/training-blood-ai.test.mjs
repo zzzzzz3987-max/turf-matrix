@@ -48,7 +48,7 @@ test("Training specialist does not let a stale best clock dominate current prepa
 
 test("Training specialist keeps missing data explicit", () => {
   const profile = buildTrainingProfile(trainingHorse([]));
-  assert.equal(profile.score, 50);
+  assert.equal(profile.score, 60);
   assert.equal(profile.status, "missing");
   assert.equal(profile.confidence, "low");
 });
@@ -60,9 +60,9 @@ test("Training specialist keeps an official-video review when clock data is miss
     training: { slope: [], wood: [] },
   });
 
-  assert.equal(profile.clockScore, 50);
+  assert.equal(profile.clockScore, 60);
   assert.equal(profile.videoReview?.adjustment, 2);
-  assert.equal(profile.score, 52);
+  assert.equal(profile.score, 62);
   assert.equal(profile.status, "partial");
   assert.equal(profile.confidence, "low");
 });

@@ -18,6 +18,10 @@ const CANDIDATE_BACKUP_PATH = join(RUNTIME_DIR, "week-data.batch-candidate.backu
 const ALL_RACE_SIGNALS_PATH = join(TOOLS_DIR, "all-race-signals.json");
 const ALL_RACE_SIGNALS_NEXT_PATH = join(RUNTIME_DIR, "all-race-signals.next.json");
 const ALL_RACE_SIGNALS_BACKUP_PATH = join(RUNTIME_DIR, "all-race-signals.backup.json");
+const ALL_RACE_RUNTIME_CANDIDATES = [
+  join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"),
+  join(TOOLS_DIR, "jvlink", "output", "race-batch-all36.json"),
+];
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
@@ -131,6 +135,15 @@ const latestOddsCandidate = (notBefore) => {
   return candidates[0];
 };
 
+const resolveAllRaceRuntime = (raceDate) => {
+  for (const path of ALL_RACE_RUNTIME_CANDIDATES) {
+    if (!existsSync(path)) continue;
+    const runtime = readJson(path, null);
+    if (runtime?.raceDate === raceDate && (runtime.bundles?.length ?? 0) >= 30) return path;
+  }
+  throw new Error(`Full-card runtime config is unavailable for ${raceDate}`);
+};
+
 const assertCleanTrackedTree = (git) => {
   const result = run(git, ["status", "--porcelain", "--untracked-files=no"], { quiet: true });
   if (result.stdout.trim()) throw new Error(`Tracked changes exist before automatic publish:\n${result.stdout.trim()}`);
@@ -142,11 +155,16 @@ const assertCleanTrackedTree = (git) => {
 };
 
 const generateAndPublish = (git, commitMessage) => {
+  const raceDate = readJson(WEEK_DATA_PATH, null)?.meta?.date;
+  const allRaceRuntime = resolveAllRaceRuntime(raceDate);
   const candidateExisted = existsSync(CANDIDATE_PATH);
   if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
   if (existsSync(ALL_RACE_SIGNALS_PATH)) copyFileSync(ALL_RACE_SIGNALS_PATH, ALL_RACE_SIGNALS_BACKUP_PATH);
   runNodeWithEnv(
-    { TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH },
+    {
+      TURF_MATRIX_ALL_RACE_RUNTIME: allRaceRuntime,
+      TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH,
+    },
     "tools/generate-all-race-signals.mjs",
   );
   copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);

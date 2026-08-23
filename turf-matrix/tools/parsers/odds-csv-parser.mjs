@@ -100,15 +100,23 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
     errors.push(`horseNumber must be 1-${expectedFieldSize}: ${horseNumbers.join(", ")}`);
   }
   const orderedByOdds = [...entries].sort((a, b) => a.winOdds - b.winOdds || a.horseNumber - b.horseNumber);
-  let expectedPopularity = 0;
-  let previousOdds = null;
-  orderedByOdds.forEach((entry, index) => {
-    if (previousOdds !== entry.winOdds) expectedPopularity = index + 1;
-    if (entry.popularity !== expectedPopularity) {
-      errors.push(`horse ${entry.horseNumber}: popularity ${entry.popularity} does not match odds rank ${expectedPopularity}`);
+  let groupStart = 0;
+  while (groupStart < orderedByOdds.length) {
+    let groupEnd = groupStart;
+    while (groupEnd + 1 < orderedByOdds.length && orderedByOdds[groupEnd + 1].winOdds === orderedByOdds[groupStart].winOdds) {
+      groupEnd += 1;
     }
-    previousOdds = entry.winOdds;
-  });
+    const minimumRank = groupStart + 1;
+    const maximumRank = groupEnd + 1;
+    for (let index = groupStart; index <= groupEnd; index += 1) {
+      const entry = orderedByOdds[index];
+      if (entry.popularity < minimumRank || entry.popularity > maximumRank) {
+        const expectedRank = minimumRank === maximumRank ? `${minimumRank}` : `${minimumRank}-${maximumRank}`;
+        errors.push(`horse ${entry.horseNumber}: popularity ${entry.popularity} does not match odds rank ${expectedRank}`);
+      }
+    }
+    groupStart = groupEnd + 1;
+  }
   if (orderedByOdds.some((entry) => entry.popularity < 1 || entry.popularity > expectedFieldSize)) {
     errors.push(`popularity must be within 1-${expectedFieldSize}`);
   }

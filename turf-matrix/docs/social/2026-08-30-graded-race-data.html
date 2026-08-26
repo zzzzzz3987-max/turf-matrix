@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TURF MATRIX 重賞データ分析</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 1536px; height: 1024px; margin: 0; overflow: hidden; }
+    body { background: #fafafa; color: #0a1021; font-family: "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", sans-serif; letter-spacing: 0; }
+    .page { width: 1536px; height: 1024px; padding: 20px 20px 14px; }
+    .brandbar { height: 56px; display: grid; grid-template-columns: 150px 1fr 150px; align-items: center; border-bottom: 2px solid #102b62; }
+    .tm-mark { font: italic 900 40px/1 Arial, sans-serif; color: #0b2b67; }
+    .brand { text-align: center; }
+    .brand h1 { margin: 0; font: 800 34px/1 Arial, sans-serif; letter-spacing: 2px; }
+    .brand p { margin: 4px 0 0; font: 700 11px/1 Consolas, monospace; letter-spacing: 4px; }
+    .edition { text-align: right; color: #64748b; font: 700 11px/1.5 Consolas, monospace; }
+    .races { height: 886px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 12px; }
+    .race { --accent: #1557a3; min-width: 0; border: 1px solid #7d8ca5; background: #fff; border-radius: 3px; overflow: hidden; }
+    .race.red { --accent: #c9183f; }
+    .race-head { height: 148px; display: grid; grid-template-columns: 190px 1fr 205px; gap: 12px; padding: 16px 16px 12px; border-bottom: 2px solid var(--accent); }
+    .track-badge { display: inline-block; padding: 7px 13px; border-radius: 3px; background: var(--accent); color: #fff; font: 800 12px/1 Arial, sans-serif; letter-spacing: .5px; }
+    .track-map { position: relative; width: 160px; height: 64px; margin: 11px auto 0; border: 8px solid #6aa57b; border-radius: 50%; box-shadow: inset 0 0 0 3px #d9e7db; }
+    .red .track-map { border-color: #ce294b; box-shadow: inset 0 0 0 3px #f4d7dd; }
+    .track-map::after { content: ""; position: absolute; left: 26px; right: 26px; top: 25px; height: 1px; background: #9aa8bd; }
+    .track-map span { position: absolute; z-index: 1; inset: 20px 0 auto; text-align: center; font: 800 15px/1 Consolas, monospace; }
+    .straight { margin-top: 5px; text-align: center; color: #40516c; font-size: 11px; font-weight: 700; }
+    .race-title { padding-top: 28px; }
+    .race-title h2 { margin: 0; font-size: 28px; line-height: 1.15; white-space: nowrap; }
+    .grade { display: inline-block; margin-left: 8px; padding: 7px 10px; border-radius: 3px; background: var(--accent); color: #fff; font: 800 14px/1 Consolas, monospace; vertical-align: 4px; }
+    .condition { margin-top: 13px; color: #1e3865; font-size: 15px; font-weight: 800; }
+    .insight { align-self: center; min-height: 88px; padding: 12px; border: 1px solid #ccd4e0; border-radius: 4px; }
+    .insight b { color: var(--accent); font-size: 13px; }
+    .insight p { margin: 8px 0 0; color: #22324e; font-size: 12px; line-height: 1.55; font-weight: 700; }
+    .section-title { margin: 0; color: var(--accent); font-size: 17px; font-weight: 900; }
+    .keys { height: 170px; padding: 10px 10px 0; border-bottom: 1px solid #7d8ca5; }
+    .key-grid { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: 8px; }
+    .key { min-width: 0; height: 123px; padding: 5px 7px; text-align: center; border-right: 1px solid #d9dee7; }
+    .key:last-child { border-right: 0; }
+    .key-icon { width: 34px; height: 34px; margin: 0 auto 6px; display: grid; place-items: center; border: 3px solid var(--accent); border-radius: 50%; color: var(--accent); font: 900 15px/1 Arial, sans-serif; }
+    .key strong { display: block; min-height: 31px; font-size: 11px; line-height: 1.35; }
+    .key .metric { display: block; margin-top: 4px; color: var(--accent); font: 900 13px/1.25 Consolas, monospace; }
+    .key small { display: block; margin-top: 5px; color: #5c6879; font-size: 9px; line-height: 1.35; }
+    .data-zone { height: 380px; display: grid; grid-template-columns: 59% 41%; border-bottom: 1px solid #7d8ca5; }
+    .blood, .stats { padding: 10px 12px; min-width: 0; }
+    .blood { border-right: 1px solid #7d8ca5; }
+    .subhead { margin: 0 0 7px; color: var(--accent); font-size: 16px; font-weight: 900; }
+    .subhead span { color: #38465d; font-size: 10px; font-weight: 700; }
+    .signal-card { margin-bottom: 7px; padding: 8px 9px; border: 1px solid #d8dee8; border-left: 3px solid var(--accent); border-radius: 4px; }
+    .signal-card strong { display: block; font-size: 12px; }
+    .signal-card p { margin: 3px 0 0; color: #48566b; font-size: 10px; line-height: 1.45; font-weight: 700; }
+    .blood-table, .mini-table { width: 100%; border-collapse: collapse; }
+    .blood-table th, .blood-table td { padding: 5px 5px; border-bottom: 1px solid #e4e8ee; text-align: left; font-size: 9px; line-height: 1.3; }
+    .blood-table th { color: #56647a; font-weight: 800; }
+    .blood-table td:first-child { color: var(--accent); font-weight: 900; }
+    .stats-block { margin-bottom: 9px; }
+    .stats-block h4 { margin: 0 0 4px; color: var(--accent); font-size: 11px; }
+    .mini-table td { padding: 3px 4px; font-size: 9px; line-height: 1.2; }
+    .mini-table td:nth-child(2) { text-align: right; font-family: Consolas, monospace; }
+    .mini-table td:last-child { text-align: right; color: #1b4f32; font-weight: 900; }
+    .highlight td { background: #eef6df; }
+    .takeaway { height: 58px; display: grid; grid-template-columns: 142px 1fr; align-items: center; padding: 8px 13px; border-bottom: 1px solid #7d8ca5; }
+    .takeaway b { color: var(--accent); font: 900 13px/1 Consolas, monospace; }
+    .takeaway p { margin: 0; font-size: 11px; line-height: 1.45; font-weight: 800; }
+    .bottom { height: 116px; display: grid; grid-template-columns: 59% 41%; }
+    .candidates, .market { padding: 10px 13px; }
+    .candidates { border-right: 1px solid #d9dee7; }
+    .bottom h4 { margin: 0 0 6px; color: #32425a; font-size: 11px; }
+    .candidate { margin: 4px 0; font-size: 10px; font-weight: 800; }
+    .candidate span { color: var(--accent); }
+    .market p { margin: 4px 0 0; color: #27364d; font-size: 10px; line-height: 1.5; font-weight: 800; }
+    .footer { height: 35px; display: flex; align-items: end; justify-content: space-between; color: #69768b; font-size: 9px; }
+    .footer strong { color: #0b2b67; font: 900 12px/1 Arial, sans-serif; }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="brandbar"><div class="tm-mark">TM</div><div class="brand"><h1>TURF MATRIX</h1><p>RACE INTELLIGENCE PLATFORM</p></div><div class="edition">08.30<br>DATA EDITION</div></header>
+    <div class="races">
+      <section class="race">
+        <div class="race-head">
+          <div><span class="track-badge">新潟 NIIGATA</span><div class="track-map"><span>2000m</span></div><div class="straight">直線 658.7m / 外回り</div></div>
+          <div class="race-title"><h2>新潟記念 <span class="grade">GIII</span></h2><div class="condition">新潟8R｜芝2000m・外｜別定｜15:45</div></div>
+          <div class="insight"><b>RACE INSIGHT</b><p>2コーナーだけの独特な外回り。3角まで約950m、直線はJRA最長658.7m。位置取りと仕掛けの精度が問われる。</p></div>
+        </div>
+        <div class="keys">
+          <h3 class="section-title">好走の鍵</h3>
+          <div class="key-grid">
+            <div class="key"><div class="key-icon">P</div><strong>2番人気が強い</strong><span class="metric">勝率50.0%</span><small>5-0-1-4<br>3着内率60.0%</small></div>
+            <div class="key"><div class="key-icon">A</div><strong>若い世代が中心</strong><span class="metric">22 / 30頭</span><small>3〜5歳が<br>3着内の73.3%</small></div>
+            <div class="key"><div class="key-icon">F</div><strong>近年は外枠優勢</strong><span class="metric">1-2枠 0/19</span><small>2020年以降<br>3着内ゼロ</small></div>
+            <div class="key"><div class="key-icon">J</div><strong>継続騎乗を評価</strong><span class="metric">30.4%</span><small>乗り替わりは<br>3着内率12.5%</small></div>
+            <div class="key"><div class="key-icon">M</div><strong>中位人気も圏内</strong><span class="metric">11 / 30頭</span><small>6〜10番人気が<br>3着内へ進出</small></div>
+            <div class="key"><div class="key-icon">C</div><strong>長い直線の持続戦</strong><span class="metric">658.7m</span><small>瞬発力だけでなく<br>長く脚を使う力</small></div>
+          </div>
+        </div>
+        <div class="data-zone">
+          <div class="blood">
+            <h3 class="subhead">血統シグナル <span>登録馬の今回条件との接点</span></h3>
+            <div class="signal-card"><strong>長い直線での末脚持続</strong><p>サンデー系の反応速度だけでなく、母系に欧州スタミナや米国持続力を持つ配合を重視。</p></div>
+            <div class="signal-card"><strong>外回り2000mは「軽さ＋底力」</strong><p>道中で消耗しにくい柔軟性と、直線で止まらない持続力の両立がポイント。</p></div>
+            <table class="blood-table"><thead><tr><th>登録馬</th><th>父 × 母父</th><th>血統上の接点</th></tr></thead><tbody>
+              <tr><td>アーバンシック</td><td>スワーヴリチャード × ハービンジャー</td><td>末脚持続＋欧州スタミナ</td></tr>
+              <tr><td>ダノンシーマ</td><td>キタサンブラック × Include</td><td>中距離持続＋米国底力</td></tr>
+              <tr><td>ドゥレッツァ</td><td>ドゥラメンテ × More Than Ready</td><td>Kingmambo系＋Halo速度</td></tr>
+              <tr><td>チェルヴィニア</td><td>ハービンジャー × キングカメハメハ</td><td>欧州持続＋芝中距離速度</td></tr>
+            </tbody></table>
+          </div>
+          <div class="stats">
+            <div class="stats-block"><h4>人気別成績（過去10年）</h4><table class="mini-table"><tr><td>1番人気</td><td>1-3-1-5</td><td>3着内50.0%</td></tr><tr class="highlight"><td>2番人気</td><td>5-0-1-4</td><td>3着内60.0%</td></tr><tr><td>3番人気</td><td>0-3-1-6</td><td>3着内40.0%</td></tr><tr><td>6〜10番人気</td><td>3-4-4-39</td><td>3着内22.0%</td></tr></table></div>
+            <div class="stats-block"><h4>年齢別成績（過去10年）</h4><table class="mini-table"><tr class="highlight"><td>3歳</td><td>2-1-1-4</td><td>3着内50.0%</td></tr><tr><td>4歳</td><td>3-3-3-26</td><td>3着内25.7%</td></tr><tr><td>5歳</td><td>3-3-3-45</td><td>3着内16.7%</td></tr><tr><td>6歳以上</td><td>2-3-3-55</td><td>3着内12.7%</td></tr></table></div>
+            <div class="stats-block"><h4>近6年の枠傾向</h4><table class="mini-table"><tr><td>1〜2枠</td><td>0-0-0-19</td><td>3着内0%</td></tr><tr><td>3〜5枠</td><td>3-1-2-27</td><td>3着内18.2%</td></tr><tr class="highlight"><td>6〜8枠</td><td>3-5-4-30</td><td>3着内28.6%</td></tr></table></div>
+            <div class="stats-block"><h4>騎手継続</h4><table class="mini-table"><tr class="highlight"><td>前走と同じ騎手</td><td>7-6-4-39</td><td>3着内30.4%</td></tr><tr><td>乗り替わり</td><td>3-4-6-91</td><td>3着内12.5%</td></tr></table></div>
+          </div>
+        </div>
+        <div class="takeaway"><b>KEY TAKEAWAY</b><p>2番人気 × 3〜5歳 × 近年の外枠 × 継続騎乗。2025年から別定戦のため、旧来の「軽ハンデ穴狙い」は更新が必要。</p></div>
+        <div class="bottom"><div class="candidates"><h4>登録段階の血統照合（出走確定前）</h4><div class="candidate"><span>◎</span> アーバンシック　末脚持続と母系スタミナ</div><div class="candidate"><span>○</span> ダノンシーマ　中距離持続と米国的底力</div><div class="candidate"><span>△</span> ドゥレッツァ　外回り向きの可動域と速度</div></div><div class="market"><h4>レース構造メモ</h4><p>1番人気より2番人気の勝率が高い一方、6〜10番人気も11頭が3着内。軸の信頼と相手の広さを分けて考える。</p></div></div>
+      </section>
+
+      <section class="race red">
+        <div class="race-head">
+          <div><span class="track-badge">中京 CHUKYO</span><div class="track-map"><span>1400m</span></div><div class="straight">直線 412.5m / 左回り</div></div>
+          <div class="race-title"><h2>中京2歳S <span class="grade">GIII</span></h2><div class="condition">中京7R｜芝1400m｜2歳・馬齢｜15:35</div></div>
+          <div class="insight"><b>RACE INSIGHT</b><p>下りが長くオーバーペースになりやすい。直線は急坂を上ってさらに約240m。速さだけでなく減速耐性が必要。</p></div>
+        </div>
+        <div class="keys">
+          <h3 class="section-title">好走の鍵</h3>
+          <div class="key-grid">
+            <div class="key"><div class="key-icon">P</div><strong>勝ち馬は人気圏</strong><span class="metric">6番人気以内</span><small>過去10年の<br>勝ち馬10/10頭</small></div>
+            <div class="key"><div class="key-icon">W</div><strong>前走の勝ち方</strong><span class="metric">0.6〜0.9秒差</span><small>3着内率<br>46.2%</small></div>
+            <div class="key"><div class="key-icon">M</div><strong>前走1番人気</strong><span class="metric">35.4%</span><small>前走3人気以下は<br>勝率1.9%</small></div>
+            <div class="key"><div class="key-icon">S</div><strong>牡馬が優勢</strong><span class="metric">29.2%</span><small>牝馬の3着内率は<br>16.9%</small></div>
+            <div class="key"><div class="key-icon">H</div><strong>下って急坂へ</strong><span class="metric">高低差2.0m</span><small>早仕掛けで<br>止まりやすい</small></div>
+            <div class="key"><div class="key-icon">L</div><strong>長い直線</strong><span class="metric">412.5m</span><small>差しも届く<br>持続力勝負</small></div>
+          </div>
+        </div>
+        <div class="data-zone">
+          <div class="blood">
+            <h3 class="subhead">血統シグナル <span>登録馬の今回条件との接点</span></h3>
+            <div class="signal-card"><strong>2歳1400mは「先行力＋減速耐性」</strong><p>短距離速度だけでなく、長い下りで脚を使った後に急坂を越える持続力を重視。</p></div>
+            <div class="signal-card"><strong>母父の補強が重要</strong><p>父がスプリント型でも、母父にSunday Silence系やKingmambo系を持つ配合は直線の粘りを補いやすい。</p></div>
+            <table class="blood-table"><thead><tr><th>登録馬</th><th>父 × 母父</th><th>血統上の接点</th></tr></thead><tbody>
+              <tr><td>マルモリムソウ</td><td>ビッグアーサー × ディープインパクト</td><td>短距離速度＋終いの補強</td></tr>
+              <tr><td>ジーティーマイカ</td><td>シスキン × ダイワメジャー</td><td>早期速度＋持続力</td></tr>
+              <tr><td>サンタンジェロ</td><td>エピファネイア × キングカメハメハ</td><td>Roberto底力＋Kingmambo速度</td></tr>
+              <tr><td>ブルーチップ</td><td>ファインニードル × Shamardal</td><td>スプリント速度＋Storm Catパワー</td></tr>
+            </tbody></table>
+          </div>
+          <div class="stats">
+            <div class="stats-block"><h4>人気別成績（過去10年）</h4><table class="mini-table"><tr><td>1番人気</td><td>2-2-0-6</td><td>3着内40.0%</td></tr><tr class="highlight"><td>3番人気</td><td>3-1-1-5</td><td>3着内50.0%</td></tr><tr><td>4番人気</td><td>2-0-3-5</td><td>3着内50.0%</td></tr><tr><td>7番人気以下</td><td>0-4-4-62</td><td>勝率0%</td></tr></table></div>
+            <div class="stats-block"><h4>前走の勝ち方</h4><table class="mini-table"><tr><td>1.0秒以上勝ち</td><td>0-2-1-3</td><td>3着内50.0%</td></tr><tr class="highlight"><td>0.6〜0.9秒勝ち</td><td>3-2-1-7</td><td>3着内46.2%</td></tr><tr><td>0.3〜0.5秒勝ち</td><td>2-1-2-20</td><td>3着内20.0%</td></tr><tr><td>2着以下</td><td>0-2-1-26</td><td>3着内10.3%</td></tr></table></div>
+            <div class="stats-block"><h4>前走人気</h4><table class="mini-table"><tr class="highlight"><td>1番人気</td><td>6-6-5-31</td><td>3着内35.4%</td></tr><tr><td>2番人気</td><td>3-0-2-25</td><td>3着内16.7%</td></tr><tr><td>3番人気以下</td><td>1-4-3-44</td><td>勝率1.9%</td></tr></table></div>
+            <div class="stats-block"><h4>性別成績</h4><table class="mini-table"><tr class="highlight"><td>牡馬</td><td>7-6-6-46</td><td>3着内29.2%</td></tr><tr><td>牝馬</td><td>3-4-4-54</td><td>3着内16.9%</td></tr></table></div>
+          </div>
+        </div>
+        <div class="takeaway"><b>KEY TAKEAWAY</b><p>6番人気以内 × 前走1番人気 × 勝ち方の質 × 急坂まで脚を残せる血統。7番人気以下は勝ち切りより相手候補。</p></div>
+        <div class="bottom"><div class="candidates"><h4>登録段階の血統照合（出走確定前）</h4><div class="candidate"><span>◎</span> マルモリムソウ　短距離速度に終いを補強</div><div class="candidate"><span>○</span> ジーティーマイカ　早熟性と持続力の両立</div><div class="candidate"><span>△</span> ブルーチップ　速度とパワーの1400m型</div></div><div class="market"><h4>レース構造メモ</h4><p>現条件は2025年開始。過去10年の大半は旧小倉2歳Sのため、人気・前走内容は使えてもコース傾向は別評価。</p></div></div>
+      </section>
+    </div>
+    <footer class="footer"><div>出典：JRA「今週の注目レース」過去10年集計・歴史/コース｜登録馬情報は2026年8月26日時点（変更可能性あり）</div><strong>TURF MATRIX</strong></footer>
+  </main>
+</body>
+</html>

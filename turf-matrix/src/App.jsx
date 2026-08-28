@@ -441,7 +441,7 @@ const FACTOR_DEFS = [
   { key: "pedigree", label: "血統", icon: Dna, derived: true },
   { key: "training", label: "調教", icon: Dumbbell },
   { key: "trainingLap", label: "調教ラップ", icon: Timer },
-  { key: "stable", label: "厩舎パターン", icon: Home },
+  { key: "stable", label: "厩舎", icon: Home },
   { key: "frame", label: "枠順", icon: LayoutGrid },
 ];
 
@@ -1268,16 +1268,15 @@ const PedigreeCard = ({ pedigree, score }) => {
     : sourceCompleteness === "basic-4-line"
       ? "基本血統取得済み"
       : pedigree?.dataCompleteness?.label ?? structure.completeness ?? "取得状況不明";
-  const pedigreeHeadline = (pedigree?.headline
-    ?? "4代血統から父系・母系・母父・牝系を分解し、距離適性や持続力の補助評価に接続。")
-    .replace("コース固有の明示一致は未確認。", "コース固有の血統ルールは未登録です。")
-    .replace("4代血統が一部取得のため、クロスは未確定です。", "取得済みの基本血統では重複祖先なし。4代目以降は未取得です。");
+  const pedigreeHeadline = pedigree?.headline
+    ?? "父系・母系・母父・牝系を分解し、今回条件との血統適性を評価。";
   const bloodComponents = [
     { key: "sireTrait", label: "父" },
     { key: "broodmareSire", label: "母父" },
     { key: "distanceFit", label: "距離" },
     { key: "courseFit", label: "コース" },
   ];
+  const visibleBloodComponents = bloodComponents.filter((item) => Number.isFinite(componentDetails[item.key]?.score));
   const strengthLabel = (score) => (score >= 86 ? "強み" : score >= 76 ? "標準以上" : "補助材料");
   const focusScores = [
     { key: "stamina", label: "スタミナ" },
@@ -1333,37 +1332,24 @@ const PedigreeCard = ({ pedigree, score }) => {
             <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-600">
               {completenessLabel}
             </span>
-            {crosses.length ? crosses.slice(0, 3).map((cross) => (
+            {crosses.slice(0, 3).map((cross) => (
               <span key={`${cross.ancestor}-${cross.pattern}`} className="rounded-full border border-gray-200 px-2 py-1 text-[10px] font-medium text-gray-700">
                 {cross.ancestor} {cross.pattern}
               </span>
-            )) : (
-              <span className="rounded-full border border-gray-200 px-2 py-1 text-[10px] text-gray-500">
-                {pedigree.crossStatus === "none_detected"
-                  ? "4代内クロスなし"
-                  : pedigree.dataCompleteness?.sourceCompleteness === "three-generation-14"
-                    ? "取得済み3代内クロスなし"
-                    : "取得範囲内クロスなし"}
-              </span>
-            )}
+            ))}
           </div>
         </div>
       ) : null}
 
-      {bloodComponents.some((item) => componentDetails[item.key]) ? (
+      {visibleBloodComponents.length ? (
         <div className="mt-3 grid grid-cols-2 gap-2">
-          {bloodComponents.map((item) => {
+          {visibleBloodComponents.map((item) => {
             const detail = componentDetails[item.key];
-            if (!detail) return null;
             return (
               <div key={item.key} className="rounded-lg border border-gray-200 bg-white px-3 py-2.5">
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="text-[10px] font-semibold text-gray-500">{item.label}</span>
-                  {Number.isFinite(detail.score) ? (
-                    <Num className={`text-[13px] font-semibold ${scoreTone(detail.score)}`}>{displayFactorScore(detail.score)}</Num>
-                  ) : (
-                    <span className="text-[10px] text-gray-400">未判定</span>
-                  )}
+                  <Num className={`text-[13px] font-semibold ${scoreTone(detail.score)}`}>{displayFactorScore(detail.score)}</Num>
                 </div>
                 <p className="mt-1 text-[10px] leading-relaxed text-gray-500">{detail.label}</p>
               </div>

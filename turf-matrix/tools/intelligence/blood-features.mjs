@@ -295,19 +295,13 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
     .filter(Boolean).join("");
   const matchText = profile.courseMatches.length || profile.femaleCourseMatches.length
     ? `${condition || "今回条件"}への明示的な血統適合を確認。`
-    : `${condition || "今回条件"}は距離・系統特性から評価。コース固有の血統ルールは未登録です。`;
+    : `${condition || "今回条件"}は距離・系統特性から評価。`;
   const crossText = crosses.length
     ? `${crosses.slice(0, 2).map((cross) => `${cross.ancestor} ${cross.pattern}`).join("、")}を検出。`
-    : completeness.status === "complete"
-      ? "4代内に父母両側の重複祖先は検出されていません。"
-      : completeness.sourceCompleteness === "three-generation-14"
-        ? "取得済みの3代相当（14祖先）では重複祖先なし。4代目以降は未取得です。"
-        : completeness.sourceCompleteness === "basic-4-line"
-          ? "取得済みの基本血統では重複祖先なし。4代目以降は未取得です。"
-        : "取得範囲内では重複祖先なし。未取得世代は判定対象外です。";
+    : "";
   const statisticText = bestStatistic
     ? `${bestStatistic.name}の${bestStatistic.scope}は${bestStatistic.sampleSize}走・${bestStatistic.uniqueHorseCount}頭を参照。`
-    : "配合・系統の条件別統計はサンプル不足です。";
+    : "";
   const profileAdjustmentText = profile.individualProfileEvidence.length
     ? `個別プロフィール適合 ${profile.individualProfileAdjustment >= 0 ? "+" : ""}${profile.individualProfileAdjustment.toFixed(1)}点。`
     : "";

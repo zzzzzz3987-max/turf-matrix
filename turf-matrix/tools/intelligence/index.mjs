@@ -6,7 +6,7 @@ import { buildVerdictPayload } from "./verdict-engine.mjs";
 import { scoreZi, scoreRecentForm, buildFormAnalysis, buildAbilityAnalysis } from "./form-ai.mjs";
 import { scoreDistance, scoreCourse, buildCourseAnalysis } from "./course-ai.mjs";
 import { scoreLap, scorePace, buildPaceAnalysis, buildRacePaceScenario } from "./pace-ai.mjs";
-import { scoreStable, frameScore } from "./support-ai.mjs";
+import { buildStableAnalysis, frameScore } from "./support-ai.mjs";
 import { calculateTmIndex, buildIndexContributions } from "./tm-index-engine.mjs";
 import { buildRaceContext } from "./race-context.mjs";
 import { assessDataQuality } from "./data-quality-ai.mjs";
@@ -64,7 +64,8 @@ const buildAnalysis = (horse, suppliedContext) => {
   const baseIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
   const value = scoreValue(horse, ability, baseIndex);
   const valueAnalysis = buildValueAnalysis(horse, value);
-  const stable = scoreStable(horse);
+  const stableAnalysis = buildStableAnalysis(horse, trainingAnalysis);
+  const stable = stableAnalysis.score;
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
   const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
@@ -108,6 +109,7 @@ const buildAnalysis = (horse, suppliedContext) => {
     courseAnalysis,
     paceAnalysis,
     valueAnalysis,
+    stableAnalysis,
     indexContributions,
     dataQuality,
   });

@@ -59,6 +59,7 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
   const sameCourse = runs.filter((run) => run.course === currentCourse);
   const nearDistance = runs.filter((run) => distanceFit(run.distance, currentDistance) >= 84);
   const sameSurface = runs.filter((run) => run.surface === horse.currentRace?.surface);
+  const surfaceLabel = String(horse.currentRace?.surface ?? context?.surface ?? "").startsWith("ダ") ? "ダート" : "芝";
   const bestCourse = [...sameCourse].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
   const bestDistance = [...nearDistance].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
 
@@ -71,11 +72,11 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
     distanceScore,
     grade,
     status: runs.length ? "active" : "missing",
-    summary: `${context?.profile ? `${context.profile}: ` : ""}${context?.summary ?? "今回条件"} 過去走からコース形態、距離、馬場カテゴリの噛み合いを評価。`,
+    summary: `${context?.profile ? `${context.profile}: ` : ""}${context?.summary ?? "今回条件"} 過去走からコース形態、距離、同じ${surfaceLabel}条件の噛み合いを評価。`,
     strengths: [
       sameCourse.length ? `${currentCourse}実績 ${sameCourse.length}走` : `${currentCourse ?? "今回コース"}の直接実績は限定的`,
       nearDistance.length ? `${currentDistance}m前後の経験 ${nearDistance.length}走` : "今回距離に近い経験は限定的",
-      sameSurface.length ? `同馬場カテゴリ ${sameSurface.length}走` : "同馬場カテゴリの実績は限定的",
+      sameSurface.length ? `同じ${surfaceLabel}条件 ${sameSurface.length}走` : `同じ${surfaceLabel}条件の実績は限定的`,
     ],
     evidence: [
       bestCourse ? `同コース材料: ${bestCourse.raceName ?? "過去走"} ${bestCourse.finishPosition ?? "-"}着` : "同コース材料は未取得",

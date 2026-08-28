@@ -34,6 +34,7 @@
     "review:blood:graded": "node tools/learn/review-registration-blood.mjs",
     "approve:blood": "node tools/learn/promote-blood-aptitude.mjs --confirm",
     "learn:stables": "node tools/learn/extract-stable-patterns.mjs",
+    "import:stables:history": "node tools/learn/import-jv-stable-history.mjs",
     "approve:stables": "node tools/learn/promote-stable-patterns.mjs --confirm",
     "verify:data-integrity": "node tools/verify-data-integrity.mjs",
     "verify:odds": "node tools/verify-odds.mjs",

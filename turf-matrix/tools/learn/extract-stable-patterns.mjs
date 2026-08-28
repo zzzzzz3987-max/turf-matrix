@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { dirname, join, resolve } from "node:path";
 import { buildTrainingProfile } from "../intelligence/training-ai.mjs";
 import { parseCsvRows } from "../parsers/parser-contract.mjs";
+import { DEFAULT_LEARNING_OPTIONS, learnStablePatterns, trainingPhaseSnapshot } from "./stable-pattern-learning.mjs";
 
 const args = process.argv.slice(2);
 const valueAfter = (flag, fallback) => {
@@ -10,7 +11,18 @@ const valueAfter = (flag, fallback) => {
 };
 const archiveDir = resolve(valueAfter("--archive", "data/archive"));
 const outputPath = resolve(valueAfter("--output", "tools/jvlink/output/stables.learned.json"));
-const minimumSampleSize = 20;
+const historyPath = resolve(valueAfter("--observations", "tools/jvlink/output/stable-history-observations.json"));
+const numberAfter = (flag, fallback) => {
+  const value = Number(valueAfter(flag, fallback));
+  return Number.isFinite(value) ? value : fallback;
+};
+const learningOptions = {
+  ...DEFAULT_LEARNING_OPTIONS,
+  minimumStableSampleSize: numberAfter("--minimum-stable-sample", DEFAULT_LEARNING_OPTIONS.minimumStableSampleSize),
+  minimumPatternSampleSize: numberAfter("--minimum-pattern-sample", DEFAULT_LEARNING_OPTIONS.minimumPatternSampleSize),
+  priorWeight: numberAfter("--prior-weight", DEFAULT_LEARNING_OPTIONS.priorWeight),
+  validationFraction: numberAfter("--validation-fraction", DEFAULT_LEARNING_OPTIONS.validationFraction),
+};
 
 const files = existsSync(archiveDir)
   ? readdirSync(archiveDir).filter((name) => name.endsWith(".json")).map((name) => join(archiveDir, name))
@@ -51,7 +63,8 @@ if (existsSync(archiveDir)) {
     }
   }
 }
-const examples = [];
+const observationsByKey = new Map();
+let duplicateRows = 0;
 
 for (const file of files) {
   const payload = JSON.parse(readFileSync(file, "utf8"));
@@ -79,77 +92,91 @@ for (const file of files) {
       if (!trainer) continue;
       const profile = buildTrainingProfile(horse);
       if (!profile.sessions.length) continue;
-      const representative = profile.phaseRepresentatives.oneWeek ?? profile.phaseRepresentatives.final;
-      if (!representative) continue;
-      const laps = [representative.lap?.lap4, representative.lap?.lap3, representative.lap?.lap2, representative.lap?.lap1]
-        .filter(Number.isFinite);
-      examples.push({
+      const phases = Object.fromEntries(
+        ["oneWeek", "final"]
+          .map((phase) => [phase, trainingPhaseSnapshot(profile.phaseRepresentatives[phase])])
+          .filter(([, value]) => value)
+      );
+      if (!Object.keys(phases).length) continue;
+      const raceIdentity = race.bundleId ?? [
+        race.date ?? payload.meta?.date ?? payload.date,
+        normalize(race.course ?? race.venue),
+        Number(race.raceNo ?? race.number),
+      ].join("|");
+      const observationKey = [
+        raceIdentity,
+        Number(horse.number ?? horse.horseNumber),
+        normalize(horse.name ?? horse.horseName),
+      ].join("|");
+      const observation = {
+        id: observationKey,
+        dedupeKey: [
+          horse.currentRace?.raceDate ?? race.date ?? payload.meta?.date ?? payload.date ?? "",
+          normalize(horse.name ?? horse.horseName),
+        ].join("|"),
         trainer,
         trainingCenter: horse.currentRace?.stableSide ?? horse.stableSide ?? null,
+        raceDate: horse.currentRace?.raceDate ?? race.date ?? payload.meta?.date ?? payload.date ?? null,
+        finish,
         placed: finish <= 3,
-        phase: representative.phase,
-        course: representative.type === "wood" ? representative.course ?? "wood" : "slope",
-        time4F: representative.f4,
-        last1F: representative.f1,
-        accel: laps.length >= 2 && laps.at(-1) <= laps.at(-2),
         count: profile.sessions.length,
-      });
+        phases,
+        sourceFile: file,
+      };
+      const storageKey = observation.dedupeKey || observationKey;
+      const current = observationsByKey.get(storageKey);
+      if (current) duplicateRows += 1;
+      if (!current || Object.keys(observation.phases).length > Object.keys(current.phases).length || observation.count > current.count) {
+        observationsByKey.set(storageKey, observation);
+      }
     }
   }
 }
-
-const percentile = (values, ratio) => {
-  const sorted = values.filter(Number.isFinite).sort((a, b) => a - b);
-  if (!sorted.length) return null;
-  return sorted[Math.min(sorted.length - 1, Math.floor((sorted.length - 1) * ratio))];
-};
-const groups = new Map();
-for (const example of examples) {
-  if (!groups.has(example.trainer)) groups.set(example.trainer, []);
-  groups.get(example.trainer).push(example);
+let historicalObservationCount = 0;
+if (existsSync(historyPath)) {
+  const history = JSON.parse(readFileSync(historyPath, "utf8"));
+  for (const observation of history.observations ?? []) {
+    if (!observation?.id || !observation.trainer || !observation.phases) continue;
+    historicalObservationCount += 1;
+    const storageKey = observation.dedupeKey || observation.id;
+    const current = observationsByKey.get(storageKey);
+    if (current) duplicateRows += 1;
+    if (!current || Object.keys(observation.phases).length > Object.keys(current.phases).length || Number(observation.count ?? 0) > Number(current.count ?? 0)) {
+      observationsByKey.set(storageKey, observation);
+    }
+  }
 }
-
-const stables = [];
-for (const [name, values] of groups) {
-  if (values.length < minimumSampleSize) continue;
-  const placed = values.filter((value) => value.placed);
-  if (placed.length < 5) continue;
-  const courseCounts = placed.reduce((counts, value) => {
-    counts[value.course] = (counts[value.course] ?? 0) + 1;
-    return counts;
-  }, {});
-  const primaryCourse = Object.entries(courseCounts).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0]?.[0];
-  const hitRate = placed.length / values.length;
-  stables.push({
-    name,
-    trainingCenter: values.find((value) => value.trainingCenter)?.trainingCenter ?? null,
-    winningPattern: {
-      phase: "oneWeek",
-      course: primaryCourse ? [primaryCourse] : [],
-      time4FMax: percentile(placed.map((value) => value.time4F), 0.65),
-      last1FMax: percentile(placed.map((value) => value.last1F), 0.65),
-      accel: placed.filter((value) => value.accel).length / placed.length >= 0.6,
-      minCount: Math.max(1, Math.round(percentile(placed.map((value) => value.count), 0.35) ?? 1)),
-    },
-    signaturePhrase: `一週前${primaryCourse ?? "調教"}を軸にした好走時パターン`,
-    sampleSize: values.length,
-    placedCount: placed.length,
-    hitRate: Number(hitRate.toFixed(4)),
-    source: "learned",
-    confidence: values.length >= 50 ? "high" : "mid",
-  });
-}
+const observations = [...observationsByKey.values()];
+const learned = learnStablePatterns(observations, learningOptions);
 
 const output = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   status: "learned",
-  source: "data/archive reviewed races",
+  source: "JV-Link RACE/SLOP/WOOD history and reviewed archives",
   archiveFiles: files.length,
   resultRows: resultLookup.size,
   resultJsonRows: resultByBundleHorse.size,
-  reviewedExamples: examples.length,
-  minimumSampleSize,
-  stables: stables.sort((a, b) => a.name.localeCompare(b.name, "ja")),
+  reviewedExamples: observations.length,
+  archiveObservationCount: observations.length - historicalObservationCount,
+  historicalObservationCount,
+  historyPath: existsSync(historyPath) ? historyPath : null,
+  duplicateRowsRemoved: duplicateRows,
+  uniqueTrainerCount: learned.diagnostics.length,
+  minimumSampleSize: learningOptions.minimumStableSampleSize,
+  minimumPatternSampleSize: learningOptions.minimumPatternSampleSize,
+  learningPolicy: {
+    comparison: "同一厩舎の全出走を基準に、パターン合致時の収縮後複勝率を比較",
+    phasePolicy: "一週前と最終追い切りを分離",
+    priorWeight: learningOptions.priorWeight,
+    validationFraction: learningOptions.validationFraction,
+    minimumAdjustedLift: learningOptions.minimumAdjustedLift,
+    minimumValidationMatches: learningOptions.minimumValidationMatches,
+    minimumValidationLift: learningOptions.minimumValidationLift,
+    productionWrite: false,
+  },
+  stables: learned.stables,
+  candidates: learned.candidates,
+  diagnostics: learned.diagnostics,
 };
 mkdirSync(dirname(outputPath), { recursive: true });
 writeFileSync(outputPath, `${JSON.stringify(output, null, 2)}\n`, "utf8");
@@ -158,7 +185,15 @@ console.log(JSON.stringify({
   archiveFiles: files.length,
   resultRows: resultLookup.size,
   resultJsonRows: resultByBundleHorse.size,
-  reviewedExamples: examples.length,
+  reviewedExamples: observations.length,
+  historicalObservationCount,
+  duplicateRowsRemoved: duplicateRows,
+  uniqueTrainerCount: learned.diagnostics.length,
+  eligibleTrainerCount: learned.candidates.length,
   learnedStableCount: output.stables.length,
-  note: examples.length ? null : "着順付き調教アーカイブがないため、承認候補は生成されていません。",
+  note: observations.length
+    ? output.stables.length
+      ? "対照比較と時系列検証を通過した候補だけをstablesへ出力しました。masterは未変更です。"
+      : "最低サンプル・対照比較・時系列検証をすべて通過した候補はありません。masterは未変更です。"
+    : "着順付き調教アーカイブがないため、承認候補は生成されていません。",
 }, null, 2));

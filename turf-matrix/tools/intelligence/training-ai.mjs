@@ -224,17 +224,34 @@ const matchStablePattern = (horse, sessions, phaseRepresentatives) => {
   }
   if (Number.isFinite(pattern.minCount)) criteria.push(sessions.length >= pattern.minCount);
   const degree = criteria.length ? criteria.filter(Boolean).length / criteria.length : 0;
-  const learnedIsEligible = stable.source !== "learned" || stable.sampleSize >= 20;
-  const adjustment = learnedIsEligible && degree >= 0.6 ? Math.round(degree * 5) : 0;
+  const learnedIsEligible = stable.source !== "learned" || (
+    stable.accepted === true &&
+    stable.sampleSize >= 20 &&
+    (stable.matchSampleSize ?? 0) >= 8 &&
+    stable.validation?.status === "passed" &&
+    Number(stable.adjustedLift) > 0
+  );
+  const learnedLift = Number(stable.adjustedLift);
+  const liftStrength = stable.source === "learned" && Number.isFinite(learnedLift)
+    ? Math.max(0.5, Math.min(1, learnedLift / 0.15))
+    : 1;
+  const adjustment = learnedIsEligible && degree >= 0.6 ? Math.round(degree * 5 * liftStrength) : 0;
+  const evidenceSampleSize = stable.matchSampleSize ?? stable.sampleSize ?? 0;
+  const evidenceRate = stable.adjustedHitRate ?? stable.hitRate ?? null;
+  const baselineText = Number.isFinite(stable.baselineHitRate)
+    ? `、厩舎基準${(stable.baselineHitRate * 100).toFixed(1)}%`
+    : "";
   return {
     status: learnedIsEligible ? "照合済" : "サンプル不足",
     match: learnedIsEligible && degree === 1,
     degree: Number(degree.toFixed(2)),
     adjustment,
-    sampleSize: stable.sampleSize ?? 0,
-    hitRate: stable.hitRate ?? null,
+    sampleSize: evidenceSampleSize,
+    hitRate: evidenceRate,
+    baselineHitRate: stable.baselineHitRate ?? null,
+    adjustedLift: stable.adjustedLift ?? null,
     text: learnedIsEligible
-      ? `${stable.signaturePhrase}への合致度${Math.round(degree * 100)}%${stable.sampleSize ? `（複勝率${(stable.hitRate * 100).toFixed(1)}%、n=${stable.sampleSize}）` : ""}`
+      ? `${stable.signaturePhrase}への合致度${Math.round(degree * 100)}%${evidenceSampleSize && Number.isFinite(evidenceRate) ? `（収縮後複勝率${(evidenceRate * 100).toFixed(1)}%、n=${evidenceSampleSize}${baselineText}）` : ""}`
       : `${stable.signaturePhrase}はサンプル不足のため参考扱いです。`,
   };
 };

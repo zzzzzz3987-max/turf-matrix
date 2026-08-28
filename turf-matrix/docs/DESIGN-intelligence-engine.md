@@ -150,11 +150,11 @@
 - **運用ルール(30分厳守)**: 手入力は必須にしない。「featuredRaceに出た厩舎だけ、AI提案(§Stage3)を承認して週2-3件追記」を**任意タスク**に。全厩舎手入力は禁止。
 
 **Stage 3 — AIによる勝負調教パターン抽出(学習構造・本設計の主眼):**
-- **教師データ**: `data/archive/*.json`(週次week-data全体)に、後日 `raw.review`(着順)を追記して蓄積。1年で約3,000〜4,000頭分。
+- **教師データ**: JV-Linkの `RACE / SLOP / WOOD` 履歴を主軸とし、`data/archive/*.json` に後日追記された `raw.review`(着順)も重複排除して併用する。
 - **抽出ジョブ(オフライン `tools/learn/extract-stable-patterns.mjs`・実行は月1回など任意)**:
-  1. archiveを横断し (調教師 × sessionsの特徴量: phase/コース/4F/終い1F/加速/併せ/本数) を集計。
-  2. 各厩舎で「複勝圏内だった時に共通する調教特徴」を度数・複勝率で抽出(最低sampleSize閾値、例20)。
-  3. 閾値を超えたパターンを `winningPattern`(sampleSize/hitRate付き)として **stables.learned.json** に書き出す。
+  1. archiveを横断し、同一レース・同一馬の複数スナップショットを除外して (調教師 × sessionsの特徴量: phase/コース/4F/終い1F/加速/併せ/本数) を集計。一週前と最終追い切りは混ぜない。
+  2. 各厩舎で「複勝圏内だった時に共通する」だけでなく、同厩舎の全出走時を基準にパターン合致時の複勝率が改善するかを比較する。少数例は厩舎基準へ収縮する。
+  3. 時系列の後半を検証区間として分離し、最低厩舎sampleSize・最低パターンsampleSize・正の収縮後lift・検証区間での正のliftをすべて満たしたパターンだけを `winningPattern` として **stables.learned.json** に書き出す。
   4. 人間は差分を見て承認したものを `stables.json` にmerge(**自動書き換え禁止**・commit=承認)。
 - **実行時**: 学習済みwinningPatternを**決定的に照合するだけ**(重い集計はオフライン)。→ 30分運用を壊さない。
 - **将来**: LLMを「抽出結果の自然言語要約(signaturePhrase生成)」に限定使用(実行時ではなくオフライン)。

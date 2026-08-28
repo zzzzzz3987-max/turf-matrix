@@ -1,5 +1,199 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "status": "approved",
-  "stables": []
+  "source": "JV-Link RACE/SLOP/WOOD history and reviewed archives",
+  "approval": {
+    "minimumSampleSize": 20,
+    "minimumPatternSampleSize": 8,
+    "note": "重複排除済みの着順付き調教アーカイブから生成し、対照比較と時系列検証を通過した候補だけを明示承認。"
+  },
+  "stables": [
+    {
+      "name": "高野友和",
+      "trainingCenter": "栗東",
+      "sampleSize": 57,
+      "placedCount": 15,
+      "baselineHitRate": 0.2632,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-23"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "slope"
+        ],
+        "last1FMax": 12.4,
+        "minCount": 25
+      },
+      "signaturePhrase": "一週前坂路・1F12.4以内・25本以上の好走時パターン",
+      "matchSampleSize": 21,
+      "matchPlacedCount": 9,
+      "hitRate": 0.4286,
+      "adjustedHitRate": 0.3684,
+      "adjustedLift": 0.1053,
+      "validation": {
+        "sampleSize": 9,
+        "placedCount": 4,
+        "hitRate": 0.4444,
+        "adjustedHitRate": 0.3537,
+        "adjustedLift": 0.068,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 18
+    },
+    {
+      "name": "奥村豊",
+      "trainingCenter": "栗東",
+      "sampleSize": 53,
+      "placedCount": 12,
+      "baselineHitRate": 0.2264,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-23"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "final",
+        "course": [
+          "slope"
+        ],
+        "accel": true
+      },
+      "signaturePhrase": "最終坂路・加速の好走時パターン",
+      "matchSampleSize": 15,
+      "matchPlacedCount": 6,
+      "hitRate": 0.4,
+      "adjustedHitRate": 0.3229,
+      "adjustedLift": 0.0964,
+      "validation": {
+        "sampleSize": 6,
+        "placedCount": 3,
+        "hitRate": 0.5,
+        "adjustedHitRate": 0.3718,
+        "adjustedLift": 0.0641,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 36
+    },
+    {
+      "name": "中竹和也",
+      "trainingCenter": "栗東",
+      "sampleSize": 53,
+      "placedCount": 8,
+      "baselineHitRate": 0.1509,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-16"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "final",
+        "course": [
+          "slope"
+        ],
+        "time4FMax": 53.2
+      },
+      "signaturePhrase": "最終坂路・4F53.2以内の好走時パターン",
+      "matchSampleSize": 20,
+      "matchPlacedCount": 6,
+      "hitRate": 0.3,
+      "adjustedHitRate": 0.2441,
+      "adjustedLift": 0.0932,
+      "validation": {
+        "sampleSize": 9,
+        "placedCount": 2,
+        "hitRate": 0.2222,
+        "adjustedHitRate": 0.1832,
+        "adjustedLift": 0.0293,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 19
+    },
+    {
+      "name": "池江泰寿",
+      "trainingCenter": "栗東",
+      "sampleSize": 50,
+      "placedCount": 18,
+      "baselineHitRate": 0.36,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-23"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "C"
+        ],
+        "last1FMax": 11.2
+      },
+      "signaturePhrase": "一週前ウッドC・1F11.2以内の好走時パターン",
+      "matchSampleSize": 16,
+      "matchPlacedCount": 11,
+      "hitRate": 0.6875,
+      "adjustedHitRate": 0.5471,
+      "adjustedLift": 0.1871,
+      "validation": {
+        "sampleSize": 6,
+        "placedCount": 5,
+        "hitRate": 0.8333,
+        "adjustedHitRate": 0.6667,
+        "adjustedLift": 0.0833,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 36
+    },
+    {
+      "name": "小崎憲",
+      "trainingCenter": "栗東",
+      "sampleSize": 48,
+      "placedCount": 12,
+      "baselineHitRate": 0.25,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-23"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "final",
+        "course": [
+          "slope"
+        ],
+        "last1FMax": 12.8,
+        "accel": true
+      },
+      "signaturePhrase": "最終坂路・1F12.8以内・加速の好走時パターン",
+      "matchSampleSize": 21,
+      "matchPlacedCount": 8,
+      "hitRate": 0.381,
+      "adjustedHitRate": 0.3333,
+      "adjustedLift": 0.0833,
+      "validation": {
+        "sampleSize": 7,
+        "placedCount": 3,
+        "hitRate": 0.4286,
+        "adjustedHitRate": 0.3158,
+        "adjustedLift": 0.0658,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "mid",
+      "candidateCount": 18
+    }
+  ]
 }

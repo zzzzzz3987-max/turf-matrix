@@ -16,7 +16,11 @@ if (!existsSync(inputPath)) {
 
 const learned = JSON.parse(readFileSync(inputPath, "utf8"));
 const stables = (learned.stables ?? []).filter((stable) =>
+  stable.accepted === true &&
   stable.sampleSize >= (learned.minimumSampleSize ?? 20) &&
+  stable.matchSampleSize >= (learned.minimumPatternSampleSize ?? 8) &&
+  stable.validation?.status === "passed" &&
+  Number.isFinite(stable.adjustedLift) && stable.adjustedLift > 0 &&
   Number.isFinite(stable.hitRate)
 );
 const summary = {
@@ -25,6 +29,7 @@ const summary = {
   candidateCount: learned.stables?.length ?? 0,
   approvedCount: stables.length,
   minimumSampleSize: learned.minimumSampleSize ?? 20,
+  minimumPatternSampleSize: learned.minimumPatternSampleSize ?? 8,
 };
 
 if (!args.includes("--confirm")) {
@@ -33,12 +38,13 @@ if (!args.includes("--confirm")) {
 }
 
 const approved = {
-  schemaVersion: 2,
+  schemaVersion: 3,
   status: "approved",
   source: learned.source,
   approval: {
     minimumSampleSize: learned.minimumSampleSize ?? 20,
-    note: "着順付き調教アーカイブから生成し、最低サンプル数を満たす候補だけを明示承認。",
+    minimumPatternSampleSize: learned.minimumPatternSampleSize ?? 8,
+    note: "重複排除済みの着順付き調教アーカイブから生成し、対照比較と時系列検証を通過した候補だけを明示承認。",
   },
   stables,
 };

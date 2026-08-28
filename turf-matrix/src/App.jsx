@@ -2464,8 +2464,7 @@ const AllRaceSignalsPanel = ({ data }) => {
   const [openTrack, setOpenTrack] = useState(null);
 
   useEffect(() => {
-    if (!tracks.length) return;
-    setOpenTrack((current) => tracks.includes(current) ? current : tracks[0]);
+    setOpenTrack((current) => current && !tracks.includes(current) ? null : current);
   }, [trackKey]);
 
   if (!data?.races?.length) return null;

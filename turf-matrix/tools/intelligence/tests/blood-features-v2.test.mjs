@@ -7,7 +7,7 @@ import {
   detectPedigreeCrosses,
   pedigreeFeatureEntries,
 } from "../blood-features.mjs";
-import { buildBloodProfile, buildPedigreeAnalysis, scoreBlood } from "../blood-ai.mjs";
+import { buildBloodProfile, buildIndividualProfileFit, buildPedigreeAnalysis, scoreBlood } from "../blood-ai.mjs";
 import { buildRaceContext } from "../race-context.mjs";
 import { SIRE_PROFILES, findSireProfile } from "../dictionaries/sire-profile-dictionary.mjs";
 
@@ -134,7 +134,7 @@ test("Blood v2 turns recorded ancestry rules into a specific sire explanation", 
   assert.ok(v2.sireProfile.traits.length > 0);
 });
 
-test("Blood v2 evidence does not alter the production Blood score", () => {
+test("Blood v2 scoring remains deterministic after individual profile integration", () => {
   const horse = {
     currentRace: { raceDate: "2026-08-22", course: "新潟", surface: "芝", distance: 1600 },
     pedigree: {
@@ -154,16 +154,36 @@ test("Blood v2 evidence does not alter the production Blood score", () => {
   assert.equal(analysis.identity.pairLabel, "サートゥルナーリア × ハーツクライ");
 });
 
-test("individual pedigree profiles are unique, aliased, and evidence-only", () => {
+test("individual pedigree profiles are unique, aliased, and have complete trait vectors", () => {
   const ids = SIRE_PROFILES.map((profile) => profile.id);
   assert.equal(new Set(ids).size, ids.length);
-  assert.ok(SIRE_PROFILES.every((profile) => profile.names.length && profile.traits.length && profile.scoreApplied === false));
+  assert.ok(SIRE_PROFILES.every((profile) =>
+    profile.names.length
+    && profile.traits.length
+    && profile.scoreApplied === true
+    && ["speed", "power", "stamina", "sustain"].every((key) => Number.isFinite(profile.traitVector?.[key]))
+  ));
   assert.equal(findSireProfile("Heart's Cry")?.id, "hearts_cry");
   assert.equal(findSireProfile("ロードカナロア")?.id, "lord_kanaloa");
   assert.equal(findSireProfile("Bricks and Mortar")?.id, "bricks_and_mortar");
 });
 
-test("a curated broodmare-sire profile deepens evidence without changing Blood score", () => {
+test("an individual sprint profile fits a sprint context better than a long-distance context", () => {
+  const horse = {
+    currentRace: { sire: "ビッグアーサー", broodmareSire: "ハーツクライ" },
+    pedigree: { sire: "ビッグアーサー", broodmareSire: "ハーツクライ" },
+  };
+  const sprint = buildIndividualProfileFit(horse, buildRaceContext({ course: "中京", surface: "芝", distance: 1200 }));
+  const long = buildIndividualProfileFit(horse, buildRaceContext({ course: "中京", surface: "芝", distance: 3000 }));
+  const sprintSire = sprint.evidence.find((item) => item.role === "sire");
+  const longSire = long.evidence.find((item) => item.role === "sire");
+
+  assert.ok(sprintSire.compatibility > longSire.compatibility);
+  assert.ok(Math.abs(sprint.adjustment) <= 1.5);
+  assert.ok(Math.abs(long.adjustment) <= 1.5);
+});
+
+test("a curated broodmare-sire profile contributes a bounded disclosed adjustment", () => {
   const horse = {
     currentRace: { raceDate: "2026-08-29", course: "新潟", surface: "芝", distance: 1600 },
     pedigree: {
@@ -180,12 +200,44 @@ test("a curated broodmare-sire profile deepens evidence without changing Blood s
   const before = scoreBlood(horse, context);
   const analysis = buildPedigreeAnalysis(horse, before, context);
   const after = scoreBlood(horse, context);
+  const fit = buildIndividualProfileFit(horse, context);
 
   assert.equal(after, before);
+  assert.ok(Math.abs(fit.adjustment) <= 1.5);
   assert.equal(analysis.broodmareSireProfile.id, "hearts_cry");
   assert.match(analysis.headline, /母父ハーツクライ/);
   assert.match(analysis.headline, /持続力/);
-  assert.ok(analysis.evidenceV2.some((item) => item.type === "broodmareSireProfile" && item.scoreApplied === false));
+  assert.match(analysis.headline, /個別プロフィール適合/);
+  assert.ok(analysis.evidenceV2.some((item) =>
+    item.type === "broodmareSireProfile" && item.scoreApplied === true && Number.isFinite(item.impact)
+  ));
+});
+
+test("an unregistered broodmare sire falls back to its recorded parents without an unmatched label", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-08-29", course: "新潟", surface: "芝", distance: 1600 },
+    pedigree: {
+      sire: "サートゥルナーリア",
+      sireSire: "ロードカナロア",
+      sireDam: "シーザリオ",
+      dam: "検証母",
+      broodmareSire: "検証母父",
+      damDam: "検証母母",
+      ancestors: [
+        { generation: 2, branch: "dam.sire", name: "検証母父" },
+        { generation: 3, branch: "dam.sire.sire", name: "ディープインパクト" },
+        { generation: 3, branch: "dam.sire.dam", name: "検証母父母" },
+      ],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const score = scoreBlood(horse, context);
+  const analysis = buildPedigreeAnalysis(horse, score, context);
+
+  assert.equal(analysis.broodmareSireProfile.status, "ancestry_fallback");
+  assert.match(analysis.broodmareSireProfile.summary, /ディープインパクト × 検証母父母/);
+  assert.doesNotMatch(analysis.headline, /未照合/);
+  assert.equal(analysis.broodmareSireProfile.scoreApplied, false);
 });
 
 test("pedigree feature extraction is deterministic", () => {

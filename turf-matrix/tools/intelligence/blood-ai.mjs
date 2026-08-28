@@ -1,6 +1,7 @@
 import { createRequire } from "node:module";
 import { BLOODLINE_RULES, TRAIT_LABELS } from "./dictionaries/bloodline-dictionary.mjs";
 import { FEMALE_LINE_RULES } from "./dictionaries/female-line-dictionary.mjs";
+import { SIRE_PROFILES, findSireProfile } from "./dictionaries/sire-profile-dictionary.mjs";
 import { buildBloodEvidenceV2 } from "./blood-features.mjs";
 
 const require = createRequire(import.meta.url);
@@ -11,6 +12,8 @@ const normalizeName = (value) => String(value ?? "").normalize("NFKC").toLowerCa
 const BLOOD_NEUTRAL_SCORE = 65;
 const BLOOD_TANH_AMPLITUDE = 7.5;
 const BLOOD_TANH_SCALE = 7.5;
+const PROFILE_TANH_AMPLITUDE = 1.5;
+const PROFILE_TANH_SCALE = 0.12;
 
 const BRANCH_WEIGHTS = {
   sire: 0.4,
@@ -178,6 +181,91 @@ const median = (values) => {
   if (!sorted.length) return null;
   const middle = Math.floor(sorted.length / 2);
   return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+};
+
+const profileContextCompatibility = (profile, context) => {
+  if (!profile?.traitVector) return null;
+  const tags = new Set(profile.traits ?? []);
+  const distance = Number(context?.distance);
+  const distanceTag = !Number.isFinite(distance)
+    ? null
+    : distance <= 1400
+      ? "短距離適性"
+      : distance <= 1800
+        ? "マイル適性"
+        : distance <= 2400
+          ? "中距離性能"
+          : "長距離適性";
+  const surfaceTag = context?.surface === "芝"
+    ? "芝適性"
+    : ["ダ", "ダート"].includes(context?.surface)
+      ? "ダート適性"
+      : null;
+  const goingTag = ["重", "不良"].includes(context?.going) ? "道悪対応" : null;
+  const majorTagOverlap = [...new Set(context?.bloodMajorTags ?? [])]
+    .filter((tag) => tags.has(tag)).length;
+  const categoricalBonus =
+    (distanceTag && tags.has(distanceTag) ? 0.04 : 0)
+    + (surfaceTag && tags.has(surfaceTag) ? 0.03 : 0)
+    + (goingTag && tags.has(goingTag) ? 0.02 : 0)
+    + Math.min(0.03, majorTagOverlap * 0.01);
+  return Math.min(1, compatibilityFor({ traits: profile.traitVector }, context) + categoricalBonus);
+};
+
+const individualProfileCompatibilityCenter = (context, profiles = SIRE_PROFILES) => {
+  const values = profiles.map((profile) => profileContextCompatibility(profile, context)).filter(Number.isFinite);
+  return median(values);
+};
+
+const buildIndividualProfileFit = (horse, context) => {
+  const pedigree = horse?.pedigree ?? {};
+  const center = individualProfileCompatibilityCenter(context);
+  const candidates = [
+    {
+      role: "sire",
+      roleLabel: "父",
+      name: pedigree.sire ?? horse?.currentRace?.sire,
+      weight: BRANCH_WEIGHTS.sire,
+    },
+    {
+      role: "broodmareSire",
+      roleLabel: "母父",
+      name: pedigree.broodmareSire ?? horse?.currentRace?.broodmareSire,
+      weight: BRANCH_WEIGHTS.broodmareSire,
+    },
+  ].map((candidate) => ({ ...candidate, profile: findSireProfile(candidate.name) }))
+    .filter((candidate) => candidate.profile && Number.isFinite(center));
+  const totalWeight = candidates.reduce((sum, candidate) => sum + candidate.weight, 0);
+  const evidence = candidates.map((candidate) => {
+    const compatibility = profileContextCompatibility(candidate.profile, context);
+    const rawAdjustment = PROFILE_TANH_AMPLITUDE
+      * Math.tanh((compatibility - center) / PROFILE_TANH_SCALE);
+    const normalizedWeight = totalWeight ? candidate.weight / totalWeight : 0;
+    return {
+      role: candidate.role,
+      roleLabel: candidate.roleLabel,
+      profileId: candidate.profile.id,
+      name: candidate.name,
+      traits: candidate.profile.traits,
+      compatibility: Number(compatibility.toFixed(4)),
+      center: Number(center.toFixed(4)),
+      rawAdjustment: Number(rawAdjustment.toFixed(4)),
+      weight: Number(normalizedWeight.toFixed(4)),
+      impact: Number((rawAdjustment * normalizedWeight).toFixed(4)),
+      scoreApplied: true,
+    };
+  });
+  const adjustment = Math.max(
+    -PROFILE_TANH_AMPLITUDE,
+    Math.min(PROFILE_TANH_AMPLITUDE, evidence.reduce((sum, item) => sum + item.impact, 0)),
+  );
+  return {
+    adjustment: Number(adjustment.toFixed(4)),
+    center: Number.isFinite(center) ? Number(center.toFixed(4)) : null,
+    evidence,
+    limit: PROFILE_TANH_AMPLITUDE,
+    scale: PROFILE_TANH_SCALE,
+  };
 };
 
 const dictionaryRuleCompatibilities = (
@@ -414,6 +502,8 @@ const buildBloodProfile = (horse, context) => {
       femaleCourseMatches: [],
       backgroundMatches: [],
       statistics: [],
+      individualProfileAdjustment: 0,
+      individualProfileEvidence: [],
       contributionDiagnostics: { raw: 0, adjusted: 0, totalWeight: 0, scale: BLOOD_TANH_SCALE, evidence: [] },
       traits: leadingTraits([], context),
       components: {
@@ -423,6 +513,7 @@ const buildBloodProfile = (horse, context) => {
         distance: BLOOD_NEUTRAL_SCORE,
         blend: BLOOD_NEUTRAL_SCORE,
         statistics: BLOOD_NEUTRAL_SCORE,
+        individualProfile: BLOOD_NEUTRAL_SCORE,
       },
     };
   }
@@ -466,11 +557,16 @@ const buildBloodProfile = (horse, context) => {
   );
   const boundedStatisticsAdjustment = clamp(statisticsAdjustment, -3, 3);
   const statisticsScore = clamp(BLOOD_NEUTRAL_SCORE + boundedStatisticsAdjustment, 45, 85);
+  const individualProfileFit = buildIndividualProfileFit(horse, context);
+  const individualProfileAdjustment = individualProfileFit.adjustment;
+  const individualProfileScore = clamp(BLOOD_NEUTRAL_SCORE + individualProfileAdjustment, 45, 85);
   const confidence = coverage >= 0.65 ? "high" : coverage >= 0.35 ? "mid" : "low";
-  const status = hasScoredEvidence ? (confidence === "low" ? "partial" : "active") : "partial";
+  const status = hasScoredEvidence || individualProfileFit.evidence.length
+    ? (confidence === "low" ? "partial" : "active")
+    : "partial";
   const baseScore = evidenceScore(allMatches, context);
   const contributionDiagnostics = branchAdjustmentDetails(allMatches, context);
-  const score = clamp(baseScore + boundedStatisticsAdjustment, 42, 92);
+  const score = clamp(baseScore + boundedStatisticsAdjustment + individualProfileAdjustment, 42, 92);
 
   return {
     score,
@@ -490,9 +586,20 @@ const buildBloodProfile = (horse, context) => {
     statistics,
     statisticsAdjustment: boundedStatisticsAdjustment,
     statisticsApplied: statistics.length > 0,
+    individualProfileAdjustment,
+    individualProfileEvidence: individualProfileFit.evidence,
+    individualProfileCenter: individualProfileFit.center,
     contributionDiagnostics,
     traits,
-    components: { paternal, maternal, course, distance, blend, statistics: statisticsScore },
+    components: {
+      paternal,
+      maternal,
+      course,
+      distance,
+      blend,
+      statistics: statisticsScore,
+      individualProfile: individualProfileScore,
+    },
   };
 };
 
@@ -530,7 +637,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
   const { matches, traits, courseMatches, femaleMatches, femaleCourseMatches } = profile;
   const baseSummary = matches.length || femaleMatches.length
     ? evaluationSummary({ traits, courseMatches, femaleCourseMatches, context, matches: [...matches, ...femaleMatches] })
-    : `取得済みの血統から、${context?.profile ?? "今回条件"}への基礎適性を評価します。辞書未照合の血統は中立評価です。`;
+    : `取得済みの祖先構成から、${context?.profile ?? "今回条件"}への基礎適性を中立評価します。`;
   const statisticStrengths = profile.statistics.map((statistic) => ({
     key: `statistics-${statistic.entityType}`,
     label:
@@ -549,6 +656,17 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     priorSampleSize: statistic.priorSampleSize,
     confidence: statistic.confidence,
     adjustment: statistic.adjustment,
+  }));
+  const individualProfileStrengths = profile.individualProfileEvidence.map((item) => ({
+    key: `individual-profile-${item.role}-${item.profileId}`,
+    label: `${item.roleLabel}${item.name} 個別プロフィール`,
+    text: `${item.traits.join("・")}と今回条件の適合を、辞書全体の中央値を基準に評価（${item.impact >= 0 ? "+" : ""}${item.impact.toFixed(2)}点）。`,
+    score: bloodScore,
+    confidence: "reference",
+    adjustment: item.impact,
+    scoreApplied: true,
+    compatibility: item.compatibility,
+    center: item.center,
   }));
   const structuralStrengths = profile.backgroundMatches
     .filter((match) => match.evidenceStatus === "structure-only")
@@ -616,7 +734,13 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     components: profile.components,
     statistics: profile.statistics,
     statisticsAdjustment: profile.statisticsAdjustment,
-    strengths: [...strengths, ...femaleStrengths, ...structuralStrengths, ...statisticStrengths],
+    strengths: [
+      ...strengths,
+      ...femaleStrengths,
+      ...individualProfileStrengths,
+      ...structuralStrengths,
+      ...statisticStrengths,
+    ],
     lines: [
       buildLine("父系", pedigree?.sire ?? horse.currentRace?.sire, `父系の主軸。今回条件への適性は${Math.round(profile.components.paternal)}。`),
       buildLine("母系", pedigree?.dam ?? horse.currentRace?.dam, `母系の補完力を評価。母系総合は${Math.round(profile.components.maternal)}。`),
@@ -644,9 +768,12 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
 export {
   scoreBlood,
   buildBloodProfile,
+  buildIndividualProfileFit,
   buildPedigreeAnalysis,
   resolveRuleMatches,
   dictionaryRuleCompatibilities,
   dictionaryCompatibilityCenter,
   compatibilityFor,
+  individualProfileCompatibilityCenter,
+  profileContextCompatibility,
 };

@@ -5,14 +5,44 @@ const normalizeSireName = (value) =>
     .replace(/[＊*$.'’\-\s]+/g, "")
     .trim();
 
+const PROFILE_TRAIT_VECTORS = {
+  "切れ味": { speed: 0.96, power: 0.45, stamina: 0.55, sustain: 0.68 },
+  "トップスピード": { speed: 1, power: 0.5, stamina: 0.35, sustain: 0.62 },
+  "スピード": { speed: 0.95, power: 0.58, stamina: 0.4, sustain: 0.64 },
+  "先行力": { speed: 0.92, power: 0.75, stamina: 0.42, sustain: 0.7 },
+  "機動力": { speed: 0.84, power: 0.72, stamina: 0.5, sustain: 0.76 },
+  "パワー": { speed: 0.62, power: 0.98, stamina: 0.66, sustain: 0.78 },
+  "持続力": { speed: 0.65, power: 0.72, stamina: 0.74, sustain: 0.98 },
+  "スタミナ": { speed: 0.42, power: 0.7, stamina: 1, sustain: 0.9 },
+  "短距離適性": { speed: 0.98, power: 0.72, stamina: 0.3, sustain: 0.62 },
+  "マイル適性": { speed: 0.88, power: 0.68, stamina: 0.55, sustain: 0.78 },
+  "中距離性能": { speed: 0.65, power: 0.7, stamina: 0.84, sustain: 0.94 },
+  "長距離適性": { speed: 0.42, power: 0.68, stamina: 1, sustain: 0.94 },
+  "道悪対応": { speed: 0.52, power: 0.98, stamina: 0.78, sustain: 0.88 },
+  "芝適性": { speed: 0.82, power: 0.58, stamina: 0.65, sustain: 0.8 },
+  "ダート適性": { speed: 0.72, power: 0.96, stamina: 0.58, sustain: 0.78 },
+  "洋芝適性": { speed: 0.58, power: 0.94, stamina: 0.82, sustain: 0.9 },
+  "欧州適性": { speed: 0.52, power: 0.82, stamina: 0.92, sustain: 0.94 },
+};
+
+const buildProfileTraitVector = (traits) => {
+  const vectors = (traits ?? []).map((trait) => PROFILE_TRAIT_VECTORS[trait]).filter(Boolean);
+  if (!vectors.length) return null;
+  return Object.fromEntries(["speed", "power", "stamina", "sustain"].map((key) => [
+    key,
+    Number((vectors.reduce((sum, vector) => sum + vector[key], 0) / vectors.length).toFixed(4)),
+  ]));
+};
+
 const profile = (id, names, ancestry, traits, summary) => ({
   id,
   names,
   ancestry,
   traits,
+  traitVector: buildProfileTraitVector(traits),
   summary,
   sourceType: "curated_pedigree_knowledge",
-  scoreApplied: false,
+  scoreApplied: true,
 });
 
 const SIRE_PROFILES = [
@@ -71,4 +101,10 @@ const findSireProfile = (name) => {
   ) ?? null;
 };
 
-export { SIRE_PROFILES, findSireProfile, normalizeSireName };
+export {
+  PROFILE_TRAIT_VECTORS,
+  SIRE_PROFILES,
+  buildProfileTraitVector,
+  findSireProfile,
+  normalizeSireName,
+};

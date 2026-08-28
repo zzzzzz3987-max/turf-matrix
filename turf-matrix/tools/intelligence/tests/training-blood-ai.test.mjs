@@ -204,7 +204,10 @@ test("Blood specialist applies approved historical evidence as a bounded adjustm
 
   assert.equal(profile.statisticsApplied, true);
   assert.ok(Math.abs(profile.statisticsAdjustment) <= 3);
-  assert.equal(profile.score, profile.baseScore + profile.statisticsAdjustment);
+  assert.ok(Math.abs(profile.individualProfileAdjustment) <= 1.5);
+  assert.ok(Math.abs(
+    profile.score - (profile.baseScore + profile.statisticsAdjustment + profile.individualProfileAdjustment)
+  ) < 1e-9);
   assert.ok(profile.statistics.every((item) => item.priorSampleSize === 24));
   assert.ok(profile.statistics.every((item) => Number.isFinite(item.shrunkHitRate)));
 });

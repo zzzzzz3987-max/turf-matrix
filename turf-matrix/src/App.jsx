@@ -140,7 +140,13 @@ const leaderStateFor = (horses) => {
     top,
     second,
     gap,
-    status: top && (!second || gap >= 3) ? "clear" : top ? "contested" : "missing",
+    status: top && second && gap === 0
+      ? "tied"
+      : top && (!second || gap >= 3)
+        ? "clear"
+        : top
+          ? "contested"
+          : "missing",
   };
 };
 
@@ -2273,7 +2279,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   const ev = race.topHorse.ev;
   const isGradedRace = race.raceType === "重賞" || race.category === "grade" || gradeScore(race.grade) > 0;
   const isTopTier = race.topHorse.available && scoreTier(race.topHorse.aiScore).label === "S";
-  const leaderLabel = race.leaderStatus === "contested" ? "TM INDEX 首位圏" : "TM INDEX 1位";
+  const leaderLabel = race.leaderStatus === "tied" ? "TM INDEX 1位タイ" : "TM INDEX 1位";
 
   return (
     <button
@@ -2333,9 +2339,9 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
                 {" "}— EV {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 参考" : ""}
               </Num>
             ) : null}
-            {race.leaderStatus === "contested" && race.secondHorse ? (
+            {(race.leaderStatus === "contested" || race.leaderStatus === "tied") && race.secondHorse ? (
               <span className="ml-2 text-[10px] font-medium text-[#94A3B8]">
-                次点 {race.secondHorse.name} <Num>{race.secondHorse.aiScore}</Num>
+                {race.leaderStatus === "tied" ? "同率" : "次点"} {race.secondHorse.name} <Num>{race.secondHorse.aiScore}</Num>
               </span>
             ) : null}
           </span>
@@ -2465,8 +2471,10 @@ const AllRaceSignalsPanel = ({ data }) => {
                         ) : null}
                         <div className="flex min-w-0 items-baseline justify-between gap-2">
                           <div className="flex min-w-0 items-center gap-1.5 truncate text-[12px] font-bold text-[#050B1E]">
-                            {race.leaderStatus === "contested" ? (
-                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">首位圏</span>
+                            {race.leaderStatus === "tied" ? (
+                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">1位タイ</span>
+                            ) : race.leaderStatus === "contested" ? (
+                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">僅差</span>
                             ) : null}
                             <Num className="mr-1 text-[#64748B]">{race.indexTop?.number}</Num>
                             <span className="truncate">{race.indexTop?.name ?? "未評価"}</span>
@@ -2494,7 +2502,7 @@ const AllRaceSignalsPanel = ({ data }) => {
         {evaluatedRaces.length ? (
           <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
             <div className="font-medium text-[#64748B]">分析データを取得できたレースのみ掲載しています。</div>
-            <div className="mt-1">指数差2点以内は首位圏、3点以上は単独首位として扱います。相手1はTM INDEX 2位、相手2は3〜5位から総合Evidenceで選び、高EV馬は注目穴として分離します。</div>
+            <div className="mt-1">同指数は1位タイ、指数差1〜2点は僅差、3点以上は単独首位として扱います。相手1はTM INDEX 2位、相手2は3〜5位から総合Evidenceで選び、高EV馬は注目穴として分離します。</div>
           </div>
         ) : null}
       </div>
@@ -2624,11 +2632,11 @@ const HomePage = ({ onOpenRace }) => {
                 {featuredRace.topHorse.available ? (
                 <div className="pb-1 text-right">
                   <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">
-                    {featuredRace.leaderStatus === "contested" ? "TM INDEX 首位圏" : "TM INDEX 1位"}
+                    {featuredRace.leaderStatus === "tied" ? "TM INDEX 1位タイ" : "TM INDEX 1位"}
                   </div>
                   <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
-                      ? <>{featuredRace.leaderStatus === "contested" ? "首位圏。" : "指数1位。"}市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
+                      ? <>{featuredRace.leaderStatus === "tied" ? "指数1位タイ。" : "指数1位。"}市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
                       : "指数上位のシグナルを表示します"}
                   </div>
                 </div>

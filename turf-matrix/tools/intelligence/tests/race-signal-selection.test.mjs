@@ -61,3 +61,14 @@ test("a leader needs a three-point gap to be treated as clear", () => {
   assert.equal(leaderState(closeRace).contenders.length, 2);
   assert.equal(leaderState(clearRace).status, "clear");
 });
+
+test("equal top scores are treated as tied rather than merely contested", () => {
+  const tiedRace = { horses: [
+    horse(1, 81, [80, 80, 80, 80], 0.5),
+    horse(2, 81, [78, 78, 78, 78], 0.8),
+    horse(3, 77, [77, 77, 77, 77], 1.0),
+  ] };
+
+  assert.equal(leaderState(tiedRace).status, "tied");
+  assert.equal(leaderState(tiedRace).contenders.length, 2);
+});

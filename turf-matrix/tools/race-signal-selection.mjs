@@ -44,7 +44,7 @@ const leaderState = (race) => {
   if (!second) return { status: "clear", gap: null, leader, contenders: [leader] };
   const gap = scoreOf(leader) - scoreOf(second);
   return {
-    status: gap >= CLEAR_LEADER_MIN_GAP ? "clear" : "contested",
+    status: gap === 0 ? "tied" : gap >= CLEAR_LEADER_MIN_GAP ? "clear" : "contested",
     gap,
     leader,
     contenders: ranked.filter((horse) => scoreOf(leader) - scoreOf(horse) < CLEAR_LEADER_MIN_GAP),

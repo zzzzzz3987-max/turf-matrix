@@ -166,7 +166,21 @@ test("race calibration does not call a close leader Top Signal", () => {
     ],
   });
 
-  assert.equal(race.horses.find((horse) => horse.id === "a").analysis.topSignal.label, "首位圏");
+  assert.equal(race.horses.find((horse) => horse.id === "a").analysis.topSignal.label, "指数1位（僅差）");
+});
+
+test("race calibration labels every equal-score leader as tied first", () => {
+  const race = calibrateRaceIntelligence({
+    id: "tied-race",
+    horses: [
+      { id: "a", number: 1, name: "A", tmIndex: 80, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+      { id: "b", number: 2, name: "B", tmIndex: 80, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+      { id: "c", number: 3, name: "C", tmIndex: 76, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+    ],
+  });
+
+  assert.equal(race.horses.find((horse) => horse.id === "a").analysis.topSignal.label, "指数1位タイ");
+  assert.equal(race.horses.find((horse) => horse.id === "b").analysis.topSignal.label, "指数1位タイ");
 });
 
 test("race calibration publishes a single consistent Value display payload", () => {

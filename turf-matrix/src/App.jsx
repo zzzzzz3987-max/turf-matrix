@@ -2421,10 +2421,61 @@ const BattleRacePanel = ({ race, onOpen }) => {
   );
 };
 
+const AllRaceSignalRows = ({ races }) => (
+  <div className="divide-y divide-[#F1F5F9]">
+    {races.map((race) => (
+      <div key={race.id} className="grid grid-cols-[34px_minmax(0,1fr)] gap-2.5 px-4 py-3">
+        <Num className="pt-0.5 text-[11px] font-bold text-[#64748B]">{race.number}R</Num>
+        <div className="min-w-0">
+          {race.category !== "race" ? (
+            <div className="mb-1 truncate text-[9px] font-semibold text-[#94A3B8]">{race.name}</div>
+          ) : null}
+          <div className="flex min-w-0 items-baseline justify-between gap-2">
+            <div className="flex min-w-0 items-center gap-1.5 truncate text-[12px] font-bold text-[#050B1E]">
+              {race.leaderStatus === "tied" ? (
+                <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">1位タイ</span>
+              ) : race.leaderStatus === "contested" ? (
+                <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">僅差</span>
+              ) : null}
+              <Num className="mr-1 text-[#64748B]">{race.indexTop?.number}</Num>
+              <span className="truncate">{race.indexTop?.name ?? "未評価"}</span>
+            </div>
+            <Num className={`shrink-0 text-[14px] font-bold ${race.indexTop?.tmIndex >= 80 ? "text-[#2D7BFF]" : "text-[#050B1E]"}`}>
+              {race.indexTop?.tmIndex ?? "--"}
+            </Num>
+          </div>
+          <div className="mt-1 truncate text-[9px] font-semibold text-[#475569]">
+            相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
+          </div>
+          {race.valueWatch ? (
+            <div className="mt-0.5 truncate text-[9px] font-medium text-[#00A9B8]">
+              注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}
+            </div>
+          ) : null}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 const AllRaceSignalsPanel = ({ data }) => {
+  const tracks = [...new Set((data?.races ?? []).map((race) => race.track))];
+  const trackKey = tracks.join("|");
+  const [openTrack, setOpenTrack] = useState(null);
+
+  useEffect(() => {
+    if (!tracks.length) return;
+    setOpenTrack((current) => tracks.includes(current) ? current : tracks[0]);
+  }, [trackKey]);
+
   if (!data?.races?.length) return null;
-  const tracks = [...new Set(data.races.map((race) => race.track))];
   const evaluatedRaces = data.races.filter((race) => isFiniteNumber(race.indexTop?.tmIndex));
+  const racesByTrack = tracks.map((track) => ({
+    track,
+    races: evaluatedRaces
+      .filter((race) => race.track === track)
+      .sort((left, right) => left.number - right.number),
+  })).filter((group) => group.races.length);
 
   return (
     <section className="mt-14">
@@ -2438,52 +2489,42 @@ const AllRaceSignalsPanel = ({ data }) => {
         </span>
       </div>
       <div className="mt-4 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white">
-        <div className="grid md:grid-cols-3 md:divide-x md:divide-[#E5E7EB]">
-          {tracks.map((track) => {
-            const races = evaluatedRaces
-              .filter((race) => race.track === track)
-              .sort((left, right) => left.number - right.number);
-            if (!races.length) return null;
+        <div className="divide-y divide-[#E5E7EB] md:hidden">
+          {racesByTrack.map(({ track, races }) => {
+            const isOpen = openTrack === track;
             return (
-              <div key={track} className="border-b border-[#E5E7EB] last:border-b-0 md:border-b-0">
-                <div className="border-b border-[#E5E7EB] px-4 py-3 text-[12px] font-bold text-[#050B1E]">{track}</div>
-                <div className="divide-y divide-[#F1F5F9]">
-                  {races.map((race) => (
-                    <div key={race.id} className="grid grid-cols-[34px_minmax(0,1fr)] gap-2.5 px-4 py-3">
-                      <Num className="pt-0.5 text-[11px] font-bold text-[#64748B]">{race.number}R</Num>
-                      <div className="min-w-0">
-                        {race.category !== "race" ? (
-                          <div className="mb-1 truncate text-[9px] font-semibold text-[#94A3B8]">{race.name}</div>
-                        ) : null}
-                        <div className="flex min-w-0 items-baseline justify-between gap-2">
-                          <div className="flex min-w-0 items-center gap-1.5 truncate text-[12px] font-bold text-[#050B1E]">
-                            {race.leaderStatus === "tied" ? (
-                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">1位タイ</span>
-                            ) : race.leaderStatus === "contested" ? (
-                              <span className="shrink-0 text-[8px] font-bold text-[#94A3B8]">僅差</span>
-                            ) : null}
-                            <Num className="mr-1 text-[#64748B]">{race.indexTop?.number}</Num>
-                            <span className="truncate">{race.indexTop?.name ?? "未評価"}</span>
-                          </div>
-                          <Num className={`shrink-0 text-[14px] font-bold ${race.indexTop?.tmIndex >= 80 ? "text-[#2D7BFF]" : "text-[#050B1E]"}`}>
-                            {race.indexTop?.tmIndex ?? "--"}
-                          </Num>
-                        </div>
-                        <div className="mt-1 truncate text-[9px] font-medium text-[#64748B]">
-                          相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
-                        </div>
-                        {race.valueWatch ? (
-                          <div className="mt-0.5 truncate text-[9px] font-medium text-[#00A9B8]">
-                            注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}
-                          </div>
-                        ) : null}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <div key={track}>
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  onClick={() => setOpenTrack((current) => current === track ? null : track)}
+                  className="flex w-full items-center justify-between gap-4 px-4 py-3.5 text-left"
+                >
+                  <span className="text-[13px] font-bold text-[#050B1E]">{track}</span>
+                  <span className="flex items-center gap-2 text-[10px] font-semibold text-[#64748B]">
+                    <Num>{races.length}</Num>レース
+                    <ChevronDown
+                      size={16}
+                      className={`text-[#94A3B8] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </span>
+                </button>
+                {isOpen ? (
+                  <div className="border-t border-[#E5E7EB]">
+                    <AllRaceSignalRows races={races} />
+                  </div>
+                ) : null}
               </div>
             );
           })}
+        </div>
+        <div className="hidden grid-cols-3 divide-x divide-[#E5E7EB] md:grid">
+          {racesByTrack.map(({ track, races }) => (
+            <div key={track}>
+              <div className="border-b border-[#E5E7EB] px-4 py-3 text-[12px] font-bold text-[#050B1E]">{track}</div>
+              <AllRaceSignalRows races={races} />
+            </div>
+          ))}
         </div>
         {evaluatedRaces.length ? (
           <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">

@@ -126,7 +126,7 @@ namespace TurfMatrix.JvFetch
         {
             var progId = string.IsNullOrWhiteSpace(options.ProgId) ? DefaultProgId : options.ProgId;
             var sid = FirstNonEmpty(options.Sid, Environment.GetEnvironmentVariable("JVLINK_SID"), "UNKNOWN");
-            var configPath = Path.Combine(repoRoot, "tools", "race-batch-config.json");
+            var configPath = ResolveRaceConfigPath(repoRoot);
             var races = LoadRaceTargets(configPath);
             var odds = new List<OddsRow>();
             var warnings = new List<string>();
@@ -216,7 +216,7 @@ namespace TurfMatrix.JvFetch
         {
             var progId = string.IsNullOrWhiteSpace(options.ProgId) ? DefaultProgId : options.ProgId;
             var sid = FirstNonEmpty(options.Sid, Environment.GetEnvironmentVariable("JVLINK_SID"), "UNKNOWN");
-            var configPath = Path.Combine(repoRoot, "tools", "race-batch-config.json");
+            var configPath = ResolveRaceConfigPath(repoRoot);
             var races = LoadRaceTargets(configPath);
             var raceDate = races[0].RaceDate;
             var states = new Dictionary<string, ConditionState>();
@@ -299,7 +299,7 @@ namespace TurfMatrix.JvFetch
         {
             var progId = string.IsNullOrWhiteSpace(options.ProgId) ? DefaultProgId : options.ProgId;
             var sid = FirstNonEmpty(options.Sid, Environment.GetEnvironmentVariable("JVLINK_SID"), "UNKNOWN");
-            var races = LoadRaceTargets(Path.Combine(repoRoot, "tools", "race-batch-config.json"));
+            var races = LoadRaceTargets(ResolveRaceConfigPath(repoRoot));
             var results = new List<RaceResult>();
             var warnings = new List<string>();
 
@@ -699,6 +699,23 @@ namespace TurfMatrix.JvFetch
 
             if (races.Count == 0) throw new InvalidOperationException("No race bundles were found in race-batch-config.");
             return races;
+        }
+
+        private static string ResolveRaceConfigPath(string repoRoot)
+        {
+            var configured = Environment.GetEnvironmentVariable("TURF_MATRIX_RACE_CONFIG");
+            if (!string.IsNullOrWhiteSpace(configured))
+            {
+                var configuredPath = Path.IsPathRooted(configured)
+                    ? configured
+                    : Path.Combine(repoRoot, configured);
+                if (File.Exists(configuredPath)) return configuredPath;
+            }
+
+            var runtimePath = Path.Combine(repoRoot, "tools", "jvlink", "output", "race-batch-runtime.json");
+            if (File.Exists(runtimePath)) return runtimePath;
+
+            return Path.Combine(repoRoot, "tools", "race-batch-config.json");
         }
 
         private static string MatchRequired(string value, string pattern)

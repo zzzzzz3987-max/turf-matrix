@@ -51,6 +51,16 @@ const log = (level, message, details = null) => {
 const sleep = (milliseconds) => new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
 const readJson = (path, fallback) => existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : fallback;
 const writeJson = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
+const dataDate = (data) => data?.meta?.date ?? data?.races?.[0]?.id?.slice(0, 10) ?? null;
+
+const selectScheduleData = (published, candidate) => {
+  const publishedDate = dataDate(published);
+  const candidateDate = dataDate(candidate);
+  if (candidateDate && (!publishedDate || candidateDate >= publishedDate)) {
+    return { data: candidate, source: "candidate", raceDate: candidateDate };
+  }
+  return { data: published, source: "published", raceDate: publishedDate };
+};
 
 const resolveGit = () => {
   const candidates = [
@@ -154,8 +164,7 @@ const assertCleanTrackedTree = (git) => {
   if (ahead || behind) throw new Error(`main must match origin/main before automatic publish (ahead=${ahead}, behind=${behind})`);
 };
 
-const generateAndPublish = (git, commitMessage) => {
-  const raceDate = readJson(WEEK_DATA_PATH, null)?.meta?.date;
+const generateAndPublish = (git, commitMessage, raceDate) => {
   const allRaceRuntime = resolveAllRaceRuntime(raceDate);
   const candidateExisted = existsSync(CANDIDATE_PATH);
   if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
@@ -218,7 +227,7 @@ const generateAndPublish = (git, commitMessage) => {
   }
 };
 
-const processDueRaces = (due, state) => {
+const processDueRaces = (due, state, raceDate) => {
   const git = resolveGit();
   assertCleanTrackedTree(git);
   const startedAt = Date.now();
@@ -235,7 +244,7 @@ const processDueRaces = (due, state) => {
   }
 
   const labels = due.map((race) => `${race.track}${race.number}R`).join("/");
-  const result = generateAndPublish(git, `Update live odds before ${labels}`);
+  const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate);
   const completedAt = new Date().toISOString();
   for (const race of due) {
     state.processed[race.id] = {
@@ -253,10 +262,14 @@ const processDueRaces = (due, state) => {
 
 const runOnce = () => {
   if (!existsSync(WEEK_DATA_PATH)) throw new Error(`week-data.json was not found: ${WEEK_DATA_PATH}`);
-  const weekData = readJson(WEEK_DATA_PATH, null);
+  const publishedData = readJson(WEEK_DATA_PATH, null);
+  const candidateData = readJson(CANDIDATE_PATH, null);
+  const selected = selectScheduleData(publishedData, candidateData);
+  const weekData = selected.data;
+  if (!weekData || !selected.raceDate) throw new Error("Race schedule data is unavailable");
   const allRaceSignals = readJson(ALL_RACE_SIGNALS_PATH, null);
   const schedule = parseSchedule(weekData, allRaceSignals);
-  const raceDate = weekData.meta?.date ?? schedule[0]?.id?.slice(0, 10);
+  const raceDate = selected.raceDate;
   const now = nowOverride ? new Date(nowOverride) : new Date();
   if (Number.isNaN(now.getTime())) throw new Error(`Invalid --now value: ${nowOverride}`);
 
@@ -267,13 +280,13 @@ const runOnce = () => {
   const due = schedule.filter((race) => dueIds.has(race.id));
 
   if (dryRun) {
-    console.log(JSON.stringify({ status: "dry-run", now: now.toISOString(), leadMinutes, raceDate, schedule: report }, null, 2));
+    console.log(JSON.stringify({ status: "dry-run", now: now.toISOString(), leadMinutes, raceDate, scheduleSource: selected.source, schedule: report }, null, 2));
     return { done: false, latestPostTime: schedule.at(-1)?.postTime };
   }
   if (!due.length) {
     log("INFO", "No race is due for an odds update", { now: now.toISOString(), next: report.find((race) => !race.processed && new Date(race.triggerTime) > now)?.race ?? null });
   } else {
-    processDueRaces(due, state);
+    processDueRaces(due, state, raceDate);
   }
   return { done: now > new Date((schedule.at(-1)?.postTime?.getTime() ?? 0) + 5 * 60_000), latestPostTime: schedule.at(-1)?.postTime };
 };

@@ -5,6 +5,7 @@ param(
 $ErrorActionPreference = "Stop"
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $WeekDataPath = Join-Path $RepoRoot "tools\week-data.json"
+$CandidateDataPath = Join-Path $RepoRoot "tools\week-data.batch-candidate.json"
 $AllRaceSignalsPath = Join-Path $RepoRoot "tools\all-race-signals.json"
 $RuntimeDir = Join-Path $RepoRoot "tools\pad-runtime"
 $UpdaterStatePath = Join-Path $RuntimeDir "odds-auto-update-state.json"
@@ -36,6 +37,16 @@ if (-not (Test-Path -LiteralPath $WeekDataPath)) {
 }
 
 $week = Get-Content -LiteralPath $WeekDataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$dataSource = "published"
+if (Test-Path -LiteralPath $CandidateDataPath) {
+  $candidate = Get-Content -LiteralPath $CandidateDataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+  $publishedDate = [string]$week.meta.date
+  $candidateDate = [string]$candidate.meta.date
+  if ($candidateDate -and ((-not $publishedDate) -or $candidateDate -ge $publishedDate)) {
+    $week = $candidate
+    $dataSource = "candidate"
+  }
+}
 $raceDate = [string]$week.meta.date
 $today = [DateTimeOffset]::Now.ToString("yyyy-MM-dd")
 if ($raceDate -ne $today) {
@@ -61,7 +72,7 @@ $races = @($scheduleSource | ForEach-Object {
 })
 
 if ($races.Count -eq 0) {
-  Write-WatchdogLog "ERROR" "No races were found for today."
+  Write-WatchdogLog "ERROR" "No races were found for today (source=$dataSource)."
   exit 2
 }
 

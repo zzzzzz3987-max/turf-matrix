@@ -606,6 +606,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     coverage: profile.coverage,
     identity: bloodV2.identity,
     sireProfile: bloodV2.sireProfile,
+    broodmareSireProfile: bloodV2.broodmareSireProfile,
     crosses: bloodV2.crosses,
     crossStatus: bloodV2.crossStatus,
     dataCompleteness: bloodV2.completeness,

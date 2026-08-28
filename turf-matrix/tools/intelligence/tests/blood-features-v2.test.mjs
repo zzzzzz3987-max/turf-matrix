@@ -9,6 +9,7 @@ import {
 } from "../blood-features.mjs";
 import { buildBloodProfile, buildPedigreeAnalysis, scoreBlood } from "../blood-ai.mjs";
 import { buildRaceContext } from "../race-context.mjs";
+import { SIRE_PROFILES, findSireProfile } from "../dictionaries/sire-profile-dictionary.mjs";
 
 const crossEntries = [
   { name: "Sunday Silence", normalizedName: "sundaysilence", generation: 3, branch: "sire.sire.sire", side: "sire" },
@@ -151,6 +152,40 @@ test("Blood v2 evidence does not alter the production Blood score", () => {
   assert.equal(after, before);
   assert.equal(analysis.version, "blood-evidence-v2");
   assert.equal(analysis.identity.pairLabel, "サートゥルナーリア × ハーツクライ");
+});
+
+test("individual pedigree profiles are unique, aliased, and evidence-only", () => {
+  const ids = SIRE_PROFILES.map((profile) => profile.id);
+  assert.equal(new Set(ids).size, ids.length);
+  assert.ok(SIRE_PROFILES.every((profile) => profile.names.length && profile.traits.length && profile.scoreApplied === false));
+  assert.equal(findSireProfile("Heart's Cry")?.id, "hearts_cry");
+  assert.equal(findSireProfile("ロードカナロア")?.id, "lord_kanaloa");
+  assert.equal(findSireProfile("Bricks and Mortar")?.id, "bricks_and_mortar");
+});
+
+test("a curated broodmare-sire profile deepens evidence without changing Blood score", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-08-29", course: "新潟", surface: "芝", distance: 1600 },
+    pedigree: {
+      sire: "サートゥルナーリア",
+      sireSire: "ロードカナロア",
+      sireDam: "シーザリオ",
+      dam: "検証母",
+      broodmareSire: "ハーツクライ",
+      damDam: "検証母母",
+      ancestors: [],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const before = scoreBlood(horse, context);
+  const analysis = buildPedigreeAnalysis(horse, before, context);
+  const after = scoreBlood(horse, context);
+
+  assert.equal(after, before);
+  assert.equal(analysis.broodmareSireProfile.id, "hearts_cry");
+  assert.match(analysis.headline, /母父ハーツクライ/);
+  assert.match(analysis.headline, /持続力/);
+  assert.ok(analysis.evidenceV2.some((item) => item.type === "broodmareSireProfile" && item.scoreApplied === false));
 });
 
 test("pedigree feature extraction is deterministic", () => {

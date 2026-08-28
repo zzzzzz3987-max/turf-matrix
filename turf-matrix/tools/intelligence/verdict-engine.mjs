@@ -156,6 +156,7 @@ const buildVerdictPayload = ({
           coverage: pedigreeAnalysis?.coverage ?? 0,
           identity: pedigreeAnalysis?.identity ?? null,
           sireProfile: pedigreeAnalysis?.sireProfile ?? null,
+          broodmareSireProfile: pedigreeAnalysis?.broodmareSireProfile ?? null,
           crosses: pedigreeAnalysis?.crosses ?? [],
           crossStatus: pedigreeAnalysis?.crossStatus ?? "unavailable",
           dataCompleteness: pedigreeAnalysis?.dataCompleteness ?? null,

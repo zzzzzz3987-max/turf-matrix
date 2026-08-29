@@ -23,12 +23,26 @@ function Write-WatchdogLog {
 
 function Show-OperatorAlert {
   param([string]$Message)
+  $now = [DateTimeOffset]::Now.ToString("o")
+  $current = $null
+  if (Test-Path -LiteralPath $AlertPath) {
+    try { $current = Get-Content -LiteralPath $AlertPath -Raw -Encoding UTF8 | ConvertFrom-Json } catch { $current = $null }
+  }
+  if ($current -and [string]$current.status -eq "active" -and [string]$current.message -eq $Message) {
+    $current.lastSeenAt = $now
+    $current.occurrences = [int]$current.occurrences + 1
+    $current | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $AlertPath -Encoding UTF8
+    return
+  }
   $alert = [PSCustomObject]@{
     status = "active"
-    detectedAt = [DateTimeOffset]::Now.ToString("o")
+    detectedAt = $now
+    lastSeenAt = $now
+    occurrences = 1
     message = $Message
+    codexNotifiedAt = $null
   }
-  $alert | ConvertTo-Json | Set-Content -LiteralPath $AlertPath -Encoding UTF8
+  $alert | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $AlertPath -Encoding UTF8
 }
 
 if (-not (Test-Path -LiteralPath $WeekDataPath)) {

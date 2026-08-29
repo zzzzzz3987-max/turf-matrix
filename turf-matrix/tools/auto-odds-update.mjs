@@ -10,6 +10,7 @@ const RUNTIME_DIR = join(TOOLS_DIR, "pad-runtime");
 const STATE_PATH = join(RUNTIME_DIR, "odds-auto-update-state.json");
 const LOCK_PATH = join(RUNTIME_DIR, "odds-auto-update.lock");
 const LOG_PATH = join(RUNTIME_DIR, "odds-auto-update.log");
+const ALERT_PATH = join(RUNTIME_DIR, "odds-auto-update-alert.json");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const NEXT_DATA_PATH = join(TOOLS_DIR, "week-data.next.json");
@@ -49,9 +50,38 @@ const log = (level, message, details = null) => {
 };
 
 const sleep = (milliseconds) => new Promise((resolvePromise) => setTimeout(resolvePromise, milliseconds));
-const readJson = (path, fallback) => existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : fallback;
+const readJson = (path, fallback) => existsSync(path) ? JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, "")) : fallback;
 const writeJson = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 const dataDate = (data) => data?.meta?.date ?? data?.races?.[0]?.id?.slice(0, 10) ?? null;
+
+const recordAlert = (message, details = null) => {
+  const now = new Date().toISOString();
+  const current = readJson(ALERT_PATH, null);
+  if (current?.status === "active" && current.message === message) {
+    writeJson(ALERT_PATH, { ...current, lastSeenAt: now, occurrences: Number(current.occurrences ?? 1) + 1, details });
+    return;
+  }
+  writeJson(ALERT_PATH, {
+    status: "active",
+    detectedAt: now,
+    lastSeenAt: now,
+    occurrences: 1,
+    message,
+    details,
+    codexNotifiedAt: null,
+  });
+};
+
+const resolveAlert = (message) => {
+  const current = readJson(ALERT_PATH, null);
+  if (current?.status !== "active") return;
+  writeJson(ALERT_PATH, {
+    ...current,
+    status: "resolved",
+    resolvedAt: new Date().toISOString(),
+    resolution: message,
+  });
+};
 
 const selectScheduleData = (published, candidate) => {
   const publishedDate = dataDate(published);
@@ -257,6 +287,7 @@ const processDueRaces = (due, state, raceDate) => {
     };
   }
   writeJson(STATE_PATH, state);
+  resolveAlert(`Automatic odds update recovered and completed for ${labels}`);
   log("INFO", "Automatic odds update completed", { races: labels, ...result });
 };
 
@@ -340,6 +371,7 @@ const main = async () => {
 };
 
 main().catch((error) => {
+  recordAlert(error.message, { stack: error.stack });
   log("ERROR", error.message, { stack: error.stack });
   process.exit(1);
 });

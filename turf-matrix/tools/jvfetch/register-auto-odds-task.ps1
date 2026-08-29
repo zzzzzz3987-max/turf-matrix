@@ -5,26 +5,17 @@ param(
 
 $ErrorActionPreference = "Stop"
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
-$Runner = Join-Path $RepoRoot "tools\auto-odds-update.mjs"
+$Runner = Join-Path $PSScriptRoot "invoke-auto-odds-runner.ps1"
 
 if (-not (Test-Path -LiteralPath $Runner)) {
   throw "Automatic odds runner was not found: $Runner"
 }
 
-$NodeCandidates = @(
-  $env:TURF_MATRIX_NODE,
-  (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"),
-  "C:\Program Files\nodejs\node.exe"
-) | Where-Object { $_ -and (Test-Path -LiteralPath $_) }
-$Node = $NodeCandidates | Select-Object -First 1
-if (-not $Node) {
-  throw "node.exe was not found. Set TURF_MATRIX_NODE to its absolute path and rerun."
-}
-
 $Time = [DateTime]::ParseExact($StartAt, "HH:mm", [Globalization.CultureInfo]::InvariantCulture)
+$RunnerArguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$Runner`" -LeadMinutes 7 -PollSeconds 60"
 $Action = New-ScheduledTaskAction `
-  -Execute $Node `
-  -Argument "`"$Runner`" --watch --lead-minutes=7 --poll-seconds=60" `
+  -Execute "powershell.exe" `
+  -Argument $RunnerArguments `
   -WorkingDirectory $RepoRoot
 $Saturday = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Saturday -At $Time
 $Sunday = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Sunday -At $Time
@@ -43,7 +34,7 @@ Register-ScheduledTask `
   -Trigger @($Saturday, $Sunday) `
   -Settings $Settings `
   -Principal $Principal `
-  -Description "TURF MATRIX: fetch, verify, archive and publish live odds seven minutes before each listed race." `
+  -Description "TURF MATRIX: sync the isolated runner, then fetch, verify, archive and publish live odds seven minutes before each listed race." `
   -Force | Out-Null
 
 $WatchdogTaskName = "TURF MATRIX Odds Watchdog"

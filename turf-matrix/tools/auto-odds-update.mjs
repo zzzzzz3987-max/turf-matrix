@@ -74,10 +74,10 @@ const notifyOperator = (title, message) => {
   log("ALERT", "Windows notification dispatched", { message });
 };
 
-const recordAlert = (message, details = null) => {
+const recordAlert = (message, details = null, kind = "update") => {
   const now = new Date().toISOString();
   const current = readJson(ALERT_PATH, null);
-  if (current?.status === "active" && current.message === message) {
+  if (current?.status === "active" && current.message === message && (current.kind ?? "update") === kind) {
     writeJson(ALERT_PATH, { ...current, lastSeenAt: now, occurrences: Number(current.occurrences ?? 1) + 1, details });
     return;
   }
@@ -86,23 +86,24 @@ const recordAlert = (message, details = null) => {
     detectedAt: now,
     lastSeenAt: now,
     occurrences: 1,
+    kind,
     message,
     details,
     codexNotifiedAt: null,
   });
-  notifyOperator("TURF MATRIX オッズ更新エラー", message);
+  notifyOperator(kind === "conditions" ? "TURF MATRIX 馬場情報エラー" : "TURF MATRIX オッズ更新エラー", message);
 };
 
-const resolveAlert = (message) => {
+const resolveAlert = (message, kind = "update") => {
   const current = readJson(ALERT_PATH, null);
-  if (current?.status !== "active") return;
+  if (current?.status !== "active" || (current.kind ?? "update") !== kind) return;
   writeJson(ALERT_PATH, {
     ...current,
     status: "resolved",
     resolvedAt: new Date().toISOString(),
     resolution: message,
   });
-  notifyOperator("TURF MATRIX オッズ更新復旧", message);
+  notifyOperator(kind === "conditions" ? "TURF MATRIX 馬場情報復旧" : "TURF MATRIX オッズ更新復旧", message);
 };
 
 const selectScheduleData = (published, candidate) => {
@@ -290,7 +291,9 @@ const processDueRaces = (due, state, raceDate) => {
   try {
     runPowerShell("-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");
     runNode("tools/jvlink/extract-race-conditions.mjs");
+    resolveAlert("Track conditions refresh recovered", "conditions");
   } catch (error) {
+    recordAlert("Track conditions refresh failed; odds update continued", { error: error.message }, "conditions");
     log("WARN", "Condition refresh failed; verified odds update continues", { error: error.message });
   }
 

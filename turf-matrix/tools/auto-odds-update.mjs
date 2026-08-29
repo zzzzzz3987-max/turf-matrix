@@ -11,6 +11,7 @@ const STATE_PATH = join(RUNTIME_DIR, "odds-auto-update-state.json");
 const LOCK_PATH = join(RUNTIME_DIR, "odds-auto-update.lock");
 const LOG_PATH = join(RUNTIME_DIR, "odds-auto-update.log");
 const ALERT_PATH = join(RUNTIME_DIR, "odds-auto-update-alert.json");
+const NOTIFICATION_SCRIPT_PATH = join(TOOLS_DIR, "jvfetch", "send-operator-notification.ps1");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const NEXT_DATA_PATH = join(TOOLS_DIR, "week-data.next.json");
@@ -54,6 +55,25 @@ const readJson = (path, fallback) => existsSync(path) ? JSON.parse(readFileSync(
 const writeJson = (path, value) => writeFileSync(path, `${JSON.stringify(value, null, 2)}\n`, "utf8");
 const dataDate = (data) => data?.meta?.date ?? data?.races?.[0]?.id?.slice(0, 10) ?? null;
 
+const notifyOperator = (title, message) => {
+  if (process.platform !== "win32" || !existsSync(NOTIFICATION_SCRIPT_PATH)) return;
+  const result = spawnSync("powershell.exe", [
+    "-NoProfile",
+    "-WindowStyle", "Hidden",
+    "-ExecutionPolicy", "Bypass",
+    "-File", NOTIFICATION_SCRIPT_PATH,
+    "-Title", title,
+    "-Message", message,
+  ], { cwd: REPO_ROOT, encoding: "utf8", stdio: "pipe" });
+  if (result.error || result.status !== 0) {
+    log("ERROR", "Windows notification failed", {
+      error: result.error?.message ?? String(result.stderr || result.stdout || "").trim(),
+    });
+    return;
+  }
+  log("ALERT", "Windows notification dispatched", { message });
+};
+
 const recordAlert = (message, details = null) => {
   const now = new Date().toISOString();
   const current = readJson(ALERT_PATH, null);
@@ -70,6 +90,7 @@ const recordAlert = (message, details = null) => {
     details,
     codexNotifiedAt: null,
   });
+  notifyOperator("TURF MATRIX オッズ更新エラー", message);
 };
 
 const resolveAlert = (message) => {
@@ -81,6 +102,7 @@ const resolveAlert = (message) => {
     resolvedAt: new Date().toISOString(),
     resolution: message,
   });
+  notifyOperator("TURF MATRIX オッズ更新復旧", message);
 };
 
 const selectScheduleData = (published, candidate) => {

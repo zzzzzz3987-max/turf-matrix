@@ -11,6 +11,7 @@ $UpdaterStatePath = Join-Path $RuntimeDir "odds-auto-update-state.json"
 $WatchdogStatePath = Join-Path $RuntimeDir "odds-watchdog-state.json"
 $AlertPath = Join-Path $RuntimeDir "odds-auto-update-alert.json"
 $LogPath = Join-Path $RuntimeDir "odds-watchdog.log"
+$NotificationScriptPath = Join-Path $PSScriptRoot "send-operator-notification.ps1"
 
 New-Item -ItemType Directory -Path $RuntimeDir -Force | Out-Null
 
@@ -42,6 +43,12 @@ function Show-OperatorAlert {
     codexNotifiedAt = $null
   }
   $alert | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $AlertPath -Encoding UTF8
+  try {
+    & $NotificationScriptPath -Title "TURF MATRIX オッズ更新エラー" -Message $Message | Out-Null
+    Write-WatchdogLog "ALERT" "Windows notification dispatched: $Message"
+  } catch {
+    Write-WatchdogLog "ERROR" "Windows notification failed: $($_.Exception.Message)"
+  }
 }
 
 if (-not (Test-Path -LiteralPath $WeekDataPath)) {

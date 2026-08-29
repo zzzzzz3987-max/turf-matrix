@@ -43,6 +43,7 @@
     "analyze:whatif": "node tools/analyze/normalize-what-if.mjs",
     "analyze:whatif:selective": "node tools/analyze/normalize-what-if-selective.mjs",
     "analyze:weight": "node tools/analyze/weight-effect-whatif.mjs",
+    "analyze:load": "node tools/analyze/load-adjustment-whatif.mjs",
     "analyze:opponents": "node tools/analyze/opponent-selection-whatif.mjs",
     "analyze:index-leader": "node tools/analyze/index-leader-whatif.mjs",
     "analyze:index-leader:holdout": "node tools/analyze/index-leader-holdout.mjs",

@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intelligence/index.mjs";
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
+import { buildRaceLoadContext } from "./intelligence/load-ai.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -107,6 +108,7 @@ const races = normalized.races.map((bundle) => {
   const context = {
     ...buildRaceContext(race),
     paceScenario: buildRacePaceScenario(enrichedHorses),
+    load: buildRaceLoadContext(enrichedHorses, race),
   };
   const horses = enrichedHorses.map((horse) => {
     const dataStatus = {
@@ -115,7 +117,7 @@ const races = normalized.races.map((bundle) => {
       training: horse.missing.includes("training") ? "missing" : "active",
       pedigree: horse.missing.includes("pedigree") ? "partial" : "active",
       odds: horse.odds ? "active" : "missing",
-      intelligence: "tm-index-v1.5",
+      intelligence: "tm-index-v1.6",
     };
     const analysisHorse = { ...horse, dataStatus };
     const intelligence = buildAnalysis(analysisHorse, context);
@@ -174,7 +176,7 @@ const races = normalized.races.map((bundle) => {
       currentRace: "active",
       pastRuns: bundle.horses.every((horse) => horse.pastRuns.length) ? "active" : "partial",
       odds: oddsStatus,
-      intelligence: "tm-index-v1.5",
+      intelligence: "tm-index-v1.6",
     },
     raceContext: context,
     horses,
@@ -194,7 +196,7 @@ const draft = {
   generatedAt: null,
   productionWeekDataUpdated: false,
   intelligenceLayerConnected: races.length > 0,
-  intelligenceStage: races.length ? "tm-index-v1.5" : "pending",
+  intelligenceStage: races.length ? "tm-index-v1.6" : "pending",
   uiConnected: true,
   meta: {
     date: races[0]?.id.slice(0, 10) ?? config.raceDate,

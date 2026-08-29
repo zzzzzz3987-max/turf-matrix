@@ -11,6 +11,7 @@ import { calculateTmIndex, buildIndexContributions } from "./tm-index-engine.mjs
 import { buildRaceContext } from "./race-context.mjs";
 import { assessDataQuality } from "./data-quality-ai.mjs";
 import { buildGoingAdjustment } from "./going-adjustment.mjs";
+import { buildLoadAnalysis } from "./load-ai.mjs";
 
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
@@ -72,8 +73,10 @@ const buildAnalysis = (horse, suppliedContext) => {
   const experienceAdjustedIndex = applyExperienceDiscount(rawTmIndex, horse);
   const goingAnalysis = buildGoingAdjustment(horse, context);
   const goingAdjustment = goingAnalysis.adjustment ?? 0;
+  const loadAnalysis = buildLoadAnalysis(horse, context);
+  const loadAdjustment = loadAnalysis.adjustment ?? 0;
   const tmIndex = Number.isFinite(experienceAdjustedIndex)
-    ? Math.max(45, Math.min(92, experienceAdjustedIndex + goingAdjustment))
+    ? Math.max(45, Math.min(92, experienceAdjustedIndex + goingAdjustment + loadAdjustment))
     : experienceAdjustedIndex;
   const runCount = horse.pastRuns?.length ?? 0;
   const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(experienceAdjustedIndex)
@@ -97,6 +100,8 @@ const buildAnalysis = (horse, suppliedContext) => {
     sampleAdjustment,
     goingAdjustment,
     goingAnalysis,
+    loadAdjustment,
+    loadAnalysis,
     value,
     factors,
     scores: { ability, form, course, pace, training, blood, stable, frame },

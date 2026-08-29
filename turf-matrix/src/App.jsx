@@ -6,7 +6,7 @@ import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import {
   Sparkles, Zap, Ruler, Activity, Dumbbell, Timer, Home, LayoutGrid, Dna,
   TrendingUp, MessageSquare, Clock, BadgeCheck, ChevronDown, ChevronLeft, X,
-  Star, Map, Route, ChevronRight,
+  Star, Map, Route, ChevronRight, Weight,
 } from "lucide-react";
 
 /* =====================================================================
@@ -194,7 +194,8 @@ const scoreBreakdown = (horse) => {
   const items = BREAKDOWN_DEFS.map((d) => ({ label: d.label, value: Math.round(d.calc(f, ped)) }));
   const sampleAdjustment = Number.isFinite(horse.analysis.sampleAdjustment) ? horse.analysis.sampleAdjustment : 0;
   const goingAdjustment = Number.isFinite(horse.analysis.goingAdjustment) ? horse.analysis.goingAdjustment : 0;
-  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment - goingAdjustment;
+  const loadAdjustment = Number.isFinite(horse.analysis.loadAdjustment) ? horse.analysis.loadAdjustment : 0;
+  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment - goingAdjustment - loadAdjustment;
   const runCount = horse.pastRuns?.length ?? 0;
   return {
     items,
@@ -203,6 +204,8 @@ const scoreBreakdown = (horse) => {
     sampleLabel: `サンプル不足補正(${runCount}走)`,
     goingAdjustment,
     goingLabel: `馬場適性補正(${horse.analysis.goingAnalysis?.going ?? "公式馬場"})`,
+    loadAdjustment,
+    loadLabel: "斤量補正(年齢・性別差換算)",
   };
 };
 
@@ -443,6 +446,7 @@ const FACTOR_DEFS = [
   { key: "trainingLap", label: "調教ラップ", icon: Timer },
   { key: "stable", label: "厩舎", icon: Home },
   { key: "frame", label: "枠順", icon: LayoutGrid },
+  { key: "load", label: "斤量", icon: Weight, detail: true },
 ];
 
 /* ファクター比較テーブルの行(「どの馬がどこで優れているか」を3秒で) */
@@ -523,6 +527,7 @@ const commandFactors = (horse) => {
       { key: "blood", label: "Blood AI", value: null, status: horse.pedigreeRaw ? "取得済み" : "未取得" },
       { key: "training", label: "Training AI", value: null, status: horse.dataStatus?.training === "active" ? "取得済み" : "調教データ不足" },
       { key: "course", label: "Course AI", value: null, status: "分析準備中" },
+      { key: "load", label: "Load AI（斤量）", value: null, status: horse.carriedWeight != null ? "斤量取得済み" : "未取得" },
       { key: "pace", label: "Pace AI", value: null, status: "分析準備中" },
       { key: "stable", label: "Stable AI", value: null, status: "分析準備中" },
       { key: "form", label: "Form AI", value: null, status: horse.pastRuns?.length ? "過去走取得済み" : "未取得" },
@@ -533,6 +538,7 @@ const commandFactors = (horse) => {
     { key: "blood", label: "Blood AI", value: factorDetailScore(horse, "blood") },
     { key: "training", label: "Training AI", value: factorDetailScore(horse, "training") },
     { key: "course", label: "Course AI", value: factorDetailScore(horse, "course") },
+    { key: "load", label: "Load AI（斤量）", value: factorDetailScore(horse, "load") },
     { key: "pace", label: "Pace AI", value: factorDetailScore(horse, "pace") },
     { key: "stable", label: "Stable AI", value: factorDetailScore(horse, "stable") },
     { key: "form", label: "Form AI", value: factorDetailScore(horse, "form") },
@@ -769,7 +775,7 @@ const GlossaryModal = ({ onClose }) => {
             </section>
 
             <section>
-              <h3 className="text-[15px] font-bold text-gray-900">8つのファクター</h3>
+              <h3 className="text-[15px] font-bold text-gray-900">9つのファクター</h3>
               <p className="mt-2">TM INDEXは以下の視点を統合して算出します。</p>
               <div className="mt-4 divide-y divide-gray-100 rounded-[14px] border border-gray-200 bg-white">
                 {[
@@ -778,6 +784,7 @@ const GlossaryModal = ({ onClose }) => {
                   ["調教", "一週前・最終追い切りの時計とラップ、厩舎の仕上げパターン"],
                   ["コース適性", "コース形態や同コース実績への適合"],
                   ["展開", "想定ペースと脚質・枠順の相性"],
+                  ["斤量", "馬齢・性別差を換算したレース内の相対負担と、近似条件での克服実績"],
                   ["厩舎", "ローテーションや騎手起用など陣営の使い方"],
                   ["調子", "近走成績の上昇・下降トレンド"],
                   ["期待値", "市場(オッズ)との評価差 ※オッズ確定後に評価"],
@@ -910,6 +917,7 @@ const TMFactorsCard = ({ analysis }) => {
     ["blood", "Blood"],
     ["training", "Training"],
     ["course", "Course"],
+    ["load", "Load（斤量）"],
     ["pace", "Pace"],
     ["stable", "Stable"],
     ["form", "Form"],
@@ -1778,6 +1786,12 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
                 <Num className="text-gray-500">{bd.goingAdjustment >= 0 ? `+${bd.goingAdjustment}` : bd.goingAdjustment}</Num>
               </div>
             ) : null}
+            {bd.loadAdjustment ? (
+              <div className="flex items-baseline justify-between text-[12px]">
+                <span className="text-gray-500">{bd.loadLabel}</span>
+                <Num className="text-gray-500">{bd.loadAdjustment >= 0 ? `+${bd.loadAdjustment}` : bd.loadAdjustment}</Num>
+              </div>
+            ) : null}
             <div className="flex items-baseline justify-between text-[12px]">
               <span className="font-medium text-gray-700">合計 TM INDEX</span>
               <Num className="font-bold text-gray-900">{horse.aiScore}</Num>
@@ -1846,7 +1860,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               key={f.key}
               icon={f.icon}
               label={f.label}
-              value={f.derived ? a.factorsDetail?.blood?.score : a.factorsDetail?.[f.key]?.score ?? a.factors[f.key]}
+              value={f.derived ? a.factorsDetail?.blood?.score : f.detail ? a.factorsDetail?.[f.key]?.score : a.factorsDetail?.[f.key]?.score ?? a.factors[f.key]}
               delay={i * 60}
             />
           ))}

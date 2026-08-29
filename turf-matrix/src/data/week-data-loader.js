@@ -73,10 +73,11 @@ const buildSummary = (candidate, horses) => {
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
   const pastRunCount = horses.reduce((sum, horse) => sum + (horse.pastRuns?.length ?? 0), 0);
+  const intelligenceVersion = String(candidate.intelligenceStage ?? "tm-index-v1.6").replace(/^tm-index-/, "");
 
   return {
     text: top
-      ? `TARGET実データからTM INDEX v1.5を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
+      ? `TARGET実データからTM INDEX ${intelligenceVersion}を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
       : `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEXは分析準備中です。`,
     highlights: [
       `出走馬${horses.length}頭をcurrent-race-detail.csvから取得`,
@@ -94,7 +95,7 @@ const buildFeatured = (race, horses) =>
     .map((horse, index) => ({
       raceId: race.id,
       horseId: horse.id,
-      note: horse.analysis?.verdict?.summary ?? horse.comment ?? `TM INDEX v1.5 ${horse.aiScore}`,
+      note: horse.analysis?.verdict?.summary ?? horse.comment ?? `TM INDEX ${horse.aiScore}`,
       priority: index + 1,
     }));
 

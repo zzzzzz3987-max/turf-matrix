@@ -34,10 +34,14 @@ $Node = Find-Executable -Label "node.exe" -Candidates @(
   (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"),
   "C:\Program Files\nodejs\node.exe"
 )
-$Npm = Find-Executable -Label "npm.cmd" -Candidates @(
+$Npm = @(
   (Join-Path (Split-Path -Parent $Node) "npm.cmd"),
   "C:\Program Files\nodejs\npm.cmd"
-)
+) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+$Pnpm = @(
+  (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback\pnpm.cmd")
+) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+if (-not $Npm -and -not $Pnpm) { throw "npm.cmd or pnpm.cmd was not found." }
 
 $SourceFull = [IO.Path]::GetFullPath($SourceRoot).TrimEnd('\')
 $RunnerFull = [IO.Path]::GetFullPath($RunnerRoot).TrimEnd('\')
@@ -62,7 +66,11 @@ if ($LASTEXITCODE -ne 0 -or $dirty.Count -gt 0) {
 }
 Invoke-Checked $Git @("fetch", "origin", "main") $RunnerFull
 Invoke-Checked $Git @("pull", "--ff-only", "origin", "main") $RunnerFull
-Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund") $RunnerFull
+if ($Npm) {
+  Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund") $RunnerFull
+} else {
+  Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile") $RunnerFull
+}
 
 $sourceName = ([string](& $Git -C $SourceRoot config user.name)).Trim()
 $sourceEmail = ([string](& $Git -C $SourceRoot config user.email)).Trim()

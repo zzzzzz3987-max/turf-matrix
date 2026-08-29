@@ -68,10 +68,14 @@ try {
     (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe"),
     "C:\Program Files\nodejs\node.exe"
   )
-  $Npm = Find-Executable -Label "npm.cmd" -Candidates @(
+  $Npm = @(
     (Join-Path (Split-Path -Parent $Node) "npm.cmd"),
     "C:\Program Files\nodejs\npm.cmd"
-  )
+  ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+  $Pnpm = @(
+    (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback\pnpm.cmd")
+  ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
+  if (-not $Npm -and -not $Pnpm) { throw "npm.cmd or pnpm.cmd was not found." }
 
   Push-Location $RepoRoot
   try {
@@ -107,7 +111,11 @@ try {
     $packageHash = if (Test-Path -LiteralPath $packageLock) { (Get-FileHash -LiteralPath $packageLock -Algorithm SHA256).Hash } else { "none" }
     $installedHash = if (Test-Path -LiteralPath $DependencyStampPath) { (Get-Content -LiteralPath $DependencyStampPath -Raw).Trim() } else { "" }
     if (-not (Test-Path -LiteralPath $nodeModules) -or $installedHash -ne $packageHash) {
-      Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund")
+      if ($Npm) {
+        Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund")
+      } else {
+        Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile")
+      }
       Set-Content -LiteralPath $DependencyStampPath -Value $packageHash -Encoding ASCII
     }
 

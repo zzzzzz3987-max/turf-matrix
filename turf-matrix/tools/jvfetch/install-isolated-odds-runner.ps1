@@ -90,7 +90,7 @@ if ($sourceName) { Invoke-Checked $Git @("config", "user.name", $sourceName) $Ru
 if ($sourceEmail) { Invoke-Checked $Git @("config", "user.email", $sourceEmail) $RunnerFull }
 
 $register = Join-Path $RunnerAppRoot "tools\jvfetch\register-auto-odds-task.ps1"
-& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $register -StartAt $StartAt
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $register -StartAt $StartAt -InputRoot $SourceRoot
 if ($LASTEXITCODE -ne 0) { throw "Scheduled task registration failed." }
 
 Write-Host "Isolated odds runner installed: $RunnerFull"

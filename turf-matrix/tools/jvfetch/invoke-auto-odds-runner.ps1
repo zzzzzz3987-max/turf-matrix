@@ -1,6 +1,7 @@
 param(
   [int]$LeadMinutes = 7,
-  [int]$PollSeconds = 60
+  [int]$PollSeconds = 60,
+  [string]$InputRoot = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -57,7 +58,40 @@ function Set-RunnerAlert {
   } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath $AlertPath -Encoding UTF8
 }
 
+function Copy-InputDirectory {
+  param([string]$RelativePath)
+  $source = Join-Path $InputRoot $RelativePath
+  if (-not (Test-Path -LiteralPath $source)) {
+    throw "Required automation input directory is missing: $source"
+  }
+  $destination = Join-Path $RepoRoot $RelativePath
+  $destinationFull = [IO.Path]::GetFullPath($destination)
+  $repoFull = [IO.Path]::GetFullPath($RepoRoot).TrimEnd('\') + '\'
+  if (-not $destinationFull.StartsWith($repoFull, [StringComparison]::OrdinalIgnoreCase)) {
+    throw "Automation input destination escaped the isolated runner: $destinationFull"
+  }
+  New-Item -ItemType Directory -Path $destinationFull -Force | Out-Null
+  Get-ChildItem -LiteralPath $source -Force | Copy-Item -Destination $destinationFull -Recurse -Force
+}
+
+function Copy-InputFile {
+  param([string]$RelativePath, [bool]$Required = $true)
+  $source = Join-Path $InputRoot $RelativePath
+  if (-not (Test-Path -LiteralPath $source)) {
+    if ($Required) { throw "Required automation input file is missing: $source" }
+    return
+  }
+  $destination = Join-Path $RepoRoot $RelativePath
+  New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+  Copy-Item -LiteralPath $source -Destination $destination -Force
+}
+
 try {
+  if (-not $InputRoot) { throw "InputRoot is required for the isolated odds runner." }
+  $InputRoot = (Resolve-Path $InputRoot).Path
+  if ([IO.Path]::GetFullPath($InputRoot).TrimEnd('\') -eq [IO.Path]::GetFullPath($RepoRoot).TrimEnd('\')) {
+    throw "InputRoot must be separate from the isolated runner."
+  }
   $Git = Find-Executable -Label "git.exe" -Candidates @(
     $env:TURF_MATRIX_GIT,
     (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\native\git\cmd\git.exe"),
@@ -123,6 +157,14 @@ allowBuilds:
       }
       Set-Content -LiteralPath $DependencyStampPath -Value $packageHash -Encoding ASCII
     }
+
+    Copy-InputDirectory "data\target"
+    Copy-InputDirectory "tools\csv\input"
+    Copy-InputDirectory "tools\target-html\input"
+    Copy-InputFile "tools\jvlink\output\target-horses.json"
+    Copy-InputFile "tools\jvlink\output\all-races-data-config.json"
+    Copy-InputFile "tools\jvlink\output\race-batch-runtime.json" $false
+    Copy-InputFile "tools\jvlink\output\race-batch-all36.json" $false
 
     Invoke-Checked $Node @($Runner, "--watch", "--lead-minutes=$LeadMinutes", "--poll-seconds=$PollSeconds")
   } finally {

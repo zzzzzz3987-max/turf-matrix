@@ -1,18 +1,20 @@
 param(
   [string]$TaskName = "TURF MATRIX Live Odds",
-  [string]$StartAt = "08:00"
+  [string]$StartAt = "08:00",
+  [string]$InputRoot = ""
 )
 
 $ErrorActionPreference = "Stop"
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $Runner = Join-Path $PSScriptRoot "invoke-auto-odds-runner.ps1"
+$ResolvedInputRoot = if ($InputRoot) { (Resolve-Path $InputRoot).Path } else { $RepoRoot }
 
 if (-not (Test-Path -LiteralPath $Runner)) {
   throw "Automatic odds runner was not found: $Runner"
 }
 
 $Time = [DateTime]::ParseExact($StartAt, "HH:mm", [Globalization.CultureInfo]::InvariantCulture)
-$RunnerArguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$Runner`" -LeadMinutes 7 -PollSeconds 60"
+$RunnerArguments = "-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$Runner`" -LeadMinutes 7 -PollSeconds 60 -InputRoot `"$ResolvedInputRoot`""
 $Action = New-ScheduledTaskAction `
   -Execute "powershell.exe" `
   -Argument $RunnerArguments `

@@ -75,6 +75,17 @@ function Copy-InputDirectory {
   Get-ChildItem -LiteralPath $source -Force | Copy-Item -Destination $destinationFull -Recurse -Force
 }
 
+function Copy-InputChildDirectories {
+  param([string]$RelativePath)
+  $source = Join-Path $InputRoot $RelativePath
+  if (-not (Test-Path -LiteralPath $source)) {
+    throw "Required automation input directory is missing: $source"
+  }
+  $destination = Join-Path $RepoRoot $RelativePath
+  New-Item -ItemType Directory -Path $destination -Force | Out-Null
+  Get-ChildItem -LiteralPath $source -Directory -Force | Copy-Item -Destination $destination -Recurse -Force
+}
+
 function Copy-InputFile {
   param([string]$RelativePath, [bool]$Required = $true)
   $source = Join-Path $InputRoot $RelativePath
@@ -160,8 +171,8 @@ allowBuilds:
     }
 
     Copy-InputDirectory "data\target"
-    Copy-InputDirectory "tools\csv\input"
-    Copy-InputDirectory "tools\target-html\input"
+    Copy-InputChildDirectories "tools\csv\input\races"
+    Copy-InputChildDirectories "tools\target-html\input\races"
     Copy-InputFile "tools\jvlink\output\target-horses.json"
     Copy-InputFile "tools\jvlink\output\all-races-data-config.json"
     Copy-InputFile "tools\jvlink\output\race-batch-runtime.json" $false

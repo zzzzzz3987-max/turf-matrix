@@ -114,6 +114,10 @@ try {
       if ($Npm) {
         Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund")
       } else {
+        @"
+allowBuilds:
+  esbuild: true
+"@ | Set-Content -LiteralPath (Join-Path $RepoRoot "pnpm-workspace.yaml") -Encoding UTF8
         Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile")
       }
       Set-Content -LiteralPath $DependencyStampPath -Value $packageHash -Encoding ASCII

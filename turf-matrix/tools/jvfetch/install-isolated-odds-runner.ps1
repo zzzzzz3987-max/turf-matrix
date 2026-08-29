@@ -76,6 +76,10 @@ Invoke-Checked $Git @("pull", "--ff-only", "origin", "main") $RunnerFull
 if ($Npm) {
   Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund") $RunnerAppRoot
 } else {
+  @"
+allowBuilds:
+  esbuild: true
+"@ | Set-Content -LiteralPath (Join-Path $RunnerAppRoot "pnpm-workspace.yaml") -Encoding UTF8
   Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile") $RunnerAppRoot
 }
 

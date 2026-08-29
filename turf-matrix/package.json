@@ -3,11 +3,6 @@
   "private": true,
   "version": "0.3.0",
   "type": "module",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
   "scripts": {
     "dev": "vite",
     "dev:race-batch": "npm run generate:race-batch && vite --mode batch",

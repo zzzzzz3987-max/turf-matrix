@@ -136,11 +136,10 @@ const runNodeWithEnv = (extraEnv, ...nodeArgs) => {
 };
 const runPowerShell = (...scriptArgs) => run("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", ...scriptArgs]);
 
-const parseSchedule = (weekData, allRaceSignals = null) => {
+const parseSchedule = (weekData) => {
   const raceDate = weekData.meta?.date ?? weekData.races?.[0]?.id?.slice(0, 10);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(raceDate ?? "")) throw new Error("Race date is missing from week-data.json");
-  const signalRaces = allRaceSignals?.date === raceDate ? allRaceSignals.races ?? [] : [];
-  const scheduleRaces = signalRaces.length ? signalRaces : weekData.races ?? [];
+  const scheduleRaces = weekData.races ?? [];
   return scheduleRaces.map((race) => {
     if (!/^\d{1,2}:\d{2}$/.test(race.time ?? "")) throw new Error(`${race.id}: race time is missing`);
     const postTime = new Date(`${raceDate}T${race.time}:00+09:00`);
@@ -298,8 +297,7 @@ const runOnce = () => {
   const selected = selectScheduleData(publishedData, candidateData);
   const weekData = selected.data;
   if (!weekData || !selected.raceDate) throw new Error("Race schedule data is unavailable");
-  const allRaceSignals = readJson(ALL_RACE_SIGNALS_PATH, null);
-  const schedule = parseSchedule(weekData, allRaceSignals);
+  const schedule = parseSchedule(weekData);
   const raceDate = selected.raceDate;
   const now = nowOverride ? new Date(nowOverride) : new Date();
   if (Number.isNaN(now.getTime())) throw new Error(`Invalid --now value: ${nowOverride}`);

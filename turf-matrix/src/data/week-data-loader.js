@@ -73,7 +73,7 @@ const buildSummary = (candidate, horses) => {
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
   const pastRunCount = horses.reduce((sum, horse) => sum + (horse.pastRuns?.length ?? 0), 0);
-  const intelligenceVersion = String(candidate.intelligenceStage ?? "tm-index-v1.6").replace(/^tm-index-/, "");
+  const intelligenceVersion = String(candidate.intelligenceStage ?? "tm-index-v1.7").replace(/^tm-index-/, "");
 
   return {
     text: top

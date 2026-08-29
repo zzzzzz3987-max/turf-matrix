@@ -65,6 +65,8 @@ const buildVerdictPayload = ({
   goingAnalysis,
   loadAdjustment,
   loadAnalysis,
+  trackBiasAdjustment,
+  trackBiasAnalysis,
   value,
   factors,
   scores,
@@ -116,7 +118,7 @@ const buildVerdictPayload = ({
   return {
     comment: `${recentText}。${bloodSummary}`,
     analysis: {
-      status: value == null ? "preodds" : "tm-index-v1.6",
+      status: value == null ? "preodds" : "tm-index-v1.7",
       confidence,
       confidenceReasons: [
         `過去走${horse.pastRuns?.length ?? 0}件を参照`,
@@ -127,6 +129,7 @@ const buildVerdictPayload = ({
           ? [goingAnalysis.summary]
           : []),
         ...(loadAnalysis?.status === "active" ? [loadAnalysis.summary] : []),
+        ...(trackBiasAnalysis?.status && trackBiasAnalysis.status !== "missing" ? [trackBiasAnalysis.summary] : []),
         valueText,
         dataQuality?.summary ?? "データ充足度を評価中",
       ],
@@ -138,6 +141,8 @@ const buildVerdictPayload = ({
       goingAnalysis,
       loadAdjustment,
       loadAnalysis,
+      trackBiasAdjustment,
+      trackBiasAnalysis,
       factorsDetail: {
         ability: abilityAnalysis ?? {
           key: "ability",
@@ -206,6 +211,7 @@ const buildVerdictPayload = ({
           evidence: courseAnalysis?.strengths?.filter((item) => /距離|m前後/.test(item)) ?? [],
         },
         load: loadAnalysis,
+        trackBias: trackBiasAnalysis,
         pace: {
           key: "pace",
           label: "展開",
@@ -256,13 +262,15 @@ const buildVerdictPayload = ({
         courseAnalysis?.summary ?? contextSummary,
         trainingAnalysis.count ? `${trainingAnalysis.summary}` : "調教時計は未取得のため、調教面は控えめに評価。",
         ...(loadAdjustment > 0 ? [loadAnalysis.summary] : []),
+        ...(trackBiasAdjustment > 0 ? [trackBiasAnalysis.summary] : []),
       ],
       cons: [
         value == null ? "オッズ未取得のため妙味は未評価。" : `人気とオッズのバランスは${valueLabel}。`,
         trainingAnalysis.count ? "調教評価は取得できた時計範囲での判定。" : "調教時計が不足。",
         ...(loadAdjustment < 0 ? [loadAnalysis.summary] : []),
+        ...(trackBiasAdjustment < 0 ? [trackBiasAnalysis.summary] : []),
       ],
-      commentary: `${displayName}は近走、コース・距離、血統、調教、斤量、${value == null ? "オッズを除く要素" : "オッズ妙味"}を統合してTM INDEX ${tmIndex ?? "未評価"}と評価しました。TARGET実データに基づく初期分析です。`,
+      commentary: `${displayName}は近走、コース・距離、血統、調教、斤量、馬場傾向、${value == null ? "オッズを除く要素" : "オッズ妙味"}を統合してTM INDEX ${tmIndex ?? "未評価"}と評価しました。TARGET実データに基づく初期分析です。`,
       frameEval: {
         score: frame,
         text: `馬番${displayNumber ?? "未取得"}を補助情報として評価。枠順の高度な有利不利判定は今後拡張します。`,

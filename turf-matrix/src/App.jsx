@@ -195,7 +195,8 @@ const scoreBreakdown = (horse) => {
   const sampleAdjustment = Number.isFinite(horse.analysis.sampleAdjustment) ? horse.analysis.sampleAdjustment : 0;
   const goingAdjustment = Number.isFinite(horse.analysis.goingAdjustment) ? horse.analysis.goingAdjustment : 0;
   const loadAdjustment = Number.isFinite(horse.analysis.loadAdjustment) ? horse.analysis.loadAdjustment : 0;
-  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment - goingAdjustment - loadAdjustment;
+  const trackBiasAdjustment = Number.isFinite(horse.analysis.trackBiasAdjustment) ? horse.analysis.trackBiasAdjustment : 0;
+  const adjust = horse.aiScore - items.reduce((s, i) => s + i.value, 0) - sampleAdjustment - goingAdjustment - loadAdjustment - trackBiasAdjustment;
   const runCount = horse.pastRuns?.length ?? 0;
   return {
     items,
@@ -206,6 +207,8 @@ const scoreBreakdown = (horse) => {
     goingLabel: `馬場適性補正(${horse.analysis.goingAnalysis?.going ?? "公式馬場"})`,
     loadAdjustment,
     loadLabel: "斤量補正(年齢・性別差換算)",
+    trackBiasAdjustment,
+    trackBiasLabel: "馬場傾向補正(前日同会場・同馬場)",
   };
 };
 
@@ -440,6 +443,7 @@ const FACTOR_DEFS = [
   { key: "course", label: "コース適性", icon: Map },
   { key: "distance", label: "距離適性", icon: Ruler },
   { key: "pace", label: "展開", icon: Route },
+  { key: "trackBias", label: "馬場傾向", icon: TrendingUp, detail: true },
   { key: "lap", label: "ラップ適性", icon: Activity },
   { key: "pedigree", label: "血統", icon: Dna, derived: true },
   { key: "training", label: "調教", icon: Dumbbell },
@@ -529,6 +533,7 @@ const commandFactors = (horse) => {
       { key: "course", label: "Course AI", value: null, status: "分析準備中" },
       { key: "load", label: "Load AI（斤量）", value: null, status: horse.carriedWeight != null ? "斤量取得済み" : "未取得" },
       { key: "pace", label: "Pace AI", value: null, status: "分析準備中" },
+      { key: "trackBias", label: "Track Bias AI", value: null, status: "前日傾向確認中" },
       { key: "stable", label: "Stable AI", value: null, status: "分析準備中" },
       { key: "form", label: "Form AI", value: null, status: horse.pastRuns?.length ? "過去走取得済み" : "未取得" },
       { key: "value", label: "Value AI（市場差）", value: null, status: "オッズ取得待ち" },
@@ -540,6 +545,7 @@ const commandFactors = (horse) => {
     { key: "course", label: "Course AI", value: factorDetailScore(horse, "course") },
     { key: "load", label: "Load AI（斤量）", value: factorDetailScore(horse, "load") },
     { key: "pace", label: "Pace AI", value: factorDetailScore(horse, "pace") },
+    { key: "trackBias", label: "Track Bias AI", value: factorDetailScore(horse, "trackBias") },
     { key: "stable", label: "Stable AI", value: factorDetailScore(horse, "stable") },
     { key: "form", label: "Form AI", value: factorDetailScore(horse, "form") },
     {
@@ -919,6 +925,7 @@ const TMFactorsCard = ({ analysis }) => {
     ["course", "Course"],
     ["load", "Load（斤量）"],
     ["pace", "Pace"],
+    ["trackBias", "Track Bias（前後）"],
     ["stable", "Stable"],
     ["form", "Form"],
     ["value", "Value（市場差）"],
@@ -946,7 +953,7 @@ const TMFactorsCard = ({ analysis }) => {
       <div className="mt-4 grid gap-2.5 md:grid-cols-2">
         {factors.map((factor) => {
           const active = factor.status === "active" && isFiniteNumber(factor.score);
-          const reference = factor.key === "blood" && factor.status === "partial" && isFiniteNumber(factor.score);
+          const reference = ["partial", "monitor"].includes(factor.status) && isFiniteNumber(factor.score);
           const displayable = active || reference;
           const pendingLabel = factor.key === "value" ? "オッズ取得待ち" : "未評価";
           return (
@@ -962,7 +969,7 @@ const TMFactorsCard = ({ analysis }) => {
                       />
                     </div>
                     <span className="text-[10px] font-medium text-slate-400">
-                      {active ? "確定" : reference ? "参考評価" : pendingLabel}
+                      {active ? "確定" : reference ? (factor.status === "monitor" ? "監視" : "参考評価") : pendingLabel}
                     </span>
                   </div>
                 </div>
@@ -1790,6 +1797,12 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
               <div className="flex items-baseline justify-between text-[12px]">
                 <span className="text-gray-500">{bd.loadLabel}</span>
                 <Num className="text-gray-500">{bd.loadAdjustment >= 0 ? `+${bd.loadAdjustment}` : bd.loadAdjustment}</Num>
+              </div>
+            ) : null}
+            {bd.trackBiasAdjustment ? (
+              <div className="flex items-baseline justify-between text-[12px]">
+                <span className="text-gray-500">{bd.trackBiasLabel}</span>
+                <Num className="text-gray-500">{bd.trackBiasAdjustment >= 0 ? `+${bd.trackBiasAdjustment}` : bd.trackBiasAdjustment}</Num>
               </div>
             ) : null}
             <div className="flex items-baseline justify-between text-[12px]">

@@ -408,6 +408,12 @@ namespace TurfMatrix.JvFetch
                             HorseNumber = horseNumber.Value,
                             HorseName = DecodeJvText(GetJvTextField(buffer, 41, 36)),
                             FinishPosition = finish,
+                            Corner1 = ParseNullableInt(GetJvTextField(buffer, 352, 2)),
+                            Corner2 = ParseNullableInt(GetJvTextField(buffer, 354, 2)),
+                            Corner3 = ParseNullableInt(GetJvTextField(buffer, 356, 2)),
+                            Corner4 = ParseNullableInt(GetJvTextField(buffer, 358, 2)),
+                            FinalPopularity = ParseNullableInt(GetJvTextField(buffer, 364, 2)),
+                            RunningStyleCode = GetJvTextField(buffer, 553, 1),
                             AbnormalityCode = GetJvTextField(buffer, 332, 1),
                             DataKubun = dataKubun
                         };
@@ -1227,6 +1233,12 @@ namespace TurfMatrix.JvFetch
             public int HorseNumber { get; set; }
             public string HorseName { get; set; }
             public int? FinishPosition { get; set; }
+            public int? Corner1 { get; set; }
+            public int? Corner2 { get; set; }
+            public int? Corner3 { get; set; }
+            public int? Corner4 { get; set; }
+            public int? FinalPopularity { get; set; }
+            public string RunningStyleCode { get; set; }
             public string AbnormalityCode { get; set; }
             public string DataKubun { get; set; }
         }

@@ -41,7 +41,12 @@ const attachResult = (snapshotHorse, resultRace) => {
     finishPosition: num(resultHorse.FinishPosition),
     horseNumber,
     horseName: snapshotHorse.name,
-    popularity: num(snapshotHorse.popularity),
+    popularity: num(resultHorse.FinalPopularity) ?? num(snapshotHorse.popularity),
+    corner1: num(resultHorse.Corner1),
+    corner2: num(resultHorse.Corner2),
+    corner3: num(resultHorse.Corner3),
+    corner4: num(resultHorse.Corner4),
+    runningStyleCode: resultHorse.RunningStyleCode || null,
     winPayout,
     placePayout,
     abnormalityCode: resultHorse.AbnormalityCode || null,
@@ -100,6 +105,8 @@ for (const race of snapshot.races ?? []) {
 
   archiveRaces.push({
     bundleId: race.bundleId,
+    track: race.track,
+    raceNo: race.number,
     name: race.name,
     weather: race.weather ?? null,
     surface: race.surface ?? null,

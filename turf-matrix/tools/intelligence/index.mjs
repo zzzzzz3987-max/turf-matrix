@@ -12,6 +12,7 @@ import { buildRaceContext } from "./race-context.mjs";
 import { assessDataQuality } from "./data-quality-ai.mjs";
 import { buildGoingAdjustment } from "./going-adjustment.mjs";
 import { buildLoadAnalysis } from "./load-ai.mjs";
+import { buildTrackBiasAnalysis } from "./track-bias-ai.mjs";
 
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
@@ -75,8 +76,10 @@ const buildAnalysis = (horse, suppliedContext) => {
   const goingAdjustment = goingAnalysis.adjustment ?? 0;
   const loadAnalysis = buildLoadAnalysis(horse, context);
   const loadAdjustment = loadAnalysis.adjustment ?? 0;
+  const trackBiasAnalysis = buildTrackBiasAnalysis(horse, context);
+  const trackBiasAdjustment = trackBiasAnalysis.adjustment ?? 0;
   const tmIndex = Number.isFinite(experienceAdjustedIndex)
-    ? Math.max(45, Math.min(92, experienceAdjustedIndex + goingAdjustment + loadAdjustment))
+    ? Math.max(45, Math.min(92, experienceAdjustedIndex + goingAdjustment + loadAdjustment + trackBiasAdjustment))
     : experienceAdjustedIndex;
   const runCount = horse.pastRuns?.length ?? 0;
   const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(experienceAdjustedIndex)
@@ -102,6 +105,8 @@ const buildAnalysis = (horse, suppliedContext) => {
     goingAnalysis,
     loadAdjustment,
     loadAnalysis,
+    trackBiasAdjustment,
+    trackBiasAnalysis,
     value,
     factors,
     scores: { ability, form, course, pace, training, blood, stable, frame },

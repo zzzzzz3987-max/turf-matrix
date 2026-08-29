@@ -1,4 +1,4 @@
-// Pace AI v1.6: deterministic field-level pace projection and style fit.
+// Pace AI v1.7: deterministic field-level pace projection and style fit.
 
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
@@ -101,16 +101,6 @@ const courseStyleAdjustment = (style, context) => {
   return styleBias.includes(style) ? 2 : 0;
 };
 
-const trackBiasAdjustment = (horse, context) => {
-  const bias = context?.trackBias;
-  if (!bias || bias.style !== "front") return 0;
-  const style = classifyRunningStyle(horse);
-  const strong = bias.strength === "strong";
-  if (style === "逃げ" || style === "先行") return strong ? 4 : 2;
-  if (style === "追込") return strong ? -3 : -1;
-  return 0;
-};
-
 const legacyPositionScore = (horse) => {
   const orders = (horse.pastRuns ?? [])
     .slice(0, 8)
@@ -126,14 +116,13 @@ const legacyPositionScore = (horse) => {
 const scorePace = (horse, context = {}) => {
   const scenario = context?.paceScenario;
   if (!scenario || scenario.confidence === "low") {
-    return clamp(legacyPositionScore(horse) + trackBiasAdjustment(horse, context));
+    return clamp(legacyPositionScore(horse));
   }
   const style = classifyRunningStyle(horse);
   return clamp(
     72
       + scenarioAdjustment(style, scenario.expectedPace)
-      + courseStyleAdjustment(style, context)
-      + trackBiasAdjustment(horse, context),
+      + courseStyleAdjustment(style, context),
   );
 };
 
@@ -147,7 +136,6 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
   const paceScore = scores.pace ?? scorePace(horse, context);
   const lapScore = scores.lap ?? scoreLap(horse);
   const liveBias = context?.trackBias ?? null;
-  const liveBiasAdjustment = trackBiasAdjustment(horse, context);
   const scenario = context?.paceScenario ?? null;
   const fitAdjustment = scenario ? scenarioAdjustment(style, scenario.expectedPace) : 0;
 
@@ -167,7 +155,7 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
       `脚質 ${style} / 展開相性補正 ${fitAdjustment >= 0 ? "+" : ""}${fitAdjustment}`,
       meanPosition ? `平均位置取り ${meanPosition.toFixed(1)}番手` : "位置取りデータは限定的",
       bestLap ? `最速上がり材料: ${bestLap.raceName ?? bestLap.course ?? "過去走"} ${bestLap.last3F}` : "上がり時計は未取得",
-      liveBias ? `当日トラックバイアス: ${liveBias.summary}` : "当日トラックバイアスは未取得",
+      liveBias ? "馬場傾向はTrack Bias AIで分離評価" : "馬場傾向は未取得",
     ],
     evidence: [
       `想定ペース ${scenario?.expectedPace ?? "未算出"}`,
@@ -175,7 +163,7 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
       `展開相性補正 ${fitAdjustment >= 0 ? "+" : ""}${fitAdjustment}`,
       `展開適性 ${paceScore}`,
       `上がり・ラップ適性 ${lapScore}`,
-      ...(liveBias ? [`当日トラックバイアス補正 ${liveBiasAdjustment >= 0 ? "+" : ""}${liveBiasAdjustment}`] : []),
+      ...(liveBias ? ["トラックバイアスは独立した最大±1点の指数補正として評価"] : []),
     ],
   };
 };
@@ -186,5 +174,4 @@ export {
   classifyRunningStyle,
   scoreLap,
   scorePace,
-  trackBiasAdjustment,
 };

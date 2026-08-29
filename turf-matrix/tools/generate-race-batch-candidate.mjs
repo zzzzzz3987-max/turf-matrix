@@ -6,6 +6,7 @@ import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intelligence/index.mjs";
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
 import { buildRaceLoadContext } from "./intelligence/load-ai.mjs";
+import { resolveTrackBias } from "./intelligence/track-bias-ai.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -27,11 +28,15 @@ const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
   : join(TOOLS_DIR, "race-batch-config.json");
 const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
 const CONDITIONS_PATH = join(TOOLS_DIR, "race-conditions.current.json");
+const TRACK_BIAS_PATH = join(TOOLS_DIR, "track-bias.current.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 const currentConditions = existsSync(CONDITIONS_PATH)
   ? JSON.parse(readFileSync(CONDITIONS_PATH, "utf8"))
   : { conditions: {} };
+const trackBiasSnapshot = existsSync(TRACK_BIAS_PATH)
+  ? JSON.parse(readFileSync(TRACK_BIAS_PATH, "utf8"))
+  : null;
 const opponentEvidence = existsSync(OPPONENT_PATH)
   ? JSON.parse(readFileSync(OPPONENT_PATH, "utf8"))
   : { records: [] };
@@ -96,12 +101,13 @@ const enrichPeerRuns = (horses) => {
 
 const races = normalized.races.map((bundle) => {
   const condition = currentConditions.conditions?.[bundle.bundleId] ?? null;
+  const snapshotBias = resolveTrackBias(trackBiasSnapshot, bundle.race);
   const race = {
     ...bundle.race,
     weather: condition?.status === "active" ? condition.weather : null,
     going: condition?.status === "active" ? condition.going : null,
     goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
-    trackBias: condition?.status === "active" ? condition.trackBias ?? null : null,
+    trackBias: condition?.trackBias ?? snapshotBias ?? bundle.race?.trackBias ?? null,
   };
   const oddsStatus = bundle.productionReady ? "active" : "preodds";
   const enrichedHorses = enrichPeerRuns(bundle.horses);
@@ -117,7 +123,7 @@ const races = normalized.races.map((bundle) => {
       training: horse.missing.includes("training") ? "missing" : "active",
       pedigree: horse.missing.includes("pedigree") ? "partial" : "active",
       odds: horse.odds ? "active" : "missing",
-      intelligence: "tm-index-v1.6",
+      intelligence: "tm-index-v1.7",
     };
     const analysisHorse = { ...horse, dataStatus };
     const intelligence = buildAnalysis(analysisHorse, context);
@@ -176,7 +182,7 @@ const races = normalized.races.map((bundle) => {
       currentRace: "active",
       pastRuns: bundle.horses.every((horse) => horse.pastRuns.length) ? "active" : "partial",
       odds: oddsStatus,
-      intelligence: "tm-index-v1.6",
+      intelligence: "tm-index-v1.7",
     },
     raceContext: context,
     horses,
@@ -196,7 +202,7 @@ const draft = {
   generatedAt: null,
   productionWeekDataUpdated: false,
   intelligenceLayerConnected: races.length > 0,
-  intelligenceStage: races.length ? "tm-index-v1.6" : "pending",
+  intelligenceStage: races.length ? "tm-index-v1.7" : "pending",
   uiConnected: true,
   meta: {
     date: races[0]?.id.slice(0, 10) ?? config.raceDate,

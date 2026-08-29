@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "targetDate": "2026-08-30",
+  "sourceDate": "2026-08-29",
+  "generatedAt": "2026-08-29T22:14:34+09:00",
+  "source": "JRA official finalized results (36 races; flat races only for bias)",
+  "method": "same-meeting previous-day venue-surface fourth-corner audit with popularity check v1",
+  "definitions": {
+    "front": "fourth-corner position within the leading 25 percent, with at least the first three runners included",
+    "middle": "fourth-corner position above 25 percent and within 60 percent",
+    "rear": "fourth-corner position behind 60 percent",
+    "activation": "at least four races, zero rear-group top-three finishes, front win share at least 60 percent, and non-negative front popularity outperformance",
+    "maximumTmIndexAdjustment": 1
+  },
+  "profiles": [
+    {
+      "track": "札幌",
+      "surface": "芝",
+      "status": "monitor",
+      "style": "front",
+      "strength": "watch",
+      "confidence": "low",
+      "sample": {
+        "raceCount": 7,
+        "runnerCount": 92,
+        "frontWins": 6,
+        "frontTop3Count": 10,
+        "frontRunnerCount": 26,
+        "rearTop3Count": 4,
+        "rearRunnerCount": 31,
+        "frontPopularityOutperformance": 0.006
+      },
+      "note": "Raw results leaned forward, but the popularity-adjusted result was effectively neutral."
+    },
+    {
+      "track": "札幌",
+      "surface": "ダート",
+      "status": "active",
+      "style": "front",
+      "strength": "moderate",
+      "confidence": "mid",
+      "sample": {
+        "raceCount": 5,
+        "runnerCount": 62,
+        "frontWins": 3,
+        "frontTop3Count": 9,
+        "frontRunnerCount": 21,
+        "rearTop3Count": 0,
+        "rearRunnerCount": 22,
+        "frontPopularityOutperformance": 0.020
+      },
+      "note": "Rear runners recorded no top-three finish; moderate anti-rear adjustment only."
+    },
+    {
+      "track": "新潟",
+      "surface": "芝",
+      "status": "monitor",
+      "style": "front",
+      "strength": "watch",
+      "confidence": "low",
+      "sample": {
+        "raceCount": 7,
+        "runnerCount": 112,
+        "frontWins": 4,
+        "frontTop3Count": 10,
+        "frontRunnerCount": 27,
+        "rearTop3Count": 2,
+        "rearRunnerCount": 41,
+        "frontPopularityOutperformance": -0.109
+      },
+      "note": "Rear finishes were scarce, but front runners underperformed their popularity; no score correction."
+    },
+    {
+      "track": "新潟",
+      "surface": "ダート",
+      "status": "active",
+      "style": "front",
+      "strength": "strong",
+      "confidence": "mid",
+      "sample": {
+        "raceCount": 4,
+        "runnerCount": 53,
+        "frontWins": 4,
+        "frontTop3Count": 10,
+        "frontRunnerCount": 17,
+        "rearTop3Count": 0,
+        "rearRunnerCount": 18,
+        "frontPopularityOutperformance": 0.046
+      },
+      "note": "All four winners raced in the front group and 10 of 12 top-three places came from that group."
+    },
+    {
+      "track": "中京",
+      "surface": "芝",
+      "status": "monitor",
+      "style": "front",
+      "strength": "watch",
+      "confidence": "low",
+      "sample": {
+        "raceCount": 7,
+        "runnerCount": 94,
+        "frontWins": 3,
+        "frontTop3Count": 8,
+        "frontRunnerCount": 25,
+        "rearTop3Count": 2,
+        "rearRunnerCount": 34,
+        "frontPopularityOutperformance": 0.028
+      },
+      "note": "Front and middle groups were competitive, but the evidence was not strong enough for a correction."
+    },
+    {
+      "track": "中京",
+      "surface": "ダート",
+      "status": "active",
+      "style": "front",
+      "strength": "moderate",
+      "confidence": "mid",
+      "sample": {
+        "raceCount": 5,
+        "runnerCount": 64,
+        "frontWins": 3,
+        "frontTop3Count": 6,
+        "frontRunnerCount": 20,
+        "rearTop3Count": 0,
+        "rearRunnerCount": 21,
+        "frontPopularityOutperformance": 0.076
+      },
+      "note": "Rear runners recorded no top-three finish; moderate anti-rear adjustment only."
+    }
+  ]
+}

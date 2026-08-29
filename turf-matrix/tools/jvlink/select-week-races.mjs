@@ -97,6 +97,8 @@ const runtime = {
   expectedRaceCount: bundles.length,
   bundles,
   provisional,
+  allowMissingRaceName: allRaces || Boolean(base.allowMissingRaceName),
+  allowMissingPastRuns: allRaces || Boolean(base.allowMissingPastRuns),
   runnerCount: selectedRunners.length,
   numberedRunnerCount,
 };

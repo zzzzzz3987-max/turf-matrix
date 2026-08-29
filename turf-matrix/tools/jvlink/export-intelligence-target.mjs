@@ -218,8 +218,11 @@ for (const bundleId of config.bundles) {
       Number(b.race.raceNo ?? 0) - Number(a.race.raceNo ?? 0),
     );
   const lines = records.map(({ record, race }) => allCsvRow(record, race, pedigreeByRegistration.get(record.bloodRegistrationNumber)));
-  if (!targetIds.size || !lines.length) {
-    throw new Error(`${bundleId}: direct past-run export returned no target horses or rows.`);
+  if (!targetIds.size) {
+    throw new Error(`${bundleId}: direct past-run export returned no target horses.`);
+  }
+  if (!lines.length && !config.allowMissingPastRuns) {
+    throw new Error(`${bundleId}: direct past-run export returned no rows.`);
   }
   allCsvOutputs.push({
     bundleId,

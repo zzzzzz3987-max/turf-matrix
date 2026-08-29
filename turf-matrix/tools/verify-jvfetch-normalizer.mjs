@@ -12,6 +12,8 @@ for (const bundleId of config.bundles) {
     const bundle = normalizeRaceBundle({
       bundleId,
       provisional: Boolean(config.provisional),
+      allowMissingRaceName: Boolean(config.allowMissingRaceName),
+      allowMissingPastRuns: Boolean(config.allowMissingPastRuns),
       csv: {
         currentRace: `data/target/races/${bundleId}/current-race-detail.csv`,
         all: `data/target/races/${bundleId}/all.csv`,
@@ -28,6 +30,8 @@ for (const bundleId of config.bundles) {
     const preoddsBundle = normalizeRaceBundle({
       bundleId,
       provisional: Boolean(config.provisional),
+      allowMissingRaceName: Boolean(config.allowMissingRaceName),
+      allowMissingPastRuns: Boolean(config.allowMissingPastRuns),
       csv: {
         currentRace: `data/target/races/${bundleId}/current-race-detail.csv`,
         all: `data/target/races/${bundleId}/all.csv`,

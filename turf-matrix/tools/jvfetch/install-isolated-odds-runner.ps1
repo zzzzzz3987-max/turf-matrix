@@ -51,6 +51,8 @@ if ($SourceFull -eq $RunnerFull) {
 
 $origin = (& $Git -C $SourceRoot remote get-url origin).Trim()
 if ($LASTEXITCODE -ne 0 -or -not $origin) { throw "Unable to resolve origin from $SourceRoot." }
+$appPrefix = ([string](& $Git -C $SourceRoot rev-parse --show-prefix)).Trim().TrimEnd('/', '\')
+if ($LASTEXITCODE -ne 0) { throw "Unable to resolve the application path inside the repository." }
 
 if (-not (Test-Path -LiteralPath $RunnerFull)) {
   $parent = Split-Path -Parent $RunnerFull
@@ -60,6 +62,11 @@ if (-not (Test-Path -LiteralPath $RunnerFull)) {
   throw "RunnerRoot exists but is not a Git clone: $RunnerFull"
 }
 
+$RunnerAppRoot = if ($appPrefix) { Join-Path $RunnerFull $appPrefix } else { $RunnerFull }
+if (-not (Test-Path -LiteralPath (Join-Path $RunnerAppRoot "package.json"))) {
+  throw "The cloned application root does not contain package.json: $RunnerAppRoot"
+}
+
 $dirty = @(& $Git -C $RunnerFull status --porcelain --untracked-files=no)
 if ($LASTEXITCODE -ne 0 -or $dirty.Count -gt 0) {
   throw "The isolated runner contains tracked changes. Resolve them before reinstalling: $RunnerFull"
@@ -67,9 +74,9 @@ if ($LASTEXITCODE -ne 0 -or $dirty.Count -gt 0) {
 Invoke-Checked $Git @("fetch", "origin", "main") $RunnerFull
 Invoke-Checked $Git @("pull", "--ff-only", "origin", "main") $RunnerFull
 if ($Npm) {
-  Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund") $RunnerFull
+  Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund") $RunnerAppRoot
 } else {
-  Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile") $RunnerFull
+  Invoke-Checked $Pnpm @("install", "--lockfile=false", "--no-frozen-lockfile") $RunnerAppRoot
 }
 
 $sourceName = ([string](& $Git -C $SourceRoot config user.name)).Trim()
@@ -77,10 +84,11 @@ $sourceEmail = ([string](& $Git -C $SourceRoot config user.email)).Trim()
 if ($sourceName) { Invoke-Checked $Git @("config", "user.name", $sourceName) $RunnerFull }
 if ($sourceEmail) { Invoke-Checked $Git @("config", "user.email", $sourceEmail) $RunnerFull }
 
-$register = Join-Path $RunnerFull "tools\jvfetch\register-auto-odds-task.ps1"
+$register = Join-Path $RunnerAppRoot "tools\jvfetch\register-auto-odds-task.ps1"
 & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $register -StartAt $StartAt
 if ($LASTEXITCODE -ne 0) { throw "Scheduled task registration failed." }
 
 Write-Host "Isolated odds runner installed: $RunnerFull"
+Write-Host "Runner application root:       $RunnerAppRoot"
 Write-Host "Development worktree:          $SourceFull"
 Write-Host "The scheduled task now runs only from the isolated clone."

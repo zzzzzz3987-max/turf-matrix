@@ -1,7 +1,8 @@
 param(
   [int]$LeadMinutes = 7,
   [int]$PollSeconds = 60,
-  [string]$InputRoot = ""
+  [string]$InputRoot = "",
+  [switch]$DryRun
 )
 
 $ErrorActionPreference = "Stop"
@@ -166,7 +167,12 @@ allowBuilds:
     Copy-InputFile "tools\jvlink\output\race-batch-runtime.json" $false
     Copy-InputFile "tools\jvlink\output\race-batch-all36.json" $false
 
-    Invoke-Checked $Node @($Runner, "--watch", "--lead-minutes=$LeadMinutes", "--poll-seconds=$PollSeconds")
+    $runnerArguments = if ($DryRun) {
+      @($Runner, "--dry-run", "--lead-minutes=$LeadMinutes", "--poll-seconds=$PollSeconds")
+    } else {
+      @($Runner, "--watch", "--lead-minutes=$LeadMinutes", "--poll-seconds=$PollSeconds")
+    }
+    Invoke-Checked $Node $runnerArguments
   } finally {
     Pop-Location
   }

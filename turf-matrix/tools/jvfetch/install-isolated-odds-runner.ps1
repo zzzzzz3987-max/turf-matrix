@@ -42,6 +42,7 @@ $Pnpm = @(
   (Join-Path $env:USERPROFILE ".cache\codex-runtimes\codex-primary-runtime\dependencies\bin\fallback\pnpm.cmd")
 ) | Where-Object { Test-Path -LiteralPath $_ } | Select-Object -First 1
 if (-not $Npm -and -not $Pnpm) { throw "npm.cmd or pnpm.cmd was not found." }
+$env:PATH = "$(Split-Path -Parent $Node);$env:PATH"
 
 $SourceFull = [IO.Path]::GetFullPath($SourceRoot).TrimEnd('\')
 $RunnerFull = [IO.Path]::GetFullPath($RunnerRoot).TrimEnd('\')

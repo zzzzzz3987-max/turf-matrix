@@ -29,6 +29,11 @@ const OUTPUT = process.env.TURF_MATRIX_ALL_RACE_SIGNALS_OUT
       ? process.env.TURF_MATRIX_ALL_RACE_SIGNALS_OUT
       : join(REPO_ROOT, process.env.TURF_MATRIX_ALL_RACE_SIGNALS_OUT))
   : join(TOOLS_DIR, "all-race-signals.json");
+const CANDIDATE_COPY = process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT
+  ? (isAbsolute(process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT)
+      ? process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT
+      : join(REPO_ROOT, process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT))
+  : null;
 
 const BATTLE_MIN_INDEX = 80;
 const BATTLE_MIN_GAP = 3;
@@ -134,6 +139,7 @@ try {
   runNode("tools/generate-race-batch-candidate.mjs", sharedEnv);
 
   const candidate = readJson(TEMP_CANDIDATE);
+  if (CANDIDATE_COPY) writeFileSync(CANDIDATE_COPY, JSON.stringify(candidate, null, 2) + "\n");
   const signals = (candidate.races ?? []).map(buildSignal);
   const battleRace = selectBattleRace(signals);
   const output = {

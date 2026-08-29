@@ -1,0 +1,2089 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-08-28T08:42:34.593Z",
+  "raceDate": "2026-08-29",
+  "productionConnected": false,
+  "policy": {
+    "purpose": "TM INDEX 1位と影比較器の事前固定比較",
+    "publicationRule": "公開順位は変更しない",
+    "resultLeakage": false,
+    "popularityOddsValueUsed": false
+  },
+  "training": {
+    "through": "2026-08-23",
+    "archiveDates": [
+      "2026-07-25",
+      "2026-07-26",
+      "2026-08-01",
+      "2026-08-02",
+      "2026-08-08",
+      "2026-08-09",
+      "2026-08-15",
+      "2026-08-16",
+      "2026-08-22",
+      "2026-08-23"
+    ],
+    "raceCount": 95,
+    "eligibleRaceCount": 81,
+    "skippedRaceCount": 0
+  },
+  "source": {
+    "currentRaceCount": 36,
+    "currentRunnerCount": 494,
+    "historySha256": "6b7f7e9540ebb4c8fc7a3e2cdfb1df59ea17d9ff7f0d418a95ea0301107b9d59",
+    "currentCandidateSha256": "051c9450960d831ff839c71917a4b2d3e294de00f62b7edd4102b0095daa5a89",
+    "modelSpecSha256": "47e813cdb3f702046b80c9d67e07f108401aebe493375e95ec1edbeed669d3e9"
+  },
+  "model": {
+    "version": "index-leader-comparator-v0.1-shadow",
+    "config": {
+      "modelVersion": "index-leader-comparator-v0.1-shadow",
+      "maxGapToReview": 2,
+      "swapProbability": 0.6,
+      "ridgeLambda": 0.2,
+      "iterations": 3000,
+      "learningRate": 0.08
+    },
+    "factors": [
+      "ability",
+      "form",
+      "training",
+      "course",
+      "pace",
+      "blood",
+      "stable"
+    ],
+    "intercept": -0.240596734215,
+    "coefficients": {
+      "ability": 0.333044655854,
+      "form": 0.058835357597,
+      "training": -0.138794918035,
+      "course": 0.098527609115,
+      "pace": -0.158537453813,
+      "blood": 0.399919829288,
+      "stable": -0.228355723692,
+      "gap": 0.096632633749
+    },
+    "standardizer": {
+      "ability": {
+        "mean": -0.4567901234567901,
+        "sd": 2.9061424209364985
+      },
+      "form": {
+        "mean": -0.4074074074074074,
+        "sd": 5.575027603934934
+      },
+      "training": {
+        "mean": -0.14814814814814814,
+        "sd": 9.603383034454433
+      },
+      "course": {
+        "mean": -2.3703703703703702,
+        "sd": 9.769497054727635
+      },
+      "pace": {
+        "mean": 0.37037037037037035,
+        "sd": 6.258711350115162
+      },
+      "blood": {
+        "mean": -0.8485714315870276,
+        "sd": 3.37666965327311
+      },
+      "stable": {
+        "mean": -0.2222222222222222,
+        "sd": 2.1998877636914815
+      },
+      "gap": {
+        "mean": 0.8888888888888888,
+        "sd": 0.7535922203472523
+      }
+    }
+  },
+  "summary": {
+    "raceCount": 36,
+    "eligibleRaceCount": 32,
+    "shadowSwapCount": 0,
+    "protectedGapCount": 4,
+    "incompleteCount": 0
+  },
+  "predictionSha256": "2b69a5c2ae580a156453ea781fb9e9294e8ef33b9370dbaa03e95233f79cf678",
+  "predictions": [
+    {
+      "raceId": "2026-08-29-新潟-1R",
+      "bundleId": "2026-08-29-niigata-01R",
+      "track": "新潟",
+      "raceNumber": 1,
+      "raceName": "新潟1R",
+      "scheduledTime": "09:40",
+      "currentLeader": {
+        "number": 11,
+        "name": "ラパンラピッド",
+        "tmIndex": 70
+      },
+      "currentSecond": {
+        "number": 9,
+        "name": "フォーディアライフ",
+        "tmIndex": 69
+      },
+      "indexGap": 1,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.428648,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 11,
+        "name": "ラパンラピッド",
+        "tmIndex": 70
+      },
+      "featureDeltas": {
+        "ability": -1,
+        "form": 9,
+        "training": 0,
+        "course": -23,
+        "pace": -1,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "course",
+          "label": "コース",
+          "direction": "leader",
+          "contribution": -0.208055
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "form",
+          "label": "近走",
+          "direction": "second",
+          "contribution": 0.09928
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-1R",
+      "bundleId": "2026-08-29-chukyo-01R",
+      "track": "中京",
+      "raceNumber": 1,
+      "raceName": "中京1R",
+      "scheduledTime": "09:50",
+      "currentLeader": {
+        "number": 1,
+        "name": "エンルートフライト",
+        "tmIndex": 74
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ブラックミューズ",
+        "tmIndex": 72
+      },
+      "indexGap": 2,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.164842,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "エンルートフライト",
+        "tmIndex": 74
+      },
+      "featureDeltas": {
+        "ability": -13,
+        "form": -23,
+        "training": 0,
+        "course": 7,
+        "pace": -3,
+        "blood": 0,
+        "stable": 1
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -1.437455
+        },
+        {
+          "factor": "form",
+          "label": "近走",
+          "direction": "leader",
+          "contribution": -0.238428
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "second",
+          "contribution": 0.142477
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-1R",
+      "bundleId": "2026-08-29-sapporo-01R",
+      "track": "札幌",
+      "raceNumber": 1,
+      "raceName": "札幌1R",
+      "scheduledTime": "10:00",
+      "currentLeader": {
+        "number": 9,
+        "name": "ゴールデンダガー",
+        "tmIndex": 74
+      },
+      "currentSecond": {
+        "number": 11,
+        "name": "メイショウタイザン",
+        "tmIndex": 72
+      },
+      "indexGap": 2,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.366493,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 9,
+        "name": "ゴールデンダガー",
+        "tmIndex": 74
+      },
+      "featureDeltas": {
+        "ability": -3,
+        "form": 1,
+        "training": 0,
+        "course": 3,
+        "pace": 0,
+        "blood": 0,
+        "stable": 3
+      },
+      "strongestSignals": [
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "leader",
+          "contribution": -0.334477
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.291452
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "second",
+          "contribution": 0.142477
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-2R",
+      "bundleId": "2026-08-29-niigata-02R",
+      "track": "新潟",
+      "raceNumber": 2,
+      "raceName": "新潟2R",
+      "scheduledTime": "10:15",
+      "currentLeader": {
+        "number": 7,
+        "name": "ゴールドプレイヤー",
+        "tmIndex": 77
+      },
+      "currentSecond": {
+        "number": 15,
+        "name": "カシマライフウ",
+        "tmIndex": 76
+      },
+      "indexGap": 1,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.523702,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 7,
+        "name": "ゴールドプレイヤー",
+        "tmIndex": 77
+      },
+      "featureDeltas": {
+        "ability": -1,
+        "form": -1,
+        "training": 0,
+        "course": -3,
+        "pace": 0,
+        "blood": 0,
+        "stable": -3
+      },
+      "strongestSignals": [
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "second",
+          "contribution": 0.288343
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.062252
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-2R",
+      "bundleId": "2026-08-29-chukyo-02R",
+      "track": "中京",
+      "raceNumber": 2,
+      "raceName": "中京2R",
+      "scheduledTime": "10:25",
+      "currentLeader": {
+        "number": 7,
+        "name": "オーリエイト",
+        "tmIndex": 73
+      },
+      "currentSecond": {
+        "number": 11,
+        "name": "ソリドゥス",
+        "tmIndex": 70
+      },
+      "indexGap": 3,
+      "eligible": false,
+      "eligibilityReason": "index_gap_protected",
+      "secondAheadProbability": null,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 7,
+        "name": "オーリエイト",
+        "tmIndex": 73
+      },
+      "featureDeltas": {
+        "ability": -7,
+        "form": -15,
+        "training": 0,
+        "course": -15,
+        "pace": 3,
+        "blood": 0,
+        "stable": -1
+      },
+      "strongestSignals": []
+    },
+    {
+      "raceId": "2026-08-29-札幌-2R",
+      "bundleId": "2026-08-29-sapporo-02R",
+      "track": "札幌",
+      "raceNumber": 2,
+      "raceName": "札幌2R",
+      "scheduledTime": "10:30",
+      "currentLeader": {
+        "number": 3,
+        "name": "フォルトゥナロッサ",
+        "tmIndex": 75
+      },
+      "currentSecond": {
+        "number": 10,
+        "name": "アヴレディール",
+        "tmIndex": 74
+      },
+      "indexGap": 1,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.345814,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "フォルトゥナロッサ",
+        "tmIndex": 75
+      },
+      "featureDeltas": {
+        "ability": -4,
+        "form": -4,
+        "training": 0,
+        "course": -5,
+        "pace": 1,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.406053
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "form",
+          "label": "近走",
+          "direction": "leader",
+          "contribution": -0.037914
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-3R",
+      "bundleId": "2026-08-29-niigata-03R",
+      "track": "新潟",
+      "raceNumber": 3,
+      "raceName": "新潟3R",
+      "scheduledTime": "10:45",
+      "currentLeader": {
+        "number": 8,
+        "name": "アウアリイ",
+        "tmIndex": 74
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ノルトハウゼン",
+        "tmIndex": 72
+      },
+      "indexGap": 2,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.544192,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 8,
+        "name": "アウアリイ",
+        "tmIndex": 74
+      },
+      "featureDeltas": {
+        "ability": -3,
+        "form": -6,
+        "training": 0,
+        "course": -15,
+        "pace": -10,
+        "blood": 0,
+        "stable": -4
+      },
+      "strongestSignals": [
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "second",
+          "contribution": 0.392146
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.291452
+        },
+        {
+          "factor": "pace",
+          "label": "展開",
+          "direction": "second",
+          "contribution": 0.262689
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-3R",
+      "bundleId": "2026-08-29-chukyo-03R",
+      "track": "中京",
+      "raceNumber": 3,
+      "raceName": "中京3R",
+      "scheduledTime": "10:55",
+      "currentLeader": {
+        "number": 1,
+        "name": "クリノライジング",
+        "tmIndex": 64
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ワンキャンパス",
+        "tmIndex": 64
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.478626,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "クリノライジング",
+        "tmIndex": 64
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": -1
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "second",
+          "contribution": 0.080736
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-3R",
+      "bundleId": "2026-08-29-sapporo-03R",
+      "track": "札幌",
+      "raceNumber": 3,
+      "raceName": "札幌3R",
+      "scheduledTime": "11:00",
+      "currentLeader": {
+        "number": 1,
+        "name": "ダノンキューブ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 3,
+        "name": "エコロナイン",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.270606,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ダノンキューブ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -7,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.749854
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-4R",
+      "bundleId": "2026-08-29-niigata-04R",
+      "track": "新潟",
+      "raceNumber": 4,
+      "raceName": "新潟4R",
+      "scheduledTime": "11:15",
+      "currentLeader": {
+        "number": 1,
+        "name": "ポケットブック",
+        "tmIndex": 64
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ジェイエルキール",
+        "tmIndex": 64
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ポケットブック",
+        "tmIndex": 64
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-4R",
+      "bundleId": "2026-08-29-chukyo-04R",
+      "track": "中京",
+      "raceNumber": 4,
+      "raceName": "中京4R",
+      "scheduledTime": "11:25",
+      "currentLeader": {
+        "number": 4,
+        "name": "ヴィスメンティス",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 7,
+        "name": "クールドリオン",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.481321,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 4,
+        "name": "ヴィスメンティス",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.166949
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-4R",
+      "bundleId": "2026-08-29-sapporo-04R",
+      "track": "札幌",
+      "raceNumber": 4,
+      "raceName": "札幌4R",
+      "scheduledTime": "11:30",
+      "currentLeader": {
+        "number": 5,
+        "name": "アニマレイ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 7,
+        "name": "フェイスリフト",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.396864,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 5,
+        "name": "アニマレイ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -2,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.176852
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-5R",
+      "bundleId": "2026-08-29-niigata-05R",
+      "track": "新潟",
+      "raceNumber": 5,
+      "raceName": "新潟5R",
+      "scheduledTime": "11:45",
+      "currentLeader": {
+        "number": 2,
+        "name": "イクオクコウネン",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 6,
+        "name": "サヴマ",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.45548,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 2,
+        "name": "イクオクコウネン",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 1
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.166949
+        },
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "leader",
+          "contribution": -0.126871
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-5R",
+      "bundleId": "2026-08-29-chukyo-05R",
+      "track": "中京",
+      "raceNumber": 5,
+      "raceName": "中京5R",
+      "scheduledTime": "11:55",
+      "currentLeader": {
+        "number": 4,
+        "name": "コスモフィレンツェ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 10,
+        "name": "ビクスバイト",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 4,
+        "name": "コスモフィレンツェ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-5R",
+      "bundleId": "2026-08-29-sapporo-05R",
+      "track": "札幌",
+      "raceNumber": 5,
+      "raceName": "札幌5R",
+      "scheduledTime": "12:20",
+      "currentLeader": {
+        "number": 1,
+        "name": "ユーフォナイト",
+        "tmIndex": 64
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ハイネスプラウド",
+        "tmIndex": 64
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ユーフォナイト",
+        "tmIndex": 64
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-6R",
+      "bundleId": "2026-08-29-sapporo-06R",
+      "track": "札幌",
+      "raceNumber": 6,
+      "raceName": "札幌6R",
+      "scheduledTime": "12:50",
+      "currentLeader": {
+        "number": 2,
+        "name": "フレンチブラッサム",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 3,
+        "name": "イトシサ",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.481321,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 2,
+        "name": "フレンチブラッサム",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.166949
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-7R",
+      "bundleId": "2026-08-29-sapporo-07R",
+      "track": "札幌",
+      "raceNumber": 7,
+      "raceName": "札幌7R",
+      "scheduledTime": "13:20",
+      "currentLeader": {
+        "number": 1,
+        "name": "ハッピーラッキー",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "プリュノワール",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.424592,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ハッピーラッキー",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.062252
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-8R",
+      "bundleId": "2026-08-29-sapporo-08R",
+      "track": "札幌",
+      "raceNumber": 8,
+      "raceName": "札幌8R",
+      "scheduledTime": "13:50",
+      "currentLeader": {
+        "number": 3,
+        "name": "ロードアルディート",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "エタンセル",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.481321,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "ロードアルディート",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.166949
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-9R",
+      "bundleId": "2026-08-29-sapporo-09R",
+      "track": "札幌",
+      "raceNumber": 9,
+      "raceName": "札幌9R",
+      "scheduledTime": "14:20",
+      "currentLeader": {
+        "number": 1,
+        "name": "ミエノストロング",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 3,
+        "name": "アイドクレース",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.509961,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ミエノストロング",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 2,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.281549
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-6R",
+      "bundleId": "2026-08-29-niigata-06R",
+      "track": "新潟",
+      "raceNumber": 6,
+      "raceName": "新発田城特別",
+      "scheduledTime": "14:35",
+      "currentLeader": {
+        "number": 6,
+        "name": "ルシャルムール",
+        "tmIndex": 77
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "ヨドノタイヨウ",
+        "tmIndex": 76
+      },
+      "indexGap": 1,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.489258,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 6,
+        "name": "ルシャルムール",
+        "tmIndex": 77
+      },
+      "featureDeltas": {
+        "ability": -2,
+        "form": -2,
+        "training": -2,
+        "course": 12,
+        "pace": -6,
+        "blood": -1.159,
+        "stable": -1
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.176852
+        },
+        {
+          "factor": "pace",
+          "label": "展開",
+          "direction": "second",
+          "contribution": 0.161366
+        },
+        {
+          "factor": "course",
+          "label": "コース",
+          "direction": "second",
+          "contribution": 0.144928
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-10R",
+      "bundleId": "2026-08-29-sapporo-10R",
+      "track": "札幌",
+      "raceNumber": 10,
+      "raceName": "すずらん賞",
+      "scheduledTime": "14:50",
+      "currentLeader": {
+        "number": 8,
+        "name": "タイフーンナイン",
+        "tmIndex": 83
+      },
+      "currentSecond": {
+        "number": 10,
+        "name": "ヌーンベルク",
+        "tmIndex": 80
+      },
+      "indexGap": 3,
+      "eligible": false,
+      "eligibilityReason": "index_gap_protected",
+      "secondAheadProbability": null,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 8,
+        "name": "タイフーンナイン",
+        "tmIndex": 83
+      },
+      "featureDeltas": {
+        "ability": -3,
+        "form": -5,
+        "training": 0,
+        "course": -4,
+        "pace": 3,
+        "blood": -5.36,
+        "stable": 3
+      },
+      "strongestSignals": []
+    },
+    {
+      "raceId": "2026-08-29-中京-6R",
+      "bundleId": "2026-08-29-chukyo-06R",
+      "track": "中京",
+      "raceNumber": 6,
+      "raceName": "清洲特別",
+      "scheduledTime": "15:00",
+      "currentLeader": {
+        "number": 12,
+        "name": "バッハアルプゼー",
+        "tmIndex": 78
+      },
+      "currentSecond": {
+        "number": 1,
+        "name": "フィドルファドル",
+        "tmIndex": 77
+      },
+      "indexGap": 1,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.317471,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 12,
+        "name": "バッハアルプゼー",
+        "tmIndex": 78
+      },
+      "featureDeltas": {
+        "ability": -4,
+        "form": -7,
+        "training": 9,
+        "course": 20,
+        "pace": 0,
+        "blood": -0.304,
+        "stable": 2
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.406053
+        },
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "leader",
+          "contribution": -0.230674
+        },
+        {
+          "factor": "course",
+          "label": "コース",
+          "direction": "second",
+          "contribution": 0.22561
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-7R",
+      "bundleId": "2026-08-29-niigata-07R",
+      "track": "新潟",
+      "raceNumber": 7,
+      "raceName": "赤倉特別",
+      "scheduledTime": "15:10",
+      "currentLeader": {
+        "number": 2,
+        "name": "ボウウィンドウ",
+        "tmIndex": 80
+      },
+      "currentSecond": {
+        "number": 12,
+        "name": "マイネルアズーロ",
+        "tmIndex": 80
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.439283,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 2,
+        "name": "ボウウィンドウ",
+        "tmIndex": 80
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 7,
+        "training": -1,
+        "course": -3,
+        "pace": 2,
+        "blood": -2.277,
+        "stable": -2
+      },
+      "strongestSignals": [
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "second",
+          "contribution": 0.184539
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "leader",
+          "contribution": -0.169236
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-札幌-11R",
+      "bundleId": "2026-08-29-sapporo-11R",
+      "track": "札幌",
+      "raceNumber": 11,
+      "raceName": "札幌日刊スポーツ杯",
+      "scheduledTime": "15:25",
+      "currentLeader": {
+        "number": 6,
+        "name": "アリスメティーク",
+        "tmIndex": 81
+      },
+      "currentSecond": {
+        "number": 8,
+        "name": "レジェンドシップ",
+        "tmIndex": 77
+      },
+      "indexGap": 4,
+      "eligible": false,
+      "eligibilityReason": "index_gap_protected",
+      "secondAheadProbability": null,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 6,
+        "name": "アリスメティーク",
+        "tmIndex": 81
+      },
+      "featureDeltas": {
+        "ability": -3,
+        "form": -7,
+        "training": 7,
+        "course": -7,
+        "pace": 0,
+        "blood": 0.141,
+        "stable": 4
+      },
+      "strongestSignals": []
+    },
+    {
+      "raceId": "2026-08-29-中京-7R",
+      "bundleId": "2026-08-29-chukyo-07R",
+      "track": "中京",
+      "raceNumber": 7,
+      "raceName": "長篠ステークス",
+      "scheduledTime": "15:35",
+      "currentLeader": {
+        "number": 1,
+        "name": "ボンヌソワレ",
+        "tmIndex": 79
+      },
+      "currentSecond": {
+        "number": 14,
+        "name": "ガンマジーティーピ",
+        "tmIndex": 79
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.338955,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ボンヌソワレ",
+        "tmIndex": 79
+      },
+      "featureDeltas": {
+        "ability": -6,
+        "form": 2,
+        "training": 3,
+        "course": 10,
+        "pace": 0,
+        "blood": 0.225,
+        "stable": -1
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.635253
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.127096
+        },
+        {
+          "factor": "course",
+          "label": "コース",
+          "direction": "second",
+          "contribution": 0.124758
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-8R",
+      "bundleId": "2026-08-29-niigata-08R",
+      "track": "新潟",
+      "raceNumber": 8,
+      "raceName": "ＢＳＮ賞",
+      "scheduledTime": "15:45",
+      "currentLeader": {
+        "number": 3,
+        "name": "タガノバビロン",
+        "tmIndex": 79
+      },
+      "currentSecond": {
+        "number": 6,
+        "name": "カズタンジャー",
+        "tmIndex": 76
+      },
+      "indexGap": 3,
+      "eligible": false,
+      "eligibilityReason": "index_gap_protected",
+      "secondAheadProbability": null,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "タガノバビロン",
+        "tmIndex": 79
+      },
+      "featureDeltas": {
+        "ability": -3,
+        "form": -4,
+        "training": -2,
+        "course": 1,
+        "pace": 0,
+        "blood": 2.083,
+        "stable": -2
+      },
+      "strongestSignals": []
+    },
+    {
+      "raceId": "2026-08-29-札幌-12R",
+      "bundleId": "2026-08-29-sapporo-12R",
+      "track": "札幌",
+      "raceNumber": 12,
+      "raceName": "千歳特別",
+      "scheduledTime": "16:00",
+      "currentLeader": {
+        "number": 10,
+        "name": "オンザムービー",
+        "tmIndex": 80
+      },
+      "currentSecond": {
+        "number": 11,
+        "name": "タガノエルー",
+        "tmIndex": 80
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.477225,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 10,
+        "name": "オンザムービー",
+        "tmIndex": 80
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 2,
+        "training": 0,
+        "course": -4,
+        "pace": 0,
+        "blood": 0.115,
+        "stable": -1
+      },
+      "strongestSignals": [
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.114118
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "second",
+          "contribution": 0.080736
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-8R",
+      "bundleId": "2026-08-29-chukyo-08R",
+      "track": "中京",
+      "raceNumber": 8,
+      "raceName": "桑名特別",
+      "scheduledTime": "16:10",
+      "currentLeader": {
+        "number": 10,
+        "name": "ワンコールアウェイ",
+        "tmIndex": 80
+      },
+      "currentSecond": {
+        "number": 6,
+        "name": "トライアンフパス",
+        "tmIndex": 78
+      },
+      "indexGap": 2,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.386103,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 10,
+        "name": "ワンコールアウェイ",
+        "tmIndex": 80
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": -8,
+        "training": 0,
+        "course": -6,
+        "pace": -1,
+        "blood": 0.034,
+        "stable": 4
+      },
+      "strongestSignals": [
+        {
+          "factor": "stable",
+          "label": "厩舎",
+          "direction": "leader",
+          "contribution": -0.438281
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "second",
+          "contribution": 0.142477
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.10449
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-9R",
+      "bundleId": "2026-08-29-niigata-09R",
+      "track": "新潟",
+      "raceNumber": 9,
+      "raceName": "新潟9R",
+      "scheduledTime": "16:25",
+      "currentLeader": {
+        "number": 2,
+        "name": "プレイザリード",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 6,
+        "name": "オプレントジュエル",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.396864,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 2,
+        "name": "プレイザリード",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -2,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.176852
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-9R",
+      "bundleId": "2026-08-29-chukyo-09R",
+      "track": "中京",
+      "raceNumber": 9,
+      "raceName": "中京9R",
+      "scheduledTime": "16:45",
+      "currentLeader": {
+        "number": 4,
+        "name": "セレーノ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 8,
+        "name": "シエーナカラー",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.509961,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 4,
+        "name": "セレーノ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 2,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.281549
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-10R",
+      "bundleId": "2026-08-29-niigata-10R",
+      "track": "新潟",
+      "raceNumber": 10,
+      "raceName": "新潟10R",
+      "scheduledTime": "17:00",
+      "currentLeader": {
+        "number": 3,
+        "name": "キャトルエピス",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "ソードスレイプニル",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.481321,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "キャトルエピス",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.166949
+        },
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-10R",
+      "bundleId": "2026-08-29-chukyo-10R",
+      "track": "中京",
+      "raceNumber": 10,
+      "raceName": "中京10R",
+      "scheduledTime": "17:15",
+      "currentLeader": {
+        "number": 1,
+        "name": "ワイドグンサ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "パヴィーア",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.424592,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ワイドグンサ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.062252
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-11R",
+      "bundleId": "2026-08-29-niigata-11R",
+      "track": "新潟",
+      "raceNumber": 11,
+      "raceName": "新潟11R",
+      "scheduledTime": "17:30",
+      "currentLeader": {
+        "number": 1,
+        "name": "ウィズアツインクル",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 2,
+        "name": "ムーングレイル",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 1,
+        "name": "ウィズアツインクル",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-11R",
+      "bundleId": "2026-08-29-chukyo-11R",
+      "track": "中京",
+      "raceNumber": 11,
+      "raceName": "中京11R",
+      "scheduledTime": "17:45",
+      "currentLeader": {
+        "number": 3,
+        "name": "ファルカータ",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "リアンマヒナ",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.424592,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "ファルカータ",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": -1,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "leader",
+          "contribution": -0.062252
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-新潟-12R",
+      "bundleId": "2026-08-29-niigata-12R",
+      "track": "新潟",
+      "raceNumber": 12,
+      "raceName": "新潟12R",
+      "scheduledTime": "18:05",
+      "currentLeader": {
+        "number": 3,
+        "name": "エリースノー",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "チュラヴェール",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 3,
+        "name": "エリースノー",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    },
+    {
+      "raceId": "2026-08-29-中京-12R",
+      "bundleId": "2026-08-29-chukyo-12R",
+      "track": "中京",
+      "raceNumber": 12,
+      "raceName": "中京12R",
+      "scheduledTime": "18:15",
+      "currentLeader": {
+        "number": 2,
+        "name": "ゴールデンドラゴン",
+        "tmIndex": 65
+      },
+      "currentSecond": {
+        "number": 4,
+        "name": "クリコバロー",
+        "tmIndex": 65
+      },
+      "indexGap": 0,
+      "eligible": true,
+      "eligibilityReason": "reviewed",
+      "secondAheadProbability": 0.452803,
+      "shadowSwap": false,
+      "shadowLeader": {
+        "number": 2,
+        "name": "ゴールデンドラゴン",
+        "tmIndex": 65
+      },
+      "featureDeltas": {
+        "ability": 0,
+        "form": 0,
+        "training": 0,
+        "course": 0,
+        "pace": 0,
+        "blood": 0,
+        "stable": 0
+      },
+      "strongestSignals": [
+        {
+          "factor": "gap",
+          "label": "指数差",
+          "direction": "leader",
+          "contribution": -0.113982
+        },
+        {
+          "factor": "blood",
+          "label": "血統",
+          "direction": "second",
+          "contribution": 0.100502
+        },
+        {
+          "factor": "ability",
+          "label": "能力",
+          "direction": "second",
+          "contribution": 0.052348
+        }
+      ]
+    }
+  ]
+}

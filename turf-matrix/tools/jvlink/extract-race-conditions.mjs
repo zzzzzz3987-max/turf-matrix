@@ -9,6 +9,7 @@ const REPO_DIR = join(TOOLS_DIR, "..");
 const SUMMARY_PATH = join(JVLINK_DIR, "output", "week-race-summary.json");
 const REALTIME_PATH = join(REPO_DIR, "data", "target", "race-conditions.latest.json");
 const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const OUT_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 
 const COURSE_SLUGS = {
@@ -42,6 +43,15 @@ const GOING = {
 
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
 
+const COURSE_CODES = Object.fromEntries(Object.entries(COURSE_SLUGS).map(([code, slug]) => [slug, code]));
+
+const normalizeSurface = (surface) => {
+  if (surface === "芝") return "芝";
+  if (surface === "ダ" || surface === "ダート") return "ダート";
+  if (surface === "障" || surface === "障害") return "障害";
+  return null;
+};
+
 const surfaceFromTrackCode = (code) => {
   const value = String(code ?? "").trim();
   if (/^(1[0-9]|2[0-2])$/.test(value)) return "芝";
@@ -56,27 +66,38 @@ const bundleIdFor = (race) => {
   return `${race.raceDate}-${slug}-${String(race.raceNo).padStart(2, "0")}R`;
 };
 
-if (!existsSync(SUMMARY_PATH)) {
-  console.error(`[conditions] JV-Link summary was not found: ${SUMMARY_PATH}`);
-  process.exit(1);
-}
-
-const summary = readJson(SUMMARY_PATH);
 const config = readJson(CONFIG_PATH);
 const selected = new Set(config.bundles ?? []);
+const summary = existsSync(SUMMARY_PATH) ? readJson(SUMMARY_PATH) : null;
+const weekData = existsSync(WEEK_DATA_PATH) ? readJson(WEEK_DATA_PATH) : null;
 const realtime = existsSync(REALTIME_PATH) ? readJson(REALTIME_PATH) : null;
 const realtimeRaceDate = realtime?.RaceDate ?? realtime?.raceDate ?? null;
 const realtimeCourses = realtime?.Courses ?? realtime?.courses ?? {};
 const useRealtime = realtimeRaceDate === config.raceDate;
-const fallbackUpdatedAt = statSync(SUMMARY_PATH).mtime.toISOString();
+const fallbackUpdatedAt = existsSync(SUMMARY_PATH)
+  ? statSync(SUMMARY_PATH).mtime.toISOString()
+  : realtime?.GeneratedAt ?? realtime?.generatedAt ?? statSync(REALTIME_PATH).mtime.toISOString();
+const races = (summary?.races?.length ?? 0) > 0
+  ? summary.races
+  : (weekData?.races ?? []).map((race) => {
+      const match = String(race.bundleId ?? "").match(/^\d{4}-\d{2}-\d{2}-([a-z]+)-(\d{1,2})R$/);
+      return {
+        bundleId: race.bundleId,
+        raceKey: race.id,
+        raceDate: config.raceDate,
+        raceNo: race.number ?? Number(match?.[2]),
+        courseCode: COURSE_CODES[match?.[1]] ?? null,
+        surface: normalizeSurface(race.surface),
+      };
+    });
 const conditions = {};
 
-for (const race of summary.races ?? []) {
-  const bundleId = bundleIdFor(race);
+for (const race of races) {
+  const bundleId = race.bundleId ?? bundleIdFor(race);
   if (!bundleId || !selected.has(bundleId)) continue;
 
   const courseCode = String(race.courseCode ?? "").padStart(2, "0");
-  const surface = surfaceFromTrackCode(race.trackCode);
+  const surface = race.surface ?? surfaceFromTrackCode(race.trackCode);
   const live = useRealtime ? realtimeCourses[courseCode] ?? null : null;
   const weatherCode = String(live?.WeatherCode ?? live?.weatherCode ?? race.weatherCode ?? "").trim();
   const turfGoingCode = String(live?.TurfGoingCode ?? live?.turfGoingCode ?? race.turfConditionCode ?? "").trim();

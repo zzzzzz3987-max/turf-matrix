@@ -192,6 +192,14 @@ try {
         bloodRegistrationNumber = $registrationNumber
         horseName = Get-JvField $bytes 41 36
         finishPosition = $finishPosition
+        passingOrder = @(
+          Convert-PositiveInteger (Get-JvField $bytes 352 2)
+          Convert-PositiveInteger (Get-JvField $bytes 354 2)
+          Convert-PositiveInteger (Get-JvField $bytes 356 2)
+          Convert-PositiveInteger (Get-JvField $bytes 358 2)
+        )
+        runningStyleCode = Get-JvField $bytes 553 1
+        abnormalityCode = Get-JvField $bytes 332 1
         margin = Convert-TimeDifference (Get-JvField $bytes 532 4) $finishPosition
         popularity = Convert-PositiveInteger (Get-JvField $bytes 364 2)
         last3F = Convert-TenthSeconds (Get-JvField $bytes 391 3)

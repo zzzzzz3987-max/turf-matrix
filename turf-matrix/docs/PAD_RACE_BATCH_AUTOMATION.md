@@ -207,17 +207,19 @@ TURF MATRIX オッズ保存
 6. 各レースフォルダへ odds.csv として保存
 7. PowerShellで npm run inspect:race-batch を実行
 8. 問題なければ npm run saturday:publish を実行
-9. 公開処理内でAbility上限・安定度とTraining Evidenceの事前影予測をSHA固定する
+9. 公開処理内でAbility上限・安定度、Training Evidence、Form State、Pace Race Shapeの事前影予測をSHA固定する
 ```
 
-`saturday:publish`は公開済みスナップショットから馬別調教履歴と実測時計基準を再生成したうえで、`tools/week-data.next.json`を対象にAbilityとTrainingの影評価を実行し、当日の予測・レポート・更新済み調教基盤を公開commitへ含める。Training影評価は美浦坂路・栗東坂路・ウッドC・ウッドDの公開前実測分位を使い、本数と鮮度を性能点にしない。Ability・Training・TM INDEXの本番値は変更しない。結果取得後は次を実行し、事前固定済みartifactだけを累積評価する。
+`saturday:publish`は公開済みスナップショットから馬別調教履歴、実測時計基準、JV-Link全馬角位置によるrace-shape履歴を再生成したうえで、`tools/week-data.next.json`を対象にAbility、Training、Form、Paceの影評価を実行し、当日の予測・レポート・更新済み基盤を公開commitへ含める。Training影評価は美浦坂路・栗東坂路・ウッドC・ウッドDの公開前実測分位を使い、本数と鮮度を性能点にしない。Form影評価は直近3走の着順百分位と着差だけを使い、人気・オッズ・生上がり3F・今回条件・Ability材料を使わない。Pace影評価は実ラップではなく、完走馬と角位置が十分に揃った過去レースの前残り・前崩れだけを使い、最大±2点で記録する。Ability・Training・Form・Pace・TM INDEXの本番値は変更しない。結果取得後は次を実行し、事前固定済みartifactだけを累積評価する。
 
 ```powershell
 npm run shadow:ability:evaluate
 npm run shadow:training:evaluate
+npm run shadow:form:evaluate
+npm run shadow:pace:evaluate
 ```
 
-採用条件はそれぞれ評価30レース以上、TM首位変更5レース以上、最大補正3点以内。対象エンジンとTMの首位勝数・複勝数・pairwiseをすべて維持し、TM首位の勝数または複勝数を1件以上改善すること。全条件を満たすまで本番Ability・Trainingへ接続しない。
+Ability・Training・Formの採用条件は評価30レース以上、TM首位変更5レース以上、最大補正3点以内。Paceは評価30レース以上、補正発火10レース以上、Pace首位変更5レース以上、最大補正2点以内とする。対象エンジンの首位勝数・複勝数・pairwiseを維持し、勝数または複勝数を1件以上改善すること。全条件を満たすまで本番Ability・Training・Form・Paceへ接続しない。
 
 金曜・土曜の必須ファイル:
 

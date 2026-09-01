@@ -20,6 +20,8 @@ const CANDIDATE_BACKUP_PATH = join(RUNTIME_DIR, "week-data.batch-candidate.backu
 const ALL_RACE_SIGNALS_PATH = join(TOOLS_DIR, "all-race-signals.json");
 const ALL_RACE_SIGNALS_NEXT_PATH = join(RUNTIME_DIR, "all-race-signals.next.json");
 const ALL_RACE_SIGNALS_BACKUP_PATH = join(RUNTIME_DIR, "all-race-signals.backup.json");
+const TRACK_BIAS_PATH = join(TOOLS_DIR, "track-bias.current.json");
+const TRACK_BIAS_BACKUP_PATH = join(RUNTIME_DIR, "track-bias.current.backup.json");
 const ALL_RACE_RUNTIME_CANDIDATES = [
   join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"),
   join(TOOLS_DIR, "jvlink", "output", "race-batch-all36.json"),
@@ -216,27 +218,46 @@ const assertCleanTrackedTree = (git) => {
   if (ahead || behind) throw new Error(`main must match origin/main before automatic publish (ahead=${ahead}, behind=${behind})`);
 };
 
-const generateAndPublish = (git, commitMessage, raceDate) => {
+const generateAndPublish = (git, commitMessage, raceDate, dueRaces) => {
   const allRaceRuntime = resolveAllRaceRuntime(raceDate);
   const candidateExisted = existsSync(CANDIDATE_PATH);
-  if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
-  if (existsSync(ALL_RACE_SIGNALS_PATH)) copyFileSync(ALL_RACE_SIGNALS_PATH, ALL_RACE_SIGNALS_BACKUP_PATH);
-  runNodeWithEnv(
-    {
-      TURF_MATRIX_ALL_RACE_RUNTIME: allRaceRuntime,
-      TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH,
-    },
-    "tools/generate-all-race-signals.mjs",
-  );
-  copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);
-  runNode("tools/normalizers/race-batch.mjs");
-  runNode("tools/generate-race-batch-candidate.mjs");
-  runNode("tools/prepare-race-batch-release.mjs");
-
-  copyFileSync(WEEK_DATA_PATH, BACKUP_DATA_PATH);
-  copyFileSync(NEXT_DATA_PATH, WEEK_DATA_PATH);
+  const allRaceSignalsExisted = existsSync(ALL_RACE_SIGNALS_PATH);
+  const paceContextPaths = [];
+  const paceContextExisted = new Map();
   let committed = false;
+  if (candidateExisted) copyFileSync(CANDIDATE_PATH, CANDIDATE_BACKUP_PATH);
+  if (allRaceSignalsExisted) copyFileSync(ALL_RACE_SIGNALS_PATH, ALL_RACE_SIGNALS_BACKUP_PATH);
   try {
+    runNodeWithEnv(
+      {
+        TURF_MATRIX_ALL_RACE_RUNTIME: allRaceRuntime,
+        TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH,
+      },
+      "tools/generate-all-race-signals.mjs",
+    );
+    copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);
+    runNode("tools/normalizers/race-batch.mjs");
+    runNode("tools/generate-race-batch-candidate.mjs");
+    const candidate = readJson(CANDIDATE_PATH, null);
+    for (const dueRace of dueRaces) {
+      const race = (candidate?.races ?? []).find((entry) => entry.id === dueRace.id);
+      if (!race) throw new Error(`Due race was not found in the candidate: ${dueRace.id}`);
+      const paths = [
+        `data/shadow/pace-context-v1/${race.bundleId}-pre-race.json`,
+        `docs/analysis/pace-context-shadow-${race.bundleId}.md`,
+      ];
+      for (const path of paths) paceContextExisted.set(path, existsSync(join(REPO_ROOT, path)));
+      runNode(
+        "tools/analyze/freeze-pace-context-shadow.mjs",
+        "--input", "tools/week-data.batch-candidate.json",
+        "--bundle-id", race.bundleId,
+      );
+      paceContextPaths.push(...paths);
+    }
+    runNode("tools/prepare-race-batch-release.mjs");
+    copyFileSync(WEEK_DATA_PATH, BACKUP_DATA_PATH);
+    copyFileSync(NEXT_DATA_PATH, WEEK_DATA_PATH);
+
     const tests = readdirSync(join(TOOLS_DIR, "intelligence", "tests"))
       .filter((name) => name.endsWith(".test.mjs"))
       .map((name) => join("tools", "intelligence", "tests", name));
@@ -250,9 +271,15 @@ const generateAndPublish = (git, commitMessage, raceDate) => {
       log("WARN", "Release archive failed; publish continues", { error: error.message });
     }
 
-    const publishPaths = ["tools/week-data.json", "tools/week-data.batch-candidate.json", "tools/all-race-signals.json"];
-    const diff = run(git, ["diff", "--quiet", "--", ...publishPaths], { allowFailure: true, quiet: true });
-    if (diff.status === 0) return { changed: false, commit: null };
+    const publishPaths = [
+      "tools/week-data.json",
+      "tools/week-data.batch-candidate.json",
+      "tools/all-race-signals.json",
+      "tools/track-bias.current.json",
+      ...paceContextPaths,
+    ];
+    const status = run(git, ["status", "--porcelain", "--", ...publishPaths], { quiet: true }).stdout.trim();
+    if (!status) return { changed: false, commit: null };
     run(git, ["add", ...publishPaths]);
     run(git, ["commit", "-m", commitMessage]);
     committed = true;
@@ -261,6 +288,11 @@ const generateAndPublish = (git, commitMessage, raceDate) => {
     return { changed: true, commit };
   } catch (error) {
     if (!committed && existsSync(BACKUP_DATA_PATH)) copyFileSync(BACKUP_DATA_PATH, WEEK_DATA_PATH);
+    if (!committed) {
+      for (const [path, existed] of paceContextExisted) {
+        if (!existed && existsSync(join(REPO_ROOT, path))) rmSync(join(REPO_ROOT, path), { force: true });
+      }
+    }
     throw error;
   } finally {
     if (existsSync(NEXT_DATA_PATH)) rmSync(NEXT_DATA_PATH, { force: true });
@@ -270,8 +302,10 @@ const generateAndPublish = (git, commitMessage, raceDate) => {
     } else if (!committed && !candidateExisted && existsSync(CANDIDATE_PATH)) {
       rmSync(CANDIDATE_PATH, { force: true });
     }
-    if (!committed && existsSync(ALL_RACE_SIGNALS_BACKUP_PATH)) {
+    if (!committed && allRaceSignalsExisted && existsSync(ALL_RACE_SIGNALS_BACKUP_PATH)) {
       copyFileSync(ALL_RACE_SIGNALS_BACKUP_PATH, ALL_RACE_SIGNALS_PATH);
+    } else if (!committed && !allRaceSignalsExisted && existsSync(ALL_RACE_SIGNALS_PATH)) {
+      rmSync(ALL_RACE_SIGNALS_PATH, { force: true });
     }
     if (existsSync(CANDIDATE_BACKUP_PATH)) rmSync(CANDIDATE_BACKUP_PATH, { force: true });
     if (existsSync(ALL_RACE_SIGNALS_NEXT_PATH)) rmSync(ALL_RACE_SIGNALS_NEXT_PATH, { force: true });
@@ -282,37 +316,57 @@ const generateAndPublish = (git, commitMessage, raceDate) => {
 const processDueRaces = (due, state, raceDate) => {
   const git = resolveGit();
   assertCleanTrackedTree(git);
+  const initialHead = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();
+  const trackBiasExisted = existsSync(TRACK_BIAS_PATH);
+  if (trackBiasExisted) copyFileSync(TRACK_BIAS_PATH, TRACK_BIAS_BACKUP_PATH);
   const startedAt = Date.now();
-
-  runPowerShell("-File", "tools/jvfetch/capture-odds.ps1");
-  const oddsPath = latestOddsCandidate(startedAt);
-  runNode("tools/jvfetch/distribute-odds.mjs", oddsPath);
-
   try {
-    runPowerShell("-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");
-    runNode("tools/jvlink/extract-race-conditions.mjs");
-    resolveAlert("Track conditions refresh recovered", "conditions");
-  } catch (error) {
-    recordAlert("Track conditions refresh failed; odds update continued", { error: error.message }, "conditions");
-    log("WARN", "Condition refresh failed; verified odds update continues", { error: error.message });
-  }
+    runPowerShell("-File", "tools/jvfetch/capture-odds.ps1");
+    const oddsPath = latestOddsCandidate(startedAt);
+    runNode("tools/jvfetch/distribute-odds.mjs", oddsPath);
 
-  const labels = due.map((race) => `${race.track}${race.number}R`).join("/");
-  const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate);
-  const completedAt = new Date().toISOString();
-  for (const race of due) {
-    state.processed[race.id] = {
-      status: "published",
-      triggerTime: race.triggerTime.toISOString(),
-      completedAt,
-      oddsFile: oddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/"),
-      commit: result.commit,
-      changed: result.changed,
-    };
+    try {
+      runPowerShell("-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");
+      runNode("tools/jvlink/extract-race-conditions.mjs");
+      resolveAlert("Track conditions refresh recovered", "conditions");
+    } catch (error) {
+      recordAlert("Track conditions refresh failed; odds update continued", { error: error.message }, "conditions");
+      log("WARN", "Condition refresh failed; verified odds update continues", { error: error.message });
+    }
+
+    try {
+      runPowerShell("-File", "tools/jvfetch/capture-live-track-bias.ps1");
+      log("INFO", "Same-day track-bias shadow refreshed");
+    } catch (error) {
+      log("WARN", "Same-day track-bias shadow refresh failed; odds update continues", { error: error.message });
+    }
+
+    const labels = due.map((race) => `${race.track}${race.number}R`).join("/");
+    const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate, due);
+    const completedAt = new Date().toISOString();
+    for (const race of due) {
+      state.processed[race.id] = {
+        status: "published",
+        triggerTime: race.triggerTime.toISOString(),
+        completedAt,
+        oddsFile: oddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/"),
+        commit: result.commit,
+        changed: result.changed,
+      };
+    }
+    writeJson(STATE_PATH, state);
+    resolveAlert(`Automatic odds update recovered and completed for ${labels}`);
+    log("INFO", "Automatic odds update completed", { races: labels, ...result });
+  } catch (error) {
+    const currentHead = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();
+    if (currentHead === initialHead) {
+      if (trackBiasExisted && existsSync(TRACK_BIAS_BACKUP_PATH)) copyFileSync(TRACK_BIAS_BACKUP_PATH, TRACK_BIAS_PATH);
+      else if (!trackBiasExisted && existsSync(TRACK_BIAS_PATH)) rmSync(TRACK_BIAS_PATH, { force: true });
+    }
+    throw error;
+  } finally {
+    if (existsSync(TRACK_BIAS_BACKUP_PATH)) rmSync(TRACK_BIAS_BACKUP_PATH, { force: true });
   }
-  writeJson(STATE_PATH, state);
-  resolveAlert(`Automatic odds update recovered and completed for ${labels}`);
-  log("INFO", "Automatic odds update completed", { races: labels, ...result });
 };
 
 const runOnce = () => {

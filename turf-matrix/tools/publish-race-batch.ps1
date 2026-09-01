@@ -35,6 +35,7 @@ try {
     Run-Step "Freeze Training pre-race shadow" { npm run shadow:training:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Form pre-race shadow" { npm run shadow:form:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace pre-race shadow" { npm run shadow:pace:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Pace context pre-race shadow" { npm run shadow:pace-context:freeze -- --input tools/week-data.next.json }
     Run-Step "Whitespace validation" { git diff --check }
     try {
       Write-Host "==> Archive preodds snapshot"
@@ -68,7 +69,9 @@ try {
   $FormReport = "docs/analysis/form-state-shadow-$date.md"
   $PaceShadow = "data/shadow/pace-shape-v1/$date-pre-race.json"
   $PaceReport = "docs/analysis/pace-shape-shadow-$date.md"
-  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $FormShadow $FormReport $PaceShadow $PaceReport data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json
+  $PaceContextShadow = "data/shadow/pace-context-v1/$date-pre-race.json"
+  $PaceContextReport = "docs/analysis/pace-context-shadow-$date.md"
+  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json
   Run-Step "Commit weekly race data" { git commit -m $CommitMessage }
   $Committed = $true
   Run-Step "Push main" { git push origin main }

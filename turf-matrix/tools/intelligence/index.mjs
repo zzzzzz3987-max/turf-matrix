@@ -13,6 +13,7 @@ import { assessDataQuality } from "./data-quality-ai.mjs";
 import { buildGoingAdjustment } from "./going-adjustment.mjs";
 import { buildLoadAnalysis } from "./load-ai.mjs";
 import { buildTrackBiasAnalysis } from "./track-bias-ai.mjs";
+import { buildCoursePaceContextProfile } from "./pace-context-shadow.mjs";
 
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
@@ -58,7 +59,15 @@ const buildAnalysis = (horse, suppliedContext) => {
   const courseAnalysis = buildCourseAnalysis(horse, context, { course, distance });
   const lap = scoreLap(horse);
   const pace = scorePace(horse, context);
-  const paceAnalysis = buildPaceAnalysis(horse, context, { pace, lap });
+  const basePaceAnalysis = buildPaceAnalysis(horse, context, { pace, lap });
+  const paceContextProfile = buildCoursePaceContextProfile(horse, context);
+  const paceAnalysis = {
+    ...basePaceAnalysis,
+    contextFit: paceContextProfile,
+    summary: `${basePaceAnalysis.summary} コース・枠・確定済み馬場傾向を合わせた展開相性は${paceContextProfile.label}（影評価・指数未接続）。`,
+    strengths: [...basePaceAnalysis.strengths, ...paceContextProfile.evidence],
+    evidence: [...basePaceAnalysis.evidence, `統合展開相性 ${paceContextProfile.label}`, ...paceContextProfile.evidence],
+  };
   const trainingAnalysis = buildTrainingAnalysis(horse);
   const training = trainingAnalysis.score;
   const trainingLap = trainingAnalysis.lapScore;

@@ -1,4 +1,5 @@
 import { findCourseBias } from "./dictionaries/course-bias-dictionary.mjs";
+import { resolveCourseGeometry } from "./course-geometry.mjs";
 
 const distanceProfile = (distance) => {
   if (distance <= 1400) return { label: "短距離", speed: 1, power: 0.75, stamina: 0.35, sustain: 0.55 };
@@ -14,6 +15,7 @@ const buildRaceContext = (race) => {
   const surface = race?.surface ?? null;
   const profile = distanceProfile(distance);
   const bias = findCourseBias({ ...race, distance, surface });
+  const courseShape = resolveCourseGeometry({ ...race, distance, surface });
   const dirt = isDirtSurface(surface);
   const category = race?.grade ? "grade" : "special";
   const condition = [race?.weather, race?.going].filter(Boolean).join("・") || "馬場情報取得待ち";
@@ -44,6 +46,8 @@ const buildRaceContext = (race) => {
     trackBias: race?.trackBias ?? null,
     condition,
     profile: bias?.label ?? profile.label,
+    courseBiasKey: bias?.key ?? null,
+    courseShape,
     traits,
     styleBias: bias?.styleBias ?? [],
     bloodBias: bias?.bloodBias ?? [],

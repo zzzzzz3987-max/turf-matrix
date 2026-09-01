@@ -1,0 +1,504 @@
+{
+  "version": "1.0",
+  "source": "published pre-odds snapshots; final and one-week sessions only",
+  "through": "2026-08-30",
+  "policy": {
+    "resultDataUsed": false,
+    "popularityOddsUsed": false,
+    "eligibleDaysBeforeRace": [
+      1,
+      12
+    ],
+    "minimumSampleSize": 100
+  },
+  "quantiles": [
+    0.05,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    0.95
+  ],
+  "groups": {
+    "slope-miho": {
+      "sampleSize": 1989,
+      "f4": [
+        {
+          "probability": 0.05,
+          "value": 53.6
+        },
+        {
+          "probability": 0.1,
+          "value": 54.8
+        },
+        {
+          "probability": 0.2,
+          "value": 58.3
+        },
+        {
+          "probability": 0.3,
+          "value": 63.1
+        },
+        {
+          "probability": 0.4,
+          "value": 64.5
+        },
+        {
+          "probability": 0.5,
+          "value": 65.4
+        },
+        {
+          "probability": 0.6,
+          "value": 66.5
+        },
+        {
+          "probability": 0.7,
+          "value": 67.6
+        },
+        {
+          "probability": 0.8,
+          "value": 69.14
+        },
+        {
+          "probability": 0.9,
+          "value": 71.1
+        },
+        {
+          "probability": 0.95,
+          "value": 73.2
+        }
+      ],
+      "f1": [
+        {
+          "probability": 0.05,
+          "value": 12.3
+        },
+        {
+          "probability": 0.1,
+          "value": 12.6
+        },
+        {
+          "probability": 0.2,
+          "value": 13.76
+        },
+        {
+          "probability": 0.3,
+          "value": 14.9
+        },
+        {
+          "probability": 0.4,
+          "value": 15.3
+        },
+        {
+          "probability": 0.5,
+          "value": 15.5
+        },
+        {
+          "probability": 0.6,
+          "value": 15.9
+        },
+        {
+          "probability": 0.7,
+          "value": 16.2
+        },
+        {
+          "probability": 0.8,
+          "value": 16.6
+        },
+        {
+          "probability": 0.9,
+          "value": 17.1
+        },
+        {
+          "probability": 0.95,
+          "value": 17.6
+        }
+      ]
+    },
+    "slope-ritto": {
+      "sampleSize": 3162,
+      "f4": [
+        {
+          "probability": 0.05,
+          "value": 53
+        },
+        {
+          "probability": 0.1,
+          "value": 54
+        },
+        {
+          "probability": 0.2,
+          "value": 55.9
+        },
+        {
+          "probability": 0.3,
+          "value": 59.6
+        },
+        {
+          "probability": 0.4,
+          "value": 63.4
+        },
+        {
+          "probability": 0.5,
+          "value": 64.8
+        },
+        {
+          "probability": 0.6,
+          "value": 65.9
+        },
+        {
+          "probability": 0.7,
+          "value": 66.9
+        },
+        {
+          "probability": 0.8,
+          "value": 68.3
+        },
+        {
+          "probability": 0.9,
+          "value": 70.2
+        },
+        {
+          "probability": 0.95,
+          "value": 72
+        }
+      ],
+      "f1": [
+        {
+          "probability": 0.05,
+          "value": 12.3
+        },
+        {
+          "probability": 0.1,
+          "value": 12.5
+        },
+        {
+          "probability": 0.2,
+          "value": 12.9
+        },
+        {
+          "probability": 0.3,
+          "value": 14
+        },
+        {
+          "probability": 0.4,
+          "value": 14.8
+        },
+        {
+          "probability": 0.5,
+          "value": 15.2
+        },
+        {
+          "probability": 0.6,
+          "value": 15.6
+        },
+        {
+          "probability": 0.7,
+          "value": 15.9
+        },
+        {
+          "probability": 0.8,
+          "value": 16.2
+        },
+        {
+          "probability": 0.9,
+          "value": 16.7
+        },
+        {
+          "probability": 0.95,
+          "value": 17.1
+        }
+      ]
+    },
+    "wood-C": {
+      "sampleSize": 972,
+      "f4": [
+        {
+          "probability": 0.05,
+          "value": 50.95
+        },
+        {
+          "probability": 0.1,
+          "value": 51.5
+        },
+        {
+          "probability": 0.2,
+          "value": 52.3
+        },
+        {
+          "probability": 0.3,
+          "value": 53.4
+        },
+        {
+          "probability": 0.4,
+          "value": 55
+        },
+        {
+          "probability": 0.5,
+          "value": 63.9
+        },
+        {
+          "probability": 0.6,
+          "value": 67.36
+        },
+        {
+          "probability": 0.7,
+          "value": 70.3
+        },
+        {
+          "probability": 0.8,
+          "value": 73.5
+        },
+        {
+          "probability": 0.9,
+          "value": 81.88
+        },
+        {
+          "probability": 0.95,
+          "value": 104.53
+        }
+      ],
+      "f1": [
+        {
+          "probability": 0.05,
+          "value": 11.15
+        },
+        {
+          "probability": 0.1,
+          "value": 11.3
+        },
+        {
+          "probability": 0.2,
+          "value": 11.5
+        },
+        {
+          "probability": 0.3,
+          "value": 11.8
+        },
+        {
+          "probability": 0.4,
+          "value": 12.1
+        },
+        {
+          "probability": 0.5,
+          "value": 14.6
+        },
+        {
+          "probability": 0.6,
+          "value": 15.46
+        },
+        {
+          "probability": 0.7,
+          "value": 16.3
+        },
+        {
+          "probability": 0.8,
+          "value": 17.1
+        },
+        {
+          "probability": 0.9,
+          "value": 19.19
+        },
+        {
+          "probability": 0.95,
+          "value": 23.64
+        }
+      ]
+    },
+    "wood-D": {
+      "sampleSize": 848,
+      "f4": [
+        {
+          "probability": 0.05,
+          "value": 50.6
+        },
+        {
+          "probability": 0.1,
+          "value": 50.9
+        },
+        {
+          "probability": 0.2,
+          "value": 51.5
+        },
+        {
+          "probability": 0.3,
+          "value": 52
+        },
+        {
+          "probability": 0.4,
+          "value": 52.5
+        },
+        {
+          "probability": 0.5,
+          "value": 52.9
+        },
+        {
+          "probability": 0.6,
+          "value": 53.5
+        },
+        {
+          "probability": 0.7,
+          "value": 54.3
+        },
+        {
+          "probability": 0.8,
+          "value": 56.9
+        },
+        {
+          "probability": 0.9,
+          "value": 69.6
+        },
+        {
+          "probability": 0.95,
+          "value": 75.56
+        }
+      ],
+      "f1": [
+        {
+          "probability": 0.05,
+          "value": 11.1
+        },
+        {
+          "probability": 0.1,
+          "value": 11.3
+        },
+        {
+          "probability": 0.2,
+          "value": 11.4
+        },
+        {
+          "probability": 0.3,
+          "value": 11.5
+        },
+        {
+          "probability": 0.4,
+          "value": 11.6
+        },
+        {
+          "probability": 0.5,
+          "value": 11.7
+        },
+        {
+          "probability": 0.6,
+          "value": 11.9
+        },
+        {
+          "probability": 0.7,
+          "value": 12.1
+        },
+        {
+          "probability": 0.8,
+          "value": 13
+        },
+        {
+          "probability": 0.9,
+          "value": 16
+        },
+        {
+          "probability": 0.95,
+          "value": 17.36
+        }
+      ]
+    },
+    "wood-default": {
+      "sampleSize": 1820,
+      "f4": [
+        {
+          "probability": 0.05,
+          "value": 50.7
+        },
+        {
+          "probability": 0.1,
+          "value": 51.2
+        },
+        {
+          "probability": 0.2,
+          "value": 51.9
+        },
+        {
+          "probability": 0.3,
+          "value": 52.5
+        },
+        {
+          "probability": 0.4,
+          "value": 53.1
+        },
+        {
+          "probability": 0.5,
+          "value": 53.9
+        },
+        {
+          "probability": 0.6,
+          "value": 56.1
+        },
+        {
+          "probability": 0.7,
+          "value": 66.03
+        },
+        {
+          "probability": 0.8,
+          "value": 70.52
+        },
+        {
+          "probability": 0.9,
+          "value": 76.21
+        },
+        {
+          "probability": 0.95,
+          "value": 87.41
+        }
+      ],
+      "f1": [
+        {
+          "probability": 0.05,
+          "value": 11.1
+        },
+        {
+          "probability": 0.1,
+          "value": 11.3
+        },
+        {
+          "probability": 0.2,
+          "value": 11.4
+        },
+        {
+          "probability": 0.3,
+          "value": 11.6
+        },
+        {
+          "probability": 0.4,
+          "value": 11.8
+        },
+        {
+          "probability": 0.5,
+          "value": 12
+        },
+        {
+          "probability": 0.6,
+          "value": 12.7
+        },
+        {
+          "probability": 0.7,
+          "value": 15.2
+        },
+        {
+          "probability": 0.8,
+          "value": 16.4
+        },
+        {
+          "probability": 0.9,
+          "value": 17.6
+        },
+        {
+          "probability": 0.95,
+          "value": 20.31
+        }
+      ]
+    }
+  }
+}

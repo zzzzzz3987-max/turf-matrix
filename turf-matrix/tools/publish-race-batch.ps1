@@ -26,8 +26,12 @@ try {
   Copy-Item -LiteralPath $NextData -Destination $WeekData -Force
 
   try {
+    Run-Step "Refresh Training history" { npm run learn:training:history }
+    Run-Step "Refresh Training empirical baselines" { npm run learn:training:baselines }
     Run-Step "Intelligence regression" { npm run test:intelligence }
     Run-Step "Production build" { npm run build }
+    Run-Step "Freeze Ability pre-race shadow" { npm run shadow:ability:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Training pre-race shadow" { npm run shadow:training:freeze -- --input tools/week-data.next.json }
     Run-Step "Whitespace validation" { git diff --check }
     try {
       Write-Host "==> Archive preodds snapshot"
@@ -52,7 +56,12 @@ try {
     $CommitMessage = "Update weekly races $date"
   }
 
-  git add tools/week-data.json
+  $date = (Get-Content $NextData -Raw | ConvertFrom-Json).meta.date
+  $AbilityShadow = "data/shadow/ability-ceiling-v1/$date-pre-race.json"
+  $AbilityReport = "docs/analysis/ability-ceiling-shadow-$date.md"
+  $TrainingShadow = "data/shadow/training-evidence-v1/$date-pre-race.json"
+  $TrainingReport = "docs/analysis/training-evidence-shadow-$date.md"
+  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport data/master/training-history data/master/training-baselines.json
   Run-Step "Commit weekly race data" { git commit -m $CommitMessage }
   $Committed = $true
   Run-Step "Push main" { git push origin main }

@@ -207,7 +207,17 @@ TURF MATRIX オッズ保存
 6. 各レースフォルダへ odds.csv として保存
 7. PowerShellで npm run inspect:race-batch を実行
 8. 問題なければ npm run saturday:publish を実行
+9. 公開処理内でAbility上限・安定度とTraining Evidenceの事前影予測をSHA固定する
 ```
+
+`saturday:publish`は公開済みスナップショットから馬別調教履歴と実測時計基準を再生成したうえで、`tools/week-data.next.json`を対象にAbilityとTrainingの影評価を実行し、当日の予測・レポート・更新済み調教基盤を公開commitへ含める。Training影評価は美浦坂路・栗東坂路・ウッドC・ウッドDの公開前実測分位を使い、本数と鮮度を性能点にしない。Ability・Training・TM INDEXの本番値は変更しない。結果取得後は次を実行し、事前固定済みartifactだけを累積評価する。
+
+```powershell
+npm run shadow:ability:evaluate
+npm run shadow:training:evaluate
+```
+
+採用条件はそれぞれ評価30レース以上、TM首位変更5レース以上、最大補正3点以内。対象エンジンとTMの首位勝数・複勝数・pairwiseをすべて維持し、TM首位の勝数または複勝数を1件以上改善すること。全条件を満たすまで本番Ability・Trainingへ接続しない。
 
 金曜・土曜の必須ファイル:
 

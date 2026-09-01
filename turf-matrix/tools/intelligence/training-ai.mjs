@@ -1,5 +1,6 @@
 import { createRequire } from "node:module";
 import { trainingThreshold } from "./dictionaries/training-thresholds.mjs";
+import { trainingHistoryFor } from "./training-history.mjs";
 
 const require = createRequire(import.meta.url);
 const STABLE_PATTERNS = require("../../data/master/stables.json");
@@ -94,8 +95,8 @@ const sessionScore = (session, stableSide) => {
   );
 };
 
-const collectTrainingSessions = (horse) => {
-  const slope = (horse.training?.slope ?? []).map((item) => ({
+const collectTrainingSessions = (horse, training = horse.training) => {
+  const slope = (training?.slope ?? []).map((item) => ({
     type: "slope",
     date: item.date,
     trainer: item.trainer,
@@ -105,7 +106,7 @@ const collectTrainingSessions = (horse) => {
     f1: item["1F"],
     lap: item.lap,
   }));
-  const wood = (horse.training?.wood ?? []).map((item) => ({
+  const wood = (training?.wood ?? []).map((item) => ({
     type: "wood",
     date: item.date,
     trainer: item.trainer,
@@ -117,7 +118,14 @@ const collectTrainingSessions = (horse) => {
     f1: item.times?.["1F"],
     lap: item.lap,
   }));
-  return [...slope, ...wood].filter((session) => typeof session.f1 === "number" || typeof session.f4 === "number");
+  const seen = new Set();
+  return [...slope, ...wood].filter((session) => {
+    if (typeof session.f1 !== "number" && typeof session.f4 !== "number") return false;
+    const key = [session.type, session.date, session.course ?? "", session.f4 ?? "", session.f1 ?? ""].join("|");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 };
 
 const bestSession = (sessions) => [...sessions].sort((a, b) => b.score - a.score || b.dateValue - a.dateValue)[0] ?? null;
@@ -260,6 +268,7 @@ const buildTrainingProfile = (horse) => {
   const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
   const raceDate = horse.currentRace?.raceDate;
   const videoReview = findVideoReview(horse);
+  const trainingHistory = trainingHistoryFor(horse);
   const sessions = collectTrainingSessions(horse)
     .map((session) => {
       const date = toDate(session.date);
@@ -273,6 +282,15 @@ const buildTrainingProfile = (horse) => {
       };
     })
     .sort((a, b) => b.dateValue - a.dateValue);
+  const comparisonSessions = collectTrainingSessions(horse, {
+    slope: [...(horse.training?.slope ?? []), ...(trainingHistory.slope ?? [])],
+    wood: [...(horse.training?.wood ?? []), ...(trainingHistory.wood ?? [])],
+  }).map((session) => ({
+    ...session,
+    score: sessionScore(session, stableSide),
+    dateValue: toDate(session.date)?.getTime() ?? 0,
+  }));
+  const historySessionCount = Math.max(0, comparisonSessions.length - sessions.length);
 
   if (!sessions.length) {
     const score = clamp(TRAINING_NEUTRAL_SCORE + (videoReview?.adjustment ?? 0));
@@ -283,6 +301,7 @@ const buildTrainingProfile = (horse) => {
       confidence: "low",
       status: videoReview ? "partial" : "missing",
       sessions,
+      historySessionCount,
       videoReview,
       phaseRepresentatives: {},
       stablePattern: {
@@ -340,7 +359,7 @@ const buildTrainingProfile = (horse) => {
       freshness * 0.06
   );
   const stablePattern = matchStablePattern(horse, sessions, phaseRepresentatives);
-  const goodRunComparison = buildGoodRunComparison(horse, sessions, phaseQuality);
+  const goodRunComparison = buildGoodRunComparison(horse, comparisonSessions, phaseQuality);
   const clockScore = clamp(baseScore + stablePattern.adjustment + goodRunComparison.adjustment);
   const score = clamp(clockScore + (videoReview?.adjustment ?? 0));
   const accelCount = recent28.filter((session) => {
@@ -360,6 +379,7 @@ const buildTrainingProfile = (horse) => {
     confidence,
     status: confidence === "low" ? "partial" : "active",
     sessions,
+    historySessionCount,
     phaseRepresentatives,
     stablePattern,
     goodRunComparison,

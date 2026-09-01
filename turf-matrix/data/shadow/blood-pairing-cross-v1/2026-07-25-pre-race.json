@@ -1,0 +1,3680 @@
+{
+  "schemaVersion": 1,
+  "status": "reconstructed-pre-race-shadow",
+  "modelVersion": "blood-pairing-cross-shadow-v1",
+  "frozenAt": "2026-09-01T12:57:20.025Z",
+  "raceDate": "2026-07-25",
+  "productionConnected": false,
+  "policy": {
+    "purpose": "Blood配合・クロス実績の事前影評価",
+    "currentRaceResultRead": false,
+    "popularityOddsValueUsed": false,
+    "statisticsRule": "対象日より前の着順だけを集計し、対象馬自身はleave-one-horse-out",
+    "scoreLimit": 2
+  },
+  "source": {
+    "input": "data/archive/2026-07-25-preodds.json",
+    "inputSha256": "c36d450274afeb446045211d8f21b050af655871c3bf13042afa38e935f8f4ab",
+    "modelSpecSha256": "194977d16eedc74c792f91cbe2320a26bef5eabc8c60680667d98c71c2a1f256",
+    "raceCount": 9,
+    "horseCount": 115
+  },
+  "statistics": {
+    "schemaVersion": 4,
+    "evaluationCutoff": "20260725",
+    "futureObservationCount": 0,
+    "observationCount": 1835,
+    "archivePairCount": 0,
+    "minimumSamples": {
+      "reference": 5,
+      "active": 12,
+      "high": 30,
+      "uniqueHorsesActive": 5,
+      "uniqueHorsesHigh": 10
+    },
+    "baseline": {
+      "sampleSize": 1835,
+      "uniqueHorseCount": 115,
+      "wins": 260,
+      "top3": 707,
+      "winRate": 0.1417,
+      "hitRate": 0.3853,
+      "avgFinish": 5.52,
+      "eligible": true,
+      "confidence": "high",
+      "horseContributions": {
+        "ヴァイザーバルコ": {
+          "sampleSize": 30,
+          "wins": 5,
+          "top3": 11,
+          "finishTotal": 166
+        },
+        "リギーロ": {
+          "sampleSize": 13,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 73
+        },
+        "ライフセービング": {
+          "sampleSize": 32,
+          "wins": 2,
+          "top3": 10,
+          "finishTotal": 152
+        },
+        "レイデラルース": {
+          "sampleSize": 14,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 80
+        },
+        "ボンドロア": {
+          "sampleSize": 13,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 73
+        },
+        "アスクデッドヒート": {
+          "sampleSize": 20,
+          "wins": 2,
+          "top3": 9,
+          "finishTotal": 85
+        },
+        "ジュンツバメガエシ": {
+          "sampleSize": 19,
+          "wins": 2,
+          "top3": 11,
+          "finishTotal": 75
+        },
+        "レイヤードレッド": {
+          "sampleSize": 20,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 105
+        },
+        "バースライト": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 39
+        },
+        "ドッビアーコ": {
+          "sampleSize": 17,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 100
+        },
+        "ウェイクフィールド": {
+          "sampleSize": 5,
+          "wins": 2,
+          "top3": 2,
+          "finishTotal": 24
+        },
+        "スーパージョック": {
+          "sampleSize": 14,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 71
+        },
+        "モズケイスター": {
+          "sampleSize": 15,
+          "wins": 2,
+          "top3": 12,
+          "finishTotal": 50
+        },
+        "ヤマニンバロネス": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 43
+        },
+        "ステラスプレンダー": {
+          "sampleSize": 18,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 122
+        },
+        "アリエスキング": {
+          "sampleSize": 14,
+          "wins": 2,
+          "top3": 7,
+          "finishTotal": 65
+        },
+        "ゼロヴィジビリティ": {
+          "sampleSize": 3,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 5
+        },
+        "ホウオウゴールド": {
+          "sampleSize": 14,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 77
+        },
+        "ジェミート": {
+          "sampleSize": 12,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 64
+        },
+        "ポートデラメール": {
+          "sampleSize": 7,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 28
+        },
+        "モズタチアガレ": {
+          "sampleSize": 16,
+          "wins": 2,
+          "top3": 7,
+          "finishTotal": 62
+        },
+        "チュウワチーフ": {
+          "sampleSize": 16,
+          "wins": 2,
+          "top3": 9,
+          "finishTotal": 66
+        },
+        "エブリーポッシブル": {
+          "sampleSize": 5,
+          "wins": 2,
+          "top3": 2,
+          "finishTotal": 15
+        },
+        "ヘリテージブルーム": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 7,
+          "finishTotal": 23
+        },
+        "ザックザク": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 22
+        },
+        "ゴルデールスカー": {
+          "sampleSize": 34,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 219
+        },
+        "アレ": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 46
+        },
+        "ゴールドスター": {
+          "sampleSize": 18,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 100
+        },
+        "ナファロア": {
+          "sampleSize": 16,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 130
+        },
+        "ラビットアイ": {
+          "sampleSize": 15,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 82
+        },
+        "ケイケイ": {
+          "sampleSize": 26,
+          "wins": 2,
+          "top3": 7,
+          "finishTotal": 162
+        },
+        "ナグルファル": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 2,
+          "finishTotal": 58
+        },
+        "ドリームクルーズ": {
+          "sampleSize": 22,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 150
+        },
+        "ガリレア": {
+          "sampleSize": 8,
+          "wins": 1,
+          "top3": 2,
+          "finishTotal": 48
+        },
+        "ルナルーチェット": {
+          "sampleSize": 12,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 81
+        },
+        "ジーネキング": {
+          "sampleSize": 10,
+          "wins": 1,
+          "top3": 5,
+          "finishTotal": 65
+        },
+        "メランジェ": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 2,
+          "finishTotal": 45
+        },
+        "ソニックライン": {
+          "sampleSize": 19,
+          "wins": 2,
+          "top3": 10,
+          "finishTotal": 81
+        },
+        "ギフテッド": {
+          "sampleSize": 8,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 48
+        },
+        "ミッキースターダム": {
+          "sampleSize": 23,
+          "wins": 2,
+          "top3": 12,
+          "finishTotal": 142
+        },
+        "シャンソンドール": {
+          "sampleSize": 6,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 11
+        },
+        "コルドンブルー": {
+          "sampleSize": 7,
+          "wins": 2,
+          "top3": 7,
+          "finishTotal": 15
+        },
+        "エヴァンスウィート": {
+          "sampleSize": 16,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 90
+        },
+        "シカゴスティング": {
+          "sampleSize": 20,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 109
+        },
+        "サウスバンク": {
+          "sampleSize": 11,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 45
+        },
+        "ルーフ": {
+          "sampleSize": 25,
+          "wins": 3,
+          "top3": 10,
+          "finishTotal": 151
+        },
+        "メルトユアハート": {
+          "sampleSize": 17,
+          "wins": 3,
+          "top3": 8,
+          "finishTotal": 97
+        },
+        "ウィルオレオール": {
+          "sampleSize": 16,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 75
+        },
+        "ロジケープ": {
+          "sampleSize": 7,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 15
+        },
+        "アンジュプロミス": {
+          "sampleSize": 10,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 40
+        },
+        "クリエープキー": {
+          "sampleSize": 11,
+          "wins": 3,
+          "top3": 4,
+          "finishTotal": 70
+        },
+        "アスクケンタッキー": {
+          "sampleSize": 6,
+          "wins": 3,
+          "top3": 3,
+          "finishTotal": 35
+        },
+        "ゴールドサーベル": {
+          "sampleSize": 22,
+          "wins": 3,
+          "top3": 4,
+          "finishTotal": 172
+        },
+        "パクスロマーナ": {
+          "sampleSize": 42,
+          "wins": 5,
+          "top3": 14,
+          "finishTotal": 267
+        },
+        "ミッキーゴールド": {
+          "sampleSize": 10,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 38
+        },
+        "エイカイマッケンロ": {
+          "sampleSize": 32,
+          "wins": 3,
+          "top3": 12,
+          "finishTotal": 201
+        },
+        "リンフレスカンテ": {
+          "sampleSize": 40,
+          "wins": 3,
+          "top3": 22,
+          "finishTotal": 168
+        },
+        "タイセイフェリーク": {
+          "sampleSize": 28,
+          "wins": 3,
+          "top3": 13,
+          "finishTotal": 139
+        },
+        "ウインデイジー": {
+          "sampleSize": 22,
+          "wins": 3,
+          "top3": 9,
+          "finishTotal": 107
+        },
+        "サトノクローク": {
+          "sampleSize": 28,
+          "wins": 3,
+          "top3": 11,
+          "finishTotal": 149
+        },
+        "ハーツコンチェルト": {
+          "sampleSize": 15,
+          "wins": 1,
+          "top3": 6,
+          "finishTotal": 70
+        },
+        "メイショウソウタ": {
+          "sampleSize": 21,
+          "wins": 3,
+          "top3": 10,
+          "finishTotal": 120
+        },
+        "ミュージシャン": {
+          "sampleSize": 10,
+          "wins": 3,
+          "top3": 8,
+          "finishTotal": 30
+        },
+        "サダムオプシス": {
+          "sampleSize": 18,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 108
+        },
+        "ナムラフッカー": {
+          "sampleSize": 24,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 151
+        },
+        "ポッドロワール": {
+          "sampleSize": 16,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 95
+        },
+        "コートアリシアン": {
+          "sampleSize": 13,
+          "wins": 2,
+          "top3": 8,
+          "finishTotal": 49
+        },
+        "エマヌエーレ": {
+          "sampleSize": 32,
+          "wins": 3,
+          "top3": 8,
+          "finishTotal": 178
+        },
+        "スマイルアップ": {
+          "sampleSize": 36,
+          "wins": 3,
+          "top3": 14,
+          "finishTotal": 247
+        },
+        "エイムフォーエース": {
+          "sampleSize": 30,
+          "wins": 3,
+          "top3": 4,
+          "finishTotal": 210
+        },
+        "ピコローズ": {
+          "sampleSize": 14,
+          "wins": 3,
+          "top3": 7,
+          "finishTotal": 54
+        },
+        "アームテイル": {
+          "sampleSize": 25,
+          "wins": 3,
+          "top3": 4,
+          "finishTotal": 180
+        },
+        "ボンヌソワレ": {
+          "sampleSize": 14,
+          "wins": 3,
+          "top3": 9,
+          "finishTotal": 54
+        },
+        "モンテシート": {
+          "sampleSize": 15,
+          "wins": 3,
+          "top3": 8,
+          "finishTotal": 58
+        },
+        "チューラワンサ": {
+          "sampleSize": 9,
+          "wins": 3,
+          "top3": 3,
+          "finishTotal": 47
+        },
+        "ヴェサリウス": {
+          "sampleSize": 16,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 91
+        },
+        "ミストレス": {
+          "sampleSize": 16,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 120
+        },
+        "スティールブルー": {
+          "sampleSize": 16,
+          "wins": 3,
+          "top3": 6,
+          "finishTotal": 96
+        },
+        "ルミノメテオール": {
+          "sampleSize": 19,
+          "wins": 3,
+          "top3": 4,
+          "finishTotal": 152
+        },
+        "ウナギノボリ": {
+          "sampleSize": 58,
+          "wins": 3,
+          "top3": 9,
+          "finishTotal": 469
+        },
+        "キタサンダムール": {
+          "sampleSize": 21,
+          "wins": 3,
+          "top3": 9,
+          "finishTotal": 107
+        },
+        "モジャーリオ": {
+          "sampleSize": 19,
+          "wins": 3,
+          "top3": 9,
+          "finishTotal": 83
+        },
+        "フライングブレード": {
+          "sampleSize": 28,
+          "wins": 3,
+          "top3": 10,
+          "finishTotal": 168
+        },
+        "リメンバーヒム": {
+          "sampleSize": 16,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 83
+        },
+        "フェスタリア": {
+          "sampleSize": 13,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 73
+        },
+        "ショウナンヤッホー": {
+          "sampleSize": 13,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 79
+        },
+        "ギマール": {
+          "sampleSize": 14,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 64
+        },
+        "セボンサデッセ": {
+          "sampleSize": 10,
+          "wins": 2,
+          "top3": 8,
+          "finishTotal": 23
+        },
+        "ジュンラトゥール": {
+          "sampleSize": 32,
+          "wins": 2,
+          "top3": 12,
+          "finishTotal": 161
+        },
+        "ハイクオリティ": {
+          "sampleSize": 17,
+          "wins": 2,
+          "top3": 6,
+          "finishTotal": 77
+        },
+        "ベラジオワールド": {
+          "sampleSize": 12,
+          "wins": 2,
+          "top3": 10,
+          "finishTotal": 34
+        },
+        "ライフゲート": {
+          "sampleSize": 21,
+          "wins": 2,
+          "top3": 9,
+          "finishTotal": 97
+        },
+        "マッスルバック": {
+          "sampleSize": 22,
+          "wins": 2,
+          "top3": 4,
+          "finishTotal": 124
+        },
+        "ヒルノピレネー": {
+          "sampleSize": 25,
+          "wins": 2,
+          "top3": 5,
+          "finishTotal": 166
+        },
+        "スノースケープ": {
+          "sampleSize": 2,
+          "wins": 1,
+          "top3": 2,
+          "finishTotal": 4
+        },
+        "サラコスティ": {
+          "sampleSize": 12,
+          "wins": 1,
+          "top3": 4,
+          "finishTotal": 66
+        },
+        "サンダーバード": {
+          "sampleSize": 6,
+          "wins": 1,
+          "top3": 4,
+          "finishTotal": 35
+        },
+        "アンビアンス": {
+          "sampleSize": 17,
+          "wins": 1,
+          "top3": 1,
+          "finishTotal": 140
+        },
+        "ブラックシャリマー": {
+          "sampleSize": 4,
+          "wins": 1,
+          "top3": 4,
+          "finishTotal": 8
+        },
+        "アトレッタ": {
+          "sampleSize": 2,
+          "wins": 1,
+          "top3": 1,
+          "finishTotal": 8
+        },
+        "サイモンシャリオ": {
+          "sampleSize": 10,
+          "wins": 1,
+          "top3": 3,
+          "finishTotal": 44
+        },
+        "ロードフィレール": {
+          "sampleSize": 4,
+          "wins": 1,
+          "top3": 3,
+          "finishTotal": 22
+        },
+        "ヴィエントデコラ": {
+          "sampleSize": 10,
+          "wins": 1,
+          "top3": 5,
+          "finishTotal": 45
+        },
+        "ライヴスプーン": {
+          "sampleSize": 17,
+          "wins": 1,
+          "top3": 3,
+          "finishTotal": 143
+        },
+        "ケルピー": {
+          "sampleSize": 10,
+          "wins": 4,
+          "top3": 8,
+          "finishTotal": 31
+        },
+        "メトロポリターナ": {
+          "sampleSize": 23,
+          "wins": 8,
+          "top3": 12,
+          "finishTotal": 105
+        },
+        "イリュストル": {
+          "sampleSize": 5,
+          "wins": 1,
+          "top3": 2,
+          "finishTotal": 33
+        },
+        "ロケットパンチ": {
+          "sampleSize": 6,
+          "wins": 1,
+          "top3": 3,
+          "finishTotal": 27
+        },
+        "ハルノアラシ": {
+          "sampleSize": 19,
+          "wins": 1,
+          "top3": 5,
+          "finishTotal": 109
+        },
+        "コッレヴェッキオ": {
+          "sampleSize": 12,
+          "wins": 1,
+          "top3": 4,
+          "finishTotal": 85
+        },
+        "アヴァランチ": {
+          "sampleSize": 6,
+          "wins": 1,
+          "top3": 3,
+          "finishTotal": 26
+        },
+        "パイオニアスクエア": {
+          "sampleSize": 8,
+          "wins": 0,
+          "top3": 4,
+          "finishTotal": 32
+        },
+        "インナーパッション": {
+          "sampleSize": 2,
+          "wins": 1,
+          "top3": 1,
+          "finishTotal": 8
+        },
+        "バッカステソーロ": {
+          "sampleSize": 3,
+          "wins": 2,
+          "top3": 2,
+          "finishTotal": 14
+        },
+        "ブレスドナイル": {
+          "sampleSize": 17,
+          "wins": 2,
+          "top3": 3,
+          "finishTotal": 97
+        }
+      }
+    },
+    "lineResolution": {
+      "source": "bloodline-dictionary-line-id-v1",
+      "observationCount": 1835,
+      "sireResolvedObservationCount": 1398,
+      "broodmareSireResolvedObservationCount": 916,
+      "bothResolvedObservationCount": 739,
+      "uniqueHorseCount": 115,
+      "sireResolvedUniqueHorseCount": 92,
+      "broodmareSireResolvedUniqueHorseCount": 55,
+      "bothResolvedUniqueHorseCount": 46
+    }
+  },
+  "summary": {
+    "raceCount": 9,
+    "horseCount": 115,
+    "adjustedHorseCount": 0,
+    "rankChangedHorseCount": 0,
+    "leaderSetChangedRaceCount": 0,
+    "maxAbsAdjustment": 0,
+    "unresolvedSireLineCount": 23,
+    "unresolvedBroodmareSireLineCount": 60
+  },
+  "predictionSha256": "123459d1e68c2af7553da262320cee4a4224ecd5b032a90f9358f7af374e61b6",
+  "predictions": [
+    {
+      "raceId": "2026-07-25-札幌-10R",
+      "bundleId": "2026-07-25-sapporo-10R",
+      "track": "札幌",
+      "raceNumber": 10,
+      "raceName": "ライラック賞",
+      "horseCount": 11,
+      "currentLeaders": [
+        {
+          "number": 2,
+          "name": "リギーロ",
+          "score": 70
+        },
+        {
+          "number": 6,
+          "name": "アスクデッドヒート",
+          "score": 70
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 2,
+          "name": "リギーロ",
+          "score": 70
+        },
+        {
+          "number": 6,
+          "name": "アスクデッドヒート",
+          "score": 70
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ヴァイザーバルコ",
+          "currentBlood": 69,
+          "shadowAdjustment": 0,
+          "shadowBlood": 69,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "stay_gold",
+            "sireLabel": "Stay Gold系",
+            "sireBranch": "sire",
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 2,
+          "name": "リギーロ",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Deep Impact系 × ジャングルポケット",
+            "scope": "保有データ全体",
+            "sampleSize": 30,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.1333,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "grey_sovereign",
+            "broodmareSireLabel": "Grey Sovereign系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 3,
+          "name": "ライフセービング",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 4,
+          "name": "レイデラルース",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父",
+            "label": "レイデオロ × ダイワメジャー",
+            "scope": "保有データ全体",
+            "sampleSize": 6,
+            "uniqueHorseCount": 1,
+            "hitRate": 1,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 5,
+          "name": "ボンドロア",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 6,
+          "name": "アスクデッドヒート",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ディープインパクト",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 9,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.3333,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 7,
+          "name": "ジュンツバメガエシ",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 8,
+          "name": "レイヤードレッド",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 9,
+          "name": "バースライト",
+          "currentBlood": 62,
+          "shadowAdjustment": 0,
+          "shadowBlood": 62,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "maurice",
+            "sireLabel": "Maurice・Screen Hero系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 9,
+          "shadowRank": 9
+        },
+        {
+          "number": 10,
+          "name": "ドッビアーコ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "mr_prospector",
+            "sireLabel": "Mr. Prospector系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "seattle_slew_ap_indy",
+            "broodmareSireLabel": "Seattle Slew・A.P. Indy系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 11,
+          "name": "ウェイクフィールド",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "manhattan_cafe",
+            "broodmareSireLabel": "Manhattan Cafe系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-中京-6R",
+      "bundleId": "2026-07-25-chukyo-06R",
+      "track": "中京",
+      "raceNumber": 6,
+      "raceName": "四日市特別",
+      "horseCount": 16,
+      "currentLeaders": [
+        {
+          "number": 1,
+          "name": "スーパージョック",
+          "score": 65
+        },
+        {
+          "number": 4,
+          "name": "ステラスプレンダー",
+          "score": 65
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 1,
+          "name": "スーパージョック",
+          "score": 65
+        },
+        {
+          "number": 4,
+          "name": "ステラスプレンダー",
+          "score": 65
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "スーパージョック",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "danzig",
+            "sireLabel": "Danzig系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 2,
+          "name": "モズケイスター",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 3,
+          "name": "ヤマニンバロネス",
+          "currentBlood": 61,
+          "shadowAdjustment": 0,
+          "shadowBlood": 61,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 4,
+          "name": "ステラスプレンダー",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 5,
+          "name": "アリエスキング",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 6,
+          "name": "ゼロヴィジビリティ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "storm_cat",
+            "sireLabel": "Storm Cat系",
+            "sireBranch": "sire",
+            "broodmareSire": "roberto",
+            "broodmareSireLabel": "Roberto系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 7,
+          "name": "ホウオウゴールド",
+          "currentBlood": 62,
+          "shadowAdjustment": 0,
+          "shadowBlood": 62,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 8,
+          "name": "ジェミート",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 9,
+          "name": "ポートデラメール",
+          "currentBlood": 61,
+          "shadowAdjustment": 0,
+          "shadowBlood": 61,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "blame_arch_power",
+            "sireLabel": "Blame・Arch系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 10,
+          "name": "モズタチアガレ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 11,
+          "name": "チュウワチーフ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "mr_prospector",
+            "sireLabel": "Mr. Prospector系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 12,
+          "name": "エブリーポッシブル",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "mr_prospector",
+            "sireLabel": "Mr. Prospector系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 13,
+          "name": "ヘリテージブルーム",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "harlan_speed",
+            "sireLabel": "Harlan系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 14,
+          "name": "ザックザク",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "american_pharoah_speed",
+            "sireLabel": "American Pharoah系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 15,
+          "name": "ゴルデールスカー",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "maurice",
+            "sireLabel": "Maurice・Screen Hero系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 16,
+          "name": "アレ",
+          "currentBlood": 62,
+          "shadowAdjustment": 0,
+          "shadowBlood": 62,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-新潟-6R",
+      "bundleId": "2026-07-25-niigata-06R",
+      "track": "新潟",
+      "raceNumber": 6,
+      "raceName": "豊栄特別",
+      "horseCount": 15,
+      "currentLeaders": [
+        {
+          "number": 1,
+          "name": "ゴールドスター",
+          "score": 72
+        },
+        {
+          "number": 15,
+          "name": "コルドンブルー",
+          "score": 72
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 1,
+          "name": "ゴールドスター",
+          "score": 72
+        },
+        {
+          "number": 15,
+          "name": "コルドンブルー",
+          "score": 72
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ゴールドスター",
+          "currentBlood": 72,
+          "shadowAdjustment": 0,
+          "shadowBlood": 72,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 2,
+          "name": "ナファロア",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "isla_bonita",
+            "sireLabel": "Isla Bonita・Fuji Kiseki系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 12,
+          "shadowRank": 12
+        },
+        {
+          "number": 3,
+          "name": "ラビットアイ",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 4,
+          "name": "ケイケイ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "isla_bonita",
+            "sireLabel": "Isla Bonita・Fuji Kiseki系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 12,
+          "shadowRank": 12
+        },
+        {
+          "number": 5,
+          "name": "ナグルファル",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 6,
+          "name": "ドリームクルーズ",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 7,
+          "name": "ガリレア",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "stay_gold",
+            "broodmareSireLabel": "Stay Gold系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 8,
+          "name": "ルナルーチェット",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 12,
+          "shadowRank": 12
+        },
+        {
+          "number": 9,
+          "name": "ジーネキング",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "harlan_speed",
+            "broodmareSireLabel": "Harlan系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 10,
+          "name": "メランジェ",
+          "currentBlood": 71,
+          "shadowAdjustment": 0,
+          "shadowBlood": 71,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父系",
+            "label": "スワーヴリチャード × Kingmambo系",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 11,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.4545,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 11,
+          "name": "ソニックライン",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "roberto",
+            "broodmareSireLabel": "Roberto系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 12,
+          "name": "ギフテッド",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "maurice",
+            "sireLabel": "Maurice・Screen Hero系",
+            "sireBranch": "sire",
+            "broodmareSire": "european_stamina",
+            "broodmareSireLabel": "欧州スタミナ系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 12,
+          "shadowRank": 12
+        },
+        {
+          "number": 13,
+          "name": "ミッキースターダム",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父",
+            "label": "エピファネイア × ディープインパクト",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 8,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.625,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 14,
+          "name": "シャンソンドール",
+          "currentBlood": 66,
+          "shadowAdjustment": 0,
+          "shadowBlood": 66,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父",
+            "label": "レイデオロ × ダイワメジャー",
+            "scope": "保有データ全体",
+            "sampleSize": 14,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.3571,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 15,
+          "name": "コルドンブルー",
+          "currentBlood": 72,
+          "shadowAdjustment": 0,
+          "shadowBlood": 72,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Deep Impact系 × Kingmambo系",
+            "scope": "保有データ全体",
+            "sampleSize": 17,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.3529,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-札幌-11R",
+      "bundleId": "2026-07-25-sapporo-11R",
+      "track": "札幌",
+      "raceNumber": 11,
+      "raceName": "ＴＶｈ賞",
+      "horseCount": 12,
+      "currentLeaders": [
+        {
+          "number": 5,
+          "name": "メルトユアハート",
+          "score": 70
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 5,
+          "name": "メルトユアハート",
+          "score": 70
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "エヴァンスウィート",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Heart's Cry系 × Mr. Prospector系",
+            "scope": "保有データ全体",
+            "sampleSize": 15,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.4,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 2,
+          "shadowRank": 2
+        },
+        {
+          "number": 2,
+          "name": "シカゴスティング",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "roberto",
+            "broodmareSireLabel": "Roberto系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 3,
+          "name": "サウスバンク",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 4,
+          "name": "ルーフ",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "daiwa_major",
+            "sireLabel": "Daiwa Major系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 5,
+          "name": "メルトユアハート",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ディープインパクト",
+            "scope": "保有データ全体",
+            "sampleSize": 48,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.4583,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 6,
+          "name": "ウィルオレオール",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 7,
+          "name": "ロジケープ",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "neo_universe",
+            "sireLabel": "Neo Universe系",
+            "sireBranch": "sire",
+            "broodmareSire": "heart_cry",
+            "broodmareSireLabel": "Heart's Cry系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 8,
+          "name": "アンジュプロミス",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 9,
+          "shadowRank": 9
+        },
+        {
+          "number": 9,
+          "name": "クリエープキー",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 10,
+          "name": "アスクケンタッキー",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "mr_prospector",
+            "sireLabel": "Mr. Prospector系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 11,
+          "name": "ゴールドサーベル",
+          "currentBlood": 62,
+          "shadowAdjustment": 0,
+          "shadowBlood": 62,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "stay_gold",
+            "broodmareSireLabel": "Stay Gold系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 12,
+          "name": "パクスロマーナ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-中京-7R",
+      "bundleId": "2026-07-25-chukyo-07R",
+      "track": "中京",
+      "raceNumber": 7,
+      "raceName": "関ケ原ステークス",
+      "horseCount": 11,
+      "currentLeaders": [
+        {
+          "number": 2,
+          "name": "エイカイマッケンロ",
+          "score": 72
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 2,
+          "name": "エイカイマッケンロ",
+          "score": 72
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ミッキーゴールド",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 2,
+          "name": "エイカイマッケンロ",
+          "currentBlood": 72,
+          "shadowAdjustment": 0,
+          "shadowBlood": 72,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ハービンジャー",
+            "scope": "保有データ全体",
+            "sampleSize": 19,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.4737,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "harbinger",
+            "broodmareSireLabel": "Harbinger系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 3,
+          "name": "リンフレスカンテ",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "sunday_silence",
+            "broodmareSireLabel": "Sunday Silence系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 4,
+          "name": "タイセイフェリーク",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ディープインパクト",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 11,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.3636,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 5,
+          "name": "ウインデイジー",
+          "currentBlood": 66,
+          "shadowAdjustment": 0,
+          "shadowBlood": 66,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "stay_gold",
+            "sireLabel": "Stay Gold系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 6,
+          "name": "サトノクローク",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "last_tycoon_marju",
+            "sireLabel": "Last Tycoon・Marju系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 9,
+          "shadowRank": 9
+        },
+        {
+          "number": 7,
+          "name": "ハーツコンチェルト",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Heart's Cry系 × Mr. Prospector系",
+            "scope": "保有データ全体",
+            "sampleSize": 16,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.4375,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 8,
+          "name": "メイショウソウタ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "manhattan_cafe",
+            "broodmareSireLabel": "Manhattan Cafe系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 11,
+          "shadowRank": 11
+        },
+        {
+          "number": 9,
+          "name": "ミュージシャン",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 9,
+          "shadowRank": 9
+        },
+        {
+          "number": 10,
+          "name": "サダムオプシス",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 11,
+          "name": "ナムラフッカー",
+          "currentBlood": 71,
+          "shadowAdjustment": 0,
+          "shadowBlood": 71,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父系",
+            "label": "スワーヴリチャード × Kingmambo系",
+            "scope": "保有データ全体",
+            "sampleSize": 8,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.25,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 2,
+          "shadowRank": 2
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-新潟-7R",
+      "bundleId": "2026-07-25-niigata-07R",
+      "track": "新潟",
+      "raceNumber": 7,
+      "raceName": "新潟日報賞",
+      "horseCount": 18,
+      "currentLeaders": [
+        {
+          "number": 2,
+          "name": "コートアリシアン",
+          "score": 70
+        },
+        {
+          "number": 3,
+          "name": "エマヌエーレ",
+          "score": 70
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 2,
+          "name": "コートアリシアン",
+          "score": 70
+        },
+        {
+          "number": 3,
+          "name": "エマヌエーレ",
+          "score": 70
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ポッドロワール",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 2,
+          "name": "コートアリシアン",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ハーツクライ",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 15,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.2,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "heart_cry",
+            "broodmareSireLabel": "Heart's Cry系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 3,
+          "name": "エマヌエーレ",
+          "currentBlood": 70,
+          "shadowAdjustment": 0,
+          "shadowBlood": 70,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ハーツクライ",
+            "scope": "保有データ全体",
+            "sampleSize": 13,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.6154,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": "heart_cry",
+            "broodmareSireLabel": "Heart's Cry系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 4,
+          "name": "スマイルアップ",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "isla_bonita",
+            "sireLabel": "Isla Bonita・Fuji Kiseki系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 15,
+          "shadowRank": 15
+        },
+        {
+          "number": 5,
+          "name": "エイムフォーエース",
+          "currentBlood": 68,
+          "shadowAdjustment": 0,
+          "shadowBlood": 68,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Deep Impact系 × ジャングルポケット",
+            "scope": "保有データ全体",
+            "sampleSize": 13,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.4615,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "grey_sovereign",
+            "broodmareSireLabel": "Grey Sovereign系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 6,
+          "name": "ピコローズ",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 7,
+          "name": "アームテイル",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "taiki_shuttle_sprint",
+            "broodmareSireLabel": "Taiki Shuttle系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 8,
+          "name": "ボンヌソワレ",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 9,
+          "name": "モンテシート",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 10,
+          "name": "チューラワンサ",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 11,
+          "name": "ヴェサリウス",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 15,
+          "shadowRank": 15
+        },
+        {
+          "number": 12,
+          "name": "ミストレス",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 13,
+          "name": "スティールブルー",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 6,
+          "shadowRank": 6
+        },
+        {
+          "number": 14,
+          "name": "ルミノメテオール",
+          "currentBlood": 69,
+          "shadowAdjustment": 0,
+          "shadowBlood": 69,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": "mr_prospector",
+            "broodmareSireLabel": "Mr. Prospector系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 15,
+          "name": "ウナギノボリ",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": "sunday_silence",
+            "broodmareSireLabel": "Sunday Silence系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 10,
+          "shadowRank": 10
+        },
+        {
+          "number": 16,
+          "name": "キタサンダムール",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kitasan_black",
+            "sireLabel": "Kitasan Black系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 15,
+          "shadowRank": 15
+        },
+        {
+          "number": 17,
+          "name": "モジャーリオ",
+          "currentBlood": 69,
+          "shadowAdjustment": 0,
+          "shadowBlood": 69,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ハービンジャー",
+            "scope": "保有データ全体",
+            "sampleSize": 32,
+            "uniqueHorseCount": 1,
+            "hitRate": 0.375,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "harbinger",
+            "broodmareSireLabel": "Harbinger系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 18,
+          "name": "フライングブレード",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "princely_gift_sprint",
+            "sireLabel": "Princely Gift・サクラバクシンオー系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 15,
+          "shadowRank": 15
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-札幌-12R",
+      "bundleId": "2026-07-25-sapporo-12R",
+      "track": "札幌",
+      "raceNumber": 12,
+      "raceName": "桑園特別",
+      "horseCount": 11,
+      "currentLeaders": [
+        {
+          "number": 7,
+          "name": "ハイクオリティ",
+          "score": 71
+        },
+        {
+          "number": 11,
+          "name": "ヒルノピレネー",
+          "score": 71
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 7,
+          "name": "ハイクオリティ",
+          "score": 71
+        },
+        {
+          "number": 11,
+          "name": "ヒルノピレネー",
+          "score": 71
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "リメンバーヒム",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 2,
+          "name": "フェスタリア",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 3,
+          "name": "ショウナンヤッホー",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "mr_prospector",
+            "sireLabel": "Mr. Prospector系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 4,
+          "name": "ギマール",
+          "currentBlood": 63,
+          "shadowAdjustment": 0,
+          "shadowBlood": 63,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "daiwa_major",
+            "sireLabel": "Daiwa Major系",
+            "sireBranch": "sire",
+            "broodmareSire": "roberto",
+            "broodmareSireLabel": "Roberto系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 5,
+          "name": "セボンサデッセ",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 6,
+          "name": "ジュンラトゥール",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "seattle_slew_ap_indy",
+            "sireLabel": "Seattle Slew・A.P. Indy系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 7,
+          "name": "ハイクオリティ",
+          "currentBlood": 71,
+          "shadowAdjustment": 0,
+          "shadowBlood": 71,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Deep Impact系 × Kingmambo系",
+            "scope": "保有データ全体",
+            "sampleSize": 7,
+            "uniqueHorseCount": 1,
+            "hitRate": 1,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 8,
+          "name": "ベラジオワールド",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 9,
+          "name": "ライフゲート",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 10,
+          "name": "マッスルバック",
+          "currentBlood": 66,
+          "shadowAdjustment": 0,
+          "shadowBlood": 66,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父",
+            "label": "Kingmambo系 × ダイワメジャー",
+            "scope": "保有データ全体",
+            "sampleSize": 20,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.55,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "daiwa_major",
+            "broodmareSireLabel": "Daiwa Major系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 11,
+          "name": "ヒルノピレネー",
+          "currentBlood": 71,
+          "shadowAdjustment": 0,
+          "shadowBlood": 71,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Heart's Cry系 × Kingmambo系",
+            "scope": "保有データ全体",
+            "sampleSize": 37,
+            "uniqueHorseCount": 3,
+            "hitRate": 0.2973,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-中京-8R",
+      "bundleId": "2026-07-25-chukyo-08R",
+      "track": "中京",
+      "raceNumber": 8,
+      "raceName": "香嵐渓特別",
+      "horseCount": 8,
+      "currentLeaders": [
+        {
+          "number": 2,
+          "name": "サラコスティ",
+          "score": 75
+        },
+        {
+          "number": 3,
+          "name": "サンダーバード",
+          "score": 75
+        },
+        {
+          "number": 8,
+          "name": "ロードフィレール",
+          "score": 75
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 2,
+          "name": "サラコスティ",
+          "score": 75
+        },
+        {
+          "number": 3,
+          "name": "サンダーバード",
+          "score": 75
+        },
+        {
+          "number": 8,
+          "name": "ロードフィレール",
+          "score": 75
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "スノースケープ",
+          "currentBlood": 67,
+          "shadowAdjustment": 0,
+          "shadowBlood": 67,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "european_stamina",
+            "sireLabel": "欧州スタミナ系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 2,
+          "name": "サラコスティ",
+          "currentBlood": 75,
+          "shadowAdjustment": 0,
+          "shadowBlood": 75,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父",
+            "label": "エピファネイア × ディープインパクト",
+            "scope": "保有データ全体",
+            "sampleSize": 29,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.5517,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 3,
+          "name": "サンダーバード",
+          "currentBlood": 75,
+          "shadowAdjustment": 0,
+          "shadowBlood": 75,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父×母父",
+            "label": "エピファネイア × ディープインパクト",
+            "scope": "同馬場・距離帯",
+            "sampleSize": 9,
+            "uniqueHorseCount": 2,
+            "hitRate": 0.2222,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 4,
+          "name": "アンビアンス",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 5,
+          "name": "ブラックシャリマー",
+          "currentBlood": 55,
+          "shadowAdjustment": 0,
+          "shadowBlood": 55,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kitasan_black",
+            "sireLabel": "Kitasan Black系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 8,
+          "shadowRank": 8
+        },
+        {
+          "number": 6,
+          "name": "アトレッタ",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 7,
+          "name": "サイモンシャリオ",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "roses_in_may",
+            "broodmareSireLabel": "Roses in May・Devil His Due系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 5,
+          "shadowRank": 5
+        },
+        {
+          "number": 8,
+          "name": "ロードフィレール",
+          "currentBlood": 75,
+          "shadowAdjustment": 0,
+          "shadowBlood": 75,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": "stay_gold",
+            "broodmareSireLabel": "Stay Gold系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        }
+      ]
+    },
+    {
+      "raceId": "2026-07-25-新潟-8R",
+      "bundleId": "2026-07-25-niigata-08R",
+      "track": "新潟",
+      "raceNumber": 8,
+      "raceName": "清津峡特別",
+      "horseCount": 13,
+      "currentLeaders": [
+        {
+          "number": 5,
+          "name": "イリュストル",
+          "score": 71
+        }
+      ],
+      "shadowLeaders": [
+        {
+          "number": 5,
+          "name": "イリュストル",
+          "score": 71
+        }
+      ],
+      "leaderSetChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ヴィエントデコラ",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "roberto",
+            "sireLabel": "Roberto系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 2,
+          "name": "ライヴスプーン",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "seattle_slew_ap_indy",
+            "sireLabel": "Seattle Slew・A.P. Indy系",
+            "sireBranch": "sire.sire",
+            "broodmareSire": "deep_impact",
+            "broodmareSireLabel": "Deep Impact系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 3,
+          "name": "ケルピー",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "daiwa_major",
+            "sireLabel": "Daiwa Major系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 4,
+          "name": "メトロポリターナ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 5,
+          "name": "イリュストル",
+          "currentBlood": 71,
+          "shadowAdjustment": 0,
+          "shadowBlood": 71,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": {
+            "status": "reference_only",
+            "fallbackLevel": "父系×母父系",
+            "label": "Heart's Cry系 × Kingmambo系",
+            "scope": "保有データ全体",
+            "sampleSize": 57,
+            "uniqueHorseCount": 3,
+            "hitRate": 0.2456,
+            "confidence": "low"
+          },
+          "crosses": [],
+          "lineIds": {
+            "sire": "heart_cry",
+            "sireLabel": "Heart's Cry系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 1,
+          "shadowRank": 1
+        },
+        {
+          "number": 6,
+          "name": "ロケットパンチ",
+          "currentBlood": 64,
+          "shadowAdjustment": 0,
+          "shadowBlood": 64,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "blame_arch_power",
+            "sireLabel": "Blame・Arch系",
+            "sireBranch": "sire",
+            "broodmareSire": "kingmambo",
+            "broodmareSireLabel": "Kingmambo系",
+            "broodmareSireBranch": "dam.sire"
+          },
+          "currentRank": 4,
+          "shadowRank": 4
+        },
+        {
+          "number": 7,
+          "name": "ハルノアラシ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 8,
+          "name": "コッレヴェッキオ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "maurice",
+            "sireLabel": "Maurice・Screen Hero系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 9,
+          "name": "アヴァランチ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "seattle_slew_ap_indy",
+            "sireLabel": "Seattle Slew・A.P. Indy系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 10,
+          "name": "パイオニアスクエア",
+          "currentBlood": 66,
+          "shadowAdjustment": 0,
+          "shadowBlood": 66,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kingmambo",
+            "sireLabel": "Kingmambo系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 2,
+          "shadowRank": 2
+        },
+        {
+          "number": 11,
+          "name": "インナーパッション",
+          "currentBlood": 65,
+          "shadowAdjustment": 0,
+          "shadowBlood": 65,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "deep_impact",
+            "sireLabel": "Deep Impact系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 3,
+          "shadowRank": 3
+        },
+        {
+          "number": 12,
+          "name": "バッカステソーロ",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": "kitasan_black",
+            "sireLabel": "Kitasan Black系",
+            "sireBranch": "sire",
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        },
+        {
+          "number": 13,
+          "name": "ブレスドナイル",
+          "currentBlood": 56,
+          "shadowAdjustment": 0,
+          "shadowBlood": 56,
+          "pairingAdjustment": 0,
+          "crossAdjustment": 0,
+          "pairing": null,
+          "crosses": [],
+          "lineIds": {
+            "sire": null,
+            "sireLabel": null,
+            "sireBranch": null,
+            "broodmareSire": null,
+            "broodmareSireLabel": null,
+            "broodmareSireBranch": null
+          },
+          "currentRank": 7,
+          "shadowRank": 7
+        }
+      ]
+    }
+  ]
+}

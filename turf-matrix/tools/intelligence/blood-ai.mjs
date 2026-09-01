@@ -1,11 +1,13 @@
 import { createRequire } from "node:module";
 import { BLOODLINE_RULES, TRAIT_LABELS } from "./dictionaries/bloodline-dictionary.mjs";
 import { FEMALE_LINE_RULES } from "./dictionaries/female-line-dictionary.mjs";
-import { SIRE_PROFILES, findSireProfile } from "./dictionaries/sire-profile-dictionary.mjs";
+import { SIRE_PROFILES, findSireProfile, findSireProfileIn } from "./dictionaries/sire-profile-dictionary.mjs";
 import { buildBloodEvidenceV2 } from "./blood-features.mjs";
+import { buildPairingCrossReference } from "./blood-pairing-statistics.mjs";
 
 const require = createRequire(import.meta.url);
 const BLOOD_STATISTICS = require("../../data/master/bloodlines.json");
+const BLOOD_PAIRING_REFERENCE = require("../../data/master/blood-pairing-reference.json");
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, value));
 const displayScore = (value) => Math.round(value);
 const normalizeName = (value) => String(value ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
@@ -217,10 +219,23 @@ const individualProfileCompatibilityCenter = (context, profiles = SIRE_PROFILES)
   return median(values);
 };
 
-const buildIndividualProfileFit = (horse, context) => {
+const nearestAncestorProfile = (horse, role, profiles = SIRE_PROFILES) => {
+  const prefix = role === "sire" ? "sire." : "dam.sire.";
+  return pedigreeEntries(horse)
+    .filter((entry) => entry.branch?.startsWith(prefix))
+    .map((entry) => ({ ...entry, profile: findSireProfileIn(entry.name, profiles), meta: entryMeta(entry) }))
+    .filter((entry) => entry.profile && entry.meta.scoreWeight > 0)
+    .sort((left, right) =>
+      left.generation - right.generation ||
+      right.meta.scoreWeight - left.meta.scoreWeight ||
+      left.branch.localeCompare(right.branch, "ja")
+    )[0] ?? null;
+};
+
+const buildIndividualProfileFit = (horse, context, { ancestorFallback = false, profiles = SIRE_PROFILES } = {}) => {
   const pedigree = horse?.pedigree ?? {};
-  const center = individualProfileCompatibilityCenter(context);
-  const candidates = [
+  const center = individualProfileCompatibilityCenter(context, profiles);
+  const directCandidates = [
     {
       role: "sire",
       roleLabel: "父",
@@ -233,14 +248,31 @@ const buildIndividualProfileFit = (horse, context) => {
       name: pedigree.broodmareSire ?? horse?.currentRace?.broodmareSire,
       weight: BRANCH_WEIGHTS.broodmareSire,
     },
-  ].map((candidate) => ({ ...candidate, profile: findSireProfile(candidate.name) }))
+  ].map((candidate) => ({ ...candidate, profile: findSireProfileIn(candidate.name, profiles) }))
     .filter((candidate) => candidate.profile && Number.isFinite(center));
-  const totalWeight = candidates.reduce((sum, candidate) => sum + candidate.weight, 0);
-  const evidence = candidates.map((candidate) => {
+  const directRoles = new Set(directCandidates.map((candidate) => candidate.role));
+  const ancestorCandidates = !ancestorFallback || !Number.isFinite(center)
+    ? []
+    : ["sire", "broodmareSire"]
+      .filter((role) => !directRoles.has(role))
+      .map((role) => ({ role, entry: nearestAncestorProfile(horse, role, profiles) }))
+      .filter((candidate) => candidate.entry)
+      .map(({ role, entry }) => ({
+        role: `${role}Ancestor`,
+        inheritedFor: role,
+        roleLabel: role === "sire" ? "父方祖先" : "母父方祖先",
+        name: entry.name,
+        branch: entry.branch,
+        generation: entry.generation,
+        weight: entry.meta.scoreWeight,
+        profile: entry.profile,
+      }));
+  const totalDirectWeight = directCandidates.reduce((sum, candidate) => sum + candidate.weight, 0);
+  const directEvidence = directCandidates.map((candidate) => {
     const compatibility = profileContextCompatibility(candidate.profile, context);
     const rawAdjustment = PROFILE_TANH_AMPLITUDE
       * Math.tanh((compatibility - center) / PROFILE_TANH_SCALE);
-    const normalizedWeight = totalWeight ? candidate.weight / totalWeight : 0;
+    const normalizedWeight = totalDirectWeight ? candidate.weight / totalDirectWeight : 0;
     return {
       role: candidate.role,
       roleLabel: candidate.roleLabel,
@@ -255,6 +287,29 @@ const buildIndividualProfileFit = (horse, context) => {
       scoreApplied: true,
     };
   });
+  const ancestorEvidence = ancestorCandidates.map((candidate) => {
+    const compatibility = profileContextCompatibility(candidate.profile, context);
+    const rawAdjustment = PROFILE_TANH_AMPLITUDE
+      * Math.tanh((compatibility - center) / PROFILE_TANH_SCALE);
+    return {
+      role: candidate.role,
+      inheritedFor: candidate.inheritedFor,
+      roleLabel: candidate.roleLabel,
+      profileId: candidate.profile.id,
+      name: candidate.name,
+      traits: candidate.profile.traits,
+      compatibility: Number(compatibility.toFixed(4)),
+      center: Number(center.toFixed(4)),
+      rawAdjustment: Number(rawAdjustment.toFixed(4)),
+      weight: Number(candidate.weight.toFixed(4)),
+      impact: Number((rawAdjustment * candidate.weight).toFixed(4)),
+      branch: candidate.branch,
+      generation: candidate.generation,
+      sourceType: "ancestor_profile_fallback",
+      scoreApplied: true,
+    };
+  });
+  const evidence = [...directEvidence, ...ancestorEvidence];
   const adjustment = Math.max(
     -PROFILE_TANH_AMPLITUDE,
     Math.min(PROFILE_TANH_AMPLITUDE, evidence.reduce((sum, item) => sum + item.impact, 0)),
@@ -557,7 +612,7 @@ const buildBloodProfile = (horse, context) => {
   );
   const boundedStatisticsAdjustment = clamp(statisticsAdjustment, -3, 3);
   const statisticsScore = clamp(BLOOD_NEUTRAL_SCORE + boundedStatisticsAdjustment, 45, 85);
-  const individualProfileFit = buildIndividualProfileFit(horse, context);
+  const individualProfileFit = buildIndividualProfileFit(horse, context, { ancestorFallback: true });
   const individualProfileAdjustment = individualProfileFit.adjustment;
   const individualProfileScore = clamp(BLOOD_NEUTRAL_SCORE + individualProfileAdjustment, 45, 85);
   const confidence = coverage >= 0.65 ? "high" : coverage >= 0.35 ? "mid" : "low";
@@ -712,7 +767,11 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     burst: traitScore([...matches, ...femaleMatches], context, "speed"),
     sustain: traitScore([...matches, ...femaleMatches], context, "sustain"),
   };
-  const bloodV2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore });
+  const pairingReference = buildPairingCrossReference({
+    horse,
+    statistics: BLOOD_PAIRING_REFERENCE,
+  });
+  const bloodV2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore, pairingReference });
 
   return {
     headline: bloodV2.summary,
@@ -730,6 +789,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     dataCompleteness: bloodV2.completeness,
     componentDetails: bloodV2.components,
     evidenceV2: bloodV2.evidence,
+    pairingReference: bloodV2.pairingReference,
     unavailable: bloodV2.unavailable,
     components: profile.components,
     statistics: profile.statistics,
@@ -769,6 +829,7 @@ export {
   scoreBlood,
   buildBloodProfile,
   buildIndividualProfileFit,
+  nearestAncestorProfile,
   buildPedigreeAnalysis,
   resolveRuleMatches,
   dictionaryRuleCompatibilities,

@@ -12,6 +12,103 @@ import { resolveFromRepo } from "../parsers/parser-contract.mjs";
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
 
+const pedigreeIdentityMatches = (pedigree, currentEntry) => {
+  const directComparable = ["sire", "dam", "broodmareSire"]
+    .map((field) => [normalizeHorseKey(pedigree?.[field]), normalizeHorseKey(currentEntry?.[field])])
+    .filter(([pedigreeName, currentName]) => pedigreeName && currentName);
+  const directMatches = directComparable.filter(([pedigreeName, currentName]) => pedigreeName === currentName).length;
+  if (directComparable.length < 2 || directMatches < 2) return false;
+  if (directMatches === directComparable.length) return true;
+
+  // Imported mares may be registered in Japanese on JBIS and in English on
+  // JV-Link. Permit one direct-name mismatch only when the surrounding
+  // pedigree independently confirms the identity.
+  const supportingComparable = ["sireSire", "sireDam", "damDam"]
+    .map((field) => [normalizeHorseKey(pedigree?.[field]), normalizeHorseKey(currentEntry?.[field])])
+    .filter(([pedigreeName, currentName]) => pedigreeName && currentName);
+  const supportingMatches = supportingComparable
+    .filter(([pedigreeName, currentName]) => pedigreeName === currentName).length;
+  return supportingMatches >= 2;
+};
+
+const withPedigreeTier = (record, tier) => record
+  ? { ...record, source: { ...(record.source ?? {}), tier } }
+  : null;
+
+const supplementPedigreeDepth = (record, supplemental) => {
+  if (!record || !supplemental) return record;
+  const primaryAncestors = record.ancestors ?? [];
+  const supplementalAncestors = supplemental.ancestors ?? [];
+  if (supplementalAncestors.length <= primaryAncestors.length) return record;
+
+  const byBranch = new Map(supplementalAncestors
+    .filter((ancestor) => ancestor?.branch && ancestor?.name)
+    .map((ancestor) => [ancestor.branch, ancestor]));
+  for (const ancestor of primaryAncestors) {
+    if (ancestor?.branch && ancestor?.name) byBranch.set(ancestor.branch, ancestor);
+  }
+  const ancestors = [...byBranch.values()].sort((left, right) =>
+    Number(left.generation ?? 0) - Number(right.generation ?? 0)
+      || left.branch.localeCompare(right.branch)
+  );
+  if (ancestors.length <= primaryAncestors.length) return record;
+
+  return {
+    ...record,
+    ancestors,
+    source: {
+      ...(record.source ?? {}),
+      baseCellCount: record.source?.cellCount ?? primaryAncestors.length,
+      cellCount: ancestors.length,
+      completeness: ancestors.length >= 62
+        ? "five-generation-62"
+        : record.source?.completeness,
+      supplementedBy: supplemental.source?.sourceSystem
+        ?? supplemental.source?.format
+        ?? "verified-pedigree-cache",
+    },
+  };
+};
+
+const mergePedigreeWithReference = (record, reference) => {
+  if (!record || !reference) return record;
+  const referenceByBranch = new Map((reference.ancestors ?? [])
+    .filter((ancestor) => Number(ancestor.generation) <= 3 && ancestor.branch && ancestor.name)
+    .map((ancestor) => [ancestor.branch, ancestor]));
+  const ancestors = (record.ancestors ?? []).map((ancestor) => {
+    const referenceAncestor = referenceByBranch.get(ancestor.branch);
+    if (!referenceAncestor || Number(ancestor.generation) > 3) return ancestor;
+    return {
+      ...ancestor,
+      name: referenceAncestor.name,
+      sourceName: normalizeHorseKey(ancestor.name) === normalizeHorseKey(referenceAncestor.name)
+        ? undefined
+        : ancestor.name,
+      registrationNumber: referenceAncestor.registrationNumber ?? ancestor.registrationNumber,
+    };
+  });
+  const merged = { ...record, ancestors };
+  for (const field of ["sire", "dam", "broodmareSire", "sireSire", "sireDam", "damSire", "damDam"]) {
+    if (reference[field]) merged[field] = reference[field];
+  }
+  return merged;
+};
+
+const selectPedigreeRecord = ({ localRecord, cachedRecord, jvlinkRecord, basicRecord, currentEntry, horseName }) => {
+  if (localRecord && (!jvlinkRecord || pedigreeIdentityMatches(localRecord, jvlinkRecord))) {
+    const cacheSupplement = cachedRecord && pedigreeIdentityMatches(localRecord, cachedRecord)
+      ? cachedRecord
+      : null;
+    const supplemented = supplementPedigreeDepth(localRecord, cacheSupplement);
+    return withPedigreeTier(mergePedigreeWithReference(supplemented, jvlinkRecord), "race_html");
+  }
+  if (cachedRecord && pedigreeIdentityMatches(cachedRecord, jvlinkRecord ?? currentEntry)) {
+    return withPedigreeTier(mergePedigreeWithReference(cachedRecord, jvlinkRecord), "verified_html_cache");
+  }
+  if (jvlinkRecord) return withPedigreeTier(jvlinkRecord, "jvlink");
+  return basicRecord ? withPedigreeTier({ ...basicRecord, horseName }, "basic_txt") : null;
+};
+
 const mapByHorse = (records) =>
   new Map(records.map((record) => [normalizeHorseKey(record.horseName), record]).filter(([key]) => key));
 
@@ -45,6 +142,12 @@ const groupByHorse = (records) => {
 
 const optionalParse = (parser, path, fallback) =>
   existsSync(resolveFromRepo(path)) ? parser.parse({ path }) : fallback;
+
+let globalPedigreeCache = null;
+const globalPedigreeRecords = () => {
+  if (!globalPedigreeCache) globalPedigreeCache = pedigreeParser.parse().records;
+  return globalPedigreeCache;
+};
 
 const normalizeRaceBundle = ({
   bundleId,
@@ -84,7 +187,8 @@ const normalizeRaceBundle = ({
 
   const slope = optionalParse(trainingSlopeParser, html.trainingSlope, { rowCount: 0, records: [] });
   const wood = optionalParse(trainingWoodParser, html.trainingWood, { rowCount: 0, records: [] });
-  const pedigree = pedigreeParser.parse({ path: html.pedigree });
+  const pedigree = pedigreeParser.parse({ path: html.pedigree, cachePath: null });
+  const cachedPedigree = globalPedigreeRecords();
   const jvlinkPedigree = optionalParse(jvlinkPedigreeParser, csv.pedigree, { recordCount: 0, records: [] });
 
   const allByHorse = mapByHorse(all.horses);
@@ -106,8 +210,9 @@ const normalizeRaceBundle = ({
   }
   const slopeByHorse = groupByHorse(slope.records);
   const woodByHorse = groupByHorse(wood.records);
-  const pedigreeRecords = pedigree.records.length ? pedigree.records : jvlinkPedigree.records;
-  const pedigreeByHorse = mapByHorse(pedigreeRecords);
+  const localPedigreeByHorse = mapByHorse(pedigree.records);
+  const cachedPedigreeByHorse = mapByHorse(cachedPedigree);
+  const jvlinkPedigreeByHorse = mapByHorse(jvlinkPedigree.records);
   const basicByNumber = new Map(basic.records.map((record) => [record.horseNumber, record]));
   const failures = [];
 
@@ -120,7 +225,14 @@ const normalizeRaceBundle = ({
     // equal JV-Link's actual horse number. Never apply it by number to a direct
     // race card; the name-bearing odds record remains safe when available.
     const basicRecord = directCurrentRace ? null : basicByNumber.get(entry.horseNumber) ?? null;
-    const pedigreeRecord = pedigreeByHorse.get(key) ?? (basicRecord ? { ...basicRecord, horseName: entry.horseName } : null);
+    const pedigreeRecord = selectPedigreeRecord({
+      localRecord: localPedigreeByHorse.get(key),
+      cachedRecord: cachedPedigreeByHorse.get(key),
+      jvlinkRecord: jvlinkPedigreeByHorse.get(key),
+      basicRecord,
+      currentEntry: entry,
+      horseName: entry.horseName,
+    });
     const availableIndex = oddsEntry?.zi ?? basicRecord?.zi ?? pedigreeRecord?.zi ?? null;
     if (!directCurrentRace && oddsEntry?.zi != null && basicRecord?.zi != null && oddsEntry.zi !== basicRecord.zi) {
       throw new Error(`${bundleId}/${entry.horseName}: ZI mismatch own=${basicRecord.zi} odds=${oddsEntry.zi}`);
@@ -185,8 +297,12 @@ const normalizeRaceBundle = ({
       trainingSlope: { rows: slope.rowCount, encoding: slope.encoding ?? null },
       trainingWood: { rows: wood.rowCount, encoding: wood.encoding ?? null },
       pedigree: {
-        records: pedigreeRecords.length,
-        source: pedigree.records.length ? "TARGET HTML" : jvlinkPedigree.records.length ? "JV-Link RCVN/UM" : "missing",
+        records: horses.filter((horse) => horse.pedigree).length,
+        source: "per-horse layered selection",
+        raceHtml: horses.filter((horse) => horse.pedigree?.source?.tier === "race_html").length,
+        verifiedHtmlCache: horses.filter((horse) => horse.pedigree?.source?.tier === "verified_html_cache").length,
+        jvlink: horses.filter((horse) => horse.pedigree?.source?.tier === "jvlink").length,
+        basicTxt: horses.filter((horse) => horse.pedigree?.source?.tier === "basic_txt").length,
       },
       basicTxt: { records: basic.recordCount ?? 0, zi: basic.ziCount ?? 0 },
     },
@@ -201,4 +317,10 @@ const normalizeRaceBundle = ({
   };
 };
 
-export { normalizeHorseKey, normalizeRaceBundle };
+export {
+  mergePedigreeWithReference,
+  normalizeHorseKey,
+  normalizeRaceBundle,
+  pedigreeIdentityMatches,
+  selectPedigreeRecord,
+};

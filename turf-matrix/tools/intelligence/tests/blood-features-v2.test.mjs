@@ -7,9 +7,19 @@ import {
   detectPedigreeCrosses,
   pedigreeFeatureEntries,
 } from "../blood-features.mjs";
-import { buildBloodProfile, buildIndividualProfileFit, buildPedigreeAnalysis, scoreBlood } from "../blood-ai.mjs";
+import {
+  buildBloodProfile,
+  buildIndividualProfileFit,
+  buildPedigreeAnalysis,
+  nearestAncestorProfile,
+  scoreBlood,
+} from "../blood-ai.mjs";
 import { buildRaceContext } from "../race-context.mjs";
-import { SIRE_PROFILES, findSireProfile } from "../dictionaries/sire-profile-dictionary.mjs";
+import {
+  FOREIGN_SIRE_PROFILE_CANDIDATES,
+  SIRE_PROFILES,
+  findSireProfile,
+} from "../dictionaries/sire-profile-dictionary.mjs";
 
 const crossEntries = [
   { name: "Sunday Silence", normalizedName: "sundaysilence", generation: 3, branch: "sire.sire.sire", side: "sire" },
@@ -170,6 +180,49 @@ test("individual pedigree profiles are unique, aliased, and have complete trait 
   assert.equal(findSireProfile("Bricks and Mortar")?.id, "bricks_and_mortar");
 });
 
+test("sourced foreign profiles are complete and resolve both direct pedigree roles", () => {
+  assert.equal(FOREIGN_SIRE_PROFILE_CANDIDATES.length, 7);
+  assert.ok(FOREIGN_SIRE_PROFILE_CANDIDATES.every((profile) =>
+    profile.sourceRefs?.length
+    && profile.sourceRefs.every((source) => source.startsWith("https://"))
+  ));
+  assert.equal(findSireProfile("シスキン")?.id, "siskin");
+  assert.equal(findSireProfile("Practical Joke")?.id, "practical_joke");
+
+  const fit = buildIndividualProfileFit({
+    pedigree: { sire: "Nashville", broodmareSire: "War Pass" },
+  }, buildRaceContext({ course: "中京", surface: "芝", distance: 1200 }));
+  assert.deepEqual(fit.evidence.map((item) => item.profileId), ["nashville", "war_pass"]);
+});
+
+test("foreign profiles preserve their documented surface and distance concepts", () => {
+  const compatibility = (name, race) => buildIndividualProfileFit(
+    { pedigree: { sire: name } },
+    buildRaceContext(race)
+  ).evidence.find((item) => item.role === "sire")?.compatibility;
+
+  assert.ok(
+    compatibility("Siskin", { course: "東京", surface: "芝", distance: 1600 })
+      > compatibility("Siskin", { course: "東京", surface: "ダート", distance: 2400 })
+  );
+  assert.ok(
+    compatibility("Mitole", { course: "中京", surface: "ダート", distance: 1200 })
+      > compatibility("Mitole", { course: "中京", surface: "芝", distance: 2400 })
+  );
+  assert.ok(
+    compatibility("Mineshaft", { course: "中京", surface: "ダート", distance: 2000 })
+      > compatibility("Mineshaft", { course: "中京", surface: "芝", distance: 1200 })
+  );
+});
+
+test("foreign profile scoring ignores odds, popularity, and finish position", () => {
+  const context = buildRaceContext({ course: "中京", surface: "ダート", distance: 1400 });
+  const pedigree = { sire: "Jack Christopher", broodmareSire: "Practical Joke" };
+  const first = buildIndividualProfileFit({ pedigree, odds: 1.4, popularity: 1, finishPosition: 1 }, context);
+  const second = buildIndividualProfileFit({ pedigree, odds: 99.9, popularity: 16, finishPosition: 16 }, context);
+  assert.deepEqual(second, first);
+});
+
 test("an individual sprint profile fits a sprint context better than a long-distance context", () => {
   const horse = {
     currentRace: { sire: "ビッグアーサー", broodmareSire: "ハーツクライ" },
@@ -183,6 +236,75 @@ test("an individual sprint profile fits a sprint context better than a long-dist
   assert.ok(sprintSire.compatibility > longSire.compatibility);
   assert.ok(Math.abs(sprint.adjustment) <= 1.5);
   assert.ok(Math.abs(long.adjustment) <= 1.5);
+});
+
+test("ancestor profile fallback uses only the nearest registered ancestor with the actual generation weight", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-08-30", course: "新潟", surface: "芝", distance: 2000 },
+    pedigree: {
+      sire: "ワールドエース",
+      broodmareSire: "未登録母父",
+      ancestors: [
+        { generation: 2, branch: "sire.sire", name: "ディープインパクト" },
+        { generation: 3, branch: "sire.sire.sire", name: "サンデーサイレンス" },
+      ],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const nearest = nearestAncestorProfile(horse, "sire");
+  const current = buildIndividualProfileFit(horse, context);
+  const candidate = buildIndividualProfileFit(horse, context, { ancestorFallback: true });
+  const inherited = candidate.evidence.filter((item) => item.sourceType === "ancestor_profile_fallback");
+
+  assert.equal(nearest.name, "ディープインパクト");
+  assert.equal(current.evidence.length, 0);
+  assert.equal(inherited.length, 1);
+  assert.equal(inherited[0].branch, "sire.sire");
+  assert.equal(inherited[0].weight, 0.12);
+  assert.ok(Math.abs(inherited[0].impact) <= 1.5 * 0.12);
+});
+
+test("a direct profile is never replaced or duplicated by ancestor fallback", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-08-30", course: "新潟", surface: "芝", distance: 2000 },
+    pedigree: {
+      sire: "サートゥルナーリア",
+      broodmareSire: "ハーツクライ",
+      ancestors: [
+        { generation: 2, branch: "sire.sire", name: "ロードカナロア" },
+        { generation: 3, branch: "dam.sire.sire", name: "サンデーサイレンス" },
+      ],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const current = buildIndividualProfileFit(horse, context);
+  const candidate = buildIndividualProfileFit(horse, context, { ancestorFallback: true });
+
+  assert.deepEqual(candidate, current);
+  assert.equal(candidate.evidence.some((item) => item.sourceType === "ancestor_profile_fallback"), false);
+});
+
+test("production Blood exposes inherited ancestor evidence without market inputs", () => {
+  const base = {
+    currentRace: { raceDate: "2026-08-30", course: "新潟", surface: "芝", distance: 2000 },
+    pedigree: {
+      sire: "ワールドエース",
+      broodmareSire: "未登録母父",
+      ancestors: [
+        { generation: 2, branch: "sire.sire", name: "ディープインパクト" },
+      ],
+    },
+  };
+  const context = buildRaceContext(base.currentRace);
+  const plain = buildBloodProfile(base, context);
+  const withMarket = buildBloodProfile({ ...base, odds: 1.2, popularity: 1 }, context);
+  const evidence = buildBloodEvidenceV2({ horse: base, context, profile: plain, bloodScore: plain.score });
+
+  assert.equal(withMarket.score, plain.score);
+  assert.ok(plain.individualProfileEvidence.some((item) => item.sourceType === "ancestor_profile_fallback"));
+  assert.ok(evidence.evidence.some((item) =>
+    item.type === "ancestorProfile" && item.label.includes("ディープインパクト") && item.weight === 0.12
+  ));
 });
 
 test("a curated broodmare-sire profile contributes a bounded disclosed adjustment", () => {
@@ -252,4 +374,48 @@ test("pedigree feature extraction is deterministic", () => {
     },
   };
   assert.deepEqual(pedigreeFeatureEntries(horse), pedigreeFeatureEntries(horse));
+});
+
+test("pairing statistics remain reference-only in Blood evidence", () => {
+  const horse = {
+    currentRace: { course: "東京", surface: "芝", distance: 1600 },
+    pedigree: { sire: "キズナ", broodmareSire: "ハーツクライ" },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const profile = buildBloodProfile(horse, context);
+  const reference = {
+    version: "blood-pairing-reference-v1",
+    status: "reference_only",
+    scoreApplied: false,
+    pairing: {
+      label: "キズナ × ハーツクライ",
+      fallbackLevel: "父×母父",
+      status: "active",
+      scope: "保有データ全体",
+      sampleSize: 20,
+      uniqueHorseCount: 10,
+      hitRate: 0.45,
+      shrunkHitRate: 0.38,
+      baselineHitRate: 0.3,
+      scoreApplied: false,
+      sourceType: "approved_pairing_reference",
+      evaluationCutoff: "20260831",
+    },
+    crosses: [],
+  };
+  const evidence = buildBloodEvidenceV2({
+    horse,
+    context,
+    profile,
+    bloodScore: profile.score,
+    pairingReference: reference,
+  });
+  const pairing = evidence.evidence.find((item) => item.type === "pairing");
+
+  assert.equal(evidence.score, profile.score);
+  assert.equal(evidence.pairingReference.scoreApplied, false);
+  assert.equal(pairing.sample, 20);
+  assert.equal(pairing.impact, 0);
+  assert.equal(pairing.scoreApplied, false);
+  assert.equal(evidence.unavailable.includes("pairing_statistics"), false);
 });

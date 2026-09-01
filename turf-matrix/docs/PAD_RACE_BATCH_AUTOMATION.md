@@ -158,7 +158,17 @@ PAD保存後に実行します。
 ```powershell
 npm run inspect:race-batch
 npm run thursday:preview
+npm run export:pedigree:hn
+npm run hydrate:pedigree:hn -- --input=tools/week-data.batch-candidate.json
+npm run sync:pedigree:jbis -- --input=tools/week-data.batch-candidate.json
+npm run thursday:preview
+npm run audit:pedigree -- --input=tools/week-data.batch-candidate.json
+npm run audit:blood:v2 -- --input=tools/week-data.batch-candidate.json
 ```
+
+血統同期はJV-Linkの`BLDN/HN`繁殖馬マスタを主経路にする。UM/JV-Link血統CSVに含まれる繁殖登録番号から親子IDをたどり、4〜5代を共通キャッシュへ保存する。スタートキットは不要で、セットアップ取得はダイアログなしの`JVOpen option=4`を使う。取得完了は`JVStatus`で確認し、HN以外の物理ファイルは`JVSkip`する。
+
+JBIS同期はHNで補完できなかった馬だけの予備経路である。馬名の完全一致候補を取得した後、JV-Linkの父・母・母父と2件以上一致した馬だけを保存する。`HTTP 403`が発生した場合はその時点で外部アクセスを止め、残りを`deferred`としてレポートへ残す。取得間隔や本人照合を緩めて続行しない。
 
 木曜の成功条件:
 
@@ -166,6 +176,8 @@ npm run thursday:preview
 - 重賞に `current-race-detail.csv` と `all.csv` がある
 - 重賞に調教HTMLと血統HTMLができるだけ揃っている
 - 特別レースに `current-race-detail.csv` と `all.csv` がある
+- Blood完成監査で5代相当血統、父・母父、クロス判定、Confidence、Evidenceが全頭PASSする
+- 採用ゲート未達の配合・クロス統計がBlood Scoreへ接続されていない
 - `tools/week-data.json` は更新されない
 - commit / push は行われない
 

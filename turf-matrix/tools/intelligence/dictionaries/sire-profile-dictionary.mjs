@@ -34,18 +34,19 @@ const buildProfileTraitVector = (traits) => {
   ]));
 };
 
-const profile = (id, names, ancestry, traits, summary) => ({
+const profile = (id, names, ancestry, traits, summary, options = {}) => ({
   id,
   names,
   ancestry,
   traits,
   traitVector: buildProfileTraitVector(traits),
   summary,
-  sourceType: "curated_pedigree_knowledge",
+  sourceType: options.sourceType ?? "curated_pedigree_knowledge",
+  ...(options.sourceRefs?.length ? { sourceRefs: options.sourceRefs } : {}),
   scoreApplied: true,
 });
 
-const SIRE_PROFILES = [
+const BASE_SIRE_PROFILES = [
   profile("saturnalia", ["サートゥルナーリア", "Saturnalia"], ["ロードカナロア", "シーザリオ"], ["切れ味", "スピード", "中距離性能"], "ロードカナロア由来のスピードに、シーザリオ牝系の切れ味と中距離性能を重ねる構成です。"),
   profile("epiphaneia", ["エピファネイア", "Epiphaneia"], ["シンボリクリスエス", "シーザリオ"], ["パワー", "持続力", "中距離性能"], "Roberto系のパワーと持続力に、シーザリオ牝系の中距離性能と機動力を重ねる構成です。"),
   profile("bricks_and_mortar", ["ブリックスアンドモルタル", "Bricks and Mortar"], ["Giant's Causeway", "Beyond the Waves"], ["パワー", "持続力", "芝適性"], "Giant's Causewayを経るStorm Cat系のパワーと持続力を軸に、芝で長く脚を使う性質を伝える構成です。"),
@@ -94,17 +95,86 @@ const SIRE_PROFILES = [
   profile("real_impact", ["リアルインパクト", "Real Impact"], ["ディープインパクト", "トキオリアリティー"], ["スピード", "持続力", "マイル適性"], "Deep Impactのトップスピードに、母系の短距離スピードを重ねるマイル型です。"),
 ];
 
-const findSireProfile = (name) => {
+const sourcedProfile = (id, names, ancestry, traits, summary, sourceRefs) =>
+  profile(id, names, ancestry, traits, summary, { sourceRefs });
+
+const FOREIGN_SIRE_PROFILE_CANDIDATES = [
+  sourcedProfile(
+    "siskin",
+    ["シスキン", "Siskin"],
+    ["First Defence", "Bird Flown"],
+    ["スピード", "切れ味", "マイル適性", "芝適性"],
+    "First DefenceのスピードにOasis Dreamを持つ母系を重ね、芝の短距離からマイルで切れ味を発揮した構成です。",
+    ["https://shadai-ss.com/stallion/siskin/", "https://www.racingpost.com/bloodstock/news/irish-2000-guineas-hero-siskin-to-stand-at-shadai-stallion-station-amdcb9m5wCtW/"]
+  ),
+  sourcedProfile(
+    "nashville",
+    ["Nashville", "ナッシュビル"],
+    ["Speightstown", "Veronique"],
+    ["トップスピード", "先行力", "短距離適性", "ダート適性"],
+    "Speightstown系の先行スピードを受け継ぎ、ダート6ハロンで高い速度性能を示した短距離型です。",
+    ["https://cdn.bloodhorse.com/stallion-register/pdfs/nashville.pdf"]
+  ),
+  sourcedProfile(
+    "mitole",
+    ["Mitole", "ミトーリ"],
+    ["Eskendereya", "Indian Miss"],
+    ["トップスピード", "パワー", "短距離適性", "ダート適性"],
+    "EskendereyaにIndian Charlieを持つ母系を重ねた、北米ダートの短距離速度とパワーを強く示す構成です。",
+    ["https://www.spendthriftfarm.com/stallions/mitole/", "https://cdn.bloodhorse.com/stallion-register/pdfs/mitole.pdf"]
+  ),
+  sourcedProfile(
+    "jack_christopher",
+    ["Jack Christopher", "ジャッククリストファー"],
+    ["Munnings", "Rushin No Blushin"],
+    ["トップスピード", "パワー", "マイル適性", "ダート適性"],
+    "Munnings由来の速度とパワーを軸に、北米ダート6ハロンから1マイルでG1級の性能を示した構成です。",
+    ["https://coolmore.com/en/america/stallion/jack-christopher/"]
+  ),
+  sourcedProfile(
+    "war_pass",
+    ["War Pass", "ウォーパス"],
+    ["Cherokee Run", "Vue"],
+    ["先行力", "スピード", "マイル適性", "ダート適性"],
+    "Cherokee Runの先行力にMr. Prospectorを持つ母系を重ねた、北米ダートの2歳・マイル型です。",
+    ["https://www.ctba.com/wp-content/uploads/2013/stallion-directory/KAFWAIN.pdf"]
+  ),
+  sourcedProfile(
+    "mineshaft",
+    ["Mineshaft", "マインシャフト"],
+    ["A.P. Indy", "Prospectors Delite"],
+    ["パワー", "持続力", "中距離性能", "ダート適性"],
+    "A.P. Indyの持続力とスタミナにMr. Prospectorを持つ母系の速度を重ねた北米ダート中距離型です。",
+    ["https://lanesend.com/mineshaft", "https://cdn.bloodhorse.com/stallion-register/pdfs/mineshaft.pdf"]
+  ),
+  sourcedProfile(
+    "practical_joke",
+    ["Practical Joke", "プラクティカルジョーク"],
+    ["Into Mischief", "Halo Humor"],
+    ["スピード", "パワー", "マイル適性", "ダート適性"],
+    "Into Mischiefのスピードとパワーを軸に、北米ダート7ハロンから1マイルでG1実績を残した構成です。",
+    ["https://cdn.bloodhorse.com/stallion-register/pdfs/practicaljoke.pdf"]
+  ),
+];
+
+const SIRE_PROFILES = [...BASE_SIRE_PROFILES, ...FOREIGN_SIRE_PROFILE_CANDIDATES];
+
+const findSireProfileIn = (name, profiles = SIRE_PROFILES) => {
   const normalized = normalizeSireName(name);
-  return SIRE_PROFILES.find((profile) =>
+  return profiles.find((profile) =>
     profile.names.some((candidate) => normalizeSireName(candidate) === normalized)
   ) ?? null;
 };
 
+const findSireProfile = (name) => findSireProfileIn(name, SIRE_PROFILES);
+
 export {
+  BASE_SIRE_PROFILES,
+  FOREIGN_SIRE_PROFILE_CANDIDATES,
   PROFILE_TRAIT_VECTORS,
   SIRE_PROFILES,
   buildProfileTraitVector,
   findSireProfile,
+  findSireProfileIn,
   normalizeSireName,
 };

@@ -29,11 +29,15 @@ Stage 1.5 quality gates:
 Offline learning:
 
 - `npm run learn:blood` aggregates pedigree roles against normalized past results into ignored `tools/jvlink/output/bloodlines.learned.json`.
+- Post-race learning can pass `--cutoff YYYY-MM-DD --for-week YYYY-MM-DD`; only observations strictly before the cutoff are eligible.
 - A Blood statistic needs at least 12 runs from 5 different horses before it can affect a score.
 - `npm run approve:blood` explicitly promotes only qualified statistics to `data/master/bloodlines.json`. Weekly generation never promotes learned data automatically.
+- `npm run approve:blood:pairing-reference` promotes sample-qualified pairing and cross statistics to `data/master/blood-pairing-reference.json` for Evidence display only. This reference file never changes Blood Score or TM INDEX.
+- Pairing reference selection uses father x broodmare-sire first, then normalized line fallbacks, and always applies leave-one-horse-out before exposing a sample.
 - `npm run learn:stables` scans reviewed archives for trainer workout patterns and writes ignored `tools/jvlink/output/stables.learned.json`.
 - A learned stable pattern needs at least 20 reviewed runners. Runtime scoring reads only explicitly approved `data/master/stables.json`.
 - Learning remains offline. Weekly Intelligence execution only performs deterministic lookup and matching.
+- Score-affecting pairing/cross adjustments remain in the frozen shadow pipeline until their predeclared adoption gates pass.
 
 Boundaries:
 

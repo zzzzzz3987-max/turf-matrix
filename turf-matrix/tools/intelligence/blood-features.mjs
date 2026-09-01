@@ -1,6 +1,7 @@
 import { findSireProfile } from "./dictionaries/sire-profile-dictionary.mjs";
 
 const EXPECTED_FOUR_GENERATION_ENTRIES = 30;
+const EXPECTED_FIVE_GENERATION_ENTRIES = 62;
 
 const normalizeAncestorName = (value) =>
   String(value ?? "")
@@ -97,14 +98,18 @@ const pedigreeCompleteness = (entries, pedigree) => {
   const count = entries.length;
   const deepestGeneration = entries.reduce((max, entry) => Math.max(max, entry.generation ?? 0), 0);
   const sourceCompleteness = pedigree?.source?.completeness ?? null;
-  const complete = count >= EXPECTED_FOUR_GENERATION_ENTRIES && deepestGeneration >= 4;
+  const fiveGenerationComplete = count >= EXPECTED_FIVE_GENERATION_ENTRIES && deepestGeneration >= 5;
+  const fourGenerationComplete = count >= EXPECTED_FOUR_GENERATION_ENTRIES && deepestGeneration >= 4;
+  const complete = fiveGenerationComplete || fourGenerationComplete;
   const threeGenerationComplete = sourceCompleteness === "three-generation-14"
     || (count >= 14 && deepestGeneration >= 3);
   const basicPedigreeComplete = sourceCompleteness === "basic-4-line";
   return {
     status: complete ? "complete" : count ? "partial" : "missing",
-    label: complete
-      ? "4代取得済み"
+    label: fiveGenerationComplete
+      ? "5代相当取得済み"
+      : fourGenerationComplete
+        ? "4代取得済み"
       : threeGenerationComplete
         ? "3代相当取得済み"
         : basicPedigreeComplete
@@ -113,7 +118,9 @@ const pedigreeCompleteness = (entries, pedigree) => {
           ? "血統一部取得"
           : "血統未取得",
     entryCount: count,
-    expectedEntries: EXPECTED_FOUR_GENERATION_ENTRIES,
+    expectedEntries: fiveGenerationComplete
+      ? EXPECTED_FIVE_GENERATION_ENTRIES
+      : EXPECTED_FOUR_GENERATION_ENTRIES,
     deepestGeneration,
     sourceCompleteness,
   };
@@ -129,7 +136,7 @@ const component = (score, status, label, evidence = []) => ({
   evidence,
 });
 
-const buildComponentDetails = ({ profile, context, crosses }) => {
+const buildComponentDetails = ({ profile, context, crosses, pairingReference }) => {
   const hasSire = profile.matches.some((match) => match.hitEntries?.some((entry) => entry.role === "sire"));
   const hasBms = [...profile.matches, ...profile.femaleMatches]
     .some((match) => match.hitEntries?.some((entry) => entry.role === "broodmareSire"));
@@ -139,14 +146,32 @@ const buildComponentDetails = ({ profile, context, crosses }) => {
   return {
     sireTrait: component(profile.components.paternal, hasSire ? "active" : "unavailable", "父の血統特性"),
     broodmareSire: component(profile.components.maternal, hasBms ? "active" : "unavailable", "母父・母系の補完"),
-    pairing: component(null, "insufficient_sample", "父×母父の配合統計"),
-    sireLineBroodmareSireLine: component(null, "insufficient_sample", "父系統×母父系統"),
+    pairing: component(
+      null,
+      pairingReference?.pairing ? "reference_only" : "insufficient_sample",
+      pairingReference?.pairing
+        ? `${pairingReference.pairing.fallbackLevel} ${pairingReference.pairing.sampleSize}走（参考）`
+        : "父×母父の配合統計",
+      pairingReference?.pairing ? [pairingReference.pairing.label] : [],
+    ),
+    sireLineBroodmareSireLine: component(
+      null,
+      pairingReference?.pairing?.fallbackLevel === "父系×母父系" ? "reference_only" : "insufficient_sample",
+      "父系統×母父系統",
+    ),
     distanceFit: component(profile.components.distance, profile.matches.length ? "active" : "unavailable", `${context?.distance ?? "-"}mへの血統適合`),
     surfaceFit: component(null, "insufficient_sample", `${context?.surface ?? "芝・ダート未取得"}の集団実績`),
     courseFit: component(hasCourse ? profile.components.course : null, hasCourse ? "active" : "unavailable", `${context?.course ?? "開催場未取得"}への明示適合`),
     trackGeometryFit: component(hasCourse ? profile.components.course : null, hasCourse ? "active" : "unavailable", "コース形態への血統適合"),
     goingFit: component(context?.going ? profile.components.course : null, context?.going ? "reference_only" : "unavailable", `${context?.going ?? "馬場未取得"}への血統適合`),
-    crossFit: component(null, crosses.length ? "reference_only" : "unavailable", "クロス適合", crosses.map((cross) => `${cross.ancestor} ${cross.pattern}`)),
+    crossFit: component(
+      null,
+      crosses.length ? "reference_only" : "unavailable",
+      pairingReference?.crosses?.length
+        ? `クロス統計 ${pairingReference.crosses[0].sampleSize}走（参考）`
+        : "クロス適合",
+      crosses.map((cross) => `${cross.ancestor} ${cross.pattern}`),
+    ),
     familyFit: component(profile.components.maternal, profile.femaleMatches.length ? "active" : "unavailable", "牝系の補完"),
     historicalEvidence: component(
       profile.statisticsApplied ? profile.components.statistics : null,
@@ -246,7 +271,7 @@ const buildBroodmareSireFeature = ({ broodmareSire, pedigree, bmsMatch, maternal
   };
 };
 
-const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
+const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore, pairingReference = null }) => {
   const pedigree = horse?.pedigree ?? {};
   const entries = pedigreeFeatureEntries(horse);
   const completeness = pedigreeCompleteness(entries, pedigree);
@@ -263,6 +288,9 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
   );
   const sireProfileEvidence = profile.individualProfileEvidence.find((item) => item.role === "sire") ?? null;
   const bmsProfileEvidence = profile.individualProfileEvidence.find((item) => item.role === "broodmareSire") ?? null;
+  const ancestorProfileEvidence = profile.individualProfileEvidence.filter(
+    (item) => item.sourceType === "ancestor_profile_fallback"
+  );
   const sireProfile = buildSireFeature({
     sire,
     pedigree,
@@ -302,19 +330,35 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
   const statisticText = bestStatistic
     ? `${bestStatistic.name}の${bestStatistic.scope}は${bestStatistic.sampleSize}走・${bestStatistic.uniqueHorseCount}頭を参照。`
     : "";
+  const pairingMetric = pairingReference?.pairing ?? null;
+  const pairingReferenceText = pairingMetric
+    ? `${pairingMetric.fallbackLevel}の${pairingMetric.scope}は${pairingMetric.sampleSize}走・${pairingMetric.uniqueHorseCount}頭を参考表示（点数未接続）。`
+    : "";
   const profileAdjustmentText = profile.individualProfileEvidence.length
     ? `個別プロフィール適合 ${profile.individualProfileAdjustment >= 0 ? "+" : ""}${profile.individualProfileAdjustment.toFixed(1)}点。`
     : "";
-  const summary = `${pairLabel}。${asSentence(sireProfile?.summary ?? "父の固有情報は未取得")}${asSentence(lineText)}${matchText}${crossText}${statisticText}${profileAdjustmentText} Confidence ${confidenceGrade}。`;
+  const summary = `${pairLabel}。${asSentence(sireProfile?.summary ?? "父の固有情報は未取得")}${asSentence(lineText)}${matchText}${crossText}${statisticText}${pairingReferenceText}${profileAdjustmentText} Confidence ${confidenceGrade}。`;
+
+  const crossReferenceByLabel = new Map(
+    (pairingReference?.crosses ?? []).map((reference) => [reference.label, reference])
+  );
 
   const evidence = [
     {
       type: "pairing",
-      label: pairLabel,
-      status: sire && broodmareSire ? "observed" : "unavailable",
-      sample: null,
-      impact: null,
+      label: pairingMetric?.label ?? pairLabel,
+      status: pairingMetric?.status ?? (sire && broodmareSire ? "observed" : "unavailable"),
+      sample: pairingMetric?.sampleSize ?? null,
+      uniqueHorses: pairingMetric?.uniqueHorseCount ?? null,
+      hitRate: pairingMetric?.hitRate ?? null,
+      shrunkHitRate: pairingMetric?.shrunkHitRate ?? null,
+      baselineHitRate: pairingMetric?.baselineHitRate ?? null,
+      scope: pairingMetric?.scope ?? null,
+      fallbackLevel: pairingMetric?.fallbackLevel ?? null,
+      impact: 0,
       scoreApplied: false,
+      sourceType: pairingMetric?.sourceType ?? "pedigree_identity",
+      evaluationCutoff: pairingMetric?.evaluationCutoff ?? null,
     },
     ...(sireProfile ? [{
       type: "sireProfile",
@@ -338,6 +382,19 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
       center: broodmareSireProfile.center,
       sourceType: broodmareSireProfile.sourceType,
     }] : []),
+    ...ancestorProfileEvidence.map((item) => ({
+      type: "ancestorProfile",
+      label: `${item.roleLabel}${item.name} (${item.branch})`,
+      status: "inherited",
+      sample: null,
+      impact: item.impact,
+      scoreApplied: true,
+      compatibility: item.compatibility,
+      center: item.center,
+      sourceType: item.sourceType,
+      generation: item.generation,
+      weight: item.weight,
+    })),
     ...[sireMatch, bmsMatch].filter(Boolean).map((match) => ({
       type: match === sireMatch ? "sire" : "broodmareSire",
       label: `${match.roles.join("・")} ${match.hits.join("・")} / ${match.label}`,
@@ -347,15 +404,26 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
       scoreApplied: true,
       ruleId: match.id,
     })),
-    ...crosses.map((cross) => ({
-      type: "cross",
-      label: `${cross.ancestor} ${cross.pattern}`,
-      status: "detected",
-      sample: null,
-      impact: null,
-      scoreApplied: false,
-      branches: cross.branches,
-    })),
+    ...crosses.map((cross) => {
+      const label = `${cross.ancestor} ${cross.pattern}`;
+      const reference = crossReferenceByLabel.get(label);
+      return {
+        type: "cross",
+        label,
+        status: reference?.status ?? "detected",
+        sample: reference?.sampleSize ?? null,
+        uniqueHorses: reference?.uniqueHorseCount ?? null,
+        hitRate: reference?.hitRate ?? null,
+        shrunkHitRate: reference?.shrunkHitRate ?? null,
+        baselineHitRate: reference?.baselineHitRate ?? null,
+        scope: reference?.scope ?? null,
+        impact: 0,
+        scoreApplied: false,
+        sourceType: reference?.sourceType ?? "pedigree_structure",
+        evaluationCutoff: reference?.evaluationCutoff ?? null,
+        branches: cross.branches,
+      };
+    }),
     ...profile.statistics.map((statistic) => ({
       type: statistic.entityType,
       label: `${statistic.name} ${statistic.scope}`,
@@ -400,18 +468,20 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore }) => {
       coverage: profile.coverage,
     },
     summary,
-    components: buildComponentDetails({ profile, context, crosses }),
+    components: buildComponentDetails({ profile, context, crosses, pairingReference }),
     evidence,
+    pairingReference,
     unavailable: [
       !profile.statistics.length ? "condition_statistics" : null,
       completeness.status !== "complete" ? "full_four_generation_pedigree" : null,
       !crosses.length && completeness.status !== "complete" ? "cross_evaluation" : null,
-      "pairing_statistics",
+      !pairingMetric ? "pairing_statistics" : null,
     ].filter(Boolean),
   };
 };
 
 export {
+  EXPECTED_FIVE_GENERATION_ENTRIES,
   EXPECTED_FOUR_GENERATION_ENTRIES,
   assessPedigreeCompleteness,
   buildBloodEvidenceV2,

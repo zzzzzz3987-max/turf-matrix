@@ -1275,6 +1275,7 @@ const PedigreeCard = ({ pedigree, score }) => {
   const identity = pedigree?.identity ?? {};
   const componentDetails = pedigree?.componentDetails ?? {};
   const crosses = pedigree?.crosses ?? [];
+  const pairingReference = pedigree?.pairingReference?.pairing ?? null;
   const confidenceGrade = pedigree?.confidenceGrade ?? "Low";
   const confidenceLabel = confidenceGrade === "Low" ? "低" : confidenceGrade;
   const sourceCompleteness = pedigree?.dataCompleteness?.sourceCompleteness;
@@ -1353,6 +1354,20 @@ const PedigreeCard = ({ pedigree, score }) => {
               </span>
             ))}
           </div>
+          {pairingReference ? (
+            <div className="mt-3 border-t border-gray-100 pt-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                <span className="text-[10px] font-semibold tracking-wide text-gray-500">配合実績（参考）</span>
+                <span className="text-[10px] text-gray-500">Blood点数には未接続</span>
+              </div>
+              <p className="mt-1.5 text-[11px] leading-relaxed text-gray-600">
+                {pairingReference.fallbackLevel} / {pairingReference.scope} / {pairingReference.sampleSize}走・{pairingReference.uniqueHorseCount}頭
+                {Number.isFinite(pairingReference.shrunkHitRate)
+                  ? ` / 平均回帰後複勝率 ${(pairingReference.shrunkHitRate * 100).toFixed(1)}%`
+                  : ""}
+              </p>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

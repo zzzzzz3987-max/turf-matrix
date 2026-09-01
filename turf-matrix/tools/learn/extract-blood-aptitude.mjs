@@ -1,6 +1,9 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { dateKey, isObservationBeforeCutoff, resolveEvaluationCutoff } from "./blood-statistics-policy.mjs";
+import { parse as parsePedigreeCache } from "../parsers/pedigree-html-parser.mjs";
+import { detectPedigreeCrosses, pedigreeFeatureEntries } from "../intelligence/blood-features.mjs";
+import { resolvePedigreeLineIds } from "../intelligence/bloodline-resolver.mjs";
 
 const args = process.argv.slice(2);
 const valueAfter = (flag, fallback) => {
@@ -11,6 +14,8 @@ const valueAfter = (flag, fallback) => {
 const inputPath = resolve(valueAfter("--input", "tools/week-data.preodds.json"));
 const outputPath = resolve(valueAfter("--output", "tools/jvlink/output/bloodlines.learned.json"));
 const archiveDir = resolve(valueAfter("--archive", "data/archive"));
+const requestedCutoff = valueAfter("--cutoff", null);
+const requestedWeek = valueAfter("--for-week", null);
 const minimumSamples = {
   reference: 5,
   active: 12,
@@ -26,7 +31,25 @@ if (!existsSync(inputPath)) {
 
 const source = JSON.parse(readFileSync(inputPath, "utf8"));
 const normalize = (value) => String(value ?? "").normalize("NFKC").toLowerCase().replace(/\s+/g, "").trim();
-const evaluationCutoff = resolveEvaluationCutoff(source);
+const normalizeAncestor = (value) => normalize(value).replace(/[＊*$]/g, "").replace(/[.'’\-]/g, "");
+const pedigreeCacheByHorse = new Map(parsePedigreeCache({
+  path: "data/pedigree-cache/__raw_html_not_used__",
+}).records.map((record) => [normalize(record.horseName), record]));
+const pairKey = (...values) => values.every(Boolean) ? values.join("::") : "";
+const enrichPedigree = (horseName, pedigree) => {
+  const cached = pedigreeCacheByHorse.get(normalize(horseName));
+  if (!cached) return pedigree;
+  const byBranch = new Map((cached.ancestors ?? []).map((ancestor) => [ancestor.branch, ancestor]));
+  for (const ancestor of pedigree?.ancestors ?? []) {
+    if (Number(ancestor.generation) <= 3) byBranch.set(ancestor.branch, ancestor);
+  }
+  return {
+    ...cached,
+    ...pedigree,
+    ancestors: [...byBranch.values()],
+  };
+};
+const evaluationCutoff = requestedCutoff ? dateKey(requestedCutoff) : resolveEvaluationCutoff(source);
 if (!evaluationCutoff) {
   console.error("[ERROR] 評価基準日を特定できないため、未来情報を除外できません。");
   process.exit(2);
@@ -57,18 +80,38 @@ const addObservation = ({ horseName, pedigree, date, course, surface, distance, 
     futureObservationCount += 1;
     return;
   }
-  const ancestor = (branch) => pedigree.ancestors?.find((item) => item.branch === branch)?.name;
   const normalizedHorseName = normalize(horseName);
+  const resolvedPedigree = enrichPedigree(horseName, pedigree);
+  const resolvedAncestor = (branch) => resolvedPedigree.ancestors?.find((item) => item.branch === branch)?.name;
+  const sire = normalize(resolvedPedigree.sire);
+  const broodmareSire = normalize(resolvedPedigree.broodmareSire);
+  const sireLine = normalize(resolvedPedigree.sireSire ?? resolvedAncestor("sire.sire"));
+  const broodmareSireLine = normalize(resolvedAncestor("dam.sire.sire"));
+  const resolvedLineIds = resolvePedigreeLineIds(resolvedPedigree);
+  const sireLineId = normalize(resolvedLineIds.sireLine?.id);
+  const broodmareSireLineId = normalize(resolvedLineIds.broodmareSireLine?.id);
+  const crossKeys = detectPedigreeCrosses(pedigreeFeatureEntries({ pedigree: resolvedPedigree }))
+    .map((cross) => pairKey(normalizeAncestor(cross.ancestor), cross.pattern));
   const observationKey = [normalizedHorseName, date, course, raceNumber, raceName, finish].join("|");
   if (seen.has(observationKey)) return;
   seen.add(observationKey);
   rows.push({
     horseName: normalizedHorseName,
-    sire: normalize(pedigree.sire),
-    broodmareSire: normalize(pedigree.broodmareSire),
-    sireLine: normalize(pedigree.sireSire ?? ancestor("sire.sire")),
-    broodmareSireLine: normalize(ancestor("dam.sire.sire")),
-    femaleLine: normalize(pedigree.damDam),
+    sire,
+    broodmareSire,
+    sireLine,
+    broodmareSireLine,
+    sireLineId,
+    broodmareSireLineId,
+    femaleLine: normalize(resolvedPedigree.damDam),
+    sireBroodmareSire: pairKey(sire, broodmareSire),
+    sireBroodmareSireLine: pairKey(sire, broodmareSireLine),
+    sireLineBroodmareSire: pairKey(sireLine, broodmareSire),
+    sireLineBroodmareSireLine: pairKey(sireLine, broodmareSireLine),
+    sireBroodmareSireLineId: pairKey(sire, broodmareSireLineId),
+    sireLineIdBroodmareSire: pairKey(sireLineId, broodmareSire),
+    sireLineIdBroodmareSireLineId: pairKey(sireLineId, broodmareSireLineId),
+    crossKeys,
     date,
     course: course ?? "unknown",
     surface: surface ?? "unknown",
@@ -182,6 +225,24 @@ const summarize = (observations) => {
 };
 
 const baseline = summarize(rows);
+const uniqueLineHorses = new Map();
+for (const row of rows) {
+  const current = uniqueLineHorses.get(row.horseName) ?? { sireLineId: false, broodmareSireLineId: false };
+  current.sireLineId ||= Boolean(row.sireLineId);
+  current.broodmareSireLineId ||= Boolean(row.broodmareSireLineId);
+  uniqueLineHorses.set(row.horseName, current);
+}
+const lineResolution = {
+  source: "bloodline-dictionary-line-id-v1",
+  observationCount: rows.length,
+  sireResolvedObservationCount: rows.filter((row) => row.sireLineId).length,
+  broodmareSireResolvedObservationCount: rows.filter((row) => row.broodmareSireLineId).length,
+  bothResolvedObservationCount: rows.filter((row) => row.sireLineId && row.broodmareSireLineId).length,
+  uniqueHorseCount: uniqueLineHorses.size,
+  sireResolvedUniqueHorseCount: [...uniqueLineHorses.values()].filter((row) => row.sireLineId).length,
+  broodmareSireResolvedUniqueHorseCount: [...uniqueLineHorses.values()].filter((row) => row.broodmareSireLineId).length,
+  bothResolvedUniqueHorseCount: [...uniqueLineHorses.values()].filter((row) => row.sireLineId && row.broodmareSireLineId).length,
+};
 const dimensions = [
   ["overall", () => "all"],
   ["courseSurfaceDistance", (row) => `${row.course}|${row.surface}|${row.distanceBand}`],
@@ -190,13 +251,14 @@ const dimensions = [
   ["surfaceSeason", (row) => `${row.surface}|${row.season}`],
 ];
 
-const aggregateEntity = (field) => {
+const aggregateEntity = (field, { multiple = false } = {}) => {
   const entityGroups = new Map();
   for (const row of rows) {
-    const name = row[field];
-    if (!name) continue;
-    if (!entityGroups.has(name)) entityGroups.set(name, []);
-    entityGroups.get(name).push(row);
+    const names = multiple ? row[field] ?? [] : [row[field]];
+    for (const name of new Set(names.filter(Boolean))) {
+      if (!entityGroups.has(name)) entityGroups.set(name, []);
+      entityGroups.get(name).push(row);
+    }
   }
   return Object.fromEntries([...entityGroups.entries()].sort(([a], [b]) => a.localeCompare(b, "ja")).map(([name, observations]) => {
     const stats = {};
@@ -217,9 +279,9 @@ const aggregateEntity = (field) => {
 };
 
 const output = {
-  schemaVersion: 2,
+  schemaVersion: 4,
   status: "learned",
-  generatedForWeek: source.meta?.date ?? source.raceDate ?? evaluationCutoff,
+  generatedForWeek: requestedWeek ?? source.meta?.date ?? source.raceDate ?? evaluationCutoff,
   source: "TURF MATRIX normalized pastRuns + pedigree",
   sourceRaceCount: source.races?.length ?? 0,
   sourceHorseCount: source.races?.reduce((sum, race) => sum + (race.horses?.length ?? 0), 0) ?? 0,
@@ -228,13 +290,24 @@ const output = {
   futureObservationCount,
   observationCount: rows.length,
   minimumSamples,
+  lineResolution,
   baseline,
   entities: {
     sire: aggregateEntity("sire"),
     broodmareSire: aggregateEntity("broodmareSire"),
     sireLine: aggregateEntity("sireLine"),
     broodmareSireLine: aggregateEntity("broodmareSireLine"),
+    sireLineId: aggregateEntity("sireLineId"),
+    broodmareSireLineId: aggregateEntity("broodmareSireLineId"),
     femaleLine: aggregateEntity("femaleLine"),
+    sireBroodmareSire: aggregateEntity("sireBroodmareSire"),
+    sireBroodmareSireLine: aggregateEntity("sireBroodmareSireLine"),
+    sireLineBroodmareSire: aggregateEntity("sireLineBroodmareSire"),
+    sireLineBroodmareSireLine: aggregateEntity("sireLineBroodmareSireLine"),
+    sireBroodmareSireLineId: aggregateEntity("sireBroodmareSireLineId"),
+    sireLineIdBroodmareSire: aggregateEntity("sireLineIdBroodmareSire"),
+    sireLineIdBroodmareSireLineId: aggregateEntity("sireLineIdBroodmareSireLineId"),
+    cross: aggregateEntity("crossKeys", { multiple: true }),
   },
 };
 
@@ -246,10 +319,21 @@ console.log(JSON.stringify({
   archivePairs: archivePairCount,
   evaluationCutoff: output.evaluationCutoff,
   futureObservationsSkipped: futureObservationCount,
+  lineResolution,
   sireCount: Object.keys(output.entities.sire).length,
   broodmareSireCount: Object.keys(output.entities.broodmareSire).length,
   sireLineCount: Object.keys(output.entities.sireLine).length,
   broodmareSireLineCount: Object.keys(output.entities.broodmareSireLine).length,
+  sireLineIdCount: Object.keys(output.entities.sireLineId).length,
+  broodmareSireLineIdCount: Object.keys(output.entities.broodmareSireLineId).length,
   femaleLineCount: Object.keys(output.entities.femaleLine).length,
+  sireBroodmareSireCount: Object.keys(output.entities.sireBroodmareSire).length,
+  sireBroodmareSireLineCount: Object.keys(output.entities.sireBroodmareSireLine).length,
+  sireLineBroodmareSireCount: Object.keys(output.entities.sireLineBroodmareSire).length,
+  sireLineBroodmareSireLineCount: Object.keys(output.entities.sireLineBroodmareSireLine).length,
+  sireBroodmareSireLineIdCount: Object.keys(output.entities.sireBroodmareSireLineId).length,
+  sireLineIdBroodmareSireCount: Object.keys(output.entities.sireLineIdBroodmareSire).length,
+  sireLineIdBroodmareSireLineIdCount: Object.keys(output.entities.sireLineIdBroodmareSireLineId).length,
+  crossCount: Object.keys(output.entities.cross).length,
   baseline: Object.fromEntries(Object.entries(output.baseline).filter(([key]) => key !== "horseContributions")),
 }, null, 2));

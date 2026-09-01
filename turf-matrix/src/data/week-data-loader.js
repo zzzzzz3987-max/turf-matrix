@@ -1,14 +1,16 @@
-import officialWeekData from "../../tools/week-data.json";
+import officialWeekDataUrl from "../../tools/week-data.json?url";
+import { updateDiffForRace } from "../lib/public-update-diff.js";
 
 const candidateModules = import.meta.glob("../../tools/week-data.batch-candidate.json", {
   eager: true,
+  query: "?url",
   import: "default",
 });
 
-const batchCandidateWeekData = candidateModules["../../tools/week-data.batch-candidate.json"] ?? null;
+const batchCandidateWeekDataUrl = candidateModules["../../tools/week-data.batch-candidate.json"] ?? null;
 const requestedMode = import.meta.env.VITE_TURF_DATA_MODE;
 const candidateModeRequested = requestedMode === "candidate" || requestedMode === "batch";
-export const dataMode = candidateModeRequested && batchCandidateWeekData ? "candidate" : "official";
+export const dataMode = candidateModeRequested && batchCandidateWeekDataUrl ? "candidate" : "official";
 
 const isCandidatePayload = (data) =>
   data?.mode === "candidate" || data?.mode === "candidate-preodds" || Boolean(data?.races?.[0]?.horses?.[0]?.currentRace);
@@ -73,16 +75,17 @@ const buildSummary = (candidate, horses) => {
   const oddsCount = horses.filter((horse) => horse.odds != null && horse.popularity != null).length;
   const trainingCount = horses.filter((horse) => horse.dataStatus?.training === "active").length;
   const pastRunCount = horses.reduce((sum, horse) => sum + (horse.pastRuns?.length ?? 0), 0);
-  const intelligenceVersion = String(candidate.intelligenceStage ?? "tm-index-v1.7").replace(/^tm-index-/, "");
+  const pedigreeCount = horses.filter((horse) => horse.dataStatus?.pedigree === "active").length;
+  const raceCount = candidate.races?.length ?? 0;
 
   return {
     text: top
-      ? `TARGET実データからTM INDEX ${intelligenceVersion}を算出。Top Signalは${top.name}、指数は${top.aiScore}です。`
-      : `TARGET実データを接続済み。オッズは${oddsCount}頭分、TM INDEXは分析準備中です。`,
+      ? `本日の最高評価は${top.name}（TM INDEX ${top.aiScore}）。${raceCount}レース${horses.length}頭を比較しています。`
+      : `${raceCount}レースを掲載しています。`,
     highlights: [
-      `出走馬${horses.length}頭をcurrent-race-detail.csvから取得`,
-      `過去走${pastRunCount}件、血統${horses.filter((horse) => horse.dataStatus?.pedigree === "active").length}頭、調教${trainingCount}頭を接続`,
-      `単勝オッズ${oddsCount}頭分をValue評価へ反映`,
+      `出走馬 ${horses.length}頭`,
+      `過去走 ${pastRunCount}件 / 血統 ${pedigreeCount}頭 / 調教 ${trainingCount}頭`,
+      `単勝オッズ ${oddsCount}頭分を反映`,
     ],
   };
 };
@@ -99,7 +102,7 @@ const buildFeatured = (race, horses) =>
       priority: index + 1,
     }));
 
-const adaptCandidate = (candidate, { previewMode = false } = {}) => {
+const adaptCandidate = (candidate, { previewMode = false, officialWeekData = null } = {}) => {
   const sourceRaces = candidate.races ?? [];
   if (!sourceRaces.length) return officialWeekData;
   const races = sourceRaces.map((race) => {
@@ -114,11 +117,18 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
       time: race.time ?? null,
       surface: race.surface,
       distance: race.distance,
+      weather: race.weather ?? null,
       going: race.going ?? null,
+      goingUpdatedAt: race.goingUpdatedAt ?? null,
+      trackBias: race.trackBias ?? race.raceContext?.trackBias ?? null,
+      courseType: race.courseType ?? null,
+      conditionSummary: race.conditionSummary ?? null,
+      raceContext: race.raceContext ?? null,
       fieldSize: race.fieldSize,
       oddsUpdatedAt: race.oddsUpdatedAt ?? candidate.meta?.oddsUpdatedAt ?? null,
       oddsStatus: race.oddsStatus ?? race.dataStatus?.odds ?? candidate.meta?.oddsStatus ?? "missing",
       oddsSource: race.oddsSource ?? null,
+      updateDiff: updateDiffForRace(candidate.publicUpdate, race.id, candidate.meta?.date),
       featured: race.id === candidate.meta?.featuredRaceId,
       category: race.category ?? (race.grade ? "grade" : "special"),
       dataStatus: race.dataStatus,
@@ -152,8 +162,25 @@ const adaptCandidate = (candidate, { previewMode = false } = {}) => {
   };
 };
 
-const selectedWeekData = dataMode === "candidate" ? batchCandidateWeekData : officialWeekData;
+let weekDataPromise = null;
 
-export const weekData = isCandidatePayload(selectedWeekData)
-  ? adaptCandidate(selectedWeekData, { previewMode: dataMode !== "official" })
-  : selectedWeekData;
+const fetchJson = async (url) => {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`週次データの読み込みに失敗しました (${response.status})`);
+  return response.json();
+};
+
+export const loadWeekData = () => {
+  if (!weekDataPromise) {
+    weekDataPromise = Promise.all([
+      fetchJson(officialWeekDataUrl),
+      dataMode === "candidate" ? fetchJson(batchCandidateWeekDataUrl) : Promise.resolve(null),
+    ]).then(([officialWeekData, batchCandidateWeekData]) => {
+      const selectedWeekData = dataMode === "candidate" ? batchCandidateWeekData : officialWeekData;
+      return isCandidatePayload(selectedWeekData)
+        ? adaptCandidate(selectedWeekData, { previewMode: dataMode !== "official", officialWeekData })
+        : selectedWeekData;
+    });
+  }
+  return weekDataPromise;
+};

@@ -23,6 +23,7 @@ const learningOptions = {
   priorWeight: numberAfter("--prior-weight", DEFAULT_LEARNING_OPTIONS.priorWeight),
   validationFraction: numberAfter("--validation-fraction", DEFAULT_LEARNING_OPTIONS.validationFraction),
 };
+const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
 
 const files = existsSync(archiveDir)
   ? readdirSync(archiveDir).filter((name) => name.endsWith(".json")).map((name) => join(archiveDir, name))
@@ -48,7 +49,7 @@ if (existsSync(archiveDir)) {
     }
   }
   for (const name of readdirSync(archiveDir).filter((file) => file.endsWith("-results.json"))) {
-    const payload = JSON.parse(readFileSync(join(archiveDir, name), "utf8"));
+    const payload = readJson(join(archiveDir, name));
     for (const race of payload.races ?? []) {
       for (const horse of race.horses ?? []) {
         const finish = Number(horse.finishPosition);
@@ -67,7 +68,7 @@ const observationsByKey = new Map();
 let duplicateRows = 0;
 
 for (const file of files) {
-  const payload = JSON.parse(readFileSync(file, "utf8"));
+  const payload = readJson(file);
   for (const race of payload.races ?? []) {
     for (const horse of race.horses ?? []) {
       const resultKey = [
@@ -134,7 +135,7 @@ for (const file of files) {
 }
 let historicalObservationCount = 0;
 if (existsSync(historyPath)) {
-  const history = JSON.parse(readFileSync(historyPath, "utf8"));
+  const history = readJson(historyPath);
   for (const observation of history.observations ?? []) {
     if (!observation?.id || !observation.trainer || !observation.phases) continue;
     historicalObservationCount += 1;

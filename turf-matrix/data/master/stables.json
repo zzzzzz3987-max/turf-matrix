@@ -9,14 +9,52 @@
   },
   "stables": [
     {
-      "name": "高野友和",
+      "name": "矢作芳人",
       "trainingCenter": "栗東",
-      "sampleSize": 57,
-      "placedCount": 15,
-      "baselineHitRate": 0.2632,
+      "sampleSize": 85,
+      "placedCount": 21,
+      "baselineHitRate": 0.2471,
       "period": {
         "from": "2026-06-06",
-        "to": "2026-08-23"
+        "to": "2026-08-30"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "slope"
+        ],
+        "last1FMax": 12.8,
+        "accel": true
+      },
+      "signaturePhrase": "一週前坂路・1F12.8以内・加速の好走時パターン",
+      "matchSampleSize": 20,
+      "matchPlacedCount": 9,
+      "hitRate": 0.45,
+      "adjustedHitRate": 0.3739,
+      "adjustedLift": 0.1268,
+      "validation": {
+        "sampleSize": 8,
+        "placedCount": 2,
+        "hitRate": 0.25,
+        "adjustedHitRate": 0.2143,
+        "adjustedLift": 0.0238,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 28
+    },
+    {
+      "name": "高野友和",
+      "trainingCenter": "栗東",
+      "sampleSize": 58,
+      "placedCount": 15,
+      "baselineHitRate": 0.2586,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-29"
       },
       "accepted": true,
       "winningPattern": {
@@ -31,8 +69,8 @@
       "matchSampleSize": 21,
       "matchPlacedCount": 9,
       "hitRate": 0.4286,
-      "adjustedHitRate": 0.3684,
-      "adjustedLift": 0.1053,
+      "adjustedHitRate": 0.3668,
+      "adjustedLift": 0.1082,
       "validation": {
         "sampleSize": 9,
         "placedCount": 4,
@@ -47,51 +85,14 @@
       "candidateCount": 18
     },
     {
-      "name": "奥村豊",
-      "trainingCenter": "栗東",
-      "sampleSize": 53,
-      "placedCount": 12,
-      "baselineHitRate": 0.2264,
-      "period": {
-        "from": "2026-06-06",
-        "to": "2026-08-23"
-      },
-      "accepted": true,
-      "winningPattern": {
-        "phase": "final",
-        "course": [
-          "slope"
-        ],
-        "accel": true
-      },
-      "signaturePhrase": "最終坂路・加速の好走時パターン",
-      "matchSampleSize": 15,
-      "matchPlacedCount": 6,
-      "hitRate": 0.4,
-      "adjustedHitRate": 0.3229,
-      "adjustedLift": 0.0964,
-      "validation": {
-        "sampleSize": 6,
-        "placedCount": 3,
-        "hitRate": 0.5,
-        "adjustedHitRate": 0.3718,
-        "adjustedLift": 0.0641,
-        "status": "passed"
-      },
-      "rejectionReasons": [],
-      "source": "learned",
-      "confidence": "high",
-      "candidateCount": 36
-    },
-    {
       "name": "中竹和也",
       "trainingCenter": "栗東",
-      "sampleSize": 53,
+      "sampleSize": 56,
       "placedCount": 8,
-      "baselineHitRate": 0.1509,
+      "baselineHitRate": 0.1429,
       "period": {
         "from": "2026-06-06",
-        "to": "2026-08-16"
+        "to": "2026-08-30"
       },
       "accepted": true,
       "winningPattern": {
@@ -105,30 +106,67 @@
       "matchSampleSize": 20,
       "matchPlacedCount": 6,
       "hitRate": 0.3,
-      "adjustedHitRate": 0.2441,
-      "adjustedLift": 0.0932,
+      "adjustedHitRate": 0.2411,
+      "adjustedLift": 0.0982,
       "validation": {
-        "sampleSize": 9,
-        "placedCount": 2,
-        "hitRate": 0.2222,
-        "adjustedHitRate": 0.1832,
-        "adjustedLift": 0.0293,
+        "sampleSize": 8,
+        "placedCount": 1,
+        "hitRate": 0.125,
+        "adjustedHitRate": 0.0929,
+        "adjustedLift": 0.0214,
         "status": "passed"
       },
       "rejectionReasons": [],
       "source": "learned",
       "confidence": "high",
-      "candidateCount": 19
+      "candidateCount": 15
+    },
+    {
+      "name": "奥村豊",
+      "trainingCenter": "栗東",
+      "sampleSize": 54,
+      "placedCount": 12,
+      "baselineHitRate": 0.2222,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "final",
+        "course": [
+          "slope"
+        ],
+        "accel": true
+      },
+      "signaturePhrase": "最終坂路・加速の好走時パターン",
+      "matchSampleSize": 16,
+      "matchPlacedCount": 6,
+      "hitRate": 0.375,
+      "adjustedHitRate": 0.3095,
+      "adjustedLift": 0.0873,
+      "validation": {
+        "sampleSize": 7,
+        "placedCount": 3,
+        "hitRate": 0.4286,
+        "adjustedHitRate": 0.3522,
+        "adjustedLift": 0.0445,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "high",
+      "candidateCount": 36
     },
     {
       "name": "池江泰寿",
       "trainingCenter": "栗東",
-      "sampleSize": 50,
-      "placedCount": 18,
-      "baselineHitRate": 0.36,
+      "sampleSize": 52,
+      "placedCount": 19,
+      "baselineHitRate": 0.3654,
       "period": {
         "from": "2026-06-06",
-        "to": "2026-08-23"
+        "to": "2026-08-29"
       },
       "accepted": true,
       "winningPattern": {
@@ -136,20 +174,21 @@
         "course": [
           "C"
         ],
-        "last1FMax": 11.2
+        "last1FMax": 11.2,
+        "minCount": 12
       },
-      "signaturePhrase": "一週前ウッドC・1F11.2以内の好走時パターン",
+      "signaturePhrase": "一週前ウッドC・1F11.2以内・12本以上の好走時パターン",
       "matchSampleSize": 16,
-      "matchPlacedCount": 11,
-      "hitRate": 0.6875,
-      "adjustedHitRate": 0.5471,
-      "adjustedLift": 0.1871,
+      "matchPlacedCount": 12,
+      "hitRate": 0.75,
+      "adjustedHitRate": 0.5852,
+      "adjustedLift": 0.2198,
       "validation": {
         "sampleSize": 6,
         "placedCount": 5,
         "hitRate": 0.8333,
-        "adjustedHitRate": 0.6667,
-        "adjustedLift": 0.0833,
+        "adjustedHitRate": 0.6368,
+        "adjustedLift": 0.0983,
         "status": "passed"
       },
       "rejectionReasons": [],
@@ -160,12 +199,12 @@
     {
       "name": "小崎憲",
       "trainingCenter": "栗東",
-      "sampleSize": 48,
-      "placedCount": 12,
-      "baselineHitRate": 0.25,
+      "sampleSize": 49,
+      "placedCount": 13,
+      "baselineHitRate": 0.2653,
       "period": {
         "from": "2026-06-06",
-        "to": "2026-08-23"
+        "to": "2026-08-30"
       },
       "accepted": true,
       "winningPattern": {
@@ -180,14 +219,125 @@
       "matchSampleSize": 21,
       "matchPlacedCount": 8,
       "hitRate": 0.381,
-      "adjustedHitRate": 0.3333,
-      "adjustedLift": 0.0833,
+      "adjustedHitRate": 0.3389,
+      "adjustedLift": 0.0736,
+      "validation": {
+        "sampleSize": 6,
+        "placedCount": 2,
+        "hitRate": 0.3333,
+        "adjustedHitRate": 0.2778,
+        "adjustedLift": 0.0278,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "mid",
+      "candidateCount": 18
+    },
+    {
+      "name": "宮本博",
+      "trainingCenter": "栗東",
+      "sampleSize": 47,
+      "placedCount": 8,
+      "baselineHitRate": 0.1702,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "slope"
+        ],
+        "minCount": 18
+      },
+      "signaturePhrase": "一週前坂路・18本以上の好走時パターン",
+      "matchSampleSize": 20,
+      "matchPlacedCount": 6,
+      "hitRate": 0.3,
+      "adjustedHitRate": 0.2513,
+      "adjustedLift": 0.0811,
       "validation": {
         "sampleSize": 7,
-        "placedCount": 3,
-        "hitRate": 0.4286,
-        "adjustedHitRate": 0.3158,
-        "adjustedLift": 0.0658,
+        "placedCount": 2,
+        "hitRate": 0.2857,
+        "adjustedHitRate": 0.2201,
+        "adjustedLift": 0.0383,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "mid",
+      "candidateCount": 27
+    },
+    {
+      "name": "高橋文雅",
+      "trainingCenter": "美浦",
+      "sampleSize": 40,
+      "placedCount": 6,
+      "baselineHitRate": 0.15,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "slope"
+        ],
+        "accel": true
+      },
+      "signaturePhrase": "一週前坂路・加速の好走時パターン",
+      "matchSampleSize": 16,
+      "matchPlacedCount": 4,
+      "hitRate": 0.25,
+      "adjustedHitRate": 0.2071,
+      "adjustedLift": 0.0571,
+      "validation": {
+        "sampleSize": 6,
+        "placedCount": 1,
+        "hitRate": 0.1667,
+        "adjustedHitRate": 0.1222,
+        "adjustedLift": 0.0222,
+        "status": "passed"
+      },
+      "rejectionReasons": [],
+      "source": "learned",
+      "confidence": "mid",
+      "candidateCount": 36
+    },
+    {
+      "name": "菊川正達",
+      "trainingCenter": "美浦",
+      "sampleSize": 36,
+      "placedCount": 7,
+      "baselineHitRate": 0.1944,
+      "period": {
+        "from": "2026-06-13",
+        "to": "2026-08-30"
+      },
+      "accepted": true,
+      "winningPattern": {
+        "phase": "oneWeek",
+        "course": [
+          "D"
+        ],
+        "minCount": 14
+      },
+      "signaturePhrase": "一週前ウッドD・14本以上の好走時パターン",
+      "matchSampleSize": 17,
+      "matchPlacedCount": 7,
+      "hitRate": 0.4118,
+      "adjustedHitRate": 0.3218,
+      "adjustedLift": 0.1274,
+      "validation": {
+        "sampleSize": 6,
+        "placedCount": 4,
+        "hitRate": 0.6667,
+        "adjustedHitRate": 0.5185,
+        "adjustedLift": 0.0741,
         "status": "passed"
       },
       "rejectionReasons": [],

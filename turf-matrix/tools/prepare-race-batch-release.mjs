@@ -1,12 +1,14 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateIntelligenceOutput } from "./intelligence/output-contract.mjs";
+import { buildPublicUpdateDiff } from "../src/lib/public-update-diff.js";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 const NEXT_PATH = join(TOOLS_DIR, "week-data.next.json");
+const CURRENT_PATH = join(TOOLS_DIR, "week-data.json");
 const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
 const candidate = JSON.parse(readFileSync(CANDIDATE_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
@@ -36,11 +38,24 @@ if (errors.length) {
   process.exit(1);
 }
 
-const release = {
+const releaseBase = {
   ...candidate,
   mode: "production",
   productionWeekDataUpdated: true,
   meta: { ...candidate.meta, previewMode: false, version: "beta" },
 };
+const previous = existsSync(CURRENT_PATH)
+  ? JSON.parse(readFileSync(CURRENT_PATH, "utf8").replace(/^\uFEFF/, ""))
+  : releaseBase;
+const release = {
+  ...releaseBase,
+  publicUpdate: buildPublicUpdateDiff(previous, releaseBase),
+};
 writeFileSync(NEXT_PATH, JSON.stringify(release, null, 2) + "\n");
-console.log(JSON.stringify({ out: NEXT_PATH, races: release.races.length, featuredRaceId: release.meta.featuredRaceId }, null, 2));
+console.log(JSON.stringify({
+  out: NEXT_PATH,
+  races: release.races.length,
+  featuredRaceId: release.meta.featuredRaceId,
+  changedRaces: release.publicUpdate.races.length,
+  publicUpdateEvents: release.publicUpdate.races.reduce((sum, race) => sum + race.events.length, 0),
+}, null, 2));

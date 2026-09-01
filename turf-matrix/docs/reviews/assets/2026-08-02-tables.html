@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TURF MATRIX Review Tables</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #fafafa; color: #0a1021; }
+    body {
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+    }
+    .panel {
+      display: none;
+      width: 1200px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 20px;
+    }
+    .panel.active { display: block; }
+    .accent { width: 100%; height: 5px; background: #2d7bff; }
+    .header { padding: 34px 40px 28px; border-bottom: 1px solid #e5e7eb; }
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #7890ad;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+    }
+    h1 { margin: 0; font-size: 30px; line-height: 1.35; letter-spacing: 0; }
+    .sub { margin: 10px 0 0; color: #6b7280; font-size: 17px; line-height: 1.6; }
+    table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    th, td { padding: 20px 24px; border-bottom: 1px solid #eef0f3; text-align: right; }
+    th {
+      color: #6b7280;
+      background: #fafafa;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    td { font-size: 23px; font-variant-numeric: tabular-nums; }
+    th:first-child, td:first-child { padding-left: 40px; text-align: left; }
+    th:last-child, td:last-child { padding-right: 40px; }
+    tr:last-child td { border-bottom: 0; }
+    #summary th:first-child, #summary td:first-child { width: 31%; }
+    .name { font-weight: 700; }
+    .strong { color: #2d7bff; font-weight: 750; }
+    .muted { color: #6b7280; }
+    .note { padding: 22px 40px 26px; border-top: 1px solid #eef0f3; color: #6b7280; font-size: 15px; line-height: 1.7; }
+    #engine th, #engine td { padding-top: 14px; padding-bottom: 14px; }
+    #engine td { font-size: 20px; }
+  </style>
+</head>
+<body>
+  <section class="panel" id="summary">
+    <div class="accent"></div>
+    <div class="header">
+      <p class="eyebrow">SUNDAY PERFORMANCE</p>
+      <h1>日曜9レースの指数成績</h1>
+      <p class="sub">各馬の単勝・複勝を100円ずつ購入した想定</p>
+    </div>
+    <table>
+      <thead><tr><th>対象</th><th>1着</th><th>3着以内</th><th>単勝回収率</th><th>複勝回収率</th></tr></thead>
+      <tbody>
+        <tr><td class="name">TM INDEX 1位</td><td>2 / 9</td><td>5 / 9</td><td>90.0%</td><td class="strong">102.2%</td></tr>
+        <tr><td class="name">TM INDEX 上位3頭</td><td>5 / 27</td><td>11 / 27</td><td>51.5%</td><td>92.6%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="ranking">
+    <div class="accent"></div>
+    <div class="header">
+      <p class="eyebrow">CUMULATIVE INDEX</p>
+      <h1>指数順位別成績</h1>
+      <p class="sub">公開開始から累計36レース</p>
+    </div>
+    <table>
+      <thead><tr><th>指数順位</th><th>勝率</th><th>複勝率</th></tr></thead>
+      <tbody>
+        <tr><td class="name">1位</td><td>16.7%</td><td>33.3%</td></tr>
+        <tr><td class="name">2位</td><td class="strong">22.2%</td><td class="strong">44.4%</td></tr>
+        <tr><td class="name">3位</td><td>13.9%</td><td>41.7%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="engine">
+    <div class="accent"></div>
+    <div class="header">
+      <p class="eyebrow">ENGINE VALIDATION</p>
+      <h1>各分析要素と着順の相関</h1>
+      <p class="sub">高評価馬が上位に来るほどマイナス方向。Spearman順位相関</p>
+    </div>
+    <table>
+      <thead><tr><th>分析要素</th><th>日曜 113頭</th><th>累計</th></tr></thead>
+      <tbody>
+        <tr><td class="name">能力</td><td class="strong">-0.424</td><td class="strong">-0.291</td></tr>
+        <tr><td class="name">調子</td><td class="strong">-0.404</td><td class="strong">-0.263</td></tr>
+        <tr><td class="name">コース適性</td><td>-0.320</td><td>-0.110</td></tr>
+        <tr><td class="name">調教</td><td>-0.141</td><td>-0.085</td></tr>
+        <tr><td class="name">展開</td><td>-0.138</td><td>-0.088</td></tr>
+        <tr><td class="name">血統</td><td>-0.102</td><td>-0.053</td></tr>
+        <tr><td class="name">厩舎</td><td class="muted">+0.035</td><td class="muted">+0.093</td></tr>
+        <tr><td class="name">期待値</td><td class="muted">+0.463</td><td class="muted">+0.340</td></tr>
+      </tbody>
+    </table>
+    <div class="note">単日の数値は変動が大きいため、累計値と併せて検証します。</div>
+  </section>
+
+  <script>
+    const target = location.hash.slice(1) || "summary";
+    document.getElementById(target)?.classList.add("active");
+  </script>
+</body>
+</html>

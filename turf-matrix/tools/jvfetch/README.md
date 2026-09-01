@@ -15,6 +15,7 @@ Implemented now:
   - reads `m_JVLinkVersion`
   - calls `JVInit`
   - writes diagnostics to `data/target/jvfetch-log.txt`
+- `--results-only` reads finalized SE order plus HR win, place, and wide payouts. HR field positions follow the official JV-Data specification; wide entries start at position 294 and use seven 16-character slots.
 - `--odds-only` command:
   - reads `tools/race-batch-config.json`
   - opens JV-Link realtime odds with `JVRTOpen("0B31", "YYYYMMDDJJRR")`

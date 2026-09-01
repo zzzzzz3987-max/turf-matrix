@@ -430,6 +430,7 @@ namespace TurfMatrix.JvFetch
                         result.Payouts.Clear();
                         ParsePayoutEntries(buffer, 103, 3, "win", result.Payouts);
                         ParsePayoutEntries(buffer, 142, 5, "place", result.Payouts);
+                        ParseWidePayoutEntries(buffer, 294, 7, result.Payouts);
                     }
                 }
                 else if (readResult == -3) System.Threading.Thread.Sleep(200);
@@ -470,6 +471,25 @@ namespace TurfMatrix.JvFetch
             }
         }
 
+        private static void ParseWidePayoutEntries(string record, int start, int count, List<ResultPayout> payouts)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                var offset = start + i * 16;
+                var first = ParseNullableInt(GetJvTextField(record, offset, 2));
+                var second = ParseNullableInt(GetJvTextField(record, offset + 2, 2));
+                var payout = ParseNullableInt(GetJvTextField(record, offset + 4, 9));
+                if (first == null || second == null || payout == null) continue;
+                payouts.Add(new ResultPayout
+                {
+                    Type = "wide",
+                    HorseNumbers = new[] { first.Value, second.Value },
+                    Payout = payout.Value,
+                    Popularity = ParseNullableInt(GetJvTextField(record, offset + 13, 3))
+                });
+            }
+        }
+
         private static void WriteResultsJson(string outputPath, List<RaceResult> results)
         {
             Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
@@ -477,7 +497,7 @@ namespace TurfMatrix.JvFetch
             {
                 SchemaVersion = 1,
                 GeneratedAt = DateTimeOffset.Now.ToString("o"),
-                Source = "JV-Link 0B12 SE/HR",
+                Source = "JV-Link 0B12 SE/HR (win/place/wide)",
                 RaceDate = results[0].Race.RaceDate,
                 Races = results
             };
@@ -1114,7 +1134,7 @@ namespace TurfMatrix.JvFetch
             Console.WriteLine("  jvfetch.exe --week [--races \"福島10,福島11\" | --all-races]");
             Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win odds for tools/race-batch-config.json)");
             Console.WriteLine("  jvfetch.exe --conditions-only  (fetch WE weather and turf/dirt going for the configured date)");
-            Console.WriteLine("  jvfetch.exe --results-only  (fetch finalized SE order and HR win/place payouts)");
+            Console.WriteLine("  jvfetch.exe --results-only  (fetch finalized SE order and HR win/place/wide payouts)");
         }
 
         private static void Log(string path, string level, string message)
@@ -1246,7 +1266,8 @@ namespace TurfMatrix.JvFetch
         private sealed class ResultPayout
         {
             public string Type { get; set; }
-            public int HorseNumber { get; set; }
+            public int? HorseNumber { get; set; }
+            public int[] HorseNumbers { get; set; }
             public int Payout { get; set; }
             public int? Popularity { get; set; }
         }

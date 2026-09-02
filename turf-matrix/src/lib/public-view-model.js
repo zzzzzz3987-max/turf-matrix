@@ -669,18 +669,22 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
   const trainingCount = horse?.analysis?.trainingEval?.details?.count;
   const hasTrainingEvidence = ["active", "partial"].includes(training?.status) && isFiniteScore(trainingCount) && trainingCount > 0;
   if (hasTrainingEvidence && ((isFiniteScore(training?.score) && training.score < 65) || trainingGrade === "D")) {
+    const scoreText = isFiniteScore(training?.score) ? `${Math.round(training.score)}点` : null;
+    const gradeText = trainingGrade ? `${trainingGrade}評価` : null;
+    const evaluationText = [scoreText, gradeText].filter(Boolean).join("・");
     addFlag({
       key: "training",
-      label: "調教慎重",
+      label: "調教評価やや低め",
       tone: "watch",
-      detail: "調教全体は慎重評価。",
+      detail: `時計・終い・加速・本数を合わせた調教総合は${evaluationText || "やや低め"}。今回は強い上積み材料として扱いにくい。`,
     });
   } else if (hasTrainingEvidence && isFiniteScore(finalTrainingScore) && finalTrainingScore < 65) {
+    const totalText = isFiniteScore(training?.score) ? `調教総合${Math.round(training.score)}点に対し、` : "";
     addFlag({
       key: "finalTraining",
-      label: "最終追い注意",
+      label: "最終追い評価やや低め",
       tone: "watch",
-      detail: `最終追い切りは${Math.round(finalTrainingScore)}評価。`,
+      detail: `${totalText}最終追い切りは${Math.round(finalTrainingScore)}点。直前の動きはやや控えめで、仕上がりの上積みを強くは評価しにくい。`,
     });
   }
 
@@ -760,6 +764,27 @@ const raceHorseIdentity = (horse, rank) => horse ? ({
   riskFlags: buildHorseRiskFlags(horse),
 }) : null;
 
+const PUBLIC_ROLE_FACTOR_PHRASES = {
+  ability: "地力の高さ",
+  blood: "今回条件への血統適性",
+  training: "調教内容",
+  course: "今回コースへの適性",
+  distance: "今回距離への適性",
+  load: "斤量条件",
+  pace: "想定展開との相性",
+  trackBias: "当日の馬場傾向との相性",
+  stable: "厩舎の仕上げ",
+  form: "近走内容",
+};
+
+const publicRoleFactorPhrase = (factor) => PUBLIC_ROLE_FACTOR_PHRASES[factor?.key] ?? factor?.label ?? "総合力";
+
+const publicRoleStrengthText = (factor) => {
+  if (!factor) return "総合評価で最上位。";
+  const phrase = publicRoleFactorPhrase(factor);
+  return factor.score >= 75 ? `${phrase}を高く評価。` : `${phrase}が総合評価を支える。`;
+};
+
 const strongestRaceFactor = (horse) => QUICK_READ_FACTOR_KEYS
   .map((key) => ({ key, label: PUBLIC_FACTOR_LABELS[key], score: raceHorseFactor(horse, key) }))
   .filter((factor) => isFiniteScore(factor.score))
@@ -773,10 +798,10 @@ const weakestDecisionFactor = (horse) => ["ability", "distance", "course", "pace
 const favoriteReason = (horse, challenger) => {
   const strength = strongestRaceFactor(horse);
   const gap = challenger ? raceHorseScore(horse) - raceHorseScore(challenger) : null;
-  const strengthText = strength ? `${strength.label}${Math.round(strength.score)}が強み。` : "総合評価で最上位。";
+  const strengthText = publicRoleStrengthText(strength);
   if (!isFiniteScore(gap)) return strengthText;
-  if (gap === 0) return `${strengthText}首位は同点。`;
-  return `${strengthText}2位に${gap}pt差。`;
+  if (gap === 0) return `${strengthText}ただし指数首位は同点。`;
+  return `${strengthText}指数2位に${gap}ポイント差。`;
 };
 
 const challengerReason = (horse, favorite) => {
@@ -797,24 +822,24 @@ const challengerReason = (horse, favorite) => {
     .sort((a, b) => b.difference - a.difference)[0];
 
   if (advantage?.difference > 0) {
-    return `${advantage.label}${Math.round(advantage.score)}で本命を上回る。首位と${gap}pt差。`;
+    return `${publicRoleFactorPhrase(advantage)}は本命より高評価。指数首位とは${gap}ポイント差。`;
   }
   const strength = strongestRaceFactor(horse);
-  return `${strength ? `${strength.label}${Math.round(strength.score)}が逆転材料。` : "総合力で続く。"}首位と${gap}pt差。`;
+  return `${strength ? `${publicRoleFactorPhrase(strength)}が逆転材料。` : "総合力で続く。"}指数首位とは${gap}ポイント差。`;
 };
 
 const valueReason = (horse, rank) => {
   if (!horse) return "指数と人気の間に大きな妙味はありません。";
   const strength = strongestRaceFactor(horse);
   const popularity = isFiniteScore(horse.popularity) ? `${horse.popularity}人気` : "人気未発表";
-  return `TM INDEX ${rank}位・${popularity}。${strength ? `${strength.label}${Math.round(strength.score)}が強み。` : "人気以上の指数評価。"}`;
+  return `指数${rank}位ながら${popularity}。${strength ? `${publicRoleFactorPhrase(strength)}が人気以上の評価を支える。` : "人気以上の指数評価。"}`;
 };
 
 const dangerReason = (horse, rank) => {
   if (!horse) return "上位人気と指数評価に大きなズレはありません。";
   const weakness = weakestDecisionFactor(horse);
   const marketText = isFiniteScore(horse.popularity) ? `${horse.popularity}人気に対して` : "市場評価に対して";
-  return `${marketText}TM INDEX ${rank}位。${weakness && weakness.score < 65 ? `${weakness.label}${Math.round(weakness.score)}は注意。` : "上位評価との差に注意。"}`;
+  return `${marketText}指数${rank}位。${weakness && weakness.score < 65 ? `${publicRoleFactorPhrase(weakness)}の評価が伸びず、人気ほどの信頼は置きにくい。` : "指数上位馬との差があり、人気ほどの信頼は置きにくい。"}`;
 };
 
 const raceKeyFor = (race) => {
@@ -859,7 +884,7 @@ export const buildRacePublicConclusion = (race) => {
       : isFiniteScore(favoriteGap) && favoriteGap <= 2
         ? `上位は接戦。${challenger.name}まで逆転圏です。`
         : challenger
-          ? `${favorite.name}がTM INDEXで${favoriteGap}ptリード。`
+          ? `${favorite.name}がTM INDEXで${favoriteGap}ポイントリード。`
           : `${favorite.name}を最上位に評価。`,
     favorite: {
       horse: raceHorseIdentity(favorite, 1),

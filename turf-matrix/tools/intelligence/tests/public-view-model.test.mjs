@@ -220,9 +220,25 @@ test("horse risk flags use structured caution evidence in priority order", () =>
   };
   const result = buildHorseRiskFlags(horse);
 
-  assert.deepEqual(result.map((flag) => flag.label), ["斤量注意", "距離延長", "最終追い注意"]);
+  assert.deepEqual(result.map((flag) => flag.label), ["斤量注意", "距離延長", "最終追い評価やや低め"]);
   assert.match(result[0].detail, /2kg重い/);
   assert.match(result[1].detail, /1600mから400m延長/);
+  assert.match(result[2].detail, /調教総合68点に対し、最終追い切りは61点/);
+});
+
+test("low overall training explains what the caution is based on", () => {
+  const result = buildHorseRiskFlags({
+    analysis: {
+      trainingEval: { grade: "D", details: { count: 12, final: { score: 66 } } },
+      factorsDetail: {
+        training: { score: 58, status: "active" },
+      },
+    },
+  });
+
+  assert.equal(result[0].label, "調教評価やや低め");
+  assert.match(result[0].detail, /時計・終い・加速・本数/);
+  assert.match(result[0].detail, /58点・D評価/);
 });
 
 test("horse risk flags do not invent warnings for neutral evidence", () => {
@@ -277,7 +293,14 @@ test("race conclusion selects each public role from fixed race data", () => {
   assert.equal(result.value.horse.id, "c");
   assert.equal(result.danger.horse.id, "d");
   assert.equal(result.key.value, "ハイペース × 前有利");
-  assert.match(result.challenger.note, /コース91で本命を上回る/);
+  assert.match(result.favorite.note, /地力の高さを高く評価。指数2位に2ポイント差/);
+  assert.match(result.challenger.note, /今回コースへの適性は本命より高評価/);
+  assert.match(result.value.note, /指数3位ながら6人気。今回距離への適性が人気以上の評価を支える/);
+  assert.match(result.danger.note, /想定展開との相性の評価が伸びず、人気ほどの信頼は置きにくい/);
+  assert.doesNotMatch(
+    [result.favorite.note, result.challenger.note, result.value.note, result.danger.note].join(" "),
+    /能力88|コース91|距離適性86|展開58|pt差/
+  );
 });
 
 test("danger role requires a three-place gap between popularity and TM rank", () => {

@@ -11,7 +11,8 @@ import {
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const ARCHIVE_DIR = join(ROOT, "data", "archive");
 const HISTORY_PATH = join(ROOT, "data", "master", "race-shape-history.json");
-const OUTPUT = join(ROOT, "docs", "analysis", "pace-shape-whatif-2026-09-02.md");
+const TODAY = new Intl.DateTimeFormat("sv-SE", { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+const OUTPUT = join(ROOT, "docs", "analysis", `pace-shape-whatif-${TODAY}.md`);
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
 const pct = (value) => Number.isFinite(value) ? `${(value * 100).toFixed(2)}%` : "-";
 const history = readJson(HISTORY_PATH);
@@ -55,21 +56,22 @@ const changedRows = evaluated.filter((race) => race.paceLeaderChanged).map((race
   `| ${race.date} | ${race.track}${race.raceNumber}R ${race.raceName} | ${race.currentPaceLeader.name} (${race.currentPaceLeader.finish}着) | ${race.shadowPaceLeader.name} (${race.shadowPaceLeader.finish}着・${race.shadowPaceLeader.paceAdjustment >= 0 ? "+" : ""}${race.shadowPaceLeader.paceAdjustment}) |`
 ).join("\n");
 
-const report = `# Pace Race Shape what-if (2026-09-02)
+const report = `# Pace Race Shape what-if (${TODAY})
 
 ## 結論
 
 **過去診断: ${pass ? "PASS" : "FAIL"} / 本番接続: HOLD**
 
-実ラップは未取得のため、全馬の角位置と着順から「前崩れ・前残り・中立」を判定するrace-shape proxyとして評価した。ハイ・スローの実測値とは呼ばない。
+公式ラップから前傾・平均・後傾を判定し、全馬の角位置と着順から「差し決着・前残り・偏りなし」を別軸で判定した。
 
 ## 履歴
 
 - 採用レース: ${history.summary.raceCount}レース
-- 前崩れ: ${history.summary.counts.front_collapse} / 前残り: ${history.summary.counts.front_survival} / 中立: ${history.summary.counts.neutral}
+- 差し決着: ${history.summary.counts.front_collapse} / 前残り: ${history.summary.counts.front_survival} / 偏りなし: ${history.summary.counts.neutral}
+- 前傾: ${history.summary.paceCounts.front_loaded} / 平均: ${history.summary.paceCounts.even} / 後傾: ${history.summary.paceCounts.back_loaded}
 - 不完全レース除外: ${history.summary.skippedWithoutCorners}
 - 人気・オッズ・Value: 不使用
-- レースラップ: 未取得
+- 公式ラップ取得: ${history.summary.paceRaceCount}レース
 
 ## 補正
 

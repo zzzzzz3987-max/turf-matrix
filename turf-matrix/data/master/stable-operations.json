@@ -1,0 +1,2287 @@
+{
+  "schemaVersion": 1,
+  "status": "shadow-approved",
+  "productionConnected": false,
+  "source": "JV-Link race results with strictly previous runner history",
+  "sourceObservationCount": 12174,
+  "globalBaselineHitRate": 0.2288,
+  "period": {
+    "from": "2026-06-03",
+    "to": "2026-08-30"
+  },
+  "learningPolicy": {
+    "features": [
+      "rotationBucket",
+      "jockeyContinuity",
+      "travelClass"
+    ],
+    "target": "top3 finish",
+    "hierarchy": "global baseline -> trainer comparable baseline -> trainer operation pattern",
+    "split": "chronological holdout",
+    "futureRaceRead": false,
+    "currentRaceOddsPopularityRead": false,
+    "currentRaceResultRead": false,
+    "minimumStableSampleSize": 40,
+    "minimumComparableSampleSize": 20,
+    "minimumPatternSampleSize": 12,
+    "minimumPatternPlacedCount": 3,
+    "minimumPatternNonPlacedCount": 5,
+    "minimumAdjustedLift": 0.03,
+    "minimumTrainingLift": 0.04,
+    "globalPriorWeight": 30,
+    "patternPriorWeight": 20,
+    "validationFraction": 0.3,
+    "minimumValidationMatches": 5,
+    "minimumValidationLift": 0.02
+  },
+  "stables": [
+    {
+      "name": "矢作芳人",
+      "trainingCenter": "栗東",
+      "sampleSize": 131,
+      "placedCount": 32,
+      "hitRate": 0.2443,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "rotationBucket": "8-20",
+          "travelClass": "home"
+        },
+        "phrase": "前走から8〜20日 × 所属圏内",
+        "sampleSize": 16,
+        "placedCount": 1,
+        "hitRate": 0.0625,
+        "adjustedHitRate": 0.1523,
+        "baselineHitRate": 0.2242,
+        "adjustedLift": -0.0719,
+        "training": {
+          "comparableSampleSize": 40,
+          "comparablePlacedCount": 10,
+          "baselineHitRate": 0.2409,
+          "sampleSize": 11,
+          "placedCount": 1,
+          "nonPlacedCount": 10,
+          "hitRate": 0.0909,
+          "adjustedHitRate": 0.1877,
+          "adjustedLift": -0.0532
+        },
+        "validation": {
+          "comparableSampleSize": 32,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2075,
+          "sampleSize": 5,
+          "placedCount": 0,
+          "nonPlacedCount": 5,
+          "hitRate": 0,
+          "adjustedHitRate": 0.166,
+          "adjustedLift": -0.0415,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "中舘英二",
+      "trainingCenter": "美浦",
+      "sampleSize": 118,
+      "placedCount": 39,
+      "hitRate": 0.3305,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": true,
+          "travelClass": "home"
+        },
+        "phrase": "前走騎手が継続 × 所属圏内",
+        "sampleSize": 13,
+        "placedCount": 7,
+        "hitRate": 0.5385,
+        "adjustedHitRate": 0.3811,
+        "baselineHitRate": 0.2788,
+        "adjustedLift": 0.1023,
+        "training": {
+          "comparableSampleSize": 28,
+          "comparablePlacedCount": 9,
+          "baselineHitRate": 0.2735,
+          "sampleSize": 7,
+          "placedCount": 4,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5714,
+          "adjustedHitRate": 0.3508,
+          "adjustedLift": 0.0772
+        },
+        "validation": {
+          "comparableSampleSize": 24,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.2568,
+          "sampleSize": 6,
+          "placedCount": 3,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5,
+          "adjustedHitRate": 0.3129,
+          "adjustedLift": 0.0561,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "伊藤圭三",
+      "trainingCenter": "美浦",
+      "sampleSize": 90,
+      "placedCount": 24,
+      "hitRate": 0.2667,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "high",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 45,
+        "placedCount": 14,
+        "hitRate": 0.3111,
+        "adjustedHitRate": 0.2926,
+        "baselineHitRate": 0.251,
+        "adjustedLift": 0.0416,
+        "training": {
+          "comparableSampleSize": 62,
+          "comparablePlacedCount": 15,
+          "baselineHitRate": 0.2377,
+          "sampleSize": 29,
+          "placedCount": 9,
+          "nonPlacedCount": 20,
+          "hitRate": 0.3103,
+          "adjustedHitRate": 0.2807,
+          "adjustedLift": 0.043
+        },
+        "validation": {
+          "comparableSampleSize": 27,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.2608,
+          "sampleSize": 16,
+          "placedCount": 5,
+          "nonPlacedCount": 11,
+          "hitRate": 0.3125,
+          "adjustedHitRate": 0.2838,
+          "adjustedLift": 0.023,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "寺島良",
+      "trainingCenter": "栗東",
+      "sampleSize": 82,
+      "placedCount": 29,
+      "hitRate": 0.3537,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": false,
+          "travelClass": "away"
+        },
+        "phrase": "騎手乗り替わり × 遠征",
+        "sampleSize": 16,
+        "placedCount": 8,
+        "hitRate": 0.5,
+        "adjustedHitRate": 0.4014,
+        "baselineHitRate": 0.3225,
+        "adjustedLift": 0.0789,
+        "training": {
+          "comparableSampleSize": 22,
+          "comparablePlacedCount": 10,
+          "baselineHitRate": 0.3243,
+          "sampleSize": 5,
+          "placedCount": 4,
+          "nonPlacedCount": 1,
+          "hitRate": 0.8,
+          "adjustedHitRate": 0.4195,
+          "adjustedLift": 0.0951
+        },
+        "validation": {
+          "comparableSampleSize": 22,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.2666,
+          "sampleSize": 11,
+          "placedCount": 4,
+          "nonPlacedCount": 7,
+          "hitRate": 0.3636,
+          "adjustedHitRate": 0.3011,
+          "adjustedLift": 0.0344,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "堀内岳志",
+      "trainingCenter": "美浦",
+      "sampleSize": 76,
+      "placedCount": 10,
+      "hitRate": 0.1316,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 19,
+        "placedCount": 1,
+        "hitRate": 0.0526,
+        "adjustedHitRate": 0.1151,
+        "baselineHitRate": 0.1745,
+        "adjustedLift": -0.0594,
+        "training": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 4,
+          "baselineHitRate": 0.2173,
+          "sampleSize": 5,
+          "placedCount": 0,
+          "nonPlacedCount": 5,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1738,
+          "adjustedLift": -0.0435
+        },
+        "validation": {
+          "comparableSampleSize": 18,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1639,
+          "sampleSize": 14,
+          "placedCount": 1,
+          "nonPlacedCount": 13,
+          "hitRate": 0.0714,
+          "adjustedHitRate": 0.1258,
+          "adjustedLift": -0.0381,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "小栗実",
+      "trainingCenter": "栗東",
+      "sampleSize": 75,
+      "placedCount": 29,
+      "hitRate": 0.3867,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 36,
+        "placedCount": 19,
+        "hitRate": 0.5278,
+        "adjustedHitRate": 0.4613,
+        "baselineHitRate": 0.3416,
+        "adjustedLift": 0.1197,
+        "training": {
+          "comparableSampleSize": 53,
+          "comparablePlacedCount": 22,
+          "baselineHitRate": 0.3478,
+          "sampleSize": 27,
+          "placedCount": 16,
+          "nonPlacedCount": 11,
+          "hitRate": 0.5926,
+          "adjustedHitRate": 0.4884,
+          "adjustedLift": 0.1406
+        },
+        "validation": {
+          "comparableSampleSize": 22,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.2666,
+          "sampleSize": 9,
+          "placedCount": 3,
+          "nonPlacedCount": 6,
+          "hitRate": 0.3333,
+          "adjustedHitRate": 0.2873,
+          "adjustedLift": 0.0207,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "小林真也",
+      "trainingCenter": "栗東",
+      "sampleSize": 75,
+      "placedCount": 24,
+      "hitRate": 0.32,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 20,
+        "placedCount": 10,
+        "hitRate": 0.5,
+        "adjustedHitRate": 0.3887,
+        "baselineHitRate": 0.2774,
+        "adjustedLift": 0.1113,
+        "training": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2737,
+          "sampleSize": 7,
+          "placedCount": 5,
+          "nonPlacedCount": 2,
+          "hitRate": 0.7143,
+          "adjustedHitRate": 0.388,
+          "adjustedLift": 0.1142
+        },
+        "validation": {
+          "comparableSampleSize": 21,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2523,
+          "sampleSize": 13,
+          "placedCount": 5,
+          "nonPlacedCount": 8,
+          "hitRate": 0.3846,
+          "adjustedHitRate": 0.3044,
+          "adjustedLift": 0.0521,
+          "status": "passed"
+        }
+      },
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": true
+        },
+        "phrase": "前走騎手が継続",
+        "sampleSize": 18,
+        "placedCount": 2,
+        "hitRate": 0.1111,
+        "adjustedHitRate": 0.1986,
+        "baselineHitRate": 0.2774,
+        "adjustedLift": -0.0788,
+        "training": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2737,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.2158,
+          "adjustedLift": -0.0579
+        },
+        "validation": {
+          "comparableSampleSize": 21,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2523,
+          "sampleSize": 8,
+          "placedCount": 1,
+          "nonPlacedCount": 7,
+          "hitRate": 0.125,
+          "adjustedHitRate": 0.2159,
+          "adjustedLift": -0.0364,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "西村真幸",
+      "trainingCenter": "栗東",
+      "sampleSize": 74,
+      "placedCount": 13,
+      "hitRate": 0.1757,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 22,
+        "placedCount": 2,
+        "hitRate": 0.0909,
+        "adjustedHitRate": 0.1549,
+        "baselineHitRate": 0.2252,
+        "adjustedLift": -0.0704,
+        "training": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 4,
+          "baselineHitRate": 0.2217,
+          "sampleSize": 9,
+          "placedCount": 0,
+          "nonPlacedCount": 9,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1529,
+          "adjustedLift": -0.0688
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 4,
+          "baselineHitRate": 0.2312,
+          "sampleSize": 13,
+          "placedCount": 2,
+          "nonPlacedCount": 11,
+          "hitRate": 0.1538,
+          "adjustedHitRate": 0.2007,
+          "adjustedLift": -0.0305,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "武井亮",
+      "trainingCenter": "美浦",
+      "sampleSize": 74,
+      "placedCount": 16,
+      "hitRate": 0.2162,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 45,
+        "placedCount": 5,
+        "hitRate": 0.1111,
+        "adjustedHitRate": 0.1446,
+        "baselineHitRate": 0.2199,
+        "adjustedLift": -0.0753,
+        "training": {
+          "comparableSampleSize": 52,
+          "comparablePlacedCount": 13,
+          "baselineHitRate": 0.2423,
+          "sampleSize": 34,
+          "placedCount": 4,
+          "nonPlacedCount": 30,
+          "hitRate": 0.1176,
+          "adjustedHitRate": 0.1638,
+          "adjustedLift": -0.0785
+        },
+        "validation": {
+          "comparableSampleSize": 22,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.1897,
+          "sampleSize": 11,
+          "placedCount": 1,
+          "nonPlacedCount": 10,
+          "hitRate": 0.0909,
+          "adjustedHitRate": 0.1547,
+          "adjustedLift": -0.0351,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "森田直行",
+      "trainingCenter": "栗東",
+      "sampleSize": 71,
+      "placedCount": 7,
+      "hitRate": 0.0986,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 24,
+        "placedCount": 1,
+        "hitRate": 0.0417,
+        "adjustedHitRate": 0.0939,
+        "baselineHitRate": 0.1566,
+        "adjustedLift": -0.0627,
+        "training": {
+          "comparableSampleSize": 22,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1705,
+          "sampleSize": 14,
+          "placedCount": 0,
+          "nonPlacedCount": 14,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1003,
+          "adjustedLift": -0.0702
+        },
+        "validation": {
+          "comparableSampleSize": 11,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1918,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1612,
+          "adjustedLift": -0.0306,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "池添学",
+      "trainingCenter": "栗東",
+      "sampleSize": 69,
+      "placedCount": 24,
+      "hitRate": 0.3478,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "rotationBucket": "21-42"
+        },
+        "phrase": "前走から21〜42日",
+        "sampleSize": 12,
+        "placedCount": 6,
+        "hitRate": 0.5,
+        "adjustedHitRate": 0.3505,
+        "baselineHitRate": 0.2608,
+        "adjustedLift": 0.0897,
+        "training": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2759,
+          "sampleSize": 7,
+          "placedCount": 4,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5714,
+          "adjustedHitRate": 0.3525,
+          "adjustedLift": 0.0766
+        },
+        "validation": {
+          "comparableSampleSize": 14,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2242,
+          "sampleSize": 5,
+          "placedCount": 2,
+          "nonPlacedCount": 3,
+          "hitRate": 0.4,
+          "adjustedHitRate": 0.2594,
+          "adjustedLift": 0.0352,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "奥村武",
+      "trainingCenter": "美浦",
+      "sampleSize": 68,
+      "placedCount": 17,
+      "hitRate": 0.25,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "rotationBucket": "21-42"
+        },
+        "phrase": "前走から21〜42日",
+        "sampleSize": 17,
+        "placedCount": 8,
+        "hitRate": 0.4706,
+        "adjustedHitRate": 0.3479,
+        "baselineHitRate": 0.2437,
+        "adjustedLift": 0.1042,
+        "training": {
+          "comparableSampleSize": 14,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2924,
+          "sampleSize": 10,
+          "placedCount": 6,
+          "nonPlacedCount": 4,
+          "hitRate": 0.6,
+          "adjustedHitRate": 0.3949,
+          "adjustedLift": 0.1025
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1886,
+          "sampleSize": 7,
+          "placedCount": 2,
+          "nonPlacedCount": 5,
+          "hitRate": 0.2857,
+          "adjustedHitRate": 0.2138,
+          "adjustedLift": 0.0252,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "加藤公太",
+      "trainingCenter": "栗東",
+      "sampleSize": 68,
+      "placedCount": 8,
+      "hitRate": 0.1176,
+      "period": {
+        "from": "2026-06-04",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "rotationBucket": "8-20"
+        },
+        "phrase": "前走から8〜20日",
+        "sampleSize": 19,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0808,
+        "baselineHitRate": 0.1575,
+        "adjustedLift": -0.0767,
+        "training": {
+          "comparableSampleSize": 24,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1457,
+          "sampleSize": 12,
+          "placedCount": 0,
+          "nonPlacedCount": 12,
+          "hitRate": 0,
+          "adjustedHitRate": 0.091,
+          "adjustedLift": -0.0546
+        },
+        "validation": {
+          "comparableSampleSize": 15,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2192,
+          "sampleSize": 7,
+          "placedCount": 0,
+          "nonPlacedCount": 7,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1624,
+          "adjustedLift": -0.0568,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "青木孝文",
+      "trainingCenter": "美浦",
+      "sampleSize": 68,
+      "placedCount": 10,
+      "hitRate": 0.1471,
+      "period": {
+        "from": "2026-06-03",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 40,
+        "placedCount": 3,
+        "hitRate": 0.075,
+        "adjustedHitRate": 0.108,
+        "baselineHitRate": 0.1739,
+        "adjustedLift": -0.0659,
+        "training": {
+          "comparableSampleSize": 47,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.1801,
+          "sampleSize": 28,
+          "placedCount": 2,
+          "nonPlacedCount": 26,
+          "hitRate": 0.0714,
+          "adjustedHitRate": 0.1167,
+          "adjustedLift": -0.0634
+        },
+        "validation": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.1973,
+          "sampleSize": 12,
+          "placedCount": 1,
+          "nonPlacedCount": 11,
+          "hitRate": 0.0833,
+          "adjustedHitRate": 0.1546,
+          "adjustedLift": -0.0427,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "福永祐一",
+      "trainingCenter": "栗東",
+      "sampleSize": 68,
+      "placedCount": 23,
+      "hitRate": 0.3382,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 44,
+        "placedCount": 19,
+        "hitRate": 0.4318,
+        "adjustedHitRate": 0.3921,
+        "baselineHitRate": 0.3047,
+        "adjustedLift": 0.0874,
+        "training": {
+          "comparableSampleSize": 48,
+          "comparablePlacedCount": 17,
+          "baselineHitRate": 0.306,
+          "sampleSize": 30,
+          "placedCount": 14,
+          "nonPlacedCount": 16,
+          "hitRate": 0.4667,
+          "adjustedHitRate": 0.4024,
+          "adjustedLift": 0.0964
+        },
+        "validation": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2573,
+          "sampleSize": 14,
+          "placedCount": 5,
+          "nonPlacedCount": 9,
+          "hitRate": 0.3571,
+          "adjustedHitRate": 0.2984,
+          "adjustedLift": 0.0411,
+          "status": "passed"
+        }
+      },
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 24,
+        "placedCount": 4,
+        "hitRate": 0.1667,
+        "adjustedHitRate": 0.2294,
+        "baselineHitRate": 0.3047,
+        "adjustedLift": -0.0753,
+        "training": {
+          "comparableSampleSize": 48,
+          "comparablePlacedCount": 17,
+          "baselineHitRate": 0.306,
+          "sampleSize": 18,
+          "placedCount": 3,
+          "nonPlacedCount": 15,
+          "hitRate": 0.1667,
+          "adjustedHitRate": 0.24,
+          "adjustedLift": -0.066
+        },
+        "validation": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2573,
+          "sampleSize": 6,
+          "placedCount": 1,
+          "nonPlacedCount": 5,
+          "hitRate": 0.1667,
+          "adjustedHitRate": 0.2364,
+          "adjustedLift": -0.0209,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "杉浦宏昭",
+      "trainingCenter": "美浦",
+      "sampleSize": 67,
+      "placedCount": 11,
+      "hitRate": 0.1642,
+      "period": {
+        "from": "2026-06-03",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 37,
+        "placedCount": 2,
+        "hitRate": 0.0541,
+        "adjustedHitRate": 0.1004,
+        "baselineHitRate": 0.1861,
+        "adjustedLift": -0.0857,
+        "training": {
+          "comparableSampleSize": 46,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.1956,
+          "sampleSize": 26,
+          "placedCount": 1,
+          "nonPlacedCount": 25,
+          "hitRate": 0.0385,
+          "adjustedHitRate": 0.1068,
+          "adjustedLift": -0.0888
+        },
+        "validation": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.1973,
+          "sampleSize": 11,
+          "placedCount": 1,
+          "nonPlacedCount": 10,
+          "hitRate": 0.0909,
+          "adjustedHitRate": 0.1596,
+          "adjustedLift": -0.0378,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "藤岡健一",
+      "trainingCenter": "栗東",
+      "sampleSize": 67,
+      "placedCount": 12,
+      "hitRate": 0.1791,
+      "period": {
+        "from": "2026-06-07",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 33,
+        "placedCount": 3,
+        "hitRate": 0.0909,
+        "adjustedHitRate": 0.13,
+        "baselineHitRate": 0.1945,
+        "adjustedLift": -0.0645,
+        "training": {
+          "comparableSampleSize": 47,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.1931,
+          "sampleSize": 20,
+          "placedCount": 2,
+          "nonPlacedCount": 18,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1465,
+          "adjustedLift": -0.0465
+        },
+        "validation": {
+          "comparableSampleSize": 20,
+          "comparablePlacedCount": 4,
+          "baselineHitRate": 0.2173,
+          "sampleSize": 13,
+          "placedCount": 1,
+          "nonPlacedCount": 12,
+          "hitRate": 0.0769,
+          "adjustedHitRate": 0.162,
+          "adjustedLift": -0.0553,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "天間昭一",
+      "trainingCenter": "美浦",
+      "sampleSize": 66,
+      "placedCount": 7,
+      "hitRate": 0.1061,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 43,
+        "placedCount": 4,
+        "hitRate": 0.093,
+        "adjustedHitRate": 0.1093,
+        "baselineHitRate": 0.1444,
+        "adjustedLift": -0.0351,
+        "training": {
+          "comparableSampleSize": 47,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.1541,
+          "sampleSize": 26,
+          "placedCount": 2,
+          "nonPlacedCount": 24,
+          "hitRate": 0.0769,
+          "adjustedHitRate": 0.1105,
+          "adjustedLift": -0.0436
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1809,
+          "sampleSize": 17,
+          "placedCount": 2,
+          "nonPlacedCount": 15,
+          "hitRate": 0.1176,
+          "adjustedHitRate": 0.1519,
+          "adjustedLift": -0.0291,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "加藤士津",
+      "trainingCenter": "美浦",
+      "sampleSize": 64,
+      "placedCount": 16,
+      "hitRate": 0.25,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": false,
+          "travelClass": "home"
+        },
+        "phrase": "騎手乗り替わり × 所属圏内",
+        "sampleSize": 14,
+        "placedCount": 6,
+        "hitRate": 0.4286,
+        "adjustedHitRate": 0.3415,
+        "baselineHitRate": 0.2805,
+        "adjustedLift": 0.061,
+        "training": {
+          "comparableSampleSize": 10,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2466,
+          "sampleSize": 6,
+          "placedCount": 3,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5,
+          "adjustedHitRate": 0.3051,
+          "adjustedLift": 0.0585
+        },
+        "validation": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2759,
+          "sampleSize": 8,
+          "placedCount": 3,
+          "nonPlacedCount": 5,
+          "hitRate": 0.375,
+          "adjustedHitRate": 0.3042,
+          "adjustedLift": 0.0283,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "宮徹",
+      "trainingCenter": "栗東",
+      "sampleSize": 64,
+      "placedCount": 15,
+      "hitRate": 0.2344,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 22,
+        "placedCount": 11,
+        "hitRate": 0.5,
+        "adjustedHitRate": 0.3739,
+        "baselineHitRate": 0.2351,
+        "adjustedLift": 0.1388,
+        "training": {
+          "comparableSampleSize": 44,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.2009,
+          "sampleSize": 12,
+          "placedCount": 5,
+          "nonPlacedCount": 7,
+          "hitRate": 0.4167,
+          "adjustedHitRate": 0.2818,
+          "adjustedLift": 0.0809
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.283,
+          "sampleSize": 10,
+          "placedCount": 6,
+          "nonPlacedCount": 4,
+          "hitRate": 0.6,
+          "adjustedHitRate": 0.3886,
+          "adjustedLift": 0.1057,
+          "status": "passed"
+        }
+      },
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 41,
+        "placedCount": 4,
+        "hitRate": 0.0976,
+        "adjustedHitRate": 0.1427,
+        "baselineHitRate": 0.2351,
+        "adjustedLift": -0.0925,
+        "training": {
+          "comparableSampleSize": 44,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.2009,
+          "sampleSize": 32,
+          "placedCount": 3,
+          "nonPlacedCount": 29,
+          "hitRate": 0.0938,
+          "adjustedHitRate": 0.135,
+          "adjustedLift": -0.0659
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.283,
+          "sampleSize": 9,
+          "placedCount": 1,
+          "nonPlacedCount": 8,
+          "hitRate": 0.1111,
+          "adjustedHitRate": 0.2296,
+          "adjustedLift": -0.0533,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "四位洋文",
+      "trainingCenter": "栗東",
+      "sampleSize": 64,
+      "placedCount": 19,
+      "hitRate": 0.2969,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 27,
+        "placedCount": 12,
+        "hitRate": 0.4444,
+        "adjustedHitRate": 0.3691,
+        "baselineHitRate": 0.2674,
+        "adjustedLift": 0.1017,
+        "training": {
+          "comparableSampleSize": 44,
+          "comparablePlacedCount": 13,
+          "baselineHitRate": 0.2685,
+          "sampleSize": 17,
+          "placedCount": 8,
+          "nonPlacedCount": 9,
+          "hitRate": 0.4706,
+          "adjustedHitRate": 0.3613,
+          "adjustedLift": 0.0929
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2422,
+          "sampleSize": 10,
+          "placedCount": 4,
+          "nonPlacedCount": 6,
+          "hitRate": 0.4,
+          "adjustedHitRate": 0.2948,
+          "adjustedLift": 0.0526,
+          "status": "passed"
+        }
+      },
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 36,
+        "placedCount": 6,
+        "hitRate": 0.1667,
+        "adjustedHitRate": 0.2026,
+        "baselineHitRate": 0.2674,
+        "adjustedLift": -0.0647,
+        "training": {
+          "comparableSampleSize": 44,
+          "comparablePlacedCount": 13,
+          "baselineHitRate": 0.2685,
+          "sampleSize": 27,
+          "placedCount": 5,
+          "nonPlacedCount": 22,
+          "hitRate": 0.1852,
+          "adjustedHitRate": 0.2206,
+          "adjustedLift": -0.0478
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2422,
+          "sampleSize": 9,
+          "placedCount": 1,
+          "nonPlacedCount": 8,
+          "hitRate": 0.1111,
+          "adjustedHitRate": 0.2015,
+          "adjustedLift": -0.0407,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "深山雅史",
+      "trainingCenter": "美浦",
+      "sampleSize": 64,
+      "placedCount": 9,
+      "hitRate": 0.1406,
+      "period": {
+        "from": "2026-06-07",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 27,
+        "placedCount": 2,
+        "hitRate": 0.0741,
+        "adjustedHitRate": 0.1144,
+        "baselineHitRate": 0.1688,
+        "adjustedLift": -0.0544,
+        "training": {
+          "comparableSampleSize": 45,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.1982,
+          "sampleSize": 17,
+          "placedCount": 1,
+          "nonPlacedCount": 16,
+          "hitRate": 0.0588,
+          "adjustedHitRate": 0.1342,
+          "adjustedLift": -0.064
+        },
+        "validation": {
+          "comparableSampleSize": 19,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1605,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1403,
+          "adjustedLift": -0.0202,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "新谷功一",
+      "trainingCenter": "栗東",
+      "sampleSize": 63,
+      "placedCount": 16,
+      "hitRate": 0.254,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 21,
+        "placedCount": 2,
+        "hitRate": 0.0952,
+        "adjustedHitRate": 0.1647,
+        "baselineHitRate": 0.2377,
+        "adjustedLift": -0.073,
+        "training": {
+          "comparableSampleSize": 44,
+          "comparablePlacedCount": 12,
+          "baselineHitRate": 0.2549,
+          "sampleSize": 11,
+          "placedCount": 1,
+          "nonPlacedCount": 10,
+          "hitRate": 0.0909,
+          "adjustedHitRate": 0.1967,
+          "adjustedLift": -0.0582
+        },
+        "validation": {
+          "comparableSampleSize": 18,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2055,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1704,
+          "adjustedLift": -0.0352,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "久保田貴",
+      "trainingCenter": "美浦",
+      "sampleSize": 62,
+      "placedCount": 24,
+      "hitRate": 0.3871,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": true
+        },
+        "phrase": "前走騎手が継続",
+        "sampleSize": 15,
+        "placedCount": 9,
+        "hitRate": 0.6,
+        "adjustedHitRate": 0.4674,
+        "baselineHitRate": 0.3679,
+        "adjustedLift": 0.0995,
+        "training": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.3457,
+          "sampleSize": 7,
+          "placedCount": 5,
+          "nonPlacedCount": 2,
+          "hitRate": 0.7143,
+          "adjustedHitRate": 0.4413,
+          "adjustedLift": 0.0956
+        },
+        "validation": {
+          "comparableSampleSize": 11,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2894,
+          "sampleSize": 8,
+          "placedCount": 4,
+          "nonPlacedCount": 4,
+          "hitRate": 0.5,
+          "adjustedHitRate": 0.3496,
+          "adjustedLift": 0.0602,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "高橋亮",
+      "trainingCenter": "栗東",
+      "sampleSize": 61,
+      "placedCount": 20,
+      "hitRate": 0.3279,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 14,
+        "placedCount": 8,
+        "hitRate": 0.5714,
+        "adjustedHitRate": 0.4234,
+        "baselineHitRate": 0.3198,
+        "adjustedLift": 0.1036,
+        "training": {
+          "comparableSampleSize": 15,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.3081,
+          "sampleSize": 9,
+          "placedCount": 5,
+          "nonPlacedCount": 4,
+          "hitRate": 0.5556,
+          "adjustedHitRate": 0.3849,
+          "adjustedLift": 0.0768
+        },
+        "validation": {
+          "comparableSampleSize": 14,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2697,
+          "sampleSize": 5,
+          "placedCount": 3,
+          "nonPlacedCount": 2,
+          "hitRate": 0.6,
+          "adjustedHitRate": 0.3357,
+          "adjustedLift": 0.0661,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "畑端省吾",
+      "trainingCenter": "栗東",
+      "sampleSize": 61,
+      "placedCount": 6,
+      "hitRate": 0.0984,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 19,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0708,
+        "baselineHitRate": 0.138,
+        "adjustedLift": -0.0672,
+        "training": {
+          "comparableSampleSize": 14,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1788,
+          "sampleSize": 10,
+          "placedCount": 0,
+          "nonPlacedCount": 10,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1192,
+          "adjustedLift": -0.0596
+        },
+        "validation": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1597,
+          "sampleSize": 9,
+          "placedCount": 0,
+          "nonPlacedCount": 9,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1101,
+          "adjustedLift": -0.0496,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "今野貞一",
+      "trainingCenter": "栗東",
+      "sampleSize": 59,
+      "placedCount": 9,
+      "hitRate": 0.1525,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 38,
+        "placedCount": 4,
+        "hitRate": 0.1053,
+        "adjustedHitRate": 0.1318,
+        "baselineHitRate": 0.1824,
+        "adjustedLift": -0.0505,
+        "training": {
+          "comparableSampleSize": 40,
+          "comparablePlacedCount": 7,
+          "baselineHitRate": 0.1981,
+          "sampleSize": 27,
+          "placedCount": 3,
+          "nonPlacedCount": 24,
+          "hitRate": 0.1111,
+          "adjustedHitRate": 0.1481,
+          "adjustedLift": -0.05
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1886,
+          "sampleSize": 11,
+          "placedCount": 1,
+          "nonPlacedCount": 10,
+          "hitRate": 0.0909,
+          "adjustedHitRate": 0.154,
+          "adjustedLift": -0.0347,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "柄崎将寿",
+      "trainingCenter": "美浦",
+      "sampleSize": 59,
+      "placedCount": 5,
+      "hitRate": 0.0847,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 38,
+        "placedCount": 2,
+        "hitRate": 0.0526,
+        "adjustedHitRate": 0.0805,
+        "baselineHitRate": 0.1333,
+        "adjustedLift": -0.0529,
+        "training": {
+          "comparableSampleSize": 42,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.1648,
+          "sampleSize": 27,
+          "placedCount": 2,
+          "nonPlacedCount": 25,
+          "hitRate": 0.0741,
+          "adjustedHitRate": 0.1127,
+          "adjustedLift": -0.0521
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1461,
+          "sampleSize": 11,
+          "placedCount": 0,
+          "nonPlacedCount": 11,
+          "hitRate": 0,
+          "adjustedHitRate": 0.0942,
+          "adjustedLift": -0.0518,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "本間忍",
+      "trainingCenter": "美浦",
+      "sampleSize": 59,
+      "placedCount": 4,
+      "hitRate": 0.0678,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": true
+        },
+        "phrase": "前走騎手が継続",
+        "sampleSize": 15,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0817,
+        "baselineHitRate": 0.143,
+        "adjustedLift": -0.0613,
+        "training": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1597,
+          "sampleSize": 9,
+          "placedCount": 0,
+          "nonPlacedCount": 9,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1101,
+          "adjustedLift": -0.0496
+        },
+        "validation": {
+          "comparableSampleSize": 12,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1873,
+          "sampleSize": 6,
+          "placedCount": 0,
+          "nonPlacedCount": 6,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1441,
+          "adjustedLift": -0.0432,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "和田雄二",
+      "trainingCenter": "美浦",
+      "sampleSize": 59,
+      "placedCount": 7,
+      "hitRate": 0.1186,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 34,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0584,
+        "baselineHitRate": 0.1576,
+        "adjustedLift": -0.0992,
+        "training": {
+          "comparableSampleSize": 41,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.1671,
+          "sampleSize": 23,
+          "placedCount": 0,
+          "nonPlacedCount": 23,
+          "hitRate": 0,
+          "adjustedHitRate": 0.0777,
+          "adjustedLift": -0.0894
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1886,
+          "sampleSize": 11,
+          "placedCount": 0,
+          "nonPlacedCount": 11,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1217,
+          "adjustedLift": -0.0669,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "村田一誠",
+      "trainingCenter": "美浦",
+      "sampleSize": 58,
+      "placedCount": 17,
+      "hitRate": 0.2931,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-29"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 19,
+        "placedCount": 8,
+        "hitRate": 0.4211,
+        "adjustedHitRate": 0.3442,
+        "baselineHitRate": 0.2712,
+        "adjustedLift": 0.073,
+        "training": {
+          "comparableSampleSize": 41,
+          "comparablePlacedCount": 14,
+          "baselineHitRate": 0.2939,
+          "sampleSize": 13,
+          "placedCount": 6,
+          "nonPlacedCount": 7,
+          "hitRate": 0.4615,
+          "adjustedHitRate": 0.3599,
+          "adjustedLift": 0.066
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2099,
+          "sampleSize": 6,
+          "placedCount": 2,
+          "nonPlacedCount": 4,
+          "hitRate": 0.3333,
+          "adjustedHitRate": 0.2384,
+          "adjustedLift": 0.0285,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "石橋守",
+      "trainingCenter": "栗東",
+      "sampleSize": 57,
+      "placedCount": 17,
+      "hitRate": 0.2982,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "rotationBucket": "21-42"
+        },
+        "phrase": "前走から21〜42日",
+        "sampleSize": 13,
+        "placedCount": 8,
+        "hitRate": 0.6154,
+        "adjustedHitRate": 0.4173,
+        "baselineHitRate": 0.2885,
+        "adjustedLift": 0.1288,
+        "training": {
+          "comparableSampleSize": 12,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2825,
+          "sampleSize": 6,
+          "placedCount": 5,
+          "nonPlacedCount": 1,
+          "hitRate": 0.8333,
+          "adjustedHitRate": 0.4096,
+          "adjustedLift": 0.1271
+        },
+        "validation": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 4,
+          "baselineHitRate": 0.2527,
+          "sampleSize": 7,
+          "placedCount": 3,
+          "nonPlacedCount": 4,
+          "hitRate": 0.4286,
+          "adjustedHitRate": 0.2983,
+          "adjustedLift": 0.0456,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "和田正一",
+      "trainingCenter": "美浦",
+      "sampleSize": 57,
+      "placedCount": 8,
+      "hitRate": 0.1404,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 36,
+        "placedCount": 3,
+        "hitRate": 0.0833,
+        "adjustedHitRate": 0.1112,
+        "baselineHitRate": 0.1612,
+        "adjustedLift": -0.0501,
+        "training": {
+          "comparableSampleSize": 39,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.172,
+          "sampleSize": 26,
+          "placedCount": 2,
+          "nonPlacedCount": 24,
+          "hitRate": 0.0769,
+          "adjustedHitRate": 0.1182,
+          "adjustedLift": -0.0537
+        },
+        "validation": {
+          "comparableSampleSize": 17,
+          "comparablePlacedCount": 2,
+          "baselineHitRate": 0.1886,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1591,
+          "adjustedLift": -0.0295,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "室井潔",
+      "trainingCenter": "美浦",
+      "sampleSize": 56,
+      "placedCount": 4,
+      "hitRate": 0.0714,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 26,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0549,
+        "baselineHitRate": 0.1263,
+        "adjustedLift": -0.0714,
+        "training": {
+          "comparableSampleSize": 40,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.1409,
+          "sampleSize": 18,
+          "placedCount": 0,
+          "nonPlacedCount": 18,
+          "hitRate": 0,
+          "adjustedHitRate": 0.0742,
+          "adjustedLift": -0.0668
+        },
+        "validation": {
+          "comparableSampleSize": 16,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.171,
+          "sampleSize": 8,
+          "placedCount": 0,
+          "nonPlacedCount": 8,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1221,
+          "adjustedLift": -0.0489,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "柴田卓",
+      "trainingCenter": "栗東",
+      "sampleSize": 56,
+      "placedCount": 17,
+      "hitRate": 0.3036,
+      "period": {
+        "from": "2026-06-13",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 23,
+        "placedCount": 11,
+        "hitRate": 0.4783,
+        "adjustedHitRate": 0.3849,
+        "baselineHitRate": 0.2775,
+        "adjustedLift": 0.1074,
+        "training": {
+          "comparableSampleSize": 40,
+          "comparablePlacedCount": 11,
+          "baselineHitRate": 0.2552,
+          "sampleSize": 17,
+          "placedCount": 8,
+          "nonPlacedCount": 9,
+          "hitRate": 0.4706,
+          "adjustedHitRate": 0.3542,
+          "adjustedLift": 0.099
+        },
+        "validation": {
+          "comparableSampleSize": 16,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2797,
+          "sampleSize": 6,
+          "placedCount": 3,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5,
+          "adjustedHitRate": 0.3305,
+          "adjustedLift": 0.0508,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "安達昭夫",
+      "trainingCenter": "栗東",
+      "sampleSize": 54,
+      "placedCount": 5,
+      "hitRate": 0.0926,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": true
+        },
+        "phrase": "前走騎手が継続",
+        "sampleSize": 19,
+        "placedCount": 1,
+        "hitRate": 0.0526,
+        "adjustedHitRate": 0.116,
+        "baselineHitRate": 0.1762,
+        "adjustedLift": -0.0602,
+        "training": {
+          "comparableSampleSize": 11,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1675,
+          "sampleSize": 9,
+          "placedCount": 0,
+          "nonPlacedCount": 9,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1155,
+          "adjustedLift": -0.052
+        },
+        "validation": {
+          "comparableSampleSize": 15,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2192,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1795,
+          "adjustedLift": -0.0397,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "武藤善則",
+      "trainingCenter": "美浦",
+      "sampleSize": 54,
+      "placedCount": 10,
+      "hitRate": 0.1852,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 13,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.1219,
+        "baselineHitRate": 0.2012,
+        "adjustedLift": -0.0793,
+        "training": {
+          "comparableSampleSize": 11,
+          "comparablePlacedCount": 3,
+          "baselineHitRate": 0.2406,
+          "sampleSize": 6,
+          "placedCount": 0,
+          "nonPlacedCount": 6,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1851,
+          "adjustedLift": -0.0555
+        },
+        "validation": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1829,
+          "sampleSize": 7,
+          "placedCount": 0,
+          "nonPlacedCount": 7,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1355,
+          "adjustedLift": -0.0474,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "平岩大典",
+      "trainingCenter": "美浦",
+      "sampleSize": 54,
+      "placedCount": 14,
+      "hitRate": 0.2593,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "travelClass": "away"
+        },
+        "phrase": "遠征",
+        "sampleSize": 19,
+        "placedCount": 9,
+        "hitRate": 0.4737,
+        "adjustedHitRate": 0.3582,
+        "baselineHitRate": 0.2484,
+        "adjustedLift": 0.1098,
+        "training": {
+          "comparableSampleSize": 38,
+          "comparablePlacedCount": 8,
+          "baselineHitRate": 0.2186,
+          "sampleSize": 11,
+          "placedCount": 5,
+          "nonPlacedCount": 6,
+          "hitRate": 0.4545,
+          "adjustedHitRate": 0.3023,
+          "adjustedLift": 0.0837
+        },
+        "validation": {
+          "comparableSampleSize": 16,
+          "comparablePlacedCount": 6,
+          "baselineHitRate": 0.2797,
+          "sampleSize": 8,
+          "placedCount": 4,
+          "nonPlacedCount": 4,
+          "hitRate": 0.5,
+          "adjustedHitRate": 0.3426,
+          "adjustedLift": 0.0629,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    },
+    {
+      "name": "蛯名利弘",
+      "trainingCenter": "美浦",
+      "sampleSize": 52,
+      "placedCount": 6,
+      "hitRate": 0.1154,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 30,
+        "placedCount": 2,
+        "hitRate": 0.0667,
+        "adjustedHitRate": 0.1028,
+        "baselineHitRate": 0.1569,
+        "adjustedLift": -0.0541,
+        "training": {
+          "comparableSampleSize": 37,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.1771,
+          "sampleSize": 20,
+          "placedCount": 1,
+          "nonPlacedCount": 19,
+          "hitRate": 0.05,
+          "adjustedHitRate": 0.1135,
+          "adjustedLift": -0.0635
+        },
+        "validation": {
+          "comparableSampleSize": 15,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1748,
+          "sampleSize": 10,
+          "placedCount": 1,
+          "nonPlacedCount": 9,
+          "hitRate": 0.1,
+          "adjustedHitRate": 0.1499,
+          "adjustedLift": -0.0249,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "加藤和宏",
+      "trainingCenter": "美浦",
+      "sampleSize": 48,
+      "placedCount": 1,
+      "hitRate": 0.0208,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "jockeyContinuity": false
+        },
+        "phrase": "騎手乗り替わり",
+        "sampleSize": 15,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0785,
+        "baselineHitRate": 0.1373,
+        "adjustedLift": -0.0588,
+        "training": {
+          "comparableSampleSize": 13,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1597,
+          "sampleSize": 10,
+          "placedCount": 0,
+          "nonPlacedCount": 10,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1064,
+          "adjustedLift": -0.0532
+        },
+        "validation": {
+          "comparableSampleSize": 7,
+          "comparablePlacedCount": 0,
+          "baselineHitRate": 0.1856,
+          "sampleSize": 5,
+          "placedCount": 0,
+          "nonPlacedCount": 5,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1484,
+          "adjustedLift": -0.0371,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "的場均",
+      "trainingCenter": "美浦",
+      "sampleSize": 48,
+      "placedCount": 2,
+      "hitRate": 0.0417,
+      "period": {
+        "from": "2026-06-06",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": null,
+      "riskPattern": {
+        "accepted": true,
+        "direction": "risk",
+        "pattern": {
+          "travelClass": "home"
+        },
+        "phrase": "所属圏内",
+        "sampleSize": 28,
+        "placedCount": 0,
+        "hitRate": 0,
+        "adjustedHitRate": 0.0474,
+        "baselineHitRate": 0.1137,
+        "adjustedLift": -0.0663,
+        "training": {
+          "comparableSampleSize": 34,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1229,
+          "sampleSize": 21,
+          "placedCount": 0,
+          "nonPlacedCount": 21,
+          "hitRate": 0,
+          "adjustedHitRate": 0.06,
+          "adjustedLift": -0.0629
+        },
+        "validation": {
+          "comparableSampleSize": 14,
+          "comparablePlacedCount": 1,
+          "baselineHitRate": 0.1788,
+          "sampleSize": 7,
+          "placedCount": 0,
+          "nonPlacedCount": 7,
+          "hitRate": 0,
+          "adjustedHitRate": 0.1324,
+          "adjustedLift": -0.0463,
+          "status": "passed"
+        }
+      }
+    },
+    {
+      "name": "秋本大介",
+      "trainingCenter": "美浦",
+      "sampleSize": 46,
+      "placedCount": 15,
+      "hitRate": 0.3261,
+      "period": {
+        "from": "2026-06-13",
+        "to": "2026-08-30"
+      },
+      "confidence": "mid",
+      "positivePattern": {
+        "accepted": true,
+        "direction": "positive",
+        "pattern": {
+          "jockeyContinuity": true
+        },
+        "phrase": "前走騎手が継続",
+        "sampleSize": 12,
+        "placedCount": 8,
+        "hitRate": 0.6667,
+        "adjustedHitRate": 0.4527,
+        "baselineHitRate": 0.3243,
+        "adjustedLift": 0.1284,
+        "training": {
+          "comparableSampleSize": 12,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2825,
+          "sampleSize": 5,
+          "placedCount": 4,
+          "nonPlacedCount": 1,
+          "hitRate": 0.8,
+          "adjustedHitRate": 0.386,
+          "adjustedLift": 0.1035
+        },
+        "validation": {
+          "comparableSampleSize": 10,
+          "comparablePlacedCount": 5,
+          "baselineHitRate": 0.2966,
+          "sampleSize": 7,
+          "placedCount": 4,
+          "nonPlacedCount": 3,
+          "hitRate": 0.5714,
+          "adjustedHitRate": 0.3679,
+          "adjustedLift": 0.0712,
+          "status": "passed"
+        }
+      },
+      "riskPattern": null
+    }
+  ]
+}

@@ -7,10 +7,10 @@ import { buildRacePaceShapePrediction } from "./lib/pace-shape-shadow.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const ARCHIVE_DIR = join(ROOT, "data", "archive");
-const SHADOW_DIR = join(ROOT, "data", "shadow", "pace-shape-v1");
+const SHADOW_DIR = join(ROOT, "data", "shadow", "pace-shape-v2");
 const HISTORY_PATH = join(ROOT, "data", "master", "race-shape-history.json");
 const DEFAULT_INPUT = join(ROOT, "tools", "week-data.batch-candidate.json");
-const MODEL_VERSION = "pace-race-shape-shadow-v1";
+const MODEL_VERSION = "pace-race-shape-shadow-v2";
 const args = process.argv.slice(2);
 const valueAfter = (name, fallback) => {
   const index = args.indexOf(name);
@@ -66,11 +66,11 @@ const artifact = {
   raceDate,
   productionConnected: false,
   policy: {
-    purpose: "過去走race-shapeによる展開利不利の事前影評価",
+    purpose: "過去走の公式ラップ・隊列結果による展開利不利の事前影評価",
     currentRaceResultRead: false,
     futureRaceShapeJoinAllowed: false,
     popularityOddsValueUsed: false,
-    observedRaceLapUsed: false,
+    observedRaceLapUsed: history.policy?.actualRaceLapsAvailable === true,
     currentRacePaceScenarioChanged: false,
     maxPaceAdjustment: 2,
   },
@@ -113,7 +113,7 @@ const report = `# Pace Race Shape 事前影評価 (${raceDate})
 - Pace首位変更: ${artifact.summary.paceLeaderChangedRaceCount}レース
 - TM首位変更: ${artifact.summary.tmLeaderChangedRaceCount}レース
 - 最大Pace補正: ${artifact.summary.maxAbsAdjustment}点
-- 実ラップではなく前残り・前崩れのrace-shape proxy
+- 公式ラップの前傾・後傾と、前残り・差し決着を分離して評価
 - 予測SHA256: \`${predictionSha256}\`
 
 | レース | レース名 | 現Pace首位 | 影Pace首位 | 補正頭数 |

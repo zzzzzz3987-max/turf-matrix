@@ -1,4 +1,5 @@
 import {
+  assessHorseFlow,
   buildRaceShapeIndex,
   normalizeName,
   raceShapeKey,
@@ -32,6 +33,17 @@ const findHistoryHorse = (race, horse, run) => {
 };
 
 const shapeImpact = (race, historyHorse, run = {}) => {
+  if (finite(historyHorse?.flowImpact)) {
+    return {
+      impact: Number(historyHorse.flowImpact),
+      reason: historyHorse.flowReason ?? "実ラップと隊列結果から展開利不利を判定",
+      assessment: historyHorse.flowAssessment ?? "neutral",
+    };
+  }
+  if (race?.pace) {
+    const flow = assessHorseFlow(race, historyHorse);
+    return { impact: flow.impact, reason: flow.reason, assessment: flow.assessment };
+  }
   if (!race || !historyHorse || race.shape === "neutral") return { impact: 0, reason: "中立形状" };
   const finish = Number(historyHorse.finishPosition);
   const topHalf = finish <= Math.ceil(Number(race.fieldSize) / 2);
@@ -74,10 +86,17 @@ const buildPaceShapeProfile = (horse, history) => {
       raceNumber: Number(run.raceNumber ?? run.raceNo),
       raceName: run.raceName ?? null,
       shape: race.shape,
+      outcomeLabel: race.outcome?.label ?? null,
       shapeConfidence: race.confidence,
+      paceClass: race.pace?.classification ?? null,
+      paceLabel: race.pace?.label ?? null,
+      first3F: race.pace?.first3F ?? null,
+      last3F: race.pace?.last3F ?? null,
+      paceDeltaSeconds: race.pace?.deltaSeconds ?? null,
       role: historyHorse.role,
       finishPosition: historyHorse.finishPosition,
       impact: result.impact,
+      assessment: result.assessment ?? historyHorse.flowAssessment ?? "neutral",
       reason: result.reason,
     });
     if (matches.length >= RECENCY_WEIGHTS.length) break;
@@ -120,7 +139,7 @@ const buildPaceShapeShadow = (horse, currentPace, history) => {
       currentRaceResultUsed: false,
       futureRaceShapeAllowed: false,
       popularityOddsValueUsed: false,
-      observedRaceLapUsed: false,
+      observedRaceLapUsed: profile.runs.some((run) => run.paceClass != null),
       raceOutcomeShapeProxyUsed: true,
       currentRacePaceScenarioChanged: false,
     },

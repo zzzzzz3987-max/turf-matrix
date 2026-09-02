@@ -7,7 +7,7 @@ import { aggregatePaceShapeEvaluation, evaluateRacePaceShapePrediction } from ".
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const ARCHIVE_DIR = join(ROOT, "data", "archive");
-const SHADOW_DIR = join(ROOT, "data", "shadow", "pace-shape-v1");
+const SHADOW_DIR = join(ROOT, "data", "shadow", "pace-shape-v2");
 const TODAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Tokyo", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 const OUTPUT = join(ROOT, "docs", "analysis", `pace-shape-shadow-evaluation-${TODAY}.md`);
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
@@ -28,7 +28,7 @@ for (const artifact of artifacts) {
     predictions: artifact.predictions,
   }));
   if (expected !== artifact.predictionSha256) throw new Error(`Frozen Pace prediction hash mismatch: ${artifact.raceDate}`);
-  if (artifact.productionConnected !== false || artifact.policy.currentRaceResultRead !== false || artifact.policy.futureRaceShapeJoinAllowed !== false || artifact.policy.popularityOddsValueUsed !== false || artifact.policy.observedRaceLapUsed !== false) {
+  if (artifact.productionConnected !== false || artifact.policy.currentRaceResultRead !== false || artifact.policy.futureRaceShapeJoinAllowed !== false || artifact.policy.popularityOddsValueUsed !== false || artifact.policy.observedRaceLapUsed !== true) {
     throw new Error(`Invalid Pace pre-race policy: ${artifact.raceDate}`);
   }
   const resultPath = join(ARCHIVE_DIR, `${artifact.raceDate}-results.json`);

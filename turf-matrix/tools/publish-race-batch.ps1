@@ -29,13 +29,17 @@ try {
     Run-Step "Refresh Training history" { npm run learn:training:history }
     Run-Step "Refresh Training empirical baselines" { npm run learn:training:baselines }
     Run-Step "Refresh Pace race-shape history" { npm run learn:pace:history }
+    Run-Step "Refresh Frame empirical aptitude" { npm run learn:frame:aptitude }
     Run-Step "Intelligence regression" { npm run test:intelligence }
     Run-Step "Production build" { npm run build }
     Run-Step "Freeze Ability pre-race shadow" { npm run shadow:ability:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Training pre-race shadow" { npm run shadow:training:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Stable operation pre-race shadow" { npm run shadow:stable:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Frame aptitude pre-race shadow" { npm run shadow:frame:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Form pre-race shadow" { npm run shadow:form:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace pre-race shadow" { npm run shadow:pace:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace context pre-race shadow" { npm run shadow:pace-context:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze public role Pace pre-race shadow" { npm run shadow:public-roles:pace:freeze -- --input tools/week-data.next.json }
     Run-Step "Whitespace validation" { git diff --check }
     try {
       Write-Host "==> Archive preodds snapshot"
@@ -65,13 +69,18 @@ try {
   $AbilityReport = "docs/analysis/ability-ceiling-shadow-$date.md"
   $TrainingShadow = "data/shadow/training-evidence-v1/$date-pre-race.json"
   $TrainingReport = "docs/analysis/training-evidence-shadow-$date.md"
+  $StableShadow = "data/shadow/stable-operation-v2/$date-pre-race.json"
+  $StableReport = "docs/analysis/stable-operation-shadow-$date.md"
+  $FrameShadow = "data/shadow/frame-aptitude-v2/$date-pre-race.json"
+  $FrameReport = "docs/analysis/frame-aptitude-shadow-$date.md"
   $FormShadow = "data/shadow/form-state-v1/$date-pre-race.json"
   $FormReport = "docs/analysis/form-state-shadow-$date.md"
-  $PaceShadow = "data/shadow/pace-shape-v1/$date-pre-race.json"
+  $PaceShadow = "data/shadow/pace-shape-v2/$date-pre-race.json"
   $PaceReport = "docs/analysis/pace-shape-shadow-$date.md"
   $PaceContextShadow = "data/shadow/pace-context-v1/$date-pre-race.json"
   $PaceContextReport = "docs/analysis/pace-context-shadow-$date.md"
-  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json
+  $PublicRolePaceShadow = "data/shadow/public-role-pace-v3/$date-pre-race.json"
+  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $StableShadow $StableReport $FrameShadow $FrameReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport $PublicRolePaceShadow data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json data/master/frame-aptitude.json
   Run-Step "Commit weekly race data" { git commit -m $CommitMessage }
   $Committed = $true
   Run-Step "Push main" { git push origin main }

@@ -1,6 +1,14 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { buildTrainingProfile } from "../intelligence/training-ai.mjs";
+import {
+  affiliationLabel,
+  daysBetween,
+  isoDate,
+  normalizeKey,
+  rotationBucket,
+  travelClass,
+} from "../intelligence/stable-operation-features.mjs";
 import { trainingPhaseSnapshot } from "./stable-pattern-learning.mjs";
 
 const args = process.argv.slice(2);
@@ -10,21 +18,15 @@ const valueAfter = (flag, fallback) => {
 };
 const inputDir = resolve(valueAfter("--input-dir", "tools/jvlink/output/stable-history"));
 const outputPath = resolve(valueAfter("--output", "tools/jvlink/output/stable-history-observations.json"));
-const normalize = (value) => String(value ?? "").normalize("NFKC").replace(/\s+/g, "").trim();
-const isoDate = (value) => String(value ?? "").replace(/^(\d{4})(\d{2})(\d{2})$/, "$1-$2-$3");
-const daysBetween = (earlier, later) => {
-  const a = Date.parse(`${isoDate(earlier)}T00:00:00Z`);
-  const b = Date.parse(`${isoDate(later)}T00:00:00Z`);
-  return Number.isFinite(a) && Number.isFinite(b) ? Math.round((b - a) / 86400000) : null;
-};
-const centerLabel = (code) => code === "0" ? "美浦" : code === "1" ? "栗東" : null;
+const normalize = normalizeKey;
+const resultIdentity = (result) => [result.raceKey ?? result.raceDate, result.bloodRegistrationNumber, normalize(result.horseName)].join("|");
 
 if (!existsSync(inputDir)) {
   console.error(`[ERROR] 履歴エクスポートディレクトリがありません: ${inputDir}`);
   process.exit(2);
 }
 
-const files = readdirSync(inputDir).filter((name) => name.endsWith(".json")).map((name) => join(inputDir, name));
+const files = readdirSync(inputDir).filter((name) => name.endsWith(".json")).sort().map((name) => join(inputDir, name));
 const resultsByKey = new Map();
 const slopeByKey = new Map();
 const woodByKey = new Map();
@@ -57,11 +59,62 @@ for (const row of woodByKey.values()) {
   woodByHorse.set(row.bloodRegistrationNumber, values);
 }
 
+const previousResultById = new Map();
+const resultsByHorse = new Map();
+for (const result of resultsByKey.values()) {
+  const registration = String(result.bloodRegistrationNumber ?? "").trim();
+  if (!registration) continue;
+  const rows = resultsByHorse.get(registration) ?? [];
+  rows.push(result);
+  resultsByHorse.set(registration, rows);
+}
+for (const rows of resultsByHorse.values()) {
+  rows.sort((left, right) => String(left.raceDate).localeCompare(String(right.raceDate)) || String(left.raceKey).localeCompare(String(right.raceKey)));
+  for (let index = 0; index < rows.length; index += 1) {
+    const current = rows[index];
+    const previous = rows.slice(0, index).reverse().find((row) => String(row.raceDate) < String(current.raceDate));
+    if (previous) previousResultById.set(resultIdentity(current), previous);
+  }
+}
+
 const observations = [];
+const operationObservations = [];
 let skippedWithoutTraining = 0;
 for (const result of resultsByKey.values()) {
   const registration = result.bloodRegistrationNumber;
   const raceDate = isoDate(result.raceDate);
+  const previousResult = previousResultById.get(resultIdentity(result)) ?? null;
+  const previousRaceDate = previousResult ? isoDate(previousResult.raceDate) : null;
+  const intervalDays = previousRaceDate ? daysBetween(previousRaceDate, raceDate) : null;
+  const currentJockey = String(result.jockeyName ?? "").trim() || null;
+  const previousJockey = String(previousResult?.jockeyName ?? "").trim() || null;
+  const sameTrainer = previousResult
+    ? normalize(previousResult.trainerName) === normalize(result.trainerName)
+    : null;
+  const courseCode = result.courseCode ?? String(result.raceKey ?? "").split("-")[1] ?? null;
+  const operation = {
+    id: ["jv-operation", result.raceKey ?? result.raceDate, registration, normalize(result.horseName)].join("|"),
+    trainer: result.trainerName,
+    bloodRegistrationNumber: registration,
+    trainingCenter: affiliationLabel(result.affiliationCode),
+    raceDate,
+    raceKey: result.raceKey ?? null,
+    courseCode,
+    horseNumber: Number(result.horseNumber) || null,
+    jockey: currentJockey,
+    previousRaceDate,
+    previousTrainer: previousResult?.trainerName ?? null,
+    previousJockey,
+    sameTrainer,
+    intervalDays: Number.isFinite(intervalDays) ? intervalDays : null,
+    rotationBucket: sameTrainer === false ? null : rotationBucket(intervalDays),
+    jockeyContinuity: currentJockey && previousJockey ? normalize(currentJockey) === normalize(previousJockey) : null,
+    travelClass: travelClass({ affiliationCode: result.affiliationCode, courseCode }),
+    finish: Number(result.finishPosition),
+    placed: Number(result.finishPosition) <= 3,
+    source: "jvlink-history",
+  };
+  operationObservations.push(operation);
   const slope = (slopeByHorse.get(registration) ?? []).filter((row) => {
     const days = daysBetween(row.date, raceDate);
     return Number.isFinite(days) && days >= 0 && days <= 45;
@@ -86,11 +139,11 @@ for (const result of resultsByKey.values()) {
   const horse = {
     horseName: result.horseName,
     trainer: result.trainerName,
-    stableSide: centerLabel(result.affiliationCode),
+    stableSide: affiliationLabel(result.affiliationCode),
     currentRace: {
       raceDate,
       trainer: result.trainerName,
-      stableSide: centerLabel(result.affiliationCode),
+      stableSide: affiliationLabel(result.affiliationCode),
     },
     training: { slope, wood },
   };
@@ -108,8 +161,21 @@ for (const result of resultsByKey.values()) {
     id: ["jv", result.raceKey ?? result.raceDate, registration, normalize(result.horseName)].join("|"),
     dedupeKey: [raceDate, normalize(result.horseName)].join("|"),
     trainer: result.trainerName,
-    trainingCenter: centerLabel(result.affiliationCode) ?? profile.sessions.find((item) => item.trainer)?.trainer ?? null,
+    bloodRegistrationNumber: registration,
+    trainingCenter: affiliationLabel(result.affiliationCode),
     raceDate,
+    raceKey: result.raceKey ?? null,
+    courseCode,
+    horseNumber: Number(result.horseNumber) || null,
+    jockey: currentJockey,
+    previousRaceDate,
+    previousTrainer: previousResult?.trainerName ?? null,
+    previousJockey,
+    sameTrainer,
+    intervalDays: Number.isFinite(intervalDays) ? intervalDays : null,
+    rotationBucket: sameTrainer === false ? null : rotationBucket(intervalDays),
+    jockeyContinuity: currentJockey && previousJockey ? normalize(currentJockey) === normalize(previousJockey) : null,
+    travelClass: operation.travelClass,
     finish: Number(result.finishPosition),
     placed: Number(result.finishPosition) <= 3,
     count: profile.sessions.length,
@@ -119,7 +185,7 @@ for (const result of resultsByKey.values()) {
 }
 
 const output = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   status: "observations",
   source: "JV-Link RACE/SLOP/WOOD bounded setup exports",
   inputFiles: files.length,
@@ -127,6 +193,9 @@ const output = {
   slopeRows: slopeByKey.size,
   woodRows: woodByKey.size,
   skippedWithoutTraining,
+  operationFields: ["rotationBucket", "jockeyContinuity", "travelClass"],
+  operationObservationCount: operationObservations.length,
+  operationObservations,
   observations,
 };
 mkdirSync(dirname(outputPath), { recursive: true });
@@ -138,5 +207,6 @@ console.log(JSON.stringify({
   slopeRows: slopeByKey.size,
   woodRows: woodByKey.size,
   skippedWithoutTraining,
+  operationObservationCount: operationObservations.length,
   observationCount: observations.length,
 }, null, 2));

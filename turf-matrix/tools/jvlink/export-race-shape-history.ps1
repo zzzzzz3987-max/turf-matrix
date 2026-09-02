@@ -50,6 +50,12 @@ function Convert-PositiveInteger {
   if (-not [int]::TryParse(([string]$Raw).Trim(), [ref]$value) -or $value -le 0) { return $null }
   return $value
 }
+function Convert-TenthSeconds {
+  param([string]$Raw)
+  [int]$tenths = 0
+  if (-not [int]::TryParse(([string]$Raw).Trim(), [ref]$tenths) -or $tenths -le 0) { return $null }
+  return [Math]::Round($tenths / 10.0, 1)
+}
 function Get-RaceKey {
   param([byte[]]$Bytes)
   return "$(Get-JvField $Bytes 12 4)$(Get-JvField $Bytes 16 4)-$(Get-JvField $Bytes 20 2)-$(Get-JvField $Bytes 22 2)-$(Get-JvField $Bytes 24 2)-$(Get-JvField $Bytes 26 2)"
@@ -80,14 +86,30 @@ try {
       $recordId = Get-JvField $bytes 1 2
       $raceDate = "$(Get-JvField $bytes 12 4)$(Get-JvField $bytes 16 4)"
       if ($raceDate -lt $raceStart -or $raceDate -ge $raceEnd) { continue }
+      $courseCode = Get-JvField $bytes 20 2
+      if ($courseCode -notmatch '^0[1-9]$|^10$') { continue }
       $raceKey = Get-RaceKey $bytes
       if ($recordId -eq "RA") {
+        $lapTimes = New-Object 'System.Collections.Generic.List[double]'
+        for ($lapIndex = 0; $lapIndex -lt 25; $lapIndex++) {
+          $lapTime = Convert-TenthSeconds (Get-JvField $bytes (891 + ($lapIndex * 3)) 3)
+          if ($null -ne $lapTime) { $lapTimes.Add($lapTime) | Out-Null }
+        }
         $races[$raceKey] = [ordered]@{
           raceKey = $raceKey
           raceDate = $raceDate
-          courseCode = Get-JvField $bytes 20 2
+          courseCode = $courseCode
           raceNo = Convert-PositiveInteger (Get-JvField $bytes 26 2)
+          distance = Convert-PositiveInteger (Get-JvField $bytes 698 4)
+          trackCode = Get-JvField $bytes 706 2
           fieldSize = Convert-PositiveInteger (Get-JvField $bytes 884 2)
+          turfConditionCode = Get-JvField $bytes 889 1
+          dirtConditionCode = Get-JvField $bytes 890 1
+          lapTimes = $lapTimes.ToArray()
+          first3F = Convert-TenthSeconds (Get-JvField $bytes 970 3)
+          first4F = Convert-TenthSeconds (Get-JvField $bytes 973 3)
+          last3F = Convert-TenthSeconds (Get-JvField $bytes 976 3)
+          last4F = Convert-TenthSeconds (Get-JvField $bytes 979 3)
         }
       } elseif ($recordId -eq "SE") {
         $finish = Convert-PositiveInteger (Get-JvField $bytes 335 2)
@@ -120,13 +142,14 @@ try {
 }
 
 $payload = [ordered]@{
-  schemaVersion = 1
+  schemaVersion = 2
   generatedAt = (Get-Date).ToString("s")
   source = "JV-Link RACE RA/SE"
   acquisitionMode = $Mode
   startDate = $StartDate
   endDateExclusive = $EndDate
   popularityOddsValueStored = $false
+  officialRaceLapsStored = $true
   races = @($races.Values)
   horses = $horses.ToArray()
 }

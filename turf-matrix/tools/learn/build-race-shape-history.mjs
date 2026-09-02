@@ -45,6 +45,25 @@ const normalizeRaces = (data, sourceFile) => {
 };
 
 const completeness = (race) => (race.horses ?? []).filter((horse) => [horse.corner1, horse.corner2, horse.corner3, horse.corner4].some((value) => number(value) != null)).length;
+const paceCompleteness = (race) => Number(number(race?.first3F) != null) + Number(number(race?.last3F) != null) + Number((race?.lapTimes ?? []).length > 0);
+const mergeCandidate = (previous, incoming) => {
+  if (!previous) return incoming;
+  const shapeSource = completeness(incoming) > completeness(previous) ? incoming : previous;
+  const paceSource = paceCompleteness(incoming) > paceCompleteness(previous) ? incoming : previous;
+  return {
+    ...shapeSource,
+    distance: number(paceSource.distance) ?? number(shapeSource.distance),
+    trackCode: paceSource.trackCode ?? shapeSource.trackCode ?? null,
+    turfConditionCode: paceSource.turfConditionCode ?? shapeSource.turfConditionCode ?? null,
+    dirtConditionCode: paceSource.dirtConditionCode ?? shapeSource.dirtConditionCode ?? null,
+    lapTimes: (paceSource.lapTimes ?? []).map(number).filter((value) => value != null),
+    first3F: number(paceSource.first3F),
+    first4F: number(paceSource.first4F),
+    last3F: number(paceSource.last3F),
+    last4F: number(paceSource.last4F),
+    paceSourceFile: paceCompleteness(paceSource) ? paceSource.sourceFile : null,
+  };
+};
 const candidates = new Map();
 const sourceFiles = readdirSync(ARCHIVE_DIR).filter((name) => /-results\.json$/.test(name)).sort();
 for (const sourceFile of sourceFiles) {
@@ -52,8 +71,7 @@ for (const sourceFile of sourceFiles) {
   for (const race of normalizeRaces(data, sourceFile)) {
     const key = raceShapeKey(race.date, race.course, race.raceNumber);
     if (!key) continue;
-    const previous = candidates.get(key);
-    if (!previous || completeness(race) > completeness(previous)) candidates.set(key, race);
+    candidates.set(key, mergeCandidate(candidates.get(key), race));
   }
 }
 
@@ -91,8 +109,7 @@ if (existsSync(INTELLIGENCE_SUMMARY)) {
   for (const race of grouped.values()) {
     const key = raceShapeKey(race.date, race.course, race.raceNumber);
     if (!key) continue;
-    const previous = candidates.get(key);
-    if (!previous || completeness(race) > completeness(previous)) candidates.set(key, race);
+    candidates.set(key, mergeCandidate(candidates.get(key), race));
   }
 }
 
@@ -113,6 +130,15 @@ for (const rawShapeFile of rawShapeFiles) {
         courseName: null,
         raceNumber: number(meta.raceNo),
         fieldSize: number(meta.fieldSize),
+        distance: number(meta.distance),
+        trackCode: meta.trackCode ?? null,
+        turfConditionCode: meta.turfConditionCode ?? null,
+        dirtConditionCode: meta.dirtConditionCode ?? null,
+        lapTimes: (meta.lapTimes ?? []).map(number).filter((value) => value != null),
+        first3F: number(meta.first3F),
+        first4F: number(meta.first4F),
+        last3F: number(meta.last3F),
+        last4F: number(meta.last4F),
         sourceFile: `tools/jvlink/output/race-shape-history/${rawShapeFile}`,
         horses: [],
       });
@@ -126,8 +152,7 @@ for (const rawShapeFile of rawShapeFiles) {
   for (const race of grouped.values()) {
     const key = raceShapeKey(race.date, race.course, race.raceNumber);
     if (!key) continue;
-    const previous = candidates.get(key);
-    if (!previous || completeness(race) > completeness(previous)) candidates.set(key, race);
+    candidates.set(key, mergeCandidate(candidates.get(key), race));
   }
 }
 
@@ -146,19 +171,26 @@ for (const [key, race] of [...candidates.entries()].sort(([left], [right]) => le
     courseName: race.courseName,
     raceNumber: race.raceNumber,
     sourceFile: race.sourceFile,
+    paceSourceFile: race.paceSourceFile,
+    distance: race.distance ?? null,
+    trackCode: race.trackCode ?? null,
+    turfConditionCode: race.turfConditionCode ?? null,
+    dirtConditionCode: race.dirtConditionCode ?? null,
     ...shape,
   });
 }
 
 const counts = Object.fromEntries(["front_collapse", "front_survival", "neutral"].map((shape) => [shape, races.filter((race) => race.shape === shape).length]));
+const paceCounts = Object.fromEntries(["front_loaded", "even", "back_loaded"].map((pace) => [pace, races.filter((race) => race.pace?.classification === pace).length]));
 const artifact = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   generatedAt: new Date().toISOString(),
-  source: "JV-Link finalized SE corner positions and finish order",
-  interpretation: "race outcome shape proxy; not an observed pace or lap classification",
+  source: "JV-Link finalized RA official race laps plus SE corner positions and finish order",
+  interpretation: "observed pace tilt and positional outcome shape are stored as separate facts",
   policy: {
     popularityOddsValueUsed: false,
-    actualRaceLapsAvailable: false,
+    actualRaceLapsAvailable: races.some((race) => race.pace != null),
+    paceTiltThresholdSeconds: 1,
     minimumCornerCoverage: 0.6,
     futureRaceJoinAllowed: false,
   },
@@ -170,6 +202,8 @@ const artifact = {
     raceCount: races.length,
     skippedWithoutCorners,
     counts,
+    paceRaceCount: races.filter((race) => race.pace != null).length,
+    paceCounts,
   },
   races,
 };

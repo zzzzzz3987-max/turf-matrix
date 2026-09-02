@@ -136,10 +136,14 @@ try {
     $results.Add([ordered]@{
       raceDate = $raceDate
       raceKey = "$(Get-JvField $bytes 12 4)$(Get-JvField $bytes 16 4)-$(Get-JvField $bytes 20 2)-$(Get-JvField $bytes 22 2)-$(Get-JvField $bytes 24 2)-$(Get-JvField $bytes 26 2)"
+      courseCode = Get-JvField $bytes 20 2
+      raceNo = Convert-PositiveInteger (Get-JvField $bytes 26 2)
+      horseNumber = Convert-PositiveInteger (Get-JvField $bytes 29 2)
       bloodRegistrationNumber = Get-JvField $bytes 31 10
       horseName = Get-JvField $bytes 41 36
       trainerName = Get-JvField $bytes 91 8
       affiliationCode = Get-JvField $bytes 85 1
+      jockeyName = Get-JvField $bytes 307 8
       finishPosition = $finish
     }) | Out-Null
   }
@@ -192,7 +196,7 @@ try {
   }
 
   $payload = [ordered]@{
-    schemaVersion = 1
+    schemaVersion = 2
     mode = "stable-training-history"
     acquisitionMode = $Mode
     generatedAt = (Get-Date).ToString("s")

@@ -15,12 +15,13 @@ Implemented now:
   - reads `m_JVLinkVersion`
   - calls `JVInit`
   - writes diagnostics to `data/target/jvfetch-log.txt`
-- `--results-only` reads finalized SE order plus HR win, place, and wide payouts. HR field positions follow the official JV-Data specification; wide entries start at position 294 and use seven 16-character slots.
+- `--results-only` reads finalized SE order plus HR win, place, quinella, and wide payouts. HR field positions follow the official JV-Data specification; quinella entries start at position 246 with three 16-character slots, and wide entries start at position 294 with seven 16-character slots.
 - `--odds-only` command:
   - reads `tools/race-batch-config.json`
   - opens JV-Link realtime odds with `JVRTOpen("0B31", "YYYYMMDDJJRR")`
-  - parses O1 win odds using `tools/jvlink/output/JV-Data4901.xlsx`
+  - parses O1 win odds, O2 quinella odds, and O3 wide ranges using `tools/jvlink/output/JV-Data4901.xlsx`
   - writes UTF-8 BOM CSV to `data/target/odds.csv`
+  - writes pair odds to `data/target/pair-odds.latest.json`
   - preserves generated data at `data/target/odds.next.csv` if `odds.csv` cannot be replaced
   - resolves horse names from the current JV-Link `target-horses.json` manifest
   - uses read-only `tools/week-data.json` only as a legacy fallback

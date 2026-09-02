@@ -16,8 +16,10 @@ import {
 } from "../blood-ai.mjs";
 import { buildRaceContext } from "../race-context.mjs";
 import {
+  DISPLAY_ONLY_SIRE_PROFILES,
   FOREIGN_SIRE_PROFILE_CANDIDATES,
   SIRE_PROFILES,
+  findPedigreeDisplayProfile,
   findSireProfile,
 } from "../dictionaries/sire-profile-dictionary.mjs";
 
@@ -178,6 +180,32 @@ test("individual pedigree profiles are unique, aliased, and have complete trait 
   assert.equal(findSireProfile("Heart's Cry")?.id, "hearts_cry");
   assert.equal(findSireProfile("ロードカナロア")?.id, "lord_kanaloa");
   assert.equal(findSireProfile("Bricks and Mortar")?.id, "bricks_and_mortar");
+});
+
+test("display-only sire profiles deepen copy without entering Blood scoring", () => {
+  assert.equal(DISPLAY_ONLY_SIRE_PROFILES.length, 1);
+  assert.equal(findSireProfile("サンダースノー"), null);
+  assert.equal(findPedigreeDisplayProfile("Thunder Snow")?.id, "thunder_snow");
+  assert.equal(findPedigreeDisplayProfile("サンダースノー")?.scoreApplied, false);
+
+  const horse = {
+    currentRace: { course: "新潟", surface: "ダート", distance: 1800 },
+    pedigree: {
+      sire: "サンダースノー",
+      sireSire: "Helmet",
+      sireDam: "Eastern Joy",
+      broodmareSire: "ゴールドアリュール",
+      ancestors: [],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const profile = buildBloodProfile(horse, context);
+  const analysis = buildBloodEvidenceV2({ horse, context, profile, bloodScore: profile.score });
+
+  assert.deepEqual(profile.individualProfileEvidence.map((item) => item.profileId), ["gold_allure"]);
+  assert.equal(analysis.sireProfile.id, "thunder_snow");
+  assert.deepEqual(analysis.sireProfile.traits, ["スピード", "パワー", "持続力", "ダート適性"]);
+  assert.equal(analysis.sireProfile.scoreApplied, false);
 });
 
 test("sourced foreign profiles are complete and resolve both direct pedigree roles", () => {

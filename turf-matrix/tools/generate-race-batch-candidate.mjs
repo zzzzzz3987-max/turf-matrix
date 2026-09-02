@@ -7,6 +7,7 @@ import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intell
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
 import { buildRaceLoadContext } from "./intelligence/load-ai.mjs";
 import { resolveTrackBias } from "./intelligence/track-bias-ai.mjs";
+import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -194,6 +195,7 @@ const oddsUpdatedAt = races
   .filter(Boolean)
   .sort()
   .slice(-1)[0] ?? null;
+const engineFingerprint = buildEngineFingerprint({ root: REPO_ROOT });
 
 const draft = {
   schemaVersion: 2,
@@ -213,6 +215,7 @@ const draft = {
     featuredRaceId: null,
     oddsUpdatedAt,
     oddsStatus: races.length && races.every((race) => race.oddsStatus === "active") ? "active" : races.length ? "preodds" : "missing",
+    engineFingerprint,
   },
   races,
 };

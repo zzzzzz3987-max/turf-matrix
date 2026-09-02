@@ -93,6 +93,11 @@ const stablePatternAnalysis = (trainingAnalysis) => {
     adjustment: Number.isFinite(degree) && degree >= 0.6 ? Math.min(2, Math.round(degree * 2)) : 0,
     degree: Number.isFinite(degree) ? degree : null,
     status: pattern.status,
+    match: pattern.match === true,
+    sampleSize: pattern.sampleSize ?? 0,
+    hitRate: pattern.hitRate ?? null,
+    baselineHitRate: pattern.baselineHitRate ?? null,
+    adjustedLift: pattern.adjustedLift ?? null,
   };
 };
 

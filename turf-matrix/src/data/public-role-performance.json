@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 2,
+  "basis": "current-rules-on-frozen-pre-race-data",
+  "ruleVersion": "public-role-v2",
+  "rules": {
+    "value": "market-gap-baseline",
+    "danger": "top-four-popularity-with-index-gap-three"
+  },
+  "snapshotCutoff": "13:00 JST",
+  "from": "2026-08-02",
+  "through": "2026-08-30",
+  "raceDays": 8,
+  "roles": {
+    "value": {
+      "sampleSize": 63,
+      "wins": 1,
+      "topThree": 9,
+      "missedTopThree": 54,
+      "winRate": 1.6,
+      "topThreeRate": 14.3,
+      "missedTopThreeRate": 85.7,
+      "payoutSampleSize": 63,
+      "winReturnRate": 20.5,
+      "placeReturnRate": 51.7,
+      "status": "active"
+    },
+    "danger": {
+      "sampleSize": 58,
+      "wins": 6,
+      "topThree": 21,
+      "missedTopThree": 37,
+      "winRate": 10.3,
+      "topThreeRate": 36.2,
+      "missedTopThreeRate": 63.8,
+      "payoutSampleSize": 58,
+      "winReturnRate": 83.4,
+      "placeReturnRate": 83.1,
+      "status": "active"
+    }
+  },
+  "snapshots": [
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130"
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b"
+    }
+  ]
+}

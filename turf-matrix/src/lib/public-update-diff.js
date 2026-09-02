@@ -4,7 +4,7 @@ const ROLE_LABELS = {
   favorite: "本命",
   challenger: "逆転候補",
   value: "注目穴",
-  danger: "人気馬注意",
+  danger: "危険な人気馬",
 };
 
 const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(value);

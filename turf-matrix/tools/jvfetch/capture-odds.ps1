@@ -28,6 +28,28 @@ if ($LASTEXITCODE -ne 0) {
   exit $LASTEXITCODE
 }
 
+$PairCandidate = Get-ChildItem -LiteralPath $TargetDir -File |
+  Where-Object {
+    ($_.Name -eq "pair-odds.latest.json" -or $_.Name -match '^pair-odds\.next-\d{8}-\d{6}\.json$') -and
+    $_.LastWriteTime -ge $StartedAt
+  } |
+  Sort-Object LastWriteTime -Descending |
+  Select-Object -First 1
+
+if ($PairCandidate) {
+  & node (Join-Path $RepoRoot "tools\verify-jvfetch-pair-odds.mjs") $PairCandidate.FullName
+  $PairVerifyExitCode = $LASTEXITCODE
+  if ($PairVerifyExitCode -eq 2) {
+    Write-Error "The new pair odds JSON failed verification: $($PairCandidate.FullName)"
+    exit $PairVerifyExitCode
+  }
+  if ($PairVerifyExitCode -eq 1) {
+    Write-Warning "Pair odds are partial. Single-win odds remain publishable and unavailable ticket types will be skipped."
+  }
+} else {
+  Write-Warning "JV-Link did not produce fresh pair odds. Single-win odds remain publishable."
+}
+
 & node (Join-Path $RepoRoot "tools\archive-odds-snapshot.mjs") $Candidate.FullName
 if ($LASTEXITCODE -ne 0) {
   Write-Error "The verified odds CSV could not be archived: $($Candidate.FullName)"

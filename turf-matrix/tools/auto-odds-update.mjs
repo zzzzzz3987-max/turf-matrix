@@ -199,6 +199,15 @@ const latestOddsCandidate = (notBefore) => {
   return candidates[0];
 };
 
+const latestPairOddsCandidate = (notBefore) => {
+  const candidates = readdirSync(TARGET_DIR, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && (entry.name === "pair-odds.latest.json" || /^pair-odds\.next-\d{8}-\d{6}\.json$/.test(entry.name)))
+    .map((entry) => join(TARGET_DIR, entry.name))
+    .filter((path) => statSync(path).mtimeMs >= notBefore - 2_000)
+    .sort((left, right) => statSync(right).mtimeMs - statSync(left).mtimeMs);
+  return candidates[0] ?? null;
+};
+
 const resolveAllRaceRuntime = (raceDate) => {
   for (const path of ALL_RACE_RUNTIME_CANDIDATES) {
     if (!existsSync(path)) continue;
@@ -218,8 +227,14 @@ const assertCleanTrackedTree = (git) => {
   if (ahead || behind) throw new Error(`main must match origin/main before automatic publish (ahead=${ahead}, behind=${behind})`);
 };
 
-const generateAndPublish = (git, commitMessage, raceDate, dueRaces) => {
+const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath = null) => {
   const allRaceRuntime = resolveAllRaceRuntime(raceDate);
+  const battleShadowPath = `data/shadow/battle-race/${raceDate}-pre-race.json`;
+  const battleShadowAbsolutePath = join(REPO_ROOT, battleShadowPath);
+  const battleShadowExisted = existsSync(battleShadowAbsolutePath);
+  const battleTicketShadowPath = `data/shadow/battle-ticket/${raceDate}-pre-race.json`;
+  const battleTicketShadowAbsolutePath = join(REPO_ROOT, battleTicketShadowPath);
+  const battleTicketShadowExisted = existsSync(battleTicketShadowAbsolutePath);
   const candidateExisted = existsSync(CANDIDATE_PATH);
   const allRaceSignalsExisted = existsSync(ALL_RACE_SIGNALS_PATH);
   const paceContextPaths = [];
@@ -232,10 +247,13 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces) => {
       {
         TURF_MATRIX_ALL_RACE_RUNTIME: allRaceRuntime,
         TURF_MATRIX_ALL_RACE_SIGNALS_OUT: ALL_RACE_SIGNALS_NEXT_PATH,
+        ...(pairOddsPath ? { TURF_MATRIX_PAIR_ODDS_SOURCE: pairOddsPath } : {}),
       },
       "tools/generate-all-race-signals.mjs",
     );
     copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);
+    if (!battleShadowExisted) runNode("tools/analyze/freeze-battle-race-shadow.mjs");
+    if (!battleTicketShadowExisted) runNode("tools/analyze/freeze-battle-ticket-shadow.mjs");
     runNode("tools/normalizers/race-batch.mjs");
     runNode("tools/generate-race-batch-candidate.mjs");
     const candidate = readJson(CANDIDATE_PATH, null);
@@ -276,6 +294,8 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces) => {
       "tools/week-data.batch-candidate.json",
       "tools/all-race-signals.json",
       "tools/track-bias.current.json",
+      battleShadowPath,
+      battleTicketShadowPath,
       ...paceContextPaths,
     ];
     const status = run(git, ["status", "--porcelain", "--", ...publishPaths], { quiet: true }).stdout.trim();
@@ -289,6 +309,12 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces) => {
   } catch (error) {
     if (!committed && existsSync(BACKUP_DATA_PATH)) copyFileSync(BACKUP_DATA_PATH, WEEK_DATA_PATH);
     if (!committed) {
+      if (!battleShadowExisted && existsSync(battleShadowAbsolutePath)) {
+        rmSync(battleShadowAbsolutePath, { force: true });
+      }
+      if (!battleTicketShadowExisted && existsSync(battleTicketShadowAbsolutePath)) {
+        rmSync(battleTicketShadowAbsolutePath, { force: true });
+      }
       for (const [path, existed] of paceContextExisted) {
         if (!existed && existsSync(join(REPO_ROOT, path))) rmSync(join(REPO_ROOT, path), { force: true });
       }
@@ -323,6 +349,7 @@ const processDueRaces = (due, state, raceDate) => {
   try {
     runPowerShell("-File", "tools/jvfetch/capture-odds.ps1");
     const oddsPath = latestOddsCandidate(startedAt);
+    const pairOddsPath = latestPairOddsCandidate(startedAt);
     runNode("tools/jvfetch/distribute-odds.mjs", oddsPath);
 
     try {
@@ -342,7 +369,7 @@ const processDueRaces = (due, state, raceDate) => {
     }
 
     const labels = due.map((race) => `${race.track}${race.number}R`).join("/");
-    const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate, due);
+    const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate, due, pairOddsPath);
     const completedAt = new Date().toISOString();
     for (const race of due) {
       state.processed[race.id] = {
@@ -350,6 +377,7 @@ const processDueRaces = (due, state, raceDate) => {
         triggerTime: race.triggerTime.toISOString(),
         completedAt,
         oddsFile: oddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/"),
+        pairOddsFile: pairOddsPath ? pairOddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/") : null,
         commit: result.commit,
         changed: result.changed,
       };

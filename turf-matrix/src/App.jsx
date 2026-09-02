@@ -2,9 +2,15 @@
 import { createPortal } from "react-dom";
 import { dataMode, loadWeekData } from "./data/week-data-loader.js";
 import allRaceSignals from "../tools/all-race-signals.json";
+import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import {
+  buildPedigreeFamilyPublicLines,
+  buildPedigreePublicConditionSummary,
+  buildPedigreePublicBreakdown,
+  buildPedigreePublicOverview,
   buildRacePublicConclusion,
+  buildStablePatternPublicView,
   buildHorsePublicView as horseQuickRead,
   publicConditionFit,
   publicFactorSummary,
@@ -263,10 +269,16 @@ const normalizeWeekData = (db) => {
       category: race.category ?? (gradeScore(race.grade) ? "grade" : isSpecialRace(race) ? "special" : "race"),
       featuredRace: race.id === featuredRace?.id,
       displayTarget: race.displayTarget ?? true,
-      horses: (race.horses ?? []).map((horse) => ({
-        ...horse,
-        analysis: normalizeAnalysis(horse.analysis ?? {}),
-      })),
+      horses: (race.horses ?? []).map((horse) => {
+        const analysis = normalizeAnalysis(horse.analysis ?? {});
+        const sourcePedigree = horse.pedigree ?? horse.pedigreeRaw ?? null;
+        return {
+          ...horse,
+          analysis: analysis.pedigree && sourcePedigree
+            ? { ...analysis, pedigree: { ...analysis.pedigree, sourcePedigree } }
+            : analysis,
+        };
+      }),
     })),
   };
 };
@@ -1106,23 +1118,19 @@ const ValueCard = ({ ev, rank, popularity }) => {
 };
 
 /* ---- 血統評価: 結論を先に、系統の詳細は必要な時だけ表示 ---- */
-const PedigreeCard = ({ pedigree, score }) => {
+const PedigreeCard = ({ pedigree, sourcePedigree, score }) => {
   if (!pedigree) return null;
   const identity = pedigree.identity ?? {};
   const raceBias = pedigree.raceBias;
-  const componentDetails = pedigree.componentDetails ?? {};
   const crosses = pedigree.crosses ?? [];
-  const lines = pedigree.lines ?? [];
+  const lines = buildPedigreeFamilyPublicLines(pedigree, sourcePedigree);
   const pedigreeHeadline = concisePublicInsight(
-    pedigree.headline ?? "父・母父・牝系から、今回条件との相性を評価。",
-    132
+    buildPedigreePublicOverview(pedigree, score) ?? pedigree.headline ?? "父・母父・牝系から、今回条件との相性を評価。",
+    200
   );
-  const bloodComponents = [
-    { key: "sireTrait", label: "父" },
-    { key: "broodmareSire", label: "母父" },
-    { key: "distanceFit", label: "距離" },
-    { key: "courseFit", label: "コース" },
-  ].filter((item) => Number.isFinite(componentDetails[item.key]?.score));
+  const conditionSummary = buildPedigreePublicConditionSummary(pedigree)
+    ?? (raceBias?.summary ? concisePublicInsight(raceBias.summary, 120) : null);
+  const bloodComponents = buildPedigreePublicBreakdown(pedigree, sourcePedigree);
   const traits = [
     { key: "speed", label: "スピード" },
     { key: "burst", label: "瞬発力" },
@@ -1149,32 +1157,81 @@ const PedigreeCard = ({ pedigree, score }) => {
         </span>
       </div>
 
-      {raceBias?.summary ? (
+      {conditionSummary ? (
         <div className="mt-4 border-l-2 border-teal-500 pl-3">
           <div className="flex items-baseline justify-between gap-3">
             <span className="text-[11px] font-bold text-slate-900">今回条件との相性</span>
             {isFiniteNumber(score) ? <span className="text-[10px] font-bold text-teal-700">{publicConditionFit(score)}</span> : null}
           </div>
           <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
-            {concisePublicInsight(raceBias.summary, 100)}
+            {conditionSummary}
           </p>
         </div>
       ) : null}
 
       {bloodComponents.length ? (
-        <div className="mt-5 grid border-t border-gray-100 sm:grid-cols-2">
-          {bloodComponents.map((item) => {
-            const detail = componentDetails[item.key];
-            return (
-              <div key={item.key} className="border-b border-gray-100 py-3 sm:pr-4 sm:[&:nth-child(even)]:pl-4">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-[11px] font-bold text-slate-700">{item.label}</span>
-                  <Num className="text-[13px] font-bold text-slate-950">{displayFactorScore(detail.score)}</Num>
+        <div className="mt-5 border-t border-gray-100">
+          {bloodComponents.map((item) => (
+            <details key={item.key} className="group border-b border-gray-100">
+              <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-200 [&::-webkit-details-marker]:hidden">
+                <span className="min-w-0">
+                  <span className="block text-[10px] font-bold text-slate-400">{item.label}</span>
+                  <span className="mt-0.5 block truncate text-[12px] font-bold text-slate-900">{item.name}</span>
+                </span>
+                <span className="flex shrink-0 items-center gap-3">
+                  <Num className="text-[14px] font-bold text-slate-950">{displayFactorScore(item.score)}</Num>
+                  <ChevronDown size={14} className="text-slate-300 transition-transform group-open:rotate-180" aria-hidden="true" />
+                </span>
+              </summary>
+              <div className="pb-5 pr-1">
+                <div className="flex items-start gap-2.5">
+                  <span className="mt-0.5 shrink-0 rounded-md bg-teal-50 px-2 py-1 text-[9px] font-bold text-teal-700">
+                    {publicConditionFit(item.score)}
+                  </span>
+                  <p className="min-w-0 text-[11px] font-medium leading-[1.8] text-slate-600">{item.summary}</p>
                 </div>
-                {detail.label ? <p className="mt-1 text-[10px] leading-relaxed text-slate-500">{detail.label}</p> : null}
+
+                {item.metrics.length ? (
+                  <div className={`mt-3 grid ${item.metrics.length >= 3 ? "grid-cols-3" : item.metrics.length === 2 ? "grid-cols-2" : "grid-cols-1"} divide-x divide-gray-100 border-y border-gray-100`}>
+                    {item.metrics.slice(0, 3).map((metric) => (
+                      <div key={`${metric.label}-${metric.value}`} className="min-w-0 py-2.5 text-center">
+                        <Num className="block truncate text-[12px] font-bold text-slate-900">{metric.value}</Num>
+                        <span className="mt-1 block truncate px-1 text-[9px] font-medium text-slate-400">{metric.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+
+                {item.points.length ? (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {item.points.map((point) => (
+                      <span key={point} className="rounded-md bg-[#F2F7F9] px-2 py-1 text-[9px] font-bold text-slate-600">
+                        {point}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+
+                {item.sections.length ? (
+                  <div className="mt-4 border-t border-gray-100">
+                    {item.sections.map((section) => (
+                      <div
+                        key={`${section.label}-${section.text}`}
+                        className={`border-b border-gray-100 py-3 last:border-b-0 ${section.tone === "caution" ? "border-l-2 border-l-amber-300 pl-3" : ""}`}
+                      >
+                        <span className={`block text-[10px] font-bold ${section.tone === "caution" ? "text-amber-700" : "text-slate-800"}`}>
+                          {section.label}
+                        </span>
+                        <p className={`mt-1 text-[11px] leading-[1.75] ${section.tone === "caution" ? "text-amber-800" : "text-slate-500"}`}>
+                          {section.text}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
               </div>
-            );
-          })}
+            </details>
+          ))}
         </div>
       ) : null}
 
@@ -1196,7 +1253,7 @@ const PedigreeCard = ({ pedigree, score }) => {
       {lines.length ? (
         <details className="group mt-4 border-t border-gray-100 pt-1">
           <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 rounded-lg py-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 [&::-webkit-details-marker]:hidden">
-            <span className="text-[11px] font-bold text-slate-700">父・母父などを詳しく見る</span>
+            <span className="text-[11px] font-bold text-slate-700">母・母父・母母まで見る</span>
             <ChevronDown size={14} className="text-slate-300 transition-transform group-open:rotate-180" />
           </summary>
           <div className="divide-y divide-gray-100 border-t border-gray-100">
@@ -1228,11 +1285,12 @@ const formatTrainingPoint = (item) => {
   return `${date} ${course}コース 4F ${item.f4 ?? "-"} / 1F ${item.f1 ?? "-"}`;
 };
 
-const TrainingEvalCard = ({ evalData }) => {
+const TrainingEvalCard = ({ evalData, stablePattern: stablePatternSource }) => {
   if (!evalData) return null;
   const details = evalData.details ?? {};
   const mainText = publicTrainingHeadline(evalData);
   const gradeLabel = publicTrainingGrade(evalData.grade);
+  const stablePattern = buildStablePatternPublicView(stablePatternSource ?? evalData.stablePattern);
   return (
     <section className="border-t border-gray-100 pt-6">
       <div className="flex items-start justify-between gap-4">
@@ -1269,13 +1327,34 @@ const TrainingEvalCard = ({ evalData }) => {
         </div>
       </div>
 
-      {details.best || evalData.stablePattern?.match ? (
+      {details.best || stablePattern ? (
         <div className="mt-3 space-y-2 text-[11px] leading-relaxed text-slate-500">
           {details.best ? (
             <p><span className="font-bold text-slate-700">ベスト時計</span>　{formatTrainingPoint(details.best)}</p>
           ) : null}
-          {evalData.stablePattern?.match && evalData.stablePattern.text ? (
-            <p><span className="font-bold text-teal-700">厩舎の好走パターン</span>　{concisePublicInsight(evalData.stablePattern.text, 96)}</p>
+          {stablePattern ? (
+            <details className="group border-t border-gray-100 pt-3">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-left [&::-webkit-details-marker]:hidden">
+                <span>
+                  <span className="block font-bold text-teal-700">厩舎の好走パターン</span>
+                  <span className="mt-0.5 block text-[10px] text-slate-500">{stablePattern.headline}</span>
+                </span>
+                <ChevronDown size={14} strokeWidth={1.8} className="shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true" />
+              </summary>
+              <div className="mt-3 border-l-2 border-[#8EDFE4] pl-3">
+                <p className="text-[11px] font-medium leading-relaxed text-slate-700">{stablePattern.summary}</p>
+                {stablePattern.metrics.length ? (
+                  <dl className="mt-3 grid grid-cols-3 gap-2">
+                    {stablePattern.metrics.map((metric) => (
+                      <div key={metric.label} className="min-w-0">
+                        <dt className="text-[9px] font-semibold text-slate-400">{metric.label}</dt>
+                        <dd className="mt-0.5 break-words text-[12px] font-bold text-slate-900">{metric.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                ) : null}
+              </div>
+            </details>
           ) : null}
         </div>
       ) : null}
@@ -1379,7 +1458,11 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
           <ChevronDown size={16} className="text-slate-300 transition-transform group-open:rotate-180" />
         </summary>
         <div className="border-t border-gray-100 pb-2">
-          <PedigreeCard pedigree={a.pedigree} score={a.factorsDetail?.blood?.score} />
+          <PedigreeCard
+            pedigree={a.pedigree}
+            sourcePedigree={a.pedigree?.sourcePedigree}
+            score={a.factorsDetail?.blood?.score}
+          />
 
           {a.frameEval ? (
             <section className="border-t border-gray-100 pt-6">
@@ -1391,7 +1474,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
             </section>
           ) : null}
 
-          <TrainingEvalCard evalData={a.trainingEval} />
+          <TrainingEvalCard evalData={a.trainingEval} stablePattern={a.factorsDetail?.stable?.stablePattern} />
         </div>
       </details>
     </div>
@@ -2315,13 +2398,80 @@ const RaceUpdatePanel = ({ updateDiff }) => {
   );
 };
 
+const RolePerformancePanel = ({ performance }) => {
+  const value = performance?.roles?.value;
+  const danger = performance?.roles?.danger;
+  if (!value?.sampleSize && !danger?.sampleSize) return null;
+
+  return (
+    <details className="group border-t border-slate-200 bg-[#F8FBFC]">
+      <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left md:px-5 [&::-webkit-details-marker]:hidden">
+        <span>
+          <span className="block text-[12px] font-bold text-slate-900">注目穴・危険な人気馬の過去検証</span>
+          <span className="mt-0.5 block text-[10px] font-medium text-slate-500">
+            注目穴 3着内<Num>{value?.topThreeRate ?? "-"}</Num>%・危険馬の馬券外<Num>{danger?.missedTopThreeRate ?? "-"}</Num>%
+          </span>
+        </span>
+        <ChevronDown size={15} strokeWidth={1.8} className="shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true" />
+      </summary>
+      <div className="grid border-t border-slate-200 sm:grid-cols-2">
+        <div className="px-4 py-4 sm:border-r sm:border-slate-200 md:px-5">
+          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#008C99]">
+            <Star size={13} strokeWidth={1.8} aria-hidden="true" />
+            注目穴
+          </div>
+          <dl className="mt-3 grid grid-cols-3 gap-3">
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">3着内率</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{value?.topThreeRate ?? "-"}</Num>%</dd>
+            </div>
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">単勝回収率</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{value?.winReturnRate ?? "-"}</Num>%</dd>
+            </div>
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">複勝回収率</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{value?.placeReturnRate ?? "-"}</Num>%</dd>
+            </div>
+          </dl>
+          <p className="mt-2 text-[10px] font-medium text-slate-400"><Num>{value?.topThree ?? 0}</Num>/<Num>{value?.sampleSize ?? 0}</Num>頭が3着以内</p>
+        </div>
+        <div className="border-t border-slate-200 px-4 py-4 sm:border-t-0 md:px-5">
+          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#B7791F]">
+            <ShieldAlert size={13} strokeWidth={1.8} aria-hidden="true" />
+            危険な人気馬
+          </div>
+          <dl className="mt-3 grid grid-cols-3 gap-3">
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">馬券外率</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{danger?.missedTopThreeRate ?? "-"}</Num>%</dd>
+            </div>
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">1着率</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{danger?.winRate ?? "-"}</Num>%</dd>
+            </div>
+            <div>
+              <dt className="text-[9px] font-semibold text-slate-400">検証数</dt>
+              <dd className="mt-1 text-[16px] font-bold text-slate-950"><Num>{danger?.sampleSize ?? 0}</Num>頭</dd>
+            </div>
+          </dl>
+          <p className="mt-2 text-[10px] font-medium text-slate-400"><Num>{danger?.missedTopThree ?? 0}</Num>/<Num>{danger?.sampleSize ?? 0}</Num>頭が4着以下</p>
+        </div>
+      </div>
+      <p className="border-t border-slate-200 px-4 py-3 text-[9px] font-medium leading-relaxed text-slate-400 md:px-5">
+        注目穴は指数と人気の差、危険馬は上位人気と指数順位の3段差で選定。発走前に固定した過去<Num>{performance.raceDays}</Num>日分で検証。
+      </p>
+    </details>
+  );
+};
+
 const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
   if (!conclusion) return null;
   const items = [
     { key: "favorite", label: "本命", icon: Target, tone: "text-[#00A9B8]" },
     { key: "challenger", label: "逆転候補", icon: TrendingUp, tone: "text-[#2D7BFF]" },
     { key: "value", label: "注目穴", icon: Star, tone: "text-[#00A9B8]" },
-    { key: "danger", label: "人気馬注意", icon: ShieldAlert, tone: "text-[#B7791F]" },
+    { key: "danger", label: "危険な人気馬", icon: ShieldAlert, tone: "text-[#B7791F]" },
     { key: "key", label: "レースの鍵", icon: KeyRound, tone: "text-slate-500" },
   ];
 
@@ -2376,6 +2526,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
             );
           })}
         </div>
+        <RolePerformancePanel performance={rolePerformance} />
         <RaceUpdatePanel updateDiff={updateDiff} />
       </div>
     </section>

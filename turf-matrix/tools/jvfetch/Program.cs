@@ -15,6 +15,8 @@ namespace TurfMatrix.JvFetch
     {
         private const string DefaultProgId = "JVDTLab.JVLink";
         private const string OddsDataSpec = "0B31";
+        private const string QuinellaOddsDataSpec = "0B32";
+        private const string WideOddsDataSpec = "0B33";
         private const string ConditionsDataSpec = "0B14";
         private const string ResultsDataSpec = "0B12";
 
@@ -129,6 +131,7 @@ namespace TurfMatrix.JvFetch
             var configPath = ResolveRaceConfigPath(repoRoot);
             var races = LoadRaceTargets(configPath);
             var odds = new List<OddsRow>();
+            var pairOdds = new List<PairOddsRace>();
             var warnings = new List<string>();
 
             Log(logPath, "INFO", "jvfetch --odds-only started.");
@@ -168,6 +171,9 @@ namespace TurfMatrix.JvFetch
 
                     ReadOddsRecords(jvLink, race, odds, warnings);
                     TryInvoke(jvLink, "JVClose");
+
+                    ReadPairOddsData(jvLink, race, QuinellaOddsDataSpec, "O2", "quinella", pairOdds, warnings);
+                    ReadPairOddsData(jvLink, race, WideOddsDataSpec, "O3", "wide", pairOdds, warnings);
                 }
             }
             finally
@@ -199,13 +205,21 @@ namespace TurfMatrix.JvFetch
             {
                 warnings.Add("odds.csv was not replaced; generated file: " + writtenPath);
             }
+            var pairOutputPath = Path.Combine(repoRoot, "data", "target", "pair-odds.latest.json");
+            var pairWrittenPath = WritePairOddsJsonSafely(pairOutputPath, races[0].RaceDate, pairOdds);
+            if (!string.Equals(pairWrittenPath, pairOutputPath, StringComparison.OrdinalIgnoreCase))
+            {
+                warnings.Add("pair-odds.latest.json was not replaced; generated file: " + pairWrittenPath);
+            }
 
             Console.WriteLine("{");
             Console.WriteLine("  \"status\": \"" + (warnings.Count == 0 ? "ready" : "partial") + "\",");
             Console.WriteLine("  \"dataspec\": \"" + OddsDataSpec + "\",");
             Console.WriteLine("  \"raceCount\": " + races.Count + ",");
             Console.WriteLine("  \"oddsRows\": " + odds.Count + ",");
-            Console.WriteLine("  \"output\": \"" + EscapeJson(writtenPath) + "\"");
+            Console.WriteLine("  \"pairOddsRaces\": " + pairOdds.Count + ",");
+            Console.WriteLine("  \"output\": \"" + EscapeJson(writtenPath) + "\",");
+            Console.WriteLine("  \"pairOddsOutput\": \"" + EscapeJson(pairWrittenPath) + "\"");
             Console.WriteLine("}");
 
             foreach (var warning in warnings) Console.Error.WriteLine("WARN " + warning);
@@ -430,7 +444,8 @@ namespace TurfMatrix.JvFetch
                         result.Payouts.Clear();
                         ParsePayoutEntries(buffer, 103, 3, "win", result.Payouts);
                         ParsePayoutEntries(buffer, 142, 5, "place", result.Payouts);
-                        ParseWidePayoutEntries(buffer, 294, 7, result.Payouts);
+                        ParsePairPayoutEntries(buffer, 246, 3, "quinella", result.Payouts);
+                        ParsePairPayoutEntries(buffer, 294, 7, "wide", result.Payouts);
                     }
                 }
                 else if (readResult == -3) System.Threading.Thread.Sleep(200);
@@ -471,7 +486,7 @@ namespace TurfMatrix.JvFetch
             }
         }
 
-        private static void ParseWidePayoutEntries(string record, int start, int count, List<ResultPayout> payouts)
+        private static void ParsePairPayoutEntries(string record, int start, int count, string type, List<ResultPayout> payouts)
         {
             for (var i = 0; i < count; i++)
             {
@@ -482,7 +497,7 @@ namespace TurfMatrix.JvFetch
                 if (first == null || second == null || payout == null) continue;
                 payouts.Add(new ResultPayout
                 {
-                    Type = "wide",
+                    Type = type,
                     HorseNumbers = new[] { first.Value, second.Value },
                     Payout = payout.Value,
                     Popularity = ParseNullableInt(GetJvTextField(record, offset + 13, 3))
@@ -497,7 +512,7 @@ namespace TurfMatrix.JvFetch
             {
                 SchemaVersion = 1,
                 GeneratedAt = DateTimeOffset.Now.ToString("o"),
-                Source = "JV-Link 0B12 SE/HR (win/place/wide)",
+                Source = "JV-Link 0B12 SE/HR (win/place/quinella/wide)",
                 RaceDate = results[0].Race.RaceDate,
                 Races = results
             };
@@ -697,6 +712,126 @@ namespace TurfMatrix.JvFetch
             }
         }
 
+        private static void ReadPairOddsData(
+            object jvLink,
+            RaceTarget race,
+            string dataSpec,
+            string recordType,
+            string ticketType,
+            List<PairOddsRace> rows,
+            List<string> warnings)
+        {
+            var openResult = InvokeInt(jvLink, "JVRTOpen", dataSpec, race.JvKey);
+            if (openResult < 0)
+            {
+                warnings.Add(race.Label + " " + dataSpec + " JVRTOpen=" + openResult);
+                return;
+            }
+
+            try
+            {
+                ReadPairOddsRecords(jvLink, race, dataSpec, recordType, ticketType, rows, warnings);
+            }
+            finally
+            {
+                TryInvoke(jvLink, "JVClose");
+            }
+        }
+
+        private static void ReadPairOddsRecords(
+            object jvLink,
+            RaceTarget race,
+            string dataSpec,
+            string recordType,
+            string ticketType,
+            List<PairOddsRace> rows,
+            List<string> warnings)
+        {
+            var encoding = Encoding.GetEncoding(932);
+            PairOddsRace pairRace = null;
+
+            for (var iteration = 0; iteration < 10000; iteration++)
+            {
+                var buffer = new string(' ', 4096);
+                var readArgs = new object[] { buffer, 4096, "" };
+                var readResult = InvokeJvRead(jvLink, readArgs);
+                buffer = Convert.ToString(readArgs[0] ?? "");
+
+                if (readResult > 0)
+                {
+                    var bytes = encoding.GetBytes(buffer);
+                    if (GetJvField(bytes, 1, 2) != recordType) continue;
+
+                    var dataKubun = GetJvField(bytes, 3, 1);
+                    var dataCreatedAt = GetJvField(bytes, 4, 8);
+                    var announce = GetJvField(bytes, 28, 8);
+                    var runners = ParseNullableInt(GetJvField(bytes, 38, 2));
+                    var saleFlag = GetJvField(bytes, 40, 1);
+                    pairRace = new PairOddsRace
+                    {
+                        Race = race,
+                        Type = ticketType,
+                        DataKubun = dataKubun,
+                        UpdatedAt = BuildOddsUpdatedAt(race.RaceDate, announce, dataCreatedAt),
+                        Source = "JV-Link " + dataSpec,
+                        Status = ResolveOddsStatus(dataKubun, saleFlag),
+                        Runners = runners
+                    };
+
+                    var entrySize = ticketType == "wide" ? 17 : 13;
+                    for (var i = 0; i < 153; i++)
+                    {
+                        var start = 41 + i * entrySize;
+                        var horseNumbers = ParseHorsePair(GetJvField(bytes, start, 4));
+                        if (horseNumbers == null) continue;
+
+                        if (ticketType == "wide")
+                        {
+                            var minimum = ParseOdds(GetJvField(bytes, start + 4, 5));
+                            var maximum = ParseOdds(GetJvField(bytes, start + 9, 5));
+                            var popularity = ParseNullableInt(GetJvField(bytes, start + 14, 3));
+                            if (minimum == null && maximum == null && popularity == null) continue;
+                            pairRace.Entries.Add(new PairOddsEntry
+                            {
+                                HorseNumbers = horseNumbers,
+                                MinOdds = minimum,
+                                MaxOdds = maximum,
+                                Popularity = popularity
+                            });
+                        }
+                        else
+                        {
+                            var odds = ParseOdds(GetJvField(bytes, start + 4, 6));
+                            var popularity = ParseNullableInt(GetJvField(bytes, start + 10, 3));
+                            if (odds == null && popularity == null) continue;
+                            pairRace.Entries.Add(new PairOddsEntry
+                            {
+                                HorseNumbers = horseNumbers,
+                                MinOdds = odds,
+                                MaxOdds = odds,
+                                Popularity = popularity
+                            });
+                        }
+                    }
+                }
+                else if (readResult == -3) System.Threading.Thread.Sleep(200);
+                else if (readResult == -1) continue;
+                else if (readResult == 0) break;
+                else
+                {
+                    warnings.Add(race.Label + " " + dataSpec + " JVRead=" + readResult);
+                    break;
+                }
+            }
+
+            if (pairRace == null)
+            {
+                warnings.Add(race.Label + " " + recordType + " record not found");
+                return;
+            }
+            rows.Add(pairRace);
+        }
+
         private static List<RaceTarget> LoadRaceTargets(string configPath)
         {
             if (!File.Exists(configPath)) throw new FileNotFoundException("race-batch-config was not found.", configPath);
@@ -776,6 +911,16 @@ namespace TurfMatrix.JvFetch
             return Math.Round(value / 10m, 1);
         }
 
+        private static int[] ParseHorsePair(string raw)
+        {
+            raw = (raw ?? "").Trim();
+            if (raw.Length != 4 || !Regex.IsMatch(raw, "^[0-9]{4}$")) return null;
+            var first = ParseNullableInt(raw.Substring(0, 2));
+            var second = ParseNullableInt(raw.Substring(2, 2));
+            if (first == null || second == null || first == second) return null;
+            return new[] { Math.Min(first.Value, second.Value), Math.Max(first.Value, second.Value) };
+        }
+
         private static string ResolveOddsStatus(string dataKubun, string winFlag)
         {
             if (dataKubun == "1" || dataKubun == "2" || dataKubun == "3") return "active";
@@ -849,6 +994,44 @@ namespace TurfMatrix.JvFetch
                         Csv(row.Status)
                     }));
                 }
+            }
+        }
+
+        private static string WritePairOddsJsonSafely(string outputPath, string raceDate, List<PairOddsRace> races)
+        {
+            var dir = Path.GetDirectoryName(outputPath);
+            Directory.CreateDirectory(dir);
+            var nextPath = Path.Combine(dir, "pair-odds.next-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + ".json");
+            var payload = new PairOddsPayload
+            {
+                SchemaVersion = 1,
+                GeneratedAt = DateTimeOffset.Now.ToString("o"),
+                Source = "JV-Link 0B32/O2 + 0B33/O3",
+                RaceDate = raceDate,
+                Races = races
+            };
+            var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+            File.WriteAllText(nextPath, serializer.Serialize(payload), new UTF8Encoding(true));
+
+            if (!File.Exists(outputPath))
+            {
+                File.Move(nextPath, outputPath);
+                return outputPath;
+            }
+
+            var backupDir = Path.Combine(dir, "_backup", DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+            Directory.CreateDirectory(backupDir);
+            var backupPath = Path.Combine(backupDir, Path.GetFileName(outputPath));
+            try
+            {
+                File.Replace(nextPath, outputPath, backupPath, true);
+                return outputPath;
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine("WARN pair-odds.latest.json could not be replaced: " + SafeMessage(ex));
+                Console.Error.WriteLine("WARN Generated pair odds were kept at: " + nextPath);
+                return nextPath;
             }
         }
 
@@ -1132,9 +1315,9 @@ namespace TurfMatrix.JvFetch
             Console.WriteLine("Usage:");
             Console.WriteLine("  jvfetch.exe --check [--sid <JV-Link SID>] [--prog-id JVDTLab.JVLink]");
             Console.WriteLine("  jvfetch.exe --week [--races \"福島10,福島11\" | --all-races]");
-            Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win odds for tools/race-batch-config.json)");
+            Console.WriteLine("  jvfetch.exe --odds-only  (fetch O1 win, O2 quinella, and O3 wide odds)");
             Console.WriteLine("  jvfetch.exe --conditions-only  (fetch WE weather and turf/dirt going for the configured date)");
-            Console.WriteLine("  jvfetch.exe --results-only  (fetch finalized SE order and HR win/place/wide payouts)");
+            Console.WriteLine("  jvfetch.exe --results-only  (fetch finalized SE order and HR win/place/quinella/wide payouts)");
         }
 
         private static void Log(string path, string level, string message)
@@ -1204,6 +1387,36 @@ namespace TurfMatrix.JvFetch
             public string Status { get; set; }
             public string DataKubun { get; set; }
             public int? Runners { get; set; }
+        }
+
+        private sealed class PairOddsPayload
+        {
+            public int SchemaVersion { get; set; }
+            public string GeneratedAt { get; set; }
+            public string Source { get; set; }
+            public string RaceDate { get; set; }
+            public List<PairOddsRace> Races { get; set; }
+        }
+
+        private sealed class PairOddsRace
+        {
+            private readonly List<PairOddsEntry> _entries = new List<PairOddsEntry>();
+            public RaceTarget Race { get; set; }
+            public string Type { get; set; }
+            public string DataKubun { get; set; }
+            public string UpdatedAt { get; set; }
+            public string Source { get; set; }
+            public string Status { get; set; }
+            public int? Runners { get; set; }
+            public List<PairOddsEntry> Entries { get { return _entries; } }
+        }
+
+        private sealed class PairOddsEntry
+        {
+            public int[] HorseNumbers { get; set; }
+            public decimal? MinOdds { get; set; }
+            public decimal? MaxOdds { get; set; }
+            public int? Popularity { get; set; }
         }
 
         private sealed class ConditionsPayload

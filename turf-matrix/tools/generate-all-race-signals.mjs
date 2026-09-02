@@ -13,6 +13,14 @@ import {
   valueOf,
   valueWatch,
 } from "./race-signal-selection.mjs";
+import {
+  BATTLE_MIN_GAP,
+  BATTLE_MIN_INDEX,
+  buildBattleReadiness,
+  selectBattleRace,
+} from "./battle-race-selection.mjs";
+import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
+import { buildPairOddsIndex, pairOddsFor } from "./pair-odds.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -34,10 +42,15 @@ const CANDIDATE_COPY = process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT
       ? process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT
       : join(REPO_ROOT, process.env.TURF_MATRIX_ALL_RACE_CANDIDATE_OUT))
   : null;
+const PAIR_ODDS_SOURCE = process.env.TURF_MATRIX_PAIR_ODDS_SOURCE
+  ? (isAbsolute(process.env.TURF_MATRIX_PAIR_ODDS_SOURCE)
+      ? process.env.TURF_MATRIX_PAIR_ODDS_SOURCE
+      : join(REPO_ROOT, process.env.TURF_MATRIX_PAIR_ODDS_SOURCE))
+  : join(REPO_ROOT, "data", "target", "pair-odds.latest.json");
 
-const BATTLE_MIN_INDEX = 80;
-const BATTLE_MIN_GAP = 3;
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
+let pairOddsPayload = null;
+let pairOddsIndex = new Map();
 
 const compactHorse = (horse, source, selection = null) => horse ? {
   id: horse.id,
@@ -67,7 +80,7 @@ const buildSignal = (race) => {
   const excluded = new Set([indexTop, indexSecond, secondOpponent].filter(Boolean).map(horseKey));
   const watchHorse = valueWatch(race, excluded);
 
-  return {
+  const signal = {
     id: race.id,
     bundleId: race.bundleId,
     track: race.track,
@@ -91,17 +104,33 @@ const buildSignal = (race) => {
     valuePending: race.oddsStatus !== "active",
     topConfidence: indexTop?.analysis?.confidence ?? null,
     indexGap: indexTop && indexSecond ? scoreOf(indexTop) - scoreOf(indexSecond) : null,
+    ticketOdds: {
+      quinella: indexTop && indexSecond ? pairOddsFor(pairOddsIndex, {
+        track: race.track,
+        raceNo: race.number,
+        type: "quinella",
+        first: indexTop.number,
+        second: indexSecond.number,
+      }) : null,
+      wide: indexTop && secondOpponent ? pairOddsFor(pairOddsIndex, {
+        track: race.track,
+        raceNo: race.number,
+        type: "wide",
+        first: indexTop.number,
+        second: secondOpponent.number,
+      }) : null,
+    },
+  };
+  return {
+    ...signal,
+    battleProfile: buildBattleReadiness({
+      indexTop,
+      indexSecond,
+      evidenceProfile: selectedEvidence?.profile,
+      indexGap: signal.indexGap,
+    }),
   };
 };
-
-const selectBattleRace = (signals) => signals
-  .filter((race) => race.category !== "race")
-  .filter((race) => race.indexTop?.tmIndex >= BATTLE_MIN_INDEX)
-  .filter((race) => race.indexGap >= BATTLE_MIN_GAP)
-  .filter((race) => race.topConfidence !== "low")
-  .sort((left, right) => right.indexGap - left.indexGap
-    || right.indexTop.tmIndex - left.indexTop.tmIndex
-    || String(left.time ?? "").localeCompare(String(right.time ?? "")))[0] ?? null;
 
 const runNode = (script, env) => {
   const result = spawnSync(process.execPath, [script], {
@@ -139,13 +168,34 @@ try {
   runNode("tools/generate-race-batch-candidate.mjs", sharedEnv);
 
   const candidate = readJson(TEMP_CANDIDATE);
+  if (existsSync(PAIR_ODDS_SOURCE)) {
+    const loaded = readJson(PAIR_ODDS_SOURCE);
+    if (loaded.RaceDate === (candidate.meta?.date ?? runtime.raceDate)) {
+      pairOddsPayload = loaded;
+      pairOddsIndex = buildPairOddsIndex(loaded);
+    } else {
+      console.warn(`Ignoring stale pair odds for ${loaded.RaceDate ?? "unknown date"}`);
+    }
+  }
   if (CANDIDATE_COPY) writeFileSync(CANDIDATE_COPY, JSON.stringify(candidate, null, 2) + "\n");
   const signals = (candidate.races ?? []).map(buildSignal);
   const battleRace = selectBattleRace(signals);
+  const selectionFingerprint = buildEngineFingerprint({
+    root: REPO_ROOT,
+    entryPoints: ["tools/generate-all-race-signals.mjs"],
+  });
   const output = {
     schemaVersion: 1,
     date: candidate.meta?.date ?? runtime.raceDate,
     source: "jv-link-all-races",
+    pairOdds: pairOddsPayload ? {
+      status: "available",
+      generatedAt: pairOddsPayload.GeneratedAt ?? null,
+      source: pairOddsPayload.Source ?? null,
+      combinations: pairOddsIndex.size,
+    } : { status: "unavailable" },
+    engineFingerprint: candidate.meta?.engineFingerprint ?? null,
+    selectionFingerprint,
     thresholds: {
       battleMinIndex: BATTLE_MIN_INDEX,
       battleMinGap: BATTLE_MIN_GAP,

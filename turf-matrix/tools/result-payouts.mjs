@@ -12,17 +12,17 @@ const sortedPair = (first, second) => [finiteNumber(first), finiteNumber(second)
   .filter((value) => value != null)
   .sort((a, b) => a - b);
 
-const widePayoutEntries = (race) => {
-  if (Object.prototype.hasOwnProperty.call(race?.payouts ?? {}, "wide")) {
-    return { available: true, entries: race.payouts.wide ?? [] };
+const pairPayoutEntries = (race, type) => {
+  if (Object.prototype.hasOwnProperty.call(race?.payouts ?? {}, type)) {
+    return { available: true, entries: race.payouts[type] ?? [] };
   }
-  const entries = (race?.Payouts ?? []).filter((entry) => entry.Type === "wide");
+  const entries = (race?.Payouts ?? []).filter((entry) => entry.Type === type);
   return { available: entries.length > 0, entries };
 };
 
-const widePayoutFor = (race, first, second) => {
+const pairPayoutFor = (race, type, first, second) => {
   const target = sortedPair(first, second);
-  const source = widePayoutEntries(race);
+  const source = pairPayoutEntries(race, type);
   if (!source.available || target.length !== 2) return { available: false, hit: false, payout: 0 };
   const match = source.entries.find((entry) => {
     const pair = payoutNumbers(entry).sort((a, b) => a - b);
@@ -35,4 +35,17 @@ const widePayoutFor = (race, first, second) => {
   };
 };
 
-export { payoutNumbers, widePayoutEntries, widePayoutFor };
+const quinellaPayoutEntries = (race) => pairPayoutEntries(race, "quinella");
+const widePayoutEntries = (race) => pairPayoutEntries(race, "wide");
+const quinellaPayoutFor = (race, first, second) => pairPayoutFor(race, "quinella", first, second);
+const widePayoutFor = (race, first, second) => pairPayoutFor(race, "wide", first, second);
+
+export {
+  payoutNumbers,
+  pairPayoutEntries,
+  pairPayoutFor,
+  quinellaPayoutEntries,
+  quinellaPayoutFor,
+  widePayoutEntries,
+  widePayoutFor,
+};

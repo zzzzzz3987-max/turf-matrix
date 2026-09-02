@@ -25,8 +25,8 @@ const resultRaceByBundle = new Map((live.Races ?? []).map((race) => {
   return [`${date}-${slug}-${String(race.Race.RaceNo).padStart(2, "0")}R`, race];
 }));
 
-const widePayoutsFor = (resultRace) => (resultRace.Payouts ?? [])
-  .filter((entry) => entry.Type === "wide" && Array.isArray(entry.HorseNumbers) && entry.HorseNumbers.length === 2)
+const pairPayoutsFor = (resultRace, type) => (resultRace.Payouts ?? [])
+  .filter((entry) => entry.Type === type && Array.isArray(entry.HorseNumbers) && entry.HorseNumbers.length === 2)
   .map((entry) => ({ numbers: entry.HorseNumbers.map(Number), payout: entry.Payout, popularity: entry.Popularity }));
 
 const archiveRaces = [];
@@ -107,7 +107,8 @@ for (const race of snapshot.races ?? []) {
     .filter((horse) => horse.marketGap >= 0 && horse.ev >= 1 && horse.ev < 3)
     .sort((a, b) => b.marketGap - a.marketGap || a.indexRank - b.indexRank || b.ev - a.ev || a.horseNumber - b.horseNumber);
 
-  const widePayouts = widePayoutsFor(resultRace);
+  const quinellaPayouts = pairPayoutsFor(resultRace, "quinella");
+  const widePayouts = pairPayoutsFor(resultRace, "wide");
   archiveRaces.push({
     bundleId: race.bundleId,
     track: race.track,
@@ -120,6 +121,7 @@ for (const race of snapshot.races ?? []) {
     payouts: {
       win: resultRace.Payouts.filter((entry) => entry.Type === "win").map((entry) => ({ number: entry.HorseNumber, payout: entry.Payout, popularity: entry.Popularity })),
       place: resultRace.Payouts.filter((entry) => entry.Type === "place").map((entry) => ({ number: entry.HorseNumber, payout: entry.Payout, popularity: entry.Popularity })),
+      ...(quinellaPayouts.length ? { quinella: quinellaPayouts } : {}),
       ...(widePayouts.length ? { wide: widePayouts } : {}),
     },
   });

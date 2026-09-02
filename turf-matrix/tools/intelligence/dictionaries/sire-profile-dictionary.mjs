@@ -1,3 +1,5 @@
+import { PEDIGREE_PUBLIC_PROFILE_DEFINITIONS } from "../../../src/data/pedigree-public-profiles.js";
+
 const normalizeSireName = (value) =>
   String(value ?? "")
     .normalize("NFKC")
@@ -98,6 +100,24 @@ const BASE_SIRE_PROFILES = [
 const sourcedProfile = (id, names, ancestry, traits, summary, sourceRefs) =>
   profile(id, names, ancestry, traits, summary, { sourceRefs });
 
+const displayProfile = (id, names, ancestry, traits, summary, sourceRefs) => ({
+  ...profile(id, names, ancestry, traits, summary, { sourceRefs }),
+  scoreApplied: false,
+});
+
+// Display-only profiles deepen the explanation without changing Blood or TM INDEX.
+// Promote them to SIRE_PROFILES only after the existing score acceptance checks pass.
+const DISPLAY_ONLY_SIRE_PROFILES = [
+  ...PEDIGREE_PUBLIC_PROFILE_DEFINITIONS.map((definition) => displayProfile(
+    definition.id,
+    definition.names,
+    definition.ancestry,
+    definition.traits,
+    definition.summary,
+    definition.sourceRefs,
+  )),
+];
+
 const FOREIGN_SIRE_PROFILE_CANDIDATES = [
   sourcedProfile(
     "siskin",
@@ -159,6 +179,8 @@ const FOREIGN_SIRE_PROFILE_CANDIDATES = [
 
 const SIRE_PROFILES = [...BASE_SIRE_PROFILES, ...FOREIGN_SIRE_PROFILE_CANDIDATES];
 
+const PEDIGREE_DISPLAY_PROFILES = [...SIRE_PROFILES, ...DISPLAY_ONLY_SIRE_PROFILES];
+
 const findSireProfileIn = (name, profiles = SIRE_PROFILES) => {
   const normalized = normalizeSireName(name);
   return profiles.find((profile) =>
@@ -167,13 +189,17 @@ const findSireProfileIn = (name, profiles = SIRE_PROFILES) => {
 };
 
 const findSireProfile = (name) => findSireProfileIn(name, SIRE_PROFILES);
+const findPedigreeDisplayProfile = (name) => findSireProfileIn(name, PEDIGREE_DISPLAY_PROFILES);
 
 export {
   BASE_SIRE_PROFILES,
+  DISPLAY_ONLY_SIRE_PROFILES,
   FOREIGN_SIRE_PROFILE_CANDIDATES,
+  PEDIGREE_DISPLAY_PROFILES,
   PROFILE_TRAIT_VECTORS,
   SIRE_PROFILES,
   buildProfileTraitVector,
+  findPedigreeDisplayProfile,
   findSireProfile,
   findSireProfileIn,
   normalizeSireName,

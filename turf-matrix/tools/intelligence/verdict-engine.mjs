@@ -279,7 +279,7 @@ const buildVerdictPayload = ({
         grade: trainingAnalysis.grade,
         oneWeek: { score: training, text: trainingReadable },
         final: { status: trainingAnalysis.count ? "取得済み" : "未取得", text: trainingAnalysis.finalText },
-        stablePattern: { match: trainingAnalysis.score >= 74, text: trainingAnalysis.patternText },
+        stablePattern: trainingAnalysis.stablePattern ?? { match: false, status: "未判定", text: "" },
         details: {
           count: trainingAnalysis.count,
           best: trainingAnalysis.best ?? null,

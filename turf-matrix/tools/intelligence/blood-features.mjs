@@ -1,4 +1,4 @@
-import { findSireProfile } from "./dictionaries/sire-profile-dictionary.mjs";
+import { findPedigreeDisplayProfile } from "./dictionaries/sire-profile-dictionary.mjs";
 
 const EXPECTED_FOUR_GENERATION_ENTRIES = 30;
 const EXPECTED_FIVE_GENERATION_ENTRIES = 62;
@@ -208,7 +208,7 @@ const ancestorAt = (pedigree, branch) =>
 
 const buildSireFeature = ({ sire, pedigree, sireMatch, paternalMatches, profileEvidence }) => {
   if (!sire) return null;
-  const curated = findSireProfile(sire);
+  const curated = findPedigreeDisplayProfile(sire);
   const recordedAncestry = [pedigree.sireSire, pedigree.sireDam].filter(Boolean);
   const ancestry = curated?.ancestry?.length ? curated.ancestry : recordedAncestry;
   const ancestryText = ancestry.length ? `${ancestry.join(" × ")}。` : "父方祖先は一部未取得。";
@@ -240,7 +240,7 @@ const buildSireFeature = ({ sire, pedigree, sireMatch, paternalMatches, profileE
 
 const buildBroodmareSireFeature = ({ broodmareSire, pedigree, bmsMatch, maternalMatches, profileEvidence }) => {
   if (!broodmareSire) return null;
-  const curated = findSireProfile(broodmareSire);
+  const curated = findPedigreeDisplayProfile(broodmareSire);
   const recordedAncestry = [
     ancestorAt(pedigree, "dam.sire.sire"),
     ancestorAt(pedigree, "dam.sire.dam"),

@@ -1,3 +1,6 @@
+import { findPedigreePublicProfile } from "../data/pedigree-public-profiles.js";
+import { selectPublicRoleHorses } from "./public-role-selection.js";
+
 export const PUBLIC_FACTOR_LABELS = {
   ability: "能力",
   blood: "血統",
@@ -114,6 +117,477 @@ export const publicTrainingHeadline = (evalData) => {
 
   if (finalLabel) return `最終追い切りは${finalLabel}。調教全体は${gradeLabel}評価です。`;
   return `調教全体は${gradeLabel}評価です。`;
+};
+
+const publicPatternLabel = (value) => {
+  const label = String(value ?? "")
+    .split("への合致度")[0]
+    .replace(/はサンプル不足.*$/u, "")
+    .trim();
+  return label || "今回の追い切り構成";
+};
+
+export const buildStablePatternPublicView = (stablePattern) => {
+  const rawText = String(stablePattern?.text ?? stablePattern?.label ?? "");
+  const degree = isFiniteScore(stablePattern?.degree) ? stablePattern.degree : stablePattern?.match ? 1 : null;
+  const isMatched = stablePattern?.match === true || (
+    stablePattern?.status === "照合済" && isFiniteScore(degree) && degree >= 0.6
+  );
+  if (!isMatched) return null;
+  const parsedSample = rawText.match(/n=(\d+)/i)?.[1];
+  const parsedHitRate = rawText.match(/複勝率(\d+(?:\.\d+)?)%/)?.[1];
+  const parsedBaseline = rawText.match(/厩舎基準(\d+(?:\.\d+)?)%/)?.[1];
+  const sampleSize = isFiniteScore(stablePattern.sampleSize)
+    ? Math.round(stablePattern.sampleSize)
+    : parsedSample ? Number(parsedSample) : null;
+  const hitRate = isFiniteScore(stablePattern.hitRate)
+    ? stablePattern.hitRate
+    : parsedHitRate ? Number(parsedHitRate) / 100 : null;
+  const baselineHitRate = isFiniteScore(stablePattern.baselineHitRate)
+    ? stablePattern.baselineHitRate
+    : parsedBaseline ? Number(parsedBaseline) / 100 : null;
+  const liftPoints = hitRate != null && baselineHitRate != null
+    ? Number(((hitRate - baselineHitRate) * 100).toFixed(1))
+    : null;
+  const metrics = [
+    sampleSize != null ? { label: "過去例", value: `${sampleSize}件` } : null,
+    hitRate != null ? { label: "3着内率", value: `${(hitRate * 100).toFixed(1)}%` } : null,
+    liftPoints != null ? { label: "通常時との差", value: `${liftPoints >= 0 ? "+" : ""}${liftPoints.toFixed(1)}pt` } : null,
+  ].filter(Boolean);
+
+  const comparison = liftPoints == null
+    ? "この厩舎で結果につながった追い切り構成と一致しています。"
+    : liftPoints >= 8
+      ? "厩舎の通常時より、3着内につながりやすい形です。"
+      : liftPoints > 0
+        ? "厩舎の通常時を上回る好走パターンです。"
+        : "形は一致していますが、通常時との差は小さめです。";
+
+  return {
+    label: publicPatternLabel(rawText),
+    headline: `${publicPatternLabel(rawText)}に${degree != null ? `${Math.round(degree * 100)}%` : ""}合致`,
+    summary: comparison,
+    metrics,
+  };
+};
+
+const pedigreeTraitRows = (pedigree) => {
+  const traits = Array.isArray(pedigree?.traits) ? pedigree.traits : [];
+  return traits
+    .filter((trait) => isFiniteScore(trait?.score) && trait?.label)
+    .sort((left, right) => right.score - left.score)
+    .slice(0, 3)
+    .map((trait) => ({ label: trait.label, score: Math.round(trait.score) }));
+};
+
+const publicPedigreeSummary = (...candidates) => candidates
+  .map((candidate) => summarizePublicText(candidate, { maxLength: 156, sentences: 2 }))
+  .find(Boolean) ?? null;
+
+const publicPedigreeDetail = (...candidates) => candidates
+  .map((candidate) => summarizePublicText(candidate, { maxLength: 320, sentences: 4 }))
+  .find(Boolean) ?? null;
+
+const percentText = (value) => isFiniteScore(value) ? `${(value * 100).toFixed(1)}%` : null;
+
+const profileStructureText = (role, name, ancestry) => {
+  const ancestors = (ancestry ?? []).filter(Boolean).slice(0, 2);
+  if (!name || !ancestors.length) return null;
+  return `${role}${name}は${ancestors.join(" × ")}の血統構成。`;
+};
+
+const ancestorName = (sourcePedigree, branch) => (sourcePedigree?.ancestors ?? [])
+  .find((ancestor) => ancestor?.branch === branch)?.name ?? null;
+
+const pairText = (...names) => {
+  const pair = names.filter(Boolean);
+  return pair.length >= 2 ? pair.slice(0, 2).join(" × ") : null;
+};
+
+const sireStructureText = (pedigree, sourcePedigree) => {
+  const identity = pedigree?.identity ?? {};
+  const sireParents = pairText(
+    ancestorName(sourcePedigree, "sire.sire") ?? identity.sireSire,
+    ancestorName(sourcePedigree, "sire.dam") ?? identity.sireDam,
+  );
+  const sireSireParents = pairText(
+    ancestorName(sourcePedigree, "sire.sire.sire"),
+    ancestorName(sourcePedigree, "sire.sire.dam"),
+  );
+  const sireDamParents = pairText(
+    ancestorName(sourcePedigree, "sire.dam.sire"),
+    ancestorName(sourcePedigree, "sire.dam.dam"),
+  );
+  return [
+    identity.sire && sireParents ? `父${identity.sire}は${sireParents}。` : null,
+    identity.sireSire && sireSireParents ? `${identity.sireSire}側は${sireSireParents}。` : null,
+    identity.sireDam && sireDamParents ? `${identity.sireDam}側は${sireDamParents}へつながります。` : null,
+  ].filter(Boolean).join("");
+};
+
+const broodmareSireStructureText = (pedigree, sourcePedigree) => {
+  const identity = pedigree?.identity ?? {};
+  const parents = pairText(
+    ancestorName(sourcePedigree, "dam.sire.sire"),
+    ancestorName(sourcePedigree, "dam.sire.dam"),
+  ) ?? pairText(...(pedigree?.broodmareSireProfile?.ancestry ?? []));
+  if (!identity.broodmareSire || !parents) return null;
+  return `母父${identity.broodmareSire}は${parents}。`;
+};
+
+const maternalGranddamStructureText = (pedigree, sourcePedigree) => {
+  const identity = pedigree?.identity ?? {};
+  const parents = pairText(
+    ancestorName(sourcePedigree, "dam.dam.sire"),
+    ancestorName(sourcePedigree, "dam.dam.dam"),
+  );
+  if (!identity.damDam || !parents) return null;
+  return `母母${identity.damDam}は${parents}。`;
+};
+
+const inheritedTraitText = (role, name, traits) => {
+  const labels = [...new Set((traits ?? []).filter(Boolean))].slice(0, 4);
+  if (!name || !labels.length) return null;
+  return role === "父"
+    ? `父${name}からは${labels.join("・")}を主な能力特性として評価します。`
+    : `母父${name}からは${labels.join("・")}を補完要素として評価します。`;
+};
+
+const publicSireProfileFor = (pedigree) => {
+  const profile = pedigree?.sireProfile ?? null;
+  if (profile?.traits?.length) return profile;
+  const supplement = findPedigreePublicProfile(pedigree?.identity?.sire);
+  return supplement ? { ...profile, ...supplement, scoreApplied: false } : profile;
+};
+
+export const buildPedigreePublicOverview = (pedigree, score = null) => {
+  if (!pedigree) return null;
+  const identity = pedigree.identity ?? {};
+  const sireProfile = publicSireProfileFor(pedigree);
+  const sireTraits = [...new Set((sireProfile?.traits ?? []).filter(Boolean))].slice(0, 3);
+  const maternalTraits = [...new Set((pedigree.broodmareSireProfile?.traits ?? []).filter(Boolean))].slice(0, 3);
+  const totalTraits = pedigreeTraitRows(pedigree).slice(0, 2);
+  const sireStatistics = (pedigree.statistics ?? []).find((stat) =>
+    stat?.entityType === "sire" && (!identity.sire || stat?.name === identity.sire)
+  );
+  const roleClauses = [
+    identity.sire && sireTraits.length
+      ? `父${identity.sire}の${sireTraits.join("・")}が父側の軸`
+      : null,
+    identity.broodmareSire && maternalTraits.length
+      ? `母父${identity.broodmareSire}が${maternalTraits.join("・")}を補う`
+      : null,
+  ].filter(Boolean);
+  const evidenceClauses = [
+    totalTraits.length
+      ? `配合全体は${totalTraits.map((trait) => `${trait.label}${trait.score}`).join("・")}`
+      : null,
+    sireStatistics && isFiniteScore(sireStatistics.sampleSize) && isFiniteScore(sireStatistics.hitRate)
+      ? `父産駒は${sireStatistics.sampleSize}走で複勝率${percentText(sireStatistics.hitRate)}`
+      : null,
+  ].filter(Boolean);
+  if (roleClauses.length || evidenceClauses.length) {
+    const roleSentence = roleClauses.length ? `${roleClauses.join("、")}配合。` : "";
+    const verdict = isFiniteScore(score) ? `今回は${Math.round(score)}点の${publicConditionFit(score)}評価` : null;
+    const evidenceSentence = [...evidenceClauses, verdict].filter(Boolean).join("、");
+    return `${roleSentence}${evidenceSentence ? `${evidenceSentence}。` : ""}`;
+  }
+  return publicPedigreeSummary(pedigree.headline, pedigree.summary);
+};
+
+const statisticsFor = (pedigree, entityType, name) => (pedigree.statistics ?? []).find((stat) =>
+  stat?.entityType === entityType && (!name || stat?.name === name)
+) ?? null;
+
+const publicStatisticsMetrics = (statistics) => {
+  if (!statistics || !isFiniteScore(statistics.sampleSize) || statistics.sampleSize <= 0) return [];
+  return [
+    { label: "対象", value: `${statistics.sampleSize}走${isFiniteScore(statistics.uniqueHorseCount) ? `・${statistics.uniqueHorseCount}頭` : ""}` },
+    { label: "勝率", value: percentText(statistics.winRate) },
+    { label: "複勝率", value: percentText(statistics.hitRate) },
+  ].filter((metric) => metric.value);
+};
+
+const publicStatisticsText = (role, statistics) => {
+  const metrics = publicStatisticsMetrics(statistics);
+  if (!metrics.length) return null;
+  const scope = /同馬場.*距離|同距離.*馬場/.test(String(statistics.scope ?? ""))
+    ? "同じ馬場・距離帯"
+    : /同距離/.test(String(statistics.scope ?? ""))
+      ? "同距離"
+      : "集計対象";
+  const averageFinish = isFiniteScore(statistics.avgFinish) ? `、平均着順${Number(statistics.avgFinish).toFixed(1)}` : "";
+  return `${role}の${scope}の成績は${metrics.map((metric) => `${metric.label}${metric.value}`).join("、")}${averageFinish}。`;
+};
+
+const componentEvaluationText = (role, name, score, statistics) => {
+  if (!name || !isFiniteScore(score)) return null;
+  const limited = isFiniteScore(statistics?.sampleSize) && statistics.sampleSize < 20
+    ? `${statistics.sampleSize}走と対象が限られるため、配合全体と距離適性も合わせて判断します。`
+    : null;
+  return `${role}${name}は今回条件との相性を${publicConditionFit(score)}と評価。${limited ?? "父・母父・距離・コースの噛み合いを合わせて判断します。"}`;
+};
+
+const profileTypeText = (profile) => publicPedigreeDetail(profile?.summary);
+
+const statisticsCautionText = (role, statistics) => {
+  if (!statistics || !isFiniteScore(statistics.sampleSize)) return null;
+  const cautions = [];
+  if (statistics.sampleSize < 20) cautions.push(`${role}の成績は${statistics.sampleSize}走で、まだ対象が少ない`);
+  if (isFiniteScore(statistics.adjustment) && statistics.adjustment < 0 && isFiniteScore(statistics.hitRate)) {
+    cautions.push(`${role}の集計成績は複勝率${percentText(statistics.hitRate)}で、強い加点材料にはしていない`);
+  }
+  return cautions.length ? `${cautions.join("。") }。` : null;
+};
+
+const pairingCautionText = (pedigree) => {
+  const pairing = pedigree?.componentDetails?.pairing;
+  if (pairing?.status !== "insufficient_sample") return null;
+  const pairLabel = pedigree?.identity?.pairLabel;
+  return pairLabel
+    ? `${pairLabel}の組み合わせ単独では、評価を強く押し上げるだけの実績がまだありません。`
+    : null;
+};
+
+const sideLineageText = (pedigree, side) => {
+  const prefix = side === "sire" ? "sire" : "dam.sire";
+  const matches = [...(pedigree?.raceBias?.matched ?? []), ...(pedigree?.raceBias?.femaleMatched ?? [])]
+    .filter((match) => (match.hitEntries ?? []).some((entry) => String(entry?.branch ?? "").startsWith(prefix)))
+    .slice(0, 2);
+  if (!matches.length) return null;
+  return matches.map((match) => {
+    const ancestor = (match.hitEntries ?? [])
+      .find((entry) => String(entry?.branch ?? "").startsWith(prefix))?.name;
+    const fits = [...new Set((match.fit ?? []).filter(Boolean))].slice(0, 3);
+    const note = summarizePublicText(match.note, { maxLength: 96, sentences: 1 });
+    return `${ancestor ?? match.label}から${fits.length ? fits.join("・") : match.label}を評価。${note ?? ""}`;
+  }).join("");
+};
+
+export const buildPedigreeFamilyPublicLines = (pedigree, sourcePedigree) => {
+  if (!pedigree) return [];
+  sourcePedigree ??= pedigree.sourcePedigree ?? null;
+  const identity = pedigree.identity ?? {};
+  const maternalPair = pairText(identity.broodmareSire, identity.damDam);
+  const motherText = identity.dam && maternalPair ? `母${identity.dam}は${maternalPair}。` : null;
+  const broodmareSireText = [
+    broodmareSireStructureText(pedigree, sourcePedigree),
+    inheritedTraitText("母父", identity.broodmareSire, pedigree.broodmareSireProfile?.traits),
+  ].filter(Boolean).join("");
+  const granddamText = maternalGranddamStructureText(pedigree, sourcePedigree);
+  const exactRows = [
+    identity.dam && motherText ? { role: "母", name: identity.dam, note: motherText } : null,
+    identity.broodmareSire && broodmareSireText ? { role: "母父", name: identity.broodmareSire, note: broodmareSireText } : null,
+    identity.damDam && granddamText ? { role: "母母", name: identity.damDam, note: granddamText } : null,
+  ].filter(Boolean);
+  if (exactRows.length) return exactRows;
+  return (pedigree.lines ?? [])
+    .filter((line) => line?.name && line?.role !== "父系")
+    .map((line) => ({ ...line, note: publicPedigreeDetail(line.note) }));
+};
+
+const roleStrengths = (pedigree, roles) => (pedigree.strengths ?? [])
+  .filter((strength) => (strength.roles ?? []).some((role) => roles.includes(role)));
+
+const detailSection = (label, text, tone = "neutral") => {
+  const summary = publicPedigreeDetail(text);
+  return summary ? { label, text: summary, tone } : null;
+};
+
+const uniqueSections = (sections) => {
+  const seen = new Set();
+  return sections.filter(Boolean).filter((section) => {
+    if (seen.has(section.text)) return false;
+    seen.add(section.text);
+    return true;
+  });
+};
+
+const distanceTerms = (label) => {
+  const distance = Number(String(label ?? "").match(/(\d{3,4})m/)?.[1]);
+  if (!Number.isFinite(distance)) return ["短距離", "マイル", "中距離", "長距離", "スピード", "スタミナ", "持続力"];
+  if (distance <= 1400) return ["短距離", "スピード", "先行"];
+  if (distance <= 1600) return ["マイル", "スピード", "瞬発力"];
+  if (distance <= 2000) return ["中距離", "持続力", "瞬発力"];
+  if (distance <= 2400) return ["中距離", "スタミナ", "持続力"];
+  return ["長距離", "スタミナ", "持続力"];
+};
+
+const distanceStrengthFor = (pedigree, label) => {
+  const terms = distanceTerms(label);
+  return (pedigree.strengths ?? [])
+    .map((strength, index) => ({
+      strength,
+      index,
+      matches: (strength.fit ?? []).filter((fit) => terms.some((term) => String(fit).includes(term))).length,
+    }))
+    .filter((entry) => entry.matches > 0)
+    .sort((left, right) => right.matches - left.matches || left.index - right.index)[0]?.strength ?? null;
+};
+
+const distanceBalanceText = (pedigree, label, score) => {
+  const distance = Number(String(label ?? "").match(/(\d{3,4})m/)?.[1]);
+  const traitMap = new Map(pedigreeTraitRows(pedigree).map((trait) => [trait.label, trait.score]));
+  const wanted = !Number.isFinite(distance)
+    ? ["スピード", "持続力"]
+    : distance <= 1400
+      ? ["スピード", "パワー"]
+      : distance <= 1600
+        ? ["スピード", "瞬発力"]
+        : distance <= 2000
+          ? ["スピード", "持続力"]
+          : distance <= 2400
+            ? ["持続力", "スタミナ"]
+            : ["スタミナ", "持続力"];
+  const selected = wanted
+    .map((trait) => ({ trait, value: traitMap.get(trait) }))
+    .filter((item) => isFiniteScore(item.value));
+  if (!selected.length) return null;
+  const distanceText = Number.isFinite(distance) ? `${distance}m` : "今回距離";
+  const scoreText = isFiniteScore(score) ? `距離適合は${Math.round(score)}で${publicConditionFit(score)}。` : "";
+  return `${distanceText}では${selected.map((item) => `${item.trait}${item.value}`).join("と")}のバランスを評価。${scoreText}`;
+};
+
+export const buildPedigreePublicConditionSummary = (pedigree) => {
+  if (!pedigree) return null;
+  const components = pedigree.componentDetails ?? {};
+  const distanceText = distanceBalanceText(pedigree, components.distanceFit?.label, components.distanceFit?.score);
+  const goingFit = components.goingFit;
+  const goingText = isFiniteScore(goingFit?.score)
+    ? `${goingFit.label ?? "今回馬場への血統適合"}は${Math.round(goingFit.score)}で${publicConditionFit(goingFit.score)}。`
+    : null;
+  return publicPedigreeDetail([distanceText, goingText].filter(Boolean).join(""));
+};
+
+export const buildPedigreePublicBreakdown = (pedigree, sourcePedigree = null) => {
+  if (!pedigree) return [];
+  sourcePedigree ??= pedigree.sourcePedigree ?? null;
+  const identity = pedigree.identity ?? {};
+  const sireProfile = publicSireProfileFor(pedigree);
+  const components = pedigree.componentDetails ?? {};
+  const traits = pedigreeTraitRows(pedigree);
+  const traitText = traits.length
+    ? `血統特性は${traits.map((trait) => `${trait.label}${trait.score}`).join("・")}を上位評価。`
+    : null;
+  const courseMatches = (pedigree.raceBias?.courseMatched ?? []).slice(0, 3);
+  const courseLabels = courseMatches.map((match) => match.label).filter(Boolean);
+  const distanceStrength = distanceStrengthFor(pedigree, components.distanceFit?.label);
+  const sireStrengths = roleStrengths(pedigree, ["父", "父系"]);
+  const maternalStrengths = roleStrengths(pedigree, ["母父", "母系", "牝系"]);
+  const sireStatistics = statisticsFor(pedigree, "sire", identity.sire);
+  const maternalStatistics = statisticsFor(pedigree, "broodmareSire", identity.broodmareSire);
+  const sireCautions = [...new Set(sireStrengths.flatMap((strength) => strength.caution ?? []).filter(Boolean))];
+  const maternalCautions = [...new Set(maternalStrengths.flatMap((strength) => strength.caution ?? []).filter(Boolean))];
+  const distanceCautions = [...new Set((distanceStrength?.caution ?? []).filter(Boolean))];
+  const courseCautions = [...new Set(courseMatches.flatMap((match) => match.caution ?? []).filter(Boolean))];
+  const goingFit = components.goingFit;
+  const pairingCaution = pairingCautionText(pedigree);
+  const sireLineage = sideLineageText(pedigree, "sire");
+  const maternalLineage = sideLineageText(pedigree, "maternal");
+  const distanceBalance = distanceBalanceText(pedigree, components.distanceFit?.label, components.distanceFit?.score);
+
+  const rows = [
+    {
+      key: "sireTrait",
+      label: "父",
+      name: identity.sire ?? "父系",
+      score: components.sireTrait?.score,
+      summary: publicPedigreeSummary(
+        inheritedTraitText("父", identity.sire, sireProfile?.traits),
+        sireStructureText(pedigree, sourcePedigree),
+        identity.sire ? `父${identity.sire}の血統特性を今回条件に照らして評価。` : null,
+      ),
+      points: (sireProfile?.traits ?? []).slice(0, 3),
+      metrics: publicStatisticsMetrics(sireStatistics),
+      sections: uniqueSections([
+        detailSection("父のタイプ", profileTypeText(sireProfile)),
+        detailSection("父側の3代構成", sireStructureText(pedigree, sourcePedigree) || profileStructureText("父", identity.sire, sireProfile?.ancestry)),
+        detailSection("父方祖先の役割", sireLineage),
+        detailSection("今回条件で見る点", sireStrengths.map((strength) => strength.text).join("。")),
+        detailSection("産駒成績", publicStatisticsText(`父${identity.sire ?? ""}`, sireStatistics)),
+        detailSection("点数の見方", componentEvaluationText("父", identity.sire, components.sireTrait?.score, sireStatistics)),
+        detailSection("慎重に見る点", [statisticsCautionText(`父${identity.sire ?? ""}`, sireStatistics), pairingCaution, ...sireCautions].filter(Boolean).join("。"), "caution"),
+      ]),
+    },
+    {
+      key: "broodmareSire",
+      label: "母父",
+      name: identity.broodmareSire ?? "母系",
+      score: components.broodmareSire?.score,
+      summary: publicPedigreeSummary(
+        inheritedTraitText("母父", identity.broodmareSire, pedigree.broodmareSireProfile?.traits),
+        broodmareSireStructureText(pedigree, sourcePedigree),
+        identity.broodmareSire ? `母父${identity.broodmareSire}が補うスピード・パワー・持続力を評価。` : null,
+      ),
+      points: (pedigree.broodmareSireProfile?.traits?.length
+        ? pedigree.broodmareSireProfile.traits
+        : pedigree.broodmareSireProfile?.ancestry ?? []).slice(0, 3),
+      metrics: publicStatisticsMetrics(maternalStatistics),
+      sections: uniqueSections([
+        detailSection("母父のタイプ", profileTypeText(pedigree.broodmareSireProfile)),
+        detailSection("母父側の構成", broodmareSireStructureText(pedigree, sourcePedigree) || profileStructureText("母父", identity.broodmareSire, pedigree.broodmareSireProfile?.ancestry)),
+        detailSection("母父方祖先の役割", maternalLineage),
+        detailSection("今回条件で見る点", maternalStrengths.map((strength) => strength.text).join("。")),
+        detailSection("母父成績", publicStatisticsText(`母父${identity.broodmareSire ?? ""}`, maternalStatistics)),
+        detailSection("点数の見方", componentEvaluationText("母父", identity.broodmareSire, components.broodmareSire?.score, maternalStatistics)),
+        detailSection("慎重に見る点", [statisticsCautionText(`母父${identity.broodmareSire ?? ""}`, maternalStatistics), ...maternalCautions].filter(Boolean).join("。"), "caution"),
+      ]),
+    },
+    {
+      key: "distanceFit",
+      label: "距離",
+      name: components.distanceFit?.label ?? "今回距離への適性",
+      score: components.distanceFit?.score,
+      summary: publicPedigreeSummary(
+        distanceBalance,
+        [components.distanceFit?.label, distanceStrength?.text, traitText].filter(Boolean).join("。"),
+        traitText,
+      ),
+      points: [],
+      metrics: traits.map((trait) => ({ label: trait.label, value: String(trait.score) })),
+      sections: uniqueSections([
+        detailSection("祖先から見る根拠", summarizePublicText(distanceStrength?.text, { maxLength: 180, sentences: 2 })),
+        detailSection("配合全体の能力構成", traitText),
+        detailSection("注意点", distanceCautions.join("。"), "caution"),
+      ]),
+    },
+    {
+      key: "courseFit",
+      label: "コース",
+      name: components.courseFit?.label ?? "今回コースへの適性",
+      score: components.courseFit?.score,
+      summary: publicPedigreeSummary(
+        [
+          components.courseFit?.label,
+          courseLabels.length ? `${courseLabels.join("・")}を今回コースとの相性材料として評価。` : null,
+          courseMatches[0]?.note,
+        ].filter(Boolean).join("。"),
+      ),
+      points: courseLabels,
+      metrics: [],
+      sections: uniqueSections([
+        detailSection("コース特性", pedigree.raceBias?.summary),
+        ...courseMatches.slice(0, 2).map((match) => detailSection(match.label, match.note)),
+        detailSection(
+          "今回の馬場",
+          isFiniteScore(goingFit?.score)
+            ? `${goingFit.label ?? "今回馬場への血統適合"}は${Math.round(goingFit.score)}。${publicConditionFit(goingFit.score)}と評価。`
+            : null,
+        ),
+        detailSection("注意点", courseCautions.join("。"), "caution"),
+      ]),
+    },
+  ];
+
+  return rows
+    .filter((row) => isFiniteScore(row.score))
+    .map((row) => ({
+      ...row,
+      summary: row.summary ?? `${row.name}を今回条件に照らして評価。`,
+      points: [...new Set(row.points.filter(Boolean))].slice(0, 3),
+      metrics: row.metrics ?? [],
+      sections: row.sections ?? [],
+    }));
 };
 
 const compactNumber = (value) => Number.isInteger(value) ? String(value) : Number(value).toFixed(1);
@@ -375,25 +849,7 @@ export const buildRacePublicConclusion = (race) => {
   const rankById = new Map(ranked.map((horse, index) => [horse.id, index + 1]));
   const favorite = ranked[0];
   const challenger = ranked[1] ?? null;
-  const valueHorse = ranked
-    .filter((horse) => rankById.get(horse.id) > 2)
-    .filter((horse) => {
-      const value = horse?.analysis?.factorsDetail?.value;
-      return value?.eligible === true && isFiniteScore(value.marketGap) && value.marketGap >= 1;
-    })
-    .sort((a, b) => {
-      const valueA = a.analysis.factorsDetail.value;
-      const valueB = b.analysis.factorsDetail.value;
-      return valueB.marketGap - valueA.marketGap || raceHorseScore(b) - raceHorseScore(a) || (a.number ?? 999) - (b.number ?? 999);
-    })[0] ?? null;
-  const dangerHorse = ranked
-    .filter((horse) => isFiniteScore(horse.popularity) && horse.popularity <= 4)
-    .filter((horse) => rankById.get(horse.id) - horse.popularity >= 2)
-    .sort((a, b) =>
-      (rankById.get(b.id) - b.popularity) - (rankById.get(a.id) - a.popularity) ||
-      a.popularity - b.popularity ||
-      (a.number ?? 999) - (b.number ?? 999)
-    )[0] ?? null;
+  const { value: valueHorse, danger: dangerHorse } = selectPublicRoleHorses(race);
   const favoriteGap = challenger ? raceHorseScore(favorite) - raceHorseScore(challenger) : null;
   const raceKey = raceKeyFor(race);
 

@@ -157,6 +157,28 @@ test("race calibration adds deterministic relative ranks", () => {
   assert.ok(byName.A.analysis.verdict.evidence.some((item) => item.includes("レース内順位")));
 });
 
+test("race calibration keeps distinct ranks before horse numbers are assigned", () => {
+  const race = calibrateRaceIntelligence({
+    id: "preodds-race",
+    horses: [
+      { id: null, number: null, name: "A", tmIndex: 80, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+      { id: null, number: null, name: "B", tmIndex: 76, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+      { id: null, number: null, name: "C", tmIndex: 73, analysis: { verdict: { evidence: [] }, topSignal: {} } },
+    ],
+  });
+
+  const byName = Object.fromEntries(race.horses.map((horse) => [horse.name, horse]));
+  assert.equal(byName.A.analysis.relative.rank, 1);
+  assert.equal(byName.A.analysis.relative.gapToTop, 0);
+  assert.equal(byName.B.analysis.relative.rank, 2);
+  assert.equal(byName.B.analysis.relative.gapToTop, 4);
+  assert.equal(byName.C.analysis.relative.rank, 3);
+  assert.equal(byName.C.analysis.relative.gapToTop, 7);
+  assert.equal(byName.A.analysis.value.indexRank, 1);
+  assert.equal(byName.B.analysis.value.indexRank, 2);
+  assert.equal(byName.C.analysis.value.indexRank, 3);
+});
+
 test("race calibration does not call a close leader Top Signal", () => {
   const race = calibrateRaceIntelligence({
     id: "close-race",

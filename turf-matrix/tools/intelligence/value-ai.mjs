@@ -44,7 +44,7 @@ const buildRaceValueMetrics = (horses) => {
   const ranked = [...evaluated].sort(
     (a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999),
   );
-  const rankById = new Map(ranked.map((horse, index) => [horse.id, index + 1]));
+  const rankByHorse = new Map(ranked.map((horse, index) => [horse, index + 1]));
 
   const weights = evaluated.map((horse) => ({
     horse,
@@ -59,7 +59,7 @@ const buildRaceValueMetrics = (horses) => {
     const ev = oddsActive && Number.isFinite(horse.odds) && horse.odds > 0
       ? probability * horse.odds
       : null;
-    const indexRank = rankById.get(horse.id) ?? null;
+    const indexRank = rankByHorse.get(horse) ?? null;
     const marketGap = Number.isFinite(horse.popularity) && Number.isFinite(indexRank)
       ? horse.popularity - indexRank
       : null;
@@ -69,7 +69,7 @@ const buildRaceValueMetrics = (horses) => {
       : Number.isFinite(ev)
         ? { label: "参考", tone: "gray" }
         : null;
-    return [horse.id, {
+    return [horse, {
       probability,
       ev,
       indexRank,

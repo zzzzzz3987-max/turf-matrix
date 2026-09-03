@@ -16,7 +16,7 @@ const labelForGap = (rank, gapToTop, leaderGap, tiedTopCount) => {
 
 const calibrateRaceIntelligence = (race) => {
   const horses = race.horses ?? [];
-  const valueMetricsById = buildRaceValueMetrics(horses);
+  const valueMetricsByHorse = buildRaceValueMetrics(horses);
   const ranked = [...horses]
     .filter((horse) => Number.isFinite(horse.tmIndex))
     .sort((a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999));
@@ -25,12 +25,12 @@ const calibrateRaceIntelligence = (race) => {
   const tiedTopCount = Number.isFinite(topScore) ? ranked.filter((horse) => horse.tmIndex === topScore).length : 0;
   const size = ranked.length;
 
-  const rankById = new Map(
+  const rankByHorse = new Map(
     ranked.map((horse, index) => {
       const rank = index + 1;
       const gapToTop = Number.isFinite(topScore) ? topScore - horse.tmIndex : null;
       return [
-        horse.id,
+        horse,
         {
           rank,
           fieldSize: size,
@@ -45,9 +45,9 @@ const calibrateRaceIntelligence = (race) => {
   return {
     ...race,
     horses: horses.map((horse) => {
-      const relative = rankById.get(horse.id) ?? null;
+      const relative = rankByHorse.get(horse) ?? null;
       if (!relative) return horse;
-      const valueMetrics = valueMetricsById.get(horse.id) ?? null;
+      const valueMetrics = valueMetricsByHorse.get(horse) ?? null;
       const valueDetail = {
         ...horse.analysis?.factorsDetail?.value,
         probability: valueMetrics?.probability ?? null,

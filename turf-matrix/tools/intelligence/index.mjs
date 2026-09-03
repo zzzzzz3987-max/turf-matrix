@@ -13,7 +13,7 @@ import { assessDataQuality } from "./data-quality-ai.mjs";
 import { buildGoingAdjustment } from "./going-adjustment.mjs";
 import { buildLoadAnalysis } from "./load-ai.mjs";
 import { buildTrackBiasAnalysis } from "./track-bias-ai.mjs";
-import { buildCoursePaceContextProfile } from "./pace-context-shadow.mjs";
+import { buildPaceContextShadow } from "./pace-context-shadow.mjs";
 
 const normalizeHorseKey = (value) =>
   String(value ?? "").normalize("NFKC").replace(/\u3000/g, " ").replace(/\s+/g, "").trim();
@@ -59,14 +59,36 @@ const buildAnalysis = (horse, suppliedContext) => {
   const courseAnalysis = buildCourseAnalysis(horse, context, { course, distance });
   const lap = scoreLap(horse);
   const pace = scorePace(horse, context);
+  const goingAnalysis = buildGoingAdjustment(horse, context);
   const basePaceAnalysis = buildPaceAnalysis(horse, context, { pace, lap });
-  const paceContextProfile = buildCoursePaceContextProfile(horse, context);
+  const paceContextShadow = buildPaceContextShadow(
+    horse,
+    pace,
+    context,
+    context.raceShapeHistory ?? { races: [] },
+  );
+  const paceContextProfile = paceContextShadow.currentContext;
+  const historicalFlow = paceContextShadow.historical;
+  const historicalSummary = historicalFlow.matchedRunCount
+    ? `過去${historicalFlow.matchedRunCount}走の展開利不利を照合。${historicalFlow.adjustment > 0 ? "展開に逆らった走りを確認。" : historicalFlow.adjustment < 0 ? "展開の恩恵を受けた好走を確認。" : "明確な偏りはありません。"}`
+    : "過去走の展開利不利は照合材料が限定的です。";
   const paceAnalysis = {
     ...basePaceAnalysis,
     contextFit: paceContextProfile,
-    summary: `${basePaceAnalysis.summary} コース・枠・確定済み馬場傾向を合わせた展開相性は${paceContextProfile.label}（影評価・指数未接続）。`,
-    strengths: [...basePaceAnalysis.strengths, ...paceContextProfile.evidence],
-    evidence: [...basePaceAnalysis.evidence, `統合展開相性 ${paceContextProfile.label}`, ...paceContextProfile.evidence],
+    historicalFlow,
+    integratedFit: {
+      status: paceContextShadow.status,
+      label: paceContextProfile.label,
+      adjustment: paceContextShadow.adjustment,
+      confidence: paceContextShadow.confidence,
+      going: goingAnalysis.going,
+      goingStatus: goingAnalysis.status,
+      goingAdjustment: goingAnalysis.adjustment,
+      scoreConnected: false,
+    },
+    summary: `${basePaceAnalysis.summary} 今回のコース・枠・想定ペース・確定済み馬場傾向との相性は${paceContextProfile.label}。${context.going ? goingAnalysis.summary : "公式馬場状態は取得後に反映します。"}${historicalSummary}`,
+    strengths: [...basePaceAnalysis.strengths, ...historicalFlow.runs.slice(0, 2).map((run) => run.reason), ...paceContextProfile.evidence],
+    evidence: [...basePaceAnalysis.evidence, ...paceContextShadow.evidence],
   };
   const trainingAnalysis = buildTrainingAnalysis(horse);
   const training = trainingAnalysis.score;
@@ -81,7 +103,6 @@ const buildAnalysis = (horse, suppliedContext) => {
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
   const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
   const experienceAdjustedIndex = applyExperienceDiscount(rawTmIndex, horse);
-  const goingAnalysis = buildGoingAdjustment(horse, context);
   const goingAdjustment = goingAnalysis.adjustment ?? 0;
   const loadAnalysis = buildLoadAnalysis(horse, context);
   const loadAdjustment = loadAnalysis.adjustment ?? 0;

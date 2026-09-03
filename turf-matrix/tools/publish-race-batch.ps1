@@ -40,6 +40,7 @@ try {
     Run-Step "Freeze Pace pre-race shadow" { npm run shadow:pace:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace context pre-race shadow" { npm run shadow:pace-context:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze public role Pace pre-race shadow" { npm run shadow:public-roles:pace:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze public role Evidence pre-race shadow" { npm run shadow:public-roles:evidence:freeze -- --input tools/week-data.next.json }
     Run-Step "Whitespace validation" { git diff --check }
     try {
       Write-Host "==> Archive preodds snapshot"
@@ -80,7 +81,8 @@ try {
   $PaceContextShadow = "data/shadow/pace-context-v1/$date-pre-race.json"
   $PaceContextReport = "docs/analysis/pace-context-shadow-$date.md"
   $PublicRolePaceShadow = "data/shadow/public-role-pace-v3/$date-pre-race.json"
-  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $StableShadow $StableReport $FrameShadow $FrameReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport $PublicRolePaceShadow data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json data/master/frame-aptitude.json
+  $PublicRoleEvidenceShadow = "data/shadow/public-role-evidence-v4/$date-pre-race.json"
+  git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $StableShadow $StableReport $FrameShadow $FrameReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport $PublicRolePaceShadow $PublicRoleEvidenceShadow data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json data/master/frame-aptitude.json
   Run-Step "Commit weekly race data" { git commit -m $CommitMessage }
   $Committed = $true
   Run-Step "Push main" { git push origin main }

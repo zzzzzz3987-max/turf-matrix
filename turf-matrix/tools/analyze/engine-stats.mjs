@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,10 +11,13 @@ const OUTPUT_DIR = join(REPO_ROOT, "docs", "analysis");
 
 const ENGINES = [
   ["ability", "Ability"],
+  ["distance", "Distance"],
   ["blood", "Blood"],
   ["training", "Training"],
   ["course", "Course"],
   ["pace", "Pace"],
+  ["load", "Load"],
+  ["trackBias", "Track Bias"],
   ["stable", "Stable"],
   ["form", "Form"],
   ["value", "Value"],
@@ -84,6 +88,7 @@ const spearman = (pairs) => pearson(
 );
 
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8"));
+const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 
 const resolveArchivePairs = () => readdirSync(ARCHIVE_DIR)
   .map((fileName) => fileName.match(/^(\d{4}-\d{2}-\d{2})-preodds\.json$/)?.[1])
@@ -92,6 +97,7 @@ const resolveArchivePairs = () => readdirSync(ARCHIVE_DIR)
   .map((date) => ({
     date,
     snapshotPath: join(ARCHIVE_DIR, `${date}-preodds.json`),
+    manifestPath: join(ARCHIVE_DIR, `${date}-preodds.manifest.json`),
     resultsPath: join(ARCHIVE_DIR, `${date}-results.json`),
   }))
   .filter(({ resultsPath }) => existsSync(resultsPath));
@@ -114,8 +120,24 @@ const collect = (pairs) => {
   const warnings = [];
   let skippedRaceCount = 0;
   let skippedHorseCount = 0;
+  let verifiedSnapshotCount = 0;
 
   for (const pair of pairs) {
+    if (existsSync(pair.manifestPath)) {
+      const manifest = readJson(pair.manifestPath);
+      const actualHash = sha256(readFileSync(pair.snapshotPath));
+      if (manifest.snapshotSha256 !== actualHash) {
+        throw new Error(`${pair.date}: pre-race snapshot hash mismatch`);
+      }
+      if (manifest.status !== "frozen-pre-race"
+        || manifest.policy?.resultReadBeforeFreeze !== false
+        || manifest.policy?.futureLeakageAllowed !== false) {
+        throw new Error(`${pair.date}: invalid pre-race manifest policy`);
+      }
+      verifiedSnapshotCount += 1;
+    } else {
+      warnings.push(`${pair.date}: 旧アーカイブのためSHA256 manifestなし`);
+    }
     const snapshot = readJson(pair.snapshotPath);
     const results = readJson(pair.resultsPath);
     for (const snapshotRace of snapshot.races ?? []) {
@@ -175,7 +197,7 @@ const collect = (pairs) => {
     }
   }
 
-  return { records, races, warnings, skippedRaceCount, skippedHorseCount };
+  return { records, races, warnings, skippedRaceCount, skippedHorseCount, verifiedSnapshotCount };
 };
 
 const calculateEngineStats = (records) => ENGINES.map(([key, label]) => {
@@ -318,6 +340,7 @@ const renderReport = ({ pairs, collected, engineStats, rankStats, gapStats, find
 ## 対象
 
 - 公開スナップショット・確定結果ペア: ${pairs.length}日分（${pairs.map(({ date }) => date).join("、")}）
+- SHA256検証済みスナップショット: ${collected.verifiedSnapshotCount}日分
 - 対象レース: ${collected.races.length}
 - 対象馬: ${collected.records.length}
 - 着順データなしでスキップしたレース: ${collected.skippedRaceCount}
@@ -372,7 +395,7 @@ ${rankRows}
 
 ${disruptorText}
 
-候補判定は「レンジが8エンジンの中央値以上」かつ「|対着順ρ|が中央値以下」という初期ヒューリスティックです。サンプル増加後に再判定します。
+候補判定は「レンジが${engineStats.length}エンジンの中央値以上」かつ「|対着順ρ|が中央値以下」という初期ヒューリスティックです。サンプル増加後に再判定します。
 
 ### 僅差帯の非情報性
 

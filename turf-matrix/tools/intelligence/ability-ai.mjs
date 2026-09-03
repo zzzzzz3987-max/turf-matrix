@@ -105,16 +105,23 @@ const encounterQuality = (opponentEvidence) => {
     return (encounter.peers ?? []).map((peer) => {
       const peerFinish = Number(peer.finishPosition);
       if (!Number.isFinite(finish) || !Number.isFinite(peerFinish)) return null;
-      const relationScore = finish < peerFinish
+      const fallbackRelationScore = finish < peerFinish
         ? 78
         : finish === peerFinish
           ? 65
           : peerFinish - finish >= -2
             ? 58
             : 46;
+      const evidenceScore = Number(peer.evidenceScore);
+      const qualityScore = Number(peer.qualityScore ?? peer.score);
+      const relationScore = Number.isFinite(evidenceScore)
+        ? evidenceScore
+        : Number.isFinite(qualityScore)
+          ? qualityScore * 0.45 + fallbackRelationScore * 0.55
+          : fallbackRelationScore;
       return {
         value: relationScore,
-        weight: Number(peer.laterStarts) > 0 ? 1 : 0.75,
+        weight: Number(peer.laterStarts) >= 3 ? 1.1 : Number(peer.laterStarts) > 0 ? 1 : 0.72,
       };
     });
   }).filter(Boolean);

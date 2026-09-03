@@ -8,6 +8,7 @@ import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs"
 import { buildRaceLoadContext } from "./intelligence/load-ai.mjs";
 import { resolveTrackBias } from "./intelligence/track-bias-ai.mjs";
 import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
+import { buildRaceShapeIndex } from "./intelligence/race-shape-history.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -30,6 +31,7 @@ const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
 const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
 const CONDITIONS_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 const TRACK_BIAS_PATH = join(TOOLS_DIR, "track-bias.current.json");
+const RACE_SHAPE_HISTORY_PATH = join(REPO_ROOT, "data", "master", "race-shape-history.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 const currentConditions = existsSync(CONDITIONS_PATH)
@@ -41,6 +43,10 @@ const trackBiasSnapshot = existsSync(TRACK_BIAS_PATH)
 const opponentEvidence = existsSync(OPPONENT_PATH)
   ? JSON.parse(readFileSync(OPPONENT_PATH, "utf8"))
   : { records: [] };
+const raceShapeHistory = existsSync(RACE_SHAPE_HISTORY_PATH)
+  ? JSON.parse(readFileSync(RACE_SHAPE_HISTORY_PATH, "utf8"))
+  : { races: [] };
+const raceShapeIndex = buildRaceShapeIndex(raceShapeHistory);
 const opponentByRegistration = new Map(
   (opponentEvidence.records ?? []).map((record) => [record.bloodRegistrationNumber, record]),
 );
@@ -117,6 +123,7 @@ const races = normalized.races.map((bundle) => {
     paceScenario: buildRacePaceScenario(enrichedHorses),
     load: buildRaceLoadContext(enrichedHorses, race),
   };
+  const analysisContext = { ...context, raceShapeHistory: raceShapeIndex };
   const horses = enrichedHorses.map((horse) => {
     const dataStatus = {
       currentRace: "active",
@@ -127,7 +134,7 @@ const races = normalized.races.map((bundle) => {
       intelligence: "tm-index-v1.7",
     };
     const analysisHorse = { ...horse, dataStatus };
-    const intelligence = buildAnalysis(analysisHorse, context);
+    const intelligence = buildAnalysis(analysisHorse, analysisContext);
     return {
       id: horse.raceEntryId,
       number: horse.horseNumber,
@@ -216,6 +223,11 @@ const draft = {
     oddsUpdatedAt,
     oddsStatus: races.length && races.every((race) => race.oddsStatus === "active") ? "active" : races.length ? "preodds" : "missing",
     engineFingerprint,
+    raceShapeHistory: {
+      status: raceShapeIndex.size ? "active" : "missing",
+      raceCount: raceShapeHistory.races?.length ?? 0,
+      generatedAt: raceShapeHistory.generatedAt ?? null,
+    },
   },
   races,
 };

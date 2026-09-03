@@ -102,3 +102,18 @@ test("race level refines rather than replaces the legacy relation score", () => 
   assert.equal(combineRaceLevelRelation(70, null), 70);
   assert.equal(combineRaceLevelRelation(null, 60), 60);
 });
+
+test("opponent output preserves target finish and strongest developed peers", () => {
+  const data = fixture();
+  const result = calculateOpponentRaceLevel({
+    horseId: "TARGET",
+    targetRuns: [target()],
+    fieldsByRace: new Map([["R1", data.field]]),
+    runsByHorse: data.runsByHorse,
+    raceByKey: data.raceByKey,
+    evaluationDate: "20260201",
+  });
+  assert.equal(result.encounters[0].finishPosition, 2);
+  assert.equal(result.strongest[0].horseName, "P1");
+  assert.equal(result.strongest[0].relation, "beat");
+});

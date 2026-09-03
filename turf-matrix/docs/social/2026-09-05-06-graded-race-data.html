@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TURF MATRIX | 2026-09-05/06 Race Data</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:1200px;height:1500px;overflow:hidden}
+body{background:#f4f6f9;color:#071631;font-family:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN",sans-serif;letter-spacing:0}
+.page{--accent:#08a8c8;--accent-soft:#e7f8fb;width:1200px;height:1500px;padding:30px 38px 24px;background:#f7f8fa}
+.top{height:76px;display:grid;grid-template-columns:120px 1fr 120px;align-items:center;border-bottom:3px solid #0b2a5b}
+.mark{font:900 italic 43px/1 Arial;color:#0b2a5b}.brand{text-align:center}.brand strong{display:block;font:900 34px/1 Arial;color:#061a3b}.brand span{display:block;margin-top:7px;font:700 11px/1 Arial;letter-spacing:4px;color:#5d6c83}.edition{text-align:right;font:700 13px/1.45 Consolas;color:#53647e}
+.hero{height:240px;margin-top:15px;background:#fff;border:1px solid #bcc8d8;border-top:7px solid var(--accent);display:grid;grid-template-columns:235px 1fr 285px;gap:24px;align-items:center;padding:20px 24px}
+.course{text-align:center}.venue{display:inline-block;background:#0b2a5b;color:#fff;padding:8px 14px;border-radius:3px;font:800 13px/1 Arial;letter-spacing:1px}.venue em{font-style:normal;color:#8fe7f4}.track{position:relative;width:188px;height:92px;margin:14px auto 8px;border:11px solid var(--accent);border-radius:50%;box-shadow:inset 0 0 0 2px #d4dce7}.track:before{content:"";position:absolute;left:18px;right:18px;top:50%;height:2px;background:#9aa9bd}.track span{position:absolute;inset:0;display:grid;place-items:center;font:900 24px/1 Consolas;color:#0b2a5b}.course-meta{font-size:14px;font-weight:800;color:#5b6b82}.race-title .series{font-size:13px;font-weight:900;color:var(--accent);letter-spacing:1px}.race-title h1{margin:7px 0 6px;font-size:39px;line-height:1.12;letter-spacing:0}.grade{display:inline-block;vertical-align:6px;margin-left:9px;padding:5px 9px;background:var(--accent);color:#fff;border-radius:3px;font:900 16px/1 Arial}.condition{font-size:17px;line-height:1.45;font-weight:800;color:#34465f}.tags{display:flex;gap:7px;margin-top:13px}.tag{padding:5px 9px;border:1px solid #bfcbd9;background:#f7f9fc;border-radius:3px;font-size:12px;font-weight:800;color:#3c4c65}.insight{align-self:stretch;border-left:4px solid var(--accent);background:var(--accent-soft);padding:17px 17px}.insight b{display:block;font:900 13px/1 Arial;color:var(--accent);letter-spacing:1px}.insight strong{display:block;margin-top:11px;font-size:21px;line-height:1.3}.insight p{margin:8px 0 0;font-size:14px;line-height:1.65;font-weight:700;color:#3e4e65}
+.section-head{height:50px;display:flex;align-items:end;justify-content:space-between;padding:0 3px 9px;border-bottom:2px solid #0b2a5b}.section-head h2{margin:0;font-size:22px}.section-head span{font:700 12px/1 Arial;color:#748198;letter-spacing:1px}
+.keys-wrap{margin-top:15px}.keys{height:162px;background:#fff;border:1px solid #c7d0dc;border-top:0;display:grid;grid-template-columns:repeat(4,1fr)}.key{padding:13px 17px 12px;border-right:1px solid #d5dce5}.key:last-child{border-right:0}.key-label{font-size:13px;font-weight:900;color:#66758c}.key-value{margin-top:7px;font:900 28px/1.1 Consolas;color:var(--accent)}.key-title{margin-top:5px;font-size:15px;font-weight:900;line-height:1.3}.key-note{margin-top:4px;font-size:11.5px;font-weight:700;line-height:1.35;color:#5d6b7f}
+.main{height:655px;margin-top:15px;display:grid;grid-template-columns:1.08fr .92fr;gap:17px}.column{display:grid;gap:17px}.column.left{grid-template-rows:360px 278px}.column.right{grid-template-rows:386px 252px}.panel{background:#fff;border:1px solid #c7d0dc;padding:18px 20px}.panel-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px}.panel-title h2{margin:0;font-size:20px}.panel-title span{font:800 11px/1 Arial;color:var(--accent);letter-spacing:1px}.table{width:100%;border-collapse:collapse;font-size:14px}.table th{padding:7px 8px;border-bottom:2px solid #8fa0b6;text-align:left;color:#5a687c;font-size:12px}.table td{padding:8px;border-bottom:1px solid #e0e5eb;font-weight:700}.table td:last-child,.table th:last-child{text-align:right}.table tr.focus td{background:var(--accent-soft);color:#0a3153}.table .rate{font:900 16px Consolas;color:var(--accent)}.panel-note{margin:11px 0 0;font-size:13px;line-height:1.5;font-weight:800;color:#42516a}
+.deep-list{display:grid;gap:11px}.deep{border-left:4px solid var(--accent);padding:8px 12px;background:#fafbfd}.deep small{font-size:11px;font-weight:900;color:var(--accent);letter-spacing:.5px}.deep strong{display:block;margin:3px 0 3px;font-size:17px}.deep p{margin:0;font-size:13px;line-height:1.5;font-weight:700;color:#4a5a70}
+.horse-list{display:grid;gap:9px}.horse{padding:10px 12px;border:1px solid #d5dce5;border-left:4px solid var(--accent);background:#fff}.horse-top{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.horse strong{font-size:17px}.horse .fit{white-space:nowrap;font-size:11px;font-weight:900;color:var(--accent)}.blood{margin-top:3px;font-size:11px;font-weight:800;color:#65748a}.horse p{margin:5px 0 0;font-size:12px;line-height:1.45;font-weight:700;color:#34445c}.pre-note{font-size:11px;font-weight:800;color:#6e7b8f;margin:-4px 0 10px}
+.matrix{display:grid;grid-template-columns:1fr 1fr;gap:10px}.matrix-item{padding:11px 12px;background:#f7f9fc;border-left:3px solid #0b2a5b}.matrix-item b{display:block;font-size:13px}.matrix-item strong{display:block;margin-top:4px;font:900 19px Consolas;color:var(--accent)}.matrix-item span{display:block;margin-top:4px;font-size:11px;line-height:1.4;color:#5d6d83;font-weight:700}
+.takeaway{height:112px;margin-top:15px;background:#0b2a5b;color:#fff;display:grid;grid-template-columns:184px 1fr;align-items:center;padding:16px 26px;border-left:8px solid var(--accent)}.takeaway b{font:900 14px/1 Arial;letter-spacing:1px;color:#7fe1ee}.takeaway p{margin:0;font-size:18px;line-height:1.5;font-weight:900}.footer{height:52px;display:flex;justify-content:space-between;align-items:end;padding:0 3px 2px;color:#69778b;font-size:10px;line-height:1.4}.footer b{font:900 14px Arial;color:#0b2a5b;letter-spacing:1px}
+</style>
+</head>
+<body><main class="page" id="page"></main>
+<script>
+const races={
+  shion:{
+    accent:"#c51d58",soft:"#fcebf1",venue:"中山",venueEn:"NAKAYAMA",series:"秋華賞トライアル",title:"紫苑ステークス",grade:"GII",date:"09.06 SUN",distance:"2000m",condition:"中山｜芝2000m・内｜3歳牝馬・馬齢",courseMeta:"直線310m / 高低差5.3m",tags:["根幹距離","右回り","内回り"],
+    insightTitle:"短い直線の先に、最大勾配2.24%",insight:"内回りの機動力に加え、残り180mからの急坂をもう一度踏ん張る持続力が要る。",
+    keys:[
+      ["上位人気","22 / 30頭","5番人気以内","過去10年の3着以内馬"],
+      ["2番人気","連対率 60.0%","軸として安定","成績 3-3-0-4"],
+      ["キャリア4戦","3着内 34.8%","4勝で最多","成績 4-2-2-15"],
+      ["前走重賞","3着内 33.9%","非重賞は10.1%","3倍超の好走率差"]
+    ],
+    tableTitle:"前走着順別成績",tableTag:"PAST 10 YEARS",tableRows:[
+      ["前走1着","2-2-3-53","11.7%",false],["前走2着","1-1-3-9","35.7%",true],["前走3着","2-0-1-7","30.0%",true],["前走4着","1-2-0-7","30.0%",true],["前走6〜10着","3-2-1-26","18.8%",false],["前走11着以下","1-2-2-19","20.8%",false]
+    ],tableNote:"3着以内30頭のうち23頭は前走で敗戦。『前走1着』より巻き返し組の中身を見るレース。",
+    deep:[
+      ["CAREER","4〜5戦組が3着以内の過半数","キャリア4戦・5戦の馬で3着以内16頭。経験不足でも、消耗の少ない伸びしろ型が優位。"],
+      ["ROUTE","重賞経由は好走率3倍超","前走重賞組33.9%に対し、重賞以外は10.1%。春クラシック組の反撃を軽視できない。"]
+    ],
+    horses:[
+      ["ドリームコア","春のG1実績","キズナ × ハービンジャー","オークス2着。母ノームコアは国内外G1・2勝。中山経験もある。"],
+      ["サムシングスイート","距離実績","サートゥルナーリア × ヴィクトワールピサ","全2勝が芝2000m。前走は年長馬を相手に勝利。"],
+      ["アストリル","安定性","デクラレーションオブウォー × ハービンジャー","芝2000mは5戦して2勝・2着2回・3着1回。複勝圏外なし。"]
+    ],
+    matrix:[["1・2番人気","ともに3着内60.0%","中心は上位人気"],["11番人気以下","3着内1.7%","大穴は厳しい"],["キャリア5戦","3着内22.9%","8頭が馬券内"],["キャリア8戦","3着内30.8%","経験型の例外"]],
+    takeaway:"上位人気を軸に、前走敗戦でも重賞で戦ってきた馬を再評価。キャリア4〜5戦なら成長余地まで含めて見る。"
+  },
+  keisei:{
+    accent:"#d19016",soft:"#fff6df",venue:"中山",venueEn:"NAKAYAMA",series:"サマーマイルシリーズ",title:"京成杯AH",grade:"GIII",date:"09.05 SAT",distance:"1600m",condition:"中山｜芝1600m・外｜3歳以上・ハンデ",courseMeta:"直線310m / 高低差5.3m",tags:["根幹距離","右回り","外回り"],
+    insightTitle:"直線は短い。それでも単純な前残りではない",insight:"外回りの下りから加速し、最後に最大勾配2.24%の急坂。位置取り・機動力・坂で止まらない持続力を問う。",
+    keys:[
+      ["1番人気","勝率 50.0%","3着内60.0%","成績 5-0-1-4"],
+      ["10番人気以下","8頭が馬券内","3着内13.6%","過去10年で1-5-2"],
+      ["1枠","3着内 31.3%","全枠トップ","成績 2-0-3-11"],
+      ["5枠","4勝","勝率22.2%","勝ち切り最多"]
+    ],
+    tableTitle:"前走別成績",tableTag:"PAST 10 YEARS",tableRows:[
+      ["G1","3-1-2-13","31.6%",true],["中京記念","3-1-2-14","30.0%",true],["関屋記念","1-3-2-36","14.3%",false],["その他G3","0-3-2-18","21.7%",false],["OP特別","1-2-2-30","14.3%",false],["3勝クラス","2-0-0-4","33.3%",false]
+    ],tableNote:"3勝クラスは好率でも6頭だけ。母数を踏まえると、G1組と中京記念組の各3勝が軸になる。",
+    deep:[
+      ["POPULARITY","上位3頭だけでは完結しない","1〜3番人気が3着以内を独占した年は過去10年で1度だけ。中穴・大穴の混入が基本形。"],
+      ["DRAW","内枠と5枠、8枠に別の強み","1枠は3着内率トップ、5枠は4勝、8枠は2着4回。枠の優劣を一方向で決めない。"]
+    ],
+    horses:[
+      ["レザベーション","同舞台重賞V","ダノンプレミアム × ジャングルポケット","中山芝1600mのニュージーランドT勝ち。前走NHKマイルC6着。"],
+      ["ディールメーカー","マイル2勝","イスラボニータ × ホワイトマズル","芝1600mで連勝歴。前走は1800mのラジオNIKKEI賞2着。"],
+      ["ファンダム","中山マイル巧者","サートゥルナーリア × ジャスタウェイ","中山芝1600mは3戦2勝・3着1回。前走重賞も0.1秒差。"]
+    ],
+    matrix:[["2番人気","3着内40.0%","勝利は1回"],["3番人気","勝利0","連対率20.0%"],["2枠","3着内27.8%","連対率22.2%"],["8枠","2着4回","勝利は0回"]],
+    takeaway:"1番人気の信頼度は高いが、相手は下位人気まで必要。枠確定後は『内枠の伏兵』とG1・中京記念経由を優先確認。"
+  },
+  centaur:{
+    accent:"#008f82",soft:"#e5f6f3",venue:"阪神",venueEn:"HANSHIN",series:"サマースプリントシリーズ",title:"産経賞セントウルS",grade:"GII",date:"09.06 SUN",distance:"1200m",condition:"阪神｜芝1200m・内｜3歳以上・別定",courseMeta:"直線356.5m / 高低差1.9m",tags:["根幹距離","右回り","内回り"],
+    insightTitle:"下りで速くなり、最後は急坂",insight:"残り800mから下りが続き、直線で高低差1.8mの坂。高速巡航だけでなく、坂までスピードを保つ力が要る。",
+    keys:[
+      ["1番人気","3着内 80.0%","7勝","成績 7-0-1-2"],
+      ["2番人気","連対率 60.0%","3着内70.0%","成績 1-5-1-3"],
+      ["6番人気以下","9 / 10年","伏兵が馬券内","相手荒れが基本"],
+      ["重賞勝ち馬","勝ち馬 9 / 10頭","3着内28.8%","未勝利組は11.5%"]
+    ],
+    tableTitle:"前走クラス別成績",tableTag:"PAST 10 YEARS",tableRows:[
+      ["G1","3-1-2-9","40.0%",true],["G2","3-1-1-2","71.4%",true],["G3","3-7-5-79","16.0%",false],["OP特別","0-0-2-22","8.3%",false],["海外G1","1-1-0-0","100%",false],["上記以外","0-0-0-9","0%",false]
+    ],tableNote:"G2組は7頭、海外G1組は2頭の少数データ。率だけでなく、G1・G2組が合計6勝した事実を重視。",
+    deep:[
+      ["AGE","勝ち切るのは4歳・5歳","過去10年の勝利は4歳5勝、5歳5勝。3歳は3着内25.0%でも勝利ゼロ。"],
+      ["CLASS","重賞勝ちの有無で差","重賞勝ち馬は9-7-5-52、未勝利馬は1-3-5-69。人気薄でも実績馬を残したい。"]
+    ],
+    horses:[
+      ["ピューロマジック","重賞実績","アジアエクスプレス × ディープインパクト","函館スプリントSとアイビスSDを連勝。シリーズ首位。"],
+      ["フリッカージャブ","高速決着","サートゥルナーリア × サクラバクシンオー","北九州記念勝ち。鞍馬Sは芝1200mを1分06秒4。"],
+      ["ファストネットワーク","海外G1組","Wrote × Magic Albert","香港所属。右回り芝1200mで3勝、61kgでも勝利実績。"]
+    ],
+    matrix:[["4歳","5勝 / 29頭","3着内24.1%"],["5歳","5勝 / 39頭","3着内25.6%"],["6歳","勝利0","3着内17.9%"],["7歳以上","勝利0","3着内7.1%"]],
+    takeaway:"1・2番人気が軸の中心。ただし相手は毎年のように荒れる。伏兵は人気より『重賞勝ち』と前走クラスを先に見る。"
+  }
+};
+
+const escapeHtml=(value)=>String(value).replace(/[&<>"']/g,(char)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[char]);
+const keyHtml=([label,value,title,note])=>`<article class="key"><div class="key-label">${escapeHtml(label)}</div><div class="key-value">${escapeHtml(value)}</div><div class="key-title">${escapeHtml(title)}</div><div class="key-note">${escapeHtml(note)}</div></article>`;
+const horseHtml=([name,fit,blood,detail])=>`<article class="horse"><div class="horse-top"><strong>${escapeHtml(name)}</strong><span class="fit">${escapeHtml(fit)}</span></div><div class="blood">${escapeHtml(blood)}</div><p>${escapeHtml(detail)}</p></article>`;
+
+const slug=new URLSearchParams(location.search).get("race")||"shion";
+const race=races[slug]||races.shion;
+document.documentElement.style.setProperty("--accent",race.accent);
+const page=document.getElementById("page");
+page.style.setProperty("--accent",race.accent);page.style.setProperty("--accent-soft",race.soft);
+page.innerHTML=`
+  <header class="top"><div class="mark">TM</div><div class="brand"><strong>TURF MATRIX</strong><span>RACE INTELLIGENCE PLATFORM</span></div><div class="edition">09.03<br>DATA EDITION</div></header>
+  <section class="hero">
+    <div class="course"><span class="venue">${race.venue} <em>${race.venueEn}</em></span><div class="track"><span>${race.distance}</span></div><div class="course-meta">${race.courseMeta}</div></div>
+    <div class="race-title"><div class="series">${race.series}</div><h1>${race.title}<span class="grade">${race.grade}</span></h1><div class="condition">${race.date}<br>${race.condition}</div><div class="tags">${race.tags.map(tag=>`<span class="tag">${tag}</span>`).join("")}</div></div>
+    <div class="insight"><b>COURSE INSIGHT</b><strong>${race.insightTitle}</strong><p>${race.insight}</p></div>
+  </section>
+  <section class="keys-wrap"><div class="section-head"><h2>数字で見る好走の鍵</h2><span>JRA OFFICIAL / PAST 10 YEARS</span></div><div class="keys">${race.keys.map(keyHtml).join("")}</div></section>
+  <section class="main">
+    <div class="column left">
+      <section class="panel"><div class="panel-title"><h2>${race.tableTitle}</h2><span>${race.tableTag}</span></div><table class="table"><thead><tr><th>区分</th><th>成績</th><th>3着内率</th></tr></thead><tbody>${race.tableRows.map(([label,record,rate,focus])=>`<tr class="${focus?"focus":""}"><td>${label}</td><td>${record}</td><td class="rate">${rate}</td></tr>`).join("")}</tbody></table><p class="panel-note">${race.tableNote}</p></section>
+      <section class="panel"><div class="panel-title"><h2>数字の奥にある傾向</h2><span>DEEP READ</span></div><div class="deep-list">${race.deep.map(([tag,title,text])=>`<article class="deep"><small>${tag}</small><strong>${title}</strong><p>${text}</p></article>`).join("")}</div></section>
+    </div>
+    <div class="column right">
+      <section class="panel"><div class="panel-title"><h2>登録馬の該当材料</h2><span>FIELD CHECK</span></div><p class="pre-note">現時点の登録馬から事実を照合。予想印ではありません。</p><div class="horse-list">${race.horses.map(horseHtml).join("")}</div></section>
+      <section class="panel"><div class="panel-title"><h2>もう一つの見方</h2><span>DATA MATRIX</span></div><div class="matrix">${race.matrix.map(([label,value,note])=>`<div class="matrix-item"><b>${label}</b><strong>${value}</strong><span>${note}</span></div>`).join("")}</div></section>
+    </div>
+  </section>
+  <section class="takeaway"><b>KEY TAKEAWAY</b><p>${race.takeaway}</p></section>
+  <footer class="footer"><span>出典：JRA公式「2026年データ分析」「出走馬情報」「競馬場コース紹介」｜過去10年＝2016〜2025年｜出馬表確定前データ</span><b>TURF MATRIX</b></footer>`;
+</script>
+</body>
+</html>

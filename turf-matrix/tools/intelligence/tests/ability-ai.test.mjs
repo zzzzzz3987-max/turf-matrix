@@ -130,3 +130,18 @@ test("historical co-runner results contribute without TARGET ZI", () => {
   assert.ok(Number.isFinite(profile.encounterScore));
   assert.ok(Number.isFinite(profile.relationScore));
 });
+
+test("later opponent quality differentiates otherwise identical encounters", () => {
+  const baseRuns = [run({ finishPosition: 2, margin: 0.2 }), run({ finishPosition: 3, margin: 0.4 })];
+  const evidence = (evidenceScore) => ({
+    score: 65,
+    encounters: [{
+      finishPosition: 2,
+      peers: [{ horseName: "A", finishPosition: 3, laterStarts: 5, qualityScore: evidenceScore, evidenceScore }],
+    }],
+  });
+  const strong = calculateAbilityProfile(horse(baseRuns, { opponentEvidence: evidence(82) }));
+  const weak = calculateAbilityProfile(horse(baseRuns, { opponentEvidence: evidence(44) }));
+  assert.ok(strong.encounterScore > weak.encounterScore);
+  assert.ok(strong.score > weak.score);
+});

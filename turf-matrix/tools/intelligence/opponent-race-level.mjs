@@ -74,6 +74,7 @@ const profilePeer = ({ peer, encounterDate, evaluationDate, runsByHorse, raceByK
   if (!qualities.length) return {
     horseId: horseIdOf(peer),
     horseName: peer.horseName ?? null,
+    finishPosition: toNumber(peer.finishPosition),
     laterStarts: 0,
     score: null,
   };
@@ -82,6 +83,7 @@ const profilePeer = ({ peer, encounterDate, evaluationDate, runsByHorse, raceByK
   return {
     horseId: horseIdOf(peer),
     horseName: peer.horseName ?? null,
+    finishPosition: toNumber(peer.finishPosition),
     laterStarts: qualities.length,
     score: round1(NEUTRAL_SCORE + (raw - NEUTRAL_SCORE) * shrink),
   };
@@ -128,6 +130,8 @@ const evaluateEncounter = ({ targetRun, field, runsByHorse, raceByKey, evaluatio
     raceKey: targetRun.raceKey,
     raceDate: encounterDate,
     raceName: race.raceNameShort10 ?? race.raceName ?? targetRun.raceName ?? null,
+    finishPosition: toNumber(targetRun.finishPosition),
+    margin: toNumber(targetRun.margin),
     classBaseline: base,
     fieldDevelopment: round1(fieldDevelopment),
     raceLevel: round1(raceLevel),
@@ -181,6 +185,19 @@ const calculateOpponentRaceLevel = ({
   const weight = weighted.reduce((sum, item) => sum + item.weight, 0);
   const score = weighted.reduce((sum, item) => sum + item.value * item.weight, 0) / weight;
   const profiledPeerCount = encounters.reduce((sum, encounter) => sum + encounter.profiledPeerCount, 0);
+  const strongest = encounters
+    .flatMap((encounter) => encounter.peers.map((peer) => ({
+      horseName: peer.horseName,
+      raceName: encounter.raceName,
+      qualityScore: peer.score,
+      laterStarts: peer.laterStarts,
+      relation: encounter.finishPosition != null && peer.finishPosition != null
+        ? encounter.finishPosition < peer.finishPosition ? "beat" : "lost"
+        : "unknown",
+    })))
+    .filter((peer) => Number.isFinite(peer.qualityScore))
+    .sort((left, right) => right.qualityScore - left.qualityScore || right.laterStarts - left.laterStarts)
+    .slice(0, 5);
   return {
     status: informative.length >= 3 && profiledPeerCount >= 20 ? "active" : "partial",
     score: Math.round(clamp(score)),
@@ -189,6 +206,7 @@ const calculateOpponentRaceLevel = ({
     profiledEncounterCount: informative.length,
     peerCount: encounters.reduce((sum, encounter) => sum + encounter.peerCount, 0),
     profiledPeerCount,
+    strongest,
     encounters,
   };
 };

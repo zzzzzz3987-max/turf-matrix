@@ -37,18 +37,22 @@ test("going normalization handles supported TARGET labels", () => {
   assert.equal(normalizeGoing(" 未取得 "), null);
 });
 
-test("good and yielding tracks do not change TM INDEX in v1", () => {
+test("good stays neutral while yielding uses same-horse evidence", () => {
   const h = horse([
-    run({ trackCondition: "重", margin: 0, finishPosition: 1 }),
+    run({ trackCondition: "稍重", margin: 0, finishPosition: 1 }),
+    run({ trackCondition: "稍重", margin: 0.1, finishPosition: 2 }),
+    run({ trackCondition: "稍重", margin: 0.2, finishPosition: 2 }),
     run({ trackCondition: "良", margin: 1.5, finishPosition: 9 }),
+    run({ trackCondition: "良", margin: 1.2, finishPosition: 8 }),
   ]);
   const good = buildGoingAdjustment(h, { surface: "芝", going: "良" });
   const yielding = buildGoingAdjustment(h, { surface: "芝", going: "稍重" });
 
   assert.equal(good.adjustment, 0);
   assert.equal(good.status, "not_applicable");
-  assert.equal(yielding.adjustment, 0);
-  assert.equal(yielding.status, "not_applicable");
+  assert.ok(yielding.adjustment > 0);
+  assert.equal(yielding.status, "active");
+  assert.equal(yielding.relevantRunCount, 3);
 });
 
 test("unexperienced heavy track remains neutral", () => {

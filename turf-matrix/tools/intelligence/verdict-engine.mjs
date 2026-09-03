@@ -209,6 +209,7 @@ const buildVerdictPayload = ({
           status: horse.pastRuns?.length ? "active" : "missing",
           summary: courseAnalysis?.distanceSummary ?? `今回の${horse.currentRace?.distance ?? "対象"}mに対する近走距離実績を評価`,
           evidence: courseAnalysis?.strengths?.filter((item) => /距離|m前後/.test(item)) ?? [],
+          components: courseAnalysis?.distanceComponents ?? {},
         },
         load: loadAnalysis,
         trackBias: trackBiasAnalysis,
@@ -220,6 +221,9 @@ const buildVerdictPayload = ({
           status: horse.pastRuns?.length ? "active" : "missing",
           summary: paceAnalysis?.summary ?? "近走の通過順と位置取り傾向から、今回の流れへの合いやすさを評価",
           evidence: paceAnalysis?.strengths ?? [`展開適性は${factorLabel(pace)}`, `上がり評価は${factorLabel(factors.lap)}`],
+          contextFit: paceAnalysis?.contextFit ?? null,
+          historicalFlow: paceAnalysis?.historicalFlow ?? null,
+          integratedFit: paceAnalysis?.integratedFit ?? null,
         },
         stable: {
           key: "stable",

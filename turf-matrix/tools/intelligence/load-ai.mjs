@@ -122,6 +122,62 @@ const comparableLoadSuccesses = (horse) => {
   ));
 };
 
+const loadRunQuality = (run) => {
+  const finish = Number(run?.finishPosition);
+  const fieldSize = Number(run?.fieldSize) || 16;
+  if (!Number.isFinite(finish) || finish <= 0) return null;
+  const finishScore = ((fieldSize - Math.min(finish, fieldSize) + 1) / fieldSize) * 100;
+  const margin = Number(run?.margin);
+  const marginScore = Number.isFinite(margin) ? 74 - margin * 18 : 60;
+  return clamp(finishScore * 0.6 + marginScore * 0.4, 35, 96);
+};
+
+const buildLoadToleranceProfile = (horse) => {
+  const current = horse.currentRace ?? {};
+  const currentWeight = Number(current.carriedWeight ?? horse.carriedWeight);
+  const targetDistance = Number(current.distance);
+  if (!Number.isFinite(currentWeight)) {
+    return { status: "missing", score: null, adjustment: 0, sampleCount: 0, maxPastWeight: null, runs: [] };
+  }
+  const targetSurface = current.surface;
+  const runs = (horse.pastRuns ?? [])
+    .filter((run) => Number.isFinite(Number(run.carriedWeight)))
+    .filter((run) => !targetSurface || run.surface === targetSurface)
+    .filter((run) => !Number.isFinite(targetDistance) || !Number.isFinite(Number(run.distance)) || Math.abs(Number(run.distance) - targetDistance) <= 400)
+    .map((run, index) => ({ ...run, quality: loadRunQuality(run), recencyWeight: Math.max(0.65, 1 - index * 0.06) }))
+    .filter((run) => Number.isFinite(run.quality))
+    .slice(0, 10);
+  const maxPastWeight = runs.length ? Math.max(...runs.map((run) => Number(run.carriedWeight))) : null;
+  const comparable = runs.filter((run) => Number(run.carriedWeight) >= currentWeight - 0.5);
+  const totalWeight = comparable.reduce((sum, run) => sum + run.recencyWeight, 0);
+  const observed = totalWeight
+    ? comparable.reduce((sum, run) => sum + run.quality * run.recencyWeight, 0) / totalWeight
+    : null;
+  const score = observed == null ? null : Math.round((60 * 3 + observed * totalWeight) / (3 + totalWeight));
+  const unprovenHigh = maxPastWeight != null && currentWeight > maxPastWeight + 0.5;
+  const adjustment = comparable.length >= 2 && score >= 68
+    ? 1
+    : comparable.length >= 2 && score <= 52
+      ? -1
+      : unprovenHigh ? -1 : 0;
+  return {
+    status: comparable.length >= 3 ? "active" : comparable.length ? "partial" : runs.length ? "unproven" : "missing",
+    score,
+    adjustment,
+    sampleCount: comparable.length,
+    maxPastWeight,
+    currentWeight,
+    unprovenHigh,
+    runs: comparable.map((run) => ({
+      date: run.date ?? null,
+      distance: Number(run.distance) || null,
+      carriedWeight: Number(run.carriedWeight),
+      finishPosition: Number(run.finishPosition),
+      quality: run.quality,
+    })),
+  };
+};
+
 const roundAwayFromZero = (value) => Math.sign(value) * Math.round(Math.abs(value));
 
 const buildLoadAnalysis = (horse, context = {}) => {
@@ -151,9 +207,10 @@ const buildLoadAnalysis = (horse, context = {}) => {
 
   const relativeKg = load.equivalentWeight - fieldMedian;
   const comparableSuccesses = comparableLoadSuccesses(horse);
+  const tolerance = buildLoadToleranceProfile(horse);
   const rawAdjustment = clamp(roundAwayFromZero(-relativeKg * 0.75), -2, 2);
-  const provenMitigation = rawAdjustment < 0 && comparableSuccesses.length >= 2 ? 1 : 0;
-  const adjustment = clamp(rawAdjustment + provenMitigation, -2, 2);
+  const individualAdjustment = tolerance.adjustment;
+  const adjustment = clamp(rawAdjustment + individualAdjustment, -2, 2);
   const score = clamp(65 + adjustment * 6, 45, 85);
   const relativeText = relativeKg === 0
     ? "レース中央値と同水準"
@@ -179,12 +236,14 @@ const buildLoadAnalysis = (horse, context = {}) => {
     fieldMedianEquivalentWeight: fieldMedian,
     relativeKg,
     comparableSuccessCount: comparableSuccesses.length,
-    summary: `${allowanceText}。実質負担${load.equivalentWeight.toFixed(1)}kgは${relativeText}。${adjustmentText}。`,
+    tolerance,
+    summary: `${allowanceText}。実質負担${load.equivalentWeight.toFixed(1)}kgは${relativeText}。${tolerance.sampleCount ? `同等斤量の過去${tolerance.sampleCount}走から個体差も評価。` : "同等斤量の直接実績は限定的。"}${adjustmentText}。`,
     evidence: [
       `今回斤量 ${load.carriedWeight.toFixed(1)}kg`,
       `年齢・性別基準換算 ${load.equivalentWeight.toFixed(1)}kg / レース中央値 ${fieldMedian.toFixed(1)}kg`,
       `今回距離±200mで同等以上の斤量を背負った3着内 ${comparableSuccesses.length}走`,
-      ...(provenMitigation ? ["近似条件での斤量克服実績により減点を1点緩和"] : []),
+      ...(tolerance.sampleCount ? [`同じ馬場・今回距離±400mの同等斤量 ${tolerance.sampleCount}走 / 個体補正 ${individualAdjustment >= 0 ? "+" : ""}${individualAdjustment}`] : []),
+      ...(tolerance.unprovenHigh ? [`過去最高${tolerance.maxPastWeight.toFixed(1)}kgを上回る未経験負担`] : []),
     ],
   };
 };
@@ -192,6 +251,7 @@ const buildLoadAnalysis = (horse, context = {}) => {
 export {
   ageAllowanceKg,
   buildLoadAnalysis,
+  buildLoadToleranceProfile,
   buildRaceLoadContext,
   equivalentLoadKg,
   isOpenClass,

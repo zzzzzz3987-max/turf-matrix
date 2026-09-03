@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   ageAllowanceKg,
   buildLoadAnalysis,
+  buildLoadToleranceProfile,
   buildRaceLoadContext,
   equivalentLoadKg,
 } from "../load-ai.mjs";
@@ -73,4 +74,24 @@ test("odds and popularity never change load evaluation", () => {
   const loadContext = buildRaceLoadContext([targetA, ...others], race);
   const clean = (value) => ({ adjustment: value.adjustment, score: value.score, relativeKg: value.relativeKg });
   assert.deepEqual(clean(buildLoadAnalysis(targetA, { ...race, load: loadContext })), clean(buildLoadAnalysis(targetB, { ...race, load: loadContext })));
+});
+
+test("individual high-load failures remain a caution even when the field load is neutral", () => {
+  const target = horse({ number: 1, name: "A", age: 4, weight: 58, pastRuns: [
+    { finishPosition: 12, fieldSize: 16, margin: 2.1, carriedWeight: 58, surface: "芝", distance: 2000 },
+    { finishPosition: 10, fieldSize: 14, margin: 1.8, carriedWeight: 58.5, surface: "芝", distance: 1800 },
+  ] });
+  const tolerance = buildLoadToleranceProfile(target);
+  assert.equal(tolerance.adjustment, -1);
+  assert.equal(tolerance.sampleCount, 2);
+});
+
+test("a new career-high load is marked unproven without using popularity", () => {
+  const target = horse({ number: 1, name: "A", age: 4, weight: 59, pastRuns: [
+    { finishPosition: 2, fieldSize: 16, margin: 0.1, carriedWeight: 57, surface: "芝", distance: 2000 },
+    { finishPosition: 1, fieldSize: 14, margin: 0, carriedWeight: 57.5, surface: "芝", distance: 1800 },
+  ] });
+  const tolerance = buildLoadToleranceProfile(target);
+  assert.equal(tolerance.unprovenHigh, true);
+  assert.equal(tolerance.adjustment, -1);
 });

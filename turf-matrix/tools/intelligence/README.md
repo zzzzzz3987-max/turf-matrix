@@ -6,8 +6,12 @@ Current scope:
 
 - TM INDEX Engine v1.5 race-category weighting (`tm-index-engine.mjs`)
 - Form AI v1.5 ability, class, margin, and recent-form scoring (`form-ai.mjs`)
-- Course AI v1.5 distance/course/surface fit scoring (`course-ai.mjs`)
-- Pace AI v1.5 running-style, position, and lap scoring (`pace-ai.mjs`)
+- Course AI v1.7 distance/course/surface fit scoring with individual extension/shortening response and core/non-core distance aptitude (`course-ai.mjs`, `distance-ai.mjs`)
+- Pace AI v1.6 running-style, position, historical race flow, course geometry, frame, and pre-race track-bias context (`pace-ai.mjs`, `pace-context-shadow.mjs`)
+- Opponent quality tracking with leakage-safe later-performance evidence (`ability-ai.mjs`, `opponent-race-level.mjs`)
+- Load AI with JRA age/sex equivalent load and individual high-load tolerance (`load-ai.mjs`)
+- Immutable pre-race archive manifests and post-race engine statistics (`archive-race-release.mjs`, `analyze/engine-stats.mjs`)
+- Public-role Evidence v4 shadow selection with abstention, multi-signal value support, and protected danger assessment (`public-role-evidence-shadow.mjs`)
 - Support AI v1 auxiliary frame/stable scoring (`support-ai.mjs`)
 - Blood AI v1.5 race-bias and line-trait scoring (`blood-ai.mjs`)
 - Training AI v1.5 final-workout and finish-lap scoring (`training-ai.mjs`)
@@ -38,6 +42,9 @@ Offline learning:
 - A learned stable pattern needs at least 20 reviewed runners. Runtime scoring reads only explicitly approved `data/master/stables.json`.
 - Learning remains offline. Weekly Intelligence execution only performs deterministic lookup and matching.
 - Score-affecting pairing/cross adjustments remain in the frozen shadow pipeline until their predeclared adoption gates pass.
+- Public-role Evidence v4 keeps foundation quality separate from race-condition fit. Value candidates require at least two support signals and no major condition weakness; danger candidates require both a market/index gap and explicit risk evidence.
+- Odds and popularity only establish public-role eligibility and the final deterministic tie-break. EV never ranks Evidence v4 candidates.
+- Evidence v4 can abstain instead of forcing one value or danger label per race. Production roles remain unchanged until prospective SHA-frozen samples pass the fixed gate.
 
 Boundaries:
 

@@ -90,9 +90,6 @@ const buildGoingAdjustment = (horse, context = {}) => {
   if (going === "good") {
     return { ...base, status: "not_applicable", summary: "良馬場のため馬場適性補正は適用しません。" };
   }
-  if (going === "yielding") {
-    return { ...base, status: "not_applicable", summary: "稍重はv1の補正対象外です。" };
-  }
   if (!surface) {
     return { ...base, status: "missing", summary: "芝・ダート区分が未取得のため補正しません。" };
   }
@@ -100,7 +97,7 @@ const buildGoingAdjustment = (horse, context = {}) => {
   const sameSurfaceRuns = (horse?.pastRuns ?? [])
     .filter((run) => normalizeSurface(run.surface) === surface)
     .filter((run) => Number.isFinite(performanceScore(run)));
-  const relevantRuns = sameSurfaceRuns.filter((run) => normalizeGoing(run.trackCondition ?? run.going) === "heavy").slice(0, 8);
+  const relevantRuns = sameSurfaceRuns.filter((run) => normalizeGoing(run.trackCondition ?? run.going) === going).slice(0, 8);
   const goodRuns = sameSurfaceRuns.filter((run) => normalizeGoing(run.trackCondition ?? run.going) === "good").slice(0, 8);
   const relevantRunCount = relevantRuns.length;
   const goodRunCount = goodRuns.length;
@@ -112,8 +109,8 @@ const buildGoingAdjustment = (horse, context = {}) => {
       status: "unexperienced",
       relevantRunCount,
       goodRunCount,
-      summary: `${surface}の重・不良は未経験のため補正しません。`,
-      evidence: [`${surface}重・不良 0走`, `良馬場 ${goodRunCount}走`],
+      summary: `${surface}の${goingLabel(going)}は未経験のため補正しません。`,
+      evidence: [`${surface}${goingLabel(going)} 0走`, `良馬場 ${goodRunCount}走`],
     };
   }
   if (!goodRunCount) {
@@ -124,14 +121,14 @@ const buildGoingAdjustment = (horse, context = {}) => {
       goodRunCount,
       shrinkFactor,
       summary: `${surface}の良馬場比較がないため補正しません。`,
-      evidence: [`${surface}重・不良 ${relevantRunCount}走`, "良馬場比較 0走"],
+      evidence: [`${surface}${goingLabel(going)} ${relevantRunCount}走`, "良馬場比較 0走"],
     };
   }
 
   const relevantScore = average(relevantRuns.map(performanceScore));
   const goodScore = average(goodRuns.map(performanceScore));
   const rawDifference = relevantScore - goodScore;
-  const rawAdjustment = clamp(rawDifference / 8, -3, 3);
+  const rawAdjustment = clamp(rawDifference / (going === "yielding" ? 10 : 8), -3, 3);
   const adjustment = Math.round(clamp(rawAdjustment * shrinkFactor, -2, 2));
   const relevantMargin = averageMargin(relevantRuns);
   const goodMargin = averageMargin(goodRuns);
@@ -145,9 +142,9 @@ const buildGoingAdjustment = (horse, context = {}) => {
     goodRunCount,
     rawDifference: Math.round(rawDifference * 10) / 10,
     shrinkFactor,
-    summary: `${surface}重・不良${relevantRunCount}走と良馬場${goodRunCount}走を同馬内で比較し、${direction}補正${adjustment >= 0 ? "+" : ""}${adjustment}。`,
+    summary: `${surface}${goingLabel(going)}${relevantRunCount}走と良馬場${goodRunCount}走を同馬内で比較し、${direction}補正${adjustment >= 0 ? "+" : ""}${adjustment}。`,
     evidence: [
-      `${surface}重・不良 ${relevantRunCount}走・平均着差 ${relevantMargin.toFixed(2)}秒`,
+      `${surface}${goingLabel(going)} ${relevantRunCount}走・平均着差 ${relevantMargin.toFixed(2)}秒`,
       `良馬場 ${goodRunCount}走・平均着差 ${goodMargin.toFixed(2)}秒`,
       `サンプル収縮係数 ${shrinkFactor.toFixed(2)}`,
     ],

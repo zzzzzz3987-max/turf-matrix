@@ -91,6 +91,7 @@ const isFiniteNumber = (value) => typeof value === "number" && Number.isFinite(v
 const isEvaluatedHorse = (horse) => isFiniteNumber(horse?.aiScore);
 const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
 const displayFactorScore = (value) => (isFiniteNumber(value) ? Math.round(value) : "—");
+const displayHorseNumber = (value) => (isFiniteNumber(value) && value > 0 ? value : "未");
 const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "発売前");
 const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "発売前");
 const displayRaceValue = (value, fallback = "未発表") => (value == null || value === "" ? fallback : value);
@@ -619,9 +620,15 @@ const Header = ({ onHome, meta }) => (
       </button>
       <div className="flex items-center gap-2 text-[11px] font-semibold text-[#9AA4B2]">
         {meta ? (
-          <span>
-            {meta.dateLabel ?? ""}
-          </span>
+          <>
+            {meta.previewMode ? (
+              <span className="rounded-md border border-sky-200 bg-sky-50 px-1.5 py-0.5 text-[9px] font-bold text-sky-700">
+                <span className="hidden sm:inline">オッズ反映前</span>
+                <span className="sm:hidden">暫定</span>
+              </span>
+            ) : null}
+            <span>{meta.dateLabel ?? ""}</span>
+          </>
         ) : null}
       </div>
     </div>
@@ -965,7 +972,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="flex h-8 w-8 items-center justify-center rounded-2xl border border-gray-200 bg-white">
-                      <Num className="text-[12px] font-bold text-slate-600">{h.number}</Num>
+                      <Num className="text-[12px] font-bold text-slate-600">{displayHorseNumber(h.number)}</Num>
                     </span>
                     <span className="truncate text-[16px] font-bold text-slate-950">{h.name}</span>
                   </div>
@@ -1011,7 +1018,7 @@ const ComparisonTable = ({ horses, evMap, onSelect }) => {
                     aria-label={`${h.name}の詳細`}
                   >
                     <span className="text-[10px] font-semibold text-slate-300">
-                      <Num>{h.number}</Num>
+                      <Num>{displayHorseNumber(h.number)}</Num>
                     </span>
                     <span className="w-[68px] truncate text-[10px] font-semibold leading-tight text-slate-700">
                       {h.name}
@@ -1575,7 +1582,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                 <div className="mb-3 text-[9px] font-semibold uppercase tracking-[0.18em] text-slate-400">Runner Analysis</div>
                 <div className="flex items-center gap-2">
                   <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm">
-                    <Num className="text-[15px] font-bold text-slate-700">{horse.number}</Num>
+                    <Num className="text-[15px] font-bold text-slate-700">{displayHorseNumber(horse.number)}</Num>
                   </span>
                   <div className="min-w-0">
                     <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{displayHorseName(horse)}</div>
@@ -1667,7 +1674,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
           <span className="flex min-w-0 items-start gap-3 md:contents">
             {/* 馬番 */}
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm md:h-8 md:w-8 md:rounded-xl">
-              <Num className="text-[13px] font-semibold text-gray-700">{horse.number}</Num>
+              <Num className="text-[13px] font-semibold text-gray-700">{displayHorseNumber(horse.number)}</Num>
             </span>
 
             {/* 馬名 + (モバイル: 騎手/人気/オッズ) */}
@@ -2317,7 +2324,9 @@ const HomePage = ({ onOpenRace }) => {
                           ) : null}
                         </span>
                         <span className="mt-1 flex min-w-0 items-center gap-2 text-[10px] text-slate-400">
-                          <span className="shrink-0 font-medium text-slate-500">{item.raceLabel}・<Num>{item.horse.number}</Num>番</span>
+                          <span className="shrink-0 font-medium text-slate-500">
+                            {item.raceLabel}・{item.horse.number ? <><Num>{item.horse.number}</Num>番</> : "馬番未確定"}
+                          </span>
                           {quickRead.strengths.length ? (
                             <span className="truncate">
                               強み {quickRead.strengths.slice(0, 2).map((factor) => `${factor.label} ${displayFactorScore(factor.score)}`).join("・")}

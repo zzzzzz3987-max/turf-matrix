@@ -1,5 +1,6 @@
 import officialWeekDataUrl from "../../tools/week-data.json?url";
 import { updateDiffForRace } from "../lib/public-update-diff.js";
+import { shouldUseCandidatePreview } from "../lib/week-data-selection.js";
 
 const candidateModules = import.meta.glob("../../tools/week-data.batch-candidate.json", {
   eager: true,
@@ -10,7 +11,7 @@ const candidateModules = import.meta.glob("../../tools/week-data.batch-candidate
 const batchCandidateWeekDataUrl = candidateModules["../../tools/week-data.batch-candidate.json"] ?? null;
 const requestedMode = import.meta.env.VITE_TURF_DATA_MODE;
 const candidateModeRequested = requestedMode === "candidate" || requestedMode === "batch";
-export const dataMode = candidateModeRequested && batchCandidateWeekDataUrl ? "candidate" : "official";
+export let dataMode = candidateModeRequested && batchCandidateWeekDataUrl ? "candidate" : "official";
 
 const isCandidatePayload = (data) =>
   data?.mode === "candidate" || data?.mode === "candidate-preodds" || Boolean(data?.races?.[0]?.horses?.[0]?.currentRace);
@@ -36,7 +37,7 @@ const fallbackAnalysis = {
 const adaptCandidateHorse = (horse) => {
   const analysis = horse.analysis ?? fallbackAnalysis;
   return {
-    id: horse.id,
+    id: horse.id ?? horse.currentRace?.horseId ?? `${horse.currentRace?.raceDate ?? "preview"}-${horse.name}`,
     number: horse.number,
     name: horse.name,
     jockey: horse.jockey,
@@ -174,11 +175,17 @@ export const loadWeekData = () => {
   if (!weekDataPromise) {
     weekDataPromise = Promise.all([
       fetchJson(officialWeekDataUrl),
-      dataMode === "candidate" ? fetchJson(batchCandidateWeekDataUrl) : Promise.resolve(null),
+      batchCandidateWeekDataUrl ? fetchJson(batchCandidateWeekDataUrl) : Promise.resolve(null),
     ]).then(([officialWeekData, batchCandidateWeekData]) => {
-      const selectedWeekData = dataMode === "candidate" ? batchCandidateWeekData : officialWeekData;
+      const useCandidate = shouldUseCandidatePreview({
+        requestedMode,
+        candidate: batchCandidateWeekData,
+        official: officialWeekData,
+      });
+      dataMode = useCandidate ? "candidate" : "official";
+      const selectedWeekData = useCandidate ? batchCandidateWeekData : officialWeekData;
       return isCandidatePayload(selectedWeekData)
-        ? adaptCandidate(selectedWeekData, { previewMode: dataMode !== "official", officialWeekData })
+        ? adaptCandidate(selectedWeekData, { previewMode: useCandidate, officialWeekData })
         : selectedWeekData;
     });
   }

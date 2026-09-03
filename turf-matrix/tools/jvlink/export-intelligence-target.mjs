@@ -12,6 +12,10 @@ const targetDir = path.join(repoRoot, "data", "target");
 const summary = JSON.parse(fs.readFileSync(summaryPath, "utf8").replace(/^\uFEFF/, ""));
 const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8").replace(/^\uFEFF/, ""));
 const config = JSON.parse(fs.readFileSync(configPath, "utf8").replace(/^\uFEFF/, ""));
+const pedigreeSourceSpecs = (summary.sources ?? [])
+  .map((source) => source.dataSpec)
+  .filter((dataSpec) => ["TCVN", "RCVN"].includes(dataSpec));
+const pedigreeSource = `JV-Link ${[...new Set(pedigreeSourceSpecs)].join("+")}/UM`;
 
 const csv = (value) => `"${String(value ?? "").replaceAll('"', '""')}"`;
 const row = (values) => values.map(csv).join(",");
@@ -132,7 +136,7 @@ const pedigreeLines = [
       byBranch.get("sire.sire")?.name,
       byBranch.get("sire.dam")?.name,
       pedigree.bloodRegistrationNumber,
-      "JV-Link RCVN/UM",
+      pedigreeSource,
       JSON.stringify(ancestors),
       pedigreeCompleteness(ancestors),
     ]);

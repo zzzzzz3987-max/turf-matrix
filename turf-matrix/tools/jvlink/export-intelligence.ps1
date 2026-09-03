@@ -1,4 +1,6 @@
-param()
+param(
+  [switch]$IncludeSpecialRegistration
+)
 
 $ErrorActionPreference = "Stop"
 
@@ -8,7 +10,11 @@ if ([Environment]::Is64BitOperatingSystem -and [Environment]::Is64BitProcess) {
     Write-Error "32-bit PowerShell was not found. JV-Link requires a 32-bit process."
     exit 2
   }
-  & $PowerShell32 -NoProfile -ExecutionPolicy Bypass -File $PSCommandPath
+  $childArgs = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $PSCommandPath)
+  if ($IncludeSpecialRegistration) {
+    $childArgs += "-IncludeSpecialRegistration"
+  }
+  & $PowerShell32 @childArgs
   exit $LASTEXITCODE
 }
 
@@ -141,6 +147,7 @@ $pedigrees = [ordered]@{}
 $script:pastRaces = [ordered]@{}
 $script:pastRuns = @()
 $script:recentUniverseRuns = New-Object 'System.Collections.Generic.List[object]'
+$script:seenUniverseRuns = New-Object 'System.Collections.Generic.HashSet[string]'
 $script:slope = @()
 $script:wood = @()
 $sources = @()
@@ -157,7 +164,9 @@ try {
   $trainingStartDate = $raceDate.AddDays(-45).ToString("yyyyMMdd")
   $trainingEndDate = $raceDate.ToString("yyyyMMdd")
 
-  $sources += Read-JvData "RCVN" $raceWeekFrom 2 {
+  $compensationSpecs = if ($IncludeSpecialRegistration) { @("TCVN", "RCVN") } else { @("RCVN") }
+  foreach ($compensationSpec in $compensationSpecs) {
+    $sources += Read-JvData $compensationSpec $raceWeekFrom 2 {
     param($recordId, $bytes)
     if ($recordId -eq "RA") {
       $raceKey = Get-RaceKey $bytes
@@ -186,8 +195,10 @@ try {
       if ($raceDateRaw -ge $raceDate.ToString("yyyyMMdd")) { return }
       $finishPosition = Convert-PositiveInteger (Get-JvField $bytes 335 2)
       if ($null -eq $finishPosition) { return }
+      $raceKey = Get-RaceKey $bytes
+      if (-not $script:seenUniverseRuns.Add("$registrationNumber|$raceKey")) { return }
       $universeRun = [ordered]@{
-        raceKey = Get-RaceKey $bytes
+        raceKey = $raceKey
         raceDate = $raceDateRaw
         bloodRegistrationNumber = $registrationNumber
         horseName = Get-JvField $bytes 41 36
@@ -210,7 +221,7 @@ try {
       $bodyWeightDiff = Convert-PositiveInteger (Get-JvField $bytes 329 3)
       if ($null -ne $bodyWeightDiff -and (Get-JvField $bytes 328 1) -eq "-") { $bodyWeightDiff *= -1 }
       $script:pastRuns += [ordered]@{
-        raceKey = Get-RaceKey $bytes
+        raceKey = $raceKey
         bloodRegistrationNumber = $registrationNumber
         horseName = Get-JvField $bytes 41 36
         sexCode = Get-JvField $bytes 79 1
@@ -256,6 +267,7 @@ try {
         ancestors = $ancestors
       }
     }
+  }
   }
 
   $sources += Read-JvData "SLOP" $trainingFrom 1 {

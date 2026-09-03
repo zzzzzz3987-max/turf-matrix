@@ -56,7 +56,11 @@ try {
     exit $LASTEXITCODE
   }
 
-  powershell -ExecutionPolicy Bypass -File "tools\jvlink\export-intelligence.ps1"
+  $intelligenceArgs = @("-ExecutionPolicy", "Bypass", "-File", "tools\jvlink\export-intelligence.ps1")
+  if ($Specials) {
+    $intelligenceArgs += "-IncludeSpecialRegistration"
+  }
+  powershell @intelligenceArgs
   if ($LASTEXITCODE -ne 0) {
     exit $LASTEXITCODE
   }

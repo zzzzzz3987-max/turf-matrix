@@ -15,6 +15,16 @@ const raceConfig = readJson(process.env.TURF_MATRIX_RACE_CONFIG || "tools/race-b
 const errors = [];
 const warnings = [];
 const normalize = (value) => String(value ?? "").normalize("NFKC").replace(/[＊*$]/g, "").replace(/\s+/g, "").trim();
+const duplicateRunKeys = (records = []) => {
+  const seen = new Set();
+  const duplicates = new Set();
+  for (const record of records) {
+    const key = `${record.bloodRegistrationNumber}|${record.raceKey}`;
+    if (seen.has(key)) duplicates.add(key);
+    seen.add(key);
+  }
+  return [...duplicates];
+};
 
 const expectedByRegistration = new Map(manifest.horses.map((horse) => [horse.bloodRegistrationNumber, horse]));
 const expectedNames = new Set(manifest.horses.map((horse) => normalize(horse.horseName)));
@@ -68,6 +78,10 @@ for (const bundle of directPastRuns) {
 
 if (summary.targetHorseCount !== manifest.horses.length) errors.push("Summary target horse count does not match manifest.");
 if (pedigree.records.length !== manifest.horses.length) errors.push(`Pedigree coverage ${pedigree.records.length}/${manifest.horses.length}.`);
+const duplicatePastRuns = duplicateRunKeys(summary.pastRuns);
+const duplicateUniverseRuns = duplicateRunKeys(summary.recentUniverseRuns);
+if (duplicatePastRuns.length) errors.push(`Duplicate target past runs: ${duplicatePastRuns.slice(0, 5).join(", ")}.`);
+if (duplicateUniverseRuns.length) errors.push(`Duplicate universe runs: ${duplicateUniverseRuns.slice(0, 5).join(", ")}.`);
 
 for (const record of pedigree.records) {
   const expected = expectedByRegistration.get(record.bloodRegistrationNumber);
@@ -101,6 +115,8 @@ const result = {
   currentRaceRunners: directEntries.length,
   pastRunRows: directPastRuns.reduce((total, bundle) => total + bundle.rowCount, 0),
   pastRunHorses: directPastRuns.reduce((total, bundle) => total + bundle.horseCount, 0),
+  duplicatePastRuns: duplicatePastRuns.length,
+  duplicateUniverseRuns: duplicateUniverseRuns.length,
   pedigree: pedigree.records.length,
   slopeRows: slope.records.length,
   woodRows: wood.records.length,

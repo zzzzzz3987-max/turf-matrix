@@ -351,7 +351,8 @@ const processDueRaces = (due, state, raceDate) => {
     runPowerShell("-File", "tools/jvfetch/capture-odds.ps1");
     const oddsPath = latestOddsCandidate(startedAt);
     const pairOddsPath = latestPairOddsCandidate(startedAt);
-    runNode("tools/jvfetch/distribute-odds.mjs", oddsPath);
+    const allRaceRuntime = resolveAllRaceRuntime(raceDate);
+    runNode("tools/jvfetch/distribute-odds.mjs", oddsPath, `--config=${allRaceRuntime}`);
 
     try {
       runPowerShell("-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");

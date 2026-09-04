@@ -181,8 +181,8 @@ const normalizeRaceBundle = ({
     status: "missing",
     entries: [],
   });
-  if (odds.entries.length && odds.entries.length !== current.entryCount) {
-    throw new Error(`${bundleId}: odds entries ${odds.entries.length} do not match runners ${current.entryCount}`);
+  if (odds.entries.length > current.entryCount) {
+    throw new Error(`${bundleId}: odds entries ${odds.entries.length} exceed runners ${current.entryCount}`);
   }
 
   const slope = optionalParse(trainingSlopeParser, html.trainingSlope, { rowCount: 0, records: [] });
@@ -201,7 +201,7 @@ const normalizeRaceBundle = ({
     const unexpectedOddsNames = odds.entries
       .filter((entry) => !currentByHorse.has(normalizeHorseKey(entry.horseName)))
       .map((entry) => entry.horseName);
-    if (missingOddsNames.length || unexpectedOddsNames.length) {
+    if (unexpectedOddsNames.length) {
       throw new Error(
         `${bundleId}: odds/current runner names do not match. ` +
         `missing odds=[${missingOddsNames.join(", ")}], unexpected odds=[${unexpectedOddsNames.join(", ")}]`,
@@ -283,7 +283,7 @@ const normalizeRaceBundle = ({
   return {
     bundleId,
     race: current.race,
-    productionReady: odds.entries.length === current.entryCount && horses.some((horse) => horse.odds?.sourceStatus === "active"),
+    productionReady: horses.some((horse) => horse.odds?.sourceStatus === "active"),
     source: {
       currentRaceDetail: { rows: current.rowCount, entries: current.entryCount, encoding: current.encoding },
       allCsv: { rows: all.rowCount, horses: all.horseCount, encoding: all.encoding },
@@ -292,7 +292,7 @@ const normalizeRaceBundle = ({
         entries: odds.entryCount,
         updatedAt: odds.updatedAt,
         source: odds.source,
-        status: odds.status,
+        status: odds.entries.length && odds.entries.length < current.entryCount ? "partial" : odds.status,
       },
       trainingSlope: { rows: slope.rowCount, encoding: slope.encoding ?? null },
       trainingWood: { rows: wood.rowCount, encoding: wood.encoding ?? null },

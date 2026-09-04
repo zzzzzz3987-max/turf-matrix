@@ -4,9 +4,12 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const CONFIG_PATH = join(REPO_ROOT, "tools", "race-batch-config.json");
 const args = process.argv.slice(2);
 const allowPartial = args.includes("--allow-partial");
+const configOption = args.find((arg) => arg.startsWith("--config="));
+const CONFIG_PATH = configOption
+  ? resolve(configOption.slice("--config=".length))
+  : join(REPO_ROOT, "tools", "race-batch-config.json");
 const sourceArg = args.find((arg) => !arg.startsWith("--"));
 const SOURCE_PATH = sourceArg
   ? resolve(sourceArg)
@@ -136,6 +139,7 @@ if (selectedRows !== rows.length) {
 console.log(JSON.stringify({
   status: skipped.length ? "partial" : "ready",
   source: SOURCE_PATH,
+  config: CONFIG_PATH,
   totalRows: rows.length,
   races: reports,
   skipped,

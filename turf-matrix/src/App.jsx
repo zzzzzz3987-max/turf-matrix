@@ -1949,22 +1949,26 @@ const BattleRacePanel = ({ race, onOpen }) => {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
-            <div className="min-w-0 rounded-lg border border-[#E2E8F0] px-2.5 py-3 sm:px-4">
+          <div className="mt-5 grid grid-cols-1 divide-y divide-[#E2E8F0] border-y border-[#E2E8F0] sm:grid-cols-3 sm:gap-3 sm:divide-y-0 sm:border-y-0">
+            <div className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3 sm:block sm:rounded-lg sm:border sm:border-[#E2E8F0] sm:px-4">
               <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">軸</div>
-              <div className="mt-1.5 truncate text-[11px] font-bold text-[#050B1E] sm:text-[14px]">
-                <Num>{axis.number}</Num> {axis.name}
+              <div className="min-w-0 sm:mt-1.5">
+                <div className="text-[13px] font-bold leading-snug text-[#050B1E] sm:text-[14px]">
+                  <Num>{axis.number}</Num> {axis.name}
+                </div>
+                <div className="mt-1 text-[10px] text-[#64748B]">TM INDEX 1位</div>
               </div>
-              <div className="mt-1 text-[10px] text-[#64748B]">TM INDEX 1位</div>
             </div>
             {[opponentA, opponentB].filter(Boolean).map((horse, index) => (
-              <div key={horse.id} className="min-w-0 rounded-lg border border-[#E2E8F0] px-2.5 py-3 sm:px-4">
+              <div key={horse.id} className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3 sm:block sm:rounded-lg sm:border sm:border-[#E2E8F0] sm:px-4">
                 <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">相手 {index + 1}</div>
-                <div className="mt-1.5 truncate text-[11px] font-bold text-[#050B1E] sm:text-[14px]">
-                  <Num>{horse.number}</Num> {horse.name}
-                </div>
-                <div className="mt-1 text-[10px] text-[#64748B]">
-                  {horse.source === "evidence" ? "総合評価上位" : `TM INDEX ${index + 2}位`}
+                <div className="min-w-0 sm:mt-1.5">
+                  <div className="text-[13px] font-bold leading-snug text-[#050B1E] sm:text-[14px]">
+                    <Num>{horse.number}</Num> {horse.name}
+                  </div>
+                  <div className="mt-1 text-[10px] text-[#64748B]">
+                    {horse.source === "evidence" ? "総合評価上位" : `TM INDEX ${index + 2}位`}
+                  </div>
                 </div>
               </div>
             ))}
@@ -2204,13 +2208,13 @@ const HomePage = ({ onOpenRace }) => {
                   発走 <Num>{displayRaceValue(featuredRace.time, "未発表")}</Num>
                 </div>
               </div>
-              <div className="mt-7 flex items-end justify-between gap-5">
+              <div className="mt-7 flex items-end justify-between gap-3 sm:gap-5">
                 <div className="min-w-0">
                   <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#A6AFBE]">
                     {featuredRace.topHorse.available ? "TM INDEX" : "TM INDEX"}
                   </div>
                   {featuredRace.topHorse.available ? (
-                    <div className="mt-2 break-words text-[15px] font-bold leading-tight text-[#050B1E]">{featuredRace.topHorse.name}</div>
+                    <div className="mt-2 whitespace-nowrap text-[14px] font-bold leading-tight text-[#050B1E] min-[360px]:text-[15px]">{featuredRace.topHorse.name}</div>
                   ) : null}
                   <div className="mt-4 flex items-end gap-1.5">
                     {featuredRace.topHorse.available ? (
@@ -2229,11 +2233,11 @@ const HomePage = ({ onOpenRace }) => {
                   {isFiniteNumber(featuredRace.topHorse.aiScore) ? <IndexUnderline /> : null}
                 </div>
                 {featuredRace.topHorse.available ? (
-                <div className="pb-1 text-right">
+                <div className="w-[122px] shrink-0 pb-1 text-right min-[360px]:w-[145px] sm:w-auto">
                   <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">
                     {featuredRace.leaderStatus === "tied" ? "TM INDEX 1位タイ" : "TM INDEX 1位"}
                   </div>
-                  <div className="mt-2 max-w-[230px] text-[12px] font-semibold leading-relaxed text-[#050B1E]">
+                  <div className="mt-2 max-w-[122px] text-[10px] font-semibold leading-relaxed text-[#050B1E] min-[360px]:max-w-[145px] min-[360px]:text-[11px] sm:max-w-[230px] sm:text-[12px]">
                     {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
                       ? <>{featuredRace.leaderStatus === "tied" ? "指数1位タイ。" : "指数1位。"}市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
                       : "指数上位のシグナルを表示します"}

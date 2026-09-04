@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { evidenceOpponent, leaderState, valueWatch } from "../../race-signal-selection.mjs";
+import { evidenceOpponent, indexRanking, leaderState, valueWatch } from "../../race-signal-selection.mjs";
 
 const horse = (number, tmIndex, factors, ev, marketGap = 0) => ({
   id: String(number),
@@ -71,4 +71,15 @@ test("equal top scores are treated as tied rather than merely contested", () => 
 
   assert.equal(leaderState(tiedRace).status, "tied");
   assert.equal(leaderState(tiedRace).contenders.length, 2);
+});
+
+test("a runner absent from published win odds is excluded from race signals", () => {
+  const withdrawn = { ...horse(2, 90, [90, 90, 90, 90], 0.5), odds: null };
+  const active = [
+    { ...horse(1, 81, [80, 80, 80, 80], 0.5), odds: 2.4 },
+    { ...horse(3, 79, [78, 78, 78, 78], 0.8), odds: 4.8 },
+  ];
+
+  assert.deepEqual(indexRanking({ horses: [active[0], withdrawn, active[1]] }).map((entry) => entry.number), [1, 3]);
+  assert.equal(leaderState({ horses: [active[0], withdrawn, active[1]] }).leader.number, 1);
 });

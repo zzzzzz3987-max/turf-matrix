@@ -101,10 +101,11 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
     }
   }
 
-  const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
-  const expected = Array.from({ length: expectedFieldSize }, (_, index) => index + 1);
-  if (horseNumbers.some((value, index) => value !== expected[index])) {
-    errors.push(`horseNumber must be 1-${expectedFieldSize}: ${horseNumbers.join(", ")}`);
+  const invalidHorseNumbers = entries
+    .map((entry) => entry.horseNumber)
+    .filter((value) => !Number.isInteger(value) || value < 1 || value > 18);
+  if (invalidHorseNumbers.length) {
+    errors.push(`horseNumber must be an integer within 1-18: ${invalidHorseNumbers.join(", ")}`);
   }
   const orderedByOdds = entries
     .filter((entry) => Number.isFinite(entry.winOdds))

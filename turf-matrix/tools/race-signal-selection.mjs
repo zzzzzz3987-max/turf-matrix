@@ -10,9 +10,13 @@ const valueOf = (horse) => horse?.analysis?.factorsDetail?.value ?? null;
 const factorOf = (horse, key) => horse?.analysis?.factorsDetail?.[key] ?? null;
 const horseKey = (horse) => horse?.id ?? `${horse?.number}:${horse?.name}`;
 
-const indexRanking = (race) => [...(race.horses ?? [])]
-  .filter((horse) => isFiniteNumber(scoreOf(horse)))
+const indexRanking = (race) => {
+  const horses = [...(race.horses ?? [])];
+  const hasPublishedMarket = horses.some((horse) => isFiniteNumber(horse?.odds));
+  return horses
+  .filter((horse) => isFiniteNumber(scoreOf(horse)) && (!hasPublishedMarket || isFiniteNumber(horse?.odds)))
   .sort((left, right) => scoreOf(right) - scoreOf(left) || left.number - right.number);
+};
 
 const evidenceProfile = (horse) => {
   const components = Object.fromEntries(EVIDENCE_FACTOR_KEYS.map((key) => [key, factorOf(horse, key)?.score ?? null]));

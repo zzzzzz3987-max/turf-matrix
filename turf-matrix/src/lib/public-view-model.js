@@ -613,10 +613,30 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
 
   const load = details.load;
   if (isFiniteScore(load?.adjustment) && load.adjustment < 0) {
-    const relativeText = isFiniteScore(load.relativeKg) && load.relativeKg > 0
-      ? `実質負担はレース中央値より${compactNumber(load.relativeKg)}kg重い。`
-      : "今回の斤量条件を慎重に評価。";
-    addFlag({ key: "load", label: "斤量注意", tone: "warning", detail: relativeText });
+    const relativeHeavy = isFiniteScore(load.relativeKg) && load.relativeKg > 0;
+    const provenCount = Number(load.comparableSuccessCount) || 0;
+    const fillyAtRelativeDisadvantage = relativeHeavy && Number(load.sexAllowance) > 0;
+    const unprovenHigh = load.tolerance?.unprovenHigh === true;
+    const poorTolerance = Number(load.tolerance?.adjustment) < 0;
+    const label = unprovenHigh
+      ? "斤量未経験"
+      : fillyAtRelativeDisadvantage
+        ? "牝馬の相対負担"
+        : relativeHeavy
+          ? "相対斤量重め"
+          : poorTolerance
+            ? "同斤量成績注意"
+            : "斤量条件注意";
+    const detail = unprovenHigh && isFiniteScore(load.tolerance?.maxPastWeight)
+      ? `今回は${compactNumber(load.carriedWeight)}kg。過去最高${compactNumber(load.tolerance.maxPastWeight)}kgを上回ります。`
+      : relativeHeavy && provenCount >= 3
+        ? `今回も${compactNumber(load.carriedWeight)}kg。年齢・性別換算では中央値より${compactNumber(load.relativeKg)}kg重めですが、同等斤量・近似距離で3着内${provenCount}走があり、実績を加味しています。`
+        : relativeHeavy
+          ? `年齢・性別換算ではレース中央値より${compactNumber(load.relativeKg)}kg重く、相対的な負担に注意。`
+          : poorTolerance
+            ? `同等斤量での過去${Number(load.tolerance?.sampleCount) || 0}走の内容を慎重に評価しています。`
+            : "今回の斤量条件を慎重に評価しています。";
+    addFlag({ key: "load", label, tone: "warning", detail });
   }
 
   const pace = details.pace;

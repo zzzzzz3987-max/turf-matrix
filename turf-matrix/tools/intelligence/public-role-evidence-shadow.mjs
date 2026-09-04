@@ -76,7 +76,10 @@ const conditionEvidence = (candidate) => {
     add(risks, "distance", "距離条件に不安", 2);
   }
   if (distanceCadence <= -2) add(risks, "cadence", "根幹・非根幹の適性に不安");
-  if (adjustmentOf(load.adjustment) < 0) add(risks, "load", "斤量条件に不安");
+  if (adjustmentOf(load.adjustment) < 0) {
+    const provenLoad = Number(load.comparableSuccessCount) >= 3;
+    add(risks, "load", provenLoad ? "相対負担は重め（同斤量実績あり）" : "斤量条件に不安");
+  }
   if (adjustmentOf(trackBias.adjustment) < 0) add(risks, "trackBias", "馬場傾向と不一致");
   if (adjustmentOf(going.adjustment) < 0) add(risks, "going", "今回馬場に不安");
   if (candidate.paceProfile.adjustment < 0) add(risks, "paceHistory", "過去好走に展開利");

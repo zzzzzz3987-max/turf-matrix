@@ -67,6 +67,22 @@ test("repeated comparable high-load placings mitigate one negative point", () =>
   assert.equal(analysis.comparableSuccessCount, 2);
 });
 
+test("three direct comparable placings mitigate a relative load penalty even when the broad profile is neutral", () => {
+  const pastRuns = [
+    { finishPosition: 1, fieldSize: 10, margin: 0, carriedWeight: 55, surface: "芝", distance: 1800 },
+    { finishPosition: 3, fieldSize: 12, margin: 0.4, carriedWeight: 55, surface: "芝", distance: 1800 },
+    { finishPosition: 3, fieldSize: 14, margin: 0.5, carriedWeight: 55, surface: "芝", distance: 2000 },
+  ];
+  const target = horse({ number: 1, name: "A", sex: "牝", age: 4, weight: 55, pastRuns });
+  const field = [target, horse({ number: 2, name: "B", age: 4, weight: 55 }), horse({ number: 3, name: "C", age: 4, weight: 55 })];
+  const analysis = buildLoadAnalysis(target, { ...race, load: buildRaceLoadContext(field, race) });
+
+  assert.equal(analysis.rawAdjustment, -2);
+  assert.equal(analysis.provenLoadMitigation, 1);
+  assert.equal(analysis.adjustment, -1);
+  assert.match(analysis.summary, /3着内3走/);
+});
+
 test("odds and popularity never change load evaluation", () => {
   const targetA = horse({ number: 1, name: "A", age: 3, weight: 57, odds: 2, popularity: 1 });
   const targetB = horse({ number: 1, name: "A", age: 3, weight: 57, odds: 80, popularity: 15 });

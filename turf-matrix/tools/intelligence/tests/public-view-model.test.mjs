@@ -201,7 +201,7 @@ test("horse public view keeps three strengths and translates a neutral low point
   assert.doesNotMatch(result.headline, /TARGET|参照/);
 });
 
-test("horse risk flags use structured caution evidence in priority order", () => {
+test("horse risk flags explain relative load caution and proven load history", () => {
   const horse = {
     popularity: 3,
     currentRace: { distance: 2000 },
@@ -210,7 +210,14 @@ test("horse risk flags use structured caution evidence in priority order", () =>
       trainingEval: { grade: "C", details: { count: 27, final: { score: 61 } } },
       factorsDetail: {
         value: { indexRank: 2 },
-        load: { adjustment: -2, relativeKg: 2 },
+        load: {
+          adjustment: -1,
+          relativeKg: 2,
+          carriedWeight: 55,
+          sexAllowance: 2,
+          comparableSuccessCount: 3,
+          tolerance: { adjustment: 0, sampleCount: 3, unprovenHigh: false },
+        },
         distance: { score: 76 },
         pace: { score: 75 },
         trackBias: { adjustment: 0 },
@@ -221,8 +228,10 @@ test("horse risk flags use structured caution evidence in priority order", () =>
   };
   const result = buildHorseRiskFlags(horse);
 
-  assert.deepEqual(result.map((flag) => flag.label), ["斤量注意", "距離延長", "最終追い評価やや低め"]);
-  assert.match(result[0].detail, /2kg重い/);
+  assert.deepEqual(result.map((flag) => flag.label), ["牝馬の相対負担", "距離延長", "最終追い評価やや低め"]);
+  assert.match(result[0].detail, /今回も55kg/);
+  assert.match(result[0].detail, /中央値より2kg重め/);
+  assert.match(result[0].detail, /3着内3走/);
   assert.match(result[1].detail, /1600mから400m延長/);
   assert.match(result[2].detail, /調教総合68点に対し、最終追い切りは61点/);
 });

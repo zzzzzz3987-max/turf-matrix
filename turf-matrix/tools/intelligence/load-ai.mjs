@@ -209,7 +209,10 @@ const buildLoadAnalysis = (horse, context = {}) => {
   const comparableSuccesses = comparableLoadSuccesses(horse);
   const tolerance = buildLoadToleranceProfile(horse);
   const rawAdjustment = clamp(roundAwayFromZero(-relativeKg * 0.75), -2, 2);
-  const individualAdjustment = tolerance.adjustment;
+  const provenLoadMitigation = rawAdjustment < 0 && comparableSuccesses.length >= 3 ? 1 : 0;
+  const individualAdjustment = provenLoadMitigation
+    ? Math.max(tolerance.adjustment, provenLoadMitigation)
+    : tolerance.adjustment;
   const adjustment = clamp(rawAdjustment + individualAdjustment, -2, 2);
   const score = clamp(65 + adjustment * 6, 45, 85);
   const relativeText = relativeKg === 0
@@ -221,6 +224,11 @@ const buildLoadAnalysis = (horse, context = {}) => {
   ].filter(Boolean);
   const allowanceText = allowanceParts.length ? `${allowanceParts.join("・")}を補正` : "年齢・性別差の補正なし";
   const adjustmentText = adjustment === 0 ? "指数補正なし" : `TM INDEX ${adjustment > 0 ? "+" : ""}${adjustment}点`;
+  const experienceText = comparableSuccesses.length >= 3
+    ? `同等斤量・近似距離で3着内${comparableSuccesses.length}走があり、斤量実績を反映。`
+    : tolerance.sampleCount
+      ? `同等斤量の過去${tolerance.sampleCount}走から個体差も評価。`
+      : "同等斤量の直接実績は限定的。";
 
   return {
     key: "load",
@@ -236,8 +244,10 @@ const buildLoadAnalysis = (horse, context = {}) => {
     fieldMedianEquivalentWeight: fieldMedian,
     relativeKg,
     comparableSuccessCount: comparableSuccesses.length,
+    rawAdjustment,
+    provenLoadMitigation,
     tolerance,
-    summary: `${allowanceText}。実質負担${load.equivalentWeight.toFixed(1)}kgは${relativeText}。${tolerance.sampleCount ? `同等斤量の過去${tolerance.sampleCount}走から個体差も評価。` : "同等斤量の直接実績は限定的。"}${adjustmentText}。`,
+    summary: `${allowanceText}。実質負担${load.equivalentWeight.toFixed(1)}kgは${relativeText}。${experienceText}${adjustmentText}。`,
     evidence: [
       `今回斤量 ${load.carriedWeight.toFixed(1)}kg`,
       `年齢・性別基準換算 ${load.equivalentWeight.toFixed(1)}kg / レース中央値 ${fieldMedian.toFixed(1)}kg`,

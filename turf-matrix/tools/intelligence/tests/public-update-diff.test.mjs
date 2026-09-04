@@ -54,7 +54,7 @@ test("public update diff reports only real same-race changes", () => {
   assert.equal(result.raceDate, "2026-09-05");
   assert.equal(events[0].type, "going");
   assert.ok(events.some((event) => event.type === "role" && event.horseId === "b" && event.after === "本命"));
-  assert.ok(events.some((event) => event.type === "risk_added" && event.horseId === "d" && event.after === "斤量注意"));
+  assert.ok(events.some((event) => event.type === "risk_added" && event.horseId === "d" && event.after === "相対斤量重め"));
   assert.ok(events.some((event) => event.type === "popularity" && event.horseId === "a"));
   assert.ok(events.some((event) => event.type === "odds" && event.horseId === "a"));
   assert.equal(events.some((event) => event.type === "odds" && event.horseId === "c"), false);

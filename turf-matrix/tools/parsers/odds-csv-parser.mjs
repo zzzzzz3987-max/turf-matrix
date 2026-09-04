@@ -46,15 +46,19 @@ const indexByHeader = (header) => {
 
 const cell = (row, headerMap, name) => row[headerMap.get(name)] ?? "";
 
-const normalizeEntry = (row, headerMap) => ({
-  popularity: toNumber(cell(row, headerMap, "人気")),
-  frameNumber: toNumber(cell(row, headerMap, "枠")),
-  horseNumber: toNumber(cell(row, headerMap, "馬番")),
-  horseName: cell(row, headerMap, "馬名") || null,
-  jockey: cell(row, headerMap, "騎手") || null,
-  zi: toNumber(cell(row, headerMap, "ZI")),
-  winOdds: toNumber(cell(row, headerMap, "単勝")),
-});
+const normalizeEntry = (row, headerMap) => {
+  const winOdds = toNumber(cell(row, headerMap, "単勝"));
+  return {
+    popularity: toNumber(cell(row, headerMap, "人気")),
+    frameNumber: toNumber(cell(row, headerMap, "枠")),
+    horseNumber: toNumber(cell(row, headerMap, "馬番")),
+    horseName: cell(row, headerMap, "馬名") || null,
+    jockey: cell(row, headerMap, "騎手") || null,
+    zi: toNumber(cell(row, headerMap, "ZI")),
+    winOdds,
+    status: cell(row, headerMap, "状態") || (winOdds == null ? "missing" : "active"),
+  };
+};
 
 const duplicates = (entries, key) => {
   const seen = new Set();
@@ -76,9 +80,11 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
   }
 
   entries.forEach((entry, index) => {
-    for (const key of ["popularity", "horseNumber", "horseName", "winOdds"]) {
+    for (const key of ["popularity", "horseNumber", "horseName"]) {
       if (entry[key] == null || entry[key] === "") errors.push(`row ${index + 1}: ${key} is missing`);
     }
+    if (entry.status === "active" && entry.winOdds == null) errors.push(`row ${index + 1}: active winOdds is missing`);
+    if (!Number.isFinite(entry.winOdds) && entry.status !== "missing") errors.push(`row ${index + 1}: missing winOdds must have missing status`);
     if (entry.winOdds != null && entry.winOdds <= 0) errors.push(`row ${index + 1}: winOdds must be positive`);
   });
 
@@ -88,7 +94,8 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
   }
 
   for (const popularity of duplicates(entries, "popularity")) {
-    const tiedEntries = entries.filter((entry) => entry.popularity === popularity);
+    const tiedEntries = entries.filter((entry) => entry.popularity === popularity && Number.isFinite(entry.winOdds));
+    if (tiedEntries.length <= 1) continue;
     if (new Set(tiedEntries.map((entry) => entry.winOdds)).size !== 1) {
       errors.push(`popularity ${popularity} is duplicated across different odds`);
     }
@@ -99,7 +106,9 @@ const validateEntries = (entries, expectedFieldSize = entries.length) => {
   if (horseNumbers.some((value, index) => value !== expected[index])) {
     errors.push(`horseNumber must be 1-${expectedFieldSize}: ${horseNumbers.join(", ")}`);
   }
-  const orderedByOdds = [...entries].sort((a, b) => a.winOdds - b.winOdds || a.horseNumber - b.horseNumber);
+  const orderedByOdds = entries
+    .filter((entry) => Number.isFinite(entry.winOdds))
+    .sort((a, b) => a.winOdds - b.winOdds || a.horseNumber - b.horseNumber);
   let groupStart = 0;
   while (groupStart < orderedByOdds.length) {
     let groupEnd = groupStart;
@@ -152,7 +161,7 @@ export const parse = ({ path: sourcePath = source.path, expectedFieldSize } = {}
     entryCount: entries.length,
     updatedAt: stats.mtime.toISOString(),
     source: source.fileName,
-    status: "active",
+    status: entries.some((entry) => entry.status === "missing") ? "partial" : "active",
     entries,
   };
 };

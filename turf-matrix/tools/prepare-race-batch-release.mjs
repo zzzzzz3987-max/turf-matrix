@@ -19,14 +19,21 @@ if (candidate.races?.length !== config.expectedRaceCount) {
 }
 if (candidate.meta?.date !== config.raceDate) errors.push(`Race date must be ${config.raceDate}.`);
 for (const race of candidate.races ?? []) {
-  if (race.oddsStatus !== "active") errors.push(`${race.id}: odds status is ${race.oddsStatus}`);
+  if (!["active", "partial"].includes(race.oddsStatus)) errors.push(`${race.id}: odds status is ${race.oddsStatus}`);
   if (race.horses.length !== race.fieldSize) errors.push(`${race.id}: runner count mismatch`);
   for (const horse of race.horses) {
-    if (!Number.isFinite(horse.odds) || !Number.isFinite(horse.popularity)) {
-      errors.push(`${race.id}/${horse.name}: odds or popularity is missing`);
+    if (!Number.isFinite(horse.popularity)) {
+      errors.push(`${race.id}/${horse.name}: popularity is missing`);
     }
-    if (!Number.isFinite(horse.tmIndex) || !Number.isFinite(horse.tmValue)) {
-      errors.push(`${race.id}/${horse.name}: TM INDEX or TM VALUE is missing`);
+    const missingWinOdds = !Number.isFinite(horse.odds);
+    if (missingWinOdds && horse.oddsDetail?.status !== "missing") {
+      errors.push(`${race.id}/${horse.name}: missing odds are not marked unavailable`);
+    }
+    if (!missingWinOdds && !Number.isFinite(horse.tmValue)) {
+      errors.push(`${race.id}/${horse.name}: TM VALUE is missing`);
+    }
+    if (!Number.isFinite(horse.tmIndex)) {
+      errors.push(`${race.id}/${horse.name}: TM INDEX is missing`);
     }
   }
 }

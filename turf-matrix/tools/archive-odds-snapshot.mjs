@@ -78,6 +78,7 @@ const main = () => {
   if (lines.length < 2) throw new Error("Odds CSV has no data rows");
 
   const column = new Map(header.map((name, index) => [name, index]));
+  const optionalNumber = (value) => String(value ?? "").trim() === "" ? null : Number(value);
   const rows = lines.slice(1).map((line, rowIndex) => {
     const cells = parseCsvLine(line);
     const value = (name) => cells[column.get(name)] ?? "";
@@ -86,14 +87,20 @@ const main = () => {
       raceNo: Number(value("R")),
       horseNumber: Number(value("馬番")),
       horseName: value("馬名"),
-      winOdds: Number(value("単勝オッズ")),
-      popularity: Number(value("人気")),
+      winOdds: optionalNumber(value("単勝オッズ")),
+      popularity: optionalNumber(value("人気")),
       updatedAt: value("取得時刻"),
       source: value("更新元"),
       status: value("状態"),
     };
-    if (!row.track || !row.raceNo || !row.horseNumber || !row.horseName || row.winOdds <= 0 || row.popularity <= 0) {
+    if (!row.track || !row.raceNo || !row.horseNumber || !row.horseName || row.popularity <= 0) {
       throw new Error(`Odds row ${rowIndex + 2} is incomplete`);
+    }
+    if (row.status === "active" && !(row.winOdds > 0)) {
+      throw new Error(`Active odds row ${rowIndex + 2} has no win odds`);
+    }
+    if (row.winOdds == null && row.status !== "missing") {
+      throw new Error(`Unavailable odds row ${rowIndex + 2} is not marked missing`);
     }
     return row;
   });
@@ -140,6 +147,7 @@ const main = () => {
     sha256,
     bytes: sourceBuffer.length,
     rows: rows.length,
+    unavailableRows: rows.filter((row) => row.winOdds == null).length,
     races,
     snapshot: `data/archive/odds/${raceDate}/${basename(csvPath)}`,
   };

@@ -1,4 +1,4 @@
-const finiteNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
+const finiteNumber = (value) => value == null || value === "" || !Number.isFinite(Number(value)) ? null : Number(value);
 const normalizeType = (value) => String(value ?? "").toLowerCase();
 const normalizePair = (first, second) => [finiteNumber(first), finiteNumber(second)]
   .filter((value) => value != null)

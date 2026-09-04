@@ -52,21 +52,23 @@ const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
 const lines = readFileSync(SOURCE_PATH, "utf8").replace(/^\uFEFF/, "").split(/\r?\n/).filter(Boolean);
 const header = parseCsvLine(lines.shift() ?? "");
 const index = new Map(header.map((name, position) => [name, position]));
-const required = ["場所", "R", "馬番", "馬名", "単勝オッズ", "人気", "取得時刻"];
+const required = ["場所", "R", "馬番", "馬名", "単勝オッズ", "人気", "取得時刻", "状態"];
 const missing = required.filter((name) => !index.has(name));
 if (missing.length) throw new Error(`JV-Link odds headers missing: ${missing.join(", ")}`);
 
 const rows = lines.map((line) => {
   const cells = parseCsvLine(line);
   const get = (name) => cells[index.get(name)] ?? "";
+  const optionalNumber = (name) => get(name).trim() === "" ? null : Number(get(name));
   return {
     track: get("場所"),
     raceNo: Number(get("R")),
     horseNumber: Number(get("馬番")),
     horseName: get("馬名"),
-    winOdds: Number(get("単勝オッズ")),
-    popularity: Number(get("人気")),
+    winOdds: optionalNumber("単勝オッズ"),
+    popularity: optionalNumber("人気"),
     updatedAt: get("取得時刻"),
+    status: get("状態"),
   };
 });
 
@@ -90,15 +92,18 @@ for (const bundleId of config.bundles) {
   if (new Set(raceRows.map((row) => row.horseNumber)).size !== raceRows.length) {
     throw new Error(`${track}${raceNo}R: duplicate horse number in JV-Link odds`);
   }
-  if (raceRows.some((row) => !row.horseName || !Number.isFinite(row.winOdds) || !Number.isFinite(row.popularity))) {
+  if (raceRows.some((row) => !row.horseName || !Number.isFinite(row.popularity))) {
     throw new Error(`${track}${raceNo}R: incomplete JV-Link odds row`);
+  }
+  if (raceRows.some((row) => row.status === "active" && !Number.isFinite(row.winOdds))) {
+    throw new Error(`${track}${raceNo}R: active JV-Link odds row has no win odds`);
   }
 
   const outputDir = join(RACES_DIR, bundleId);
   const outputPath = join(outputDir, "odds.csv");
   mkdirSync(outputDir, { recursive: true });
   const output = [
-    "人気,枠,馬番,馬名,騎手,ZI,単勝",
+    "人気,枠,馬番,馬名,騎手,ZI,単勝,状態",
     ...raceRows.map((row) => [
       row.popularity,
       "",
@@ -106,13 +111,21 @@ for (const bundleId of config.bundles) {
       row.horseName,
       "",
       "",
-      row.winOdds,
+      row.winOdds ?? "",
+      row.status,
     ].join(",")),
   ].join("\n");
   writeFileSync(outputPath, `${output}\n`, "utf8");
   const acquiredAt = new Date(raceRows[0].updatedAt);
   if (!Number.isNaN(acquiredAt.getTime())) utimesSync(outputPath, acquiredAt, acquiredAt);
-  reports.push({ bundleId, track, raceNo, rows: raceRows.length, output: outputPath });
+  reports.push({
+    bundleId,
+    track,
+    raceNo,
+    rows: raceRows.length,
+    missingWinOdds: raceRows.filter((row) => row.winOdds == null).length,
+    output: outputPath,
+  });
 }
 
 const selectedRows = reports.reduce((sum, report) => sum + report.rows, 0);

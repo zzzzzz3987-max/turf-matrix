@@ -43,6 +43,7 @@ const adaptCandidateHorse = (horse) => {
     jockey: horse.jockey,
     popularity: horse.popularity ?? null,
     odds: horse.odds ?? null,
+    oddsDetail: horse.oddsDetail ?? null,
     aiScore: horse.tmIndex ?? null,
     tmValue: horse.tmValue ?? null,
     comment: horse.comment ?? analysis.verdict?.summary ?? "分析準備中",

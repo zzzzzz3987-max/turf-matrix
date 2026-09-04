@@ -25,6 +25,7 @@ const TRACK_BIAS_BACKUP_PATH = join(RUNTIME_DIR, "track-bias.current.backup.json
 const ALL_RACE_RUNTIME_CANDIDATES = [
   join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"),
   join(TOOLS_DIR, "jvlink", "output", "race-batch-all36.json"),
+  join(TOOLS_DIR, "jvlink", "output", "race-batch-runtime.json"),
 ];
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
@@ -212,9 +213,9 @@ const resolveAllRaceRuntime = (raceDate) => {
   for (const path of ALL_RACE_RUNTIME_CANDIDATES) {
     if (!existsSync(path)) continue;
     const runtime = readJson(path, null);
-    if (runtime?.raceDate === raceDate && (runtime.bundles?.length ?? 0) >= 30) return path;
+    if (runtime?.raceDate === raceDate && (runtime.bundles?.length ?? 0) > 0) return path;
   }
-  throw new Error(`Full-card runtime config is unavailable for ${raceDate}`);
+  throw new Error(`Race runtime config is unavailable for ${raceDate}`);
 };
 
 const assertCleanTrackedTree = (git) => {

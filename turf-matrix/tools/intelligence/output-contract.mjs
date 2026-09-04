@@ -13,8 +13,8 @@ const validateOddsJoinIntegrity = (weekData) => {
     for (const horse of race?.horses ?? []) {
       const prefix = `${race?.id ?? "unknown-race"}/${horse?.name ?? horse?.number ?? "unknown-horse"}`;
       const detail = horse?.oddsDetail;
-      if (race?.oddsStatus === "active" && !detail) {
-        errors.push(`${prefix}: active odds are missing oddsDetail`);
+      if (["active", "partial"].includes(race?.oddsStatus) && !detail) {
+        errors.push(`${prefix}: published odds are missing oddsDetail`);
         continue;
       }
       if (!detail) continue;
@@ -43,12 +43,12 @@ const validateValueDisplayIntegrity = (weekData) => {
       if (horse?.analysis?.value?.score != null && horse.analysis.value.score !== value.score) {
         errors.push(`${prefix}: analysis.value score mismatch (${horse.analysis.value.score} != ${value.score})`);
       }
+      if (Number.isFinite(value.probability)) probabilities.push(value.probability);
       if (value.status !== "active") continue;
       if (!Number.isFinite(value.probability) || !Number.isFinite(value.ev)) {
         errors.push(`${prefix}: active Value metrics are missing probability or EV`);
         continue;
       }
-      probabilities.push(value.probability);
       const expectedEv = value.probability * horse.odds;
       if (!Number.isFinite(expectedEv) || Math.abs(value.ev - expectedEv) > 1e-9) {
         errors.push(`${prefix}: EV does not equal probability x odds`);

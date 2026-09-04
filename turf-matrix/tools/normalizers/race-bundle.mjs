@@ -241,7 +241,7 @@ const normalizeRaceBundle = ({
     const raceEntryId = finalRaceEntryId(entry.raceEntryId, horseNumber);
     const missing = [];
     if (!allRecord) missing.push("pastRuns");
-    if (!oddsEntry) missing.push("odds");
+    if (!Number.isFinite(oddsEntry?.winOdds)) missing.push("odds");
     if (!training.slope.length && !training.wood.length) missing.push("training");
     if (!pedigreeRecord) missing.push("pedigree");
     if (oddsEntry && normalizeHorseKey(oddsEntry.horseName) !== key) {
@@ -269,8 +269,8 @@ const normalizeRaceBundle = ({
             ...oddsEntry,
             updatedAt: odds.updatedAt,
             source: odds.source,
-            status: odds.status,
-            sourceStatus: odds.status,
+            status: oddsEntry.status ?? odds.status,
+            sourceStatus: oddsEntry.status ?? odds.status,
           }
         : null,
       training,
@@ -283,7 +283,7 @@ const normalizeRaceBundle = ({
   return {
     bundleId,
     race: current.race,
-    productionReady: horses.every((horse) => horse.odds?.sourceStatus === "active"),
+    productionReady: odds.entries.length === current.entryCount && horses.some((horse) => horse.odds?.sourceStatus === "active"),
     source: {
       currentRaceDetail: { rows: current.rowCount, entries: current.entryCount, encoding: current.encoding },
       allCsv: { rows: all.rowCount, horses: all.horseCount, encoding: all.encoding },

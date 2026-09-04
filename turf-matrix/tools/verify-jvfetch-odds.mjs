@@ -62,6 +62,7 @@ const loadOdds = (path) => {
   const missing = required.filter((name) => !header.includes(name));
   if (missing.length) throw new Error(`Odds header missing: ${missing.join(", ")}`);
   const index = new Map(header.map((name, i) => [name, i]));
+  const optionalNumber = (value) => String(value ?? "").trim() === "" ? null : Number(value);
   const rows = lines.slice(1).map((line, rowIndex) => {
     const cells = parseCsvLine(line);
     const value = (name) => cells[index.get(name)] ?? "";
@@ -71,8 +72,8 @@ const loadOdds = (path) => {
       raceNo: Number(value("R")),
       horseNumber: Number(value("馬番")),
       horseName: value("馬名"),
-      winOdds: Number(value("単勝オッズ")),
-      popularity: Number(value("人気")),
+      winOdds: optionalNumber(value("単勝オッズ")),
+      popularity: optionalNumber(value("人気")),
       updatedAt: value("取得時刻"),
       source: value("更新元"),
       status: value("状態"),
@@ -121,10 +122,16 @@ const main = () => {
     const key = `${row.track}|${row.raceNo}`;
     if (!grouped.has(key)) grouped.set(key, []);
     grouped.get(key).push(row);
-    if (!row.horseNumber || !row.horseName || !row.winOdds || !row.popularity) {
+    if (!row.horseNumber || !row.horseName || !row.popularity) {
       failures.push(`row ${row.row}: required odds field is missing`);
     }
-    if (row.winOdds <= 0) failures.push(`row ${row.row}: winOdds must be positive`);
+    if (row.status === "active" && !Number.isFinite(row.winOdds)) {
+      failures.push(`row ${row.row}: active win odds are missing`);
+    }
+    if (row.winOdds != null && row.winOdds <= 0) failures.push(`row ${row.row}: winOdds must be positive`);
+    if (row.status === "missing" && row.winOdds == null) {
+      warnings.push(`${row.track}${row.raceNo}R/${row.horseName}: win odds unavailable (no votes)`);
+    }
     if (!["active", "closed", "missing"].includes(row.status)) warnings.push(`row ${row.row}: unknown status ${row.status}`);
   }
 
@@ -140,7 +147,8 @@ const main = () => {
     }
     if (duplicateHorseNumbers.length) failures.push(`${race.track}${race.raceNo}R: duplicate horse numbers ${duplicateHorseNumbers.join(", ")}`);
     for (const popularity of duplicatePopularities) {
-      const tiedRows = raceRows.filter((row) => row.popularity === popularity);
+      const tiedRows = raceRows.filter((row) => row.popularity === popularity && Number.isFinite(row.winOdds));
+      if (tiedRows.length <= 1) continue;
       if (new Set(tiedRows.map((row) => row.winOdds)).size !== 1) {
         failures.push(`${race.track}${race.raceNo}R: popularity ${popularity} is duplicated across different odds`);
       }
@@ -149,8 +157,14 @@ const main = () => {
       race: `${race.track}${race.raceNo}R`,
       rows: raceRows.length,
       expectedRows: expectedSize ?? null,
-      impliedWinOddsSum: Number(raceRows.reduce((sum, row) => sum + 1 / row.winOdds, 0).toFixed(3)),
-      status: raceRows.every((row) => row.status === "closed") ? "closed" : "active",
+      impliedWinOddsSum: Number(raceRows
+        .filter((row) => Number.isFinite(row.winOdds) && row.winOdds > 0)
+        .reduce((sum, row) => sum + 1 / row.winOdds, 0).toFixed(3)),
+      status: raceRows.every((row) => row.status === "closed")
+        ? "closed"
+        : raceRows.some((row) => row.status === "missing")
+          ? "partial"
+          : "active",
     };
   });
 

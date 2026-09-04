@@ -43,3 +43,16 @@ test("a different race or unsupported ticket type never cross-joins", () => {
   assert.equal(pairOddsFor(index, { track: "阪神", raceNo: 10, type: "wide", first: 4, second: 13 }), null);
   assert.equal(pairOddsFor(index, { track: "阪神", raceNo: 11, type: "exacta", first: 4, second: 13 }), null);
 });
+
+test("no-vote pair odds stay unavailable instead of becoming zero odds", () => {
+  const index = buildPairOddsIndex({
+    ...payload,
+    Races: [{
+      ...payload.Races[0],
+      Entries: [{ HorseNumbers: [1, 2], MinOdds: null, MaxOdds: null, Popularity: 55 }],
+    }],
+  });
+  const odds = pairOddsFor(index, { track: "阪神", raceNo: 11, type: "quinella", first: 1, second: 2 });
+  assert.equal(odds.minOdds, null);
+  assert.equal(odds.maxOdds, null);
+});

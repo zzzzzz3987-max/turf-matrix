@@ -17,6 +17,7 @@ const TRACK_BY_SLUG = {
   nakayama: "中山", chukyo: "中京", kyoto: "京都", hanshin: "阪神", kokura: "小倉",
 };
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
+const optionalNumber = (value) => value == null || value === "" ? null : Number(value);
 
 if (!existsSync(SOURCE)) throw new Error(`Pair odds JSON was not found: ${SOURCE}`);
 const payload = readJson(SOURCE);
@@ -44,6 +45,7 @@ for (const raceOdds of payload.Races ?? []) {
   const label = `${race.CourseName ?? "?"}${race.RaceNo ?? "?"}R ${raceOdds.Type ?? "?"}`;
   if (!["quinella", "wide"].includes(raceOdds.Type)) failures.push(`${label}: unsupported type`);
   const seen = new Set();
+  let unavailable = 0;
   for (const entry of raceOdds.Entries ?? []) {
     const numbers = entry.HorseNumbers ?? [];
     const pair = numbers.map(Number).sort((left, right) => left - right);
@@ -53,10 +55,15 @@ for (const raceOdds of payload.Races ?? []) {
     }
     if (seen.has(key)) failures.push(`${label}: duplicate pair ${key}`);
     seen.add(key);
-    const minimum = Number(entry.MinOdds);
-    const maximum = Number(entry.MaxOdds);
+    const minimum = optionalNumber(entry.MinOdds);
+    const maximum = optionalNumber(entry.MaxOdds);
+    if (minimum == null && maximum == null) {
+      unavailable += 1;
+      continue;
+    }
     if (!(minimum > 0) || !(maximum >= minimum)) failures.push(`${label} ${key}: invalid odds range`);
   }
+  if (unavailable) warnings.push(`${label}: ${unavailable} combinations unavailable (no votes)`);
 }
 
 const combinations = buildPairOddsIndex(payload).size;

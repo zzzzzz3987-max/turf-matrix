@@ -92,7 +92,9 @@ const isEvaluatedHorse = (horse) => isFiniteNumber(horse?.aiScore);
 const displayScore = (value) => (isFiniteNumber(value) ? value : "未評価");
 const displayFactorScore = (value) => (isFiniteNumber(value) ? Math.round(value) : "—");
 const displayHorseNumber = (value) => (isFiniteNumber(value) && value > 0 ? value : "未");
-const displayOdds = (value) => (isFiniteNumber(value) && value > 0 ? value.toFixed(1) : "発売前");
+const displayOdds = (value, status = null) => (
+  isFiniteNumber(value) && value > 0 ? value.toFixed(1) : status === "missing" ? "票数なし" : "発売前"
+);
 const displayPopularity = (value) => (isFiniteNumber(value) && value > 0 ? `${value}` : "発売前");
 const displayRaceValue = (value, fallback = "未発表") => (value == null || value === "" ? fallback : value);
 const isPendingText = (value) => {
@@ -1587,7 +1589,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
                   <div className="min-w-0">
                     <div className="truncate text-[15px] font-bold leading-tight tracking-tight text-slate-950">{displayHorseName(horse)}</div>
                     <div className="mt-1 text-[11px] font-medium text-slate-500">
-                      {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
+                      {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds, horse.oddsDetail?.status)}</Num>
                     </div>
                   </div>
                 </div>
@@ -1683,7 +1685,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
                 {displayHorseName(horse)}
               </span>
               <span className="mt-1 block text-[11px] text-gray-500 md:hidden">
-                {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds)}</Num>
+                {displayJockeyName(horse)} ・ 人気 <Num>{displayPopularity(horse.popularity)}</Num> ・ 単勝 <Num>{displayOdds(horse.odds, horse.oddsDetail?.status)}</Num>
               </span>
               <HorseRiskTags flags={horseQuickRead(horse).riskFlags} limit={1} className="mt-1.5" />
             </span>
@@ -1775,7 +1777,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
               </span>
             ) : null}
             <span className="mt-0.5 block whitespace-nowrap text-[9px] text-gray-500">
-              単勝 <Num>{displayOdds(horse.odds)}</Num>
+              単勝 <Num>{displayOdds(horse.odds, horse.oddsDetail?.status)}</Num>
             </span>
             <span className="block whitespace-nowrap text-[9px] text-gray-500">
               期待値 <Num>{ev.ev.toFixed(2)}</Num>
@@ -1783,7 +1785,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
           </>
         ) : (
           <>
-            <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds)}</Num>
+            <Num className="block text-[13px] text-gray-600">{displayOdds(horse.odds, horse.oddsDetail?.status)}</Num>
             {ev && (
               <Num
                 className={`block text-[10px] leading-tight ${

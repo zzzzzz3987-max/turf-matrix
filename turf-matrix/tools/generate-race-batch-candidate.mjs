@@ -116,7 +116,11 @@ const races = normalized.races.map((bundle) => {
     goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
     trackBias: condition?.trackBias ?? snapshotBias ?? bundle.race?.trackBias ?? null,
   };
-  const oddsStatus = bundle.productionReady ? "active" : "preodds";
+  const oddsStatus = bundle.source.odds.status === "partial"
+    ? "partial"
+    : bundle.productionReady
+      ? "active"
+      : "preodds";
   const enrichedHorses = enrichPeerRuns(bundle.horses);
   const context = {
     ...buildRaceContext(race),
@@ -130,7 +134,7 @@ const races = normalized.races.map((bundle) => {
       pastRuns: horse.pastRuns.length ? "active" : "missing",
       training: horse.missing.includes("training") ? "missing" : "active",
       pedigree: horse.missing.includes("pedigree") ? "partial" : "active",
-      odds: horse.odds ? "active" : "missing",
+      odds: Number.isFinite(horse.odds?.winOdds) ? "active" : "missing",
       intelligence: "tm-index-v1.7",
     };
     const analysisHorse = { ...horse, dataStatus };
@@ -217,11 +221,23 @@ const draft = {
     date: races[0]?.id.slice(0, 10) ?? config.raceDate,
     dateLabel: races[0]?.id.slice(0, 10) ?? config.raceDate,
     venue: [...new Set(races.map((race) => race.track))].join(" / ") || "更新準備中",
-    dataStatus: races.length ? (races.every((race) => race.oddsStatus === "active") ? "odds-ready" : "preodds") : "missing",
+    dataStatus: races.length
+      ? races.every((race) => race.oddsStatus === "active")
+        ? "odds-ready"
+        : races.every((race) => ["active", "partial"].includes(race.oddsStatus))
+          ? "odds-partial"
+          : "preodds"
+      : "missing",
     source: "target-frontier-jv-race-batch",
     featuredRaceId: null,
     oddsUpdatedAt,
-    oddsStatus: races.length && races.every((race) => race.oddsStatus === "active") ? "active" : races.length ? "preodds" : "missing",
+    oddsStatus: races.length && races.every((race) => race.oddsStatus === "active")
+      ? "active"
+      : races.length && races.every((race) => ["active", "partial"].includes(race.oddsStatus))
+        ? "partial"
+        : races.length
+          ? "preodds"
+          : "missing",
     engineFingerprint,
     raceShapeHistory: {
       status: raceShapeIndex.size ? "active" : "missing",

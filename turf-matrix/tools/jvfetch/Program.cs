@@ -681,7 +681,7 @@ namespace TurfMatrix.JvFetch
                             Popularity = popularity,
                             UpdatedAt = updatedAt,
                             Source = "JV-Link " + OddsDataSpec,
-                            Status = status,
+                            Status = winOdds == null ? "missing" : status,
                             DataKubun = dataKubun,
                             Runners = runners
                         });

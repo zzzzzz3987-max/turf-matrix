@@ -101,7 +101,7 @@ const buildSignal = (race) => {
       compactHorse(secondOpponent, "evidence", selectedEvidence?.profile),
     ].filter(Boolean),
     valueWatch: compactHorse(watchHorse, "valueWatch"),
-    valuePending: race.oddsStatus !== "active",
+    valuePending: !isFiniteNumber(indexTop?.odds),
     topConfidence: indexTop?.analysis?.confidence ?? null,
     indexGap: indexTop && indexSecond ? scoreOf(indexTop) - scoreOf(indexSecond) : null,
     ticketOdds: {
@@ -148,8 +148,8 @@ if (!existsSync(RUNTIME_CONFIG)) {
 }
 
 const runtime = readJson(RUNTIME_CONFIG);
-if ((runtime.bundles?.length ?? 0) < 30) {
-  throw new Error(`All-race runtime config must contain a full card; got ${runtime.bundles?.length ?? 0} races`);
+if ((runtime.bundles?.length ?? 0) === 0) {
+  throw new Error("Race runtime config does not contain any races");
 }
 writeFileSync(TEMP_CONFIG, JSON.stringify({
   ...runtime,

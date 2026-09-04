@@ -23,9 +23,13 @@ if (-not $Candidate) {
 }
 
 & node (Join-Path $RepoRoot "tools\verify-jvfetch-odds.mjs") $Candidate.FullName
-if ($LASTEXITCODE -ne 0) {
+$OddsVerifyExitCode = $LASTEXITCODE
+if ($OddsVerifyExitCode -eq 2) {
   Write-Error "The new odds CSV failed verification and was not archived: $($Candidate.FullName)"
-  exit $LASTEXITCODE
+  exit $OddsVerifyExitCode
+}
+if ($OddsVerifyExitCode -eq 1) {
+  Write-Warning "Single-win odds are partial. Rows without votes remain unavailable and are not estimated."
 }
 
 $PairCandidate = Get-ChildItem -LiteralPath $TargetDir -File |

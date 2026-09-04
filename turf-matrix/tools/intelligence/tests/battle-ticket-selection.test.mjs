@@ -59,6 +59,18 @@ test("baseline reproduces the current three displayed tickets", () => {
   assert.deepEqual(buildBaselineBattleTicketPlan(strongRace()).tickets.map((item) => item.type), ["win", "quinella", "wide"]);
 });
 
+test("three selected horses below break-even remove only the wide ticket", () => {
+  const race = strongRace();
+  race.indexTop.ev = 0.9;
+  race.opponents[0].ev = 0.6;
+  race.opponents[1].ev = 0.7;
+
+  assert.deepEqual(buildBaselineBattleTicketPlan(race).tickets.map((item) => item.type), ["win", "quinella"]);
+  const plan = buildBattleTicketPlan(race);
+  assert.deepEqual(plan.tickets.map((item) => item.type), ["win", "quinella"]);
+  assert.ok(plan.rejected.includes("ワイド: 選出3頭がすべて期待値1.00未満"));
+});
+
 test("ticket plan identity ignores rationale text and pair order", () => {
   const left = buildBattleTicketPlan(strongRace());
   const right = structuredClone(left);

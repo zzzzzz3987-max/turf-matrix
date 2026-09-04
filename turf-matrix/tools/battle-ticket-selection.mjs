@@ -36,14 +36,21 @@ const finishPlan = (tickets, reasons, rejected = []) => ({
   totalUnits: tickets.reduce((sum, item) => sum + item.units, 0),
 });
 
+export const shouldSkipWideForColdMarket = (race) => {
+  const selected = [race?.indexTop, ...(race?.opponents ?? []).slice(0, 2)];
+  return selected.length === 3
+    && selected.every((horse) => finite(horse?.ev) && horse.ev < 1);
+};
+
 export const buildBaselineBattleTicketPlan = (race) => {
   const axis = race?.indexTop;
   if (!axis) return finishPlan([], ["勝負レースまたは軸馬が未確定"]);
   const opponent1 = race.opponents?.[0];
   const opponent2 = race.opponents?.[1];
+  const skipWide = shouldSkipWideForColdMarket(race);
   const tickets = [ticket("win", [axis], "現行表示の軸単勝", { minOdds: axis.odds, maxOdds: axis.odds })];
   if (opponent1) tickets.push(ticket("quinella", [axis, opponent1], "現行表示の軸－相手1馬連", race.ticketOdds?.quinella ?? null));
-  if (opponent2) tickets.push(ticket("wide", [axis, opponent2], "現行表示の軸－相手2ワイド", race.ticketOdds?.wide ?? null));
+  if (opponent2 && !skipWide) tickets.push(ticket("wide", [axis, opponent2], "現行表示の軸－相手2ワイド", race.ticketOdds?.wide ?? null));
   return finishPlan(tickets, ["現行の公開買い目を再現"]);
 };
 
@@ -92,7 +99,9 @@ export const buildBattleTicketPlan = (race) => {
 
   const opponent2Spread = opponent2 ? axis.tmIndex - opponent2.tmIndex : null;
   const wideOdds = race.ticketOdds?.wide;
-  if (opponent2
+  const skipWide = shouldSkipWideForColdMarket(race);
+  if (!skipWide
+      && opponent2
       && finite(opponent2.odds)
       && finite(opponent2.tmIndex)
       && opponent2.tmIndex >= BATTLE_TICKET_THRESHOLDS.wideOpponentIndex
@@ -106,7 +115,9 @@ export const buildBattleTicketPlan = (race) => {
       && wideOdds.minOdds >= BATTLE_TICKET_THRESHOLDS.wideOddsMin) {
     tickets.push(ticket("wide", [axis, opponent2], "相手2の総合Evidence、分析充足率、ワイド下限オッズが基準内", wideOdds));
   } else {
-    rejected.push("ワイド: 相手2の指数、Evidence、分析充足率、または組み合わせオッズが基準未満");
+    rejected.push(skipWide
+      ? "ワイド: 選出3頭がすべて期待値1.00未満"
+      : "ワイド: 相手2の指数、Evidence、分析充足率、または組み合わせオッズが基準未満");
   }
 
   if (tickets.length) reasons.push(`${tickets.length}券種だけを採用`);

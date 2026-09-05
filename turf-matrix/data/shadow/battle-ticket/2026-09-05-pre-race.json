@@ -1,0 +1,319 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-05T05:07:35.978Z",
+  "raceDate": "2026-09-05",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開買い目は現行方式を維持する",
+    "shadowRule": "単勝・馬連・ワイドを固定基準で個別採否し、該当券種がなければ見送る"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "4ba9ee3ffacfe63601f65de11affc855c2708ce9ea4053677cdb7002c3f41212",
+    "engineFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-0abdea906660d338",
+      "sha256": "0abdea906660d338b9379e5b2455539ccd3894dec34e48d768807384fb959e25",
+      "fileCount": 38
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-83f15f452b2a7dac",
+      "sha256": "83f15f452b2a7dac6535e734f5a924a52cbb3e003cbfad2152b453340ad4f20a",
+      "fileCount": 5
+    }
+  },
+  "ticketFingerprint": {
+    "schemaVersion": 1,
+    "id": "tmx-932031c59c510e6e",
+    "sha256": "932031c59c510e6e6c32201cf80c4884fad417857607dd635159336a1f50c91f",
+    "fileCount": 1
+  },
+  "ticketRuleVersion": "battle-ticket-shadow-v1",
+  "thresholds": {
+    "readiness": 74,
+    "readinessCoverage": 0.75,
+    "winOddsMin": 1.5,
+    "winOddsMax": 30,
+    "winEvMin": 0.9,
+    "winEvMax": 3,
+    "quinellaOpponentIndex": 75,
+    "quinellaMaxIndexSpread": 6,
+    "quinellaOddsMin": 4,
+    "wideOpponentIndex": 68,
+    "wideEvidenceScore": 68,
+    "wideEvidenceCoverage": 0.75,
+    "wideMaxIndexSpread": 12,
+    "wideOddsMin": 2
+  },
+  "predictionSha256": "c6cf8798408b379224b64d3a12a0cbcb13ec82e286737a5414c0b977229d50ca",
+  "race": {
+    "id": "2026-09-05-札幌-11R",
+    "bundleId": "2026-09-05-sapporo-11R",
+    "track": "札幌",
+    "number": 11,
+    "name": "札幌２歳ステークス",
+    "grade": "G3",
+    "category": "grade",
+    "time": "15:20",
+    "surface": "芝",
+    "distance": 1800,
+    "fieldSize": 9,
+    "oddsStatus": "active",
+    "indexTop": {
+      "id": "2609051103",
+      "number": 3,
+      "name": "デザートスピリット",
+      "tmIndex": 82,
+      "popularity": 4,
+      "odds": 17.4,
+      "ev": 4.30026778452063,
+      "marketGap": 3,
+      "source": "index1"
+    },
+    "leaderStatus": "clear",
+    "leaderContenders": [
+      {
+        "id": "2609051103",
+        "number": 3,
+        "name": "デザートスピリット",
+        "tmIndex": 82,
+        "popularity": 4,
+        "odds": 17.4,
+        "ev": 4.30026778452063,
+        "marketGap": 3,
+        "source": "leader-contender"
+      }
+    ],
+    "opponents": [
+      {
+        "id": "2609051104",
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "tmIndex": 77,
+        "popularity": 3,
+        "odds": 11.6,
+        "ev": 1.8456202691749213,
+        "marketGap": 1,
+        "source": "index2"
+      },
+      {
+        "id": "2609051102",
+        "number": 2,
+        "name": "ショウナンガレオン",
+        "tmIndex": 74,
+        "popularity": 1,
+        "odds": 1.1,
+        "ev": 0.13251468511953424,
+        "marketGap": -2,
+        "source": "evidence",
+        "selectionScore": 74.75,
+        "selectionCoverage": 1,
+        "selectionEvidence": {
+          "ability": 81,
+          "form": 88,
+          "training": 60,
+          "pace": 70
+        }
+      }
+    ],
+    "valueWatch": null,
+    "valuePending": false,
+    "topConfidence": "mid",
+    "indexGap": 5,
+    "ticketOdds": {
+      "quinella": {
+        "type": "quinella",
+        "numbers": [
+          3,
+          4
+        ],
+        "minOdds": 24.3,
+        "maxOdds": 24.3,
+        "popularity": 8,
+        "updatedAt": "2026-09-05T14:06",
+        "source": "JV-Link 0B32",
+        "status": "active"
+      },
+      "wide": {
+        "type": "wide",
+        "numbers": [
+          2,
+          3
+        ],
+        "minOdds": 2.6,
+        "maxOdds": 3.3,
+        "popularity": 3,
+        "updatedAt": "2026-09-05T14:06",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      }
+    },
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.5,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 71.5,
+        "conditionFit": 80.5,
+        "opponentDepth": 76
+      }
+    }
+  },
+  "baseline": {
+    "ruleVersion": "battle-ticket-shadow-v1",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "win",
+        "horses": [
+          {
+            "number": 3,
+            "name": "デザートスピリット"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸単勝",
+        "market": {
+          "minOdds": 17.4,
+          "maxOdds": 17.4
+        }
+      },
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 3,
+            "name": "デザートスピリット"
+          },
+          {
+            "number": 4,
+            "name": "コスモハナミズキ"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸－相手1馬連",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            3,
+            4
+          ],
+          "minOdds": 24.3,
+          "maxOdds": 24.3,
+          "popularity": 8,
+          "updatedAt": "2026-09-05T14:06",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 3,
+            "name": "デザートスピリット"
+          },
+          {
+            "number": 2,
+            "name": "ショウナンガレオン"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸－相手2ワイド",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            2,
+            3
+          ],
+          "minOdds": 2.6,
+          "maxOdds": 3.3,
+          "popularity": 3,
+          "updatedAt": "2026-09-05T14:06",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "現行の公開買い目を再現"
+    ],
+    "rejected": [],
+    "totalUnits": 3
+  },
+  "shadow": {
+    "ruleVersion": "battle-ticket-shadow-v1",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 3,
+            "name": "デザートスピリット"
+          },
+          {
+            "number": 4,
+            "name": "コスモハナミズキ"
+          }
+        ],
+        "units": 1,
+        "rationale": "指数2位の地力と首位との差、馬連オッズが基準内",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            3,
+            4
+          ],
+          "minOdds": 24.3,
+          "maxOdds": 24.3,
+          "popularity": 8,
+          "updatedAt": "2026-09-05T14:06",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 3,
+            "name": "デザートスピリット"
+          },
+          {
+            "number": 2,
+            "name": "ショウナンガレオン"
+          }
+        ],
+        "units": 1,
+        "rationale": "相手2の総合Evidence、分析充足率、ワイド下限オッズが基準内",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            2,
+            3
+          ],
+          "minOdds": 2.6,
+          "maxOdds": 3.3,
+          "popularity": 3,
+          "updatedAt": "2026-09-05T14:06",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "2券種だけを採用"
+    ],
+    "rejected": [
+      "単勝: オッズまたは期待値が採用帯外"
+    ],
+    "totalUnits": 2
+  }
+}

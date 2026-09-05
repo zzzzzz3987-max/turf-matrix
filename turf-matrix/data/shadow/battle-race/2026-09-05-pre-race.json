@@ -1,0 +1,291 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-05T05:07:35.885Z",
+  "raceDate": "2026-09-05",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "4ba9ee3ffacfe63601f65de11affc855c2708ce9ea4053677cdb7002c3f41212",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-0abdea906660d338",
+      "sha256": "0abdea906660d338b9379e5b2455539ccd3894dec34e48d768807384fb959e25",
+      "fileCount": 38
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-83f15f452b2a7dac",
+      "sha256": "83f15f452b2a7dac6535e734f5a924a52cbb3e003cbfad2152b453340ad4f20a",
+      "fileCount": 5
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "fbaa1bc4857f94ca5aaf59d80af4c41b79dd3d70e7b07cb2ff511451ae2c61a1",
+  "baseline": {
+    "date": "2026-09-05",
+    "raceId": "2026-09-05-札幌-11R",
+    "bundleId": "2026-09-05-sapporo-11R",
+    "track": "札幌",
+    "raceNumber": 11,
+    "raceName": "札幌２歳ステークス",
+    "scheduledTime": "15:20",
+    "axis": {
+      "number": 3,
+      "name": "デザートスピリット",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 2,
+        "name": "ショウナンガレオン",
+        "tmIndex": 74,
+        "selectionScore": 74.75
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.5,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 71.5,
+        "conditionFit": 80.5,
+        "opponentDepth": 76
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-05",
+    "raceId": "2026-09-05-札幌-11R",
+    "bundleId": "2026-09-05-sapporo-11R",
+    "track": "札幌",
+    "raceNumber": 11,
+    "raceName": "札幌２歳ステークス",
+    "scheduledTime": "15:20",
+    "axis": {
+      "number": 3,
+      "name": "デザートスピリット",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 2,
+        "name": "ショウナンガレオン",
+        "tmIndex": 74,
+        "selectionScore": 74.75
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.5,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 71.5,
+        "conditionFit": 80.5,
+        "opponentDepth": 76
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-05",
+      "raceId": "2026-09-05-阪神-9R",
+      "bundleId": "2026-09-05-hanshin-09R",
+      "track": "阪神",
+      "raceNumber": 9,
+      "raceName": "出石特別",
+      "scheduledTime": "14:20",
+      "axis": {
+        "number": 6,
+        "name": "システマソラー",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 8,
+          "name": "クロノスバレット",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 2,
+          "name": "ジャイアンバローズ",
+          "tmIndex": 74,
+          "selectionScore": 67.5
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.5,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 69.8,
+          "conditionFit": 84.5,
+          "opponentDepth": 72.7
+        }
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "raceId": "2026-09-05-中山-9R",
+      "bundleId": "2026-09-05-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "古作特別",
+      "scheduledTime": "14:30",
+      "axis": {
+        "number": 12,
+        "name": "ゴディアーモ",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 7,
+          "name": "デイジー",
+          "tmIndex": 79,
+          "selectionScore": null
+        },
+        {
+          "number": 14,
+          "name": "ペプチドドリーム",
+          "tmIndex": 79,
+          "selectionScore": 74.5
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.1,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 73.5,
+          "conditionFit": 76,
+          "opponentDepth": 77
+        }
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "raceId": "2026-09-05-阪神-10R",
+      "bundleId": "2026-09-05-hanshin-10R",
+      "track": "阪神",
+      "raceNumber": 10,
+      "raceName": "西宮ステークス",
+      "scheduledTime": "14:55",
+      "axis": {
+        "number": 7,
+        "name": "サウンドムーブ",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 3,
+          "name": "コルレオニス",
+          "tmIndex": 76,
+          "selectionScore": null
+        },
+        {
+          "number": 5,
+          "name": "シンゼンカガ",
+          "tmIndex": 76,
+          "selectionScore": 67.25
+        }
+      ],
+      "indexGap": 5,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.7,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 5,
+          "gapStrength": 80,
+          "axisCore": 71.8,
+          "conditionFit": 71.5,
+          "opponentDepth": 72.1
+        }
+      }
+    },
+    {
+      "date": "2026-09-05",
+      "raceId": "2026-09-05-札幌-11R",
+      "bundleId": "2026-09-05-sapporo-11R",
+      "track": "札幌",
+      "raceNumber": 11,
+      "raceName": "札幌２歳ステークス",
+      "scheduledTime": "15:20",
+      "axis": {
+        "number": 3,
+        "name": "デザートスピリット",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 4,
+          "name": "コスモハナミズキ",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 2,
+          "name": "ショウナンガレオン",
+          "tmIndex": 74,
+          "selectionScore": 74.75
+        }
+      ],
+      "indexGap": 5,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 78.5,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 5,
+          "gapStrength": 80,
+          "axisCore": 71.5,
+          "conditionFit": 80.5,
+          "opponentDepth": 76
+        }
+      }
+    }
+  ]
+}

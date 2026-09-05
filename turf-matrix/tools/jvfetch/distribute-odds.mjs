@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const args = process.argv.slice(2);
 const allowPartial = args.includes("--allow-partial");
+const preserveMissing = args.includes("--preserve-missing");
 const configOption = args.find((arg) => arg.startsWith("--config="));
 const CONFIG_PATH = configOption
   ? resolve(configOption.slice("--config=".length))
@@ -88,8 +89,15 @@ for (const bundleId of config.bundles) {
   if (!raceRows.length) {
     if (!allowPartial) throw new Error(`${track}${raceNo}R: JV-Link odds are missing`);
     const stalePath = join(RACES_DIR, bundleId, "odds.csv");
-    if (existsSync(stalePath)) unlinkSync(stalePath);
-    skipped.push({ bundleId, track, raceNo, reason: "JV-Link odds are not provided yet" });
+    if (!preserveMissing && existsSync(stalePath)) unlinkSync(stalePath);
+    skipped.push({
+      bundleId,
+      track,
+      raceNo,
+      reason: preserveMissing
+        ? "JV-Link odds are not provided; existing race odds were preserved"
+        : "JV-Link odds are not provided yet",
+    });
     continue;
   }
   if (new Set(raceRows.map((row) => row.horseNumber)).size !== raceRows.length) {

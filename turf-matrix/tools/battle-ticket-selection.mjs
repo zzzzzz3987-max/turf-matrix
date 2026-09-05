@@ -1,7 +1,7 @@
 const finite = (value) => typeof value === "number" && Number.isFinite(value);
 const between = (value, minimum, maximum) => finite(value) && value >= minimum && value <= maximum;
 
-export const BATTLE_TICKET_RULE_VERSION = "battle-ticket-shadow-v1";
+export const BATTLE_TICKET_RULE_VERSION = "battle-ticket-shadow-v2";
 export const BATTLE_TICKET_THRESHOLDS = Object.freeze({
   readiness: 74,
   readinessCoverage: 0.75,
@@ -42,15 +42,58 @@ export const shouldSkipWideForColdMarket = (race) => {
     && selected.every((horse) => finite(horse?.ev) && horse.ev < 1);
 };
 
+const wideMarketFor = (race, opponentIndex) =>
+  race?.ticketOdds?.[`wideOpponent${opponentIndex + 1}`]
+  ?? (opponentIndex === 1 ? race?.ticketOdds?.wide : null);
+
+export const selectBattleWideCandidate = (race) => {
+  if (shouldSkipWideForColdMarket(race)) return null;
+  const axis = race?.indexTop;
+  if (!axis) return null;
+
+  return (race.opponents ?? []).slice(0, 2).map((opponent, opponentIndex) => ({
+    opponent,
+    opponentIndex,
+    market: wideMarketFor(race, opponentIndex),
+    spread: axis.tmIndex - opponent.tmIndex,
+  })).filter(({ opponent, opponentIndex, market, spread }) =>
+    finite(opponent?.odds)
+    && finite(opponent?.tmIndex)
+    && opponent.tmIndex >= BATTLE_TICKET_THRESHOLDS.wideOpponentIndex
+    && between(spread, 0, BATTLE_TICKET_THRESHOLDS.wideMaxIndexSpread)
+    && market?.status === "active"
+    && finite(market.minOdds)
+    && market.minOdds >= BATTLE_TICKET_THRESHOLDS.wideOddsMin
+    && (opponentIndex === 0 || (
+      finite(opponent.selectionScore)
+      && opponent.selectionScore >= BATTLE_TICKET_THRESHOLDS.wideEvidenceScore
+      && finite(opponent.selectionCoverage)
+      && opponent.selectionCoverage >= BATTLE_TICKET_THRESHOLDS.wideEvidenceCoverage
+    ))
+  ).sort((left, right) =>
+    Number((right.opponent.ev ?? -Infinity) >= 1) - Number((left.opponent.ev ?? -Infinity) >= 1)
+    || (right.opponent.ev ?? -Infinity) - (left.opponent.ev ?? -Infinity)
+    || right.opponent.tmIndex - left.opponent.tmIndex
+    || right.market.minOdds - left.market.minOdds
+    || left.opponentIndex - right.opponentIndex
+  )[0] ?? null;
+};
+
 export const buildBaselineBattleTicketPlan = (race) => {
   const axis = race?.indexTop;
   if (!axis) return finishPlan([], ["勝負レースまたは軸馬が未確定"]);
   const opponent1 = race.opponents?.[0];
-  const opponent2 = race.opponents?.[1];
-  const skipWide = shouldSkipWideForColdMarket(race);
+  const wideCandidate = selectBattleWideCandidate(race);
   const tickets = [ticket("win", [axis], "現行表示の軸単勝", { minOdds: axis.odds, maxOdds: axis.odds })];
   if (opponent1) tickets.push(ticket("quinella", [axis, opponent1], "現行表示の軸－相手1馬連", race.ticketOdds?.quinella ?? null));
-  if (opponent2 && !skipWide) tickets.push(ticket("wide", [axis, opponent2], "現行表示の軸－相手2ワイド", race.ticketOdds?.wide ?? null));
+  if (wideCandidate) {
+    tickets.push(ticket(
+      "wide",
+      [axis, wideCandidate.opponent],
+      `相手${wideCandidate.opponentIndex + 1}の信頼度とオッズを比較して選択`,
+      wideCandidate.market,
+    ));
+  }
   return finishPlan(tickets, ["現行の公開買い目を再現"]);
 };
 
@@ -59,7 +102,6 @@ export const buildBattleTicketPlan = (race) => {
   if (!axis) return finishPlan([], ["勝負レースまたは軸馬が未確定"]);
 
   const opponent1 = race.opponents?.[0];
-  const opponent2 = race.opponents?.[1];
   const profile = race.battleProfile;
   const reasons = [];
   const rejected = [];
@@ -97,27 +139,19 @@ export const buildBattleTicketPlan = (race) => {
     rejected.push("馬連: 相手1の指数、首位との差、または組み合わせオッズが基準未満");
   }
 
-  const opponent2Spread = opponent2 ? axis.tmIndex - opponent2.tmIndex : null;
-  const wideOdds = race.ticketOdds?.wide;
   const skipWide = shouldSkipWideForColdMarket(race);
-  if (!skipWide
-      && opponent2
-      && finite(opponent2.odds)
-      && finite(opponent2.tmIndex)
-      && opponent2.tmIndex >= BATTLE_TICKET_THRESHOLDS.wideOpponentIndex
-      && finite(opponent2.selectionScore)
-      && opponent2.selectionScore >= BATTLE_TICKET_THRESHOLDS.wideEvidenceScore
-      && finite(opponent2.selectionCoverage)
-      && opponent2.selectionCoverage >= BATTLE_TICKET_THRESHOLDS.wideEvidenceCoverage
-      && between(opponent2Spread, 0, BATTLE_TICKET_THRESHOLDS.wideMaxIndexSpread)
-      && wideOdds?.status === "active"
-      && finite(wideOdds.minOdds)
-      && wideOdds.minOdds >= BATTLE_TICKET_THRESHOLDS.wideOddsMin) {
-    tickets.push(ticket("wide", [axis, opponent2], "相手2の総合Evidence、分析充足率、ワイド下限オッズが基準内", wideOdds));
+  const wideCandidate = selectBattleWideCandidate(race);
+  if (wideCandidate) {
+    tickets.push(ticket(
+      "wide",
+      [axis, wideCandidate.opponent],
+      `相手${wideCandidate.opponentIndex + 1}の指数・期待値とワイド下限オッズを比較`,
+      wideCandidate.market,
+    ));
   } else {
     rejected.push(skipWide
       ? "ワイド: 選出3頭がすべて期待値1.00未満"
-      : "ワイド: 相手2の指数、Evidence、分析充足率、または組み合わせオッズが基準未満");
+      : "ワイド: 相手候補の指数、Evidence、または組み合わせオッズが基準未満");
   }
 
   if (tickets.length) reasons.push(`${tickets.length}券種だけを採用`);

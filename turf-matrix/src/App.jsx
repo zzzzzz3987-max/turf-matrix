@@ -4,7 +4,7 @@ import { dataMode, loadWeekData } from "./data/week-data-loader.js";
 import allRaceSignals from "../tools/all-race-signals.json";
 import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
-import { shouldSkipWideForColdMarket } from "../tools/battle-ticket-selection.mjs";
+import { selectBattleWideCandidate } from "../tools/battle-ticket-selection.mjs";
 import {
   buildPedigreeFamilyPublicLines,
   buildPedigreePublicConditionSummary,
@@ -1917,10 +1917,11 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
 
 const BattleRacePanel = ({ race, onOpen }) => {
   if (!race?.indexTop) return null;
-  const [opponentA, opponentB] = race.opponents ?? [];
+  const [opponentA] = race.opponents ?? [];
   const axis = race.indexTop;
   const exactaPair = opponentA ? `${axis.number}-${opponentA.number}` : null;
-  const widePair = opponentB && !shouldSkipWideForColdMarket(race) ? `${axis.number}-${opponentB.number}` : null;
+  const wideCandidate = selectBattleWideCandidate(race);
+  const widePair = wideCandidate ? `${axis.number}-${wideCandidate.opponent.number}` : null;
 
   return (
     <section className="mt-12">

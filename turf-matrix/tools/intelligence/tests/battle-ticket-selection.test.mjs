@@ -12,11 +12,13 @@ const strongRace = () => ({
   ticketOdds: {
     quinella: { minOdds: 8.6, maxOdds: 8.6, status: "active" },
     wide: { minOdds: 3.2, maxOdds: 3.8, status: "active" },
+    wideOpponent1: { minOdds: 2.4, maxOdds: 2.8, status: "active" },
+    wideOpponent2: { minOdds: 3.2, maxOdds: 3.8, status: "active" },
   },
   indexTop: { number: 4, name: "軸", tmIndex: 84, odds: 5.2, ev: 1.4 },
   opponents: [
-    { number: 3, name: "相手一", tmIndex: 80, odds: 4.8 },
-    { number: 13, name: "相手二", tmIndex: 74, odds: 10.2, selectionScore: 72, selectionCoverage: 1 },
+    { number: 3, name: "相手一", tmIndex: 80, odds: 4.8, ev: 1.2 },
+    { number: 13, name: "相手二", tmIndex: 74, odds: 10.2, ev: 1.4, selectionScore: 72, selectionCoverage: 1 },
   ],
 });
 
@@ -51,12 +53,27 @@ test("underpriced combinations are removed without discarding a valid win bet", 
   race.ticketOdds.quinella.minOdds = 3.9;
   race.ticketOdds.quinella.maxOdds = 3.9;
   race.ticketOdds.wide.minOdds = 1.9;
+  race.ticketOdds.wideOpponent1.minOdds = 1.9;
+  race.ticketOdds.wideOpponent2.minOdds = 1.9;
   const plan = buildBattleTicketPlan(race);
   assert.deepEqual(plan.tickets.map((item) => item.type), ["win"]);
 });
 
 test("baseline reproduces the current three displayed tickets", () => {
   assert.deepEqual(buildBaselineBattleTicketPlan(strongRace()).tickets.map((item) => item.type), ["win", "quinella", "wide"]);
+});
+
+test("wide compares both opponents and selects the stronger market value", () => {
+  const race = strongRace();
+  race.opponents[0].ev = 1.85;
+  race.opponents[1].ev = 0.13;
+  race.ticketOdds.wideOpponent1 = { minOdds: 4.7, maxOdds: 6.5, status: "active" };
+  race.ticketOdds.wideOpponent2 = { minOdds: 2.4, maxOdds: 3.1, status: "active" };
+
+  const baseline = buildBaselineBattleTicketPlan(race);
+  const shadow = buildBattleTicketPlan(race);
+  assert.deepEqual(baseline.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 3]);
+  assert.deepEqual(shadow.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 3]);
 });
 
 test("three selected horses below break-even remove only the wide ticket", () => {

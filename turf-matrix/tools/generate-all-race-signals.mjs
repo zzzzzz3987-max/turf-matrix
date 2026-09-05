@@ -119,6 +119,20 @@ const buildSignal = (race) => {
         first: indexTop.number,
         second: secondOpponent.number,
       }) : null,
+      wideOpponent1: indexTop && indexSecond ? pairOddsFor(pairOddsIndex, {
+        track: race.track,
+        raceNo: race.number,
+        type: "wide",
+        first: indexTop.number,
+        second: indexSecond.number,
+      }) : null,
+      wideOpponent2: indexTop && secondOpponent ? pairOddsFor(pairOddsIndex, {
+        track: race.track,
+        raceNo: race.number,
+        type: "wide",
+        first: indexTop.number,
+        second: secondOpponent.number,
+      }) : null,
     },
   };
   return {

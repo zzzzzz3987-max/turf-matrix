@@ -34,14 +34,15 @@ const describeGeometry = (shape) => {
 
 const scoreDistance = (horse) => buildDistanceProfile(horse).score;
 
-const scoreCourse = (horse) => {
+const scoreCourse = (horse, { sameSurfaceOnly = false } = {}) => {
   const runs = horse.pastRuns ?? [];
   const currentCourse = horse.currentRace?.course;
   const currentSurface = horse.currentRace?.surface;
   const currentType = courseGroup(currentCourse);
-  const sameCourse = runs.filter((run) => run.course === currentCourse);
   const sameSurface = runs.filter((run) => run.surface === currentSurface);
-  const sameType = runs.filter((run) => courseGroup(run.course) === currentType);
+  const comparable = sameSurfaceOnly ? (currentSurface ? sameSurface : []) : runs;
+  const sameCourse = comparable.filter((run) => run.course === currentCourse);
+  const sameType = comparable.filter((run) => courseGroup(run.course) === currentType);
 
   const sameCourseScore = sameCourse.length ? avg(sameCourse.map(finishQuality), 62) + Math.min(8, sameCourse.length * 2) : 52;
   const surfaceScore = sameSurface.length ? avg(sameSurface.map(finishQuality), 58) + Math.min(8, sameSurface.length) : 50;

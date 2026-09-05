@@ -82,15 +82,22 @@ const scoreZi = (horse) => {
   return calculateAbilityProfile(horse).score;
 };
 
-const scoreRecentForm = (horse) => {
+const scoreRecentForm = (horse, { normalizeWeights = false } = {}) => {
   const runs = horse.pastRuns ?? [];
   if (!runs.length) return 50;
   const { central, local } = splitRunsByOrigin(runs);
+  const scoreRuns = (source) => {
+    const selected = source.slice(0, 5);
+    const scores = selected.map((run, index) => runScore(run, index, horse.currentRace?.distance));
+    if (!normalizeWeights) return avg(scores);
+    const totalWeight = selected.reduce((sum, _, index) => sum + 1 - index * 0.08, 0);
+    return scores.reduce((sum, score) => sum + score, 0) / totalWeight;
+  };
   const centralScore = central.length
-    ? avg(central.slice(0, 5).map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    ? scoreRuns(central)
     : null;
   const localScore = local.length
-    ? avg(local.slice(0, 5).map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    ? scoreRuns(local)
     : null;
 
   if (centralScore != null && localScore != null) {

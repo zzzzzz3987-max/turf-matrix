@@ -1,0 +1,5620 @@
+{
+  "modelVersion": "form-weight-course-surface-v1-shadow",
+  "date": "2026-09-05",
+  "policy": {
+    "productionConnected": false,
+    "coefficientsTunedToResults": false,
+    "prospectiveSampleSize": 0,
+    "otherFactorsAndCorrectionsFrozen": true,
+    "candidateExperienceDiscountRecomputed": true
+  },
+  "sourceHashes": {
+    "form-ai.mjs": "71303d343819c459fe8b028843337393698a7585d7bf89ee1664d8413c81951c",
+    "course-ai.mjs": "ffa1c0ca786762bb9b126f7b47ea69f5b07ef68d7cd5dfe236859b0f714592f7",
+    "tm-index-engine.mjs": "b976c3729614529005f59462757e7735d5b1ef0f4f8ef2351221e699ba80f9df"
+  },
+  "inputs": [
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "resultsSha256": "bdfb5f5041143c00d74ab073d674d65aab30ce0a281688bc5971c5f25384c1dd"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "resultsSha256": "0d16210ea245ff182c4a0bb0b904170b9a4607233b44abfeb5876d516264ab88"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "resultsSha256": "6599924ee38f5ff829a33673370e8942f6e10e38612349081f24e498b6352771"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "resultsSha256": "fc9885d3581b72f43bb7949a60ab5aa0d457ea8cbfc14b01a5252083d8089e79"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "resultsSha256": "5b3951036d34c9d271551a7cb2776e3181d86ad13224b5791b610c3f9adda603"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "resultsSha256": "eda680b30262f1f944b9ac91ae051eb962a9214b4ef757120fee9baffbc8c8a3"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "resultsSha256": "d8303e06a813065b2e5f368f1df5afe7b6abaea563bff8024e4239d9e611e9db"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "resultsSha256": "d19952ca7420fda68d4bf9a9a0ba185fefab1e0ca49f4835c1c137c9d519417d"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "resultsSha256": "4ca39a1dbe0b501584dd0311c4c65a9e754e67c6d41c3f8c916622ed40625d92"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "resultsSha256": "bc728bb05a7e659f83561f81cf8d78a26cdc0b8ee8ad3dc13bc26ba7473ffb12"
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "resultsSha256": "7f560fd64127d0ccfd968cd75f807d962326d46ad3895bad896faa412b90d401"
+    }
+  ],
+  "summaries": {
+    "historical-exploratory": {
+      "baseline": {
+        "races": 10,
+        "wins": 3,
+        "topThree": 3,
+        "placeHits": 3,
+        "winReturn": 670,
+        "placeReturn": 350,
+        "winROI": 67,
+        "placeROI": 35,
+        "changed": 0
+      },
+      "form": {
+        "races": 10,
+        "wins": 2,
+        "topThree": 3,
+        "placeHits": 3,
+        "winReturn": 320,
+        "placeReturn": 370,
+        "winROI": 32,
+        "placeROI": 37,
+        "changed": 1
+      },
+      "course": {
+        "races": 10,
+        "wins": 3,
+        "topThree": 3,
+        "placeHits": 3,
+        "winReturn": 670,
+        "placeReturn": 350,
+        "winROI": 67,
+        "placeROI": 35,
+        "changed": 1
+      },
+      "combined": {
+        "races": 10,
+        "wins": 2,
+        "topThree": 3,
+        "placeHits": 3,
+        "winReturn": 320,
+        "placeReturn": 370,
+        "winROI": 32,
+        "placeROI": 37,
+        "changed": 1
+      }
+    },
+    "discovery-day-not-holdout": {
+      "baseline": {
+        "races": 9,
+        "wins": 0,
+        "topThree": 5,
+        "placeHits": 4,
+        "winReturn": 0,
+        "placeReturn": 700,
+        "winROI": 0,
+        "placeROI": 77.8,
+        "changed": 0
+      },
+      "form": {
+        "races": 9,
+        "wins": 0,
+        "topThree": 5,
+        "placeHits": 4,
+        "winReturn": 0,
+        "placeReturn": 700,
+        "winROI": 0,
+        "placeROI": 77.8,
+        "changed": 0
+      },
+      "course": {
+        "races": 9,
+        "wins": 0,
+        "topThree": 5,
+        "placeHits": 4,
+        "winReturn": 0,
+        "placeReturn": 700,
+        "winROI": 0,
+        "placeROI": 77.8,
+        "changed": 0
+      },
+      "combined": {
+        "races": 9,
+        "wins": 0,
+        "topThree": 5,
+        "placeHits": 4,
+        "winReturn": 0,
+        "placeReturn": 700,
+        "winROI": 0,
+        "placeROI": 77.8,
+        "changed": 0
+      }
+    },
+    "all": {
+      "baseline": {
+        "races": 19,
+        "wins": 3,
+        "topThree": 8,
+        "placeHits": 7,
+        "winReturn": 670,
+        "placeReturn": 1050,
+        "winROI": 35.3,
+        "placeROI": 55.3,
+        "changed": 0
+      },
+      "form": {
+        "races": 19,
+        "wins": 2,
+        "topThree": 8,
+        "placeHits": 7,
+        "winReturn": 320,
+        "placeReturn": 1070,
+        "winROI": 16.8,
+        "placeROI": 56.3,
+        "changed": 1
+      },
+      "course": {
+        "races": 19,
+        "wins": 3,
+        "topThree": 8,
+        "placeHits": 7,
+        "winReturn": 670,
+        "placeReturn": 1050,
+        "winROI": 35.3,
+        "placeROI": 55.3,
+        "changed": 1
+      },
+      "combined": {
+        "races": 19,
+        "wins": 2,
+        "topThree": 8,
+        "placeHits": 7,
+        "winReturn": 320,
+        "placeReturn": 1070,
+        "winROI": 16.8,
+        "placeROI": 56.3,
+        "changed": 1
+      }
+    }
+  },
+  "skipped": [
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-sapporo-10R",
+      "reason": "missing frozen correction: アスクデッドヒート"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-chukyo-06R",
+      "reason": "missing frozen correction: ゼロヴィジビリティ"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-niigata-06R",
+      "reason": "missing frozen correction: コルドンブルー"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-sapporo-11R",
+      "reason": "missing frozen correction: ロジケープ"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-chukyo-07R",
+      "reason": "missing frozen correction: ミュージシャン"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-niigata-07R",
+      "reason": "missing frozen correction: コートアリシアン"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-sapporo-12R",
+      "reason": "missing frozen correction: ハイクオリティ"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-chukyo-08R",
+      "reason": "missing frozen correction: ブラックシャリマー"
+    },
+    {
+      "date": "2026-07-25",
+      "commit": "2949bf69f09f626d50a81d5fc74e1fd379b5a8c2",
+      "committedAt": "2026-07-25T09:39:55+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-25-niigata-08R",
+      "reason": "missing frozen correction: ケルピー"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-sapporo-10R",
+      "reason": "missing frozen correction: ワタシマツワ"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-chukyo-06R",
+      "reason": "missing frozen correction: サヴォアフェール"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-niigata-06R",
+      "reason": "missing frozen correction: モリノセピア"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-sapporo-11R",
+      "reason": "missing frozen correction: レクスノヴァス"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-chukyo-07R",
+      "reason": "missing frozen correction: ベルジュロネット"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-niigata-07R",
+      "reason": "missing frozen correction: ダノンセンチュリー"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-sapporo-12R",
+      "reason": "missing frozen correction: デルシエロ"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-chukyo-08R",
+      "reason": "missing frozen correction: ハギノコラソン"
+    },
+    {
+      "date": "2026-07-26",
+      "commit": "3865023e2c4b7057e33d516c4d82808a6fb7e149",
+      "committedAt": "2026-07-26T01:41:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-07-26-niigata-08R",
+      "reason": "missing frozen correction: コンアフェット"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-sapporo-10R",
+      "reason": "missing frozen correction: チャーリー"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-chukyo-06R",
+      "reason": "missing frozen correction: アイニードユー"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-niigata-06R",
+      "reason": "missing frozen correction: ブレトワルダ"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-sapporo-11R",
+      "reason": "missing frozen correction: ココナッツブラウン"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-chukyo-07R",
+      "reason": "missing frozen correction: タイトニット"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-niigata-07R",
+      "reason": "missing frozen correction: アメリカンステージ"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-sapporo-12R",
+      "reason": "missing frozen correction: デンプシー"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-chukyo-08R",
+      "reason": "missing frozen correction: セルヴァンス"
+    },
+    {
+      "date": "2026-08-02",
+      "commit": "bf168dc44348f16e72f21c3e5ba149aede1e721f",
+      "committedAt": "2026-08-01T23:10:40+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-02-niigata-08R",
+      "reason": "missing frozen correction: キアラメンテ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-sapporo-10R",
+      "reason": "missing frozen correction: スカイサーベイ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-niigata-06R",
+      "reason": "missing frozen correction: クライスレリアーナ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-chukyo-06R",
+      "reason": "missing frozen correction: テイエムアイラン"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-sapporo-11R",
+      "reason": "missing frozen correction: ウェイワードアクト"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-niigata-07R",
+      "reason": "missing frozen correction: エストゥペンダ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-chukyo-07R",
+      "reason": "missing frozen correction: タガノマカシヤ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-sapporo-12R",
+      "reason": "missing frozen correction: ルクスジニア"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-niigata-08R",
+      "reason": "missing frozen correction: カレンハウ"
+    },
+    {
+      "date": "2026-08-08",
+      "commit": "89b1e33c4df25c8415105ad1f0b2ec02e1fff785",
+      "committedAt": "2026-08-07T21:34:30+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-08-chukyo-08R",
+      "reason": "missing frozen correction: リアンドゥクール"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-sapporo-10R",
+      "reason": "missing frozen correction: タガノエルー"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-niigata-06R",
+      "reason": "missing frozen correction: ライヒスアドラー"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-chukyo-06R",
+      "reason": "missing frozen correction: マイバレンタイン"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-sapporo-11R",
+      "reason": "missing frozen correction: カンティーユ"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-niigata-07R",
+      "reason": "missing frozen correction: パイロマンサー"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-chukyo-07R",
+      "reason": "missing frozen correction: レイピア"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-sapporo-12R",
+      "reason": "missing frozen correction: マイネルシンベリン"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-niigata-08R",
+      "reason": "missing frozen correction: カレンデュラ"
+    },
+    {
+      "date": "2026-08-09",
+      "commit": "6563b9f70587cfa327c7088c3f87d92108f3b07b",
+      "committedAt": "2026-08-09T02:20:00+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-09-chukyo-08R",
+      "reason": "missing frozen correction: クロノスバレット"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-sapporo-09R",
+      "reason": "missing frozen correction: コスモハナミズキ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-niigata-06R",
+      "reason": "missing frozen correction: ブラックオリンピア"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-sapporo-10R",
+      "reason": "missing frozen correction: セイプリーズ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-chukyo-06R",
+      "reason": "missing frozen correction: モンテディアーナ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-niigata-07R",
+      "reason": "missing frozen correction: ライトニングゼウス"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-sapporo-11R",
+      "reason": "missing frozen correction: セボンサデッセ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-chukyo-07R",
+      "reason": "missing frozen correction: ダノンジャイアン"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-niigata-08R",
+      "reason": "missing frozen correction: ベストブラザーズ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-sapporo-12R",
+      "reason": "missing frozen correction: ミッキーファルコン"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-chukyo-08R",
+      "reason": "missing frozen correction: チェルヴァーラ"
+    },
+    {
+      "date": "2026-08-15",
+      "commit": "83be28e0f108289eaa78f9aaf5f019e9eb3f948e",
+      "committedAt": "2026-08-15T03:52:45+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-15-niigata-09R",
+      "reason": "missing frozen correction: シャンデルナゴル"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-sapporo-09R",
+      "reason": "missing frozen correction: ハッピーラッキー"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-niigata-06R",
+      "reason": "missing frozen correction: カウスリップ"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-chukyo-06R",
+      "reason": "missing frozen correction: パフュームセント"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-sapporo-10R",
+      "reason": "missing frozen correction: ウーマンズパワー"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-niigata-07R",
+      "reason": "missing frozen correction: ヤマニンアルリフラ"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-chukyo-07R",
+      "reason": "missing frozen correction: サトノシャイニング"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-sapporo-11R",
+      "reason": "missing frozen correction: サクラファレル"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-niigata-08R",
+      "reason": "missing frozen correction: ラストレガシー"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-chukyo-08R",
+      "reason": "missing frozen correction: ラインジーク"
+    },
+    {
+      "date": "2026-08-16",
+      "commit": "f972aaad8df6b0adc961c1c1b674c9906267e814",
+      "committedAt": "2026-08-15T21:54:31+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-16-sapporo-12R",
+      "reason": "missing frozen correction: ダノンヒストリー"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-sapporo-09R",
+      "reason": "missing frozen correction: チカバリエンテ"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-niigata-06R",
+      "reason": "missing frozen correction: コートアリシアン"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-chukyo-06R",
+      "reason": "missing frozen correction: ライノ"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-sapporo-10R",
+      "reason": "missing frozen correction: ビービーエフォート"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-niigata-07R",
+      "reason": "missing frozen correction: ヤブサメ"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-chukyo-07R",
+      "reason": "missing frozen correction: ヨリノレジェンド"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-sapporo-11R",
+      "reason": "missing frozen correction: フクノブルーレイク"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-niigata-08R",
+      "reason": "missing frozen correction: プルメリアリノ"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-chukyo-08R",
+      "reason": "missing frozen correction: バケラッタ"
+    },
+    {
+      "date": "2026-08-22",
+      "commit": "786c73a95303e5a7d22ff1608c0096a148da1eea",
+      "committedAt": "2026-08-22T09:32:17+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-22-sapporo-12R",
+      "reason": "missing frozen correction: メイショウコシュウ"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-sapporo-09R",
+      "reason": "missing frozen correction: エチゴドラゴン"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-niigata-06R",
+      "reason": "missing frozen correction: ブレトワルダ"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-chukyo-06R",
+      "reason": "missing frozen correction: コルドンブルー"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-sapporo-10R",
+      "reason": "missing frozen correction: ローズマイスター"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-niigata-07R",
+      "reason": "missing frozen correction: シャンデヴァーグ"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-chukyo-07R",
+      "reason": "missing frozen correction: ハギノサステナブル"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-sapporo-11R",
+      "reason": "missing frozen correction: パンジャタワー"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-niigata-08R",
+      "reason": "missing frozen correction: ラパンチュール"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-chukyo-08R",
+      "reason": "missing frozen correction: カーリキュー"
+    },
+    {
+      "date": "2026-08-23",
+      "commit": "91d802910a913d5b80bd566901f6ccbcaa500130",
+      "committedAt": "2026-08-22T23:25:14+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-23-sapporo-12R",
+      "reason": "missing frozen correction: ルクスジニア"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-niigata-06R",
+      "reason": "missing frozen correction: ルシャルムール"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-sapporo-10R",
+      "reason": "missing frozen correction: タイフーンナイン"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-chukyo-06R",
+      "reason": "missing frozen correction: バッハアルプゼー"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-niigata-07R",
+      "reason": "missing frozen correction: ボウウィンドウ"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-sapporo-11R",
+      "reason": "missing frozen correction: アリスメティーク"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-chukyo-07R",
+      "reason": "missing frozen correction: ボンヌソワレ"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-niigata-08R",
+      "reason": "missing frozen correction: タガノバビロン"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-sapporo-12R",
+      "reason": "missing frozen correction: オンザムービー"
+    },
+    {
+      "date": "2026-08-29",
+      "commit": "a2c8b478f9915d6ce944d8d5ed17a9c111c202f1",
+      "committedAt": "2026-08-28T16:23:24+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-29-chukyo-08R",
+      "reason": "missing frozen correction: ワンコールアウェイ"
+    }
+  ],
+  "rows": [
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-niigata-06R",
+      "name": "両津湾特別",
+      "track": "新潟",
+      "number": 6,
+      "leaders": {
+        "baseline": 2,
+        "form": 2,
+        "course": 2,
+        "combined": 2
+      },
+      "horses": [
+        {
+          "number": 2,
+          "name": "ビービーアジャイル",
+          "finish": 1,
+          "winPayout": 190,
+          "placePayout": 110,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 80,
+            "form": 83,
+            "course": 80,
+            "combined": 83
+          }
+        },
+        {
+          "number": 4,
+          "name": "ニシノケンタマン",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 72,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 9,
+          "name": "ヴァイヴァーイ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 290,
+          "oldForm": 60,
+          "form": 72,
+          "oldCourse": 85,
+          "course": 85,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 3,
+          "name": "オクトーバーナイン",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 1,
+          "name": "ピコシー",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 69,
+          "course": 62,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 74,
+            "combined": 77
+          }
+        },
+        {
+          "number": 7,
+          "name": "トゥーザムーン",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 360,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 79,
+          "course": 79,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 11,
+          "name": "ジェーケーボンバー",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 14,
+          "name": "コスモコンフェルマ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 56,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 15,
+          "name": "ノルドヴェスト",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 53,
+          "form": 63,
+          "oldCourse": 60,
+          "course": 61,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 8,
+          "name": "スターシップ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 53,
+          "form": 64,
+          "oldCourse": 67,
+          "course": 67,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 12,
+          "name": "マハナ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 73,
+          "course": 75,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 6,
+          "name": "アルベリック",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 60,
+          "oldCourse": 52,
+          "course": 52,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 10,
+          "name": "フラッシング",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 62,
+          "course": 62,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 5,
+          "name": "コパノエビータ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 39,
+          "form": 46,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 67,
+            "form": 69,
+            "course": 67,
+            "combined": 69
+          }
+        },
+        {
+          "number": 13,
+          "name": "クロドラバール",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 40,
+          "form": 47,
+          "oldCourse": 51,
+          "course": 51,
+          "scores": {
+            "baseline": 67,
+            "form": 68,
+            "course": 67,
+            "combined": 68
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-sapporo-10R",
+      "name": "ＨＢＣ賞",
+      "track": "札幌",
+      "number": 10,
+      "leaders": {
+        "baseline": 10,
+        "form": 10,
+        "course": 4,
+        "combined": 10
+      },
+      "horses": [
+        {
+          "number": 10,
+          "name": "ララバニュルス",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 68,
+          "form": 81,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 12,
+          "name": "デンプシー",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 72,
+          "form": 86,
+          "oldCourse": 86,
+          "course": 86,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 4,
+          "name": "ルージュベルベット",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 79,
+          "course": 88,
+          "scores": {
+            "baseline": 80,
+            "form": 83,
+            "course": 81,
+            "combined": 83
+          }
+        },
+        {
+          "number": 7,
+          "name": "セイウンデセオ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 66,
+          "form": 79,
+          "oldCourse": 66,
+          "course": 67,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 6,
+          "name": "コックオーヴァン",
+          "finish": 16,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 3,
+          "name": "バシレウスシチー",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 1,
+          "name": "カガラプンツェル",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 63,
+          "course": 64,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 2,
+          "name": "ショウナンカリス",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 14,
+          "name": "ホウオウブースター",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 71,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 16,
+          "name": "サトノワーグナー",
+          "finish": 1,
+          "winPayout": 360,
+          "placePayout": 190,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 80,
+          "course": 78,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 15,
+          "name": "シーグルロス",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 74,
+            "form": 77,
+            "course": 74,
+            "combined": 77
+          }
+        },
+        {
+          "number": 5,
+          "name": "スイミーユニバンス",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 540,
+          "oldForm": 51,
+          "form": 61,
+          "oldCourse": 69,
+          "course": 69,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 11,
+          "name": "ファビュラススター",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 630,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 8,
+          "name": "ムチャスグラシアス",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 46,
+          "form": 55,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 9,
+          "name": "プレセピオ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 53,
+          "form": 63,
+          "oldCourse": 60,
+          "course": 60,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 13,
+          "name": "フミサウンド",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-chukyo-06R",
+      "name": "白川郷ステークス",
+      "track": "中京",
+      "number": 6,
+      "leaders": {
+        "baseline": 6,
+        "form": 6,
+        "course": 6,
+        "combined": 6
+      },
+      "horses": [
+        {
+          "number": 6,
+          "name": "ビービークローサー",
+          "finish": 1,
+          "winPayout": 130,
+          "placePayout": 110,
+          "oldForm": 69,
+          "form": 82,
+          "oldCourse": 90,
+          "course": 90,
+          "scores": {
+            "baseline": 80,
+            "form": 83,
+            "course": 80,
+            "combined": 83
+          }
+        },
+        {
+          "number": 7,
+          "name": "タイセイカイザー",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 78,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 15,
+          "name": "キーチパルフェ",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 64,
+          "form": 77,
+          "oldCourse": 69,
+          "course": 73,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 16,
+          "name": "ゴッドエスパーダ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 66,
+          "form": 79,
+          "oldCourse": 70,
+          "course": 70,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 2,
+          "name": "ペンナヴェローチェ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 62,
+          "form": 74,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 3,
+          "name": "ダンツシタン",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 220,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 78,
+            "form": 80,
+            "course": 78,
+            "combined": 80
+          }
+        },
+        {
+          "number": 14,
+          "name": "レヴァンテシチー",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 310,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 79,
+          "course": 79,
+          "scores": {
+            "baseline": 78,
+            "form": 80,
+            "course": 78,
+            "combined": 80
+          }
+        },
+        {
+          "number": 9,
+          "name": "リューデスハイム",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 67,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 13,
+          "name": "メイショウシナノ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 67,
+          "course": 71,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 4,
+          "name": "ビップスコーピオン",
+          "finish": 16,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 61,
+          "oldCourse": 69,
+          "course": 69,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 8,
+          "name": "インザモーメント",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 72,
+          "course": 67,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 1,
+          "name": "サンセットブライト",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 44,
+          "form": 53,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 12,
+          "name": "クァンタムウェーブ",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 54,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 5,
+          "name": "シャルクハフト",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 39,
+          "form": 47,
+          "oldCourse": 66,
+          "course": 65,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 70
+          }
+        },
+        {
+          "number": 10,
+          "name": "インジケーター",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 54,
+          "oldCourse": 54,
+          "course": 54,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 71
+          }
+        },
+        {
+          "number": 11,
+          "name": "フームスムート",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 40,
+          "form": 48,
+          "oldCourse": 58,
+          "course": 57,
+          "scores": {
+            "baseline": 69,
+            "form": 70,
+            "course": 69,
+            "combined": 70
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-niigata-07R",
+      "name": "日本海ステークス",
+      "track": "新潟",
+      "number": 7,
+      "leaders": {
+        "baseline": 10,
+        "form": 10,
+        "course": 10,
+        "combined": 10
+      },
+      "horses": [
+        {
+          "number": 10,
+          "name": "サトノパトリオット",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 70,
+          "form": 83,
+          "oldCourse": 86,
+          "course": 86,
+          "scores": {
+            "baseline": 83,
+            "form": 85,
+            "course": 83,
+            "combined": 85
+          }
+        },
+        {
+          "number": 7,
+          "name": "オストラヴァ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 150,
+          "oldForm": 69,
+          "form": 83,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 3,
+          "name": "チャリングクロス",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 68,
+          "form": 81,
+          "oldCourse": 64,
+          "course": 64,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 1,
+          "name": "シャドウメテオ",
+          "finish": 1,
+          "winPayout": 900,
+          "placePayout": 220,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 5,
+          "name": "サダムオプシス",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 2,
+          "name": "ウインデイジー",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 540,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 8,
+          "name": "ベンサレム",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 81,
+          "course": 81,
+          "scores": {
+            "baseline": 74,
+            "form": 77,
+            "course": 74,
+            "combined": 77
+          }
+        },
+        {
+          "number": 9,
+          "name": "タイセイフェリーク",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 65,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 4,
+          "name": "シュバルツマサムネ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 67,
+          "oldCourse": 58,
+          "course": 58,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 11,
+          "name": "リンフレスカンテ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 56,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 6,
+          "name": "ナムラフッカー",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 12,
+          "name": "クリニクラウン",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 70,
+          "course": 73,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 71,
+            "combined": 72
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-sapporo-11R",
+      "name": "日高ステークス",
+      "track": "札幌",
+      "number": 11,
+      "leaders": {
+        "baseline": 9,
+        "form": 9,
+        "course": 9,
+        "combined": 9
+      },
+      "horses": [
+        {
+          "number": 9,
+          "name": "ダノンミッション",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 71,
+          "form": 85,
+          "oldCourse": 90,
+          "course": 90,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 4,
+          "name": "エフォートレス",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 240,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 87,
+          "course": 87,
+          "scores": {
+            "baseline": 80,
+            "form": 82,
+            "course": 80,
+            "combined": 82
+          }
+        },
+        {
+          "number": 11,
+          "name": "サンタアニタ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 70,
+          "form": 84,
+          "oldCourse": 70,
+          "course": 68,
+          "scores": {
+            "baseline": 80,
+            "form": 83,
+            "course": 80,
+            "combined": 83
+          }
+        },
+        {
+          "number": 6,
+          "name": "エマヌエーレ",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 77,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 10,
+          "name": "エルマーゴ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 79,
+          "oldCourse": 61,
+          "course": 61,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 13,
+          "name": "モンドデラモーレ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 190,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 14,
+          "name": "マテンロウサン",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 82,
+          "course": 82,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 2,
+          "name": "ワタシマツワ",
+          "finish": 1,
+          "winPayout": 1790,
+          "placePayout": 510,
+          "oldForm": 60,
+          "form": 71,
+          "oldCourse": 87,
+          "course": 87,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 3,
+          "name": "マジックローズ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 76,
+          "oldCourse": 61,
+          "course": 51,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 5,
+          "name": "リゾートアイランド",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 74,
+            "form": 77,
+            "course": 74,
+            "combined": 77
+          }
+        },
+        {
+          "number": 7,
+          "name": "サクセスアイ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 67,
+          "oldCourse": 87,
+          "course": 87,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 1,
+          "name": "アンビバレント",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 56,
+          "course": 56,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 8,
+          "name": "トラペジスト",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 12,
+          "name": "パワーホール",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 58,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-chukyo-07R",
+      "name": "中京２歳ステークス",
+      "track": "中京",
+      "number": 7,
+      "leaders": {
+        "baseline": 2,
+        "form": 2,
+        "course": 2,
+        "combined": 2
+      },
+      "horses": [
+        {
+          "number": 2,
+          "name": "バクソウシャチョウ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 71,
+          "form": 77,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 81,
+            "form": 82,
+            "course": 81,
+            "combined": 82
+          }
+        },
+        {
+          "number": 4,
+          "name": "シスキンブルーム",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 170,
+          "oldForm": 83,
+          "form": 86,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 77,
+            "form": 77,
+            "course": 77,
+            "combined": 77
+          }
+        },
+        {
+          "number": 3,
+          "name": "サンタンジェロ",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 72,
+          "form": 75,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 75,
+            "form": 75,
+            "course": 75,
+            "combined": 75
+          }
+        },
+        {
+          "number": 5,
+          "name": "マルモリムソウ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 87,
+          "form": 87,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 75,
+            "form": 75,
+            "course": 75,
+            "combined": 75
+          }
+        },
+        {
+          "number": 7,
+          "name": "ビスケットサンド",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 120,
+          "oldForm": 88,
+          "form": 88,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 74,
+            "form": 74,
+            "course": 74,
+            "combined": 74
+          }
+        },
+        {
+          "number": 9,
+          "name": "ジーティーマイカ",
+          "finish": 1,
+          "winPayout": 170,
+          "placePayout": 110,
+          "oldForm": 89,
+          "form": 89,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 73,
+            "form": 73,
+            "course": 73,
+            "combined": 73
+          }
+        },
+        {
+          "number": 6,
+          "name": "ジャスパートレノ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 85,
+          "form": 85,
+          "oldCourse": 52,
+          "course": 52,
+          "scores": {
+            "baseline": 72,
+            "form": 72,
+            "course": 72,
+            "combined": 72
+          }
+        },
+        {
+          "number": 1,
+          "name": "ピコキング",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 35,
+          "form": 35,
+          "oldCourse": 36,
+          "course": 36,
+          "scores": {
+            "baseline": 63,
+            "form": 63,
+            "course": 63,
+            "combined": 63
+          }
+        },
+        {
+          "number": 8,
+          "name": "ピコジャック",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 45,
+          "oldCourse": 40,
+          "course": 52,
+          "scores": {
+            "baseline": 63,
+            "form": 63,
+            "course": 64,
+            "combined": 64
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-niigata-08R",
+      "name": "新潟記念",
+      "track": "新潟",
+      "number": 8,
+      "leaders": {
+        "baseline": 5,
+        "form": 3,
+        "course": 5,
+        "combined": 3
+      },
+      "horses": [
+        {
+          "number": 5,
+          "name": "ゾロアストロ",
+          "finish": 1,
+          "winPayout": 350,
+          "placePayout": 130,
+          "oldForm": 71,
+          "form": 84,
+          "oldCourse": 86,
+          "course": 86,
+          "scores": {
+            "baseline": 83,
+            "form": 85,
+            "course": 83,
+            "combined": 85
+          }
+        },
+        {
+          "number": 3,
+          "name": "ロデオドライブ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 150,
+          "oldForm": 79,
+          "form": 90,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 82,
+            "form": 85,
+            "course": 82,
+            "combined": 85
+          }
+        },
+        {
+          "number": 8,
+          "name": "ダノンシーマ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 120,
+          "oldForm": 70,
+          "form": 84,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 82,
+            "form": 85,
+            "course": 82,
+            "combined": 85
+          }
+        },
+        {
+          "number": 4,
+          "name": "ドゥレッツァ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 2,
+          "name": "サヴォーナ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 62,
+          "form": 74,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 10,
+          "name": "バレエマスター",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 78,
+            "form": 80,
+            "course": 78,
+            "combined": 80
+          }
+        },
+        {
+          "number": 6,
+          "name": "チェルヴィニア",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 72,
+          "oldCourse": 82,
+          "course": 82,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 11,
+          "name": "ステレンボッシュ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 71,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 7,
+          "name": "ジュンブロッサム",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 83,
+          "course": 83,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 1,
+          "name": "ボーンディスウェイ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 65,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 9,
+          "name": "アーバンシック",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-sapporo-12R",
+      "name": "北辰特別",
+      "track": "札幌",
+      "number": 12,
+      "leaders": {
+        "baseline": 4,
+        "form": 4,
+        "course": 4,
+        "combined": 4
+      },
+      "horses": [
+        {
+          "number": 4,
+          "name": "クオンタムスター",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 68,
+          "form": 77,
+          "oldCourse": 84,
+          "course": 84,
+          "scores": {
+            "baseline": 80,
+            "form": 82,
+            "course": 80,
+            "combined": 82
+          }
+        },
+        {
+          "number": 14,
+          "name": "ドンテスタマスター",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 80,
+            "form": 82,
+            "course": 80,
+            "combined": 82
+          }
+        },
+        {
+          "number": 1,
+          "name": "ノリマル",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 77,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 13,
+          "name": "タケルフォーカス",
+          "finish": 1,
+          "winPayout": 1110,
+          "placePayout": 280,
+          "oldForm": 64,
+          "form": 77,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 11,
+          "name": "ディベルティスマン",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 70,
+          "course": 68,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 73,
+            "combined": 76
+          }
+        },
+        {
+          "number": 8,
+          "name": "タビニュ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 70,
+          "course": 70,
+          "scores": {
+            "baseline": 72,
+            "form": 75,
+            "course": 72,
+            "combined": 75
+          }
+        },
+        {
+          "number": 10,
+          "name": "ワンダフルデイズ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 210,
+          "oldForm": 55,
+          "form": 65,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 72,
+            "form": 75,
+            "course": 72,
+            "combined": 75
+          }
+        },
+        {
+          "number": 12,
+          "name": "テイクザクラウン",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 69,
+          "course": 70,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 5,
+          "name": "ディーリライズ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 400,
+          "oldForm": 49,
+          "form": 58,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 67,
+            "form": 69,
+            "course": 67,
+            "combined": 69
+          }
+        },
+        {
+          "number": 3,
+          "name": "モルビド",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 53,
+          "oldCourse": 53,
+          "course": 53,
+          "scores": {
+            "baseline": 65,
+            "form": 67,
+            "course": 65,
+            "combined": 67
+          }
+        },
+        {
+          "number": 6,
+          "name": "ミッドタウンナイト",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 42,
+          "form": 51,
+          "oldCourse": 52,
+          "course": 52,
+          "scores": {
+            "baseline": 64,
+            "form": 66,
+            "course": 64,
+            "combined": 66
+          }
+        },
+        {
+          "number": 7,
+          "name": "ニューアライブ",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 39,
+          "form": 47,
+          "oldCourse": 47,
+          "course": 47,
+          "scores": {
+            "baseline": 64,
+            "form": 65,
+            "course": 64,
+            "combined": 65
+          }
+        },
+        {
+          "number": 2,
+          "name": "ハバタクジユウニ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 38,
+          "form": 41,
+          "oldCourse": 50,
+          "course": 50,
+          "scores": {
+            "baseline": 62,
+            "form": 63,
+            "course": 62,
+            "combined": 63
+          }
+        },
+        {
+          "number": 9,
+          "name": "シーンオブドリーム",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 35,
+          "form": 35,
+          "oldCourse": 40,
+          "course": 52,
+          "scores": {
+            "baseline": 60,
+            "form": 60,
+            "course": 61,
+            "combined": 61
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-chukyo-08R",
+      "name": "熊野特別",
+      "track": "中京",
+      "number": 8,
+      "leaders": {
+        "baseline": 1,
+        "form": 1,
+        "course": 1,
+        "combined": 1
+      },
+      "horses": [
+        {
+          "number": 1,
+          "name": "ブレットパス",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 70,
+          "form": 84,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 2,
+          "name": "サガルマータ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 72,
+          "form": 82,
+          "oldCourse": 70,
+          "course": 70,
+          "scores": {
+            "baseline": 80,
+            "form": 82,
+            "course": 80,
+            "combined": 82
+          }
+        },
+        {
+          "number": 7,
+          "name": "カフジエメンタール",
+          "finish": 1,
+          "winPayout": 620,
+          "placePayout": 230,
+          "oldForm": 66,
+          "form": 79,
+          "oldCourse": 70,
+          "course": 71,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 10,
+          "name": "シャドウマスター",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 77,
+          "oldCourse": 70,
+          "course": 70,
+          "scores": {
+            "baseline": 78,
+            "form": 80,
+            "course": 78,
+            "combined": 80
+          }
+        },
+        {
+          "number": 3,
+          "name": "ノチェセラーダ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 280,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 62,
+          "course": 62,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 6,
+          "name": "ニュークレド",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 71,
+          "oldCourse": 79,
+          "course": 79,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 15,
+          "name": "メイショウナルカミ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 12,
+          "name": "スイートオレンジ",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 72,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 9,
+          "name": "ジェットブレード",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 61,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 74,
+            "form": 75,
+            "course": 74,
+            "combined": 75
+          }
+        },
+        {
+          "number": 13,
+          "name": "オルトパラティウム",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 49,
+          "form": 58,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 74,
+            "form": 75,
+            "course": 74,
+            "combined": 75
+          }
+        },
+        {
+          "number": 14,
+          "name": "ジュンライデン",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 5,
+          "name": "ソルパッサーレ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 66,
+          "oldCourse": 54,
+          "course": 54,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 8,
+          "name": "ヤマニンループ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 1880,
+          "oldForm": 53,
+          "form": 63,
+          "oldCourse": 66,
+          "course": 66,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 11,
+          "name": "ビップチェイス",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 55,
+          "form": 66,
+          "oldCourse": 54,
+          "course": 54,
+          "scores": {
+            "baseline": 71,
+            "form": 74,
+            "course": 71,
+            "combined": 74
+          }
+        },
+        {
+          "number": 4,
+          "name": "ショウナンハウル",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 37,
+          "form": 44,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 65,
+            "form": 67,
+            "course": 65,
+            "combined": 67
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "commit": "c4a1bb84b1469a8073eeea18b242404c45b19f3b",
+      "committedAt": "2026-08-30T09:44:32+09:00",
+      "period": "historical-exploratory",
+      "bundleId": "2026-08-30-niigata-09R",
+      "name": "閃光特別",
+      "track": "新潟",
+      "number": 9,
+      "leaders": {
+        "baseline": 1,
+        "form": 1,
+        "course": 1,
+        "combined": 1
+      },
+      "horses": [
+        {
+          "number": 1,
+          "name": "カレンデュラ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 71,
+          "form": 85,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 84,
+            "form": 87,
+            "course": 84,
+            "combined": 87
+          }
+        },
+        {
+          "number": 8,
+          "name": "ハニーローリエ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 69,
+          "form": 82,
+          "oldCourse": 84,
+          "course": 82,
+          "scores": {
+            "baseline": 80,
+            "form": 83,
+            "course": 80,
+            "combined": 82
+          }
+        },
+        {
+          "number": 12,
+          "name": "レジーナローズ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 62,
+          "form": 74,
+          "oldCourse": 76,
+          "course": 78,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 18,
+          "name": "ヴェントゥーラ",
+          "finish": 1,
+          "winPayout": 290,
+          "placePayout": 180,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 15,
+          "name": "ミスエル",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 74,
+          "course": 67,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 11,
+          "name": "ビップムーラン",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 260,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 58,
+          "course": 52,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 72,
+            "combined": 75
+          }
+        },
+        {
+          "number": 17,
+          "name": "ラトルシェ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 690,
+          "oldForm": 51,
+          "form": 60,
+          "oldCourse": 69,
+          "course": 69,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 16,
+          "name": "スペルキャスター",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 43,
+          "form": 50,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 3,
+          "name": "ゼンダンタカ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 43,
+          "form": 51,
+          "oldCourse": 75,
+          "course": 74,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 6,
+          "name": "エリカカリーナ",
+          "finish": 18,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 44,
+          "form": 53,
+          "oldCourse": 75,
+          "course": 75,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 13,
+          "name": "ビーアイフォルテ",
+          "finish": 17,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 50,
+          "course": 50,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 71
+          }
+        },
+        {
+          "number": 10,
+          "name": "キントラダンサー",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 44,
+          "form": 52,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 68,
+            "form": 69,
+            "course": 68,
+            "combined": 69
+          }
+        },
+        {
+          "number": 14,
+          "name": "ケンキョ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 60,
+          "oldCourse": 54,
+          "course": 52,
+          "scores": {
+            "baseline": 68,
+            "form": 70,
+            "course": 67,
+            "combined": 70
+          }
+        },
+        {
+          "number": 2,
+          "name": "サトノアルペジオ",
+          "finish": 16,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 54,
+          "oldCourse": 50,
+          "course": 41,
+          "scores": {
+            "baseline": 67,
+            "form": 68,
+            "course": 66,
+            "combined": 67
+          }
+        },
+        {
+          "number": 5,
+          "name": "ファイツオン",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 36,
+          "form": 43,
+          "oldCourse": 52,
+          "course": 64,
+          "scores": {
+            "baseline": 67,
+            "form": 69,
+            "course": 68,
+            "combined": 70
+          }
+        },
+        {
+          "number": 9,
+          "name": "バンディート",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 40,
+          "form": 47,
+          "oldCourse": 53,
+          "course": 57,
+          "scores": {
+            "baseline": 67,
+            "form": 68,
+            "course": 67,
+            "combined": 69
+          }
+        },
+        {
+          "number": 7,
+          "name": "リュウノタブーク",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 41,
+          "form": 48,
+          "oldCourse": 54,
+          "course": 53,
+          "scores": {
+            "baseline": 65,
+            "form": 66,
+            "course": 65,
+            "combined": 66
+          }
+        },
+        {
+          "number": 4,
+          "name": "フレッシュラン",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 35,
+          "form": 37,
+          "oldCourse": 43,
+          "course": 48,
+          "scores": {
+            "baseline": 63,
+            "form": 63,
+            "course": 63,
+            "combined": 64
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "db105122103d37bc0f8f85465552a3e1aaec6a12",
+      "committedAt": "2026-09-05T14:07:59+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-sapporo-09R",
+      "name": "Ｆビレッジ特別",
+      "track": "札幌",
+      "number": 9,
+      "leaders": {
+        "baseline": 12,
+        "form": 12,
+        "course": 12,
+        "combined": 12
+      },
+      "horses": [
+        {
+          "number": 12,
+          "name": "コワンニシタガウ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 79,
+          "oldCourse": 84,
+          "course": 84,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 3,
+          "name": "ディヒターリーベ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 75,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 7,
+          "name": "レイヌドプランタン",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 76,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 77,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 9,
+          "name": "マイネルシンベリン",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 170,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 83,
+          "course": 83,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 5,
+          "name": "メイショウテンク",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 75,
+          "course": 75,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 6,
+          "name": "ハルフロンティア",
+          "finish": 1,
+          "winPayout": 540,
+          "placePayout": 180,
+          "oldForm": 65,
+          "form": 78,
+          "oldCourse": 76,
+          "course": 77,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 11,
+          "name": "デルシエロ",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 62,
+          "form": 73,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 2,
+          "name": "カージオイド",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 410,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 72,
+          "course": 75,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 14,
+          "name": "サクラアドリア",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 67,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 4,
+          "name": "コスモヘリアンサス",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 64,
+          "oldCourse": 64,
+          "course": 64,
+          "scores": {
+            "baseline": 70,
+            "form": 71,
+            "course": 70,
+            "combined": 71
+          }
+        },
+        {
+          "number": 8,
+          "name": "バズアップビート",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 58,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 10,
+          "name": "マイネルマスター",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 62,
+          "course": 62,
+          "scores": {
+            "baseline": 69,
+            "form": 70,
+            "course": 69,
+            "combined": 70
+          }
+        },
+        {
+          "number": 1,
+          "name": "フリーガー",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 44,
+          "form": 53,
+          "oldCourse": 45,
+          "course": 45,
+          "scores": {
+            "baseline": 64,
+            "form": 66,
+            "course": 64,
+            "combined": 66
+          }
+        },
+        {
+          "number": 13,
+          "name": "エイカイカッシーナ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 36,
+          "form": 43,
+          "oldCourse": 43,
+          "course": 43,
+          "scores": {
+            "baseline": 62,
+            "form": 64,
+            "course": 62,
+            "combined": 64
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "4152e49ac223edf90f9154a85d3f332c57ee0daa",
+      "committedAt": "2026-09-05T14:13:38+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-hanshin-09R",
+      "name": "出石特別",
+      "track": "阪神",
+      "number": 9,
+      "leaders": {
+        "baseline": 6,
+        "form": 6,
+        "course": 6,
+        "combined": 6
+      },
+      "horses": [
+        {
+          "number": 6,
+          "name": "システマソラー",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 110,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 85,
+          "course": 85,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 8,
+          "name": "クロノスバレット",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 130,
+          "oldForm": 60,
+          "form": 72,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 77,
+            "form": 80,
+            "course": 77,
+            "combined": 80
+          }
+        },
+        {
+          "number": 5,
+          "name": "ソニックステップ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 66,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 2,
+          "name": "ジャイアンバローズ",
+          "finish": 1,
+          "winPayout": 430,
+          "placePayout": 130,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 58,
+          "course": 58,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 7,
+          "name": "ショーダンサー",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 73,
+            "form": 76,
+            "course": 73,
+            "combined": 76
+          }
+        },
+        {
+          "number": 9,
+          "name": "リヒトミューレ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 72,
+          "course": 79,
+          "scores": {
+            "baseline": 73,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 11,
+          "name": "テイエムパイロット",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 67,
+          "course": 67,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 3,
+          "name": "ジーニアスバローズ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 53,
+          "oldCourse": 73,
+          "course": 70,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 70
+          }
+        },
+        {
+          "number": 10,
+          "name": "シュヴァルツリーベ",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 60,
+          "oldCourse": 62,
+          "course": 62,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 71
+          }
+        },
+        {
+          "number": 1,
+          "name": "ストラーダ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 41,
+          "form": 49,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 68,
+            "form": 70,
+            "course": 68,
+            "combined": 70
+          }
+        },
+        {
+          "number": 4,
+          "name": "キングロコマイカイ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 44,
+          "form": 52,
+          "oldCourse": 66,
+          "course": 62,
+          "scores": {
+            "baseline": 66,
+            "form": 68,
+            "course": 66,
+            "combined": 68
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "53c8f6d2004aaeea8ca15b6e18c570ee87ca467f",
+      "committedAt": "2026-09-05T14:28:24+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-nakayama-09R",
+      "name": "古作特別",
+      "track": "中山",
+      "number": 9,
+      "leaders": {
+        "baseline": 12,
+        "form": 12,
+        "course": 12,
+        "combined": 12
+      },
+      "horses": [
+        {
+          "number": 12,
+          "name": "ゴディアーモ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 75,
+          "form": 81,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 82,
+            "form": 83,
+            "course": 82,
+            "combined": 83
+          }
+        },
+        {
+          "number": 7,
+          "name": "デイジー",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 150,
+          "oldForm": 64,
+          "form": 76,
+          "oldCourse": 87,
+          "course": 87,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 14,
+          "name": "ペプチドドリーム",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 83,
+          "form": 86,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 79,
+            "form": 79,
+            "course": 79,
+            "combined": 79
+          }
+        },
+        {
+          "number": 5,
+          "name": "スタニングヴュー",
+          "finish": 1,
+          "winPayout": 1230,
+          "placePayout": 300,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 13,
+          "name": "クシマトゥルー",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 70,
+          "oldCourse": 67,
+          "course": 67,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 1,
+          "name": "コンヴァージョン",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 70,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 10,
+          "name": "ジャグアール",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 73,
+            "form": 76,
+            "course": 73,
+            "combined": 76
+          }
+        },
+        {
+          "number": 2,
+          "name": "ショウナンダイン",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 360,
+          "oldForm": 49,
+          "form": 58,
+          "oldCourse": 69,
+          "course": 69,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 3,
+          "name": "アレクレア",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 65,
+          "oldCourse": 55,
+          "course": 55,
+          "scores": {
+            "baseline": 72,
+            "form": 73,
+            "course": 72,
+            "combined": 73
+          }
+        },
+        {
+          "number": 15,
+          "name": "コーディアリー",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 72,
+            "form": 75,
+            "course": 72,
+            "combined": 75
+          }
+        },
+        {
+          "number": 9,
+          "name": "クモヒトツナイ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 60,
+          "oldCourse": 66,
+          "course": 66,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 8,
+          "name": "ルンベーラ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 56,
+          "oldCourse": 47,
+          "course": 46,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 71
+          }
+        },
+        {
+          "number": 4,
+          "name": "マーゴットソラーレ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 48,
+          "form": 57,
+          "oldCourse": 52,
+          "course": 52,
+          "scores": {
+            "baseline": 67,
+            "form": 68,
+            "course": 67,
+            "combined": 68
+          }
+        },
+        {
+          "number": 6,
+          "name": "ロジルーラー",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 37,
+          "form": 44,
+          "oldCourse": 56,
+          "course": 59,
+          "scores": {
+            "baseline": 65,
+            "form": 66,
+            "course": 65,
+            "combined": 67
+          }
+        },
+        {
+          "number": 11,
+          "name": "レッドシュトラール",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 40,
+          "form": 47,
+          "oldCourse": 49,
+          "course": 51,
+          "scores": {
+            "baseline": 64,
+            "form": 66,
+            "course": 65,
+            "combined": 66
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "88d853dc4824bebab8be8e4979afb0526b509837",
+      "committedAt": "2026-09-05T14:39:02+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-sapporo-10R",
+      "name": "札幌スポニチ賞",
+      "track": "札幌",
+      "number": 10,
+      "leaders": {
+        "baseline": 7,
+        "form": 7,
+        "course": 7,
+        "combined": 7
+      },
+      "horses": [
+        {
+          "number": 7,
+          "name": "ララバニュルス",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 290,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 82,
+          "course": 82,
+          "scores": {
+            "baseline": 81,
+            "form": 83,
+            "course": 81,
+            "combined": 83
+          }
+        },
+        {
+          "number": 11,
+          "name": "ビービーエフォート",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 220,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 83,
+          "course": 83,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 16,
+          "name": "セイプリーズ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 84,
+          "course": 84,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 6,
+          "name": "ツルノマイハシ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 68,
+          "form": 81,
+          "oldCourse": 85,
+          "course": 85,
+          "scores": {
+            "baseline": 78,
+            "form": 81,
+            "course": 78,
+            "combined": 81
+          }
+        },
+        {
+          "number": 5,
+          "name": "レッドスティンガー",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 86,
+          "course": 86,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 10,
+          "name": "ストレイトアスク",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 62,
+          "form": 73,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 14,
+          "name": "ファビュラススター",
+          "finish": 1,
+          "winPayout": 710,
+          "placePayout": 320,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 9,
+          "name": "スムースベルベット",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 66,
+          "course": 66,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 12,
+          "name": "ベビーズブレス",
+          "finish": 16,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 56,
+          "form": 66,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 1,
+          "name": "スイミーユニバンス",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 72,
+            "form": 75,
+            "course": 72,
+            "combined": 75
+          }
+        },
+        {
+          "number": 4,
+          "name": "ブルボンクイーン",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 72,
+          "course": 72,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 15,
+          "name": "ビーコング",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 65,
+          "oldCourse": 71,
+          "course": 70,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 8,
+          "name": "エスカレイト",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 51,
+          "form": 61,
+          "oldCourse": 63,
+          "course": 52,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 68,
+            "combined": 70
+          }
+        },
+        {
+          "number": 13,
+          "name": "ブライティアダイヤ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 56,
+          "oldCourse": 71,
+          "course": 71,
+          "scores": {
+            "baseline": 69,
+            "form": 71,
+            "course": 69,
+            "combined": 71
+          }
+        },
+        {
+          "number": 2,
+          "name": "エルサトアナ",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 42,
+          "form": 50,
+          "oldCourse": 64,
+          "course": 64,
+          "scores": {
+            "baseline": 64,
+            "form": 66,
+            "course": 64,
+            "combined": 66
+          }
+        },
+        {
+          "number": 3,
+          "name": "ニシノラヴァンダ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 35,
+          "form": 41,
+          "oldCourse": 50,
+          "course": 51,
+          "scores": {
+            "baseline": 63,
+            "form": 64,
+            "course": 63,
+            "combined": 64
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "3775ea9e81a64c92feecf0ea4b2c1257bf49d31e",
+      "committedAt": "2026-09-05T14:48:41+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-hanshin-10R",
+      "name": "西宮ステークス",
+      "track": "阪神",
+      "number": 10,
+      "leaders": {
+        "baseline": 7,
+        "form": 7,
+        "course": 7,
+        "combined": 7
+      },
+      "horses": [
+        {
+          "number": 7,
+          "name": "サウンドムーブ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 72,
+          "form": 86,
+          "oldCourse": 67,
+          "course": 67,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 3,
+          "name": "コルレオニス",
+          "finish": 1,
+          "winPayout": 700,
+          "placePayout": 800,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 5,
+          "name": "シンゼンカガ",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 64,
+          "course": 64,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 6,
+          "name": "レディーミコノス",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 1230,
+          "oldForm": 56,
+          "form": 67,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 1,
+          "name": "オールセインツ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 70,
+          "course": 70,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 4,
+          "name": "テーオーダグラス",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 51,
+          "form": 61,
+          "oldCourse": 65,
+          "course": 68,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 2,
+          "name": "エイカイマッケンロ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 39,
+          "form": 46,
+          "oldCourse": 62,
+          "course": 60,
+          "scores": {
+            "baseline": 63,
+            "form": 64,
+            "course": 63,
+            "combined": 64
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "7453f57dd0a87c8b157c5ea0d81366ea47a421f9",
+      "committedAt": "2026-09-05T14:59:20+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-nakayama-10R",
+      "name": "白井特別",
+      "track": "中山",
+      "number": 10,
+      "leaders": {
+        "baseline": 8,
+        "form": 8,
+        "course": 8,
+        "combined": 8
+      },
+      "horses": [
+        {
+          "number": 8,
+          "name": "ドリーミングアップ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 130,
+          "oldForm": 68,
+          "form": 81,
+          "oldCourse": 81,
+          "course": 80,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 5,
+          "name": "インプロペリア",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 110,
+          "oldForm": 72,
+          "form": 78,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 77,
+            "form": 78,
+            "course": 77,
+            "combined": 78
+          }
+        },
+        {
+          "number": 3,
+          "name": "サクセスカラー",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 58,
+          "form": 69,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 11,
+          "name": "タナスーペルノーバ",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 73,
+          "oldCourse": 77,
+          "course": 80,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 77,
+            "combined": 79
+          }
+        },
+        {
+          "number": 7,
+          "name": "パーティーガール",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 60,
+          "course": 61,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 10,
+          "name": "キープサインオン",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 66,
+          "course": 62,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        },
+        {
+          "number": 12,
+          "name": "ウチュウノセカイ",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 53,
+          "form": 63,
+          "oldCourse": 83,
+          "course": 83,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 13,
+          "name": "ヴィヴァクラウン",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 1,
+          "name": "トラスコンガーデン",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 4,
+          "name": "ジョウゲンノツキ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 6,
+          "name": "ミニョンマルーン",
+          "finish": 1,
+          "winPayout": 1400,
+          "placePayout": 210,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 75,
+          "course": 65,
+          "scores": {
+            "baseline": 70,
+            "form": 72,
+            "course": 70,
+            "combined": 72
+          }
+        },
+        {
+          "number": 2,
+          "name": "ルディドゥゲンジ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 43,
+          "course": 43,
+          "scores": {
+            "baseline": 67,
+            "form": 69,
+            "course": 67,
+            "combined": 69
+          }
+        },
+        {
+          "number": 9,
+          "name": "ジャガード",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 43,
+          "form": 51,
+          "oldCourse": 59,
+          "course": 59,
+          "scores": {
+            "baseline": 65,
+            "form": 67,
+            "course": 65,
+            "combined": 67
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "24ca24285b2d95c2272b07cea288a1fb47cecf6f",
+      "committedAt": "2026-09-05T15:14:21+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-sapporo-11R",
+      "name": "札幌２歳ステークス",
+      "track": "札幌",
+      "number": 11,
+      "leaders": {
+        "baseline": 3,
+        "form": 3,
+        "course": 3,
+        "combined": 3
+      },
+      "horses": [
+        {
+          "number": 3,
+          "name": "デザートスピリット",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 170,
+          "oldForm": 74,
+          "form": 81,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 82,
+            "form": 83,
+            "course": 82,
+            "combined": 83
+          }
+        },
+        {
+          "number": 4,
+          "name": "コスモハナミズキ",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 130,
+          "oldForm": 71,
+          "form": 77,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 77,
+            "form": 78,
+            "course": 77,
+            "combined": 78
+          }
+        },
+        {
+          "number": 2,
+          "name": "ショウナンガレオン",
+          "finish": 1,
+          "winPayout": 110,
+          "placePayout": 100,
+          "oldForm": 88,
+          "form": 88,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 74,
+            "form": 74,
+            "course": 74,
+            "combined": 74
+          }
+        },
+        {
+          "number": 7,
+          "name": "イドム",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 73,
+          "form": 76,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 74,
+            "form": 75,
+            "course": 74,
+            "combined": 75
+          }
+        },
+        {
+          "number": 8,
+          "name": "テンカタイヘイ",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 86,
+          "form": 86,
+          "oldCourse": 73,
+          "course": 73,
+          "scores": {
+            "baseline": 74,
+            "form": 74,
+            "course": 74,
+            "combined": 74
+          }
+        },
+        {
+          "number": 6,
+          "name": "ハヤブサカツオー",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 78,
+          "form": 78,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 73,
+            "form": 73,
+            "course": 73,
+            "combined": 73
+          }
+        },
+        {
+          "number": 5,
+          "name": "ランダムナンバー",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 56,
+          "oldCourse": 57,
+          "course": 57,
+          "scores": {
+            "baseline": 68,
+            "form": 69,
+            "course": 68,
+            "combined": 69
+          }
+        },
+        {
+          "number": 1,
+          "name": "テングカゼ",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 40,
+          "form": 40,
+          "oldCourse": 48,
+          "course": 48,
+          "scores": {
+            "baseline": 63,
+            "form": 63,
+            "course": 63,
+            "combined": 63
+          }
+        },
+        {
+          "number": 9,
+          "name": "ロゼハイスクール",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 35,
+          "form": 35,
+          "oldCourse": 37,
+          "course": 36,
+          "scores": {
+            "baseline": 56,
+            "form": 56,
+            "course": 56,
+            "combined": 56
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "b83d77f86cc298ecb059b2df31b903f26b738a4c",
+      "committedAt": "2026-09-05T15:23:59+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-hanshin-11R",
+      "name": "エニフステークス",
+      "track": "阪神",
+      "number": 11,
+      "leaders": {
+        "baseline": 6,
+        "form": 6,
+        "course": 6,
+        "combined": 6
+      },
+      "horses": [
+        {
+          "number": 6,
+          "name": "ペイシャケイプ",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 69,
+          "form": 82,
+          "oldCourse": 80,
+          "course": 80,
+          "scores": {
+            "baseline": 81,
+            "form": 83,
+            "course": 81,
+            "combined": 83
+          }
+        },
+        {
+          "number": 10,
+          "name": "ルークススペイ",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 66,
+          "form": 78,
+          "oldCourse": 86,
+          "course": 86,
+          "scores": {
+            "baseline": 79,
+            "form": 81,
+            "course": 79,
+            "combined": 81
+          }
+        },
+        {
+          "number": 4,
+          "name": "ゴッドブルービー",
+          "finish": 1,
+          "winPayout": 700,
+          "placePayout": 250,
+          "oldForm": 61,
+          "form": 72,
+          "oldCourse": 74,
+          "course": 74,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 11,
+          "name": "リジル",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 53,
+          "form": 64,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 75,
+            "form": 78,
+            "course": 75,
+            "combined": 78
+          }
+        },
+        {
+          "number": 2,
+          "name": "ノーブルロジャー",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 230,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 76,
+          "course": 76,
+          "scores": {
+            "baseline": 73,
+            "form": 76,
+            "course": 73,
+            "combined": 76
+          }
+        },
+        {
+          "number": 3,
+          "name": "フェルヴェンテ",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 430,
+          "oldForm": 55,
+          "form": 66,
+          "oldCourse": 78,
+          "course": 79,
+          "scores": {
+            "baseline": 73,
+            "form": 76,
+            "course": 73,
+            "combined": 76
+          }
+        },
+        {
+          "number": 12,
+          "name": "ムイ",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 59,
+          "oldCourse": 70,
+          "course": 52,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 1,
+          "name": "タイセイブレイズ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 77,
+          "course": 78,
+          "scores": {
+            "baseline": 72,
+            "form": 74,
+            "course": 72,
+            "combined": 74
+          }
+        },
+        {
+          "number": 8,
+          "name": "トリリオンボーイ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 49,
+          "form": 58,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 72,
+            "form": 73,
+            "course": 72,
+            "combined": 73
+          }
+        },
+        {
+          "number": 5,
+          "name": "マニバドラ",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 45,
+          "form": 54,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 7,
+          "name": "グランキングオー",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 52,
+          "form": 62,
+          "oldCourse": 66,
+          "course": 66,
+          "scores": {
+            "baseline": 71,
+            "form": 73,
+            "course": 71,
+            "combined": 73
+          }
+        },
+        {
+          "number": 9,
+          "name": "エスカル",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 50,
+          "form": 60,
+          "oldCourse": 63,
+          "course": 63,
+          "scores": {
+            "baseline": 69,
+            "form": 72,
+            "course": 69,
+            "combined": 72
+          }
+        }
+      ]
+    },
+    {
+      "date": "2026-09-05",
+      "commit": "5b61acf0c2fbaa21b249e997a45c45a54d4c4b26",
+      "committedAt": "2026-09-05T15:38:40+09:00",
+      "period": "discovery-day-not-holdout",
+      "bundleId": "2026-09-05-nakayama-11R",
+      "name": "京成杯オータムハンデ",
+      "track": "中山",
+      "number": 11,
+      "leaders": {
+        "baseline": 12,
+        "form": 12,
+        "course": 12,
+        "combined": 12
+      },
+      "horses": [
+        {
+          "number": 12,
+          "name": "ディールメーカー",
+          "finish": 8,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 73,
+          "form": 87,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 85,
+            "form": 88,
+            "course": 85,
+            "combined": 88
+          }
+        },
+        {
+          "number": 7,
+          "name": "エコロブルーム",
+          "finish": 2,
+          "winPayout": 0,
+          "placePayout": 270,
+          "oldForm": 74,
+          "form": 88,
+          "oldCourse": 90,
+          "course": 90,
+          "scores": {
+            "baseline": 83,
+            "form": 86,
+            "course": 83,
+            "combined": 86
+          }
+        },
+        {
+          "number": 9,
+          "name": "レザベーション",
+          "finish": 11,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 71,
+          "form": 85,
+          "oldCourse": 88,
+          "course": 88,
+          "scores": {
+            "baseline": 83,
+            "form": 86,
+            "course": 83,
+            "combined": 86
+          }
+        },
+        {
+          "number": 8,
+          "name": "ピコローズ",
+          "finish": 1,
+          "winPayout": 1960,
+          "placePayout": 480,
+          "oldForm": 68,
+          "form": 80,
+          "oldCourse": 81,
+          "course": 81,
+          "scores": {
+            "baseline": 82,
+            "form": 84,
+            "course": 82,
+            "combined": 84
+          }
+        },
+        {
+          "number": 4,
+          "name": "フォルテアンジェロ",
+          "finish": 6,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 67,
+          "form": 80,
+          "oldCourse": 84,
+          "course": 84,
+          "scores": {
+            "baseline": 81,
+            "form": 84,
+            "course": 81,
+            "combined": 84
+          }
+        },
+        {
+          "number": 10,
+          "name": "ヴァルキリーバース",
+          "finish": 16,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 65,
+          "form": 77,
+          "oldCourse": 87,
+          "course": 87,
+          "scores": {
+            "baseline": 81,
+            "form": 83,
+            "course": 81,
+            "combined": 83
+          }
+        },
+        {
+          "number": 2,
+          "name": "ミナデオロ",
+          "finish": 9,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 63,
+          "form": 75,
+          "oldCourse": 68,
+          "course": 68,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 6,
+          "name": "ファンダム",
+          "finish": 4,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 72,
+          "oldCourse": 82,
+          "course": 82,
+          "scores": {
+            "baseline": 79,
+            "form": 82,
+            "course": 79,
+            "combined": 82
+          }
+        },
+        {
+          "number": 14,
+          "name": "リラボニート",
+          "finish": 12,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 78,
+            "form": 80,
+            "course": 78,
+            "combined": 80
+          }
+        },
+        {
+          "number": 5,
+          "name": "サイルーン",
+          "finish": 5,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 60,
+          "form": 72,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 11,
+          "name": "クランフォード",
+          "finish": 7,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 61,
+          "form": 72,
+          "oldCourse": 65,
+          "course": 65,
+          "scores": {
+            "baseline": 76,
+            "form": 78,
+            "course": 76,
+            "combined": 78
+          }
+        },
+        {
+          "number": 16,
+          "name": "ラケマーダ",
+          "finish": 14,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 59,
+          "form": 70,
+          "oldCourse": 78,
+          "course": 78,
+          "scores": {
+            "baseline": 76,
+            "form": 79,
+            "course": 76,
+            "combined": 79
+          }
+        },
+        {
+          "number": 1,
+          "name": "クルゼイロドスル",
+          "finish": 10,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 75,
+          "course": 75,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 15,
+          "name": "テレサ",
+          "finish": 13,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 57,
+          "form": 68,
+          "oldCourse": 69,
+          "course": 69,
+          "scores": {
+            "baseline": 75,
+            "form": 77,
+            "course": 75,
+            "combined": 77
+          }
+        },
+        {
+          "number": 3,
+          "name": "ドロップオブライト",
+          "finish": 3,
+          "winPayout": 0,
+          "placePayout": 450,
+          "oldForm": 54,
+          "form": 64,
+          "oldCourse": 76,
+          "course": 77,
+          "scores": {
+            "baseline": 74,
+            "form": 76,
+            "course": 74,
+            "combined": 76
+          }
+        },
+        {
+          "number": 13,
+          "name": "メタルスピード",
+          "finish": 15,
+          "winPayout": 0,
+          "placePayout": 0,
+          "oldForm": 47,
+          "form": 56,
+          "oldCourse": 77,
+          "course": 77,
+          "scores": {
+            "baseline": 73,
+            "form": 75,
+            "course": 73,
+            "combined": 75
+          }
+        }
+      ]
+    }
+  ]
+}

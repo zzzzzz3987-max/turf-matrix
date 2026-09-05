@@ -1,0 +1,2491 @@
+{
+  "date": "2026-09-05",
+  "basis": "last committed publication strictly before scheduled post time",
+  "engineBlob": "b16b371c8646f20d8438cca5e2057e72f7b7157f",
+  "resultsSha256": "27d9a0c0258f0b747754b333cce2a801f3f622727701a9f17318b293f5c30e0e",
+  "scoreRulesChanged": false,
+  "horsesChecked": 113,
+  "diagnostics": {
+    "trainingMissing": 27,
+    "biasMissing": 113,
+    "crossSurfaceCourseHorses": [
+      "ハルフロンティア",
+      "リヒトミューレ",
+      "ジーニアスバローズ",
+      "キングロコマイカイ",
+      "ルンベーラ",
+      "マーゴットソラーレ",
+      "ロジルーラー",
+      "レッドシュトラール",
+      "エスカレイト",
+      "テーオーダグラス",
+      "エイカイマッケンロ",
+      "パーティーガール",
+      "キープサインオン",
+      "ミニョンマルーン",
+      "ノーブルロジャー",
+      "ムイ",
+      "タイセイブレイズ"
+    ]
+  },
+  "rows": [
+    {
+      "bundleId": "2026-09-05-sapporo-09R",
+      "name": "Ｆビレッジ特別",
+      "track": "札幌",
+      "number": 9,
+      "cutoff": "2026-09-05T14:10:00+09:00",
+      "commit": "db105122103d37bc0f8f85465552a3e1aaec6a12",
+      "committedAt": "2026-09-05T14:07:59+09:00",
+      "snapshotSha256": "17f8b295a49c8e3ef32c379cfb202644a4f51cc7db591a03d4c6972cae875d04",
+      "diagnostics": {
+        "horseCount": 14,
+        "trainingMissing": 12,
+        "biasMissing": 14,
+        "crossSurfaceCourseHorses": [
+          "ハルフロンティア"
+        ]
+      },
+      "first": {
+        "number": 12,
+        "name": "コワンニシタガウ",
+        "tmIndex": 79,
+        "finish": 9,
+        "placePayout": 0,
+        "scores": {
+          "ability": 69,
+          "form": 67,
+          "distance": 75,
+          "course": 84,
+          "training": 60,
+          "blood": 68.98971342176026,
+          "pace": 73
+        },
+        "missingFactors": [
+          "training",
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 55,
+          "ageAllowance": 3,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 3,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 70,
+            "adjustment": 1,
+            "sampleCount": 7,
+            "maxPastWeight": 57,
+            "currentWeight": 55,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-22",
+                "distance": 2000,
+                "carriedWeight": 57,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-07-25",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 80.99428571428572
+              },
+              {
+                "date": "2026-07-04",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 3,
+                "quality": 81.38
+              },
+              {
+                "date": "2026-06-21",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 7,
+                "quality": 64.94
+              },
+              {
+                "date": "2026-04-11",
+                "distance": 2000,
+                "carriedWeight": 57,
+                "finishPosition": 5,
+                "quality": 70
+              },
+              {
+                "date": "2026-03-15",
+                "distance": 2200,
+                "carriedWeight": 57,
+                "finishPosition": 4,
+                "quality": 71.84
+              },
+              {
+                "date": "2026-03-01",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 6,
+                "quality": 65.09
+              }
+            ]
+          },
+          "summary": "馬齢差3kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内3走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 55.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 3走",
+            "同じ馬場・今回距離±400mの同等斤量 7走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 7,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 3,
+        "name": "ディヒターリーベ",
+        "tmIndex": 77,
+        "finish": 4,
+        "placePayout": 0,
+        "scores": {
+          "ability": 70,
+          "form": 65,
+          "course": 80,
+          "distance": 70,
+          "training": 60,
+          "blood": 67.89612116871054,
+          "pace": 73
+        },
+        "missingFactors": [
+          "training",
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 2,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 1,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "partial",
+            "score": 67,
+            "adjustment": 0,
+            "sampleCount": 2,
+            "maxPastWeight": 56,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-15",
+                "distance": 2000,
+                "carriedWeight": 56,
+                "finishPosition": 4,
+                "quality": 76.16
+              },
+              {
+                "date": "2026-07-25",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 79.28
+              }
+            ]
+          },
+          "summary": "牝馬差2kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量の過去2走から個体差も評価。指数補正なし。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 1走",
+            "同じ馬場・今回距離±400mの同等斤量 2走 / 個体補正 +0"
+          ]
+        },
+        "runCount": 6,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.06315789473684,
+            "form": 14.105263157894738,
+            "distance": 9.473684210526317,
+            "course": 9.220890029952931,
+            "training": 7.758710526315789,
+            "blood": 5.809660077621917,
+            "pace": 2.306263078986823
+          },
+          "weighted": 69.73762897603535,
+          "raw": 78,
+          "roundingAndRawClip": 0.26237102396464707,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 79,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.368421052631575,
+            "form": 13.68421052631579,
+            "course": 8.896585365853658,
+            "distance": 8.842105263157896,
+            "training": 7.758710526315789,
+            "blood": 5.717568098417729,
+            "pace": 2.306263078986823
+          },
+          "weighted": 68.57386391167925,
+          "raw": 77,
+          "roundingAndRawClip": 0.4261360883207459,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 77,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": -0.30526315789473557,
+          "form": 0.4210526315789487,
+          "distance": 0.6315789473684212,
+          "course": 0.32430466409927305,
+          "training": 0,
+          "blood": 0.09209197920418788,
+          "pace": 0,
+          "roundingAndRawClip": -0.16376506435609883,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 1,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 1.9999999999999964,
+        "gap": 2
+      }
+    },
+    {
+      "bundleId": "2026-09-05-hanshin-09R",
+      "name": "出石特別",
+      "track": "阪神",
+      "number": 9,
+      "cutoff": "2026-09-05T14:20:00+09:00",
+      "commit": "4152e49ac223edf90f9154a85d3f332c57ee0daa",
+      "committedAt": "2026-09-05T14:13:38+09:00",
+      "snapshotSha256": "469d7fa6bdda995f23f3fd75f0a8f3e69dc0e030ce5e30f77f185ee533f36396",
+      "diagnostics": {
+        "horseCount": 11,
+        "trainingMissing": 0,
+        "biasMissing": 11,
+        "crossSurfaceCourseHorses": [
+          "リヒトミューレ",
+          "ジーニアスバローズ",
+          "キングロコマイカイ"
+        ]
+      },
+      "first": {
+        "number": 6,
+        "name": "システマソラー",
+        "tmIndex": 81,
+        "finish": 3,
+        "placePayout": 110,
+        "scores": {
+          "ability": 70,
+          "form": 67,
+          "distance": 84,
+          "course": 85,
+          "training": 70,
+          "blood": 68.54125175442621,
+          "pace": 73
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 55,
+          "ageAllowance": 3,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 6,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 75,
+            "adjustment": 1,
+            "sampleCount": 7,
+            "maxPastWeight": 57,
+            "currentWeight": 55,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-07-05",
+                "distance": 1700,
+                "carriedWeight": 55,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-06-13",
+                "distance": 1800,
+                "carriedWeight": 55,
+                "finishPosition": 2,
+                "quality": 85.13
+              },
+              {
+                "date": "2026-05-17",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 84.41
+              },
+              {
+                "date": "2026-04-12",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 83.42545454545454
+              },
+              {
+                "date": "2026-03-14",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 5,
+                "quality": 68.84
+              },
+              {
+                "date": "2025-11-29",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2025-11-16",
+                "distance": 1700,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 77.67999999999999
+              }
+            ]
+          },
+          "summary": "馬齢差3kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内6走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 55.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 6走",
+            "同じ馬場・今回距離±400mの同等斤量 7走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 7,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 8,
+        "name": "クロノスバレット",
+        "tmIndex": 77,
+        "finish": 2,
+        "placePayout": 130,
+        "scores": {
+          "ability": 68,
+          "form": 60,
+          "distance": 76,
+          "course": 80,
+          "training": 64,
+          "blood": 67.90218500377135,
+          "pace": 73
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 58,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 2,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 66,
+            "adjustment": 0,
+            "sampleCount": 5,
+            "maxPastWeight": 58,
+            "currentWeight": 58,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-09",
+                "distance": 1800,
+                "carriedWeight": 58,
+                "finishPosition": 4,
+                "quality": 70.35636363636364
+              },
+              {
+                "date": "2026-06-21",
+                "distance": 1800,
+                "carriedWeight": 58,
+                "finishPosition": 3,
+                "quality": 75.32923076923078
+              },
+              {
+                "date": "2026-05-31",
+                "distance": 1800,
+                "carriedWeight": 58,
+                "finishPosition": 6,
+                "quality": 51.68000000000001
+              },
+              {
+                "date": "2026-03-28",
+                "distance": 2000,
+                "carriedWeight": 58,
+                "finishPosition": 5,
+                "quality": 65.97714285714285
+              },
+              {
+                "date": "2026-03-07",
+                "distance": 1800,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担58.0kgはレース中央値と同水準。同等斤量の過去5走から個体差も評価。指数補正なし。",
+          "evidence": [
+            "今回斤量 58.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 2走",
+            "同じ馬場・今回距離±400mの同等斤量 5走 / 個体補正 +0"
+          ]
+        },
+        "runCount": 13,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.368421052631575,
+            "form": 14.105263157894738,
+            "distance": 10.610526315789475,
+            "course": 9.345244360902255,
+            "training": 8.809482038429408,
+            "blood": 5.7718948845832605,
+            "pace": 2.3000730994152048
+          },
+          "weighted": 72.31090490964591,
+          "raw": 80,
+          "roundingAndRawClip": -0.3109049096459131,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 81,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 20.757894736842104,
+            "form": 12.631578947368421,
+            "distance": 9.6,
+            "course": 8.928669836355596,
+            "training": 8.122765246449458,
+            "blood": 5.7180787371596935,
+            "pace": 2.3000730994152048
+          },
+          "weighted": 68.05906060359048,
+          "raw": 76,
+          "roundingAndRawClip": -0.059060603590481264,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 1,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 77,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 0.6105263157894711,
+          "form": 1.4736842105263168,
+          "distance": 1.010526315789475,
+          "course": 0.4165745245466592,
+          "training": 0.6867167919799506,
+          "blood": 0.053816147423566996,
+          "pace": 0,
+          "roundingAndRawClip": -0.25184430605543184,
+          "sampleAdjustment": 0,
+          "goingAdjustment": -1,
+          "loadAdjustment": 1,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 4.000000000000008,
+        "gap": 4
+      }
+    },
+    {
+      "bundleId": "2026-09-05-nakayama-09R",
+      "name": "古作特別",
+      "track": "中山",
+      "number": 9,
+      "cutoff": "2026-09-05T14:30:00+09:00",
+      "commit": "53c8f6d2004aaeea8ca15b6e18c570ee87ca467f",
+      "committedAt": "2026-09-05T14:28:24+09:00",
+      "snapshotSha256": "37fae3845e9d1232e6661c631c760cb9717b1e6ddabc961b0fe9ba612e86f09e",
+      "diagnostics": {
+        "horseCount": 15,
+        "trainingMissing": 0,
+        "biasMissing": 15,
+        "crossSurfaceCourseHorses": [
+          "ルンベーラ",
+          "マーゴットソラーレ",
+          "ロジルーラー",
+          "レッドシュトラール"
+        ]
+      },
+      "first": {
+        "number": 12,
+        "name": "ゴディアーモ",
+        "tmIndex": 82,
+        "finish": 10,
+        "placePayout": 0,
+        "scores": {
+          "ability": 73,
+          "form": 75,
+          "distance": 72,
+          "course": 80,
+          "training": 70,
+          "blood": 65.6474084094988,
+          "pace": 76
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 53,
+          "ageAllowance": 3,
+          "sexAllowance": 2,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 1,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 68,
+            "adjustment": 1,
+            "sampleCount": 3,
+            "maxPastWeight": 55,
+            "currentWeight": 53,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-06-07",
+                "distance": 1600,
+                "carriedWeight": 53,
+                "finishPosition": 4,
+                "quality": 77.57176470588234
+              },
+              {
+                "date": "2026-03-21",
+                "distance": 1800,
+                "carriedWeight": 55,
+                "finishPosition": 7,
+                "quality": 65.66
+              },
+              {
+                "date": "2025-12-06",
+                "distance": 2000,
+                "carriedWeight": 55,
+                "finishPosition": 1,
+                "quality": 89.6
+              }
+            ]
+          },
+          "summary": "馬齢差3kg・牝馬差2kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量の過去3走から個体差も評価。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 53.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 1走",
+            "同じ馬場・今回距離±400mの同等斤量 3走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 3,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 7,
+        "name": "デイジー",
+        "tmIndex": 79,
+        "finish": 2,
+        "placePayout": 150,
+        "scores": {
+          "ability": 69,
+          "form": 64,
+          "distance": 75,
+          "course": 87,
+          "training": 70,
+          "blood": 68.07387663475217,
+          "pace": 70
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 2,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 7,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 69,
+            "adjustment": 1,
+            "sampleCount": 10,
+            "maxPastWeight": 56,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-16",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 83.16
+              },
+              {
+                "date": "2026-04-11",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 12,
+                "quality": 39.71000000000001
+              },
+              {
+                "date": "2026-01-11",
+                "distance": 1600,
+                "carriedWeight": 56,
+                "finishPosition": 3,
+                "quality": 80.66
+              },
+              {
+                "date": "2025-11-22",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 85.85
+              },
+              {
+                "date": "2025-11-09",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 3,
+                "quality": 82.1
+              },
+              {
+                "date": "2025-10-26",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 3,
+                "quality": 80.66
+              },
+              {
+                "date": "2025-08-23",
+                "distance": 1600,
+                "carriedWeight": 56,
+                "finishPosition": 3,
+                "quality": 77.44
+              },
+              {
+                "date": "2025-08-10",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 6,
+                "quality": 71.49333333333334
+              },
+              {
+                "date": "2025-07-27",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 7,
+                "quality": 62.78
+              },
+              {
+                "date": "2025-05-17",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 8,
+                "quality": 57.59
+              }
+            ]
+          },
+          "summary": "牝馬差2kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内7走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 7走",
+            "同じ馬場・今回距離±400mの同等斤量 10走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 17,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 22.28421052631579,
+            "form": 15.789473684210527,
+            "distance": 9.094736842105265,
+            "course": 8.896585365853658,
+            "training": 8.730045112781955,
+            "blood": 5.528202813431478,
+            "pace": 2.404124674504853
+          },
+          "weighted": 72.72737901920352,
+          "raw": 81,
+          "roundingAndRawClip": 0.272620980796475,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 82,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.06315789473684,
+            "form": 13.473684210526317,
+            "distance": 9.473684210526317,
+            "course": 9.464118528027386,
+            "training": 8.730045112781955,
+            "blood": 5.7325369797686045,
+            "pace": 2.2084014834687924
+          },
+          "weighted": 70.14562841983621,
+          "raw": 78,
+          "roundingAndRawClip": -0.1456284198362141,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 79,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 1.2210526315789494,
+          "form": 2.3157894736842106,
+          "distance": -0.37894736842105203,
+          "course": -0.5675331621737278,
+          "training": 0,
+          "blood": -0.20433416633712653,
+          "pace": 0.1957231910360604,
+          "roundingAndRawClip": 0.4182494006326891,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 0,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 3.000000000000003,
+        "gap": 3
+      }
+    },
+    {
+      "bundleId": "2026-09-05-sapporo-10R",
+      "name": "札幌スポニチ賞",
+      "track": "札幌",
+      "number": 10,
+      "cutoff": "2026-09-05T14:45:00+09:00",
+      "commit": "88d853dc4824bebab8be8e4979afb0526b509837",
+      "committedAt": "2026-09-05T14:39:02+09:00",
+      "snapshotSha256": "ecfae93ee58ddf5f128edaa2a8aae120bc75d5aef0979057d0f2cb045ec44f7b",
+      "diagnostics": {
+        "horseCount": 16,
+        "trainingMissing": 10,
+        "biasMissing": 16,
+        "crossSurfaceCourseHorses": [
+          "エスカレイト"
+        ]
+      },
+      "first": {
+        "number": 7,
+        "name": "ララバニュルス",
+        "tmIndex": 81,
+        "finish": 2,
+        "placePayout": 290,
+        "scores": {
+          "ability": 68,
+          "form": 67,
+          "distance": 79,
+          "training": 80,
+          "course": 82,
+          "blood": 67.29811266755509,
+          "pace": 73
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 58,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 3,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 70,
+            "adjustment": 1,
+            "sampleCount": 4,
+            "maxPastWeight": 58,
+            "currentWeight": 58,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-07-05",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-06-27",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 2,
+                "quality": 80.05333333333333
+              },
+              {
+                "date": "2026-04-19",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 2,
+                "quality": 84.41
+              },
+              {
+                "date": "2026-02-21",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 10,
+                "quality": 55.28
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内3走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 58.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 3走",
+            "同じ馬場・今回距離±400mの同等斤量 4走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 9,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 11,
+        "name": "ビービーエフォート",
+        "tmIndex": 79,
+        "finish": 3,
+        "placePayout": 220,
+        "scores": {
+          "ability": 72,
+          "form": 67,
+          "distance": 77,
+          "course": 83,
+          "training": 65,
+          "blood": 62.66820293471811,
+          "pace": 73
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 2,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 3,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 70,
+            "adjustment": 1,
+            "sampleCount": 5,
+            "maxPastWeight": 56,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-22",
+                "distance": 1200,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 84.59428571428572
+              },
+              {
+                "date": "2026-06-20",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 6,
+                "quality": 63.13142857142858
+              },
+              {
+                "date": "2026-05-23",
+                "distance": 1200,
+                "carriedWeight": 56,
+                "finishPosition": 5,
+                "quality": 71.72
+              },
+              {
+                "date": "2026-03-29",
+                "distance": 1200,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 84.14545454545454
+              },
+              {
+                "date": "2026-03-08",
+                "distance": 1200,
+                "carriedWeight": 56,
+                "finishPosition": 3,
+                "quality": 81.38
+              }
+            ]
+          },
+          "summary": "牝馬差2kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内3走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 3走",
+            "同じ馬場・今回距離±400mの同等斤量 5走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 11,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 20.757894736842104,
+            "form": 14.105263157894738,
+            "distance": 9.978947368421053,
+            "training": 9.70137969924812,
+            "course": 9.058737697903295,
+            "blood": 5.667209487794113,
+            "pace": 2.306263078986823
+          },
+          "weighted": 71.57569522709025,
+          "raw": 80,
+          "roundingAndRawClip": 0.42430477290974977,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 81,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.978947368421053,
+            "form": 14.105263157894738,
+            "distance": 9.726315789473684,
+            "course": 9.139813863928113,
+            "training": 8.244377819548871,
+            "blood": 5.277322352397315,
+            "pace": 2.306263078986823
+          },
+          "weighted": 70.7783034306506,
+          "raw": 79,
+          "roundingAndRawClip": 0.22169656934940463,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": -1,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 79,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": -1.2210526315789494,
+          "form": 0,
+          "distance": 0.2526315789473692,
+          "training": 1.4570018796992485,
+          "course": -0.08107616602481826,
+          "blood": 0.38988713539679853,
+          "pace": 0,
+          "roundingAndRawClip": 0.20260820356034515,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 1,
+          "loadAdjustment": 0,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 1.9999999999999938,
+        "gap": 2
+      }
+    },
+    {
+      "bundleId": "2026-09-05-hanshin-10R",
+      "name": "西宮ステークス",
+      "track": "阪神",
+      "number": 10,
+      "cutoff": "2026-09-05T14:55:00+09:00",
+      "commit": "3775ea9e81a64c92feecf0ea4b2c1257bf49d31e",
+      "committedAt": "2026-09-05T14:48:41+09:00",
+      "snapshotSha256": "06b6b019dabc0da7a4b50285477006aa4e54c83bbf035a5f146790a4a5919f43",
+      "diagnostics": {
+        "horseCount": 7,
+        "trainingMissing": 0,
+        "biasMissing": 7,
+        "crossSurfaceCourseHorses": [
+          "テーオーダグラス",
+          "エイカイマッケンロ"
+        ]
+      },
+      "first": {
+        "number": 7,
+        "name": "サウンドムーブ",
+        "tmIndex": 81,
+        "finish": 3,
+        "placePayout": 0,
+        "scores": {
+          "ability": 76,
+          "form": 72,
+          "distance": 76,
+          "training": 66,
+          "course": 67,
+          "blood": 67.11790273035,
+          "pace": 70
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 55,
+          "ageAllowance": 3,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 3,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 71,
+            "adjustment": 1,
+            "sampleCount": 6,
+            "maxPastWeight": 57,
+            "currentWeight": 55,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-07-04",
+                "distance": 1800,
+                "carriedWeight": 55,
+                "finishPosition": 2,
+                "quality": 81.71428571428572
+              },
+              {
+                "date": "2026-04-19",
+                "distance": 2000,
+                "carriedWeight": 57,
+                "finishPosition": 6,
+                "quality": 69.33333333333333
+              },
+              {
+                "date": "2026-03-15",
+                "distance": 1800,
+                "carriedWeight": 57,
+                "finishPosition": 4,
+                "quality": 76.91
+              },
+              {
+                "date": "2026-01-12",
+                "distance": 1600,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 85.13
+              },
+              {
+                "date": "2025-11-30",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2025-11-08",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 4,
+                "quality": 65.28
+              }
+            ]
+          },
+          "summary": "馬齢差3kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量・近似距離で3着内3走があり、斤量実績を反映。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 55.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 3走",
+            "同じ馬場・今回距離±400mの同等斤量 6走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 6,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 3,
+        "name": "コルレオニス",
+        "tmIndex": 76,
+        "finish": 1,
+        "placePayout": 800,
+        "scores": {
+          "ability": 69,
+          "form": 59,
+          "distance": 73,
+          "course": 76,
+          "training": 68,
+          "blood": 66.58571136928855,
+          "pace": 75
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 58,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 1,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 62,
+            "adjustment": 0,
+            "sampleCount": 5,
+            "maxPastWeight": 58,
+            "currentWeight": 58,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-09",
+                "distance": 1800,
+                "carriedWeight": 58,
+                "finishPosition": 10,
+                "quality": 40.86153846153846
+              },
+              {
+                "date": "2026-06-14",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 3,
+                "quality": 78.86857142857141
+              },
+              {
+                "date": "2026-05-09",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 5,
+                "quality": 64.56
+              },
+              {
+                "date": "2026-02-10",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 4,
+                "quality": 74.31384615384616
+              },
+              {
+                "date": "2025-11-30",
+                "distance": 2000,
+                "carriedWeight": 58,
+                "finishPosition": 6,
+                "quality": 63.839999999999996
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担58.0kgはレース中央値と同水準。同等斤量の過去5走から個体差も評価。指数補正なし。",
+          "evidence": [
+            "今回斤量 58.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 1走",
+            "同じ馬場・今回距離±400mの同等斤量 5走 / 個体補正 +0"
+          ]
+        },
+        "runCount": 16,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 23.2,
+            "form": 15.157894736842106,
+            "distance": 9.6,
+            "training": 8.34151127819549,
+            "course": 7.842595207531024,
+            "blood": 5.652033914134737,
+            "pace": 2.2084014834687924
+          },
+          "weighted": 72.00243662017215,
+          "raw": 80,
+          "roundingAndRawClip": -0.002436620172147741,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 81,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.06315789473684,
+            "form": 12.421052631578949,
+            "distance": 9.221052631578948,
+            "course": 8.572280701754385,
+            "training": 8.535778195488723,
+            "blood": 5.607217799519036,
+            "pace": 2.3715041426655095
+          },
+          "weighted": 67.79204399732241,
+          "raw": 76,
+          "roundingAndRawClip": 0.20795600267759085,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 76,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 2.1368421052631597,
+          "form": 2.7368421052631575,
+          "distance": 0.37894736842105203,
+          "training": -0.1942669172932323,
+          "course": -0.7296854942233617,
+          "blood": 0.0448161146157009,
+          "pace": -0.16310265919671707,
+          "roundingAndRawClip": -0.2103926228497386,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 1,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 5.00000000000002,
+        "gap": 5
+      }
+    },
+    {
+      "bundleId": "2026-09-05-nakayama-10R",
+      "name": "白井特別",
+      "track": "中山",
+      "number": 10,
+      "cutoff": "2026-09-05T15:05:00+09:00",
+      "commit": "7453f57dd0a87c8b157c5ea0d81366ea47a421f9",
+      "committedAt": "2026-09-05T14:59:20+09:00",
+      "snapshotSha256": "962973feef0a78a56945d2218c2c1c02413abb68960b8f811443102b595d747f",
+      "diagnostics": {
+        "horseCount": 13,
+        "trainingMissing": 0,
+        "biasMissing": 13,
+        "crossSurfaceCourseHorses": [
+          "パーティーガール",
+          "キープサインオン",
+          "ミニョンマルーン"
+        ]
+      },
+      "first": {
+        "number": 8,
+        "name": "ドリーミングアップ",
+        "tmIndex": 79,
+        "finish": 3,
+        "placePayout": 130,
+        "scores": {
+          "ability": 71,
+          "form": 68,
+          "distance": 74,
+          "course": 81,
+          "training": 61,
+          "blood": 62.783551872309225,
+          "pace": 76
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 58,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 2,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 73,
+            "adjustment": 1,
+            "sampleCount": 10,
+            "maxPastWeight": 58,
+            "currentWeight": 58,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-06-27",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-06-13",
+                "distance": 1200,
+                "carriedWeight": 58,
+                "finishPosition": 2,
+                "quality": 81.38
+              },
+              {
+                "date": "2025-11-24",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 5,
+                "quality": 73.38666666666667
+              },
+              {
+                "date": "2025-10-26",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 5,
+                "quality": 71.44
+              },
+              {
+                "date": "2025-10-13",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 4,
+                "quality": 78.16000000000001
+              },
+              {
+                "date": "2025-08-02",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 9,
+                "quality": 46.674285714285716
+              },
+              {
+                "date": "2025-05-24",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 3,
+                "quality": 78.92923076923077
+              },
+              {
+                "date": "2025-04-26",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 2,
+                "quality": 83.88
+              },
+              {
+                "date": "2025-04-12",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 3,
+                "quality": 81.38
+              },
+              {
+                "date": "2025-03-22",
+                "distance": 1600,
+                "carriedWeight": 58,
+                "finishPosition": 2,
+                "quality": 85.85
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担58.0kgはレース中央値と同水準。同等斤量の過去10走から個体差も評価。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 58.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 2走",
+            "同じ馬場・今回距離±400mの同等斤量 10走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 30,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 5,
+        "name": "インプロペリア",
+        "tmIndex": 77,
+        "finish": 2,
+        "placePayout": 110,
+        "scores": {
+          "ability": 70,
+          "form": 72,
+          "training": 73,
+          "distance": 70,
+          "course": 57,
+          "blood": 65.53722937227924,
+          "pace": 67
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 2,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 58,
+          "relativeKg": 0,
+          "comparableSuccessCount": 1,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "partial",
+            "score": 67,
+            "adjustment": 0,
+            "sampleCount": 1,
+            "maxPastWeight": 56,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-06-13",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 1,
+                "quality": 89.6
+              }
+            ]
+          },
+          "summary": "牝馬差2kgを補正。実質負担58.0kgはレース中央値と同水準。同等斤量の過去1走から個体差も評価。指数補正なし。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 58.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 1走",
+            "同じ馬場・今回距離±400mの同等斤量 1走 / 個体補正 +0"
+          ]
+        },
+        "runCount": 3,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.673684210526318,
+            "form": 14.315789473684212,
+            "distance": 9.34736842105263,
+            "course": 8.977661531878477,
+            "training": 7.855843984962406,
+            "blood": 5.28703594714183,
+            "pace": 2.404124674504853
+          },
+          "weighted": 69.86150824375072,
+          "raw": 78,
+          "roundingAndRawClip": 0.13849175624928023,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 79,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.368421052631575,
+            "form": 15.157894736842106,
+            "training": 9.021445488721806,
+            "distance": 8.842105263157896,
+            "course": 7.031833547282841,
+            "blood": 5.518924578718253,
+            "pace": 2.110539887950762
+          },
+          "weighted": 69.05116455530525,
+          "raw": 77,
+          "roundingAndRawClip": -0.05116455530524888,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 77,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 0.3052631578947427,
+          "form": -0.8421052631578938,
+          "distance": 0.5052631578947349,
+          "course": 1.9458279845956357,
+          "training": -1.1656015037594,
+          "blood": -0.2318886315764228,
+          "pace": 0.2935847865540908,
+          "roundingAndRawClip": 0.1896563115545291,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 1,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 2.0000000000000164,
+        "gap": 2
+      }
+    },
+    {
+      "bundleId": "2026-09-05-sapporo-11R",
+      "name": "札幌２歳ステークス",
+      "track": "札幌",
+      "number": 11,
+      "cutoff": "2026-09-05T15:20:00+09:00",
+      "commit": "24ca24285b2d95c2272b07cea288a1fb47cecf6f",
+      "committedAt": "2026-09-05T15:14:21+09:00",
+      "snapshotSha256": "d9435c7e5767e302132de92902cb8c0d21fe12714c88d13bda2b8c3fc244657a",
+      "diagnostics": {
+        "horseCount": 9,
+        "trainingMissing": 5,
+        "biasMissing": 9,
+        "crossSurfaceCourseHorses": []
+      },
+      "first": {
+        "number": 3,
+        "name": "デザートスピリット",
+        "tmIndex": 82,
+        "finish": 3,
+        "placePayout": 170,
+        "scores": {
+          "ability": 75,
+          "form": 74,
+          "distance": 73,
+          "training": 64,
+          "course": 88,
+          "blood": 65.5881259606747,
+          "pace": 70
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 71,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 1,
+          "carriedWeight": 55,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 55,
+          "fieldMedianEquivalentWeight": 55,
+          "relativeKg": 0,
+          "comparableSuccessCount": 0,
+          "rawAdjustment": 0,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 70,
+            "adjustment": 1,
+            "sampleCount": 3,
+            "maxPastWeight": 55,
+            "currentWeight": 55,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-23",
+                "distance": 1500,
+                "carriedWeight": 55,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-08-02",
+                "distance": 1600,
+                "carriedWeight": 55,
+                "finishPosition": 4,
+                "quality": 72.44
+              },
+              {
+                "date": "2026-06-13",
+                "distance": 1400,
+                "carriedWeight": 55,
+                "finishPosition": 2,
+                "quality": 81.49333333333334
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担55.0kgはレース中央値と同水準。同等斤量の過去3走から個体差も評価。TM INDEX +1点。",
+          "evidence": [
+            "今回斤量 55.0kg",
+            "年齢・性別基準換算 55.0kg / レース中央値 55.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 0走",
+            "同じ馬場・今回距離±400mの同等斤量 3走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 3,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "tmIndex": 77,
+        "finish": 2,
+        "placePayout": 130,
+        "scores": {
+          "ability": 72,
+          "form": 71,
+          "distance": 72,
+          "training": 60,
+          "blood": 66.97823033017936,
+          "course": 74,
+          "pace": 79
+        },
+        "missingFactors": [
+          "training",
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 59,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": -1,
+          "carriedWeight": 55,
+          "ageAllowance": 0,
+          "sexAllowance": 2,
+          "equivalentWeight": 57,
+          "fieldMedianEquivalentWeight": 55,
+          "relativeKg": 2,
+          "comparableSuccessCount": 3,
+          "rawAdjustment": -2,
+          "provenLoadMitigation": 1,
+          "tolerance": {
+            "status": "active",
+            "score": 67,
+            "adjustment": 0,
+            "sampleCount": 3,
+            "maxPastWeight": 55,
+            "currentWeight": 55,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-08-15",
+                "distance": 1800,
+                "carriedWeight": 55,
+                "finishPosition": 3,
+                "quality": 67.4
+              },
+              {
+                "date": "2026-07-04",
+                "distance": 1800,
+                "carriedWeight": 55,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-06-13",
+                "distance": 1600,
+                "carriedWeight": 55,
+                "finishPosition": 3,
+                "quality": 68.13714285714286
+              }
+            ]
+          },
+          "summary": "牝馬差2kgを補正。実質負担57.0kgはレース中央値より2.0kg重い。同等斤量・近似距離で3着内3走があり、斤量実績を反映。TM INDEX -1点。",
+          "evidence": [
+            "今回斤量 55.0kg",
+            "年齢・性別基準換算 57.0kg / レース中央値 55.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 3走",
+            "同じ馬場・今回距離±400mの同等斤量 3走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 3,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.9500000000000001,
+          "factors": {
+            "ability": 19.736842105263158,
+            "form": 15.578947368421053,
+            "distance": 9.221052631578946,
+            "training": 8.826181390977444,
+            "course": 8.67744972186564,
+            "blood": 8.284815910822067,
+            "pace": 2.208401483468792
+          },
+          "weighted": 72.53369061239711,
+          "raw": 81,
+          "roundingAndRawClip": 0.466309387602891,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 82,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.9500000000000001,
+          "factors": {
+            "ability": 18.94736842105263,
+            "form": 14.947368421052632,
+            "distance": 9.094736842105263,
+            "training": 8.405269736842106,
+            "blood": 8.460408041706865,
+            "course": 7.645571245186135,
+            "pace": 2.5019862700228828
+          },
+          "weighted": 70.00270897796851,
+          "raw": 78,
+          "roundingAndRawClip": -0.0027089779685098847,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": -1,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 77,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 0.7894736842105274,
+          "form": 0.6315789473684212,
+          "distance": 0.12631578947368283,
+          "training": 0.42091165413533815,
+          "course": 1.0318784766795055,
+          "blood": -0.17559213088479808,
+          "pace": -0.2935847865540908,
+          "roundingAndRawClip": 0.46901836557140086,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 2,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 4.999999999999988,
+        "gap": 5
+      }
+    },
+    {
+      "bundleId": "2026-09-05-hanshin-11R",
+      "name": "エニフステークス",
+      "track": "阪神",
+      "number": 11,
+      "cutoff": "2026-09-05T15:30:00+09:00",
+      "commit": "b83d77f86cc298ecb059b2df31b903f26b738a4c",
+      "committedAt": "2026-09-05T15:23:59+09:00",
+      "snapshotSha256": "49f69798b859275607055227252e9e4eedccaf98a48160f7efa1b133734d3056",
+      "diagnostics": {
+        "horseCount": 12,
+        "trainingMissing": 0,
+        "biasMissing": 12,
+        "crossSurfaceCourseHorses": [
+          "ノーブルロジャー",
+          "ムイ",
+          "タイセイブレイズ"
+        ]
+      },
+      "first": {
+        "number": 6,
+        "name": "ペイシャケイプ",
+        "tmIndex": 81,
+        "finish": 11,
+        "placePayout": 0,
+        "scores": {
+          "ability": 72,
+          "form": 69,
+          "distance": 78,
+          "training": 75,
+          "course": 80,
+          "blood": 67.36934901379223,
+          "pace": 72
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 56,
+          "fieldMedianEquivalentWeight": 55,
+          "relativeKg": 1,
+          "comparableSuccessCount": 7,
+          "rawAdjustment": -1,
+          "provenLoadMitigation": 1,
+          "tolerance": {
+            "status": "active",
+            "score": 74,
+            "adjustment": 1,
+            "sampleCount": 7,
+            "maxPastWeight": 58,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-05-23",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 77.21000000000001
+              },
+              {
+                "date": "2026-04-25",
+                "distance": 1400,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-02-21",
+                "distance": 1400,
+                "carriedWeight": 58,
+                "finishPosition": 6,
+                "quality": 65.81
+              },
+              {
+                "date": "2026-01-31",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2025-12-06",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 3,
+                "quality": 81.38
+              },
+              {
+                "date": "2025-03-16",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 3,
+                "quality": 76
+              },
+              {
+                "date": "2024-12-01",
+                "distance": 1200,
+                "carriedWeight": 56,
+                "finishPosition": 1,
+                "quality": 89.6
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担56.0kgはレース中央値より1.0kg重い。同等斤量・近似距離で3着内7走があり、斤量実績を反映。指数補正なし。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 56.0kg / レース中央値 55.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 7走",
+            "同じ馬場・今回距離±400mの同等斤量 7走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 12,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 10,
+        "name": "ルークススペイ",
+        "tmIndex": 79,
+        "finish": 4,
+        "placePayout": 0,
+        "scores": {
+          "ability": 68,
+          "form": 66,
+          "distance": 79,
+          "course": 86,
+          "training": 72,
+          "blood": 62.37515798544031,
+          "pace": 73
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 56,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 56,
+          "fieldMedianEquivalentWeight": 55,
+          "relativeKg": 1,
+          "comparableSuccessCount": 7,
+          "rawAdjustment": -1,
+          "provenLoadMitigation": 1,
+          "tolerance": {
+            "status": "active",
+            "score": 71,
+            "adjustment": 1,
+            "sampleCount": 9,
+            "maxPastWeight": 58,
+            "currentWeight": 56,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-06-20",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 6,
+                "quality": 63.839999999999996
+              },
+              {
+                "date": "2026-05-17",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 4,
+                "quality": 72.59
+              },
+              {
+                "date": "2026-04-05",
+                "distance": 1400,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-02-22",
+                "distance": 1400,
+                "carriedWeight": 58,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-01-31",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 3,
+                "quality": 78.92923076923077
+              },
+              {
+                "date": "2025-12-06",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 2,
+                "quality": 85.85
+              },
+              {
+                "date": "2025-11-01",
+                "distance": 1400,
+                "carriedWeight": 57,
+                "finishPosition": 11,
+                "quality": 38.822857142857146
+              },
+              {
+                "date": "2025-10-04",
+                "distance": 1400,
+                "carriedWeight": 56,
+                "finishPosition": 4,
+                "quality": 75.47
+              },
+              {
+                "date": "2025-05-10",
+                "distance": 1200,
+                "carriedWeight": 57,
+                "finishPosition": 3,
+                "quality": 79.94
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担56.0kgはレース中央値より1.0kg重い。同等斤量・近似距離で3着内7走があり、斤量実績を反映。指数補正なし。",
+          "evidence": [
+            "今回斤量 56.0kg",
+            "年齢・性別基準換算 56.0kg / レース中央値 55.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 7走",
+            "同じ馬場・今回距離±400mの同等斤量 9走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 19,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 21.978947368421053,
+            "form": 14.526315789473685,
+            "distance": 9.852631578947369,
+            "training": 9.381746031746033,
+            "course": 8.928669836355596,
+            "blood": 5.6732083380035565,
+            "pace": 2.271459899749374
+          },
+          "weighted": 72.61297884269668,
+          "raw": 81,
+          "roundingAndRawClip": 0.3870211573033231,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 81,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.95,
+          "factors": {
+            "ability": 20.757894736842104,
+            "form": 13.894736842105265,
+            "distance": 9.978947368421053,
+            "course": 9.428559265811588,
+            "training": 9.038387635756056,
+            "blood": 5.252644882984447,
+            "pace": 2.3000730994152048
+          },
+          "weighted": 70.6512438313357,
+          "raw": 79,
+          "roundingAndRawClip": 0.3487561686642948,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 79,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 1.2210526315789494,
+          "form": 0.6315789473684195,
+          "distance": -0.1263157894736846,
+          "training": 0.3433583959899771,
+          "course": -0.49988942945599213,
+          "blood": 0.4205634550191091,
+          "pace": -0.02861319966583098,
+          "roundingAndRawClip": 0.038264988639028275,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 0,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 1.9999999999999756,
+        "gap": 2
+      }
+    },
+    {
+      "bundleId": "2026-09-05-nakayama-11R",
+      "name": "京成杯オータムハンデ",
+      "track": "中山",
+      "number": 11,
+      "cutoff": "2026-09-05T15:45:00+09:00",
+      "commit": "5b61acf0c2fbaa21b249e997a45c45a54d4c4b26",
+      "committedAt": "2026-09-05T15:38:40+09:00",
+      "snapshotSha256": "18786411eb9ab805b145b5a4616ba904a84fc7e48f52f17cebc62123656a003c",
+      "diagnostics": {
+        "horseCount": 16,
+        "trainingMissing": 0,
+        "biasMissing": 16,
+        "crossSurfaceCourseHorses": []
+      },
+      "first": {
+        "number": 12,
+        "name": "ディールメーカー",
+        "tmIndex": 85,
+        "finish": 8,
+        "placePayout": 0,
+        "scores": {
+          "ability": 77,
+          "form": 73,
+          "distance": 83,
+          "training": 72,
+          "course": 88,
+          "blood": 67.9334174828006,
+          "pace": 67
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 77,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 2,
+          "carriedWeight": 54,
+          "ageAllowance": 2,
+          "sexAllowance": 0,
+          "equivalentWeight": 56,
+          "fieldMedianEquivalentWeight": 57,
+          "relativeKg": -1,
+          "comparableSuccessCount": 4,
+          "rawAdjustment": 1,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "active",
+            "score": 74,
+            "adjustment": 1,
+            "sampleCount": 5,
+            "maxPastWeight": 57,
+            "currentWeight": 54,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-06-28",
+                "distance": 1800,
+                "carriedWeight": 56,
+                "finishPosition": 2,
+                "quality": 84.41
+              },
+              {
+                "date": "2026-04-11",
+                "distance": 1600,
+                "carriedWeight": 57,
+                "finishPosition": 4,
+                "quality": 75.44
+              },
+              {
+                "date": "2026-03-08",
+                "distance": 1600,
+                "carriedWeight": 57,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2026-01-10",
+                "distance": 1600,
+                "carriedWeight": 57,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2025-07-27",
+                "distance": 1600,
+                "carriedWeight": 55,
+                "finishPosition": 2,
+                "quality": 82.93333333333334
+              }
+            ]
+          },
+          "summary": "馬齢差2kgを補正。実質負担56.0kgはレース中央値より1.0kg軽い。同等斤量・近似距離で3着内4走があり、斤量実績を反映。TM INDEX +2点。",
+          "evidence": [
+            "今回斤量 54.0kg",
+            "年齢・性別基準換算 56.0kg / レース中央値 57.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 4走",
+            "同じ馬場・今回距離±400mの同等斤量 5走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 5,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "second": {
+        "number": 7,
+        "name": "エコロブルーム",
+        "tmIndex": 83,
+        "finish": 2,
+        "placePayout": 270,
+        "scores": {
+          "ability": 77,
+          "form": 74,
+          "distance": 84,
+          "training": 65,
+          "course": 90,
+          "blood": 67.72967849303402,
+          "pace": 70
+        },
+        "missingFactors": [
+          "trackBias"
+        ],
+        "load": {
+          "key": "load",
+          "label": "斤量",
+          "score": 65,
+          "maxScore": 100,
+          "status": "active",
+          "adjustment": 0,
+          "carriedWeight": 58,
+          "ageAllowance": 0,
+          "sexAllowance": 0,
+          "equivalentWeight": 58,
+          "fieldMedianEquivalentWeight": 57,
+          "relativeKg": 1,
+          "comparableSuccessCount": 1,
+          "rawAdjustment": -1,
+          "provenLoadMitigation": 0,
+          "tolerance": {
+            "status": "partial",
+            "score": 69,
+            "adjustment": 1,
+            "sampleCount": 2,
+            "maxPastWeight": 58,
+            "currentWeight": 58,
+            "unprovenHigh": false,
+            "runs": [
+              {
+                "date": "2026-05-31",
+                "distance": 1400,
+                "carriedWeight": 57.5,
+                "finishPosition": 1,
+                "quality": 89.6
+              },
+              {
+                "date": "2025-05-11",
+                "distance": 1400,
+                "carriedWeight": 58,
+                "finishPosition": 4,
+                "quality": 75.30285714285714
+              }
+            ]
+          },
+          "summary": "年齢・性別差の補正なし。実質負担58.0kgはレース中央値より1.0kg重い。同等斤量の過去2走から個体差も評価。指数補正なし。",
+          "evidence": [
+            "今回斤量 58.0kg",
+            "年齢・性別基準換算 58.0kg / レース中央値 57.0kg",
+            "今回距離±200mで同等以上の斤量を背負った3着内 1走",
+            "同じ馬場・今回距離±400mの同等斤量 2走 / 個体補正 +1"
+          ]
+        },
+        "runCount": 6,
+        "crossSurfaceSameCourseRuns": 0
+      },
+      "trace": {
+        "leader": {
+          "totalWeight": 0.9500000000000001,
+          "factors": {
+            "ability": 20.26315789473684,
+            "form": 15.368421052631579,
+            "distance": 10.484210526315788,
+            "training": 9.668004699248119,
+            "course": 8.67744972186564,
+            "blood": 8.581063260985339,
+            "pace": 2.1105398879507615
+          },
+          "weighted": 75.15284704373407,
+          "raw": 83,
+          "roundingAndRawClip": -0.1528470437340701,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 2,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 85,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "second": {
+          "totalWeight": 0.9500000000000001,
+          "factors": {
+            "ability": 20.26315789473684,
+            "form": 15.578947368421053,
+            "distance": 10.610526315789473,
+            "training": 8.931409304511277,
+            "course": 8.824860932819854,
+            "blood": 8.555327809646402,
+            "pace": 2.208401483468792
+          },
+          "weighted": 74.97263110939369,
+          "raw": 83,
+          "roundingAndRawClip": 0.027368890606311425,
+          "adjustments": {
+            "sampleAdjustment": 0,
+            "goingAdjustment": 0,
+            "loadAdjustment": 0,
+            "trackBiasAdjustment": 0
+          },
+          "finalClip": 0,
+          "final": 83,
+          "rawMatches": true,
+          "finalMatches": true
+        },
+        "deltas": {
+          "ability": 0,
+          "form": -0.21052631578947434,
+          "distance": -0.1263157894736846,
+          "training": 0.7365953947368418,
+          "course": -0.14741121095421406,
+          "blood": 0.025735451338936954,
+          "pace": -0.09786159551803042,
+          "roundingAndRawClip": -0.18021593434038152,
+          "sampleAdjustment": 0,
+          "goingAdjustment": 0,
+          "loadAdjustment": 2,
+          "trackBiasAdjustment": 0,
+          "finalClip": 0
+        },
+        "reconstructedGap": 1.9999999999999938,
+        "gap": 2
+      }
+    }
+  ]
+}

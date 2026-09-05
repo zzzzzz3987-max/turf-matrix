@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-05T05:48:34.561Z",
+  "raceDate": "2026-09-05",
+  "bundleId": "2026-09-05-hanshin-10R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "9fbfae85fabf3fef04c994d6dd056ada2afb8052eb36cfeb3f73210542410638",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "9cc3e07b0e8a2ea76dfbc4cfd39358f7f0e5c8383df5a07ebfee9e79e1c54c1a",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "5f94d36ce83b6f72eb9d14e7b84997bcc2c93b0fcdf3e6b668a4a4c77d59390e",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 7,
+    "adjustedHorseCount": 0,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 0
+  },
+  "predictionSha256": "a2a6ce7773434780cd001bf4234b835485a6aafb448a5c0fbefc37836131a6b5",
+  "predictions": [
+    {
+      "raceId": "2026-09-05-阪神-10R",
+      "bundleId": "2026-09-05-hanshin-10R",
+      "track": "阪神",
+      "surface": "芝",
+      "raceNumber": 10,
+      "raceName": "西宮ステークス",
+      "horseCount": 7,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 3,
+        "name": "コルレオニス",
+        "currentPace": 75,
+        "shadowPace": 75,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 76,
+        "shadowTm": 76
+      },
+      "shadowPaceLeader": {
+        "number": 3,
+        "name": "コルレオニス",
+        "currentPace": 75,
+        "shadowPace": 75,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 76,
+        "shadowTm": 76
+      },
+      "currentTmLeader": {
+        "number": 7,
+        "name": "サウンドムーブ",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 81,
+        "shadowTm": 81
+      },
+      "shadowTmLeader": {
+        "number": 7,
+        "name": "サウンドムーブ",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 81,
+        "shadowTm": 81
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "オールセインツ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-01 後傾・前残りで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "エイカイマッケンロ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-25 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 63,
+          "shadowTm": 63,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "コルレオニス",
+          "currentPace": 75,
+          "shadowPace": 75,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-09 後傾・偏りなしで明確な展開利不利なし",
+            "2026-06-14 後傾・偏りなしの展開利を受けた好走",
+            "想定ペース スロー / 脚質 先行",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "テーオーダグラス",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 平均・偏りなしで明確な展開利不利なし",
+            "2026-06-27 平均・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "シンゼンカガ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-15 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "レディーミコノス",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 平均・差し決着で明確な展開利不利なし",
+            "2026-07-04 平均・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "サウンドムーブ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-04 平均・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

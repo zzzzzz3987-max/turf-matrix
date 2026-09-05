@@ -1917,7 +1917,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
 
 const BattleRacePanel = ({ race, onOpen }) => {
   if (!race?.indexTop) return null;
-  const [opponentA] = race.opponents ?? [];
+  const [opponentA, opponentB] = race.opponents ?? [];
   const axis = race.indexTop;
   const exactaPair = opponentA ? `${axis.number}-${opponentA.number}` : null;
   const wideCandidate = selectBattleWideCandidate(race);

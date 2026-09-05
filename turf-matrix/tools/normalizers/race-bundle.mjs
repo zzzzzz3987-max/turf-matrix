@@ -283,7 +283,8 @@ const normalizeRaceBundle = ({
   return {
     bundleId,
     race: current.race,
-    productionReady: horses.some((horse) => horse.odds?.sourceStatus === "active"),
+    productionReady: horses.some((horse) =>
+      ["active", "closed"].includes(horse.odds?.sourceStatus) && Number.isFinite(horse.odds?.winOdds)),
     source: {
       currentRaceDetail: { rows: current.rowCount, entries: current.entryCount, encoding: current.encoding },
       allCsv: { rows: all.rowCount, horses: all.horseCount, encoding: all.encoding },

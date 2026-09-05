@@ -1,0 +1,294 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-05T06:13:58.288Z",
+  "raceDate": "2026-09-05",
+  "bundleId": "2026-09-05-sapporo-11R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "e68b2eebefe217e96442d56bfbc1aa77d2c3872f13cbb8de875a7a750f398dfe",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "9cc3e07b0e8a2ea76dfbc4cfd39358f7f0e5c8383df5a07ebfee9e79e1c54c1a",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "5f94d36ce83b6f72eb9d14e7b84997bcc2c93b0fcdf3e6b668a4a4c77d59390e",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 9,
+    "adjustedHorseCount": 0,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 1,
+    "genericCourseGeometryRaceCount": 0,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 0
+  },
+  "predictionSha256": "2e85ff9d70d100e6bbaa10c67ed6d6da78520ec7ad05bc3b0dcc096bd575d071",
+  "predictions": [
+    {
+      "raceId": "2026-09-05-札幌-11R",
+      "bundleId": "2026-09-05-sapporo-11R",
+      "track": "札幌",
+      "surface": "芝",
+      "raceNumber": 11,
+      "raceName": "札幌２歳ステークス",
+      "horseCount": 9,
+      "courseShapeSource": "course-profile",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "currentPace": 79,
+        "shadowPace": 79,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "shadowPaceLeader": {
+        "number": 4,
+        "name": "コスモハナミズキ",
+        "currentPace": 79,
+        "shadowPace": 79,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "currentTmLeader": {
+        "number": 3,
+        "name": "デザートスピリット",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 82,
+        "shadowTm": 82
+      },
+      "shadowTmLeader": {
+        "number": 3,
+        "name": "デザートスピリット",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 82,
+        "shadowTm": 82
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "テングカゼ",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-01 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 63,
+          "shadowTm": 63,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "ショウナンガレオン",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-05 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "デザートスピリット",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-23 平均・差し決着で明確な展開利不利なし",
+            "2026-08-02 後傾・偏りなしで明確な展開利不利なし",
+            "2026-06-13 後傾・偏りなしの展開利を受けた好走",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 82,
+          "shadowTm": 82,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "コスモハナミズキ",
+          "currentPace": 79,
+          "shadowPace": 79,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-15 平均・偏りなしで明確な展開利不利なし",
+            "2026-07-04 平均・前残りの展開利を受けた好走",
+            "2026-06-13 後傾・偏りなしに逆らって後方から押し上げた",
+            "想定ペース スロー / 脚質 逃げ",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "ランダムナンバー",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 後傾・前残りで明確な展開利不利なし",
+            "2026-08-08 平均・偏りなしで明確な展開利不利なし",
+            "2026-06-07 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 68,
+          "shadowTm": 68,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "ハヤブサカツオー",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-16 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "イドム",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-29 後傾・前残りで明確な展開利不利なし",
+            "2026-08-08 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 8,
+          "name": "テンカタイヘイ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-19 前傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 9,
+          "name": "ロゼハイスクール",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-29 平均・偏りなしで明確な展開利不利なし",
+            "2026-07-11 平均・前残りで明確な展開利不利なし",
+            "2026-07-04 平均・前残りで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 56,
+          "shadowTm": 56,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

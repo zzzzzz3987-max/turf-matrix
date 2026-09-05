@@ -91,17 +91,19 @@ const buildAnalysis = (horse, suppliedContext) => {
     evidence: [...basePaceAnalysis.evidence, ...paceContextShadow.evidence],
   };
   const trainingAnalysis = buildTrainingAnalysis(horse);
+  const hasTrainingEvidence = trainingAnalysis.count > 0 || Boolean(trainingAnalysis.videoReview);
   const training = trainingAnalysis.score;
   const trainingLap = trainingAnalysis.lapScore;
+  const trainingForIndex = hasTrainingEvidence ? training : null;
   const blood = scoreBlood(horse, context);
-  const baseIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
+  const baseIndex = calculateTmIndex({ ability, form, distance, course, training: trainingForIndex, blood, pace }, context);
   const value = scoreValue(horse, ability, baseIndex);
   const valueAnalysis = buildValueAnalysis(horse, value);
   const stableAnalysis = buildStableAnalysis(horse, trainingAnalysis);
   const stable = stableAnalysis.score;
   const frame = frameScore(displayNumber);
   const factors = { ability, distance, lap, training, trainingLap, stable, frame, course, pace };
-  const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training, blood, pace }, context);
+  const rawTmIndex = calculateTmIndex({ ability, form, distance, course, training: trainingForIndex, blood, pace }, context);
   const experienceAdjustedIndex = applyExperienceDiscount(rawTmIndex, horse);
   const goingAdjustment = goingAnalysis.adjustment ?? 0;
   const loadAnalysis = buildLoadAnalysis(horse, context);
@@ -115,12 +117,14 @@ const buildAnalysis = (horse, suppliedContext) => {
   const sampleAdjustment = runCount < 3 && Number.isFinite(rawTmIndex) && Number.isFinite(experienceAdjustedIndex)
     ? experienceAdjustedIndex - rawTmIndex
     : 0;
-  const indexContributions = buildIndexContributions({ ability, form, distance, course, training, blood, pace }, context);
+  const indexContributions = buildIndexContributions({ ability, form, distance, course, training: trainingForIndex, blood, pace }, context);
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
   const trainingReadable = trainingAnalysis.count
     ? trainingAnalysis.summary
-    : "調教時計は未取得です。調教面は控えめに評価します。";
+    : trainingAnalysis.videoReview
+      ? trainingAnalysis.summary
+      : "調教時計・映像評価は未取得です。調教は評価保留とし、指数には加点も減点もしていません。";
   const dataQuality = assessDataQuality(horse);
 
   const verdict = buildVerdictPayload({
@@ -139,7 +143,7 @@ const buildAnalysis = (horse, suppliedContext) => {
     trackBiasAnalysis,
     value,
     factors,
-    scores: { ability, form, course, pace, training, blood, stable, frame },
+    scores: { ability, form, course, pace, training: trainingForIndex, blood, stable, frame },
     trainingAnalysis,
     trainingReadable,
     pedigreeAnalysis,

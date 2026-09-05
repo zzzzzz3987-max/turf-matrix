@@ -84,13 +84,14 @@ const buildVerdictPayload = ({
   dataQuality,
 }) => {
   const { ability, form, course, pace, training, blood, stable, frame } = scores;
+  const hasTrainingEvidence = Number.isFinite(training);
   const confidence = confidenceFor(horse, trainingAnalysis, dataQuality);
   const recentText = finishText(horse.pastRuns?.[0]);
   const valueText = valueTextFor(horse, value);
   const zi = horse.availableIndex ?? horse.pedigree?.zi ?? horse.odds?.zi ?? horse.currentRace?.zi;
   const abilityText = zi ? `能力指標ZI ${zi}を能力評価に反映` : `近走${horse.pastRuns?.length ?? 0}走から能力を評価`;
   const contextSummary = context?.summary ?? "レース条件を取得済みデータから評価";
-  const trainingStatus = trainingAnalysis.count ? trainingAnalysis.summary : "調教時計は未取得";
+  const trainingStatus = hasTrainingEvidence ? trainingAnalysis.summary : "調教は評価保留・指数補正なし";
   const isGrade = context?.category === "grade";
   const indexLabel = tmIndex >= 82 ? "最上位評価" : tmIndex >= 74 ? "高評価" : tmIndex >= 64 ? "注視" : "押さえ";
   const valueLabel = valueAnalysis?.label ?? valueReadable(value);
@@ -110,7 +111,7 @@ const buildVerdictPayload = ({
     : [
         `${displayName}はTM INDEX ${tmIndex ?? "未評価"}。${recentText}です。`,
         `${bloodSummary}`,
-        `${trainingAnalysis.count ? trainingAnalysis.summary : "調教時計は未取得のため控えめに評価します。"} ${valueText}。`,
+        `${hasTrainingEvidence ? trainingAnalysis.summary : "調教は評価保留とし、指数には加点も減点もしていません。"} ${valueText}。`,
       ];
 
   const formEvidence = formAnalysis?.strengths ?? [`近走評価は${factorLabel(form)}`, abilityText];
@@ -133,7 +134,7 @@ const buildVerdictPayload = ({
         valueText,
         dataQuality?.summary ?? "データ充足度を評価中",
       ],
-      tags: [abilityText, valueText, context?.profile ?? "条件評価", trainingAnalysis.count ? "調教取得済み" : "調教未取得"],
+      tags: [abilityText, valueText, context?.profile ?? "条件評価", hasTrainingEvidence ? "調教評価あり" : "調教評価保留"],
       factors,
       rawTmIndex,
       sampleAdjustment,
@@ -264,13 +265,13 @@ const buildVerdictPayload = ({
         `${abilityText}。能力評価は${factorLabel(ability)}。`,
         `${bloodSummary}`,
         courseAnalysis?.summary ?? contextSummary,
-        trainingAnalysis.count ? `${trainingAnalysis.summary}` : "調教時計は未取得のため、調教面は控えめに評価。",
+        hasTrainingEvidence ? `${trainingAnalysis.summary}` : "調教は評価保留・指数補正なし。",
         ...(loadAdjustment > 0 ? [loadAnalysis.summary] : []),
         ...(trackBiasAdjustment > 0 ? [trackBiasAnalysis.summary] : []),
       ],
       cons: [
         value == null ? "オッズ未取得のため妙味は未評価。" : `人気とオッズのバランスは${valueLabel}。`,
-        trainingAnalysis.count ? "調教評価は取得できた時計範囲での判定。" : "調教時計が不足。",
+        hasTrainingEvidence ? "調教評価は取得できた材料範囲での判定。" : "調教時計・映像評価は未取得。",
         ...(loadAdjustment < 0 ? [loadAnalysis.summary] : []),
         ...(trackBiasAdjustment < 0 ? [trackBiasAnalysis.summary] : []),
       ],

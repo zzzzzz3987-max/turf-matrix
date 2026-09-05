@@ -414,10 +414,10 @@ const buildTrainingAnalysis = (horse) => {
       count: 0,
       summary: videoEvidence
         ? `調教時計は未取得です。${videoEvidence}。時計を推測せず、映像評価のみを限定的に反映します。`
-        : "調教時計は未取得です。調教面は強く評価せず、近走・血統・オッズを中心に見ます。",
+        : "調教時計・映像評価は未取得です。調教は評価保留とし、指数には加点も減点もしていません。",
       finalText: videoEvidence
         ? `最終追い切りの時計は未取得ですが、${videoEvidence}。映像評価のみを限定的に反映します。`
-        : "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教評価は控えめに扱います。",
+        : "最終追い切りの時計が未取得です。別馬の時計で補完せず、調教は評価保留としています。",
       patternText: "調教パターンは未判定です。",
       strengths: ["調教時計未取得", ...(profile.videoReview ? [`映像確認 ${profile.videoReview.adjustment >= 0 ? "+" : ""}${profile.videoReview.adjustment}: ${profile.videoReview.note}`] : [])],
     };

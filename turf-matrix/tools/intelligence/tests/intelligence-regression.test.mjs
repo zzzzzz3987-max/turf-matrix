@@ -139,6 +139,34 @@ test("Stage 1.5 analysis produces readable evidence for each core module", () =>
   assert.ok(result.analysis.indexContributions.length >= 3);
 });
 
+test("missing training evidence is neutral and excluded from TM INDEX", () => {
+  const result = buildAnalysis({
+    horseName: "調教未取得テスト",
+    horseNumber: 5,
+    currentRace: {
+      raceDate: "2026-09-06",
+      course: "札幌",
+      surface: "芝",
+      distance: 1800,
+      raceName: "テスト特別",
+      category: "special",
+    },
+    odds: { winOdds: 8.5, popularity: 5, status: "active" },
+    pastRuns: [
+      { course: "札幌", surface: "芝", distance: 1800, finishPosition: 3, fieldSize: 14, margin: 0.3, last3F: 35.1 },
+      { course: "函館", surface: "芝", distance: 1800, finishPosition: 5, fieldSize: 12, margin: 0.6, last3F: 35.4 },
+    ],
+    training: { slope: [], wood: [] },
+    pedigree: { sire: "テストサイアー", dam: "テストダム", ancestors: [] },
+  });
+
+  assert.equal(result.analysis.factorsDetail.training.status, "missing");
+  assert.equal(result.analysis.factorsDetail.training.score, null);
+  assert.equal(result.analysis.indexContributions.some((item) => item.key === "training"), false);
+  assert.match(result.analysis.factorsDetail.training.summary, /評価保留/);
+  assert.doesNotMatch(result.analysis.factorsDetail.training.summary, /控えめ/);
+});
+
 test("race calibration adds deterministic relative ranks", () => {
   const race = calibrateRaceIntelligence({
     id: "test-race",

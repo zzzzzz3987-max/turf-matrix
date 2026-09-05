@@ -3,7 +3,18 @@ import { join } from "node:path";
 
 const ROOT = process.cwd();
 const LIVE_RESULTS = join(ROOT, "data", "target", "results.latest.json");
-const COURSE_SLUG = { "01": "sapporo", "04": "niigata", "07": "chukyo" };
+const COURSE_SLUG = {
+  "01": "sapporo",
+  "02": "hakodate",
+  "03": "fukushima",
+  "04": "niigata",
+  "05": "tokyo",
+  "06": "nakayama",
+  "07": "chukyo",
+  "08": "kyoto",
+  "09": "hanshin",
+  "10": "kokura",
+};
 
 const readJson = (path) => JSON.parse(readFileSync(path, "utf8").replace(/^\uFEFF/, ""));
 const normalizeName = (value) => String(value ?? "")

@@ -1,0 +1,346 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-05T06:23:53.285Z",
+  "raceDate": "2026-09-05",
+  "bundleId": "2026-09-05-hanshin-11R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "cbbabdd3b69a1cffed993e1a520082fa6f95470cb7e921b0fab771eb513f7582",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "9cc3e07b0e8a2ea76dfbc4cfd39358f7f0e5c8383df5a07ebfee9e79e1c54c1a",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "5f94d36ce83b6f72eb9d14e7b84997bcc2c93b0fcdf3e6b668a4a4c77d59390e",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 12,
+    "adjustedHorseCount": 8,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 1,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 1
+  },
+  "predictionSha256": "b7e29fbfd3c47161367d5cec19fbd5031d13f6225e0d44a4b9902a5b5abaf158",
+  "predictions": [
+    {
+      "raceId": "2026-09-05-阪神-11R",
+      "bundleId": "2026-09-05-hanshin-11R",
+      "track": "阪神",
+      "surface": "ダ",
+      "raceNumber": 11,
+      "raceName": "エニフステークス",
+      "horseCount": 12,
+      "courseShapeSource": "venue-surface",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 1,
+        "name": "タイセイブレイズ",
+        "currentPace": 73,
+        "shadowPace": 73,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 72,
+        "shadowTm": 72
+      },
+      "shadowPaceLeader": {
+        "number": 5,
+        "name": "マニバドラ",
+        "currentPace": 73,
+        "shadowPace": 74,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 71,
+        "shadowTm": 71
+      },
+      "currentTmLeader": {
+        "number": 6,
+        "name": "ペイシャケイプ",
+        "currentPace": 72,
+        "shadowPace": 71,
+        "paceAdjustment": -1,
+        "historyAdjustment": 0,
+        "contextAdjustment": -1,
+        "contextLabel": "やや不利",
+        "currentTm": 81,
+        "shadowTm": 81
+      },
+      "shadowTmLeader": {
+        "number": 6,
+        "name": "ペイシャケイプ",
+        "currentPace": 72,
+        "shadowPace": 71,
+        "paceAdjustment": -1,
+        "historyAdjustment": 0,
+        "contextAdjustment": -1,
+        "contextLabel": "やや不利",
+        "currentTm": 81,
+        "shadowTm": 81
+      },
+      "paceLeaderChanged": true,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "タイセイブレイズ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 dirt / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "ノーブルロジャー",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "2026-07-26 前傾・前残りで明確な展開利不利なし",
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 dirt / 形態補正 -1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "フェルヴェンテ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-12 前傾・差し決着で明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 dirt / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "ゴッドブルービー",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-12 前傾・差し決着で明確な展開利不利なし",
+            "2026-06-27 前傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 dirt / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "マニバドラ",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-07-19 前傾・前残りで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 dirt / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "ペイシャケイプ",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 dirt / 形態補正 -1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "グランキングオー",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-07-19 前傾・偏りなしで明確な展開利不利なし",
+            "2026-06-27 前傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 dirt / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0
+        },
+        {
+          "number": 8,
+          "name": "トリリオンボーイ",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "2026-07-26 前傾・前残りで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 dirt / 形態補正 -1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 9,
+          "name": "エスカル",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "2026-08-16 前傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 dirt / 形態補正 -1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0
+        },
+        {
+          "number": 10,
+          "name": "ルークススペイ",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 dirt / 形態補正 +1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0
+        },
+        {
+          "number": 11,
+          "name": "リジル",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-07 前傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 dirt / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        },
+        {
+          "number": 12,
+          "name": "ムイ",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 dirt / 形態補正 -1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

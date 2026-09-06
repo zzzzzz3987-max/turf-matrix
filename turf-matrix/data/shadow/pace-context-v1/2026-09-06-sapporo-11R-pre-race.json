@@ -1,0 +1,398 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-06T06:14:10.806Z",
+  "raceDate": "2026-09-06",
+  "bundleId": "2026-09-06-sapporo-11R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "79cb909e48afc48cd1a9c17368f903edc2117d4dd1a988ea68c203a97d21b163",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "487e95c4ea4a5adc9bf1a7abae45a2825ac47dcc69c8aabe72d16798807e5e18",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "be197d2f6c627316165c8b305108c11f3fc3fc8a6bb14aaeb916f60283ef2c55",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 14,
+    "adjustedHorseCount": 9,
+    "liveBiasRaceCount": 1,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 1
+  },
+  "predictionSha256": "3b710d6ddf6ebccf6eb4253f913fcc1d97437bb869df1548aae0ddca32a0a429",
+  "predictions": [
+    {
+      "raceId": "2026-09-06-札幌-11R",
+      "bundleId": "2026-09-06-sapporo-11R",
+      "track": "札幌",
+      "surface": "芝",
+      "raceNumber": 11,
+      "raceName": "丹頂ステークス",
+      "horseCount": 14,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 7,
+      "currentPaceLeader": {
+        "number": 1,
+        "name": "レクスノヴァス",
+        "currentPace": 73,
+        "shadowPace": 74,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 79,
+        "shadowTm": 79
+      },
+      "shadowPaceLeader": {
+        "number": 1,
+        "name": "レクスノヴァス",
+        "currentPace": 73,
+        "shadowPace": 74,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 79,
+        "shadowTm": 79
+      },
+      "currentTmLeader": {
+        "number": 1,
+        "name": "レクスノヴァス",
+        "currentPace": 73,
+        "shadowPace": 74,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 79,
+        "shadowTm": 79
+      },
+      "shadowTmLeader": {
+        "number": 1,
+        "name": "レクスノヴァス",
+        "currentPace": 73,
+        "shadowPace": 74,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 79,
+        "shadowTm": 79
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "レクスノヴァス",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-07-26 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "サクソンジェンヌ",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "パレハ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-12 平均・前残りで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "ヨヒーン",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "2026-08-01 平均・差し決着の展開利を受けた好走",
+            "2026-06-27 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 small / 形態補正 -1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "ボンドロア",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-07-25 後傾・差し決着で明確な展開利不利なし",
+            "2026-06-28 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "シュトルーヴェ",
+          "currentPace": 72,
+          "shadowPace": 71,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 small / 形態補正 -1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "コーチェラバレー",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-26 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0
+        },
+        {
+          "number": 8,
+          "name": "グランドカリナン",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0
+        },
+        {
+          "number": 9,
+          "name": "エコロレイズ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-26 後傾・偏りなしで明確な展開利不利なし",
+            "2026-06-14 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 10,
+          "name": "マイネルカンパーナ",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        },
+        {
+          "number": 11,
+          "name": "ブレイヴロッカー",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0
+        },
+        {
+          "number": 12,
+          "name": "ゴールデンスナップ",
+          "currentPace": 73,
+          "shadowPace": 74,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "想定ペース 標準 / 脚質 先行",
+            "コース形態 small / 形態補正 +1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 13,
+          "name": "ホールネス",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-26 後傾・偏りなしに逆らって後方から押し上げた",
+            "2026-06-21 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        },
+        {
+          "number": 14,
+          "name": "ギャンブルルーム",
+          "currentPace": 73,
+          "shadowPace": 72,
+          "paceAdjustment": -1,
+          "historyAdjustment": -1,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-26 後傾・偏りなしの展開利を受けた好走",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 small / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "確定結果 7R / 脚質補正 +0 / 枠補正 +0",
+            "直線の実走進路は未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

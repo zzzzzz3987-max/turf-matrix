@@ -63,29 +63,38 @@ test("baseline reproduces the current three displayed tickets", () => {
   assert.deepEqual(buildBaselineBattleTicketPlan(strongRace()).tickets.map((item) => item.type), ["win", "quinella", "wide"]);
 });
 
-test("wide compares both opponents and selects the stronger market value", () => {
+test("wide compares both opponents and selects the higher conservative payout", () => {
   const race = strongRace();
   race.opponents[0].ev = 1.85;
   race.opponents[1].ev = 0.13;
-  race.ticketOdds.wideOpponent1 = { minOdds: 4.7, maxOdds: 6.5, status: "active" };
-  race.ticketOdds.wideOpponent2 = { minOdds: 2.4, maxOdds: 3.1, status: "active" };
+  race.ticketOdds.wideOpponent1 = { minOdds: 3.4, maxOdds: 4.1, status: "active" };
+  race.ticketOdds.wideOpponent2 = { minOdds: 4.7, maxOdds: 6.5, status: "active" };
 
   const baseline = buildBaselineBattleTicketPlan(race);
   const shadow = buildBattleTicketPlan(race);
-  assert.deepEqual(baseline.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 3]);
-  assert.deepEqual(shadow.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 3]);
+  assert.deepEqual(baseline.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 13]);
+  assert.deepEqual(shadow.tickets.find((item) => item.type === "wide").horses.map((horse) => horse.number), [4, 13]);
 });
 
-test("three selected horses below break-even remove only the wide ticket", () => {
+test("wide remains available when its minimum payout covers every displayed stake", () => {
   const race = strongRace();
   race.indexTop.ev = 0.9;
   race.opponents[0].ev = 0.6;
   race.opponents[1].ev = 0.7;
 
-  assert.deepEqual(buildBaselineBattleTicketPlan(race).tickets.map((item) => item.type), ["win", "quinella"]);
+  assert.deepEqual(buildBaselineBattleTicketPlan(race).tickets.map((item) => item.type), ["win", "quinella", "wide"]);
+  const plan = buildBattleTicketPlan(race);
+  assert.deepEqual(plan.tickets.map((item) => item.type), ["win", "quinella", "wide"]);
+});
+
+test("wide is removed when its minimum payout cannot cover the complete stake", () => {
+  const race = strongRace();
+  race.ticketOdds.wideOpponent1 = { minOdds: 2.9, maxOdds: 3.4, status: "active" };
+  race.ticketOdds.wideOpponent2 = { minOdds: 3, maxOdds: 3.8, status: "active" };
+
   const plan = buildBattleTicketPlan(race);
   assert.deepEqual(plan.tickets.map((item) => item.type), ["win", "quinella"]);
-  assert.ok(plan.rejected.includes("ワイド: 選出3頭がすべて期待値1.00未満"));
+  assert.ok(plan.rejected.includes("ワイド: 下限払戻しが総投資額以下、または相手候補の基準未満"));
 });
 
 test("ticket plan identity ignores rationale text and pair order", () => {

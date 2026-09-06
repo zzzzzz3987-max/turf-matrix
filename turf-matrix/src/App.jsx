@@ -1931,8 +1931,10 @@ const BattleRacePanel = ({ race, onOpen }) => {
   const [opponentA, opponentB] = race.opponents ?? [];
   const axis = race.indexTop;
   const exactaPair = opponentA ? `${axis.number}-${opponentA.number}` : null;
-  const wideCandidate = selectBattleWideCandidate(race);
+  const baseTicketUnits = 1 + (exactaPair ? 1 : 0);
+  const wideCandidate = selectBattleWideCandidate(race, { stakedUnitsBeforeWide: baseTicketUnits });
   const widePair = wideCandidate ? `${axis.number}-${wideCandidate.opponent.number}` : null;
+  const wideMinimumProfit = wideCandidate ? Math.round(wideCandidate.minimumProfitUnits * 100) : null;
 
   return (
     <section className="mt-12">
@@ -1992,8 +1994,18 @@ const BattleRacePanel = ({ race, onOpen }) => {
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
               <span>単勝 <Num>{axis.number}</Num></span>
               {exactaPair ? <span>馬連 <Num>{exactaPair}</Num></span> : null}
-              {widePair ? <span>ワイド <Num>{widePair}</Num></span> : null}
+              {widePair ? (
+                <span>
+                  ワイド <Num>{widePair}</Num>
+                  <Num className="ml-1 text-[#64748B]">({wideCandidate.market.minOdds.toFixed(1)}倍〜)</Num>
+                </span>
+              ) : null}
             </div>
+            {widePair ? (
+              <div className="mt-2 text-[10px] leading-relaxed text-[#64748B]">
+                各<Num>100</Num>円・計<Num>{(baseTicketUnits + 1) * 100}</Num>円なら、ワイド的中だけでも最低<Num>+{wideMinimumProfit}</Num>円
+              </div>
+            ) : null}
             {race.valueWatch ? (
               <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">
                 注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}

@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
-import { dataMode, loadWeekData } from "./data/week-data-loader.js";
+import { adaptWeekDataPayload, dataMode, loadWeekData } from "./data/week-data-loader.js";
 import embeddedAllRaceSignals from "../tools/all-race-signals.json";
 import { startLiveDataRefresh } from "./data/live-data-refresh.js";
 import rolePerformance from "./data/public-role-performance.json";
@@ -302,7 +302,11 @@ const prepareWeekData = (rawWeekData) => {
 let WEEK_DATA_PROMISE = loadWeekData().then(prepareWeekData);
 
 const adoptLiveData = ({ weekData, allRaceSignals }) => {
-  WEEK_DATA_PROMISE = Promise.resolve(prepareWeekData(weekData));
+  const adaptedWeekData = adaptWeekDataPayload(weekData, {
+    previewMode: false,
+    officialWeekData: weekData,
+  });
+  WEEK_DATA_PROMISE = Promise.resolve(prepareWeekData(adaptedWeekData));
   currentAllRaceSignals = allRaceSignals;
 };
 

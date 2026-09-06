@@ -164,6 +164,10 @@ const adaptCandidate = (candidate, { previewMode = false, officialWeekData = nul
   };
 };
 
+export const adaptWeekDataPayload = (weekData, options = {}) => (
+  isCandidatePayload(weekData) ? adaptCandidate(weekData, options) : weekData
+);
+
 let weekDataPromise = null;
 
 const fetchJson = async (url) => {
@@ -185,9 +189,7 @@ export const loadWeekData = () => {
       });
       dataMode = useCandidate ? "candidate" : "official";
       const selectedWeekData = useCandidate ? batchCandidateWeekData : officialWeekData;
-      return isCandidatePayload(selectedWeekData)
-        ? adaptCandidate(selectedWeekData, { previewMode: useCandidate, officialWeekData })
-        : selectedWeekData;
+      return adaptWeekDataPayload(selectedWeekData, { previewMode: useCandidate, officialWeekData });
     });
   }
   return weekDataPromise;

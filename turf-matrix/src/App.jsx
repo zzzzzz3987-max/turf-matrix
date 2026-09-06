@@ -1,7 +1,8 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
 import { dataMode, loadWeekData } from "./data/week-data-loader.js";
-import allRaceSignals from "../tools/all-race-signals.json";
+import embeddedAllRaceSignals from "../tools/all-race-signals.json";
+import { startLiveDataRefresh } from "./data/live-data-refresh.js";
 import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import { selectBattleWideCandidate } from "../tools/battle-ticket-selection.mjs";
@@ -26,6 +27,9 @@ import {
   ChevronDown, ChevronLeft, X, Star, ChevronRight,
   Target, ShieldAlert, KeyRound,
 } from "lucide-react";
+
+const EMBEDDED_DATA_VERSION = __TURF_MATRIX_DATA_VERSION__;
+let currentAllRaceSignals = embeddedAllRaceSignals;
 
 /* =====================================================================
  * TURF MATRIX β (v0.3) — AI Racing Intelligence Platform
@@ -287,13 +291,20 @@ const normalizeWeekData = (db) => {
   };
 };
 
-const WEEK_DATA_PROMISE = loadWeekData().then((rawWeekData) => {
+const prepareWeekData = (rawWeekData) => {
   const normalized = normalizeWeekData(rawWeekData);
   const intelligencePending = normalized.meta?.intelligenceLayerConnected === false;
   const errors = dataMode === "candidate" || intelligencePending ? [] : validateWeekData(normalized);
   if (errors.length) console.warn("[TURF MATRIX] week-data 検証警告:", errors);
   return normalized;
-});
+};
+
+let WEEK_DATA_PROMISE = loadWeekData().then(prepareWeekData);
+
+const adoptLiveData = ({ weekData, allRaceSignals }) => {
+  WEEK_DATA_PROMISE = Promise.resolve(prepareWeekData(weekData));
+  currentAllRaceSignals = allRaceSignals;
+};
 
 /* =====================================================================
  * [3] lib/dataProvider — データ取得層
@@ -2130,16 +2141,25 @@ const sortRaceByTime = (a, b) =>
   String(a.track ?? "").localeCompare(String(b.track ?? ""), "ja") ||
   Number(a.number ?? 0) - Number(b.number ?? 0);
 
-const HomePage = ({ onOpenRace }) => {
+const HomePage = ({ onOpenRace, dataRevision }) => {
   const [meta, setMeta] = useState(null);
   const [races, setRaces] = useState(null);
   const [ranking, setRanking] = useState(null);
 
   useEffect(() => {
-    dataProvider.getMeta().then(setMeta);
-    dataProvider.getRaces().then(setRaces);
-    dataProvider.getIndexRanking(5).then(setRanking);
-  }, []);
+    let active = true;
+    Promise.all([
+      dataProvider.getMeta(),
+      dataProvider.getRaces(),
+      dataProvider.getIndexRanking(5),
+    ]).then(([nextMeta, nextRaces, nextRanking]) => {
+      if (!active) return;
+      setMeta(nextMeta);
+      setRaces(nextRaces);
+      setRanking(nextRanking);
+    });
+    return () => { active = false; };
+  }, [dataRevision]);
   const featuredRace = useMemo(() => {
     if (!races?.length) return null;
     const raceWithData = races.filter((race) => race.topHorse.available);
@@ -2150,7 +2170,7 @@ const HomePage = ({ onOpenRace }) => {
     () => [...(races ?? [])].sort(sortRaceByTime),
     [races]
   );
-  const allRaceSignalData = meta?.date === allRaceSignals.date ? allRaceSignals : null;
+  const allRaceSignalData = meta?.date === currentAllRaceSignals.date ? currentAllRaceSignals : null;
   const battleRace = allRaceSignalData?.races?.find((race) => race.id === allRaceSignalData.battleRaceId) ?? null;
   const raceGroups = useMemo(() => {
     const available = races ?? [];
@@ -2551,12 +2571,13 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
 };
 
 /* ---- レース詳細ページ ---- */
-const RacePage = ({ raceId, initialHorseId, onBack }) => {
+const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
   const [race, setRace] = useState(null);
   const [sortKey, setSortKey] = useState("score");
   const [showAllHorses, setShowAllHorses] = useState(false);
   const [expandedId, setExpandedId] = useState(null); // PC: インライン展開
   const [sheetHorse, setSheetHorse] = useState(null); // モバイル: ボトムシート
+  const initialHorseHandledRef = useRef(false);
   const isDesktop = useIsDesktop();
 
   /* Rank・期待値はロジック層で自動計算(手入力不要) */
@@ -2582,10 +2603,17 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
   }, [raceId, initialHorseId, sortKey]);
 
   useEffect(() => {
-    setRace(null);
+    initialHorseHandledRef.current = false;
+  }, [raceId, initialHorseId]);
+
+  useEffect(() => {
+    let active = true;
     dataProvider.getRace(raceId).then((r) => {
+      if (!active) return;
       setRace(r);
-      if (initialHorseId && r) {
+      setSheetHorse((current) => current ? r?.horses?.find((horse) => horse.id === current.id) ?? null : null);
+      if (initialHorseId && r && !initialHorseHandledRef.current) {
+        initialHorseHandledRef.current = true;
         const h = r.horses.find((x) => x.id === initialHorseId);
         if (h) {
               if (window.matchMedia("(min-width: 768px)").matches) {
@@ -2599,7 +2627,8 @@ const RacePage = ({ raceId, initialHorseId, onBack }) => {
         }
       }
     });
-  }, [raceId, initialHorseId]);
+    return () => { active = false; };
+  }, [raceId, initialHorseId, dataRevision]);
 
   const handleToggle = useCallback(
     (horse) => {
@@ -2794,9 +2823,26 @@ export default function App() {
   const [route, setRoute] = useState({ page: "home" });
   const [meta, setMeta] = useState(null);
   const [glossaryOpen, setGlossaryOpen] = useState(false);
+  const [dataRevision, setDataRevision] = useState(0);
 
   useEffect(() => {
-    dataProvider.getMeta().then(setMeta);
+    let active = true;
+    dataProvider.getMeta().then((nextMeta) => {
+      if (active) setMeta(nextMeta);
+    });
+    return () => { active = false; };
+  }, [dataRevision]);
+
+  useEffect(() => {
+    if (dataMode !== "official") return undefined;
+    return startLiveDataRefresh({
+      initialVersion: EMBEDDED_DATA_VERSION,
+      onUpdate: (update) => {
+        adoptLiveData(update);
+        setDataRevision((current) => current + 1);
+      },
+      onError: (error) => console.warn("[TURF MATRIX] live data refresh failed:", error),
+    });
   }, []);
 
   const openRace = (raceId, horseId = null) => {
@@ -2859,13 +2905,14 @@ export default function App() {
       <div className="relative z-10">
         <Header onHome={goHome} meta={meta} />
 
-        {route.page === "home" && <HomePage onOpenRace={openRace} />}
+        {route.page === "home" && <HomePage onOpenRace={openRace} dataRevision={dataRevision} />}
         {route.page === "race" && (
           <RacePage
             key={route.key}
             raceId={route.raceId}
             initialHorseId={route.horseId}
             onBack={goHome}
+            dataRevision={dataRevision}
           />
         )}
 

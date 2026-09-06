@@ -11,6 +11,7 @@ const STATE_PATH = join(RUNTIME_DIR, "odds-auto-update-state.json");
 const LOCK_PATH = join(RUNTIME_DIR, "odds-auto-update.lock");
 const LOG_PATH = join(RUNTIME_DIR, "odds-auto-update.log");
 const ALERT_PATH = join(RUNTIME_DIR, "odds-auto-update-alert.json");
+const PREFLIGHT_STATE_PATH = join(RUNTIME_DIR, "odds-preflight-state.json");
 const NOTIFICATION_SCRIPT_PATH = join(TOOLS_DIR, "jvfetch", "send-operator-notification.ps1");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
@@ -31,6 +32,14 @@ const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
 const LOCK_MAX_AGE_MS = 18 * 60 * 60 * 1_000;
+const LIVE_RELEASE_TESTS = [
+  "intelligence-regression.test.mjs",
+  "odds-partial.test.mjs",
+  "pair-odds.test.mjs",
+  "public-update-diff.test.mjs",
+  "race-signal-selection.test.mjs",
+  "battle-ticket-selection.test.mjs",
+].map((name) => join("tools", "intelligence", "tests", name));
 
 const args = process.argv.slice(2);
 const hasFlag = (flag) => args.includes(flag);
@@ -60,13 +69,17 @@ const dataDate = (data) => data?.meta?.date ?? data?.races?.[0]?.id?.slice(0, 10
 
 const notifyOperator = (title, message) => {
   if (process.platform !== "win32" || !existsSync(NOTIFICATION_SCRIPT_PATH)) return;
+  const rawMessage = String(message ?? "").trim();
+  const notificationMessage = rawMessage.length <= 320
+    ? rawMessage
+    : "自動更新に失敗しました。詳細はTURF MATRIXの監視アラートを確認してください。";
   const result = spawnSync("powershell.exe", [
     "-NoProfile",
     "-WindowStyle", "Hidden",
     "-ExecutionPolicy", "Bypass",
     "-File", NOTIFICATION_SCRIPT_PATH,
     "-Title", title,
-    "-Message", message,
+    "-Message", notificationMessage,
   ], { cwd: REPO_ROOT, encoding: "utf8", stdio: "pipe" });
   if (result.error || result.status !== 0) {
     log("ERROR", "Windows notification failed", {
@@ -74,7 +87,7 @@ const notifyOperator = (title, message) => {
     });
     return;
   }
-  log("ALERT", "Windows notification dispatched", { message });
+  log("ALERT", "Windows notification dispatched", { message: notificationMessage });
 };
 
 const recordAlert = (message, details = null, kind = "update") => {
@@ -228,6 +241,54 @@ const assertCleanTrackedTree = (git) => {
   if (ahead || behind) throw new Error(`main must match origin/main before automatic publish (ahead=${ahead}, behind=${behind})`);
 };
 
+const intelligenceTests = () => readdirSync(join(TOOLS_DIR, "intelligence", "tests"))
+  .filter((name) => name.endsWith(".test.mjs"))
+  .map((name) => join("tools", "intelligence", "tests", name));
+
+const runMorningPreflight = () => {
+  const publishedData = readJson(WEEK_DATA_PATH, null);
+  const candidateData = readJson(CANDIDATE_PATH, null);
+  const selected = selectScheduleData(publishedData, candidateData);
+  if (!selected.data || !selected.raceDate) throw new Error("Morning preflight could not resolve the race schedule");
+
+  const git = resolveGit();
+  assertCleanTrackedTree(git);
+  const commit = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();
+  const previous = readJson(PREFLIGHT_STATE_PATH, null);
+  if (previous?.status === "passed" && previous.raceDate === selected.raceDate && previous.commit === commit) {
+    log("INFO", "Morning preflight already passed", { raceDate: selected.raceDate, commit });
+    return;
+  }
+
+  log("INFO", "Morning preflight started", { raceDate: selected.raceDate, commit });
+  try {
+    runNode("--test", ...intelligenceTests());
+    runNode("tools/verify-data-integrity.mjs");
+    runNode("node_modules/vite/bin/vite.js", "build");
+    run(git, ["diff", "--check"]);
+    writeJson(PREFLIGHT_STATE_PATH, {
+      status: "passed",
+      raceDate: selected.raceDate,
+      commit,
+      completedAt: new Date().toISOString(),
+    });
+    const currentAlert = readJson(ALERT_PATH, null);
+    if (currentAlert?.status === "active" && String(currentAlert.message ?? "").startsWith("Morning preflight failed:")) {
+      resolveAlert("Morning preflight recovered and completed");
+    }
+    log("INFO", "Morning preflight completed", { raceDate: selected.raceDate, commit });
+  } catch (error) {
+    writeJson(PREFLIGHT_STATE_PATH, {
+      status: "failed",
+      raceDate: selected.raceDate,
+      commit,
+      failedAt: new Date().toISOString(),
+      error: error.message,
+    });
+    throw new Error(`Morning preflight failed: ${error.message}`);
+  }
+};
+
 const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath = null) => {
   const allRaceRuntime = resolveAllRaceRuntime(raceDate);
   const battleShadowPath = `data/shadow/battle-race/${raceDate}-pre-race.json`;
@@ -277,10 +338,7 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath
     copyFileSync(WEEK_DATA_PATH, BACKUP_DATA_PATH);
     copyFileSync(NEXT_DATA_PATH, WEEK_DATA_PATH);
 
-    const tests = readdirSync(join(TOOLS_DIR, "intelligence", "tests"))
-      .filter((name) => name.endsWith(".test.mjs"))
-      .map((name) => join("tools", "intelligence", "tests", name));
-    runNode("--test", ...tests);
+    runNode("--test", ...LIVE_RELEASE_TESTS);
     runNode("tools/verify-data-integrity.mjs");
     runNode("node_modules/vite/bin/vite.js", "build");
     run(git, ["diff", "--check"]);
@@ -472,6 +530,7 @@ const main = async () => {
   }
 
   try {
+    if (watch && !dryRun) runMorningPreflight();
     do {
       const result = runOnce();
       if (!watch || dryRun || result.done) break;

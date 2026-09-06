@@ -91,7 +91,7 @@ if ($races.Count -eq 0) {
 }
 
 $now = [DateTimeOffset]::Now
-$windowStart = ($races | Sort-Object TriggerTime | Select-Object -First 1).TriggerTime.AddMinutes(-15)
+$windowStart = [DateTimeOffset]::Parse("$raceDate`T08:00:00+09:00")
 $windowEnd = ($races | Sort-Object PostTime | Select-Object -Last 1).PostTime.AddMinutes(10)
 if ($now -lt $windowStart -or $now -gt $windowEnd) {
   exit 0

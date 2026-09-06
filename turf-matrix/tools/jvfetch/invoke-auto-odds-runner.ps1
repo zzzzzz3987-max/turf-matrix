@@ -154,10 +154,17 @@ try {
     Invoke-Checked $Git @("pull", "--ff-only", "origin", "main")
 
     $packageLock = Join-Path $RepoRoot "package-lock.json"
+    $packageJson = Join-Path $RepoRoot "package.json"
     $nodeModules = Join-Path $RepoRoot "node_modules"
     $packageHash = if (Test-Path -LiteralPath $packageLock) { (Get-FileHash -LiteralPath $packageLock -Algorithm SHA256).Hash } else { "none" }
     $installedHash = if (Test-Path -LiteralPath $DependencyStampPath) { (Get-Content -LiteralPath $DependencyStampPath -Raw).Trim() } else { "" }
-    if (-not (Test-Path -LiteralPath $nodeModules) -or $installedHash -ne $packageHash) {
+    $missingDirectDependencies = @()
+    if (Test-Path -LiteralPath $packageJson) {
+      $package = Get-Content -LiteralPath $packageJson -Raw -Encoding UTF8 | ConvertFrom-Json
+      $dependencyNames = @($package.dependencies.PSObject.Properties.Name) + @($package.devDependencies.PSObject.Properties.Name)
+      $missingDirectDependencies = @($dependencyNames | Where-Object { -not (Test-Path -LiteralPath (Join-Path $nodeModules $_)) })
+    }
+    if (-not (Test-Path -LiteralPath $nodeModules) -or $installedHash -ne $packageHash -or $missingDirectDependencies.Count -gt 0) {
       if ($Npm) {
         Invoke-Checked $Npm @("ci", "--no-audit", "--no-fund")
       } else {

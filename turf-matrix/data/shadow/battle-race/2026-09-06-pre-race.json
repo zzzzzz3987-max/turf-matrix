@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-06T05:03:31.803Z",
+  "raceDate": "2026-09-06",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "d6709a6422d966e1935847bddcb797aaea65cae9b39bd82fe7579689014ff36a",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-5354f903cfc456e8",
+      "sha256": "5354f903cfc456e864c7b98a8a8c18c789dd1b939f1577b3b3f3356fd636dd85",
+      "fileCount": 38
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 1,
+      "id": "tmx-3c3ab220bd5e69aa",
+      "sha256": "3c3ab220bd5e69aac6120a8dd3ddc8051c10f86b0da56359cd0f724c9217215e",
+      "fileCount": 5
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "d1aafc20037b77c6d2f4e955f7ea8c3387e542432b673a927b53ac77966c7b6a",
+  "baseline": {
+    "date": "2026-09-06",
+    "raceId": "2026-09-06-札幌-10R",
+    "bundleId": "2026-09-06-sapporo-10R",
+    "track": "札幌",
+    "raceNumber": 10,
+    "raceName": "ＨＴＢ賞",
+    "scheduledTime": "14:45",
+    "axis": {
+      "number": 9,
+      "name": "ハヤブササキチャン",
+      "tmIndex": 85,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "ドッグウッド",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      {
+        "number": 8,
+        "name": "ワザモノ",
+        "tmIndex": 76,
+        "selectionScore": 69
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.5,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 85,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 71.1,
+        "conditionFit": 84,
+        "opponentDepth": 75.6
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-06",
+    "raceId": "2026-09-06-札幌-10R",
+    "bundleId": "2026-09-06-sapporo-10R",
+    "track": "札幌",
+    "raceNumber": 10,
+    "raceName": "ＨＴＢ賞",
+    "scheduledTime": "14:45",
+    "axis": {
+      "number": 9,
+      "name": "ハヤブササキチャン",
+      "tmIndex": 85,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "ドッグウッド",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      {
+        "number": 8,
+        "name": "ワザモノ",
+        "tmIndex": 76,
+        "selectionScore": 69
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.5,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 85,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 71.1,
+        "conditionFit": 84,
+        "opponentDepth": 75.6
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-06",
+      "raceId": "2026-09-06-札幌-10R",
+      "bundleId": "2026-09-06-sapporo-10R",
+      "track": "札幌",
+      "raceNumber": 10,
+      "raceName": "ＨＴＢ賞",
+      "scheduledTime": "14:45",
+      "axis": {
+        "number": 9,
+        "name": "ハヤブササキチャン",
+        "tmIndex": 85,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 3,
+          "name": "ドッグウッド",
+          "tmIndex": 81,
+          "selectionScore": null
+        },
+        {
+          "number": 8,
+          "name": "ワザモノ",
+          "tmIndex": 76,
+          "selectionScore": 69
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 78.5,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 85,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 71.1,
+          "conditionFit": 84,
+          "opponentDepth": 75.6
+        }
+      }
+    }
+  ]
+}

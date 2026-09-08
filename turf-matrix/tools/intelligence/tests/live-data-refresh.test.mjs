@@ -1,11 +1,88 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { fetchLiveDataUpdate } from "../../../src/data/live-data-refresh.js";
+import { fetchLiveDataUpdate, startLiveDataRefresh } from "../../../src/data/live-data-refresh.js";
 
 const response = (body, ok = true, status = 200) => ({
   ok,
   status,
   json: async () => body,
+});
+
+test("a hanging manifest or JSON body times out and aborts the request", async () => {
+  for (const hangBody of [false, true]) {
+    let signal;
+    const fetchImpl = async (_, options) => {
+      signal = options.signal;
+      if (!hangBody) return new Promise(() => {});
+      return { ok: true, json: () => new Promise(() => {}) };
+    };
+    await assert.rejects(fetchLiveDataUpdate({ currentVersion: "old", fetchImpl, timeoutMs: 5 }), /timed out/);
+    assert.equal(signal.aborted, true);
+  }
+});
+
+test("a failed payload does not produce a partial update", async () => {
+  const fetchImpl = async (url) => {
+    if (url.startsWith("/live/version")) return response({ version: "new", weekDataUrl: "/week", allRaceSignalsUrl: "/signals" });
+    if (url === "/week") return response({ races: [] });
+    return response(null, false, 503);
+  };
+  await assert.rejects(fetchLiveDataUpdate({ currentVersion: "old", fetchImpl }), /503/);
+});
+
+test("polling recovers after timeout and retries when applying the update fails", async () => {
+  const previousWindow = globalThis.window;
+  const previousDocument = globalThis.document;
+  let tick;
+  let stop;
+  let hang = true;
+  let failApply = true;
+  const errors = [];
+  let updates = 0;
+  let notifyError;
+  let notifyUpdate;
+  globalThis.window = {
+    setInterval: (callback) => { tick = callback; return 1; },
+    clearInterval: () => {},
+    addEventListener: () => {},
+    removeEventListener: () => {},
+  };
+  globalThis.document = { hidden: false, addEventListener: () => {}, removeEventListener: () => {} };
+  const fetchImpl = async (url) => {
+    if (hang) return new Promise(() => {});
+    if (url.startsWith("/live/version")) return response({ version: "new", weekDataUrl: "/week", allRaceSignalsUrl: "/signals" });
+    return response({ races: [] });
+  };
+  try {
+    const firstError = new Promise((resolve) => { notifyError = resolve; });
+    stop = startLiveDataRefresh({
+      initialVersion: "old", fetchImpl, timeoutMs: 5,
+      onError: (error) => { errors.push(error.message); notifyError(); },
+      onUpdate: () => {
+        if (failApply) throw new Error("apply failed");
+        updates += 1;
+        notifyUpdate();
+      },
+    });
+    await firstError;
+    assert.match(errors[0], /timed out/);
+    hang = false;
+    const secondError = new Promise((resolve) => { notifyError = resolve; });
+    tick();
+    await secondError;
+    assert.equal(errors[1], "apply failed");
+    failApply = false;
+    const applied = new Promise((resolve) => { notifyUpdate = resolve; });
+    tick();
+    await applied;
+    assert.equal(updates, 1);
+  } finally {
+    stop?.();
+    if (previousWindow === undefined) delete globalThis.window;
+    else globalThis.window = previousWindow;
+    if (previousDocument === undefined) delete globalThis.document;
+    else globalThis.document = previousDocument;
+  }
 });
 
 test("live data refresh only reads the manifest when the version is unchanged", async () => {

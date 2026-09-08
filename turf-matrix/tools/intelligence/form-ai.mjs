@@ -68,29 +68,35 @@ const distanceFitBonus = (run, targetDistance) => {
   return -3;
 };
 
-const runScore = (run, index, targetDistance) => {
-  const recentWeight = 1 - index * 0.08;
+const recentRunWeight = (index) => 1 - index * 0.08;
+
+const runScore = (run, index, targetDistance, { includeDistanceFit = true } = {}) => {
+  const recentWeight = recentRunWeight(index);
   const base =
     finishScore(run) * 0.42 +
     marginScore(run) * 0.28 +
     (isValidLast3F(run) ? clamp(90 - (run.last3F - 33.5) * 7, 45, 92) : 60) * 0.15 +
     60 * 0.15;
-  return (base + classBonus(run) + distanceFitBonus(run, targetDistance)) * recentWeight;
+  return (base + classBonus(run) + (includeDistanceFit ? distanceFitBonus(run, targetDistance) : 0)) * recentWeight;
 };
 
 const scoreZi = (horse) => {
   return calculateAbilityProfile(horse).score;
 };
 
-const scoreRecentForm = (horse, { normalizeWeights = false } = {}) => {
+export const selectRecentFormRuns = (horse) => Object.fromEntries(
+  Object.entries(splitRunsByOrigin(horse.pastRuns ?? [])).map(([origin, runs]) => [origin, runs.slice(0, 5)]),
+);
+
+const scoreRecentForm = (horse, { normalizeWeights = false, includeDistanceFit = true } = {}) => {
   const runs = horse.pastRuns ?? [];
   if (!runs.length) return 50;
-  const { central, local } = splitRunsByOrigin(runs);
+  const { central, local } = selectRecentFormRuns(horse);
   const scoreRuns = (source) => {
     const selected = source.slice(0, 5);
-    const scores = selected.map((run, index) => runScore(run, index, horse.currentRace?.distance));
+    const scores = selected.map((run, index) => runScore(run, index, horse.currentRace?.distance, { includeDistanceFit }));
     if (!normalizeWeights) return avg(scores);
-    const totalWeight = selected.reduce((sum, _, index) => sum + 1 - index * 0.08, 0);
+    const totalWeight = selected.reduce((sum, _, index) => sum + recentRunWeight(index), 0);
     return scores.reduce((sum, score) => sum + score, 0) / totalWeight;
   };
   const centralScore = central.length
@@ -105,6 +111,25 @@ const scoreRecentForm = (horse, { normalizeWeights = false } = {}) => {
   }
   if (centralScore != null) return clamp(centralScore);
   return clamp(50 + (localScore - 50) * 0.35);
+};
+
+export const buildRecentFormWeightEvidence = (horse) => {
+  const groups = selectRecentFormRuns(horse);
+  return Object.fromEntries(Object.entries(groups).map(([origin, source]) => {
+    const runs = source.slice(0, 5).map((run, index) => ({
+      date: run.date ?? run.raceDate, course: run.course,
+      weight: recentRunWeight(index),
+      distanceFitBonus: distanceFitBonus(run, horse.currentRace?.distance),
+      performanceScore: runScore(run, 0, horse.currentRace?.distance),
+      weightedScore: runScore(run, index, horse.currentRace?.distance),
+    }));
+    const totalWeight = runs.reduce((sum, run) => sum + run.weight, 0);
+    const weightedSum = runs.reduce((sum, run) => sum + run.weightedScore, 0);
+    return [origin, { runs, count: runs.length, totalWeight,
+      legacyAverage: runs.length ? weightedSum / runs.length : null,
+      normalizedAverage: totalWeight ? weightedSum / totalWeight : null,
+    }];
+  }));
 };
 
 const scoreDistanceEvidence = (runs, targetDistance) => {

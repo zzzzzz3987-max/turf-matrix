@@ -1,0 +1,7547 @@
+{
+  "schemaVersion": 1,
+  "raceDate": "2026-09-06",
+  "scope": "Local saved data and current code, not proof of live deployment or predictive accuracy.",
+  "summary": {
+    "races": 9,
+    "horses": 114,
+    "replayed": 114,
+    "trainingMissing": 39,
+    "trainingPartial": 2,
+    "trackBiasMonitoring": 114,
+    "otherSurfaceSameCourseHorses": 15,
+    "formCandidateChanges": 113,
+    "courseCandidateChanges": 25,
+    "unassessedNumericFactors": 114,
+    "publicStrengthErrors": 0,
+    "errors": 0
+  },
+  "errors": [],
+  "rows": [
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 1,
+      "name": "テーオーアルアイン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.8504283938841,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 2,
+      "name": "ストップザタイム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.72967849303402,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 3,
+      "name": "ツーネサーン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "partial",
+          "score": 47,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 61.751800809900345,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 6
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 4,
+      "name": "ダノンカゼルタ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.90815402129233,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 5,
+      "name": "ショウナンバルドル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.77026081758753,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 6,
+      "name": "バルセシート",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 84,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.42077051822645,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-08R",
+      "number": 7,
+      "name": "クイックバイオ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.59847036347244,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 1,
+      "name": "ヒミノエトワール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.26505754485818,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 2,
+      "name": "ユウェンタース",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 63.66258092717368,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 3,
+      "name": "ライフゲート",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.008,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 4,
+      "name": "リメンバーヒム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.2870247989041,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 5,
+      "name": "タイヨウフレア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 35,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.75619435075396,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 5,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 6,
+      "name": "ロードアマルフィ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.96224163262318,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 7,
+      "name": "ユージュアーナ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.06932124721432,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 8,
+      "name": "コスモオピニオン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 64.70045598721113,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": -1
+      },
+      "otherSurfaceSameCourseRuns": 3,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 9,
+      "name": "アオハルブルース",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.64913930718421,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 10,
+      "name": "エスシービクトリア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 89,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.89208274022745,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 11,
+      "name": "スターオブロンドン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 62.67844013634198,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 10
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 12,
+      "name": "アラナコア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.51770566321942,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 13,
+      "name": "エーリアル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 45,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.43344630883834,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": -2
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-09R",
+      "number": 14,
+      "name": "ラインフォルテ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.14469361059707,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 1,
+      "name": "ホープエトワール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 51,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 35,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 64.7250794352035,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 0,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 2,
+      "name": "キョウエイカンフ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.8316743579802,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 3,
+      "name": "サマースイートピー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 64.84914891522794,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 4,
+      "name": "ホウオウプレミア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.75971813113529,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": -1
+      },
+      "otherSurfaceSameCourseRuns": 5,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 5,
+      "name": "ラヴァグロウ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 46,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 62.08749212059077,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 6,
+      "name": "アスタールフナ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 61.88647979191709,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 7,
+      "name": "レヴィテーション",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 45,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.499036178963536,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 8,
+      "name": "ルーフオブヘヴン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 69.57315647035348,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 9,
+      "name": "ピコニ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 39,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 61.255016906309244,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 10,
+      "name": "モーゲンセン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 11,
+      "name": "サヨノジャンボリー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 64.82752258708732,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 12,
+      "name": "ジャスパーソレイユ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 46,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 69.0266180385388,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 13,
+      "name": "キタノライブリー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.66828783740168,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 14,
+      "name": "イノキ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.99211031080355,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": -2
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 15,
+      "name": "サードウインド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 51,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.00031674275296,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-09R",
+      "number": 16,
+      "name": "ドントゥザムーン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.11168670125709,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 1,
+      "name": "フナデ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 47,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.27820532680708,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 2,
+      "name": "ヒズマスターピース",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 69.77886824339046,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 3,
+      "name": "ドッグウッド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.13510397949099,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 4,
+      "name": "ロートホルン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.45406713581667,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 5,
+      "name": "エーデル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 44,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 53,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 63.70152613219494,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": -4
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 6,
+      "name": "グレーヌドジョワ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.49070608992851,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 5
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 7,
+      "name": "プレアレジェンド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 49,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.67514088648646,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 8,
+      "name": "ワザモノ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "partial",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 63.14163371742165,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 9,
+      "name": "ハヤブササキチャン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 88,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.699032188771,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 10,
+      "name": "コッツォリーノ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.19449274472893,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 11,
+      "name": "サンセットゴールド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.44365767275664,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 12,
+      "name": "ジャルディニエ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 49,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.286190101744644,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 8
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 13,
+      "name": "ファーマドール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 44,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.71346929738145,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-10R",
+      "number": 14,
+      "name": "ダノンフィオーレ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.5219060899285,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 1,
+      "name": "ボディブロー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.74135647035348,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 2,
+      "name": "ランウインディ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.132242983540266,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 3,
+      "name": "ビバップ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 40,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.04953275373771,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 7,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 4,
+      "name": "ヨリノレジェンド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.74135647035348,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 5,
+      "name": "テーオーグレーザー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 86,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.44665510086995,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 6,
+      "name": "イミュータブル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 37,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.00447617300302,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 7,
+        "courseSameSurface": 4
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 7,
+      "name": "ワークソング",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.92302267444063,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 8,
+      "name": "エムズマインド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.81761031080356,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 9,
+      "name": "メイショウヤーキス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.27025798544031,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 10,
+      "name": "ウルスクローム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 84,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.8743,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 11,
+      "name": "スペシャルナンバー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.42344111825289,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 12,
+      "name": "ライジン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 64.87069189034797,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-10R",
+      "number": 13,
+      "name": "クリノオリーブ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 62.56427979191709,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 2
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 1,
+      "name": "フォルテム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 49,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.61470293471811,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 2,
+      "name": "メイショウピース",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 60.91814505539321,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": -2
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 3,
+      "name": "トーセントラム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.48742399505566,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 4,
+      "name": "マックアルイーン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 5,
+      "name": "フクチャンショウ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 86,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.65195328155703,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 6,
+      "name": "パクスロマーナ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.12221177421361,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 2
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 7,
+      "name": "ルーフ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.0257898390589,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 2
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 8,
+      "name": "カーヌスティ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.27872932167497,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": -8
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-10R",
+      "number": 9,
+      "name": "ポッドロワール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 61.55473887327078,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 4
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 1,
+      "name": "レクスノヴァス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 83,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.58625892179196,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 2,
+      "name": "サクソンジェンヌ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.9460822066033,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 3,
+      "name": "パレハ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.34694883165854,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 4,
+      "name": "ヨヒーン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 84,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.1025727881907,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 5,
+      "name": "ボンドロア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.3886667108807,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 6,
+      "name": "シュトルーヴェ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.644848831658535,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 7,
+      "name": "コーチェラバレー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.989227497397,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 8,
+      "name": "グランドカリナン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 47,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.31998838603278,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 3
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 9,
+      "name": "エコロレイズ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 61.922998212517236,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 10,
+      "name": "マイネルカンパーナ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.61769955732427,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 11,
+      "name": "ブレイヴロッカー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 62.54204505539321,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 12,
+      "name": "ゴールデンスナップ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 88,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.68977416533602,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 13,
+      "name": "ホールネス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 83,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-sapporo-11R",
+      "number": 14,
+      "name": "ギャンブルルーム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.24696919896235,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 1,
+      "name": "ママコチャ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 83,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.62690293471811,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 2,
+      "name": "クラスペディア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.59840293471811,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 3,
+      "name": "フリッカージャブ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.73686507087471,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 4,
+      "name": "ティニア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 64.42754425049435,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 5,
+      "name": "ダイヤモンドノット",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.24942937227924,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 6,
+      "name": "プロトポロス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 41,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.85523787149398,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 7,
+        "courseSameSurface": -5
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 7,
+      "name": "メイショウヨゾラ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.27529071387606,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 8,
+      "name": "ファストネットワーク",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "missing",
+          "score": null,
+          "publiclyEvaluated": false
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": true
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 9,
+      "name": "ピューロマジック",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.04279372331898,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 10,
+      "name": "ヤブサメ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 84,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.42301248230767,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 11,
+      "name": "ヨシノイースター",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.42472399505566,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 2
+      },
+      "otherSurfaceSameCourseRuns": 3,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 12,
+      "name": "レッドモンレーヴ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.95322937227924,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 13,
+      "name": "カルプスペルシュ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 63.37232399505566,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 14,
+      "name": "タマモブラックタイ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.45077364558814,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 1
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 15,
+      "name": "ビッグシーザー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 69.2326216939349,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-hanshin-11R",
+      "number": 16,
+      "name": "タマモイカロス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.86009484238167,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 1,
+      "name": "ジワタネホ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.17247418319424,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 2,
+      "name": "サムシングスイート",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.26786483459803,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 3,
+      "name": "リアライズルミナス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.63872715445338,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 4,
+      "name": "マスターソアラ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.05714685716187,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 3,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 5,
+      "name": "ファムクラジューズ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.02444685716186,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 6,
+      "name": "アストリル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 83,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.4730658006651,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 7,
+      "name": "ロングトールサリー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.96902236103435,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 8,
+      "name": "ナイスプレーアスク",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.96764685716187,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 9,
+      "name": "ドリームコア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 69.30338181355363,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 14,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 10,
+      "name": "ジッピーチューン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 88,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.88790236634505,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-06-nakayama-11R",
+      "number": 11,
+      "name": "ベンヴェヌータ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 85,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 91,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 66.90144685716186,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "monitor",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 3,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    }
+  ],
+  "inputSha256": "b1c74827bbd4dfd65e8f6b84177762e89cff1c1532f0887efb02f27bbed564c2"
+}

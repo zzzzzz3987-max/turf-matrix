@@ -11,6 +11,7 @@ import {
   buildStablePatternPublicView,
   buildHorsePublicView,
   publicConditionFit,
+  isPublicFactorEvaluated,
   publicScoreBand,
   publicTrainingHeadline,
   sanitizePublicText,
@@ -284,6 +285,47 @@ test("missing training data is not presented as poor training", () => {
   });
 
   assert.equal(result.some((flag) => flag.key === "training" || flag.key === "finalTraining"), false);
+});
+
+test("unassessed fallback scores are neither strengths nor risk flags", () => {
+  for (const status of ["missing", "unavailable", "not_applicable", "pending", "monitor"]) {
+    const factorsDetail = {
+      ability: { score: 72, status: "active" },
+      blood: { score: 95, status },
+      distance: { score: 45, status },
+      pace: { score: 45, status },
+      training: { score: 60, status },
+      trackBias: { score: 45, adjustment: -1, status },
+      load: { score: 45, adjustment: -1, status },
+    };
+    const view = buildHorsePublicView({ analysis: { factorsDetail } });
+    assert.deepEqual(view.factors.map((row) => row.key), ["ability"]);
+    assert.deepEqual(view.strengths.map((row) => row.key), ["ability"]);
+    assert.deepEqual(view.riskFlags, []);
+    assert.equal(view.watchFactor, null);
+  }
+  assert.equal(isPublicFactorEvaluated({ score: 70, status: "partial" }), true);
+  assert.equal(isPublicFactorEvaluated({ score: 70 }), true);
+});
+
+test("role explanations do not mistake unavailable training for the reason to oppose a favorite", () => {
+  const horses = Array.from({ length: 6 }, (_, i) => raceHorse({
+    id: String(i), name: "Horse" + i, number: i + 1, score: 85 - i,
+    popularity: i === 5 ? 1 : i + 2, factors: { ability: 70, course: 71, pace: 72 },
+  }));
+  horses[5].analysis.factorsDetail.training = { status: "missing", score: 40 };
+  const result = buildRacePublicConclusion({ horses });
+  assert.equal(result.danger.horse.name, "Horse5");
+  assert.doesNotMatch(result.danger.note, /調教/);
+});
+
+test("clock-only training warning does not claim visually poor movement", () => {
+  const flags = buildHorseRiskFlags({ analysis: {
+    factorsDetail: { training: { score: 70, status: "active" } },
+    trainingEval: { grade: "B", details: { count: 2, final: { score: 60 } } },
+  } });
+  assert.match(flags[0].detail, /時計だけで状態不良とは判断しません/);
+  assert.doesNotMatch(flags[0].detail, /動きは|仕上がりの上積み/);
 });
 
 test("race conclusion selects each public role from fixed race data", () => {

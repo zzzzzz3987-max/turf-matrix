@@ -5,6 +5,7 @@ import embeddedAllRaceSignals from "../tools/all-race-signals.json";
 import { startLiveDataRefresh } from "./data/live-data-refresh.js";
 import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
+import { buildPedigreeRaceEvidence } from "./lib/pedigree-race-evidence.js";
 import { selectBattleWideCandidate } from "../tools/battle-ticket-selection.mjs";
 import {
   buildPedigreeFamilyPublicLines,
@@ -15,6 +16,7 @@ import {
   buildStablePatternPublicView,
   buildHorsePublicView as horseQuickRead,
   publicConditionFit,
+  isPublicFactorEvaluated,
   publicFactorSummary,
   publicHorseComment,
   publicScoreBand,
@@ -842,15 +844,16 @@ const TMFactorsCard = ({ analysis }) => {
     ["trackBias", "馬場傾向"], ["stable", "厩舎"], ["form", "近走"],
   ];
   const factors = defs.map(([key, label]) => ({ key, label, ...(factorsDetail[key] ?? {}) }));
-  const visibleFactors = factors.filter((factor) => isFiniteNumber(factor.score));
-  if (!visibleFactors.length) return null;
+  const visibleFactors = factors.filter(isPublicFactorEvaluated);
+  const pendingFactors = factors.filter((factor) => factor.status && !isPublicFactorEvaluated(factor));
+  if (!visibleFactors.length && !pendingFactors.length) return null;
 
   return (
     <details className="group mt-5 border-t border-gray-100 pt-1">
       <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 rounded-lg py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 [&::-webkit-details-marker]:hidden">
         <span>
           <span className="block text-[12px] font-bold text-slate-900">全評価を見る</span>
-          <span className="mt-0.5 block text-[10px] text-slate-400">能力・血統・調教など{visibleFactors.length}項目</span>
+          <span className="mt-0.5 block text-[10px] text-slate-400">能力・血統・調教など{visibleFactors.length + pendingFactors.length}項目</span>
         </span>
         <ChevronDown size={15} className="text-slate-300 transition-transform group-open:rotate-180" />
       </summary>
@@ -870,6 +873,12 @@ const TMFactorsCard = ({ analysis }) => {
                 {publicFactorSummary(factor.summary, 86)}
               </p>
             ) : null}
+          </div>
+        ))}
+        {pendingFactors.map((factor) => (
+          <div key={factor.key} className="flex items-center justify-between gap-3 border-b border-gray-100 py-3 md:px-3 md:[&:nth-child(odd)]:border-r">
+            <span className="text-[12px] font-semibold text-slate-800">{factor.label}</span>
+            <span className="text-[11px] text-slate-500">{factor.status === "not_applicable" ? "対象外" : "評価保留"}</span>
           </div>
         ))}
       </div>
@@ -1143,7 +1152,7 @@ const ValueCard = ({ ev, rank, popularity }) => {
 };
 
 /* ---- 血統評価: 結論を先に、系統の詳細は必要な時だけ表示 ---- */
-const PedigreeCard = ({ pedigree, sourcePedigree, score }) => {
+const PedigreeCard = ({ pedigree, sourcePedigree, score, horse }) => {
   if (!pedigree) return null;
   const identity = pedigree.identity ?? {};
   const raceBias = pedigree.raceBias;
@@ -1156,6 +1165,7 @@ const PedigreeCard = ({ pedigree, sourcePedigree, score }) => {
   const conditionSummary = buildPedigreePublicConditionSummary(pedigree)
     ?? (raceBias?.summary ? concisePublicInsight(raceBias.summary, 120) : null);
   const bloodComponents = buildPedigreePublicBreakdown(pedigree, sourcePedigree);
+  const raceEvidence = buildPedigreeRaceEvidence(horse, pedigree);
   const traits = [
     { key: "speed", label: "スピード" },
     { key: "burst", label: "瞬発力" },
@@ -1192,6 +1202,39 @@ const PedigreeCard = ({ pedigree, sourcePedigree, score }) => {
             {conditionSummary}
           </p>
         </div>
+      ) : null}
+
+      {raceEvidence ? (
+        <details className="group mt-5 border-y border-gray-100">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 [&::-webkit-details-marker]:hidden">
+            <span className="text-[12px] font-bold text-slate-900">血統の期待と、この馬の実績</span>
+            <ChevronDown size={16} className="shrink-0 text-slate-300 transition-transform group-open:rotate-180" aria-hidden="true" />
+          </summary>
+          <div className="space-y-4 pb-5 text-[12px] leading-6 text-slate-600">
+            {raceEvidence.reading.map((item) => (
+              <div key={item.role}>
+                <h5 className="font-bold text-slate-900">{item.role}{item.name}から考える特徴</h5>
+                <p className="mt-1">{item.text}</p>
+                <p className="mt-1">{item.question}</p>
+              </div>
+            ))}
+            {raceEvidence.evidence.length ? (
+              <dl className="divide-y divide-gray-100 border-y border-gray-100">
+                {raceEvidence.evidence.map((item) => (
+                  <div key={item.label} className="py-3">
+                    <dt className="font-bold text-slate-900">{item.label}</dt>
+                    <dd className="mt-1">{item.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+            <div className="border-l-2 border-teal-500 pl-3">
+              <h5 className="font-bold text-slate-900">今回の判断</h5>
+              <p className="mt-1">{raceEvidence.conclusion}</p>
+            </div>
+            <p className="text-[11px] leading-5 text-slate-500">{raceEvidence.caution}</p>
+          </div>
+        </details>
       ) : null}
 
       {bloodComponents.length ? (
@@ -1484,6 +1527,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
         </summary>
         <div className="border-t border-gray-100 pb-2">
           <PedigreeCard
+            horse={horse}
             pedigree={a.pedigree}
             sourcePedigree={a.pedigree?.sourcePedigree}
             score={a.factorsDetail?.blood?.score}

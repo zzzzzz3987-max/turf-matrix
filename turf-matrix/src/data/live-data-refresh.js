@@ -1,24 +1,42 @@
 export const LIVE_DATA_REFRESH_INTERVAL_MS = 15_000;
+export const LIVE_DATA_REQUEST_TIMEOUT_MS = 10_000;
 
-const fetchJson = async (fetchImpl, url) => {
-  const response = await fetchImpl(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`Live data request failed (${response.status})`);
-  return response.json();
+const fetchJson = async (fetchImpl, url, timeoutMs) => {
+  const controller = new AbortController();
+  let timer;
+  try {
+    return await Promise.race([
+      (async () => {
+        const response = await fetchImpl(url, { cache: "no-store", signal: controller.signal });
+        if (!response.ok) throw new Error(`Live data request failed (${response.status})`);
+        return response.json();
+      })(),
+      new Promise((_, reject) => {
+        timer = setTimeout(() => {
+          reject(new Error("Live data request timed out"));
+          controller.abort();
+        }, timeoutMs);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
 };
 
 export const fetchLiveDataUpdate = async ({
   currentVersion,
   fetchImpl = fetch,
   cacheKey = Date.now(),
+  timeoutMs = LIVE_DATA_REQUEST_TIMEOUT_MS,
 }) => {
-  const manifest = await fetchJson(fetchImpl, `/live/version.json?t=${cacheKey}`);
+  const manifest = await fetchJson(fetchImpl, `/live/version.json?t=${cacheKey}`, timeoutMs);
   if (!manifest?.version || manifest.version === currentVersion) {
     return { changed: false, version: manifest?.version ?? currentVersion };
   }
 
   const [weekData, allRaceSignals] = await Promise.all([
-    fetchJson(fetchImpl, manifest.weekDataUrl),
-    fetchJson(fetchImpl, manifest.allRaceSignalsUrl),
+    fetchJson(fetchImpl, manifest.weekDataUrl, timeoutMs),
+    fetchJson(fetchImpl, manifest.allRaceSignalsUrl, timeoutMs),
   ]);
 
   return {
@@ -35,6 +53,7 @@ export const startLiveDataRefresh = ({
   onError = () => {},
   intervalMs = LIVE_DATA_REFRESH_INTERVAL_MS,
   fetchImpl = fetch,
+  timeoutMs = LIVE_DATA_REQUEST_TIMEOUT_MS,
 }) => {
   let currentVersion = initialVersion;
   let stopped = false;
@@ -44,10 +63,10 @@ export const startLiveDataRefresh = ({
     if (stopped || inFlight || (typeof document !== "undefined" && document.hidden)) return;
     inFlight = true;
     try {
-      const update = await fetchLiveDataUpdate({ currentVersion, fetchImpl });
+      const update = await fetchLiveDataUpdate({ currentVersion, fetchImpl, timeoutMs });
       if (stopped) return;
+      if (update.changed) await onUpdate(update);
       currentVersion = update.version ?? currentVersion;
-      if (update.changed) onUpdate(update);
     } catch (error) {
       if (!stopped) onError(error);
     } finally {

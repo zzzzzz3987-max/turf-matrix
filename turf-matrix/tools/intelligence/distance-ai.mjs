@@ -63,7 +63,7 @@ const earlySpeed = (run) => {
   return clamp(88 - positionRate * 48, 40, 88);
 };
 
-const comparableRuns = (horse) => {
+export const selectDistanceRuns = (horse) => {
   const targetSurface = normalizeSurface(horse?.currentRace?.surface);
   const targetDate = Date.parse(horse?.currentRace?.raceDate ?? "");
   return (horse?.pastRuns ?? [])
@@ -97,7 +97,7 @@ const chronologicalRuns = (runs) => {
   return [...runs].reverse();
 };
 
-const buildTransitionProfile = (horse, runs = comparableRuns(horse)) => {
+const buildTransitionProfile = (horse, runs = selectDistanceRuns(horse)) => {
   const target = finiteDistance(horse?.currentRace?.distance);
   const latestDistance = finiteDistance(runs[0]?.distance);
   if (!target || !latestDistance || target === latestDistance) {
@@ -161,7 +161,7 @@ const directionLabel = (direction, adjustment) => {
   return `${action}対応は中立`;
 };
 
-const buildDirectionProfile = (horse, runs = comparableRuns(horse)) => {
+const buildDirectionProfile = (horse, runs = selectDistanceRuns(horse)) => {
   const target = finiteDistance(horse?.currentRace?.distance);
   const latest = runs.find((run) => finiteDistance(run?.distance));
   const latestDistance = finiteDistance(latest?.distance);
@@ -220,7 +220,7 @@ const buildDirectionProfile = (horse, runs = comparableRuns(horse)) => {
   };
 };
 
-const buildCadenceProfile = (horse, runs = comparableRuns(horse)) => {
+const buildCadenceProfile = (horse, runs = selectDistanceRuns(horse)) => {
   const target = finiteDistance(horse?.currentRace?.distance);
   const type = distanceType(target);
   if (!target || type.key === "unknown") {
@@ -251,7 +251,7 @@ const buildCadenceProfile = (horse, runs = comparableRuns(horse)) => {
 
 const buildDistanceProfile = (horse) => {
   const target = finiteDistance(horse?.currentRace?.distance);
-  const runs = comparableRuns(horse);
+  const runs = selectDistanceRuns(horse);
   if (!target) {
     return {
       score: 58,

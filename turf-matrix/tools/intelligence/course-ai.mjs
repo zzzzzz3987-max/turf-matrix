@@ -1,4 +1,4 @@
-import { courseGroup } from "./dictionaries/course-bias-dictionary.mjs";
+import { COURSE_GROUPS, courseGroup } from "./dictionaries/course-bias-dictionary.mjs";
 import { resolveCourseGeometry } from "./course-geometry.mjs";
 import { buildDistanceProfile, distanceFit, finishQuality } from "./distance-ai.mjs";
 
@@ -34,15 +34,36 @@ const describeGeometry = (shape) => {
 
 const scoreDistance = (horse) => buildDistanceProfile(horse).score;
 
+const knownCourses = new Set(Object.values(COURSE_GROUPS).flat());
+const normalizeCourseSurface = (value) => {
+  const text = String(value ?? "").normalize("NFKC").trim();
+  return text === "芝" ? "芝" : ["ダ", "ダート"].includes(text) ? "ダ" : null;
+};
+
+const buildCourseSurfaceEvidence = (horse) => {
+  const runs = horse.pastRuns ?? [];
+  const course = String(horse.currentRace?.course ?? "").trim();
+  const surface = normalizeCourseSurface(horse.currentRace?.surface);
+  const type = knownCourses.has(course) ? courseGroup(course) : null;
+  const sameSurface = surface ? runs.filter((run) => normalizeCourseSurface(run.surface) === surface) : [];
+  return {
+    surface,
+    sameSurface,
+    sameCourse: course ? sameSurface.filter((run) => run.course === course) : [],
+    sameType: type ? sameSurface.filter((run) => knownCourses.has(run.course) && courseGroup(run.course) === type) : [],
+    excludedSurfaceCount: runs.length - sameSurface.length,
+  };
+};
+
 const scoreCourse = (horse, { sameSurfaceOnly = false } = {}) => {
   const runs = horse.pastRuns ?? [];
   const currentCourse = horse.currentRace?.course;
   const currentSurface = horse.currentRace?.surface;
   const currentType = courseGroup(currentCourse);
-  const sameSurface = runs.filter((run) => run.surface === currentSurface);
-  const comparable = sameSurfaceOnly ? (currentSurface ? sameSurface : []) : runs;
-  const sameCourse = comparable.filter((run) => run.course === currentCourse);
-  const sameType = comparable.filter((run) => courseGroup(run.course) === currentType);
+  const matched = sameSurfaceOnly ? buildCourseSurfaceEvidence(horse) : null;
+  const sameSurface = matched?.sameSurface ?? runs.filter((run) => run.surface === currentSurface);
+  const sameCourse = matched?.sameCourse ?? runs.filter((run) => run.course === currentCourse);
+  const sameType = matched?.sameType ?? runs.filter((run) => courseGroup(run.course) === currentType);
 
   const sameCourseScore = sameCourse.length ? avg(sameCourse.map(finishQuality), 62) + Math.min(8, sameCourse.length * 2) : 52;
   const surfaceScore = sameSurface.length ? avg(sameSurface.map(finishQuality), 58) + Math.min(8, sameSurface.length) : 50;
@@ -153,4 +174,4 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
   };
 };
 
-export { scoreDistance, scoreCourse, buildCourseAnalysis, describeGeometry, geometrySimilarity };
+export { scoreDistance, scoreCourse, buildCourseAnalysis, describeGeometry, geometrySimilarity, normalizeCourseSurface, buildCourseSurfaceEvidence };

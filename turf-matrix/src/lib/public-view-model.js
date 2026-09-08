@@ -22,6 +22,12 @@ export const QUICK_READ_FACTOR_KEYS = [
 
 const isFiniteScore = (value) => typeof value === "number" && Number.isFinite(value);
 
+const hasPublicFactorEvidence = (factor) =>
+  Boolean(factor) && !["missing", "unavailable", "not_applicable", "pending", "monitor"].includes(factor.status);
+
+export const isPublicFactorEvaluated = (factor) =>
+  isFiniteScore(factor?.score) && hasPublicFactorEvidence(factor);
+
 const INTERNAL_COPY_MARKERS = [
   /Confidence/i,
   /Evidence/i,
@@ -612,7 +618,7 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
   }
 
   const load = details.load;
-  if (isFiniteScore(load?.adjustment) && load.adjustment < 0) {
+  if (hasPublicFactorEvidence(load) && isFiniteScore(load?.adjustment) && load.adjustment < 0) {
     const relativeHeavy = isFiniteScore(load.relativeKg) && load.relativeKg > 0;
     const provenCount = Number(load.comparableSuccessCount) || 0;
     const fillyAtRelativeDisadvantage = relativeHeavy && Number(load.sexAllowance) > 0;
@@ -640,7 +646,7 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
   }
 
   const pace = details.pace;
-  if (isFiniteScore(pace?.score) && pace.score < 65) {
+  if (isPublicFactorEvaluated(pace) && pace.score < 65) {
     addFlag({
       key: "pace",
       label: "展開不利",
@@ -650,7 +656,7 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
   }
 
   const trackBias = details.trackBias;
-  if (isFiniteScore(trackBias?.adjustment) && trackBias.adjustment < 0) {
+  if (hasPublicFactorEvidence(trackBias) && isFiniteScore(trackBias?.adjustment) && trackBias.adjustment < 0) {
     addFlag({
       key: "trackBias",
       label: "馬場不向き",
@@ -660,7 +666,7 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
   }
 
   const distance = details.distance;
-  if (isFiniteScore(distance?.score) && distance.score < 60) {
+  if (isPublicFactorEvaluated(distance) && distance.score < 60) {
     addFlag({
       key: "distance",
       label: "距離不安",
@@ -704,12 +710,12 @@ export const buildHorseRiskFlags = (horse, { limit = 3 } = {}) => {
       key: "finalTraining",
       label: "最終追い評価やや低め",
       tone: "watch",
-      detail: `${totalText}最終追い切りは${Math.round(finalTrainingScore)}点。直前の動きはやや控えめで、仕上がりの上積みを強くは評価しにくい。`,
+      detail: `${totalText}最終追い切りは${Math.round(finalTrainingScore)}点。時計・終いの評価はやや低めですが、軽めの調整という可能性もあり、時計だけで状態不良とは判断しません。`,
     });
   }
 
   const blood = details.blood;
-  if (isFiniteScore(blood?.score) && blood.score < 60) {
+  if (isPublicFactorEvaluated(blood) && blood.score < 60) {
     addFlag({
       key: "blood",
       label: "血統不安",
@@ -725,6 +731,7 @@ export const buildHorsePublicView = (horse) => {
   const details = horse?.analysis?.factorsDetail ?? {};
   const riskFlags = buildHorseRiskFlags(horse);
   const factors = QUICK_READ_FACTOR_KEYS
+    .filter((key) => isPublicFactorEvaluated(details[key]))
     .map((key) => ({
       key,
       label: PUBLIC_FACTOR_LABELS[key],
@@ -769,8 +776,8 @@ const raceHorseScore = (horse) => {
 };
 
 const raceHorseFactor = (horse, key) => {
-  const score = horse?.analysis?.factorsDetail?.[key]?.score;
-  return isFiniteScore(score) ? score : null;
+  const factor = horse?.analysis?.factorsDetail?.[key];
+  return isPublicFactorEvaluated(factor) ? factor.score : null;
 };
 
 const raceHorseIdentity = (horse, rank) => horse ? ({

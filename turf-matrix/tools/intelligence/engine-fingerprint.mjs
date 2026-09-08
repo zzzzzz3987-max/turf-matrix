@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { dirname, extname, isAbsolute, join, relative, resolve } from "node:path";
 
 const IMPORT_PATTERN = /(?:import|export)\s+(?:[^'";]*?\s+from\s+)?["']([^"']+)["']/g;
+const REQUIRE_PATTERN = /\brequire\s*\(\s*["']([^"']+)["']\s*\)/g;
 const SOURCE_EXTENSIONS = ["", ".mjs", ".js", ".json"];
 
 const normalizePath = (value) => value.replaceAll("\\", "/");
@@ -19,9 +20,18 @@ const resolveLocalImport = (parentPath, specifier) => {
 };
 
 const localImports = (path) => {
+  // Training history is loaded lazily; include every shard declared by its manifest.
+  if (path.replaceAll("\\", "/").endsWith("/training-history/manifest.json")) {
+    const manifest = JSON.parse(readFileSync(path, "utf8"));
+    return (manifest.populatedShards ?? []).map((id) => {
+      if (!/^[0-9a-f]{2}$/.test(id)) throw new Error(`Invalid training history shard: ${id}`);
+      return `./${id}.json`;
+    });
+  }
   if (!/[.]m?js$/.test(path)) return [];
   const source = readFileSync(path, "utf8");
-  return [...source.matchAll(IMPORT_PATTERN)].map((match) => match[1]);
+  return [...source.matchAll(IMPORT_PATTERN), ...source.matchAll(REQUIRE_PATTERN)]
+    .map((match) => match[1]);
 };
 
 export const collectEngineFiles = ({ root, entryPoints }) => {
@@ -65,7 +75,7 @@ export const buildEngineFingerprint = ({
     };
   });
   const hash = createHash("sha256");
-  hash.update("turf-matrix-engine-fingerprint-v1\0");
+  hash.update("turf-matrix-engine-fingerprint-v2\0");
   for (const file of manifest) {
     hash.update(file.path);
     hash.update("\0");
@@ -74,7 +84,7 @@ export const buildEngineFingerprint = ({
   }
   const sha256 = hash.digest("hex");
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: `tmx-${sha256.slice(0, 16)}`,
     sha256,
     fileCount: manifest.length,

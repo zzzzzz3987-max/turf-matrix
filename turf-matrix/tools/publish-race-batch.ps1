@@ -37,6 +37,9 @@ try {
     Run-Step "Freeze Stable operation pre-race shadow" { npm run shadow:stable:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Frame aptitude pre-race shadow" { npm run shadow:frame:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Form pre-race shadow" { npm run shadow:form:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Course surface pre-race comparison" { npm run shadow:course:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze Form weighted-average comparison" { npm run shadow:form-weights:freeze -- --input tools/week-data.next.json }
+    Run-Step "Freeze distance overlap comparison" { npm run shadow:overlap:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace pre-race shadow" { npm run shadow:pace:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze Pace context pre-race shadow" { npm run shadow:pace-context:freeze -- --input tools/week-data.next.json }
     Run-Step "Freeze public role Pace pre-race shadow" { npm run shadow:public-roles:pace:freeze -- --input tools/week-data.next.json }
@@ -76,6 +79,15 @@ try {
   $FrameReport = "docs/analysis/frame-aptitude-shadow-$date.md"
   $FormShadow = "data/shadow/form-state-v1/$date-pre-race.json"
   $FormReport = "docs/analysis/form-state-shadow-$date.md"
+  $CourseShadow = "data/shadow/course-surface-v1/$date-pre-race.json"
+  $CourseReport = "docs/analysis/course-surface-shadow-$date.md"
+  $CourseReportData = "docs/analysis/course-surface-shadow-$date.json"
+  $FormWeightsShadow = "data/shadow/form-normalized-weights-v1/$date-pre-race.json"
+  $FormWeightsReport = "docs/analysis/form-weights-shadow-$date.md"
+  $FormWeightsReportData = "docs/analysis/form-weights-shadow-$date.json"
+  $OverlapShadow = "data/shadow/direct-distance-overlap-v1/$date-pre-race.json"
+  $OverlapReport = "docs/analysis/evidence-overlap-shadow-$date.md"
+  $OverlapReportData = "docs/analysis/evidence-overlap-shadow-$date.json"
   $PaceShadow = "data/shadow/pace-shape-v2/$date-pre-race.json"
   $PaceReport = "docs/analysis/pace-shape-shadow-$date.md"
   $PaceContextShadow = "data/shadow/pace-context-v1/$date-pre-race.json"
@@ -83,6 +95,9 @@ try {
   $PublicRolePaceShadow = "data/shadow/public-role-pace-v3/$date-pre-race.json"
   $PublicRoleEvidenceShadow = "data/shadow/public-role-evidence-v4/$date-pre-race.json"
   git add tools/week-data.json $AbilityShadow $AbilityReport $TrainingShadow $TrainingReport $StableShadow $StableReport $FrameShadow $FrameReport $FormShadow $FormReport $PaceShadow $PaceReport $PaceContextShadow $PaceContextReport $PublicRolePaceShadow $PublicRoleEvidenceShadow data/master/training-history data/master/training-baselines.json data/master/race-shape-history.json data/master/frame-aptitude.json
+  Run-Step "Stage Course surface comparison" { git add $CourseShadow $CourseReport $CourseReportData }
+  Run-Step "Stage Form weighted-average comparison" { git add $FormWeightsShadow $FormWeightsReport $FormWeightsReportData }
+  Run-Step "Stage distance overlap comparison" { git add $OverlapShadow $OverlapReport $OverlapReportData }
   Run-Step "Commit weekly race data" { git commit -m $CommitMessage }
   $Committed = $true
   Run-Step "Push main" { git push origin main }

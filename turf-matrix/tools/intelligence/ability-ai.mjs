@@ -144,13 +144,15 @@ const confidenceForRuns = (runCount, hasZi, centralRunCount = runCount, localRun
   return "low";
 };
 
-const calculateAbilityProfile = (horse) => {
-  const runs = (horse.pastRuns ?? [])
+export const selectAbilityRuns = (horse) => (horse.pastRuns ?? [])
     .filter((run) => Number.isFinite(Number(run.finishPosition)))
     .slice(0, 12);
+
+const calculateAbilityProfile = (horse, { includeDistanceFit = true } = {}) => {
+  const runs = selectAbilityRuns(horse);
   const { central: centralRuns, local: localRuns } = splitRunsByOrigin(runs);
   const comparableRuns = centralRuns.length ? centralRuns : runs;
-  const targetDistance = Number(horse.currentRace?.distance);
+  const targetDistance = includeDistanceFit ? Number(horse.currentRace?.distance) : NaN;
   const zi = Number(resolveAbilityZi(horse));
   const ziScore = Number.isFinite(zi) ? clamp(42 + (zi - 80) * 1.3) : null;
   const recentScore = runs.length ? recentAbility(runs, targetDistance) : 50;
@@ -166,7 +168,7 @@ const calculateAbilityProfile = (horse) => {
     { value: encounterScore, weight: encounterScore == null ? 0 : 0.25 },
     { value: careerOpponentScore, weight: careerOpponentScore == null ? 0 : 0.35 },
   ], recentScore);
-  const distanceScore = comparableRuns.length
+  const distanceScore = includeDistanceFit && comparableRuns.length
     ? clamp(weightedAverage(comparableRuns.slice(0, 5).map((run, index) => ({
         value: distanceQuality(run, targetDistance),
         weight: Math.max(0.7, 1 - index * 0.08),

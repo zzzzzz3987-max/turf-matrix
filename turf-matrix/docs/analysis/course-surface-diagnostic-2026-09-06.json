@@ -1,0 +1,3175 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "course-same-surface-v1",
+  "modelSha256": "8d50394ae02040807bb76978f9114747983a6690b9512d7e82361a3a76faac13",
+  "inputSha256": "6beb2da8060aaade2b9ad0bb499622faea88a928882952c4d0c3d19ba72c9e15",
+  "frozenAt": "2026-09-08T08:01:51.591Z",
+  "status": "retrospective-diagnostic",
+  "productionConnected": false,
+  "raceDate": "2026-09-06",
+  "policy": {
+    "changedFactor": "course",
+    "weightsChanged": false,
+    "formChanged": false,
+    "resultsRead": false
+  },
+  "predictions": [
+    {
+      "raceId": "2026-09-06-hanshin-08R",
+      "date": "2026-09-06",
+      "time": "13:50",
+      "track": "阪神",
+      "number": 8,
+      "name": "武田尾特別",
+      "currentLeader": 6,
+      "shadowLeader": 6,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "テーオーアルアイン",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 62,
+            "training": 76,
+            "distance": 72,
+            "blood": 68.8504283938841,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 9,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "ストップザタイム",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 58,
+            "distance": 71,
+            "training": 69,
+            "blood": 67.72967849303402,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 17,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 3,
+          "name": "ツーネサーン",
+          "currentCourse": 73,
+          "shadowCourse": 79,
+          "courseDelta": 6,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 60,
+            "distance": 72,
+            "training": 47,
+            "blood": 61.751800809900345,
+            "pace": 75
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 14,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 4
+          }
+        },
+        {
+          "number": 4,
+          "name": "ダノンカゼルタ",
+          "currentCourse": 71,
+          "shadowCourse": 71,
+          "courseDelta": 0,
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0,
+          "currentRaw": 71,
+          "shadowRaw": 71,
+          "unchangedScores": {
+            "ability": 63,
+            "form": 54,
+            "training": 72,
+            "distance": 60,
+            "blood": 67.90815402129233,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 5,
+          "name": "ショウナンバルドル",
+          "currentCourse": 57,
+          "shadowCourse": 58,
+          "courseDelta": 1,
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 60,
+            "training": 74,
+            "distance": 67,
+            "blood": 68.77026081758753,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 6,
+          "name": "バルセシート",
+          "currentCourse": 84,
+          "shadowCourse": 84,
+          "courseDelta": 0,
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 70,
+            "distance": 76,
+            "training": 74,
+            "blood": 67.42077051822645,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 7,
+          "name": "クイックバイオ",
+          "currentCourse": 67,
+          "shadowCourse": 67,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 60,
+            "distance": 70,
+            "training": 64,
+            "blood": 68.59847036347244,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 21,
+            "sameCourseRuns": 9,
+            "sameTypeRuns": 13,
+            "excludedSurfaceRuns": 0
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-sapporo-09R",
+      "date": "2026-09-06",
+      "time": "14:10",
+      "track": "札幌",
+      "number": 9,
+      "name": "旭川特別",
+      "currentLeader": 10,
+      "shadowLeader": 10,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ヒミノエトワール",
+          "currentCourse": 73,
+          "shadowCourse": 73,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 57,
+            "distance": 73,
+            "blood": 67.26505754485818,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 2,
+          "name": "ユウェンタース",
+          "currentCourse": 69,
+          "shadowCourse": 69,
+          "courseDelta": 0,
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0,
+          "currentRaw": 69,
+          "shadowRaw": 69,
+          "unchangedScores": {
+            "ability": 59,
+            "form": 50,
+            "distance": 69,
+            "blood": 63.66258092717368,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 8,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 3,
+          "name": "ライフゲート",
+          "currentCourse": 79,
+          "shadowCourse": 79,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 58,
+            "distance": 75,
+            "blood": 65.008,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 22,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 14,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 4,
+          "name": "リメンバーヒム",
+          "currentCourse": 75,
+          "shadowCourse": 75,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 57,
+            "distance": 68,
+            "blood": 67.2870247989041,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "タイヨウフレア",
+          "currentCourse": 70,
+          "shadowCourse": 71,
+          "courseDelta": 1,
+          "currentTm": 63,
+          "shadowTm": 63,
+          "tmDelta": 0,
+          "currentRaw": 64,
+          "shadowRaw": 64,
+          "unchangedScores": {
+            "ability": 56,
+            "distance": 63,
+            "form": 35,
+            "blood": 67.75619435075396,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 6,
+          "name": "ロードアマルフィ",
+          "currentCourse": 77,
+          "shadowCourse": 77,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 65,
+            "distance": 79,
+            "blood": 66.96224163262318,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 8,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 7,
+          "name": "ユージュアーナ",
+          "currentCourse": 78,
+          "shadowCourse": 78,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 63,
+            "form": 57,
+            "distance": 72,
+            "blood": 66.06932124721432,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 15,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "コスモオピニオン",
+          "currentCourse": 73,
+          "shadowCourse": 72,
+          "courseDelta": -1,
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 63,
+            "form": 59,
+            "distance": 63,
+            "blood": 64.70045598721113,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 29,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 18
+          }
+        },
+        {
+          "number": 9,
+          "name": "アオハルブルース",
+          "currentCourse": 80,
+          "shadowCourse": 80,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 66,
+            "distance": 75,
+            "blood": 67.64913930718421,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 9,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "エスシービクトリア",
+          "currentCourse": 89,
+          "shadowCourse": 89,
+          "courseDelta": 0,
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 67,
+            "distance": 79,
+            "blood": 67.89208274022745,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 5,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "スターオブロンドン",
+          "currentCourse": 77,
+          "shadowCourse": 87,
+          "courseDelta": 10,
+          "currentTm": 74,
+          "shadowTm": 75,
+          "tmDelta": 1,
+          "currentRaw": 74,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 57,
+            "distance": 70,
+            "blood": 62.67844013634198,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 5
+          }
+        },
+        {
+          "number": 12,
+          "name": "アラナコア",
+          "currentCourse": 76,
+          "shadowCourse": 77,
+          "courseDelta": 1,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 63,
+            "distance": 76,
+            "blood": 67.51770566321942,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 13
+          }
+        },
+        {
+          "number": 13,
+          "name": "エーリアル",
+          "currentCourse": 56,
+          "shadowCourse": 54,
+          "courseDelta": -2,
+          "currentTm": 68,
+          "shadowTm": 68,
+          "tmDelta": 0,
+          "currentRaw": 68,
+          "shadowRaw": 68,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 45,
+            "distance": 71,
+            "blood": 66.43344630883834,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 17,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 2
+          }
+        },
+        {
+          "number": 14,
+          "name": "ラインフォルテ",
+          "currentCourse": 61,
+          "shadowCourse": 61,
+          "courseDelta": 0,
+          "currentTm": 68,
+          "shadowTm": 68,
+          "tmDelta": 0,
+          "currentRaw": 69,
+          "shadowRaw": 69,
+          "unchangedScores": {
+            "ability": 57,
+            "form": 52,
+            "training": 72,
+            "distance": 68,
+            "blood": 68.14469361059707,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 22,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 3
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-nakayama-09R",
+      "date": "2026-09-06",
+      "time": "14:30",
+      "track": "中山",
+      "number": 9,
+      "name": "浦安特別",
+      "currentLeader": 2,
+      "shadowLeader": 2,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ホープエトワール",
+          "currentCourse": 50,
+          "shadowCourse": 50,
+          "courseDelta": 0,
+          "currentTm": 60,
+          "shadowTm": 60,
+          "tmDelta": 0,
+          "currentRaw": 60,
+          "shadowRaw": 60,
+          "unchangedScores": {
+            "ability": 51,
+            "training": 64,
+            "form": 35,
+            "distance": 55,
+            "blood": 64.7250794352035,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "キョウエイカンフ",
+          "currentCourse": 82,
+          "shadowCourse": 82,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 64,
+            "distance": 78,
+            "training": 64,
+            "blood": 67.8316743579802,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 24,
+            "sameCourseRuns": 16,
+            "sameTypeRuns": 16,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 3,
+          "name": "サマースイートピー",
+          "currentCourse": 82,
+          "shadowCourse": 82,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 54,
+            "distance": 73,
+            "training": 73,
+            "blood": 64.84914891522794,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 4,
+          "name": "ホウオウプレミア",
+          "currentCourse": 76,
+          "shadowCourse": 75,
+          "courseDelta": -1,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 60,
+            "distance": 75,
+            "training": 70,
+            "blood": 66.75971813113529,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 15,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 16
+          }
+        },
+        {
+          "number": 5,
+          "name": "ラヴァグロウ",
+          "currentCourse": 68,
+          "shadowCourse": 68,
+          "courseDelta": 0,
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0,
+          "currentRaw": 68,
+          "shadowRaw": 68,
+          "unchangedScores": {
+            "ability": 61,
+            "form": 46,
+            "training": 66,
+            "distance": 65,
+            "blood": 62.08749212059077,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 26,
+            "sameCourseRuns": 14,
+            "sameTypeRuns": 14,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "アスタールフナ",
+          "currentCourse": 73,
+          "shadowCourse": 74,
+          "courseDelta": 1,
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 55,
+            "distance": 72,
+            "blood": 61.88647979191709,
+            "pace": 75
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 10,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 7,
+          "name": "レヴィテーション",
+          "currentCourse": 68,
+          "shadowCourse": 68,
+          "courseDelta": 0,
+          "currentTm": 68,
+          "shadowTm": 68,
+          "tmDelta": 0,
+          "currentRaw": 68,
+          "shadowRaw": 68,
+          "unchangedScores": {
+            "ability": 59,
+            "form": 45,
+            "training": 70,
+            "distance": 66,
+            "blood": 62.499036178963536,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "ルーフオブヘヴン",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 65,
+            "distance": 75,
+            "training": 70,
+            "blood": 69.57315647035348,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 9,
+          "name": "ピコニ",
+          "currentCourse": 73,
+          "shadowCourse": 73,
+          "courseDelta": 0,
+          "currentTm": 68,
+          "shadowTm": 68,
+          "tmDelta": 0,
+          "currentRaw": 67,
+          "shadowRaw": 67,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 39,
+            "distance": 63,
+            "training": 63,
+            "blood": 61.255016906309244,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 17,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "モーゲンセン",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 55,
+            "distance": 70,
+            "training": 68,
+            "blood": 65,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 9,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "サヨノジャンボリー",
+          "currentCourse": 71,
+          "shadowCourse": 71,
+          "courseDelta": 0,
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 61,
+            "form": 58,
+            "distance": 68,
+            "training": 66,
+            "blood": 64.82752258708732,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 8,
+            "sameTypeRuns": 8,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 12,
+          "name": "ジャスパーソレイユ",
+          "currentCourse": 77,
+          "shadowCourse": 77,
+          "courseDelta": 0,
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 46,
+            "training": 76,
+            "distance": 69,
+            "blood": 69.0266180385388,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 6,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 13,
+          "name": "キタノライブリー",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 56,
+            "distance": 73,
+            "training": 65,
+            "blood": 66.66828783740168,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 6,
+            "sameTypeRuns": 8,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 14,
+          "name": "イノキ",
+          "currentCourse": 71,
+          "shadowCourse": 69,
+          "courseDelta": -2,
+          "currentTm": 73,
+          "shadowTm": 72,
+          "tmDelta": -1,
+          "currentRaw": 73,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 56,
+            "training": 73,
+            "distance": 69,
+            "blood": 66.99211031080355,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 11,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 7
+          }
+        },
+        {
+          "number": 15,
+          "name": "サードウインド",
+          "currentCourse": 72,
+          "shadowCourse": 72,
+          "courseDelta": 0,
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0,
+          "currentRaw": 70,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 51,
+            "distance": 69,
+            "training": 66,
+            "blood": 62.00031674275296,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 16,
+          "name": "ドントゥザムーン",
+          "currentCourse": 59,
+          "shadowCourse": 59,
+          "courseDelta": 0,
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0,
+          "currentRaw": 70,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 62,
+            "form": 50,
+            "distance": 69,
+            "training": 69,
+            "blood": 65.11168670125709,
+            "pace": 75
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-sapporo-10R",
+      "date": "2026-09-06",
+      "time": "14:45",
+      "track": "札幌",
+      "number": 10,
+      "name": "ＨＴＢ賞",
+      "currentLeader": 9,
+      "shadowLeader": 9,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "フナデ",
+          "currentCourse": 62,
+          "shadowCourse": 62,
+          "courseDelta": 0,
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0,
+          "currentRaw": 69,
+          "shadowRaw": 69,
+          "unchangedScores": {
+            "ability": 63,
+            "form": 47,
+            "distance": 68,
+            "blood": 67.27820532680708,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "ヒズマスターピース",
+          "currentCourse": 68,
+          "shadowCourse": 68,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 58,
+            "distance": 68,
+            "blood": 69.77886824339046,
+            "pace": 69
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 3,
+          "name": "ドッグウッド",
+          "currentCourse": 72,
+          "shadowCourse": 72,
+          "courseDelta": 0,
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 68,
+            "distance": 79,
+            "blood": 68.13510397949099,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 4,
+          "name": "ロートホルン",
+          "currentCourse": 64,
+          "shadowCourse": 64,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 57,
+            "distance": 70,
+            "blood": 66.45406713581667,
+            "pace": 69
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "エーデル",
+          "currentCourse": 53,
+          "shadowCourse": 49,
+          "courseDelta": -4,
+          "currentTm": 64,
+          "shadowTm": 63,
+          "tmDelta": -1,
+          "currentRaw": 65,
+          "shadowRaw": 64,
+          "unchangedScores": {
+            "ability": 60,
+            "form": 44,
+            "distance": 59,
+            "blood": 63.70152613219494,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 4,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 15
+          }
+        },
+        {
+          "number": 6,
+          "name": "グレーヌドジョワ",
+          "currentCourse": 76,
+          "shadowCourse": 81,
+          "courseDelta": 5,
+          "currentTm": 75,
+          "shadowTm": 76,
+          "tmDelta": 1,
+          "currentRaw": 75,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 60,
+            "distance": 74,
+            "blood": 67.49070608992851,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 9,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 7,
+          "name": "プレアレジェンド",
+          "currentCourse": 52,
+          "shadowCourse": 52,
+          "courseDelta": 0,
+          "currentTm": 65,
+          "shadowTm": 65,
+          "tmDelta": 0,
+          "currentRaw": 65,
+          "shadowRaw": 65,
+          "unchangedScores": {
+            "ability": 59,
+            "form": 49,
+            "distance": 58,
+            "blood": 67.67514088648646,
+            "pace": 69
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 0,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 14
+          }
+        },
+        {
+          "number": 8,
+          "name": "ワザモノ",
+          "currentCourse": 77,
+          "shadowCourse": 77,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 63,
+            "distance": 71,
+            "training": 68,
+            "blood": 63.14163371742165,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 37,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 9,
+          "name": "ハヤブササキチャン",
+          "currentCourse": 88,
+          "shadowCourse": 88,
+          "courseDelta": 0,
+          "currentTm": 85,
+          "shadowTm": 85,
+          "tmDelta": 0,
+          "currentRaw": 84,
+          "shadowRaw": 84,
+          "unchangedScores": {
+            "ability": 77,
+            "form": 71,
+            "distance": 80,
+            "blood": 67.699032188771,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "コッツォリーノ",
+          "currentCourse": 62,
+          "shadowCourse": 62,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 56,
+            "distance": 71,
+            "blood": 66.19449274472893,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "サンセットゴールド",
+          "currentCourse": 81,
+          "shadowCourse": 81,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 58,
+            "distance": 69,
+            "blood": 67.44365767275664,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 6,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 12,
+          "name": "ジャルディニエ",
+          "currentCourse": 60,
+          "shadowCourse": 68,
+          "courseDelta": 8,
+          "currentTm": 70,
+          "shadowTm": 71,
+          "tmDelta": 1,
+          "currentRaw": 70,
+          "shadowRaw": 71,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 49,
+            "distance": 67,
+            "training": 67,
+            "blood": 63.286190101744644,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 11,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 13,
+          "name": "ファーマドール",
+          "currentCourse": 52,
+          "shadowCourse": 52,
+          "courseDelta": 0,
+          "currentTm": 65,
+          "shadowTm": 65,
+          "tmDelta": 0,
+          "currentRaw": 65,
+          "shadowRaw": 65,
+          "unchangedScores": {
+            "ability": 60,
+            "form": 44,
+            "distance": 58,
+            "blood": 67.71346929738145,
+            "pace": 69
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 0,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 18
+          }
+        },
+        {
+          "number": 14,
+          "name": "ダノンフィオーレ",
+          "currentCourse": 82,
+          "shadowCourse": 82,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 56,
+            "distance": 68,
+            "blood": 67.5219060899285,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 6,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 0
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-hanshin-10R",
+      "date": "2026-09-06",
+      "time": "14:55",
+      "track": "阪神",
+      "number": 10,
+      "name": "オークランドＴＲＴ",
+      "currentLeader": 4,
+      "shadowLeader": 4,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ボディブロー",
+          "currentCourse": 66,
+          "shadowCourse": 66,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 59,
+            "training": 75,
+            "distance": 71,
+            "blood": 67.74135647035348,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "ランウインディ",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 60,
+            "distance": 74,
+            "training": 74,
+            "blood": 62.132242983540266,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 3,
+          "name": "ビバップ",
+          "currentCourse": 56,
+          "shadowCourse": 56,
+          "courseDelta": 0,
+          "currentTm": 67,
+          "shadowTm": 67,
+          "tmDelta": 0,
+          "currentRaw": 66,
+          "shadowRaw": 66,
+          "unchangedScores": {
+            "ability": 57,
+            "training": 76,
+            "form": 40,
+            "distance": 67,
+            "blood": 65.04953275373771,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 4,
+          "name": "ヨリノレジェンド",
+          "currentCourse": 81,
+          "shadowCourse": 81,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 67,
+            "distance": 73,
+            "training": 69,
+            "blood": 67.74135647035348,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "テーオーグレーザー",
+          "currentCourse": 86,
+          "shadowCourse": 86,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 65,
+            "distance": 79,
+            "training": 65,
+            "blood": 65.44665510086995,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "イミュータブル",
+          "currentCourse": 70,
+          "shadowCourse": 74,
+          "courseDelta": 4,
+          "currentTm": 69,
+          "shadowTm": 70,
+          "tmDelta": 1,
+          "currentRaw": 68,
+          "shadowRaw": 69,
+          "unchangedScores": {
+            "ability": 62,
+            "training": 74,
+            "distance": 68,
+            "form": 37,
+            "blood": 62.00447617300302,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 26,
+            "sameCourseRuns": 6,
+            "sameTypeRuns": 12,
+            "excludedSurfaceRuns": 5
+          }
+        },
+        {
+          "number": 7,
+          "name": "ワークソング",
+          "currentCourse": 71,
+          "shadowCourse": 71,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 55,
+            "distance": 72,
+            "training": 65,
+            "blood": 65.92302267444063,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "エムズマインド",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 58,
+            "distance": 72,
+            "training": 63,
+            "blood": 67.81761031080356,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 22,
+            "sameCourseRuns": 10,
+            "sameTypeRuns": 14,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 9,
+          "name": "メイショウヤーキス",
+          "currentCourse": 68,
+          "shadowCourse": 68,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 54,
+            "distance": 71,
+            "training": 71,
+            "blood": 62.27025798544031,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 17,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "ウルスクローム",
+          "currentCourse": 84,
+          "shadowCourse": 84,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 62,
+            "distance": 78,
+            "training": 71,
+            "blood": 65.8743,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "スペシャルナンバー",
+          "currentCourse": 71,
+          "shadowCourse": 71,
+          "courseDelta": 0,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 67,
+            "training": 78,
+            "distance": 73,
+            "blood": 62.42344111825289,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 26,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 12,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 12,
+          "name": "ライジン",
+          "currentCourse": 75,
+          "shadowCourse": 76,
+          "courseDelta": 1,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 56,
+            "distance": 71,
+            "training": 68,
+            "blood": 64.87069189034797,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 17,
+            "sameCourseRuns": 6,
+            "sameTypeRuns": 10,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 13,
+          "name": "クリノオリーブ",
+          "currentCourse": 75,
+          "shadowCourse": 77,
+          "courseDelta": 2,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 65,
+            "form": 56,
+            "distance": 69,
+            "training": 62,
+            "blood": 62.56427979191709,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "ダ",
+            "sameSurfaceRuns": 25,
+            "sameCourseRuns": 11,
+            "sameTypeRuns": 13,
+            "excludedSurfaceRuns": 1
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-nakayama-10R",
+      "date": "2026-09-06",
+      "time": "15:05",
+      "track": "中山",
+      "number": 10,
+      "name": "セプテンバーＳ",
+      "currentLeader": 5,
+      "shadowLeader": 5,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "フォルテム",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 71,
+          "shadowRaw": 71,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 49,
+            "training": 70,
+            "distance": 64,
+            "blood": 62.61470293471811,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 14,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 2
+          }
+        },
+        {
+          "number": 2,
+          "name": "メイショウピース",
+          "currentCourse": 66,
+          "shadowCourse": 64,
+          "courseDelta": -2,
+          "currentTm": 74,
+          "shadowTm": 73,
+          "tmDelta": -1,
+          "currentRaw": 74,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 61,
+            "distance": 72,
+            "training": 59,
+            "blood": 60.91814505539321,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 6
+          }
+        },
+        {
+          "number": 3,
+          "name": "トーセントラム",
+          "currentCourse": 64,
+          "shadowCourse": 64,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 64,
+            "distance": 69,
+            "training": 65,
+            "blood": 62.48742399505566,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 41,
+            "sameCourseRuns": 13,
+            "sameTypeRuns": 19,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 4,
+          "name": "マックアルイーン",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 73,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 56,
+            "distance": 73,
+            "training": 70,
+            "blood": 65,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 10,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "フクチャンショウ",
+          "currentCourse": 86,
+          "shadowCourse": 86,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 74,
+            "form": 67,
+            "distance": 74,
+            "training": 66,
+            "blood": 65.65195328155703,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "パクスロマーナ",
+          "currentCourse": 71,
+          "shadowCourse": 73,
+          "courseDelta": 2,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 61,
+            "training": 73,
+            "distance": 70,
+            "blood": 65.12221177421361,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 3,
+            "excludedSurfaceRuns": 24
+          }
+        },
+        {
+          "number": 7,
+          "name": "ルーフ",
+          "currentCourse": 72,
+          "shadowCourse": 74,
+          "courseDelta": 2,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 62,
+            "distance": 74,
+            "training": 75,
+            "blood": 63.0257898390589,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 25,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 10,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 8,
+          "name": "カーヌスティ",
+          "currentCourse": 75,
+          "shadowCourse": 67,
+          "courseDelta": -8,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 71,
+            "distance": 71,
+            "training": 70,
+            "blood": 63.27872932167497,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 5,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 10
+          }
+        },
+        {
+          "number": 9,
+          "name": "ポッドロワール",
+          "currentCourse": 70,
+          "shadowCourse": 74,
+          "courseDelta": 4,
+          "currentTm": 77,
+          "shadowTm": 78,
+          "tmDelta": 1,
+          "currentRaw": 76,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 64,
+            "distance": 74,
+            "training": 67,
+            "blood": 61.55473887327078,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 2
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-sapporo-11R",
+      "date": "2026-09-06",
+      "time": "15:20",
+      "track": "札幌",
+      "number": 11,
+      "name": "丹頂ステークス",
+      "currentLeader": 1,
+      "shadowLeader": 1,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "レクスノヴァス",
+          "currentCourse": 83,
+          "shadowCourse": 83,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 65,
+            "distance": 75,
+            "blood": 63.58625892179196,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 10,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "サクソンジェンヌ",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 63,
+            "distance": 72,
+            "training": 65,
+            "blood": 67.9460822066033,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 22,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 10,
+            "excludedSurfaceRuns": 7
+          }
+        },
+        {
+          "number": 3,
+          "name": "パレハ",
+          "currentCourse": 75,
+          "shadowCourse": 75,
+          "courseDelta": 0,
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 54,
+            "distance": 63,
+            "blood": 63.34694883165854,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 10,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 4,
+          "name": "ヨヒーン",
+          "currentCourse": 84,
+          "shadowCourse": 84,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 55,
+            "distance": 62,
+            "blood": 63.1025727881907,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 15,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 11,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "ボンドロア",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 58,
+            "distance": 69,
+            "blood": 65.3886667108807,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 14,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "シュトルーヴェ",
+          "currentCourse": 66,
+          "shadowCourse": 66,
+          "courseDelta": 0,
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0,
+          "currentRaw": 72,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 67,
+            "form": 55,
+            "distance": 68,
+            "blood": 63.644848831658535,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 21,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 7,
+          "name": "コーチェラバレー",
+          "currentCourse": 65,
+          "shadowCourse": 65,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 63,
+            "distance": 70,
+            "blood": 65.989227497397,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 10,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "グランドカリナン",
+          "currentCourse": 57,
+          "shadowCourse": 60,
+          "courseDelta": 3,
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0,
+          "currentRaw": 67,
+          "shadowRaw": 67,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 47,
+            "distance": 58,
+            "blood": 63.31998838603278,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 28,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 9,
+          "name": "エコロレイズ",
+          "currentCourse": 74,
+          "shadowCourse": 74,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 61,
+            "distance": 72,
+            "blood": 61.922998212517236,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 27,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "マイネルカンパーナ",
+          "currentCourse": 73,
+          "shadowCourse": 73,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 59,
+            "distance": 69,
+            "blood": 68.61769955732427,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 32,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "ブレイヴロッカー",
+          "currentCourse": 61,
+          "shadowCourse": 61,
+          "courseDelta": 0,
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0,
+          "currentRaw": 70,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 66,
+            "form": 55,
+            "distance": 60,
+            "blood": 62.54204505539321,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 30,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 12,
+          "name": "ゴールデンスナップ",
+          "currentCourse": 88,
+          "shadowCourse": 88,
+          "courseDelta": 0,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 72,
+            "form": 59,
+            "distance": 75,
+            "training": 62,
+            "blood": 68.68977416533602,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 13,
+          "name": "ホールネス",
+          "currentCourse": 83,
+          "shadowCourse": 83,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 55,
+            "distance": 71,
+            "blood": 65,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 12,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 14,
+          "name": "ギャンブルルーム",
+          "currentCourse": 77,
+          "shadowCourse": 77,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 68,
+            "form": 60,
+            "distance": 67,
+            "blood": 63.24696919896235,
+            "pace": 73
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 18,
+            "sameCourseRuns": 5,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 1
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-hanshin-11R",
+      "date": "2026-09-06",
+      "time": "15:30",
+      "track": "阪神",
+      "number": 11,
+      "name": "産経賞セントウルＳ",
+      "currentLeader": 5,
+      "shadowLeader": 5,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ママコチャ",
+          "currentCourse": 83,
+          "shadowCourse": 83,
+          "courseDelta": 0,
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 77,
+            "form": 67,
+            "training": 79,
+            "distance": 78,
+            "blood": 62.62690293471811,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 25,
+            "sameCourseRuns": 7,
+            "sameTypeRuns": 20,
+            "excludedSurfaceRuns": 3
+          }
+        },
+        {
+          "number": 2,
+          "name": "クラスペディア",
+          "currentCourse": 65,
+          "shadowCourse": 65,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 71,
+            "form": 64,
+            "training": 71,
+            "distance": 72,
+            "blood": 62.59840293471811,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 13,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 3,
+          "name": "フリッカージャブ",
+          "currentCourse": 68,
+          "shadowCourse": 68,
+          "courseDelta": 0,
+          "currentTm": 83,
+          "shadowTm": 83,
+          "tmDelta": 0,
+          "currentRaw": 82,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 74,
+            "training": 80,
+            "distance": 82,
+            "blood": 67.73686507087471,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 3
+          }
+        },
+        {
+          "number": 4,
+          "name": "ティニア",
+          "currentCourse": 71,
+          "shadowCourse": 71,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 58,
+            "training": 76,
+            "distance": 71,
+            "blood": 64.42754425049435,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 26,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 15,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "ダイヤモンドノット",
+          "currentCourse": 87,
+          "shadowCourse": 87,
+          "courseDelta": 0,
+          "currentTm": 84,
+          "shadowTm": 84,
+          "tmDelta": 0,
+          "currentRaw": 83,
+          "shadowRaw": 83,
+          "unchangedScores": {
+            "ability": 78,
+            "form": 75,
+            "distance": 77,
+            "training": 71,
+            "blood": 65.24942937227924,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "プロトポロス",
+          "currentCourse": 68,
+          "shadowCourse": 63,
+          "courseDelta": -5,
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0,
+          "currentRaw": 70,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 65,
+            "training": 70,
+            "distance": 70,
+            "form": 41,
+            "blood": 67.85523787149398,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 9,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 6
+          }
+        },
+        {
+          "number": 7,
+          "name": "メイショウヨゾラ",
+          "currentCourse": 65,
+          "shadowCourse": 65,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 74,
+            "form": 55,
+            "training": 76,
+            "distance": 69,
+            "blood": 66.27529071387606,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 16,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "ファストネットワーク",
+          "currentCourse": 62,
+          "shadowCourse": 62,
+          "courseDelta": 0,
+          "currentTm": 80,
+          "shadowTm": 80,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 76,
+            "form": 66,
+            "distance": 77,
+            "blood": 65,
+            "pace": 72
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 20,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 9,
+          "name": "ピューロマジック",
+          "currentCourse": 77,
+          "shadowCourse": 77,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 62,
+            "training": 73,
+            "distance": 69,
+            "blood": 68.04279372331898,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 1
+          }
+        },
+        {
+          "number": 10,
+          "name": "ヤブサメ",
+          "currentCourse": 84,
+          "shadowCourse": 84,
+          "courseDelta": 0,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 77,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 62,
+            "distance": 77,
+            "blood": 67.42301248230767,
+            "training": 58,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 19,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 5,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "ヨシノイースター",
+          "currentCourse": 81,
+          "shadowCourse": 83,
+          "courseDelta": 2,
+          "currentTm": 82,
+          "shadowTm": 82,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 76,
+            "form": 67,
+            "training": 78,
+            "distance": 76,
+            "blood": 63.42472399505566,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 30,
+            "sameCourseRuns": 9,
+            "sameTypeRuns": 20,
+            "excludedSurfaceRuns": 7
+          }
+        },
+        {
+          "number": 12,
+          "name": "レッドモンレーヴ",
+          "currentCourse": 67,
+          "shadowCourse": 67,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 66,
+            "training": 72,
+            "distance": 68,
+            "blood": 65.95322937227924,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 25,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 7,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 13,
+          "name": "カルプスペルシュ",
+          "currentCourse": 64,
+          "shadowCourse": 64,
+          "courseDelta": 0,
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0,
+          "currentRaw": 78,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 72,
+            "form": 66,
+            "distance": 79,
+            "training": 72,
+            "blood": 63.37232399505566,
+            "pace": 70
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 15,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 14,
+          "name": "タマモブラックタイ",
+          "currentCourse": 65,
+          "shadowCourse": 66,
+          "courseDelta": 1,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 64,
+            "form": 60,
+            "training": 74,
+            "blood": 67.45077364558814,
+            "distance": 67,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 23,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 2
+          }
+        },
+        {
+          "number": 15,
+          "name": "ビッグシーザー",
+          "currentCourse": 76,
+          "shadowCourse": 76,
+          "courseDelta": 0,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 62,
+            "training": 75,
+            "distance": 74,
+            "blood": 69.2326216939349,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 23,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 9,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 16,
+          "name": "タマモイカロス",
+          "currentCourse": 87,
+          "shadowCourse": 87,
+          "courseDelta": 0,
+          "currentTm": 83,
+          "shadowTm": 83,
+          "tmDelta": 0,
+          "currentRaw": 82,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 70,
+            "distance": 80,
+            "training": 69,
+            "blood": 67.86009484238167,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 10,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 6,
+            "excludedSurfaceRuns": 0
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-06-nakayama-11R",
+      "date": "2026-09-06",
+      "time": "15:45",
+      "track": "中山",
+      "number": 11,
+      "name": "紫苑ステークス",
+      "currentLeader": 10,
+      "shadowLeader": 10,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ジワタネホ",
+          "currentCourse": 48,
+          "shadowCourse": 48,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 67,
+            "distance": 72,
+            "training": 66,
+            "blood": 68.17247418319424,
+            "pace": 77
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 4,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 1,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 2,
+          "name": "サムシングスイート",
+          "currentCourse": 87,
+          "shadowCourse": 87,
+          "courseDelta": 0,
+          "currentTm": 83,
+          "shadowTm": 83,
+          "tmDelta": 0,
+          "currentRaw": 82,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 73,
+            "form": 71,
+            "distance": 79,
+            "training": 73,
+            "blood": 68.26786483459803,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 3,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 3,
+          "name": "リアライズルミナス",
+          "currentCourse": 72,
+          "shadowCourse": 72,
+          "courseDelta": 0,
+          "currentTm": 81,
+          "shadowTm": 81,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 77,
+            "form": 70,
+            "distance": 77,
+            "training": 72,
+            "blood": 65.63872715445338,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 4,
+          "name": "マスターソアラ",
+          "currentCourse": 61,
+          "shadowCourse": 61,
+          "courseDelta": 0,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 75,
+            "form": 80,
+            "training": 68,
+            "distance": 70,
+            "blood": 66.05714685716187,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 2,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 5,
+          "name": "ファムクラジューズ",
+          "currentCourse": 59,
+          "shadowCourse": 59,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 63,
+            "training": 72,
+            "distance": 71,
+            "blood": 66.02444685716186,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 5,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 6,
+          "name": "アストリル",
+          "currentCourse": 63,
+          "shadowCourse": 63,
+          "courseDelta": 0,
+          "currentTm": 80,
+          "shadowTm": 80,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 70,
+            "form": 68,
+            "distance": 83,
+            "training": 75,
+            "blood": 68.4730658006651,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 8,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 0,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 7,
+          "name": "ロングトールサリー",
+          "currentCourse": 69,
+          "shadowCourse": 69,
+          "courseDelta": 0,
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 61,
+            "training": 73,
+            "distance": 72,
+            "blood": 68.96902236103435,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 6,
+            "sameCourseRuns": 0,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 8,
+          "name": "ナイスプレーアスク",
+          "currentCourse": 75,
+          "shadowCourse": 75,
+          "courseDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 75,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 69,
+            "form": 59,
+            "training": 70,
+            "distance": 69,
+            "blood": 65.96764685716187,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 7,
+            "sameCourseRuns": 4,
+            "sameTypeRuns": 4,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 9,
+          "name": "ドリームコア",
+          "currentCourse": 75,
+          "shadowCourse": 75,
+          "courseDelta": 0,
+          "currentTm": 82,
+          "shadowTm": 82,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 78,
+            "form": 70,
+            "training": 74,
+            "distance": 75,
+            "blood": 69.30338181355363,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 6,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 10,
+          "name": "ジッピーチューン",
+          "currentCourse": 88,
+          "shadowCourse": 88,
+          "courseDelta": 0,
+          "currentTm": 84,
+          "shadowTm": 84,
+          "tmDelta": 0,
+          "currentRaw": 83,
+          "shadowRaw": 83,
+          "unchangedScores": {
+            "ability": 79,
+            "form": 75,
+            "training": 74,
+            "distance": 73,
+            "blood": 66.88790236634505,
+            "pace": 76
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 4,
+            "sameCourseRuns": 1,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        },
+        {
+          "number": 11,
+          "name": "ベンヴェヌータ",
+          "currentCourse": 91,
+          "shadowCourse": 91,
+          "courseDelta": 0,
+          "currentTm": 80,
+          "shadowTm": 80,
+          "tmDelta": 0,
+          "currentRaw": 85,
+          "shadowRaw": 85,
+          "unchangedScores": {
+            "ability": 81,
+            "form": 85,
+            "distance": 74,
+            "training": 68,
+            "blood": 66.90144685716186,
+            "pace": 67
+          },
+          "evidence": {
+            "surface": "芝",
+            "sameSurfaceRuns": 2,
+            "sameCourseRuns": 2,
+            "sameTypeRuns": 2,
+            "excludedSurfaceRuns": 0
+          }
+        }
+      ]
+    }
+  ],
+  "predictionSha256": "5b48b21a7c2f4c4cd20d2d8578e4de21d7bcf7211dabe8b8919a0bc2a4cfb36c"
+}

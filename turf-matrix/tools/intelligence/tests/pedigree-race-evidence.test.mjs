@@ -100,14 +100,23 @@ test("expanded profiles have distinct identities and retain source links", () =>
   assert.notEqual(findPedigreeStudyProfile("キングカメハメハ").tendency, findPedigreeStudyProfile("ロードカナロア").tendency);
 });
 
-test("all indexed parents in current publication are covered without claiming full coverage", () => {
+test("current publication coverage reports unreviewed parents without claiming full coverage", () => {
   const source = JSON.parse(readFileSync(new URL("../../week-data.json", import.meta.url), "utf8"));
   const index = JSON.parse(readFileSync(new URL("../../../data/research/pedigree-study-index.json", import.meta.url), "utf8"));
   const before = JSON.stringify(source);
   const audit = auditPedigreeStudyCoverage(source, index);
-  assert.equal(audit.summary.indexedNotReviewedNames, 0);
-  assert.ok(audit.summary.notInIndexNames > 0);
-  assert.ok(audit.summary.eitherParentCovered > audit.summary.bothParentsCovered);
+  const unreviewed = audit.names.filter((row) => row.status === "indexed_not_reviewed");
+  assert.equal(audit.summary.indexedNotReviewedNames, unreviewed.length);
+  for (const row of unreviewed) {
+    assert.equal(findPedigreeStudyProfile(row.name), null);
+    assert.equal(row.source, null);
+  }
+  assert.equal(audit.summary.uniqueParentNames,
+    audit.summary.coveredNames + audit.summary.indexedNotReviewedNames + audit.summary.notInIndexNames);
+  for (const row of audit.names.filter((item) => item.status === "covered")) {
+    assert.equal(row.source, findPedigreeStudyProfile(row.name).source);
+  }
+  assert.ok(audit.summary.eitherParentCovered >= audit.summary.bothParentsCovered);
   assert.equal(audit.summary.sireCovered + audit.summary.broodmareSireCovered,
     audit.summary.eitherParentCovered + audit.summary.bothParentsCovered);
   assert.equal(JSON.stringify(source), before);

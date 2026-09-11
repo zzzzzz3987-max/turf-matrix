@@ -117,6 +117,8 @@ const races = normalized.races.map((bundle) => {
       analysis: intelligence.analysis,
       currentRace: horse.currentRace,
       pastRuns: horse.pastRuns,
+      peerRuns: horse.peerRuns,
+      opponentEvidence: horse.opponentEvidence,
       training: horse.training,
       pedigree: horse.pedigree,
       dataStatus,

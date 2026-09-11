@@ -1,0 +1,710 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "public-role-evidence-shadow-v4",
+  "frozenAt": "2026-09-11T13:23:04.592Z",
+  "raceDate": "2026-09-12",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "futureRaceShapeJoinAllowed": false,
+    "historicalOfficialLapsUsed": true,
+    "marketUsedForEligibilityAndFinalTieBreakOnly": true,
+    "evUsedForRanking": false,
+    "abstentionAllowed": true,
+    "tmIndexChanged": false
+  },
+  "source": {
+    "input": "tools/week-data.next.json",
+    "inputSha256": "b0aaebcdecab09708aaa26112efe35a66b8496dc9c163f2f9e08fb510ed1c267",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "6129ee345bde8a8508d5268b85161f6f9aec743a6572f3f481dbae5b4adaf49e",
+    "historyRaceCount": 899
+  },
+  "summary": {
+    "raceCount": 6,
+    "evidenceValueCount": 2,
+    "evidenceDangerCount": 6,
+    "valueAbstainedCount": 3,
+    "dangerAbstainedCount": 0,
+    "valueChangedCount": 3,
+    "dangerChangedCount": 0
+  },
+  "predictionSha256": "77ff9617606d9c2e2d1ff1db1a338caffafdf96c1ea54f03c16872cab004679b",
+  "predictions": [
+    {
+      "raceId": "2026-09-12-中山-9R",
+      "bundleId": "2026-09-12-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "御宿特別",
+      "productionValue": {
+        "id": "2609120901",
+        "number": 1,
+        "name": "ホウオウシンデレラ",
+        "popularity": 7,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2609120901",
+        "number": 1,
+        "name": "ホウオウシンデレラ",
+        "popularity": 7,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "evidenceValue": {
+        "id": "2609120901",
+        "number": 1,
+        "name": "ホウオウシンデレラ",
+        "popularity": 7,
+        "tmIndex": 76,
+        "indexRank": 3,
+        "marketGap": 4,
+        "qualityScore": 68.6,
+        "foundationScore": 66.53,
+        "conditionScore": 71.45,
+        "evidenceRoleQuality": 68.6,
+        "dangerStrength": null,
+        "supports": [
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          }
+        ],
+        "risks": [],
+        "protections": [],
+        "riskPoints": 0,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 53,
+          "distanceDirection": 1,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      },
+      "productionDanger": {
+        "id": "2609120906",
+        "number": 6,
+        "name": "マルカオペラ",
+        "popularity": 4,
+        "tmIndex": 69,
+        "indexRank": 10
+      },
+      "paceDanger": {
+        "id": "2609120906",
+        "number": 6,
+        "name": "マルカオペラ",
+        "popularity": 4,
+        "tmIndex": 69,
+        "indexRank": 10
+      },
+      "evidenceDanger": {
+        "id": "2609120906",
+        "number": 6,
+        "name": "マルカオペラ",
+        "popularity": 4,
+        "tmIndex": 69,
+        "indexRank": 10,
+        "marketGap": -6,
+        "qualityScore": 62.76,
+        "foundationScore": 58.03,
+        "conditionScore": 69.3,
+        "evidenceRoleQuality": 62.76,
+        "dangerStrength": 45,
+        "supports": [],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 4,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 52,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 1,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-12-阪神-9R",
+      "bundleId": "2026-09-12-hanshin-09R",
+      "track": "阪神",
+      "raceNumber": 9,
+      "raceName": "瀬戸内海特別",
+      "productionValue": {
+        "id": "2609120908",
+        "number": 8,
+        "name": "ワンコールアウェイ",
+        "popularity": 7,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2609120908",
+        "number": 8,
+        "name": "ワンコールアウェイ",
+        "popularity": 7,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2609120911",
+        "number": 11,
+        "name": "アジュマン",
+        "popularity": 3,
+        "tmIndex": 73,
+        "indexRank": 7
+      },
+      "paceDanger": {
+        "id": "2609120906",
+        "number": 6,
+        "name": "アムールリーベ",
+        "popularity": 1,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "evidenceDanger": {
+        "id": "2609120906",
+        "number": 6,
+        "name": "アムールリーベ",
+        "popularity": 1,
+        "tmIndex": 74,
+        "indexRank": 5,
+        "marketGap": -4,
+        "qualityScore": 66.57,
+        "foundationScore": 63.79,
+        "conditionScore": 70.41,
+        "evidenceRoleQuality": 65.82,
+        "dangerStrength": 28,
+        "supports": [
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "paceHistory",
+            "label": "過去好走に展開利",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 48,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": -1,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-12-中山-10R",
+      "bundleId": "2026-09-12-nakayama-10R",
+      "track": "中山",
+      "raceNumber": 10,
+      "raceName": "レインボーステークス",
+      "productionValue": null,
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2609121001",
+        "number": 1,
+        "name": "デルアヴァー",
+        "popularity": 1,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "paceDanger": {
+        "id": "2609121001",
+        "number": 1,
+        "name": "デルアヴァー",
+        "popularity": 1,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "evidenceDanger": {
+        "id": "2609121001",
+        "number": 1,
+        "name": "デルアヴァー",
+        "popularity": 1,
+        "tmIndex": 74,
+        "indexRank": 5,
+        "marketGap": -4,
+        "qualityScore": 68.06,
+        "foundationScore": 64.92,
+        "conditionScore": 72.39,
+        "evidenceRoleQuality": 68.81,
+        "dangerStrength": 26,
+        "supports": [
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "paceHistory",
+            "label": "過去に展開へ逆らった走り",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "相対負担は重め（同斤量実績あり）",
+            "severity": 1
+          }
+        ],
+        "protections": [
+          {
+            "key": "paceHistory",
+            "label": "逆展開でも崩れにくい",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "重い斤量を克服済み",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 3,
+        "protectionPoints": 2,
+        "components": {
+          "opponentQuality": 51,
+          "distanceDirection": 1,
+          "distanceTransition": 0,
+          "distanceCadence": 1,
+          "load": -1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 1,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-12-阪神-10R",
+      "bundleId": "2026-09-12-hanshin-10R",
+      "track": "阪神",
+      "raceNumber": 10,
+      "raceName": "竹田城ステークス",
+      "productionValue": {
+        "id": "2609121014",
+        "number": 14,
+        "name": "ブルーワール",
+        "popularity": 12,
+        "tmIndex": 73,
+        "indexRank": 8
+      },
+      "paceValue": {
+        "id": "2609121010",
+        "number": 10,
+        "name": "レヴァンテシチー",
+        "popularity": 6,
+        "tmIndex": 77,
+        "indexRank": 4
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2609121005",
+        "number": 5,
+        "name": "パシアンジャン",
+        "popularity": 4,
+        "tmIndex": 74,
+        "indexRank": 6
+      },
+      "evidenceDanger": {
+        "id": "2609121005",
+        "number": 5,
+        "name": "パシアンジャン",
+        "popularity": 4,
+        "tmIndex": 74,
+        "indexRank": 6,
+        "marketGap": -2,
+        "qualityScore": 66.87,
+        "foundationScore": 63.17,
+        "conditionScore": 71.98,
+        "evidenceRoleQuality": 66.12,
+        "dangerStrength": 18,
+        "supports": [
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "paceHistory",
+            "label": "過去好走に展開利",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 53,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": -1,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-12-中山-11R",
+      "bundleId": "2026-09-12-nakayama-11R",
+      "track": "中山",
+      "raceNumber": 11,
+      "raceName": "ラジオ日本賞",
+      "productionValue": {
+        "id": "2609121113",
+        "number": 13,
+        "name": "ショウナンアビアス",
+        "popularity": 12,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2609121113",
+        "number": 13,
+        "name": "ショウナンアビアス",
+        "popularity": 12,
+        "tmIndex": 76,
+        "indexRank": 3
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2609121105",
+        "number": 5,
+        "name": "ジョーローリット",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 9
+      },
+      "paceDanger": {
+        "id": "2609121105",
+        "number": 5,
+        "name": "ジョーローリット",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 9
+      },
+      "evidenceDanger": {
+        "id": "2609121105",
+        "number": 5,
+        "name": "ジョーローリット",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 9,
+        "marketGap": -6,
+        "qualityScore": 65.91,
+        "foundationScore": 62.52,
+        "conditionScore": 70.59,
+        "evidenceRoleQuality": 65.91,
+        "dangerStrength": 37,
+        "supports": [
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量条件に不安",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 55,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 1,
+          "load": -2,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-12-阪神-11R",
+      "bundleId": "2026-09-12-hanshin-11R",
+      "track": "阪神",
+      "raceNumber": 11,
+      "raceName": "チャレンジカップ",
+      "productionValue": {
+        "id": "2609121113",
+        "number": 13,
+        "name": "グランヴィノス",
+        "popularity": 8,
+        "tmIndex": 82,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2609121113",
+        "number": 13,
+        "name": "グランヴィノス",
+        "popularity": 8,
+        "tmIndex": 82,
+        "indexRank": 3
+      },
+      "evidenceValue": {
+        "id": "2609121113",
+        "number": 13,
+        "name": "グランヴィノス",
+        "popularity": 8,
+        "tmIndex": 82,
+        "indexRank": 3,
+        "marketGap": 5,
+        "qualityScore": 73.21,
+        "foundationScore": 70.57,
+        "conditionScore": 76.85,
+        "evidenceRoleQuality": 73.21,
+        "dangerStrength": null,
+        "supports": [
+          {
+            "key": "ability",
+            "label": "地力上位",
+            "severity": 1
+          },
+          {
+            "key": "form",
+            "label": "近走内容良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          }
+        ],
+        "protections": [
+          {
+            "key": "distance",
+            "label": "距離変更への実績",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "重い斤量を克服済み",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 1,
+        "protectionPoints": 2,
+        "components": {
+          "opponentQuality": 65,
+          "distanceDirection": 2,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      },
+      "productionDanger": {
+        "id": "2609121102",
+        "number": 2,
+        "name": "ジーティーダーリン",
+        "popularity": 4,
+        "tmIndex": 76,
+        "indexRank": 9
+      },
+      "paceDanger": {
+        "id": "2609121102",
+        "number": 2,
+        "name": "ジーティーダーリン",
+        "popularity": 4,
+        "tmIndex": 76,
+        "indexRank": 9
+      },
+      "evidenceDanger": {
+        "id": "2609121102",
+        "number": 2,
+        "name": "ジーティーダーリン",
+        "popularity": 4,
+        "tmIndex": 76,
+        "indexRank": 9,
+        "marketGap": -5,
+        "qualityScore": 67.29,
+        "foundationScore": 62.74,
+        "conditionScore": 73.57,
+        "evidenceRoleQuality": 66.54,
+        "dangerStrength": 35,
+        "supports": [
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "paceHistory",
+            "label": "過去好走に展開利",
+            "severity": 1
+          }
+        ],
+        "protections": [
+          {
+            "key": "load",
+            "label": "重い斤量を克服済み",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 5,
+        "protectionPoints": 1,
+        "components": {
+          "opponentQuality": 56,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 2,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": -1,
+          "currentPaceFit": 0
+        }
+      }
+    }
+  ]
+}

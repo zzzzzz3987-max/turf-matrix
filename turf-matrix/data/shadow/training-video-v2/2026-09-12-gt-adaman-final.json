@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "horseName": "ジーティーアダマン",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "durationSeconds": 39.659,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "不良",
+    "effort": "unknown"
+  },
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909037&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T12:39:45Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示7168・ジーティーアダマン(内)。三頭の最内、青い帽子・黒い半袖・茶色のズボンの騎乗者。30.605〜31.121秒で青ゼッケンの7168の末尾68も確認。中央の比較馬は顔の白い線と白袖の騎乗者で追跡。"
+  },
+  "captureMethod": "Authenticated browser playback UI seek followed by individually inspected screenshots. Not continuous video input. No video file downloaded or archived.",
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "segments": [
+    {
+      "id": "late-relative-position",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.022939,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @28.022939s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "三頭の頭部が見える。最内がわずかに前。"
+        },
+        {
+          "time": 28.539092,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @28.539092s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "中央の白い顔の馬に対して内馬が前。"
+        },
+        {
+          "time": 29.05548,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @29.05548s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "対象馬が前で、中央馬の鼻先は対象馬の首付近。"
+        },
+        {
+          "time": 29.571869,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @29.571869s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "内馬が前の状態を保つ。脚元は柵と他馬で隠れる。"
+        },
+        {
+          "time": 30.088258,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @30.088258s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "中央馬との前後差が28秒台より広がって見える。"
+        },
+        {
+          "time": 30.604647,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @30.604647s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "対象馬の青ゼッケンの末尾68が見える。中央馬の頭部は肩寄り。"
+        },
+        {
+          "time": 31.121036,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @31.121036s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "中央馬の鼻先は対象馬の肩・胴寄り。"
+        },
+        {
+          "time": 31.637425,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @31.637425s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "内馬が前の状態を保つ。"
+        },
+        {
+          "time": 32.153813,
+          "observed": true,
+          "reference": "JRA clip 20260909037 @32.153813s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "中央馬に対して前へ出た幅は開始時より広い。馬身差は算出しない。"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_gain",
+      "segmentId": "late-relative-position",
+      "rationale": "28.023〜32.154秒、中央馬に対して内の対象馬の頭部が前へ出た幅が広がる。中央馬の頭部は対象馬の首付近から肩・胴寄りに下がって見える。",
+      "limitations": [
+        "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+        "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+        "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。"
+      ]
+    }
+  ],
+  "reviewNotes": [
+    "28.023〜32.154秒、中央馬に対して内の対象馬の頭部が前へ出た幅が広がる。中央馬の頭部は対象馬の首付近から肩・胴寄りに下がって見える。",
+    "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+    "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+    "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。"
+  ],
+  "overlay": {
+    "course": "栗東 CW 不良",
+    "times": {
+      "6F": 82.5,
+      "5F": 66.8,
+      "4F": 51.5,
+      "3F": 36.9,
+      "1F": 11.9
+    },
+    "usage": "画面に表示された時計。動画フレームから計測した加速値ではない。"
+  }
+}

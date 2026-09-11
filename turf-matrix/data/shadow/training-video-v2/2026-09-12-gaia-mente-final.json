@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 2,
+  "horseName": "ガイアメンテ",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "durationSeconds": 39.723,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "不良",
+    "effort": "unknown"
+  },
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909035&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T12:39:45Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示6795・ガイアメンテ(内)。内側の青ゼッケン6795、紺色帽子と黒い服の騎乗者で追跡。外の相手は白い顔の模様、青い帽子、3297のゼッケン。"
+  },
+  "captureMethod": "Authenticated browser playback UI seek followed by individually inspected screenshots. Not continuous video input. No video file downloaded or archived.",
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "segments": [
+    {
+      "id": "late-relative-position",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 27.998962,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @27.998962s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "内馬の頭部が前。外馬の頭部は内馬の胴付近。"
+        },
+        {
+          "time": 28.516184,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @28.516184s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "両馬の頭部が見え、対象馬が前の関係を保つ。"
+        },
+        {
+          "time": 29.033406,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @29.033406s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "対象馬が前。脚元に柵が重なる。"
+        },
+        {
+          "time": 29.550629,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @29.550629s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "対象馬が前の関係は変わらず。騎乗者は低い姿勢。"
+        },
+        {
+          "time": 30.067851,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @30.067851s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "外馬の頭部は対象馬の胴から後躯付近。"
+        },
+        {
+          "time": 30.585073,
+          "observed": true,
+          "reference": "JRA clip 20260909035 @30.585073s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "両頭部が見え、先行位置をおおむね維持。"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_maintained",
+      "segmentId": "late-relative-position",
+      "rationale": "27.999〜30.585秒では内の対象馬が前。外馬の頭部が対象馬の胴から後躯付近に位置する関係をおおむね保つ。大きく差を広げたとは判定しない。",
+      "limitations": [
+        "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+        "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+        "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。"
+      ]
+    }
+  ],
+  "reviewNotes": [
+    "27.999〜30.585秒では内の対象馬が前。外馬の頭部が対象馬の胴から後躯付近に位置する関係をおおむね保つ。大きく差を広げたとは判定しない。",
+    "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+    "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+    "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。"
+  ],
+  "overlay": {
+    "course": "栗東 CW 不良",
+    "times": {
+      "6F": 84,
+      "5F": 68.4,
+      "4F": 53.1,
+      "3F": 37.9,
+      "1F": 12.3
+    },
+    "usage": "画面に表示された時計。動画フレームから計測した加速値ではない。"
+  }
+}

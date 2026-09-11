@@ -53,7 +53,7 @@ test("Training specialist keeps missing data explicit", () => {
   assert.equal(profile.confidence, "low");
 });
 
-test("Training specialist keeps an official-video review when clock data is missing", () => {
+test("Training specialist keeps missing clocks neutral when the legacy video review is unaudited", () => {
   const profile = buildTrainingProfile({
     horseName: "パンジャタワー",
     currentRace: { raceDate: "2026-08-23", stableSide: "栗東" },
@@ -61,9 +61,9 @@ test("Training specialist keeps an official-video review when clock data is miss
   });
 
   assert.equal(profile.clockScore, 60);
-  assert.equal(profile.videoReview?.adjustment, 2);
-  assert.equal(profile.score, 62);
-  assert.equal(profile.status, "partial");
+  assert.equal(profile.videoReview, null);
+  assert.equal(profile.score, 60);
+  assert.equal(profile.status, "missing");
   assert.equal(profile.confidence, "low");
 });
 
@@ -77,7 +77,7 @@ test("Training specialist does not add an unlearned stable pattern", () => {
   assert.equal(profile.score, profile.baseScore);
 });
 
-test("Training specialist applies a bounded official-video review only to the exact date and horse", () => {
+test("Training specialist does not present an unaudited zero-point review as video confirmation", () => {
   const reviewed = buildTrainingProfile({
     horseName: "レイピア",
     currentRace: { raceDate: "2026-08-09", stableSide: "栗東" },
@@ -89,21 +89,20 @@ test("Training specialist applies a bounded official-video review only to the ex
     training: { slope: [slope("20260805", 51.9, 13.2)], wood: [] },
   });
 
-  assert.equal(reviewed.videoReview?.source, "JRA Racing Viewer");
-  assert.equal(reviewed.videoReview?.adjustment, 0);
+  assert.equal(reviewed.videoReview, null);
   assert.equal(reviewed.score, reviewed.clockScore);
   assert.equal(otherDate.videoReview, null);
 });
 
-test("Training specialist keeps video adjustments within the declared two-point range", () => {
+test("Training specialist does not apply legacy positive video points without evidence", () => {
   const reviewed = buildTrainingProfile({
     horseName: "タマモイカロス",
     currentRace: { raceDate: "2026-08-09", stableSide: "栗東" },
     training: { slope: [slope("20260805", 51.9, 11.9)], wood: [] },
   });
 
-  assert.equal(reviewed.videoReview?.adjustment, 2);
-  assert.equal(reviewed.score - reviewed.clockScore, 2);
+  assert.equal(reviewed.videoReview, null);
+  assert.equal(reviewed.score, reviewed.clockScore);
 });
 
 test("Training specialist compares current preparation with the same horse's top-three runs", () => {

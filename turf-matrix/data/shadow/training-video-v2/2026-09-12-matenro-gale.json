@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 2,
+  "horseName": "マテンロウゲイル",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-02",
+  "phase": "oneWeek",
+  "durationSeconds": 36.096,
+  "context": { "trainingType": "wood", "trainingCenter": "栗東", "surfaceCondition": "良", "effort": "unknown" },
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260902/20260902065&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T10:50:02Z",
+  "identity": {
+    "verified": true,
+    "evidence": "映像表示は3600・マテンロウゲイル(内)。内側のゼッケン3600、白い帽子・赤い胴・白い袖の騎乗者で追跡。"
+  },
+  "captureMethod": "Authenticated browser playback UI seek followed by individually inspected screenshots. Not continuous video input. No video file downloaded or archived.",
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": { "status": "pending", "independent": false },
+  "segments": [
+    {
+      "id": "side-relative-position",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        { "time": 18.486666, "observed": true, "reference": "JRA clip 20260902065 @18.486666s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "内の対象馬の頭部が外の併走馬より前。外馬の頭部は対象馬の肩付近に見える。脚元の一部は柵で隠れる。" },
+        { "time": 18.987999, "observed": true, "reference": "JRA clip 20260902065 @18.987999s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "対象馬が前。両馬の頭部が見え、対象馬の騎乗者は低い姿勢。柵が脚元に重なる。" },
+        { "time": 19.489332, "observed": true, "reference": "JRA clip 20260902065 @19.489332s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "両馬の頭部を比較でき、対象馬の頭部がより前へ出ている。" },
+        { "time": 19.990666, "observed": true, "reference": "JRA clip 20260902065 @19.990666s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "外馬の頭部が対象馬の胴から後躯寄りに見える位置まで下がる。対象馬の騎乗者の両手は前へ伸びた姿勢。" },
+        { "time": 20.491999, "observed": true, "reference": "JRA clip 20260902065 @20.491999s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "対象馬が前の状態を維持。外馬の頭部は対象馬の後躯付近に見える。" },
+        { "time": 20.993332, "observed": true, "reference": "JRA clip 20260902065 @20.993332s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": true, "legs": false }, "note": "対象馬がさらに前。外馬は画面右側に寄るが、頭部はまだ比較できる。" },
+        { "time": 21.494666, "observed": true, "reference": "JRA clip 20260902065 @21.494666s; Codex browser observation 2026-09-11", "visible": { "target": true, "companion": true, "rider": false, "legs": false }, "note": "外馬の体は画面外へ切れ始めるが頭部は見える。18秒台より対象馬が前に出た幅が広い。馬身差の測定はしない。" }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_gain",
+      "segmentId": "side-relative-position",
+      "rationale": "同一の斜め側方のショットで両馬の頭部を追跡。18秒台には対象馬の肩付近に見えた外馬の頭部が、20秒台には対象馬の後躯付近に見える。",
+      "limitations": [
+        "カメラ角度・遠近差があるため、馬身差や秒差を画像の距離から換算しない。",
+        "対象馬の加速と相手の減速を切り分けていない。追い出しへの反応の速さや余力は未判定。",
+        "相手の馬名はこの記録では映像から確定していない。アルトラムスという報道情報とは別に保持する。",
+        "約0.5秒間隔の静止画確認であり、脚運びの一連の周期や微細な姿勢変化を評価した記録ではない。"
+      ]
+    }
+  ],
+  "overlay": {
+    "course": "栗東CW 良",
+    "times": { "7F": 98.4, "6F": 81.5, "5F": 66.8, "4F": 51.8, "3F": 36.7, "1F": 11.2 },
+    "usage": "画面に表示された時計。動画フレームから計測した加速値ではない。"
+  }
+}

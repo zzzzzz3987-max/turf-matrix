@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "horseName": "センツブラッド",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909040&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示7260・センツブラッド(内)。三頭の最内、灰色の半袖と黒い帽子の騎乗者、白い鼻革の黒い馬を追跡。中央馬は水色帽子、外馬は黄色ゼッケン。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 40.299,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "不良",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "内の対象馬が中央馬より前の位置をおおむね維持。三頭の馬体と柵が重なるため、脚運びや力感を比較しない。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.05538,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @28.05538s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "内の対象馬が前。三頭の頭部は分離できる。"
+        },
+        {
+          "time": 28.614851,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @28.614851s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "中央馬の頭部は対象馬の首寄り。"
+        },
+        {
+          "time": 29.174555,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @29.174555s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "先行位置を保つ。馬体と脚元は重なる。"
+        },
+        {
+          "time": 29.734258,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @29.734258s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "対象馬と中央馬の鼻先は確認できる。"
+        },
+        {
+          "time": 30.293962,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @30.293962s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "中央馬に対して対象馬が前。"
+        },
+        {
+          "time": 30.853666,
+          "observed": true,
+          "reference": "JRA clip 20260909040 @30.853666s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "同様の前後関係を保つ。"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_maintained",
+      "segmentId": "observed-section",
+      "rationale": "内の対象馬が中央馬より前の位置をおおむね維持。三頭の馬体と柵が重なるため、脚運びや力感を比較しない。",
+      "limitations": [
+        "時刻を指定して確認した部分画像による暫定所見。連続動画そのものを入力して判定したものではない。",
+        "撮影角度・遠近差を含むため、速度・先着差を画像から数値化しない。",
+        "脚運び全体、騎乗者の指示前後、調教終点の確認は不足。余力・健康状態・仕上がり順位は断定しない。"
+      ]
+    }
+  ],
+  "overlay": {
+    "course": "栗東 W 不良",
+    "times": {
+      "6F": 86,
+      "5F": 69.7,
+      "4F": 53.7,
+      "3F": 37.9,
+      "1F": 12.1
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

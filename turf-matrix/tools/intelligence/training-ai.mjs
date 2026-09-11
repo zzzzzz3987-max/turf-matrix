@@ -1,6 +1,8 @@
 import { createRequire } from "node:module";
 import { trainingThreshold } from "./dictionaries/training-thresholds.mjs";
 import { trainingHistoryFor } from "./training-history.mjs";
+import { reportedTrainingContext } from "./training-reported-context.mjs";
+import { eligibleVideoReview } from "./training-video-evidence.mjs";
 
 const require = createRequire(import.meta.url);
 const STABLE_PATTERNS = require("../../data/master/stables.json");
@@ -8,7 +10,6 @@ const VIDEO_REVIEWS = require("../../data/master/training-video-reviews.json");
 const TRAINING_NEUTRAL_SCORE = 60;
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 const normalizeKey = (value) => String(value ?? "").normalize("NFKC").replace(/\s+/g, "").trim();
-const MAX_VIDEO_ADJUSTMENT = Number(VIDEO_REVIEWS.policy?.maxAdjustment ?? 2);
 
 const findVideoReview = (horse) => {
   const raceDate = String(horse.currentRace?.raceDate ?? "").trim();
@@ -17,9 +18,7 @@ const findVideoReview = (horse) => {
   const review = VIDEO_REVIEWS.reviews?.find(
     (item) => item.raceDate === raceDate && normalizeKey(item.horseName) === horseName
   );
-  if (!review) return null;
-  const adjustment = Math.max(-MAX_VIDEO_ADJUSTMENT, Math.min(MAX_VIDEO_ADJUSTMENT, Number(review.adjustment) || 0));
-  return { ...review, adjustment, source: VIDEO_REVIEWS.source, dimensions: VIDEO_REVIEWS.policy?.dimensions ?? [] };
+  return eligibleVideoReview(review, horse, VIDEO_REVIEWS.policy);
 };
 
 const toDate = (dateText) => {
@@ -403,6 +402,8 @@ const buildTrainingProfile = (horse) => {
 const buildTrainingAnalysis = (horse) => {
   const profile = buildTrainingProfile(horse);
   const sessions = profile.sessions;
+  const reportedContext = reportedTrainingContext(horse);
+  const reportedText = reportedContext.map((item) => `報道による補足: ${item.summary}`).join(" ");
 
   if (!sessions.length) {
     const videoEvidence = profile.videoReview
@@ -443,6 +444,7 @@ const buildTrainingAnalysis = (horse) => {
     ...(profile.stablePattern.status === "DB未登録" ? [] : [profile.stablePattern.text]),
     ...(profile.goodRunComparison?.status !== "missing" ? [profile.goodRunComparison.text] : []),
     ...(profile.videoReview ? [`映像確認 ${profile.videoReview.adjustment >= 0 ? "+" : ""}${profile.videoReview.adjustment}: ${profile.videoReview.note}`] : []),
+    ...reportedContext.map((item) => `報道による補足: ${item.summary}`),
   ];
 
   return {
@@ -456,7 +458,8 @@ const buildTrainingAnalysis = (horse) => {
     fastFinish,
     activeCount,
     strengths,
-    summary: `${PHASE_LABELS[final ? "final" : oneWeek ? "oneWeek" : best.phase]}を軸に、調教時計・終い・加速・本数を分けて評価。${phaseEvidence.join(" / ")}。${profile.videoReview ? ` 公式映像確認: ${profile.videoReview.note}` : ""}`,
+    reportedContext,
+    summary: `${PHASE_LABELS[final ? "final" : oneWeek ? "oneWeek" : best.phase]}を軸に、調教時計・終い・加速・本数を分けて評価。${phaseEvidence.join(" / ")}。${profile.videoReview ? ` 公式映像確認: ${profile.videoReview.note}` : ""}${reportedText ? ` ${reportedText}` : ""}`,
     finalText: final
       ? `${formatSession(final)}。最終追い切り評価は${final.score >= 74 ? "良好" : final.score >= 62 ? "標準" : "控えめ"}です。`
       : "最終追い切りは取得待ちです。一週前までの実測値で暫定評価しています。",

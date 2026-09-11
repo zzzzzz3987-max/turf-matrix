@@ -2,6 +2,7 @@
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { eligibleVideoReview } from "../intelligence/training-video-evidence.mjs";
 
 const ANALYZE_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(ANALYZE_DIR, "..", "..");
@@ -22,6 +23,8 @@ const trainingShadowSource = source("tools", "intelligence", "training-evidence-
 const historyManifest = json("data", "master", "training-history", "manifest.json");
 const baselines = json("data", "master", "training-baselines.json");
 const videoReviews = json("data", "master", "training-video-reviews.json");
+const eligibleVideoCount = (videoReviews.reviews ?? []).filter((review) => eligibleVideoReview(review,
+  { horseName: review.horseName, currentRace: { raceDate: review.raceDate } }, videoReviews.policy)).length;
 const stables = json("data", "master", "stables.json");
 
 const abilityCriteria = [
@@ -42,7 +45,7 @@ const trainingCriteria = [
   ["最終・一週前・中間を日付で分離", includesAll(trainingSource, ["phaseForDays", "final", "oneWeek", "intermediate"])],
   ["4F・1F・加速ラップを分解", includesAll(trainingSource, ["f4Gap", "f1Gap", "accel"])],
   ["好走時の調教履歴と比較", historyManifest.recordCount >= 1000 && historyManifest.sessionCount >= 10000 && trainingSource.includes("trainingHistoryFor")],
-  ["公式映像所見を限定補正", videoReviews.reviews?.length > 0 && Number(videoReviews.policy?.maxAdjustment) <= 2],
+  ["根拠・独立確認・採用検証を満たす映像所見を限定補正", eligibleVideoCount > 0],
   ["厩舎勝負パターンを標本条件付きで照合", stables.stables?.length > 0 && includesAll(trainingSource, ["sampleSize >= 20", "validation?.status === \"passed\""])],
   ["調教コース別の実測時計基準", Object.keys(baselines.groups ?? {}).length >= 5 && baselines.policy?.resultDataUsed === false],
   ["未来時計・市場・結果を基準から排除", historyManifest.policy?.futureSessionFilterRequired === true && baselines.policy?.popularityOddsUsed === false],
@@ -69,7 +72,7 @@ const report = `# Ability / Training 完成監査 (${TODAY})
 
 ## 判定
 
-| AI | 構造完成度 | 本番接続 | 独立検証 |
+| AI | 構造完成度 | 本番接続 | 事前固定数（結果評価数ではない） |
 |---|---:|---|---|
 | Ability | ${score(abilityCriteria)}/100 | 現行維持 | ${abilityProgress.races}/30レース・TM首位変更${abilityProgress.changes}/5 |
 | Training | ${score(trainingCriteria)}/100 | 現行維持 | ${trainingProgress.races}/30レース・TM首位変更${trainingProgress.changes}/5 |
@@ -92,7 +95,7 @@ ${criterionTable(trainingCriteria)}
 
 - 馬別履歴: ${historyManifest.recordCount}頭 / ${historyManifest.sessionCount}本 / ${historyManifest.shardCount}分割
 - 実測時計基準: ${Object.entries(baselines.groups ?? {}).map(([key, value]) => `${key} n=${value.sampleSize}`).join("、")}
-- 映像所見: ${videoReviews.reviews?.length ?? 0}件
+- 映像所見の保存件数: ${videoReviews.reviews?.length ?? 0}件 / 採点条件を満たす件数: ${eligibleVideoCount}件（保存件数を診断精度・検証完了数として数えない）
 - 厩舎辞書: ${stables.stables?.length ?? 0}厩舎
 
 ## 運用

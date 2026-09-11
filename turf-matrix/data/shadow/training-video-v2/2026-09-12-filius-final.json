@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 2,
+  "horseName": "フィーリウス",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "durationSeconds": 39.083,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "美浦",
+    "surfaceCondition": "重",
+    "effort": "unknown"
+  },
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909016&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T12:39:45Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示7518・フィーリウス(外)。手前の青ゼッケン7518、紺の袖と白い背中の騎乗者で追跡。二頭とも青い顔の装具。相手は内側で紺・黄色系の帽子。"
+  },
+  "captureMethod": "Authenticated browser playback UI seek followed by individually inspected screenshots. Not continuous video input. No video file downloaded or archived.",
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "segments": [
+    {
+      "id": "late-relative-position",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.023053,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @28.023053s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "両頭部は見えるが斜め前方からの遠近差がある。"
+        },
+        {
+          "time": 28.531703,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @28.531703s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "二頭が近い位置で併走。"
+        },
+        {
+          "time": 29.040592,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @29.040592s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "両馬の頭部が近く、撮影角度が側方へ変化。"
+        },
+        {
+          "time": 29.54948,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @29.54948s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": false,
+            "rider": true,
+            "legs": false
+          },
+          "note": "頭部の輪郭が一部重なる。比較は不確実。"
+        },
+        {
+          "time": 30.058369,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @30.058369s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": false,
+            "rider": true,
+            "legs": false
+          },
+          "note": "頭部が重なり、相手の鼻先を分離して追いにくい。"
+        },
+        {
+          "time": 30.567258,
+          "observed": true,
+          "reference": "JRA clip 20260909016 @30.567258s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "手前の対象馬の頭部が前に見えるが、それまでの角度変化から優劣は保留。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "reviewNotes": [
+    "二頭は近い位置で併走するが、28〜30秒台で斜め前方から側方へカメラ角度が変わり頭部も重なる。前後差の変化を追い出しの反応や優劣として確定しない。",
+    "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+    "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+    "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。"
+  ],
+  "overlay": {
+    "course": "美浦 W 重",
+    "times": {
+      "6F": 83.3,
+      "5F": 67.3,
+      "4F": 52.5,
+      "3F": 38.2,
+      "1F": 11.5
+    },
+    "usage": "画面に表示された時計。動画フレームから計測した加速値ではない。"
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 2,
+  "horseName": "カネフラ",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-03",
+  "phase": "oneWeek",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260903/20260903005&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示6808・カネフラ(左)。手前二頭の左、青い帽子の騎乗者で追跡。右側は黒い帽子の騎乗者。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 29.762966,
+  "context": {
+    "trainingType": "slope",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "良",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "9/3の一週前。正面から二頭を確認したが、遠近差が大きいため先着差・反応の優劣は保留。最終追いの映像を確認したことにはしない。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "front",
+      "frames": [
+        {
+          "time": 18.007627,
+          "observed": true,
+          "reference": "JRA clip 20260903005 @18.007627s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "手前二頭の左が対象馬。後方に別の馬も映る。"
+        },
+        {
+          "time": 18.576017,
+          "observed": true,
+          "reference": "JRA clip 20260903005 @18.576017s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "左馬を追跡。右馬との距離を画像から数値化しない。"
+        },
+        {
+          "time": 19.144407,
+          "observed": true,
+          "reference": "JRA clip 20260903005 @19.144407s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "対象馬が手前に見える。正面の画角のため前後差の定量比較は保留。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "overlay": {
+    "course": "栗東 坂路 良",
+    "times": {
+      "4F": 54.5,
+      "3F": 39.3,
+      "2F": 25.1,
+      "1F": 12.1
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

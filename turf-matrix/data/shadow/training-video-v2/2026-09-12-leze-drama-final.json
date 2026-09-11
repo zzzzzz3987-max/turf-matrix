@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 2,
+  "horseName": "レーゼドラマ",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909045&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示9374。黄色ゼッケン9374、紫の半袖、黒い帽子、四肢の白い装具で追跡する単走馬。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 41.024,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "不良",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "単走で騎乗者は比較的起きた姿勢。姿勢だけを理由に馬なり・余力十分とは断定しない。相手との比較はできず、時計と別に映像の優劣を付ける根拠は不足。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.025944,
+          "observed": true,
+          "reference": "JRA clip 20260909045 @28.025944s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "単走。黄色ゼッケン9374と四肢の白い装具。"
+        },
+        {
+          "time": 28.595721,
+          "observed": true,
+          "reference": "JRA clip 20260909045 @28.595721s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "騎乗者が比較的起きた姿勢の場面。"
+        },
+        {
+          "time": 29.165499,
+          "observed": true,
+          "reference": "JRA clip 20260909045 @29.165499s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "単走継続。脚の一部に柵が重なる。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "overlay": {
+    "course": "栗東 W 不良",
+    "times": {
+      "4F": 51.5,
+      "3F": 36.9,
+      "1F": 12.1
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

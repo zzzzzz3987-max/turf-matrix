@@ -293,6 +293,7 @@ const buildVerdictPayload = ({
           fastFinish: trainingAnalysis.fastFinish ?? 0,
           accelCount: trainingAnalysis.accelCount ?? 0,
           strengths: trainingAnalysis.strengths ?? [],
+          ...(trainingAnalysis.reportedContext?.length ? { reportedContext: trainingAnalysis.reportedContext } : {}),
           ...(trainingAnalysis.goodRunComparison?.status !== "missing"
             ? { goodRunComparison: trainingAnalysis.goodRunComparison }
             : {}),

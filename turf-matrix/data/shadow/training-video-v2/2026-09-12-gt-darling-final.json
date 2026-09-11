@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "horseName": "ジーティーダーリン",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909038&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示7171。青い帽子、赤と白の上着、青ゼッケン7171の単走馬。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 40.085,
+  "context": {
+    "trainingType": "turf",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "重",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "芝・重馬場で単走。3場面では騎乗者の姿勢と対象馬を確認できるが、連続した脚運びや余力は判定しない。芝の時計はCW・坂路の既存時計へ誤接続しない。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.010785,
+          "observed": true,
+          "reference": "JRA clip 20260909038 @28.010785s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "芝を単走。騎乗者は比較的起きた姿勢。"
+        },
+        {
+          "time": 28.582677,
+          "observed": true,
+          "reference": "JRA clip 20260909038 @28.582677s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "同じ対象馬の横側が見える。相手なし。"
+        },
+        {
+          "time": 29.139708,
+          "observed": true,
+          "reference": "JRA clip 20260909038 @29.139708s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "騎乗者が上体を低くしている場面。ただし指示前後の連続観察不足。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "overlay": {
+    "course": "栗東 芝 重",
+    "times": {
+      "6F": 80,
+      "5F": 66.2,
+      "4F": 51.9,
+      "3F": 38.5,
+      "1F": 12.4
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

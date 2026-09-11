@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "horseName": "ピースワンデュック",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909015&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示7499。緑の頭絡、白い脚の装具、白い袖と黒い胴の騎乗者、青ゼッケン7499を確認。単走。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 38.016,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "美浦",
+    "surfaceCondition": "重",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "最終は単走。頭頸と騎乗者、四肢が映る区間だが、3場面だけでは反応速度やリズムを評価しない。一週前の併せ馬とは別の調教として扱う。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.016999,
+          "observed": true,
+          "reference": "JRA clip 20260909015 @28.016999s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "斜め前方から単走を確認。騎乗者は低い姿勢。"
+        },
+        {
+          "time": 28.577999,
+          "observed": true,
+          "reference": "JRA clip 20260909015 @28.577999s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "横方向に近づき、四肢が見える一場面。"
+        },
+        {
+          "time": 29.138999,
+          "observed": true,
+          "reference": "JRA clip 20260909015 @29.138999s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "ゼッケン7499が見える。相手との比較なし。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "overlay": {
+    "course": "美浦 W 重",
+    "times": {
+      "6F": 83.2,
+      "5F": 66.6,
+      "4F": 51.9,
+      "3F": 37.6,
+      "1F": 11.6
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

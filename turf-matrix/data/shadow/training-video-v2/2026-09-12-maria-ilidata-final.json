@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 2,
+  "horseName": "マリアイリダータ",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909017&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示9178・マリアイリダータ(内)。三頭の最内、灰緑色の帽子・黒い半袖の騎乗者と紫系の顔の装具で追跡。中央は白い流星の馬、外は青ゼッケン6879。対象ゼッケンと胴体は隠れやすい。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 39.083,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "美浦",
+    "surfaceCondition": "重",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "三頭が密集し、最内の胴体・脚元は他馬に隠れる。28秒台と33秒台を確認したが、後方画角では対象の頭部も隠れるため、先着差・手応え順位は保留。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": false,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.023053,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @28.023053s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "三頭の最内を表示と騎乗者で確認。胴体が重なる。"
+        },
+        {
+          "time": 28.565629,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @28.565629s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "内の顔は一部見えるが脚元は他馬と重なる。"
+        },
+        {
+          "time": 29.108443,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @29.108443s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": false
+          },
+          "note": "三頭の頭部が接近している。"
+        },
+        {
+          "time": 33.009925,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @33.009925s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": false,
+            "courseLine": false,
+            "rider": true,
+            "body": false,
+            "legs": false,
+            "companion": false
+          },
+          "note": "斜め後方になり最内の頭部が隠れる。"
+        },
+        {
+          "time": 33.55274,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @33.55274s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": false,
+            "courseLine": false,
+            "rider": true,
+            "body": false,
+            "legs": false,
+            "companion": false
+          },
+          "note": "対象の胴体が中央馬と重なる。"
+        },
+        {
+          "time": 34.095554,
+          "observed": true,
+          "reference": "JRA clip 20260909017 @34.095554s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": false,
+            "courseLine": false,
+            "rider": true,
+            "body": false,
+            "legs": false,
+            "companion": false
+          },
+          "note": "三頭の後躯が主に見える画角。優劣は保留。"
+        }
+      ]
+    }
+  ],
+  "findings": [],
+  "overlay": {
+    "course": "美浦 W 重",
+    "times": {
+      "6F": 81.3,
+      "5F": 65.7,
+      "4F": 51.4,
+      "3F": 36.7,
+      "1F": 11.2
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

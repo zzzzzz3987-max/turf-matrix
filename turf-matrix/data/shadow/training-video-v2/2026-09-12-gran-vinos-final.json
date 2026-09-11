@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 2,
+  "horseName": "グランヴィノス",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "durationSeconds": 42.219,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "栗東",
+    "surfaceCondition": "不良",
+    "effort": "unknown"
+  },
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909036&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T12:39:45Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示6875・グランヴィノス(外)。手前の黒い馬、青ゼッケン6875、黒い帽子と黒い服の騎乗者、紫色の脚の装具で追跡。内の相手は茶色で緑のゼッケン473。"
+  },
+  "captureMethod": "Authenticated browser playback UI seek followed by individually inspected screenshots. Not continuous video input. No video file downloaded or archived.",
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "segments": [
+    {
+      "id": "late-relative-position",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 33.129925,
+          "observed": true,
+          "reference": "JRA clip 20260909036 @33.129925s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "相手の鼻先は対象馬の騎乗者・胴付近。両頭部を確認。"
+        },
+        {
+          "time": 33.642999,
+          "observed": true,
+          "reference": "JRA clip 20260909036 @33.642999s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "相手の鼻先が対象馬の後躯付近に下がる。"
+        },
+        {
+          "time": 34.156073,
+          "observed": true,
+          "reference": "JRA clip 20260909036 @34.156073s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "対象馬が前。相手の頭部は後躯より後ろへ。"
+        },
+        {
+          "time": 34.669147,
+          "observed": true,
+          "reference": "JRA clip 20260909036 @34.669147s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "相手の頭部は画面右側に残り、前後差が広がる。"
+        },
+        {
+          "time": 35.182221,
+          "observed": true,
+          "reference": "JRA clip 20260909036 @35.182221s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "companion": true,
+            "rider": true,
+            "legs": false
+          },
+          "note": "相手の頭部が右端に残る。33秒台より前に出た幅が大きい。"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_gain",
+      "segmentId": "late-relative-position",
+      "rationale": "33.130〜35.182秒は両頭部を確認できる。相手の鼻先が対象馬の胴付近から後躯より後ろへ移り、対象馬が前へ出る幅が広がる。",
+      "limitations": [
+        "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+        "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+        "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。",
+        "28〜32秒台は相手の頭部が対象馬や騎乗者と重なるため、この所見の根拠区間に含めない。",
+        "35.182秒の相手は画面右端に頭部だけ残る。以降の画面外の相手との着差は判定しない。"
+      ]
+    }
+  ],
+  "reviewNotes": [
+    "33.130〜35.182秒は両頭部を確認できる。相手の鼻先が対象馬の胴付近から後躯より後ろへ移り、対象馬が前へ出る幅が広がる。",
+    "約0.5秒間隔の抜粋画像の観察。連続動画入力による脚運び・反応速度の解析ではない。",
+    "相手との遠近差と撮影角度があるため、馬身・秒差・速度へ換算しない。",
+    "追い方の強度、相手の能力・減速、目標地点を確認していないため、余力や仕上がりを断定しない。",
+    "28〜32秒台は相手の頭部が対象馬や騎乗者と重なるため、この所見の根拠区間に含めない。",
+    "35.182秒の相手は画面右端に頭部だけ残る。以降の画面外の相手との着差は判定しない。"
+  ],
+  "overlay": {
+    "course": "栗東 CW 不良",
+    "times": {
+      "6F": 85.4,
+      "5F": 69.5,
+      "4F": 54.2,
+      "3F": 38.4,
+      "1F": 12.3
+    },
+    "usage": "画面に表示された時計。動画フレームから計測した加速値ではない。"
+  }
+}

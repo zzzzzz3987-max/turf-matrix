@@ -106,6 +106,7 @@
     "analyze:ability:ceiling": "node tools/analyze/ability-ceiling-whatif.mjs",
     "analyze:training:evidence": "node tools/analyze/training-evidence-whatif.mjs",
     "audit:ability-training": "node tools/analyze/ability-training-readiness.mjs",
+    "diagnose:training:video": "node tools/analyze/diagnose-training-videos.mjs",
     "analyze:form:state": "node tools/analyze/form-state-whatif.mjs",
     "audit:form": "node tools/analyze/form-readiness.mjs",
     "analyze:pace:shape": "node tools/analyze/pace-shape-whatif.mjs",

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "horseName": "カラマティアノス",
+  "raceDate": "2026-09-12",
+  "videoDate": "2026-09-09",
+  "phase": "final",
+  "sourceUrl": "https://regist.prc.jp/api/windowopen.aspx?target=training/2026/20260909/20260909013&quality=4",
+  "observer": "Codex-019f3134-5f2f-7b70-b868-5619c46a614f",
+  "observedAt": "2026-09-11T13:06:46Z",
+  "identity": {
+    "verified": true,
+    "evidence": "表示6783・カラマティアノス(内)。奥の青帽子・白袖・灰色胴の騎乗者と青ゼッケン。外馬は黄色8844、青い脚の装具と白い鼻革。"
+  },
+  "captureMethod": "Authenticated browser UI seeks and individually inspected timestamped screenshots. No continuous video input, download or external upload.",
+  "durationSeconds": 39.083,
+  "context": {
+    "trainingType": "wood",
+    "trainingCenter": "美浦",
+    "surfaceCondition": "重",
+    "effort": "unknown"
+  },
+  "status": "provisional",
+  "adjustment": 0,
+  "verification": {
+    "status": "pending",
+    "independent": false
+  },
+  "reviewNotes": [
+    "内の対象馬がわずかに前で近い併走位置を維持。相手を大きく突き放す区間としては扱わない。"
+  ],
+  "segments": [
+    {
+      "id": "observed-section",
+      "sameShot": true,
+      "view": "oblique",
+      "frames": [
+        {
+          "time": 28.023053,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @28.023053s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "内の対象馬の頭部が外馬より前。"
+        },
+        {
+          "time": 28.577534,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @28.577534s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "両頭部が見え、近い位置で並走。"
+        },
+        {
+          "time": 29.120575,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @29.120575s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "対象馬の先行位置を保つ。"
+        },
+        {
+          "time": 29.663616,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @29.663616s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "外馬が近い位置にいる。"
+        },
+        {
+          "time": 30.206657,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @30.206657s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "両馬とも画面内で追跡可能。前後関係に大きな変化なし。"
+        },
+        {
+          "time": 30.749698,
+          "observed": true,
+          "reference": "JRA clip 20260909013 @30.749698s; Codex browser observation 2026-09-11",
+          "visible": {
+            "target": true,
+            "courseLine": false,
+            "rider": true,
+            "body": true,
+            "legs": false,
+            "companion": true
+          },
+          "note": "内馬の頭部が前の近い並走。"
+        }
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "code": "relative_maintained",
+      "segmentId": "observed-section",
+      "rationale": "内の対象馬がわずかに前で近い併走位置を維持。相手を大きく突き放す区間としては扱わない。",
+      "limitations": [
+        "時刻を指定して確認した部分画像による暫定所見。連続動画そのものを入力して判定したものではない。",
+        "撮影角度・遠近差を含むため、速度・先着差を画像から数値化しない。",
+        "脚運び全体、騎乗者の指示前後、調教終点の確認は不足。余力・健康状態・仕上がり順位は断定しない。"
+      ]
+    }
+  ],
+  "overlay": {
+    "course": "美浦 W 重",
+    "times": {
+      "6F": 83.1,
+      "5F": 66.1,
+      "4F": 51.3,
+      "3F": 37.2,
+      "1F": 11.6
+    },
+    "usage": "画面表示の時計。映像フレームから計測した値ではない。"
+  }
+}

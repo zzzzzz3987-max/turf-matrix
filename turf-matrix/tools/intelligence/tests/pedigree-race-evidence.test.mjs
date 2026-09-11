@@ -88,7 +88,7 @@ test("all published runners remain unchanged, including scores and ordering", ()
 });
 
 test("expanded profiles have distinct identities and retain source links", () => {
-  assert.equal(PEDIGREE_STUDY_PROFILES.length, 50);
+  assert.equal(PEDIGREE_STUDY_PROFILES.length, 67);
   for (const profile of PEDIGREE_STUDY_PROFILES) {
     for (const name of profile.names) assert.equal(findPedigreeStudyProfile(name), profile);
     assert.ok(profile.tendency.length > 10);
@@ -143,4 +143,35 @@ test("new notes use a public default question and separate maternal interpretati
   const result = buildPedigreeRaceEvidence(input);
   assert.match(result.reading[0].question, /距離・コース実績/);
   assert.match(result.reading[1].question, /母父に入った場合も同じ効果があるとは限らず/);
+});
+
+test("September 12 study additions resolve both parent roles without scoring fields", () => {
+  const names = [
+    "ハーツクライ", "オルフェーヴル", "スペシャルウィーク", "ゴールドアリュール", "ネオユニヴァース",
+    "Candy Ride", "Cape Cross", "Smart Strike", "Curlin", "Distorted Humor", "Seeking the Gold",
+    "Machiavellian", "Into Mischief", "Medaglia d'Oro", "マジェスティックウォリアー", "シンボリクリスエス", "ワイルドラッシュ",
+  ];
+  const index = JSON.parse(readFileSync(new URL("../../../data/research/pedigree-study-index.json", import.meta.url), "utf8"));
+  const runners = names.map((name) => {
+    const profile = findPedigreeStudyProfile(name);
+    assert.ok(profile, name);
+    assert.ok(profile.question.length > 10, name);
+    assert.deepEqual(Object.keys(profile).sort(), ["names", "question", "source", "tendency"]);
+    const input = horse([run()]);
+    input.analysis.pedigree.identity = { sire: name, broodmareSire: name };
+    const before = JSON.stringify(input);
+    const result = buildPedigreeRaceEvidence(input);
+    assert.deepEqual(result.reading.map((item) => item.role), ["父", "母父"]);
+    assert.equal(result.reading[0].question, profile.question);
+    assert.match(result.reading[1].question, /母父に入った場合も同じ効果があるとは限らず/);
+    assert.equal(JSON.stringify(input), before);
+    return input;
+  });
+  const audit = auditPedigreeStudyCoverage({ races: [{ horses: runners }] }, index);
+  assert.equal(audit.summary.coveredNames, 17);
+  assert.equal(audit.summary.bothParentsCovered, 17);
+  assert.equal(audit.summary.indexedNotReviewedNames, 0);
+  assert.equal(findPedigreeStudyProfile("未登録の新種牡馬"), null);
+  assert.equal(findPedigreeStudyProfile("Heart’s Cry"), findPedigreeStudyProfile("ハーツクライ"));
+  assert.equal(findPedigreeStudyProfile("Medaglia d’Oro"), findPedigreeStudyProfile("Medaglia d'Oro"));
 });

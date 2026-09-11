@@ -254,6 +254,108 @@ export const PEDIGREE_STUDY_PROFILES = [
     tendency: "父側の速さと母系のスタミナを併せて考える。芝・ダートや距離を一律には決めない。",
     source: "https://note.com/keibaotaku/n/n3522a12c37fc",
   },
+  {
+    names: ["ハーツクライ", "Heart's Cry", "Hearts Cry"],
+    tendency: "芝中長距離で長く脚を使う持続力と、成長による良化に着目。瞬間的な加速の鋭さとは分けて考える。",
+    question: "早めに動いても終いを保てたか、近走で走りが安定してきたかを確認したい。",
+    source: "https://note.com/keibaotaku/n/n33ae9ec937ed",
+  },
+  {
+    names: ["オルフェーヴル", "Orfevre"],
+    tendency: "芝・ダートの両方で生きるスタミナに着目。父自身の気性や走法を産駒全体の特徴とは決めつけない。",
+    question: "距離や流れが厳しくなった際の粘りと、本馬自身の折り合いを別々に確かめたい。",
+    source: "https://note.com/keibaotaku/n/n33ae9ec937ed",
+  },
+  {
+    names: ["スペシャルウィーク", "Special Week"],
+    tendency: "中長距離を支えるスタミナに着目しつつ、芝専用とはしない。母系に入ってからの活躍もある血統。",
+    question: "母系の期待だけで距離延長を歓迎せず、本馬が長い距離で脚を残せたかを確認したい。",
+    source: "https://note.com/keibaotaku/n/n33ae9ec937ed",
+  },
+  {
+    names: ["ゴールドアリュール", "Gold Allure"],
+    tendency: "ダートで先行して粘る力に着目。馬群で窮屈になる競馬への対応は、本馬の過去走で確かめたい。",
+    question: "外を運んだ時と馬群の中にいた時で、走りに差があるか。血統名だけで揉まれ弱いとは判断しない。",
+    source: "https://note.com/keibaotaku/n/n33ae9ec937ed",
+  },
+  {
+    names: ["ネオユニヴァース", "Neo Universe"],
+    tendency: "速い上がりだけでなく、コーナーで動く力や消耗戦への対応に着目。ダートの可能性も残す。",
+    question: "時計の速い競馬と、馬場や流れが厳しい競馬のどちらで内容が良かったかを比べたい。",
+    source: "https://note.com/keibaotaku/n/n33ae9ec937ed",
+  },
+  {
+    names: ["Candy Ride", "キャンディライド"],
+    tendency: "ダート中距離の力強さに着目する一方、産駒の適性には幅がある。母父の場合は芝を否定する材料にしない。",
+    question: "父としてのダート実績と母父としての働きを区別し、本馬の芝・ダート実績を優先したい。",
+    source: "https://note.com/keibaotaku/n/n95ee48cadbb6",
+  },
+  {
+    names: ["Cape Cross", "ケープクロス"],
+    tendency: "自身は芝マイルで活躍したが、産駒には欧州の中長距離で活躍した馬もいる。マイラーと一括りにはしない。",
+    question: "自身と産駒の適距離を混同せず、今回の距離をこなす裏付けが本馬にあるかを確認したい。",
+    source: "https://note.com/keibaotaku/n/nd9e76f8aa279",
+  },
+  {
+    names: ["Smart Strike", "スマートストライク"],
+    tendency: "芝・ダートにまたがる適性の幅に着目。母側の配合によって特徴が変わるため、米国血統だけでダート型とはしない。",
+    question: "配合の説明と、本馬が実際に好走した馬場・距離が一致しているかを確かめたい。",
+    source: "https://note.com/keibaotaku/n/nf9d0a11a3190",
+  },
+  {
+    names: ["Curlin", "カーリン"],
+    tendency: "ダートでの末脚に着目。ただし母父として芝の活躍例もあり、ダート専用の血と決めつけない。",
+    question: "父側の適性も見て、芝替わりや距離変更を血統名だけで加点・減点しないようにしたい。",
+    source: "https://note.com/keibaotaku/n/nf9d0a11a3190",
+  },
+  {
+    names: ["Distorted Humor", "ディストーテッドヒューマー"],
+    tendency: "フォーティナイナーとDanzigを背景とする、力強さを伴うスピードに着目。適距離は本馬ごとに確認する。",
+    question: "先行争いで脚を使った時にも踏ん張れているか、過去走の内容と照らし合わせたい。",
+    source: "https://note.com/keibaotaku/n/nd81909d3187d",
+  },
+  {
+    names: ["Seeking the Gold", "シーキングザゴールド"],
+    tendency: "ダートのマイル前後で生きるパワーに着目。芝の活躍例もあるため、馬場適性を限定しすぎない。",
+    question: "今回の距離・馬場で力を発揮した実績があるかを確認し、血統だけで得意条件を広げない。",
+    source: "https://note.com/keibaotaku/n/nd81909d3187d",
+  },
+  {
+    names: ["Machiavellian", "マキャヴェリアン"],
+    tendency: "マイル以下の速さと、母系から末脚を補う可能性に着目。母父の名前だけで瞬発力があるとは断定しない。",
+    question: "上がりの速さだけでなく、実際に相手との差を詰めたかをラップや着差で確かめたい。",
+    source: "https://note.com/keibaotaku/n/nd81909d3187d",
+  },
+  {
+    names: ["Into Mischief", "イントゥミスチーフ"],
+    tendency: "父系だけでなく、母Leslie's LadyとStorm Cat系の組み合わせに着目。近親の実績を本馬の能力と取り違えない。",
+    question: "名牝系という期待とは別に、本馬の距離実績とレース内容に強みが表れているかを確認したい。",
+    source: "https://note.com/keibaotaku/n/n49d966614936",
+  },
+  {
+    names: ["Medaglia d'Oro", "メダグリアドーロ"],
+    tendency: "芝・ダート、短距離から長距離まで活躍例がある血統。父自身のダート実績より、母との組み合わせを重視する。",
+    question: "守備範囲の広さを本馬の万能性とは捉えず、好走条件を過去走から絞りたい。",
+    source: "https://note.com/keibaotaku/n/n7835f1fa46c7",
+  },
+  {
+    names: ["マジェスティックウォリアー", "Majestic Warrior"],
+    tendency: "広いコースで末脚を生かす形に着目。前に行くダート馬と一括りにせず、差す競馬の内容も見る。",
+    question: "直線で進路を確保できた時の伸びと、小回りでの立ち回りを比較したい。",
+    source: "https://note.com/keibaotaku/n/n57e966f22fbb",
+  },
+  {
+    names: ["シンボリクリスエス", "Symboli Kris S", "Symboli Kris S."],
+    tendency: "パワーとスタミナを背景に、馬場・距離を限定しない血統。父側だけでなく配合全体から適性を考える。",
+    question: "力の要る条件での実績と、速い時計への対応を分けて確認したい。",
+    source: "https://note.com/keibaotaku/n/n4fd635bee16d",
+  },
+  {
+    names: ["ワイルドラッシュ", "Wild Rush"],
+    tendency: "ダートのマイル以上で粘る力に着目。瞬間的な切れ味より、脚を使い続けられるかを見たい。",
+    question: "先行して最後まで粘れたか、ペースが上がっても大きく失速しなかったかを確かめたい。",
+    source: "https://note.com/keibaotaku/n/n35751d047be4",
+  },
 ];
 
 const normalize = (name) => String(name ?? "").normalize("NFKC").toLowerCase().replace(/[＊*\s.'’\-]/g, "");

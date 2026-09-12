@@ -27,6 +27,7 @@ const recordFor = (selection, result, date, raceId) => {
   const payoutAvailable = finite(result.winPayout) && finite(result.placePayout);
   return {
     date, raceId, horseName: selection.name, finishPosition: result.finishPosition, payoutAvailable,
+    abnormalityCode: result.abnormalityCode ?? null,
     winPayout: payoutAvailable ? result.winPayout : null,
     placePayout: payoutAvailable ? result.placePayout : null,
   };

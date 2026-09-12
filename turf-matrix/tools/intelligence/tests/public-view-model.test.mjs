@@ -348,7 +348,8 @@ test("race conclusion selects each public role from fixed race data", () => {
   assert.match(result.favorite.note, /地力の高さを高く評価。指数2位に2ポイント差/);
   assert.match(result.challenger.note, /今回コースへの適性は本命より高評価/);
   assert.match(result.value.note, /指数3位ながら6人気。今回距離への適性が人気以上の評価を支える/);
-  assert.match(result.danger.note, /想定展開との相性の評価が伸びず、人気ほどの信頼は置きにくい/);
+  assert.match(result.danger.note, /想定展開との相性は慎重評価/);
+  assert.match(result.danger.note, /消しの断定ではありません/);
   assert.doesNotMatch(
     [result.favorite.note, result.challenger.note, result.value.note, result.danger.note].join(" "),
     /能力88|コース91|距離適性86|展開58|pt差/
@@ -366,6 +367,39 @@ test("danger role requires a three-place gap between popularity and TM rank", ()
   });
 
   assert.equal(result.danger.horse, null);
+});
+
+test('danger copy retains strong condition evidence instead of implying a confident exclusion', () => {
+  const result = buildRacePublicConclusion({ horses: [
+    raceHorse({ id: 'a', number: 1, score: 85, popularity: 2 }),
+    raceHorse({ id: 'b', number: 2, score: 83, popularity: 3 }),
+    raceHorse({ id: 'c', number: 3, score: 81, popularity: 4 }),
+    raceHorse({ id: 'd', number: 4, score: 78, popularity: 1, factors: { training: 56, distance: 77, course: 71 } }),
+  ] });
+  assert.match(result.danger.note, /調教内容は慎重評価/);
+  assert.match(result.danger.note, /一方で今回距離への適性は強み/);
+  assert.doesNotMatch(result.danger.note, /人気ほどの信頼は置きにくい/);
+});
+
+test('recent form weakness is not hidden behind market-only caution', () => {
+  const result = buildRacePublicConclusion({ horses: [
+    raceHorse({ id: 'a', number: 1, score: 85, popularity: 2 }),
+    raceHorse({ id: 'b', number: 2, score: 83, popularity: 3 }),
+    raceHorse({ id: 'c', number: 3, score: 81, popularity: 4 }),
+    raceHorse({ id: 'd', number: 4, score: 78, popularity: 1, factors: { form: 56, course: 75, pace: 76 } }),
+  ] });
+  assert.match(result.danger.note, /近走内容は慎重評価/);
+  assert.doesNotMatch(result.danger.note, /注意の中心は人気との評価差/);
+});
+
+test('value copy does not present a weak maximum factor as strong evidence', () => {
+  const result = buildRacePublicConclusion({ horses: [
+    raceHorse({ id: 'a', number: 1, score: 85, popularity: 1 }),
+    raceHorse({ id: 'b', number: 2, score: 83, popularity: 2 }),
+    raceHorse({ id: 'c', number: 3, score: 75, popularity: 9, factors: { ability: 61, course: 66 }, value: { eligible: true, marketGap: 6 } }),
+  ] });
+  assert.match(result.value.note, /強い好走材料は限定的/);
+  assert.match(result.value.note, /地力の高さには注意/);
 });
 
 test("value evidence shadow chooses support from index ranks three to five", () => {
@@ -396,7 +430,7 @@ test("race conclusion does not invent value or danger selections", () => {
 
   assert.equal(first.value.horse, null);
   assert.equal(first.danger.horse, null);
-  assert.equal(first.danger.value, "大きな不安なし");
+  assert.equal(first.danger.value, "該当馬なし");
   assert.deepEqual(first, second);
 });
 

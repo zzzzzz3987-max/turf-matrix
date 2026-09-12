@@ -3,16 +3,23 @@ const finite = (value) => typeof value === "number" && Number.isFinite(value);
 const round1 = (value) => Number(value.toFixed(1));
 
 export const summarizePublicRoleRecords = (records) => {
-  const settled = records.filter((record) => finite(record.finishPosition));
+  // JV-Link uses position zero for both non-starters and non-finishers.
+  // Only an explicit non-finish is a settled losing selection.
+  const settled = records.filter((record) =>
+    !["1", "2", "3"].includes(String(record.abnormalityCode ?? "")) &&
+    Number.isInteger(record.finishPosition) &&
+    (record.finishPosition > 0 || (record.finishPosition === 0 && ["4", "5"].includes(String(record.abnormalityCode))))
+  );
   const payoutKnown = settled.filter((record) => record.payoutAvailable === true);
   const wins = settled.filter((record) => record.finishPosition === 1).length;
-  const topThree = settled.filter((record) => record.finishPosition <= 3).length;
+  const topThree = settled.filter((record) => record.finishPosition >= 1 && record.finishPosition <= 3).length;
   const missedTopThree = settled.length - topThree;
   const winPayout = payoutKnown.reduce((sum, record) => sum + (record.winPayout ?? 0), 0);
   const placePayout = payoutKnown.reduce((sum, record) => sum + (record.placePayout ?? 0), 0);
 
   return {
     sampleSize: settled.length,
+    excludedCount: records.length - settled.length,
     wins,
     topThree,
     missedTopThree,
@@ -50,6 +57,7 @@ export const collectPublicRoleRecords = ({ date, snapshot, results, selectConclu
         horseName: selected.name,
         popularity: selected.popularity ?? null,
         finishPosition: resultHorse.finishPosition,
+        abnormalityCode: resultHorse.abnormalityCode ?? null,
         payoutAvailable,
         winPayout: payoutAvailable ? resultHorse.winPayout : null,
         placePayout: payoutAvailable ? resultHorse.placePayout : null,

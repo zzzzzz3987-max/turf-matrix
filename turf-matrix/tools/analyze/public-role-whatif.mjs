@@ -118,6 +118,7 @@ const evaluate = (days, strategy) => {
         raceId: race.bundleId,
         horseName: selected.name,
         finishPosition: result.finishPosition,
+        abnormalityCode: result.abnormalityCode ?? null,
         payoutAvailable,
         winPayout: payoutAvailable ? result.winPayout : null,
         placePayout: payoutAvailable ? result.placePayout : null,

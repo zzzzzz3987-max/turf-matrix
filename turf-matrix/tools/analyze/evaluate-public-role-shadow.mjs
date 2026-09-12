@@ -31,6 +31,7 @@ const recordFor = (selection, result, extra = {}) => {
     ...extra,
     horseName: selection.name,
     finishPosition: result.finishPosition,
+    abnormalityCode: result.abnormalityCode ?? null,
     payoutAvailable,
     winPayout: payoutAvailable ? result.winPayout : null,
     placePayout: payoutAvailable ? result.placePayout : null,

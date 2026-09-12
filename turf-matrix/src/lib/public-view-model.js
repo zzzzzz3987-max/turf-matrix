@@ -817,7 +817,7 @@ const strongestRaceFactor = (horse) => QUICK_READ_FACTOR_KEYS
   .filter((factor) => isFiniteScore(factor.score))
   .sort((a, b) => b.score - a.score || QUICK_READ_FACTOR_KEYS.indexOf(a.key) - QUICK_READ_FACTOR_KEYS.indexOf(b.key))[0] ?? null;
 
-const weakestDecisionFactor = (horse) => ["ability", "distance", "course", "pace", "trackBias", "load", "training"]
+const weakestDecisionFactor = (horse) => ["ability", "form", "distance", "course", "pace", "trackBias", "load", "training"]
   .map((key) => ({ key, label: PUBLIC_FACTOR_LABELS[key], score: raceHorseFactor(horse, key) }))
   .filter((factor) => isFiniteScore(factor.score))
   .sort((a, b) => a.score - b.score)[0] ?? null;
@@ -859,14 +859,22 @@ const valueReason = (horse, rank) => {
   if (!horse) return "指数と人気の間に大きな妙味はありません。";
   const strength = strongestRaceFactor(horse);
   const popularity = isFiniteScore(horse.popularity) ? `${horse.popularity}人気` : "人気未発表";
-  return `指数${rank}位ながら${popularity}。${strength ? `${publicRoleFactorPhrase(strength)}が人気以上の評価を支える。` : "人気以上の指数評価。"}`;
+  const support = strength?.score >= 75
+    ? `${publicRoleFactorPhrase(strength)}が人気以上の評価を支える。`
+    : "人気との評価差が中心で、強い好走材料は限定的。";
+  const weakness = weakestDecisionFactor(horse);
+  const caution = weakness?.score < 65 ? `${publicRoleFactorPhrase(weakness)}には注意。` : "";
+  return `指数${rank}位ながら${popularity}。${support}${caution}`;
 };
 
 const dangerReason = (horse, rank) => {
-  if (!horse) return "上位人気と指数評価に大きなズレはありません。";
+  if (!horse) return "現在の人気・指数の条件に該当する馬はいません。";
   const weakness = weakestDecisionFactor(horse);
+  const strength = strongestRaceFactor(horse);
   const marketText = isFiniteScore(horse.popularity) ? `${horse.popularity}人気に対して` : "市場評価に対して";
-  return `${marketText}指数${rank}位。${weakness && weakness.score < 65 ? `${publicRoleFactorPhrase(weakness)}の評価が伸びず、人気ほどの信頼は置きにくい。` : "指数上位馬との差があり、人気ほどの信頼は置きにくい。"}`;
+  const risk = weakness?.score < 65 ? `${publicRoleFactorPhrase(weakness)}は慎重評価。` : "注意の中心は人気との評価差。";
+  const support = strength?.score >= 75 ? `一方で${publicRoleFactorPhrase(strength)}は強み。` : "";
+  return `${marketText}指数${rank}位。${risk}${support}消しの断定ではありません。`;
 };
 
 const raceKeyFor = (race) => {
@@ -930,7 +938,7 @@ export const buildRacePublicConclusion = (race) => {
     },
     danger: {
       horse: raceHorseIdentity(dangerHorse, dangerHorse ? rankById.get(dangerHorse.id) : null),
-      value: dangerHorse?.name ?? "大きな不安なし",
+      value: dangerHorse?.name ?? "該当馬なし",
       note: dangerReason(dangerHorse, dangerHorse ? rankById.get(dangerHorse.id) : null),
     },
     key: {

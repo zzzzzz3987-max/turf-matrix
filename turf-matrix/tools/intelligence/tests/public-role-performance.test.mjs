@@ -41,3 +41,32 @@ test("role summary separates hit rates, missed top-three rate, and returns", () 
   assert.equal(summary.winReturnRate, 300);
   assert.equal(summary.placeReturnRate, 100);
 });
+
+test('non-finish is a losing start, not a top-three finish; non-starters are excluded', () => {
+  const rows = [
+    { finishPosition: 1, abnormalityCode: '0', payoutAvailable: true, winPayout: 420, placePayout: 150 },
+    { finishPosition: 0, abnormalityCode: '4', payoutAvailable: true, winPayout: 0, placePayout: 0 },
+    ...['1', '2', '3'].map(abnormalityCode => ({ finishPosition: 0, abnormalityCode, payoutAvailable: true, winPayout: 100, placePayout: 100 })),
+    { finishPosition: 0, payoutAvailable: true, winPayout: 0, placePayout: 0 },
+    { finishPosition: -1 },
+    { finishPosition: 1.5 },
+  ];
+  const result = summarizePublicRoleRecords(rows);
+  assert.equal(result.sampleSize, 2);
+  assert.equal(result.topThree, 1);
+  assert.equal(result.missedTopThree, 1);
+  assert.equal(result.excludedCount, 6);
+  assert.equal(result.winReturnRate, 210);
+  assert.equal(result.placeReturnRate, 75);
+});
+
+test('collection preserves abnormality code for downstream settlement', () => {
+  const records = collectPublicRoleRecords({ date: '2026-09-12',
+    snapshot: { races: [{ bundleId: 'race' }] },
+    results: { races: [{ bundleId: 'race', horses: [{ horseNumber: 13, finishPosition: 0, abnormalityCode: '4', winPayout: 0, placePayout: 0 }] }] },
+    selectConclusion: () => ({ value: { horse: { number: 13, name: 'non-finisher' } } }),
+  });
+  assert.equal(records[0].abnormalityCode, '4');
+  assert.equal(summarizePublicRoleRecords(records).topThree, 0);
+  assert.equal(summarizePublicRoleRecords(records).sampleSize, 1);
+});

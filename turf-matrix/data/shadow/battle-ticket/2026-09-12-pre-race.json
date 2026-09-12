@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-12T05:03:31.023Z",
+  "raceDate": "2026-09-12",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開買い目は現行方式を維持する",
+    "shadowRule": "単勝・馬連・ワイドを固定基準で個別採否し、該当券種がなければ見送る"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "048a0d23767ac8375e89d97c5879e6702ca687f8b6a89a489c1966c6236ecd34",
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-0f8f2fcf024faced",
+      "sha256": "0f8f2fcf024faceda79e44f4e30e9e1fb9b157fb779b6eb73d0c5f150019b249",
+      "fileCount": 111
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-e40e927954bba02a",
+      "sha256": "e40e927954bba02a137faeccd3414a77023c8f717e830c8ebcde1a1dd4dae947",
+      "fileCount": 5
+    }
+  },
+  "ticketFingerprint": {
+    "schemaVersion": 2,
+    "id": "tmx-6974158670ad80d2",
+    "sha256": "6974158670ad80d2ad67dd6ad8e9bd05aa59c61b9d96e0ad2f98e0da8198b904",
+    "fileCount": 1
+  },
+  "ticketRuleVersion": "battle-ticket-shadow-v2",
+  "thresholds": {
+    "readiness": 74,
+    "readinessCoverage": 0.75,
+    "winOddsMin": 1.5,
+    "winOddsMax": 30,
+    "winEvMin": 0.9,
+    "winEvMax": 3,
+    "quinellaOpponentIndex": 75,
+    "quinellaMaxIndexSpread": 6,
+    "quinellaOddsMin": 4,
+    "wideOpponentIndex": 68,
+    "wideEvidenceScore": 68,
+    "wideEvidenceCoverage": 0.75,
+    "wideMaxIndexSpread": 12,
+    "wideOddsMin": 2
+  },
+  "predictionSha256": "a99a3ed154b46b3924c7f2314e8e620205134493954bf34d3905bc48fda758eb",
+  "race": {
+    "id": "2026-09-12-中山-9R",
+    "bundleId": "2026-09-12-nakayama-09R",
+    "track": "中山",
+    "number": 9,
+    "name": "御宿特別",
+    "grade": null,
+    "category": "special",
+    "time": "14:10",
+    "surface": "芝",
+    "distance": 1600,
+    "fieldSize": 14,
+    "oddsStatus": "active",
+    "indexTop": {
+      "id": "2609120912",
+      "number": 12,
+      "name": "シャンソンドール",
+      "tmIndex": 83,
+      "popularity": 1,
+      "odds": 2.7,
+      "ev": 0.4625082416733195,
+      "marketGap": 0,
+      "source": "index1"
+    },
+    "leaderStatus": "clear",
+    "leaderContenders": [
+      {
+        "id": "2609120912",
+        "number": 12,
+        "name": "シャンソンドール",
+        "tmIndex": 83,
+        "popularity": 1,
+        "odds": 2.7,
+        "ev": 0.4625082416733195,
+        "marketGap": 0,
+        "source": "leader-contender"
+      }
+    ],
+    "opponents": [
+      {
+        "id": "2609120913",
+        "number": 13,
+        "name": "キスアンドクライ",
+        "tmIndex": 78,
+        "popularity": 3,
+        "odds": 5.7,
+        "ev": 0.6320422926823563,
+        "marketGap": 1,
+        "source": "index2"
+      },
+      {
+        "id": "2609120902",
+        "number": 2,
+        "name": "ロケベンドラ",
+        "tmIndex": 77,
+        "popularity": 2,
+        "odds": 5.2,
+        "ev": 0.5268020849391805,
+        "marketGap": -1,
+        "source": "evidence",
+        "selectionScore": 70.5,
+        "selectionCoverage": 1,
+        "selectionEvidence": {
+          "ability": 67,
+          "form": 62,
+          "training": 77,
+          "pace": 76
+        }
+      }
+    ],
+    "valueWatch": {
+      "id": "2609120914",
+      "number": 14,
+      "name": "ギフテッド",
+      "tmIndex": 71,
+      "popularity": 10,
+      "odds": 32.8,
+      "ev": 1.8831779049484125,
+      "marketGap": 2,
+      "source": "valueWatch"
+    },
+    "valuePending": false,
+    "topConfidence": "high",
+    "indexGap": 5,
+    "ticketOdds": {
+      "quinella": {
+        "type": "quinella",
+        "numbers": [
+          12,
+          13
+        ],
+        "minOdds": 7.5,
+        "maxOdds": 7.5,
+        "popularity": 2,
+        "updatedAt": "2026-09-12T14:02",
+        "source": "JV-Link 0B32",
+        "status": "active"
+      },
+      "wide": {
+        "type": "wide",
+        "numbers": [
+          2,
+          12
+        ],
+        "minOdds": 3,
+        "maxOdds": 3.3,
+        "popularity": 1,
+        "updatedAt": "2026-09-12T14:02",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      },
+      "wideOpponent1": {
+        "type": "wide",
+        "numbers": [
+          12,
+          13
+        ],
+        "minOdds": 3.4,
+        "maxOdds": 3.8,
+        "popularity": 2,
+        "updatedAt": "2026-09-12T14:02",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      },
+      "wideOpponent2": {
+        "type": "wide",
+        "numbers": [
+          2,
+          12
+        ],
+        "minOdds": 3,
+        "maxOdds": 3.3,
+        "popularity": 1,
+        "updatedAt": "2026-09-12T14:02",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      }
+    },
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 83,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 72,
+        "conditionFit": 83,
+        "opponentDepth": 74.6
+      }
+    }
+  },
+  "baseline": {
+    "ruleVersion": "battle-ticket-shadow-v2",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "win",
+        "horses": [
+          {
+            "number": 12,
+            "name": "シャンソンドール"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸単勝",
+        "market": {
+          "minOdds": 2.7,
+          "maxOdds": 2.7
+        }
+      },
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 12,
+            "name": "シャンソンドール"
+          },
+          {
+            "number": 13,
+            "name": "キスアンドクライ"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸－相手1馬連",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            12,
+            13
+          ],
+          "minOdds": 7.5,
+          "maxOdds": 7.5,
+          "popularity": 2,
+          "updatedAt": "2026-09-12T14:02",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 12,
+            "name": "シャンソンドール"
+          },
+          {
+            "number": 13,
+            "name": "キスアンドクライ"
+          }
+        ],
+        "units": 1,
+        "rationale": "相手1の信頼度とオッズを比較して選択",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            12,
+            13
+          ],
+          "minOdds": 3.4,
+          "maxOdds": 3.8,
+          "popularity": 2,
+          "updatedAt": "2026-09-12T14:02",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "現行の公開買い目を再現"
+    ],
+    "rejected": [],
+    "totalUnits": 3
+  },
+  "shadow": {
+    "ruleVersion": "battle-ticket-shadow-v2",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 12,
+            "name": "シャンソンドール"
+          },
+          {
+            "number": 13,
+            "name": "キスアンドクライ"
+          }
+        ],
+        "units": 1,
+        "rationale": "指数2位の地力と首位との差、馬連オッズが基準内",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            12,
+            13
+          ],
+          "minOdds": 7.5,
+          "maxOdds": 7.5,
+          "popularity": 2,
+          "updatedAt": "2026-09-12T14:02",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 12,
+            "name": "シャンソンドール"
+          },
+          {
+            "number": 13,
+            "name": "キスアンドクライ"
+          }
+        ],
+        "units": 1,
+        "rationale": "相手1の指数・期待値とワイド下限オッズを比較",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            12,
+            13
+          ],
+          "minOdds": 3.4,
+          "maxOdds": 3.8,
+          "popularity": 2,
+          "updatedAt": "2026-09-12T14:02",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "2券種だけを採用"
+    ],
+    "rejected": [
+      "単勝: オッズまたは期待値が採用帯外"
+    ],
+    "totalUnits": 2
+  }
+}

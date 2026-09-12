@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-12T05:03:30.936Z",
+  "raceDate": "2026-09-12",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "048a0d23767ac8375e89d97c5879e6702ca687f8b6a89a489c1966c6236ecd34",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-0f8f2fcf024faced",
+      "sha256": "0f8f2fcf024faceda79e44f4e30e9e1fb9b157fb779b6eb73d0c5f150019b249",
+      "fileCount": 111
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-e40e927954bba02a",
+      "sha256": "e40e927954bba02a137faeccd3414a77023c8f717e830c8ebcde1a1dd4dae947",
+      "fileCount": 5
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "ccf6f34942fc28f6ad6c50d85898d27e0ecd81e6a88bec42b6710705105ddf31",
+  "baseline": {
+    "date": "2026-09-12",
+    "raceId": "2026-09-12-中山-9R",
+    "bundleId": "2026-09-12-nakayama-09R",
+    "track": "中山",
+    "raceNumber": 9,
+    "raceName": "御宿特別",
+    "scheduledTime": "14:10",
+    "axis": {
+      "number": 12,
+      "name": "シャンソンドール",
+      "tmIndex": 83,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 13,
+        "name": "キスアンドクライ",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 2,
+        "name": "ロケベンドラ",
+        "tmIndex": 77,
+        "selectionScore": 70.5
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 83,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 72,
+        "conditionFit": 83,
+        "opponentDepth": 74.6
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-12",
+    "raceId": "2026-09-12-中山-9R",
+    "bundleId": "2026-09-12-nakayama-09R",
+    "track": "中山",
+    "raceNumber": 9,
+    "raceName": "御宿特別",
+    "scheduledTime": "14:10",
+    "axis": {
+      "number": 12,
+      "name": "シャンソンドール",
+      "tmIndex": 83,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 13,
+        "name": "キスアンドクライ",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 2,
+        "name": "ロケベンドラ",
+        "tmIndex": 77,
+        "selectionScore": 70.5
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 78.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 83,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 72,
+        "conditionFit": 83,
+        "opponentDepth": 74.6
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-中山-9R",
+      "bundleId": "2026-09-12-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "御宿特別",
+      "scheduledTime": "14:10",
+      "axis": {
+        "number": 12,
+        "name": "シャンソンドール",
+        "tmIndex": 83,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 13,
+          "name": "キスアンドクライ",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 2,
+          "name": "ロケベンドラ",
+          "tmIndex": 77,
+          "selectionScore": 70.5
+        }
+      ],
+      "indexGap": 5,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 78.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 83,
+          "indexGap": 5,
+          "gapStrength": 80,
+          "axisCore": 72,
+          "conditionFit": 83,
+          "opponentDepth": 74.6
+        }
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-阪神-9R",
+      "bundleId": "2026-09-12-hanshin-09R",
+      "track": "阪神",
+      "raceNumber": 9,
+      "raceName": "瀬戸内海特別",
+      "scheduledTime": "14:25",
+      "axis": {
+        "number": 2,
+        "name": "ライラ",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 4,
+          "name": "ダガーリング",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 12,
+          "name": "ロンドボス",
+          "tmIndex": 77,
+          "selectionScore": 68
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.1,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 69.8,
+          "conditionFit": 80.5,
+          "opponentDepth": 73
+        }
+      }
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-中山-10R",
+      "bundleId": "2026-09-12-nakayama-10R",
+      "track": "中山",
+      "raceNumber": 10,
+      "raceName": "レインボーステークス",
+      "scheduledTime": "14:50",
+      "axis": {
+        "number": 3,
+        "name": "ルールーリマ",
+        "tmIndex": 84,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 9,
+          "name": "ダノンジャイアン",
+          "tmIndex": 80,
+          "selectionScore": null
+        },
+        {
+          "number": 10,
+          "name": "ダンツファイター",
+          "tmIndex": 78,
+          "selectionScore": 69.5
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 78.5,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 84,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 73.7,
+          "conditionFit": 83,
+          "opponentDepth": 75.3
+        }
+      }
+    }
+  ]
+}

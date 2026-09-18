@@ -1,4 +1,4 @@
-import { calculateAbilityProfile } from "./ability-ai.mjs";
+import { abilityNumber, calculateAbilityProfile, selectAbilityRuns } from "./ability-ai.mjs";
 import { isLocalRun, splitRunsByOrigin } from "./race-origin.mjs";
 
 const NEUTRAL_SCORE = 60;
@@ -78,7 +78,7 @@ const demonstratedAbility = (runs) => {
 
 const buildAbilityCeilingShadow = (horse, currentAbility = null) => {
   const profile = calculateAbilityProfile(horse);
-  const runs = (horse.pastRuns ?? []).filter((run) => finite(run.finishPosition));
+  const runs = selectAbilityRuns(horse);
   const { central, local } = splitRunsByOrigin(runs);
   const comparable = central.length ? central : local;
   const demonstrated = demonstratedAbility(comparable);
@@ -100,7 +100,7 @@ const buildAbilityCeilingShadow = (horse, currentAbility = null) => {
   const centralCount = central.length;
   const evidenceFactor = centralCount >= 3 ? 1 : centralCount === 2 ? 0.8 : centralCount === 1 ? 0.6 : 0.35;
   const candidate = clamp(NEUTRAL_SCORE + (rawCandidate - NEUTRAL_SCORE) * evidenceFactor);
-  const current = Number.isFinite(Number(currentAbility)) ? Number(currentAbility) : profile.score;
+  const current = abilityNumber(currentAbility) ?? profile.score;
   const adjustment = clamp(Math.round(candidate - current), -MAX_ADJUSTMENT, MAX_ADJUSTMENT);
   const shadowScore = clamp(current + adjustment);
 

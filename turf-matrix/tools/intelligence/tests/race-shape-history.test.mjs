@@ -1,6 +1,31 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { classifyPaceTilt, classifyRaceShape, raceShapeKey } from "../race-shape-history.mjs";
+import { buildLapProfile, classifyPaceTilt, classifyRaceShape, raceShapeKey } from "../race-shape-history.mjs";
+
+test("closing sectionals preserve race scope and sustained speed evidence", () => {
+  const profile = buildLapProfile({ distance: 2000, lapTimes: [13.2, 12, 13.3, 13.4, 12.9, 12, 11.7, 11.4, 11.3, 11.4] });
+  assert.equal(profile.first5F, 64.8);
+  assert.equal(profile.last5F, 57.8);
+  assert.equal(profile.last4F, 45.8);
+  assert.equal(profile.finalDeceleration, 0.1);
+  assert.equal(profile.scope, "race");
+  assert.equal(profile.independent5FSections, true);
+});
+
+test("lap profile rejects incomplete and missing splits without shifting positions", () => {
+  for (const value of [null, "", " ", false, 0, NaN]) {
+    assert.equal(buildLapProfile({ distance: 1000, lapTimes: [12, 12, value, 12, 12] }), null);
+  }
+  assert.equal(buildLapProfile({ distance: 2000, lapTimes: [12, 12, 12] }), null);
+});
+
+test("odd distances mark interpolated and overlapping sections", () => {
+  const profile = buildLapProfile({ distance: 1500, lapTimes: [7, 12, 12, 12, 12, 12, 12, 12] });
+  assert.equal(profile.first5F, 61);
+  assert.equal(profile.last5F, 60);
+  assert.equal(profile.first5FInterpolated, true);
+  assert.equal(profile.independent5FSections, false);
+});
 
 const race = (finishes, fieldSize = finishes.length) => ({
   fieldSize,

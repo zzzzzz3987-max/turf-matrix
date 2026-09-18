@@ -1,6 +1,42 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildPaceShapeProfile, buildPaceShapeShadow } from "../pace-shape-shadow.mjs";
+import { buildHorseLapEvidence, buildPaceShapeProfile, buildPaceShapeShadow } from "../pace-shape-shadow.mjs";
+import { buildLapProfile } from "../race-shape-history.mjs";
+
+const lapProfile = buildLapProfile({ distance: 2000, lapTimes: [13.2, 12, 13.3, 13.4, 12.9, 12, 11.7, 11.4, 11.3, 11.4] });
+
+test("race sectionals join individual position changes without inventing individual laps", () => {
+  const value = buildHorseLapEvidence({ lapProfile }, { lastCornerPosition: 4, finishPosition: 1 });
+  assert.equal(value.positionsGained, 3);
+  assert.equal(value.placed, true);
+  assert.equal(value.raceSectionals.last5F, 57.8);
+  assert.equal(value.individualLapEstimated, false);
+  assert.equal(value.scoreAdjustment, 0);
+  assert.match(value.reason, /4角4番手から1着/);
+  const beaten = buildHorseLapEvidence({ lapProfile }, { lastCornerPosition: 4, finishPosition: 10 });
+  assert.equal(beaten.placed, false);
+  assert.equal(beaten.positionsGained, -6);
+  assert.match(beaten.reason, /順位を下げた/);
+});
+
+test("missing positions and abnormal runs are not presented as lap performance", () => {
+  for (const lastCornerPosition of [null, 0, "", undefined]) {
+    assert.equal(buildHorseLapEvidence({ lapProfile }, { lastCornerPosition, finishPosition: 1 }), null);
+  }
+  assert.equal(buildHorseLapEvidence({}, { lastCornerPosition: 4, finishPosition: 1 }), null);
+  assert.equal(buildHorseLapEvidence({ lapProfile }, { lastCornerPosition: 4, finishPosition: 1, abnormalityCode: "4" }), null);
+});
+
+test("lap evidence is attached to historical runs without changing shadow score", () => {
+  const race = historyRace("2026-08-30", "neutral", "middle", 1);
+  race.horses[0].lastCornerPosition = 4;
+  const input = horse([run("2026-08-30")]);
+  const before = buildPaceShapeShadow(input, 70, { races: [race] });
+  const after = buildPaceShapeShadow(input, 70, { races: [{ ...race, lapProfile }] });
+  assert.equal(after.shadowScore, before.shadowScore);
+  assert.equal(after.runs[0].lapEvidence.positionsGained, 3);
+  assert.equal(buildPaceShapeProfile({ ...input, currentRace: { raceDate: "2026-08-30" } }, { races: [{ ...race, lapProfile }] }).matchedRunCount, 0);
+});
 
 const historyRace = (date, shape, role, finishPosition, positionChange = 0) => ({
   key: `${date}-niigata-07R`,

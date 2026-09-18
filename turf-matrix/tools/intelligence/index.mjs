@@ -94,7 +94,7 @@ const buildAnalysis = (horse, suppliedContext) => {
   const hasTrainingEvidence = trainingAnalysis.count > 0 || Boolean(trainingAnalysis.videoReview);
   const training = trainingAnalysis.score;
   const trainingLap = trainingAnalysis.lapScore;
-  const trainingForIndex = hasTrainingEvidence ? training : null;
+  const trainingForIndex = hasTrainingEvidence && trainingAnalysis.indexEligible !== false ? training : null;
   const blood = scoreBlood(horse, context);
   const baseIndex = calculateTmIndex({ ability, form, distance, course, training: trainingForIndex, blood, pace }, context);
   const value = scoreValue(horse, ability, baseIndex);

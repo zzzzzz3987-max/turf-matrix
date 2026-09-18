@@ -1,5 +1,9 @@
 import { isLocalRun, splitRunsByOrigin } from "./race-origin.mjs";
 
+const abilityNumber = (value) => value == null || typeof value === "boolean" || String(value).trim() === ""
+  ? null : Number.isFinite(Number(value)) ? Number(value) : null;
+const validFinish = (value) => Number.isInteger(abilityNumber(value)) && abilityNumber(value) > 0;
+
 const clamp = (value, min = 35, max = 96) => Math.max(min, Math.min(max, Math.round(value)));
 
 const weightedAverage = (items, fallback = 60) => {
@@ -14,7 +18,7 @@ const resolveAbilityZi = (horse) =>
 
 const classTier = (run) => {
   if (isLocalRun(run)) return -1;
-  const text = `${run.grade ?? ""} ${run.raceName ?? ""} ${run.className ?? ""}`;
+  const text = `${run.grade ?? ""} ${run.raceName ?? ""} ${run.className ?? ""}`.normalize("NFKC");
   if (/G1|GI(?!I)/i.test(text)) return 4;
   if (/G2|GII(?!I)/i.test(text)) return 3;
   if (/G3|GIII/i.test(text)) return 2;
@@ -30,12 +34,14 @@ const finishQuality = (run) => {
 };
 
 const marginQuality = (run) => {
-  const margin = Number(run.margin);
+  const margin = abilityNumber(run.margin);
   if (!Number.isFinite(margin)) return 58;
   return clamp(78 - margin * 20, 38, 94);
 };
 
 const closingQuality = (run) => {
+  if (run.closingBenchmark?.status === "available" && run.closingBenchmark.policy === "closing-context-v1" &&
+      Number.isFinite(run.closingBenchmark.score)) return clamp(run.closingBenchmark.score, 42, 96);
   const last3F = Number(run.last3F);
   if (!Number.isFinite(last3F) || last3F <= 0 || last3F >= 45) return null;
   return clamp(90 - (last3F - 33.5) * 7, 42, 94);
@@ -87,24 +93,26 @@ const opponentQuality = (runs) => {
 };
 
 const peerQuality = (peerRuns = []) => {
-  if (!peerRuns.length) return null;
-  return clamp(weightedAverage(peerRuns.map((run, index) => {
-    const peers = run.peers ?? [];
+  const relevant = peerRuns.filter((run) => validFinish(run.finishPosition) &&
+    (run.peers ?? []).some((peer) => validFinish(peer.finishPosition)));
+  if (!relevant.length) return null;
+  return clamp(weightedAverage(relevant.map((run, index) => {
+    const peers = (run.peers ?? []).filter((peer) => validFinish(peer.finishPosition));
     const finish = Number(run.finishPosition);
-    const beaten = peers.filter((peer) => Number.isFinite(finish) && Number.isFinite(peer.finishPosition) && finish < peer.finishPosition).length;
-    const lostTo = peers.filter((peer) => Number.isFinite(finish) && Number.isFinite(peer.finishPosition) && finish > peer.finishPosition).length;
+    const beaten = peers.filter((peer) => finish < Number(peer.finishPosition)).length;
+    const lostTo = peers.filter((peer) => finish > Number(peer.finishPosition)).length;
     return { value: clamp(62 + beaten * 7 - lostTo * 5), weight: Math.max(0.65, 1 - index * 0.1) };
   })));
 };
 
-const encounterQuality = (opponentEvidence) => {
+const encounterDetails = (opponentEvidence) => {
   const encounters = opponentEvidence?.encounters ?? [];
-  if (!encounters.length) return null;
+  if (!encounters.length) return [];
   const scored = encounters.flatMap((encounter) => {
     const finish = Number(encounter.finishPosition);
     return (encounter.peers ?? []).map((peer) => {
       const peerFinish = Number(peer.finishPosition);
-      if (!Number.isFinite(finish) || !Number.isFinite(peerFinish)) return null;
+      if (!validFinish(encounter.finishPosition) || !validFinish(peer.finishPosition)) return null;
       const fallbackRelationScore = finish < peerFinish
         ? 78
         : finish === peerFinish
@@ -112,20 +120,29 @@ const encounterQuality = (opponentEvidence) => {
           : peerFinish - finish >= -2
             ? 58
             : 46;
-      const evidenceScore = Number(peer.evidenceScore);
-      const qualityScore = Number(peer.qualityScore ?? peer.score);
+      const evidenceScore = abilityNumber(peer.evidenceScore);
+      const qualityScore = abilityNumber(peer.qualityScore ?? peer.score);
       const relationScore = Number.isFinite(evidenceScore)
         ? evidenceScore
         : Number.isFinite(qualityScore)
           ? qualityScore * 0.45 + fallbackRelationScore * 0.55
           : fallbackRelationScore;
       return {
+        raceKey: encounter.raceKey ?? null,
+        raceDate: encounter.raceDate ?? null,
+        raceName: encounter.raceName ?? null,
+        horseName: peer.horseName ?? null,
+        finishPosition: finish,
+        peerFinishPosition: peerFinish,
+        relation: finish < peerFinish ? "beat" : finish === peerFinish ? "tied" : "lost",
+        source: Number.isFinite(evidenceScore) ? "evidence-score" : Number.isFinite(qualityScore) ? "quality-and-result" : "result-only",
+        laterStarts: abilityNumber(peer.laterStarts),
         value: relationScore,
         weight: Number(peer.laterStarts) >= 3 ? 1.1 : Number(peer.laterStarts) > 0 ? 1 : 0.72,
       };
     });
   }).filter(Boolean);
-  return scored.length ? clamp(weightedAverage(scored)) : null;
+  return scored;
 };
 
 const trendQuality = (runs, targetDistance) => {
@@ -145,29 +162,48 @@ const confidenceForRuns = (runCount, hasZi, centralRunCount = runCount, localRun
 };
 
 export const selectAbilityRuns = (horse) => (horse.pastRuns ?? [])
-    .filter((run) => Number.isFinite(Number(run.finishPosition)))
+    .filter((run) => validFinish(run.finishPosition))
     .slice(0, 12);
 
-const calculateAbilityProfile = (horse, { includeDistanceFit = true } = {}) => {
+const calculateAbilityProfile = (horse, { includeDistanceFit = true, sparseOpponentShrinkage = process.env.TURF_MATRIX_CONTEXT_PREVIEW === "1" } = {}) => {
   const runs = selectAbilityRuns(horse);
   const { central: centralRuns, local: localRuns } = splitRunsByOrigin(runs);
   const comparableRuns = centralRuns.length ? centralRuns : runs;
   const targetDistance = includeDistanceFit ? Number(horse.currentRace?.distance) : NaN;
-  const zi = Number(resolveAbilityZi(horse));
+  const zi = abilityNumber(resolveAbilityZi(horse));
   const ziScore = Number.isFinite(zi) ? clamp(42 + (zi - 80) * 1.3) : null;
   const recentScore = runs.length ? recentAbility(runs, targetDistance) : 50;
   const opponentScore = opponentQuality(runs);
   const peerScore = peerQuality(horse.peerRuns ?? []);
-  const encounterScore = encounterQuality(horse.opponentEvidence);
+  const encounters = encounterDetails(horse.opponentEvidence);
+  const encounterScore = encounters.length ? clamp(weightedAverage(encounters)) : null;
   const careerOpponentScore = Number.isFinite(horse.opponentEvidence?.score)
     ? clamp(horse.opponentEvidence.score)
     : null;
-  const relationScore = weightedAverage([
-    { value: opponentScore, weight: opponentScore == null ? 0 : 0.25 },
-    { value: peerScore, weight: peerScore == null ? 0 : 0.15 },
-    { value: encounterScore, weight: encounterScore == null ? 0 : 0.25 },
-    { value: careerOpponentScore, weight: careerOpponentScore == null ? 0 : 0.35 },
-  ], recentScore);
+  const relationComponents = [
+    { key: "class-performance", value: opponentScore, weight: opponentScore == null ? 0 : 0.25 },
+    { key: "direct-peers", value: peerScore, weight: peerScore == null ? 0 : 0.15 },
+    { key: "encounters", value: encounterScore, weight: encounterScore == null ? 0 : 0.25 },
+    { key: "opponent-careers", value: careerOpponentScore, weight: careerOpponentScore == null ? 0 : 0.35 },
+  ];
+  const relationScore = weightedAverage(relationComponents, recentScore);
+  // Repeated views of the same sparsely tracked peers are not independent evidence.
+  const trackedPeers = new Map();
+  for (const encounter of horse.opponentEvidence?.encounters ?? []) {
+    for (const peer of encounter.peers ?? []) {
+      const key = peer.bloodRegistrationNumber ?? peer.horseName;
+      if (key) trackedPeers.set(key, Math.max(trackedPeers.get(key) ?? 0, abilityNumber(peer.laterStarts) ?? 0));
+    }
+  }
+  const followUpStarts = trackedPeers.size
+    ? [...trackedPeers.values()].reduce((sum, n) => sum + Math.max(0, n), 0)
+    : Math.max(0, abilityNumber(horse.opponentEvidence?.profiledPeerCount) ?? 0);
+  const relationReliability = opponentScore != null || peerScore != null
+    ? 1 : followUpStarts / (followUpStarts + 3);
+  const effectiveRelationScore = sparseOpponentShrinkage
+    ? recentScore + (relationScore - recentScore) * relationReliability : relationScore;
+  const relationWeight = relationComponents.reduce((sum, item) => sum + item.weight, 0);
+  const encounterWeight = encounters.reduce((sum, item) => sum + item.weight, 0);
   const distanceScore = includeDistanceFit && comparableRuns.length
     ? clamp(weightedAverage(comparableRuns.slice(0, 5).map((run, index) => ({
         value: distanceQuality(run, targetDistance),
@@ -189,7 +225,7 @@ const calculateAbilityProfile = (horse, { includeDistanceFit = true } = {}) => {
   const score = ziScore == null
     ? clamp(weightedAverage([
         { value: recentScore, weight: 0.46 },
-        { value: relationScore, weight: 0.27 },
+        { value: effectiveRelationScore, weight: 0.27 },
         { value: trendScore, weight: trendScore == null ? 0 : 0.12 },
         { value: marginScore, weight: marginScore == null ? 0 : 0.08 },
         { value: closingScore, weight: closingScore == null ? 0 : 0.07 },
@@ -197,7 +233,7 @@ const calculateAbilityProfile = (horse, { includeDistanceFit = true } = {}) => {
     : clamp(weightedAverage([
         { value: ziScore, weight: 0.38 },
         { value: recentScore, weight: 0.27 },
-        { value: relationScore, weight: 0.18 },
+        { value: effectiveRelationScore, weight: 0.18 },
         { value: trendScore, weight: trendScore == null ? 0 : 0.07 },
         { value: marginScore, weight: marginScore == null ? 0 : 0.05 },
         { value: closingScore, weight: closingScore == null ? 0 : 0.05 },
@@ -217,11 +253,25 @@ const calculateAbilityProfile = (horse, { includeDistanceFit = true } = {}) => {
     encounterScore,
     careerOpponentScore,
     relationScore: clamp(relationScore),
+    effectiveRelationScore,
+    relationReliability,
+    relationEvidence: {
+      scope: "relation-score",
+      fallback: relationWeight ? null : "recent-ability",
+      rawScore: relationScore,
+      components: relationComponents.map((item) => ({ ...item,
+        share: relationWeight ? item.weight / relationWeight : 0,
+        contribution: relationWeight && item.weight ? item.value * item.weight / relationWeight : 0,
+      })),
+      encounters: encounters.map((item) => ({ ...item, share: item.weight / encounterWeight })),
+      independentEvidenceSources: false,
+    },
     distanceScore,
     marginScore,
     closingScore,
+    closingBenchmarks: runs.map((run) => ({ date: run.date, ...run.closingBenchmark })).filter((row) => row.status),
     trendScore,
   };
 };
 
-export { calculateAbilityProfile, resolveAbilityZi };
+export { abilityNumber, calculateAbilityProfile, resolveAbilityZi };

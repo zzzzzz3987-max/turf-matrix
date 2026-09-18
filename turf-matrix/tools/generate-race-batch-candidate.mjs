@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intelligence/index.mjs";
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
@@ -10,6 +11,7 @@ import { resolveTrackBias } from "./intelligence/track-bias-ai.mjs";
 import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
 import { buildRaceShapeIndex } from "./intelligence/race-shape-history.mjs";
 import { enrichPeerRuns } from "./intelligence/peer-run-enrichment.mjs";
+import { buildClosingReferenceFromExports, attachClosingEvidence, indexClosingReference } from "./intelligence/closing-benchmark.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -48,6 +50,11 @@ const raceShapeHistory = existsSync(RACE_SHAPE_HISTORY_PATH)
   ? JSON.parse(readFileSync(RACE_SHAPE_HISTORY_PATH, "utf8"))
   : { races: [] };
 const raceShapeIndex = buildRaceShapeIndex(raceShapeHistory);
+const closingDirectory = join(TOOLS_DIR, "jvlink", "output", "race-shape-history");
+const closingReference = buildClosingReferenceFromExports(existsSync(closingDirectory)
+  ? readdirSync(closingDirectory).filter((name) => name.endsWith(".json")).sort()
+    .map((name) => JSON.parse(readFileSync(join(closingDirectory, name), "utf8"))) : []);
+const closingIndex = indexClosingReference(closingReference);
 const opponentByRegistration = new Map(
   (opponentEvidence.records ?? []).map((record) => [record.bloodRegistrationNumber, record]),
 );
@@ -92,7 +99,7 @@ const races = normalized.races.map((bundle) => {
       odds: Number.isFinite(horse.odds?.winOdds) ? "active" : "missing",
       intelligence: "tm-index-v1.7",
     };
-    const analysisHorse = { ...horse, dataStatus };
+    const analysisHorse = attachClosingEvidence({ ...horse, dataStatus }, closingIndex);
     const intelligence = buildAnalysis(analysisHorse, analysisContext);
     return {
       id: horse.raceEntryId,
@@ -116,7 +123,7 @@ const races = normalized.races.map((bundle) => {
       comment: intelligence.comment,
       analysis: intelligence.analysis,
       currentRace: horse.currentRace,
-      pastRuns: horse.pastRuns,
+      pastRuns: analysisHorse.pastRuns,
       peerRuns: horse.peerRuns,
       opponentEvidence: horse.opponentEvidence,
       training: horse.training,
@@ -196,6 +203,9 @@ const draft = {
           ? "preodds"
           : "missing",
     engineFingerprint,
+    contextPreview: process.env.TURF_MATRIX_CONTEXT_PREVIEW === "1",
+    closingReference: { rows: closingReference.length, policy: "closing-context-v1",
+      sha256: createHash("sha256").update(JSON.stringify(closingReference)).digest("hex") },
     raceShapeHistory: {
       status: raceShapeIndex.size ? "active" : "missing",
       raceCount: raceShapeHistory.races?.length ?? 0,

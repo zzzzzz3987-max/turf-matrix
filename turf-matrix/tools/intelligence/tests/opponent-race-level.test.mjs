@@ -18,6 +18,19 @@ const target = (overrides = {}) => ({
 
 const peer = (id, finishPosition = 3) => ({ bloodRegistrationNumber: id, horseName: id, finishPosition });
 
+test("missing margins never earn a close-loss bonus", () => {
+  const evaluate = (margin) => {
+    const targetRun = target({ finishPosition: 6, margin });
+    return evaluateEncounter({ targetRun, ...fixture({ targetRun }), evaluationDate: "20260201" });
+  };
+  const baseline = evaluate(undefined);
+  for (const margin of [null, "", " ", false]) {
+    assert.equal(evaluate(margin).margin, null);
+    assert.equal(evaluate(margin).score, baseline.score);
+  }
+  assert.ok(evaluate(0).score > baseline.score);
+});
+
 const fixture = ({ gradeCode = "", targetRun = target(), laterDate = "2026-01-10" } = {}) => {
   const field = [targetRun, peer("P1"), peer("P2", 8)];
   const raceByKey = new Map([

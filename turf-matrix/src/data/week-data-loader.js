@@ -49,6 +49,7 @@ const adaptCandidateHorse = (horse) => {
     comment: horse.comment ?? analysis.verdict?.summary ?? "分析準備中",
     currentRace: horse.currentRace,
     pastRuns: horse.pastRuns ?? [],
+    opponentEvidence: horse.opponentEvidence ?? null,
     training: horse.training ?? { slope: [], wood: [] },
     pedigreeRaw: horse.pedigree,
     dataStatus: horse.dataStatus,

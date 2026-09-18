@@ -180,6 +180,8 @@ const buildVerdictPayload = ({
         },
         training: {
           key: "training",
+          indexEligible: trainingAnalysis.indexEligible !== false,
+          raceIntervalDays: trainingAnalysis.raceIntervalDays ?? null,
           label: "調教",
           score: training,
           maxScore: 100,

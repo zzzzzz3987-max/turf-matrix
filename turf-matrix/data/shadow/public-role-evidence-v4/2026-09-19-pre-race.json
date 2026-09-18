@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "public-role-evidence-shadow-v4",
+  "frozenAt": "2026-09-18T11:53:38.693Z",
+  "raceDate": "2026-09-19",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "futureRaceShapeJoinAllowed": false,
+    "historicalOfficialLapsUsed": true,
+    "marketUsedForEligibilityAndFinalTieBreakOnly": true,
+    "evUsedForRanking": false,
+    "abstentionAllowed": true,
+    "tmIndexChanged": false
+  },
+  "source": {
+    "input": "tools/week-data.json",
+    "inputSha256": "02682b508c669dc68149bed648d0ced5c5561e76b8232ef4d76df9f377137c89",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "566cac8a9a64a5469d04cda3c78295ab00b61716535982afee5b82802c70e01a",
+    "historyRaceCount": 911
+  },
+  "summary": {
+    "raceCount": 6,
+    "evidenceValueCount": 0,
+    "evidenceDangerCount": 2,
+    "valueAbstainedCount": 4,
+    "dangerAbstainedCount": 1,
+    "valueChangedCount": 4,
+    "dangerChangedCount": 1
+  },
+  "predictionSha256": "7032c7f7f01c4cf164f522f290029e988bda2b6047f18ec9ed9095ed317f9f72",
+  "predictions": [
+    {
+      "raceId": "2026-09-19-阪神-8R",
+      "bundleId": "2026-09-19-hanshin-08R",
+      "track": "阪神",
+      "raceNumber": 8,
+      "raceName": "野路菊ステークス",
+      "productionValue": null,
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-09-19-中山-9R",
+      "bundleId": "2026-09-19-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "カンナステークス",
+      "productionValue": {
+        "id": "2609190904",
+        "number": 4,
+        "name": "セタキト",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609190904",
+        "number": 4,
+        "name": "セタキト",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2609190908",
+        "number": 8,
+        "name": "ニシノイサリビ",
+        "popularity": 4,
+        "tmIndex": 71,
+        "indexRank": 9
+      },
+      "paceDanger": {
+        "id": "2609190908",
+        "number": 8,
+        "name": "ニシノイサリビ",
+        "popularity": 4,
+        "tmIndex": 71,
+        "indexRank": 9
+      },
+      "evidenceDanger": {
+        "id": "2609190908",
+        "number": 8,
+        "name": "ニシノイサリビ",
+        "popularity": 4,
+        "tmIndex": 71,
+        "indexRank": 9,
+        "marketGap": -5,
+        "qualityScore": 66.25,
+        "foundationScore": 66.84,
+        "conditionScore": 65.43,
+        "evidenceRoleQuality": 66.25,
+        "dangerStrength": 28.5,
+        "supports": [
+          {
+            "key": "form",
+            "label": "近走内容良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [],
+        "protections": [],
+        "riskPoints": 0,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": null,
+          "distanceDirection": 1,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-19-阪神-10R",
+      "bundleId": "2026-09-19-hanshin-10R",
+      "track": "阪神",
+      "raceNumber": 10,
+      "raceName": "北摂特別",
+      "productionValue": null,
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2609191007",
+        "number": 7,
+        "name": "タガノアンファン",
+        "popularity": 2,
+        "tmIndex": 76,
+        "indexRank": 4
+      },
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-09-19-中山-10R",
+      "bundleId": "2026-09-19-nakayama-10R",
+      "track": "中山",
+      "raceNumber": 10,
+      "raceName": "九十九里特別",
+      "productionValue": {
+        "id": "2609191006",
+        "number": 6,
+        "name": "ウイナーズナイン",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609191006",
+        "number": 6,
+        "name": "ウイナーズナイン",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-09-19-阪神-11R",
+      "bundleId": "2026-09-19-hanshin-11R",
+      "track": "阪神",
+      "raceNumber": 11,
+      "raceName": "大阪スポーツ杯",
+      "productionValue": {
+        "id": "2609191109",
+        "number": 9,
+        "name": "リサシテーション",
+        "popularity": 7,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2609191109",
+        "number": 9,
+        "name": "リサシテーション",
+        "popularity": 7,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2609191106",
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11
+      },
+      "paceDanger": {
+        "id": "2609191106",
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11
+      },
+      "evidenceDanger": {
+        "id": "2609191106",
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11,
+        "marketGap": -8,
+        "qualityScore": 62.57,
+        "foundationScore": 60.04,
+        "conditionScore": 66.06,
+        "evidenceRoleQuality": 63.32,
+        "dangerStrength": 48.5,
+        "supports": [
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "paceHistory",
+            "label": "過去に展開へ逆らった走り",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量条件に不安",
+            "severity": 1
+          }
+        ],
+        "protections": [
+          {
+            "key": "paceHistory",
+            "label": "逆展開でも崩れにくい",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 4,
+        "protectionPoints": 1,
+        "components": {
+          "opponentQuality": 52,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 1,
+          "load": -1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 1,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-09-19-中山-11R",
+      "bundleId": "2026-09-19-nakayama-11R",
+      "track": "中山",
+      "raceNumber": 11,
+      "raceName": "ながつきステークス",
+      "productionValue": {
+        "id": "2609191105",
+        "number": 5,
+        "name": "カンピオーネ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609191105",
+        "number": 5,
+        "name": "カンピオーネ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    }
+  ]
+}

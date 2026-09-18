@@ -122,6 +122,12 @@ const validateIntelligenceOutput = (weekData) => {
         errors.push(`${horsePrefix}: tmIndex is outside 0-100`);
       }
       for (const factor of FACTOR_KEYS) {
+        const training = horse.analysis?.factorsDetail?.training;
+        const deferredTraining = ["training", "trainingLap"].includes(factor) &&
+          training?.indexEligible === false && training.status === "partial" &&
+          Number.isInteger(training.raceIntervalDays) && training.raceIntervalDays >= 1 &&
+          training.raceIntervalDays <= 9 && horse.analysis?.factors?.[factor] === null;
+        if (deferredTraining) continue;
         if (!Number.isFinite(horse.analysis?.factors?.[factor])) {
           errors.push(`${horsePrefix}: factors.${factor} is missing`);
         }

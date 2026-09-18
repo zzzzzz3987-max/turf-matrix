@@ -1,0 +1,756 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "public-role-pace-shadow-v3",
+  "frozenAt": "2026-09-18T11:53:38.212Z",
+  "raceDate": "2026-09-19",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "futureRaceShapeJoinAllowed": false,
+    "historicalOfficialLapsUsed": true,
+    "currentRacePopularityUsedForPublicRoleOnly": true,
+    "tmIndexChanged": false
+  },
+  "source": {
+    "input": "tools/week-data.json",
+    "inputSha256": "02682b508c669dc68149bed648d0ced5c5561e76b8232ef4d76df9f377137c89",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "566cac8a9a64a5469d04cda3c78295ab00b61716535982afee5b82802c70e01a",
+    "historyRaceCount": 911,
+    "historyPaceRaceCount": 875
+  },
+  "summary": {
+    "raceCount": 6,
+    "paceValueCount": 4,
+    "paceDangerCount": 3,
+    "valueChangedCount": 0,
+    "dangerChangedCount": 1,
+    "lapMatchedValueCount": 3,
+    "lapMatchedDangerCount": 3
+  },
+  "predictionSha256": "3b047c9163b8281d2867690f4e0997d8be03a301b59c4324d10a9ca9bd10ebf6",
+  "predictions": [
+    {
+      "raceId": "2026-09-19-阪神-8R",
+      "bundleId": "2026-09-19-hanshin-08R",
+      "track": "阪神",
+      "raceNumber": 8,
+      "raceName": "野路菊ステークス",
+      "productionValue": null,
+      "evidenceValue": null,
+      "paceValue": null,
+      "productionDanger": null,
+      "paceDanger": null
+    },
+    {
+      "raceId": "2026-09-19-中山-9R",
+      "bundleId": "2026-09-19-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "カンナステークス",
+      "productionValue": {
+        "id": "2609190904",
+        "number": 4,
+        "name": "セタキト",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "evidenceValue": {
+        "id": "2609190904",
+        "number": 4,
+        "name": "セタキト",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609190904",
+        "number": 4,
+        "name": "セタキト",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5,
+        "evidenceScore": 68.6,
+        "weakest": 59,
+        "roleQuality": 68.6,
+        "dangerStrength": null,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 2,
+        "paceConfidence": "C",
+        "paceRuns": [
+          {
+            "date": "2026-07-19",
+            "course": "函館",
+            "raceNumber": 11,
+            "raceName": "函館２歳ステークスG3",
+            "shape": "neutral",
+            "outcomeLabel": "偏りなし",
+            "shapeConfidence": "high",
+            "paceClass": "front_loaded",
+            "paceLabel": "前傾",
+            "first3F": 34.2,
+            "last3F": 36.2,
+            "paceDeltaSeconds": -2,
+            "role": "middle",
+            "finishPosition": 7,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 58.2,
+                "last5F": 58.2,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 47.2,
+                "closingLaps": [
+                  11,
+                  11,
+                  12,
+                  12,
+                  12.2
+                ],
+                "finalDeceleration": 0.2
+              },
+              "lastCornerPosition": 6,
+              "finishPosition": 7,
+              "positionsGained": -1,
+              "placed": false,
+              "reason": "レース後半1000m58.2秒。4角6番手から7着で順位を下げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 4,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 0,
+            "assessment": "neutral",
+            "reason": "前傾・偏りなしで明確な展開利不利なし"
+          },
+          {
+            "date": "2026-06-14",
+            "course": "函館",
+            "raceNumber": 5,
+            "raceName": null,
+            "shape": "front_survival",
+            "outcomeLabel": "前残り",
+            "shapeConfidence": "high",
+            "paceClass": "back_loaded",
+            "paceLabel": "後傾",
+            "first3F": 35.6,
+            "last3F": 33.7,
+            "paceDeltaSeconds": 1.9,
+            "role": "front",
+            "finishPosition": 1,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 57.7,
+                "last5F": 57.7,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 45.1,
+                "closingLaps": [
+                  12.6,
+                  11.4,
+                  11.6,
+                  11.1,
+                  11
+                ],
+                "finalDeceleration": -0.1
+              },
+              "lastCornerPosition": 1,
+              "finishPosition": 1,
+              "positionsGained": 0,
+              "placed": true,
+              "reason": "レース後半1000m57.7秒。4角1番手から1着で順位を維持",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 0,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": -1,
+            "assessment": "flow_aided",
+            "reason": "後傾・前残りの展開利を受けた好走"
+          }
+        ]
+      },
+      "productionDanger": {
+        "id": "2609190908",
+        "number": 8,
+        "name": "ニシノイサリビ",
+        "popularity": 4,
+        "tmIndex": 71,
+        "indexRank": 9
+      },
+      "paceDanger": {
+        "id": "2609190908",
+        "number": 8,
+        "name": "ニシノイサリビ",
+        "popularity": 4,
+        "tmIndex": 71,
+        "indexRank": 9,
+        "evidenceScore": 67,
+        "weakest": 58,
+        "roleQuality": 67,
+        "dangerStrength": 39,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 2,
+        "paceConfidence": "C",
+        "paceRuns": [
+          {
+            "date": "2026-08-08",
+            "course": "新潟",
+            "raceNumber": 8,
+            "raceName": "ダリア賞",
+            "shape": "neutral",
+            "outcomeLabel": "偏りなし",
+            "shapeConfidence": "high",
+            "paceClass": "even",
+            "paceLabel": "平均",
+            "first3F": 34.4,
+            "last3F": 34.1,
+            "paceDeltaSeconds": 0.3,
+            "role": "rear",
+            "finishPosition": 5,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 57.9,
+                "last5F": 57.3,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 46,
+                "closingLaps": [
+                  11.3,
+                  11.9,
+                  11.6,
+                  11.2,
+                  11.3
+                ],
+                "finalDeceleration": 0.1
+              },
+              "lastCornerPosition": 8,
+              "finishPosition": 5,
+              "positionsGained": 3,
+              "placed": false,
+              "reason": "レース後半1000m57.3秒。4角8番手から5着で順位を上げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 8,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 0,
+            "assessment": "neutral",
+            "reason": "平均・偏りなしで明確な展開利不利なし"
+          },
+          {
+            "date": "2026-07-11",
+            "course": "福島",
+            "raceNumber": 5,
+            "raceName": null,
+            "shape": "front_survival",
+            "outcomeLabel": "前残り",
+            "shapeConfidence": "high",
+            "paceClass": "even",
+            "paceLabel": "平均",
+            "first3F": 35.3,
+            "last3F": 35.5,
+            "paceDeltaSeconds": -0.2,
+            "role": "front",
+            "finishPosition": 1,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 59,
+                "last5F": 58.3,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 47,
+                "closingLaps": [
+                  11.3,
+                  11.5,
+                  11.9,
+                  11.8,
+                  11.8
+                ],
+                "finalDeceleration": 0
+              },
+              "lastCornerPosition": 1,
+              "finishPosition": 1,
+              "positionsGained": 0,
+              "placed": true,
+              "reason": "レース後半1000m58.3秒。4角1番手から1着で順位を維持",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 6,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": -1,
+            "assessment": "flow_aided",
+            "reason": "平均・前残りの展開利を受けた好走"
+          }
+        ]
+      }
+    },
+    {
+      "raceId": "2026-09-19-阪神-10R",
+      "bundleId": "2026-09-19-hanshin-10R",
+      "track": "阪神",
+      "raceNumber": 10,
+      "raceName": "北摂特別",
+      "productionValue": null,
+      "evidenceValue": null,
+      "paceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2609191007",
+        "number": 7,
+        "name": "タガノアンファン",
+        "popularity": 2,
+        "tmIndex": 76,
+        "indexRank": 4,
+        "evidenceScore": 68.65,
+        "weakest": 59,
+        "roleQuality": 68.65,
+        "dangerStrength": 19,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 1,
+        "paceConfidence": "Low",
+        "paceRuns": [
+          {
+            "date": "2026-08-02",
+            "course": "中京",
+            "raceNumber": 6,
+            "raceName": "中京スポニチ賞",
+            "shape": "neutral",
+            "outcomeLabel": "偏りなし",
+            "shapeConfidence": "high",
+            "paceClass": "even",
+            "paceLabel": "平均",
+            "first3F": 33.6,
+            "last3F": 33.9,
+            "paceDeltaSeconds": -0.3,
+            "role": "middle",
+            "finishPosition": 4,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 56,
+                "last5F": 56,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 45.1,
+                "closingLaps": [
+                  10.9,
+                  11.2,
+                  11.2,
+                  11.2,
+                  11.5
+                ],
+                "finalDeceleration": 0.3
+              },
+              "lastCornerPosition": 6,
+              "finishPosition": 4,
+              "positionsGained": 2,
+              "placed": false,
+              "reason": "レース後半1000m56.0秒。4角6番手から4着で順位を上げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 11,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 0,
+            "assessment": "neutral",
+            "reason": "平均・偏りなしで明確な展開利不利なし"
+          }
+        ]
+      }
+    },
+    {
+      "raceId": "2026-09-19-中山-10R",
+      "bundleId": "2026-09-19-nakayama-10R",
+      "track": "中山",
+      "raceNumber": 10,
+      "raceName": "九十九里特別",
+      "productionValue": {
+        "id": "2609191006",
+        "number": 6,
+        "name": "ウイナーズナイン",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "evidenceValue": {
+        "id": "2609191006",
+        "number": 6,
+        "name": "ウイナーズナイン",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609191006",
+        "number": 6,
+        "name": "ウイナーズナイン",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5,
+        "evidenceScore": 65.95,
+        "weakest": 60,
+        "roleQuality": 65.95,
+        "dangerStrength": null,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 0,
+        "paceConfidence": "Low",
+        "paceRuns": []
+      },
+      "productionDanger": null,
+      "paceDanger": null
+    },
+    {
+      "raceId": "2026-09-19-阪神-11R",
+      "bundleId": "2026-09-19-hanshin-11R",
+      "track": "阪神",
+      "raceNumber": 11,
+      "raceName": "大阪スポーツ杯",
+      "productionValue": {
+        "id": "2609191109",
+        "number": 9,
+        "name": "リサシテーション",
+        "popularity": 7,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "evidenceValue": {
+        "id": "2609191109",
+        "number": 9,
+        "name": "リサシテーション",
+        "popularity": 7,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2609191109",
+        "number": 9,
+        "name": "リサシテーション",
+        "popularity": 7,
+        "tmIndex": 75,
+        "indexRank": 4,
+        "evidenceScore": 67.85,
+        "weakest": 63,
+        "roleQuality": 67.85,
+        "dangerStrength": null,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 2,
+        "paceConfidence": "C",
+        "paceRuns": [
+          {
+            "date": "2026-08-01",
+            "course": "中京",
+            "raceNumber": 6,
+            "raceName": "桶狭間ステークス",
+            "shape": "neutral",
+            "outcomeLabel": "偏りなし",
+            "shapeConfidence": "high",
+            "paceClass": "front_loaded",
+            "paceLabel": "前傾",
+            "first3F": 34.3,
+            "last3F": 37.3,
+            "paceDeltaSeconds": -3,
+            "role": "front",
+            "finishPosition": 8,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 58.4,
+                "last5F": 60.5,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 49.2,
+                "closingLaps": [
+                  11.3,
+                  11.9,
+                  12.2,
+                  12.4,
+                  12.7
+                ],
+                "finalDeceleration": 0.3
+              },
+              "lastCornerPosition": 4,
+              "finishPosition": 8,
+              "positionsGained": -4,
+              "placed": false,
+              "reason": "レース後半1000m60.5秒。4角4番手から8着で順位を下げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 14,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 1,
+            "assessment": "against_flow_strong",
+            "reason": "前傾・偏りなしに逆らって前方で踏ん張った"
+          },
+          {
+            "date": "2026-06-07",
+            "course": "阪神",
+            "raceNumber": 9,
+            "raceName": "洲本特別",
+            "shape": "neutral",
+            "outcomeLabel": "偏りなし",
+            "shapeConfidence": "high",
+            "paceClass": "front_loaded",
+            "paceLabel": "前傾",
+            "first3F": 35,
+            "last3F": 36.3,
+            "paceDeltaSeconds": -1.3,
+            "role": "middle",
+            "finishPosition": 1,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 59,
+                "last5F": 60.3,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 48.4,
+                "closingLaps": [
+                  11.9,
+                  12.1,
+                  11.9,
+                  12,
+                  12.4
+                ],
+                "finalDeceleration": 0.4
+              },
+              "lastCornerPosition": 7,
+              "finishPosition": 1,
+              "positionsGained": 6,
+              "placed": true,
+              "reason": "レース後半1000m60.3秒。4角7番手から1着で順位を上げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 0,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 0,
+            "assessment": "neutral",
+            "reason": "前傾・偏りなしで明確な展開利不利なし"
+          }
+        ]
+      },
+      "productionDanger": {
+        "id": "2609191106",
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11
+      },
+      "paceDanger": {
+        "id": "2609191106",
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11,
+        "evidenceScore": 61.25,
+        "weakest": 49,
+        "roleQuality": 62.75,
+        "dangerStrength": 60,
+        "paceEvidenceAdjustment": 1.5,
+        "matchedRunCount": 1,
+        "paceConfidence": "Low",
+        "paceRuns": [
+          {
+            "date": "2026-06-06",
+            "course": "東京",
+            "raceNumber": 11,
+            "raceName": "麦秋ステークス",
+            "shape": "front_collapse",
+            "outcomeLabel": "差し決着",
+            "shapeConfidence": "high",
+            "paceClass": "even",
+            "paceLabel": "平均",
+            "first3F": 35.5,
+            "last3F": 35.8,
+            "paceDeltaSeconds": -0.3,
+            "role": "front",
+            "finishPosition": 4,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 59.1,
+                "last5F": 59.3,
+                "independent5FSections": false,
+                "first5FInterpolated": false,
+                "last4F": 47.5,
+                "closingLaps": [
+                  11.8,
+                  11.7,
+                  11.9,
+                  11.9,
+                  12
+                ],
+                "finalDeceleration": 0.1
+              },
+              "lastCornerPosition": 1,
+              "finishPosition": 4,
+              "positionsGained": -3,
+              "placed": false,
+              "reason": "レース後半1000m59.3秒。4角1番手から4着で順位を下げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 1,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 1,
+            "assessment": "against_flow_strong",
+            "reason": "平均・差し決着に逆らって前方で踏ん張った"
+          }
+        ]
+      }
+    },
+    {
+      "raceId": "2026-09-19-中山-11R",
+      "bundleId": "2026-09-19-nakayama-11R",
+      "track": "中山",
+      "raceNumber": 11,
+      "raceName": "ながつきステークス",
+      "productionValue": {
+        "id": "2609191105",
+        "number": 5,
+        "name": "カンピオーネ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "evidenceValue": {
+        "id": "2609191105",
+        "number": 5,
+        "name": "カンピオーネ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2609191105",
+        "number": 5,
+        "name": "カンピオーネ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 5,
+        "evidenceScore": 65.65,
+        "weakest": 58,
+        "roleQuality": 65.65,
+        "dangerStrength": null,
+        "paceEvidenceAdjustment": 0,
+        "matchedRunCount": 1,
+        "paceConfidence": "Low",
+        "paceRuns": [
+          {
+            "date": "2026-07-05",
+            "course": "福島",
+            "raceNumber": 11,
+            "raceName": "ジュライステークス",
+            "shape": "front_survival",
+            "outcomeLabel": "前残り",
+            "shapeConfidence": "high",
+            "paceClass": "front_loaded",
+            "paceLabel": "前傾",
+            "first3F": 36.1,
+            "last3F": 38.3,
+            "paceDeltaSeconds": -2.2,
+            "role": "front",
+            "finishPosition": 8,
+            "lapEvidence": {
+              "raceSectionals": {
+                "scope": "race",
+                "first5F": 59.7,
+                "last5F": 61.8,
+                "independent5FSections": false,
+                "first5FInterpolated": true,
+                "last4F": 49.9,
+                "closingLaps": [
+                  11.9,
+                  11.6,
+                  12,
+                  12.8,
+                  13.5
+                ],
+                "finalDeceleration": 0.7
+              },
+              "lastCornerPosition": 6,
+              "finishPosition": 8,
+              "positionsGained": -2,
+              "placed": false,
+              "reason": "レース後半1000m61.8秒。4角6番手から8着で順位を下げた",
+              "individualLapEstimated": false,
+              "scoreAdjustment": 0,
+              "benchmark": {
+                "status": "limited",
+                "sampleSize": 10,
+                "medianLast5F": null,
+                "fasterThanMedianSeconds": null,
+                "fasterPercentile": null,
+                "scoreAdjustment": 0
+              }
+            },
+            "impact": 0,
+            "assessment": "neutral",
+            "reason": "前傾・前残りで明確な展開利不利なし"
+          }
+        ]
+      },
+      "productionDanger": null,
+      "paceDanger": null
+    }
+  ]
+}

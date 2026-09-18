@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { calculateAbilityProfile } from "../ability-ai.mjs";
 import { buildAbilityCeilingShadow, runCeilingQuality } from "../ability-ceiling-shadow.mjs";
 
 const run = (overrides = {}) => ({
@@ -17,6 +18,12 @@ const horse = (overrides = {}) => ({
   currentRace: { distance: 1600, surface: "芝" },
   pastRuns: [run(), run({ finishPosition: 3, margin: 0.2 })],
   ...overrides,
+});
+
+test("omitted current ability uses the actual profile rather than zero", () => {
+  const input = horse();
+  assert.equal(buildAbilityCeilingShadow(input).currentScore, calculateAbilityProfile(input).score);
+  assert.equal(buildAbilityCeilingShadow(input, null).currentScore, calculateAbilityProfile(input).score);
 });
 
 test("ability ceiling rewards demonstrated class without using market data", () => {

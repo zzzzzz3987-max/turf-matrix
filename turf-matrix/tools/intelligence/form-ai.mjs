@@ -264,7 +264,7 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       label: "上がり性能",
       score: lapEvidence,
       status: lapEvidence == null ? "missing" : "active",
-      summary: fastLap ? `最速材料 ${displayRunLabel(fastLap, "過去走")} ${fastLap.last3F}` : "上がり時計は未取得",
+      summary: fastLap ? `最速材料 ${displayRunLabel(fastLap, "過去走")} ${fastLap.last3F}${fastLap.closingBenchmark?.status === "available" ? `。${fastLap.closingBenchmark.summary}` : ""}` : "上がり時計は未取得",
     },
     {
       key: "recent",

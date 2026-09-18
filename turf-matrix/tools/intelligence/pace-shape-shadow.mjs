@@ -1,3 +1,4 @@
+import { buildLapBenchmark } from "./lap-benchmark.mjs";
 import {
   assessHorseFlow,
   buildRaceShapeIndex,
@@ -68,6 +69,28 @@ const shapeImpact = (race, historyHorse, run = {}) => {
   return { impact: 0, reason: "形状による明確な利不利なし" };
 };
 
+const buildHorseLapEvidence = (race, runner) => {
+  const profile = race?.lapProfile;
+  const finish = Number(runner?.finishPosition);
+  const corner = Number(runner?.lastCornerPosition);
+  if (profile?.scope !== "race" || !finite(profile.last5F) ||
+    !Number.isInteger(finish) || finish <= 0 ||
+    !Number.isInteger(corner) || corner <= 0 ||
+    Number(runner?.abnormalityCode ?? 0) !== 0) return null;
+  const movement = corner - finish;
+  const positionLabel = movement > 0 ? "順位を上げた" : movement === 0 ? "順位を維持" : "順位を下げた";
+  return {
+    raceSectionals: { ...profile, closingLaps: [...(profile.closingLaps ?? [])] },
+    lastCornerPosition: corner,
+    finishPosition: finish,
+    positionsGained: movement,
+    placed: finish <= 3,
+    reason: `レース後半1000m${Number(profile.last5F).toFixed(1)}秒。4角${corner}番手から${finish}着で${positionLabel}`,
+    individualLapEstimated: false,
+    scoreAdjustment: 0,
+  };
+};
+
 const buildPaceShapeProfile = (horse, history) => {
   const raceDate = horse?.currentRace?.raceDate;
   const index = history instanceof Map ? history : buildRaceShapeIndex(history);
@@ -80,6 +103,8 @@ const buildPaceShapeProfile = (horse, history) => {
     const historyHorse = findHistoryHorse(race, horse, run);
     if (!historyHorse) continue;
     const result = shapeImpact(race, historyHorse, run);
+    const lapEvidence = buildHorseLapEvidence(race, historyHorse);
+    if (lapEvidence) lapEvidence.benchmark = buildLapBenchmark(race, index, raceDate);
     matches.push({
       date: run.date,
       course: run.course ?? run.track ?? null,
@@ -95,6 +120,7 @@ const buildPaceShapeProfile = (horse, history) => {
       paceDeltaSeconds: race.pace?.deltaSeconds ?? null,
       role: historyHorse.role,
       finishPosition: historyHorse.finishPosition,
+      lapEvidence,
       impact: result.impact,
       assessment: result.assessment ?? historyHorse.flowAssessment ?? "neutral",
       reason: result.reason,
@@ -147,6 +173,7 @@ const buildPaceShapeShadow = (horse, currentPace, history) => {
 };
 
 export {
+  buildHorseLapEvidence,
   MAX_ADJUSTMENT,
   buildPaceShapeProfile,
   buildPaceShapeShadow,

@@ -22,6 +22,79 @@ const horse = (pastRuns, overrides = {}) => ({
   ...overrides,
 });
 
+test("missing margin and ZI behave like absent values, not zero", () => {
+  const baseline = calculateAbilityProfile(horse([run({ margin: undefined })]));
+  for (const value of [null, "", " ", false]) {
+    const profile = calculateAbilityProfile(horse([run({ margin: value })], { availableIndex: value }));
+    assert.equal(profile.marginScore, baseline.marginScore);
+    assert.equal(profile.ziScore, null);
+    assert.equal(profile.score, baseline.score);
+  }
+});
+
+test("missing opponent scores use relation evidence instead of a zero score", () => {
+  const profile = (value) => calculateAbilityProfile(horse([run()], { opponentEvidence: {
+    encounters: [{ finishPosition: 2, peers: [{ finishPosition: 5, evidenceScore: value, qualityScore: value }] }],
+  } }));
+  for (const value of [null, "", " ", false]) assert.equal(profile(value).encounterScore, profile(undefined).encounterScore);
+  assert.equal(profile(undefined).encounterScore, 78);
+});
+
+test("unknown and non-finishing positions are not ability or direct-peer wins", () => {
+  for (const value of [null, "", 0, -1, false]) {
+    const profile = calculateAbilityProfile(horse([run({ finishPosition: value })], {
+      peerRuns: [{ finishPosition: value, peers: [{ finishPosition: 5 }] }],
+      opponentEvidence: { encounters: [{ finishPosition: 2, peers: [{ finishPosition: value }] }] },
+    }));
+    assert.equal(profile.runCount, 0);
+    assert.equal(profile.peerScore, null);
+    assert.equal(profile.encounterScore, null);
+  }
+});
+
+test("Unicode grade notation matches ASCII grade notation", () => {
+  for (const [ascii, unicode] of [["GI", "GⅠ"], ["GII", "GⅡ"], ["GIII", "GⅢ"]]) {
+    assert.equal(calculateAbilityProfile(horse([run({ grade: ascii })])).score,
+      calculateAbilityProfile(horse([run({ grade: unicode })])).score);
+  }
+});
+
+test("relation contributions reproduce the actual score with missing sources excluded", () => {
+  const profile = calculateAbilityProfile(horse([run({ grade: "G3" })], {
+    opponentEvidence: { score: 80 },
+  }));
+  const trace = profile.relationEvidence;
+  assert.equal(trace.scope, "relation-score");
+  assert.equal(trace.fallback, null);
+  assert.ok(Math.abs(trace.components.reduce((sum, item) => sum + item.contribution, 0) - trace.rawScore) < 1e-10);
+  assert.equal(Math.round(trace.rawScore), profile.relationScore);
+  assert.equal(trace.components.find(item => item.key === "direct-peers").share, 0);
+  assert.equal(trace.independentEvidenceSources, false);
+});
+
+test("relation trace explicitly distinguishes fallback from opponent evidence", () => {
+  const profile = calculateAbilityProfile(horse([run()]));
+  assert.equal(profile.relationEvidence.fallback, "recent-ability");
+  assert.equal(profile.relationEvidence.rawScore, profile.recentScore);
+  assert.ok(profile.relationEvidence.components.every(item => item.share === 0));
+});
+
+test("encounter trace preserves the actual opponent race and score source", () => {
+  const profile = calculateAbilityProfile(horse([run()], { opponentEvidence: { encounters: [{
+    raceKey: "sample", raceDate: "20260101", raceName: "テスト重賞", finishPosition: 3,
+    peers: [{ horseName: "相手A", finishPosition: 1, qualityScore: 80, laterStarts: 3 },
+      { horseName: "相手B", finishPosition: 5 }],
+  }] } }));
+  const [a, b] = profile.relationEvidence.encounters;
+  assert.equal(a.horseName, "相手A");
+  assert.equal(a.raceKey, "sample");
+  assert.equal(a.relation, "lost");
+  assert.equal(a.source, "quality-and-result");
+  assert.equal(b.source, "result-only");
+  assert.equal(b.relation, "beat");
+  assert.equal(Math.round(a.value * a.share + b.value * b.share), profile.encounterScore);
+});
+
 test("Ability specialist rewards proven graded performance", () => {
   const graded = calculateAbilityProfile(horse([
     run({ raceName: "重賞", grade: "G3", finishPosition: 2, margin: 0.1, last3F: 33.9, popularity: 6 }),

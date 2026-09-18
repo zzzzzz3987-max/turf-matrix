@@ -59,6 +59,28 @@ const sectionTime = (laps, distance, targetMeters, fromEnd = false) => {
   return remaining === 0 ? seconds : null;
 };
 
+// Race sectionals describe the field's pace, never an individual horse's splits.
+const buildLapProfile = (race) => {
+  const distance = Number(race?.distance);
+  const raw = race?.lapTimes;
+  if (!Number.isInteger(distance) || distance < 1000 || !Array.isArray(raw) ||
+    raw.length !== Math.ceil(distance / 200) ||
+    raw.some((value) => !finite(value) || typeof value === "boolean" || Number(value) <= 0)) return null;
+  const laps = raw.map(Number);
+  const first5F = rounded(sectionTime(laps, distance, 1000), 1);
+  const last5F = rounded(sectionTime(laps, distance, 1000, true), 1);
+  return {
+    scope: "race",
+    first5F,
+    last5F,
+    independent5FSections: distance >= 2000,
+    first5FInterpolated: distance % 200 !== 0,
+    last4F: rounded(sum(laps.slice(-4)), 1),
+    closingLaps: laps.slice(-5),
+    finalDeceleration: rounded(laps.at(-1) - laps.at(-2), 1),
+  };
+};
+
 const classifyPaceTilt = (race) => {
   const laps = (race?.lapTimes ?? []).map(Number).filter((value) => Number.isFinite(value) && value > 0);
   const distance = finite(race?.distance) ? Number(race.distance) : null;
@@ -188,6 +210,7 @@ const classifyRaceShape = (race) => {
     shape,
     outcome: { classification: shape, label: outcomeLabel(shape), confidence },
     pace,
+    lapProfile: buildLapProfile(race),
     confidence,
     fieldSize,
     cornerRunnerCount: withCorner.length,
@@ -205,6 +228,7 @@ const classifyRaceShape = (race) => {
         horseNumber: horse.horseNumber,
         horseName: horse.horseName,
         finishPosition: horse.finishPosition,
+        abnormalityCode: horse.abnormalityCode,
         firstCornerPosition: horse.corner,
         lastCornerPosition: horse.lastCorner,
         earlyQuantile: rounded(horse.earlyQuantile),
@@ -224,6 +248,7 @@ const classifyRaceShape = (race) => {
 const buildRaceShapeIndex = (history) => new Map((history?.races ?? []).map((race) => [race.key, race]));
 
 export {
+  buildLapProfile,
   PACE_TILT_THRESHOLD_SECONDS,
   assessHorseFlow,
   buildRaceShapeIndex,

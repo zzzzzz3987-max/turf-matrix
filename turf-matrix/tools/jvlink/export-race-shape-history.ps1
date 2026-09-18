@@ -2,6 +2,7 @@ param(
   [Parameter(Mandatory = $true)][string]$StartDate,
   [Parameter(Mandatory = $true)][string]$EndDate,
   [string]$OutputPath = "",
+  [ValidateRange(1, 366)][int]$MaxWindowDays = 31,
   [ValidateSet("normal", "setup")][string]$Mode = "normal",
   [switch]$Confirm
 )
@@ -12,6 +13,7 @@ if ([Environment]::Is64BitOperatingSystem -and [Environment]::Is64BitProcess) {
   if (-not (Test-Path -LiteralPath $PowerShell32)) { throw "32-bit PowerShell was not found. JV-Link requires a 32-bit process." }
   $arguments = @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", $PSCommandPath, "-StartDate", $StartDate, "-EndDate", $EndDate, "-Mode", $Mode)
   if ($OutputPath) { $arguments += @("-OutputPath", $OutputPath) }
+  $arguments += @("-MaxWindowDays", [string]$MaxWindowDays)
   if ($Confirm) { $arguments += "-Confirm" }
   & $PowerShell32 @arguments
   exit $LASTEXITCODE
@@ -20,7 +22,7 @@ if ([Environment]::Is64BitOperatingSystem -and [Environment]::Is64BitProcess) {
 $start = [DateTime]::ParseExact($StartDate, "yyyy-MM-dd", $null)
 $end = [DateTime]::ParseExact($EndDate, "yyyy-MM-dd", $null)
 if ($end -le $start) { throw "EndDate must be later than StartDate (exclusive end)." }
-if (($end - $start).TotalDays -gt 31) { throw "One export is limited to 31 days." }
+if (($end - $start).TotalDays -gt $MaxWindowDays) { throw "Export exceeds MaxWindowDays ($MaxWindowDays)." }
 
 $repoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 if (-not $OutputPath) {
@@ -67,6 +69,7 @@ $races = [ordered]@{}
 $horses = New-Object 'System.Collections.Generic.List[object]'
 $jvLink = $null
 $opened = $false
+$completed = $false
 try {
   $jvLink = New-Object -ComObject JVDTLab.JVLink
   $initResult = [int]$jvLink.JVInit("UNKNOWN")
@@ -100,6 +103,14 @@ try {
           raceDate = $raceDate
           courseCode = $courseCode
           raceNo = Convert-PositiveInteger (Get-JvField $bytes 26 2)
+          raceName = Get-JvField $bytes 33 60
+          gradeCode = Get-JvField $bytes 615 1
+          conditionCodes = @(
+            Get-JvField $bytes 623 3
+            Get-JvField $bytes 626 3
+            Get-JvField $bytes 629 3
+            Get-JvField $bytes 632 3
+          )
           distance = Convert-PositiveInteger (Get-JvField $bytes 698 4)
           trackCode = Get-JvField $bytes 706 2
           fieldSize = Convert-PositiveInteger (Get-JvField $bytes 884 2)
@@ -118,6 +129,9 @@ try {
           raceKey = $raceKey
           horseNumber = Convert-PositiveInteger (Get-JvField $bytes 29 2)
           horseName = Get-JvField $bytes 41 36
+          bloodRegistrationNumber = Get-JvField $bytes 31 10
+          age = Convert-PositiveInteger (Get-JvField $bytes 83 2)
+          last3F = Convert-TenthSeconds (Get-JvField $bytes 391 3)
           finishPosition = $finish
           passingOrder = @(
             Convert-PositiveInteger (Get-JvField $bytes 352 2)
@@ -133,7 +147,7 @@ try {
     }
     if ($readResult -eq -3) { Start-Sleep -Milliseconds 200; continue }
     if ($readResult -eq -1) { continue }
-    if ($readResult -eq 0) { break }
+    if ($readResult -eq 0) { $completed = $true; break }
     throw "JVRead(RACE) failed with result $readResult."
   }
 } finally {
@@ -141,8 +155,9 @@ try {
   if ($null -ne $jvLink) { [System.Runtime.InteropServices.Marshal]::FinalReleaseComObject($jvLink) | Out-Null }
 }
 
+if (-not $completed) { throw "JVRead did not complete; incomplete history will not be saved." }
 $payload = [ordered]@{
-  schemaVersion = 2
+  schemaVersion = 3
   generatedAt = (Get-Date).ToString("s")
   source = "JV-Link RACE RA/SE"
   acquisitionMode = $Mode

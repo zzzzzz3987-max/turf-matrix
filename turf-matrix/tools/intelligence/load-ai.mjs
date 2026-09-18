@@ -55,7 +55,14 @@ const ageAllowanceKg = ({ age, raceDate, distance, openClass = true }) => {
   return 0;
 };
 
-const sexAllowanceKg = (sex) => String(sex ?? "").includes("牝") ? 2 : 0;
+const sexAllowanceKg = (sex, age, raceDate) => {
+  if (!String(sex ?? "").includes("牝")) return 0;
+  if (Number(age) === 2) {
+    const month = monthFor(raceDate);
+    return month && month >= 10 ? 1 : 0;
+  }
+  return 2;
+};
 
 const equivalentLoadKg = (horse, race = {}) => {
   const current = horse.currentRace ?? horse;
@@ -67,7 +74,7 @@ const equivalentLoadKg = (horse, race = {}) => {
   const distance = race.distance ?? current.distance;
   const openClass = race.openClass ?? isOpenClass({ ...race, ...current });
   const ageAllowance = ageAllowanceKg({ age, raceDate, distance, openClass });
-  const sexAllowance = sexAllowanceKg(sex);
+  const sexAllowance = sexAllowanceKg(sex, age, raceDate);
   return {
     carriedWeight,
     ageAllowance,

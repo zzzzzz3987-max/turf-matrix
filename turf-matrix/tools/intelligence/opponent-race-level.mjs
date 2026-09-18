@@ -7,7 +7,9 @@ const RECENCY_WEIGHTS = [1, 0.92, 0.85, 0.79, 0.74, 0.69, 0.65, 0.61];
 const clamp = (value, min = SCORE_MIN, max = SCORE_MAX) => Math.max(min, Math.min(max, value));
 const round1 = (value) => Math.round(value * 10) / 10;
 const normalizeDate = (value) => String(value ?? "").replace(/[^0-9]/g, "").slice(0, 8);
-const toNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
+const toNumber = (value) => value == null || typeof value === "boolean" ||
+  (typeof value === "string" && !value.trim())
+  ? null : Number.isFinite(Number(value)) ? Number(value) : null;
 
 const horseIdOf = (run) => String(
   run?.bloodRegistrationNumber ?? run?.horseId ?? run?.registrationNumber ?? "",

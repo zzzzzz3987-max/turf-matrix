@@ -6,6 +6,7 @@ import { startLiveDataRefresh } from "./data/live-data-refresh.js";
 import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import { buildPedigreeRaceEvidence } from "./lib/pedigree-race-evidence.js";
+import { buildAbilityPublicEvidence } from "./lib/ability-public-evidence.js";
 import { selectBattleWideCandidate } from "../tools/battle-ticket-selection.mjs";
 import {
   buildPedigreeFamilyPublicLines,
@@ -1462,6 +1463,7 @@ const HorseDataPreviewContent = ({ horse }) => {
 
 const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false }) => {
   const a = horse.analysis;
+  const opponentRows = buildAbilityPublicEvidence(horse);
   if (!isEvaluatedHorse(horse) || !a?.factors) return <HorseDataPreviewContent horse={horse} />;
   const tier = scoreTier(horse.aiScore);
   return (
@@ -1512,6 +1514,23 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
 
         <HorseQuickRead horse={horse} compact={compactHeader} />
         <TMFactorsCard analysis={a} />
+        {opponentRows.length > 0 && (
+          <details className="group mt-4 border-t border-gray-100">
+            <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-3 text-[13px] font-bold text-slate-950 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden">
+              相手関係を見る
+              <ChevronDown size={16} className="shrink-0 text-slate-400 transition-transform group-open:rotate-180" />
+            </summary>
+            <ul className="divide-y divide-gray-100">
+              {opponentRows.map((row) => (
+                <li key={row.key} className="py-3 text-[12px] leading-relaxed [overflow-wrap:anywhere]">
+                  <p className="text-[10px] text-gray-500">{row.date}</p>
+                  <p className="font-semibold text-slate-950">{row.raceName}・{row.position}着</p>
+                  <p className="mt-1 text-gray-600">{row.text}</p>
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
       </section>
 
       {/* 期待値評価(自動計算) */}

@@ -401,6 +401,26 @@ const buildTrainingProfile = (horse) => {
 
 const buildTrainingAnalysis = (horse) => {
   const profile = buildTrainingProfile(horse);
+  const intervals = (horse.pastRuns ?? []).map((run) => daysBeforeRace(run.date, horse.currentRace?.raceDate))
+    .filter((days) => Number.isFinite(days) && days > 0);
+  const intervalDays = intervals.length ? Math.min(...intervals) : null;
+  const shortTurnaround = intervalDays != null && intervalDays <= 9;
+  profile.raceIntervalDays = intervalDays;
+  profile.indexEligible = !shortTurnaround;
+  if (shortTurnaround) {
+    return {
+      ...profile,
+      score: null,
+      lapScore: null,
+      status: "partial",
+      grade: null,
+      count: profile.sessions.length,
+      summary: `前走から${intervalDays}日での出走。通常の調教時計・本数による採点は保留し、指数には加点も減点もしません。疲労や上積みは時計だけでは判断できません。`,
+      finalText: "短い出走間隔のため、軽い調整を理由に状態不良とは判定しません。",
+      patternText: "通常ローテーションとの調教点比較は行いません。",
+      strengths: [`前走から${intervalDays}日`],
+    };
+  }
   const sessions = profile.sessions;
   const reportedContext = reportedTrainingContext(horse);
   const reportedText = reportedContext.map((item) => `報道による補足: ${item.summary}`).join(" ");

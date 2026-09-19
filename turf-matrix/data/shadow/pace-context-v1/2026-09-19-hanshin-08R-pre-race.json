@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-19T04:34:06.636Z",
+  "raceDate": "2026-09-19",
+  "bundleId": "2026-09-19-hanshin-08R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "7ad94355d25b831b5048017881fbec65482605bdce2a3de57ed872047e7ef986",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "4aefba23334891bafa5bb1496c881be880132440efec460401a0f71a07244d4b",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "be197d2f6c627316165c8b305108c11f3fc3fc8a6bb14aaeb916f60283ef2c55",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 6,
+    "adjustedHorseCount": 0,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 0
+  },
+  "predictionSha256": "82700167efbfc44074c1221e5f07f6b10b3faf98be07dd896d2d564bf33ffd8b",
+  "predictions": [
+    {
+      "raceId": "2026-09-19-阪神-8R",
+      "bundleId": "2026-09-19-hanshin-08R",
+      "track": "阪神",
+      "surface": "芝",
+      "raceNumber": 8,
+      "raceName": "野路菊ステークス",
+      "horseCount": 6,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 2,
+        "name": "ジーティーサクラ",
+        "currentPace": 73,
+        "shadowPace": 73,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 76,
+        "shadowTm": 76
+      },
+      "shadowPaceLeader": {
+        "number": 2,
+        "name": "ジーティーサクラ",
+        "currentPace": 73,
+        "shadowPace": 73,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 76,
+        "shadowTm": 76
+      },
+      "currentTmLeader": {
+        "number": 6,
+        "name": "ブラッドバローズ",
+        "currentPace": 72,
+        "shadowPace": 72,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "shadowTmLeader": {
+        "number": 6,
+        "name": "ブラッドバローズ",
+        "currentPace": 72,
+        "shadowPace": 72,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "シティオブドリーム",
+          "currentPace": 72,
+          "shadowPace": 72,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-16 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 逃げ",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "ジーティーサクラ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-06 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "テングカゼ",
+          "currentPace": 73,
+          "shadowPace": 73,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-01 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 62,
+          "shadowTm": 62,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "ベルメサージュ",
+          "currentPace": 72,
+          "shadowPace": 72,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-08 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 58,
+          "shadowTm": 58,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "メイショウセイクウ",
+          "currentPace": 72,
+          "shadowPace": 72,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-30 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース 標準 / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "ブラッドバローズ",
+          "currentPace": 72,
+          "shadowPace": 72,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "想定ペース 標準 / 脚質 逃げ",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

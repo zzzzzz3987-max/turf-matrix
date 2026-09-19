@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-19T04:34:04.888Z",
+  "raceDate": "2026-09-19",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "e02f49ba9990958a078dc3bc3ba3513676ea9e89bc4b7f9a0feec34b31e08ae0",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-69ced1f14ccc1fe1",
+      "sha256": "69ced1f14ccc1fe15a8a8920bf31469167ccda4f21dfa7f9beaeaa85f1d15102",
+      "fileCount": 113
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-e40e927954bba02a",
+      "sha256": "e40e927954bba02a137faeccd3414a77023c8f717e830c8ebcde1a1dd4dae947",
+      "fileCount": 5
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "0a0550de57b719284b867309e3fe6eee5ad511fc2fd4b465a39d6407d9556161",
+  "baseline": {
+    "date": "2026-09-19",
+    "raceId": "2026-09-19-中山-9R",
+    "bundleId": "2026-09-19-nakayama-09R",
+    "track": "中山",
+    "raceNumber": 9,
+    "raceName": "カンナステークス",
+    "scheduledTime": "14:25",
+    "axis": {
+      "number": 3,
+      "name": "ダイシンドラゴン",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 9,
+        "name": "ショウナンハーヴェ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 6,
+        "name": "ジオパークカツキ",
+        "tmIndex": 75,
+        "selectionScore": 75.75
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 73.4,
+        "conditionFit": 67.5,
+        "opponentDepth": 76.4
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-19",
+    "raceId": "2026-09-19-中山-9R",
+    "bundleId": "2026-09-19-nakayama-09R",
+    "track": "中山",
+    "raceNumber": 9,
+    "raceName": "カンナステークス",
+    "scheduledTime": "14:25",
+    "axis": {
+      "number": 3,
+      "name": "ダイシンドラゴン",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 9,
+        "name": "ショウナンハーヴェ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 6,
+        "name": "ジオパークカツキ",
+        "tmIndex": 75,
+        "selectionScore": 75.75
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 73.4,
+        "conditionFit": 67.5,
+        "opponentDepth": 76.4
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-中山-9R",
+      "bundleId": "2026-09-19-nakayama-09R",
+      "track": "中山",
+      "raceNumber": 9,
+      "raceName": "カンナステークス",
+      "scheduledTime": "14:25",
+      "axis": {
+        "number": 3,
+        "name": "ダイシンドラゴン",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 9,
+          "name": "ショウナンハーヴェ",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 6,
+          "name": "ジオパークカツキ",
+          "tmIndex": 75,
+          "selectionScore": 75.75
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 73.4,
+          "conditionFit": 67.5,
+          "opponentDepth": 76.4
+        }
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-中山-10R",
+      "bundleId": "2026-09-19-nakayama-10R",
+      "track": "中山",
+      "raceNumber": 10,
+      "raceName": "九十九里特別",
+      "scheduledTime": "15:05",
+      "axis": {
+        "number": 9,
+        "name": "アロンズロッド",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 2,
+          "name": "トリニティ",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 1,
+          "name": "ノラリクラリ",
+          "tmIndex": 77,
+          "selectionScore": 69.75
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 75.5,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 71.5,
+          "conditionFit": 81,
+          "opponentDepth": 74.3
+        }
+      }
+    }
+  ]
+}

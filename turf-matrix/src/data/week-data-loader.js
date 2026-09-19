@@ -122,6 +122,8 @@ const adaptCandidate = (candidate, { previewMode = false, officialWeekData = nul
       distance: race.distance,
       weather: race.weather ?? null,
       going: race.going ?? null,
+      goingBasis: race.goingBasis ?? null,
+      goingLabel: race.goingLabel ?? null,
       goingUpdatedAt: race.goingUpdatedAt ?? null,
       trackBias: race.trackBias ?? race.raceContext?.trackBias ?? null,
       courseType: race.courseType ?? null,

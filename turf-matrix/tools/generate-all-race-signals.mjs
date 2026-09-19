@@ -90,6 +90,8 @@ const buildSignal = (race) => {
     category: race.category ?? "race",
     time: race.time ?? null,
     surface: race.surface,
+    goingBasis: race.goingBasis ?? null,
+    goingLabel: race.goingLabel ?? null,
     distance: race.distance,
     fieldSize: race.fieldSize,
     oddsStatus: race.oddsStatus ?? "missing",

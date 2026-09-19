@@ -1955,7 +1955,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
               <span className="mx-2 text-[#CBD5E1]"> </span>
               {race.surface}<Num>{race.distance}</Num>m
               <span className="mx-1">・</span>
-              {displayRaceValue(race.going, "未発表")}
+              {race.goingLabel || displayRaceValue(race.going, "未発表")}
               {isFiniteNumber(race.fieldSize) ? (
                 <>
                   <span className="mx-1">・</span>
@@ -2277,6 +2277,11 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
 
   return (
     <main className="mx-auto max-w-5xl px-2.5 sm:px-5">
+      {allRaceSignalData?.races?.some((race) => race.goingBasis === "forecast") && (
+        <p className="my-4 border-l-2 border-[#0891B2] pl-3 text-sm leading-relaxed text-[#334155]">
+          中山は重馬場想定で分析しています。公式発表前の予想条件です。
+        </p>
+      )}
       {/* Hero */}
       <section className="relative mt-7 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white px-6 pb-7 pt-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] md:mt-8 md:px-7">
         <div className="relative">
@@ -2298,7 +2303,7 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
                 <div className="mt-3 text-[13px] font-medium text-[#64748B]">
                   {featuredRace.surface}<Num>{featuredRace.distance}</Num>m
                   <span className="mx-1.5">・</span>
-                  {displayRaceValue(featuredRace.going, "未発表")}
+                  {featuredRace.goingLabel || displayRaceValue(featuredRace.going, "未発表")}
                   {isFiniteNumber(featuredRace.fieldSize) ? (
                     <>
                       <span className="mx-1.5">・</span>
@@ -2772,7 +2777,7 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
                 <Num>{race.distance}</Num>m
               </span>
               <span>天候 {displayRaceValue(race.weather, "未発表")}</span>
-              <span>馬場 {displayRaceValue(race.going, "未発表")}</span>
+              <span>馬場 {race.goingLabel || displayRaceValue(race.going, "未発表")}</span>
               {race.courseType ? <span>{race.courseType}コース</span> : null}
               <span>
                 <Num>{race.fieldSize}</Num>頭

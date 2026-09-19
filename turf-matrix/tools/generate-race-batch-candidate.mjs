@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync, readdirSync } from "node:fs";
 import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
+import { resolveGoingForecast } from "./intelligence/going-forecast.mjs";
 import { selectFeaturedRace } from "./intelligence/race-selector.mjs";
 import { buildAnalysis, buildRaceContext, buildRacePaceScenario } from "./intelligence/index.mjs";
 import { calibrateRaceIntelligence } from "./intelligence/field-calibration.mjs";
@@ -31,9 +32,20 @@ const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
       ? process.env.TURF_MATRIX_RACE_CONFIG
       : join(TOOLS_DIR, "..", process.env.TURF_MATRIX_RACE_CONFIG))
   : join(TOOLS_DIR, "race-batch-config.json");
+const goingScenario = process.env.TURF_MATRIX_GOING_SCENARIO
+  ? JSON.parse(process.env.TURF_MATRIX_GOING_SCENARIO) : null;
+if (goingScenario && (!process.env.TURF_MATRIX_BATCH_CANDIDATE_OUT
+  || ["week-data.json", "week-data.next.json", "week-data.batch-candidate.json"].some((name) => OUT_PATH === join(TOOLS_DIR, name)))) {
+  throw new Error("Going scenarios require a separate analysis output.");
+}
+if (goingScenario && (!goingScenario.track || !["良", "稍重", "重", "不良"].includes(goingScenario.going))) {
+  throw new Error("Invalid going scenario.");
+}
 const OPPONENT_PATH = join(TOOLS_DIR, "jvlink", "output", "opponent-evidence.json");
 const CONDITIONS_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 const TRACK_BIAS_PATH = join(TOOLS_DIR, "track-bias.current.json");
+const FORECAST_PATH = join(TOOLS_DIR, "going-forecast.json");
+const goingForecast = existsSync(FORECAST_PATH) ? JSON.parse(readFileSync(FORECAST_PATH, "utf8")) : null;
 const RACE_SHAPE_HISTORY_PATH = join(REPO_ROOT, "data", "master", "race-shape-history.json");
 const normalized = JSON.parse(readFileSync(INPUT_PATH, "utf8"));
 const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
@@ -71,6 +83,7 @@ const categoryForRace = (race) => {
 const races = normalized.races.map((bundle) => {
   const condition = currentConditions.conditions?.[bundle.bundleId] ?? null;
   const snapshotBias = resolveTrackBias(trackBiasSnapshot, bundle.race);
+  const forecast = resolveGoingForecast(bundle.race, condition, goingForecast);
   const race = {
     ...bundle.race,
     weather: condition?.status === "active" ? condition.weather : null,
@@ -78,6 +91,16 @@ const races = normalized.races.map((bundle) => {
     goingUpdatedAt: condition?.status === "active" ? condition.updatedAt : null,
     trackBias: condition?.trackBias ?? snapshotBias ?? bundle.race?.trackBias ?? null,
   };
+  if (forecast) {
+    race.going = forecast.going;
+    race.goingUpdatedAt = null;
+    race.trackBias = null;
+  }
+  if (goingScenario?.track === race.course) {
+    race.going = goingScenario.going;
+    race.goingUpdatedAt = null;
+    race.trackBias = null;
+  }
   const oddsStatus = bundle.source.odds.status === "partial"
     ? "partial"
     : bundle.productionReady
@@ -146,6 +169,8 @@ const races = normalized.races.map((bundle) => {
     distance: race.distance,
     weather: race.weather,
     going: race.going,
+    goingBasis: forecast ? "forecast" : "official",
+    goingLabel: forecast?.label ?? null,
     goingUpdatedAt: race.goingUpdatedAt,
     trackBias: race.trackBias,
     courseType: null,
@@ -204,6 +229,7 @@ const draft = {
           : "missing",
     engineFingerprint,
     contextPreview: process.env.TURF_MATRIX_CONTEXT_PREVIEW === "1",
+    ...(goingScenario ? { goingScenario: { ...goingScenario, status: "hypothetical", official: false }, previewMode: true } : {}),
     closingReference: { rows: closingReference.length, policy: "closing-context-v1",
       sha256: createHash("sha256").update(JSON.stringify(closingReference)).digest("hex") },
     raceShapeHistory: {

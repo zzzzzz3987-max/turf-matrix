@@ -55,6 +55,8 @@ try {
     $raceDateText = if ($RaceDate) { $RaceDate } else { [string]$config.raceDate }
     $targetRaceDate = [DateTime]::ParseExact($raceDateText, "yyyy-MM-dd", $null)
     $daysFromMonday = (7 + [int]$targetRaceDate.DayOfWeek - 1) % 7
+    # Monday holiday cards are distributed during the preceding racing week.
+    if ($daysFromMonday -eq 0) { $daysFromMonday = 7 }
     $fromTime = $targetRaceDate.AddDays(-$daysFromMonday).ToString("yyyyMMdd000000")
 
     [int]$readCount = 0

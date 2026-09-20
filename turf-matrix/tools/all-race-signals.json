@@ -1,23 +1,23 @@
 {
   "schemaVersion": 1,
-  "date": "2026-09-20",
+  "date": "2026-09-21",
   "source": "jv-link-all-races",
   "pairOdds": {
     "status": "available",
-    "generatedAt": "2026-09-20T14:43:44.6558156+09:00",
+    "generatedAt": "2026-09-20T21:11:19.7539187+09:00",
     "source": "JV-Link 0B32/O2 + 0B33/O3",
-    "combinations": 4448
+    "combinations": 2050
   },
   "engineFingerprint": {
     "schemaVersion": 2,
-    "id": "tmx-5afd10e607490d5a",
-    "sha256": "5afd10e607490d5a6597390b0a0752339bdd824f28c160a1b227c1d87df9a9aa",
+    "id": "tmx-df75a482c31dbe5c",
+    "sha256": "df75a482c31dbe5cedc0b11bb05c403fa2dcb271cf833bc674e2156505d538f7",
     "fileCount": 114
   },
   "selectionFingerprint": {
     "schemaVersion": 2,
-    "id": "tmx-aad34466b8b3cbb8",
-    "sha256": "aad34466b8b3cbb83fcc91bcb4b0b211560e013db178a24eba30a8fd42d819ac",
+    "id": "tmx-5129e35b2da7abba",
+    "sha256": "5129e35b2da7abba58323e61b2fdac28e9156e89688dae9648decff5463f9937",
     "fileCount": 5
   },
   "thresholds": {
@@ -26,254 +26,431 @@
     "clearLeaderMinGap": 3,
     "opponent2Method": "index3to5-evidence"
   },
-  "raceCount": 24,
-  "battleRaceId": "2026-09-20-阪神-9R",
+  "raceCount": 12,
+  "battleRaceId": "2026-09-21-阪神-9R",
   "races": [
     {
-      "id": "2026-09-20-阪神-1R",
-      "bundleId": "2026-09-20-hanshin-01R",
+      "id": "2026-09-21-阪神-1R",
+      "bundleId": "2026-09-21-hanshin-01R",
       "track": "阪神",
       "number": 1,
       "name": "阪神1R",
       "grade": null,
       "category": "race",
-      "time": "09:45",
-      "surface": "障",
+      "time": "10:00",
+      "surface": "ダ",
       "goingBasis": "official",
       "goingLabel": null,
-      "distance": 2970,
-      "fieldSize": 12,
+      "distance": 1800,
+      "fieldSize": 8,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609200109",
-        "number": 9,
-        "name": "アウスヴァール",
-        "tmIndex": 75,
-        "popularity": 1,
-        "odds": 2.7,
-        "ev": 0.5255050172625888,
-        "marketGap": 0,
+        "id": "2609210103",
+        "number": 3,
+        "name": "ポカポカヨウキ",
+        "tmIndex": 70,
+        "popularity": 2,
+        "odds": 2.9,
+        "ev": 0.5815267189317308,
+        "marketGap": 1,
         "source": "index1"
       },
-      "leaderStatus": "clear",
+      "leaderStatus": "contested",
       "leaderContenders": [
         {
-          "id": "2609200109",
-          "number": 9,
-          "name": "アウスヴァール",
-          "tmIndex": 75,
+          "id": "2609210103",
+          "number": 3,
+          "name": "ポカポカヨウキ",
+          "tmIndex": 70,
+          "popularity": 2,
+          "odds": 2.9,
+          "ev": 0.5815267189317308,
+          "marketGap": 1,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609210108",
+          "number": 8,
+          "name": "エコロラーダ",
+          "tmIndex": 69,
           "popularity": 1,
-          "odds": 2.7,
-          "ev": 0.5255050172625888,
-          "marketGap": 0,
+          "odds": 2.1,
+          "ev": 0.38075737633815226,
+          "marketGap": -1,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609200101",
-          "number": 1,
-          "name": "アナザーエース",
-          "tmIndex": 71,
-          "popularity": 2,
-          "odds": 4.6,
-          "ev": 0.6100290706828421,
-          "marketGap": 0,
+          "id": "2609210108",
+          "number": 8,
+          "name": "エコロラーダ",
+          "tmIndex": 69,
+          "popularity": 1,
+          "odds": 2.1,
+          "ev": 0.38075737633815226,
+          "marketGap": -1,
           "source": "index2"
         },
         {
-          "id": "2609200108",
-          "number": 8,
-          "name": "メイショウヘール",
-          "tmIndex": 68,
+          "id": "2609210105",
+          "number": 5,
+          "name": "ガヤーズサムライ",
+          "tmIndex": 66,
           "popularity": 4,
-          "odds": 6.7,
-          "ev": 0.6567823156328093,
+          "odds": 7.5,
+          "ev": 0.9962175949851223,
           "marketGap": 1,
           "source": "evidence",
-          "selectionScore": 62.5,
+          "selectionScore": 61,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 64,
-            "form": 52,
-            "training": 61,
-            "pace": 73
+            "ability": 56,
+            "form": 56,
+            "training": 65,
+            "pace": 67
           }
         }
       ],
-      "valueWatch": {
-        "id": "2609200107",
-        "number": 7,
-        "name": "ホウオウスターツ",
-        "tmIndex": 66,
-        "popularity": 9,
-        "odds": 35.6,
-        "ev": 2.8316645619171044,
-        "marketGap": 4,
-        "source": "valueWatch"
-      },
+      "valueWatch": null,
       "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 4,
+      "topConfidence": "mid",
+      "indexGap": 1,
       "ticketOdds": {
         "quinella": {
           "type": "quinella",
           "numbers": [
-            1,
-            9
+            3,
+            8
           ],
-          "minOdds": 8.1,
-          "maxOdds": 8.1,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T09:54",
+          "minOdds": 2.9,
+          "maxOdds": 2.9,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B32",
-          "status": "closed"
+          "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            8,
-            9
+            3,
+            5
           ],
-          "minOdds": 3.6,
-          "maxOdds": 4.1,
+          "minOdds": 2.5,
+          "maxOdds": 3.4,
           "popularity": 2,
-          "updatedAt": "2026-09-20T09:54",
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            1,
-            9
+            3,
+            8
           ],
-          "minOdds": 2.9,
-          "maxOdds": 3.2,
+          "minOdds": 1.3,
+          "maxOdds": 1.4,
           "popularity": 1,
-          "updatedAt": "2026-09-20T09:54",
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            8,
-            9
+            3,
+            5
           ],
-          "minOdds": 3.6,
-          "maxOdds": 4.1,
+          "minOdds": 2.5,
+          "maxOdds": 3.4,
           "popularity": 2,
-          "updatedAt": "2026-09-20T09:54",
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 71.7,
+        "score": 65.3,
         "coverage": 1,
         "components": {
-          "axisIndex": 75,
-          "indexGap": 4,
-          "gapStrength": 74,
-          "axisCore": 65.8,
-          "conditionFit": 74.5,
-          "opponentDepth": 67.2
+          "axisIndex": 70,
+          "indexGap": 1,
+          "gapStrength": 56,
+          "axisCore": 70,
+          "conditionFit": 58,
+          "opponentDepth": 65.4
         }
       }
     },
     {
-      "id": "2026-09-20-中山-1R",
-      "bundleId": "2026-09-20-nakayama-01R",
-      "track": "中山",
-      "number": 1,
-      "name": "中山1R",
+      "id": "2026-09-21-阪神-2R",
+      "bundleId": "2026-09-21-hanshin-02R",
+      "track": "阪神",
+      "number": 2,
+      "name": "阪神2R",
       "grade": null,
       "category": "race",
-      "time": "10:00",
-      "surface": "ダ",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1800,
-      "fieldSize": 15,
+      "time": "10:35",
+      "surface": "芝",
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 1600,
+      "fieldSize": 10,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609200108",
-        "number": 8,
-        "name": "ウィンターブリーズ",
-        "tmIndex": 75,
+        "id": "2609210205",
+        "number": 5,
+        "name": "リアンフィニ",
+        "tmIndex": 73,
+        "popularity": 5,
+        "odds": 9.7,
+        "ev": 1.2211097569956946,
+        "marketGap": 4,
+        "source": "index1"
+      },
+      "leaderStatus": "tied",
+      "leaderContenders": [
+        {
+          "id": "2609210205",
+          "number": 5,
+          "name": "リアンフィニ",
+          "tmIndex": 73,
+          "popularity": 5,
+          "odds": 9.7,
+          "ev": 1.2211097569956946,
+          "marketGap": 4,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609210209",
+          "number": 9,
+          "name": "ラガッタレアーレ",
+          "tmIndex": 73,
+          "popularity": 4,
+          "odds": 9.1,
+          "ev": 1.1455771947073012,
+          "marketGap": 2,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609210203",
+          "number": 3,
+          "name": "ハマナスノサクコロ",
+          "tmIndex": 72,
+          "popularity": 1,
+          "odds": 2.6,
+          "ev": 0.2971828677722055,
+          "marketGap": -2,
+          "source": "leader-contender"
+        }
+      ],
+      "opponents": [
+        {
+          "id": "2609210209",
+          "number": 9,
+          "name": "ラガッタレアーレ",
+          "tmIndex": 73,
+          "popularity": 4,
+          "odds": 9.1,
+          "ev": 1.1455771947073012,
+          "marketGap": 2,
+          "source": "index2"
+        },
+        {
+          "id": "2609210203",
+          "number": 3,
+          "name": "ハマナスノサクコロ",
+          "tmIndex": 72,
+          "popularity": 1,
+          "odds": 2.6,
+          "ev": 0.2971828677722055,
+          "marketGap": -2,
+          "source": "evidence",
+          "selectionScore": 73.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 74,
+            "form": 77,
+            "training": 72,
+            "pace": 70
+          }
+        }
+      ],
+      "valueWatch": {
+        "id": "2609210207",
+        "number": 7,
+        "name": "イテルム",
+        "tmIndex": 72,
+        "popularity": 6,
+        "odds": 12.7,
+        "ev": 1.4516240079642344,
+        "marketGap": 2,
+        "source": "valueWatch"
+      },
+      "valuePending": false,
+      "topConfidence": "mid",
+      "indexGap": 0,
+      "ticketOdds": {
+        "quinella": {
+          "type": "quinella",
+          "numbers": [
+            5,
+            9
+          ],
+          "minOdds": 9.4,
+          "maxOdds": 9.4,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        },
+        "wide": {
+          "type": "wide",
+          "numbers": [
+            3,
+            5
+          ],
+          "minOdds": 3.9,
+          "maxOdds": 4.5,
+          "popularity": 3,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent1": {
+          "type": "wide",
+          "numbers": [
+            5,
+            9
+          ],
+          "minOdds": 2.7,
+          "maxOdds": 3,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent2": {
+          "type": "wide",
+          "numbers": [
+            3,
+            5
+          ],
+          "minOdds": 3.9,
+          "maxOdds": 4.5,
+          "popularity": 3,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      },
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 68.4,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 73,
+          "indexGap": 0,
+          "gapStrength": 50,
+          "axisCore": 75,
+          "conditionFit": 68.5,
+          "opponentDepth": 73.1
+        }
+      }
+    },
+    {
+      "id": "2026-09-21-阪神-3R",
+      "bundleId": "2026-09-21-hanshin-03R",
+      "track": "阪神",
+      "number": 3,
+      "name": "阪神3R",
+      "grade": null,
+      "category": "race",
+      "time": "11:05",
+      "surface": "芝",
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 1200,
+      "fieldSize": 13,
+      "oddsStatus": "active",
+      "indexTop": {
+        "id": "2609210309",
+        "number": 9,
+        "name": "カツダルマ",
+        "tmIndex": 73,
         "popularity": 1,
-        "odds": 1.4,
-        "ev": 0.18010074233936157,
+        "odds": 4.1,
+        "ev": 0.5548030913543306,
         "marketGap": 0,
         "source": "index1"
       },
       "leaderStatus": "contested",
       "leaderContenders": [
         {
-          "id": "2609200108",
-          "number": 8,
-          "name": "ウィンターブリーズ",
-          "tmIndex": 75,
+          "id": "2609210309",
+          "number": 9,
+          "name": "カツダルマ",
+          "tmIndex": 73,
           "popularity": 1,
-          "odds": 1.4,
-          "ev": 0.18010074233936157,
+          "odds": 4.1,
+          "ev": 0.5548030913543306,
           "marketGap": 0,
           "source": "leader-contender"
         },
         {
-          "id": "2609200104",
-          "number": 4,
-          "name": "ノシェリー",
-          "tmIndex": 73,
-          "popularity": 2,
-          "odds": 5.9,
-          "ev": 0.6281605467997051,
-          "marketGap": 0,
+          "id": "2609210303",
+          "number": 3,
+          "name": "コジアン",
+          "tmIndex": 71,
+          "popularity": 4,
+          "odds": 7.1,
+          "ev": 0.7909732284732776,
+          "marketGap": 2,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609200104",
-          "number": 4,
-          "name": "ノシェリー",
-          "tmIndex": 73,
-          "popularity": 2,
-          "odds": 5.9,
-          "ev": 0.6281605467997051,
-          "marketGap": 0,
+          "id": "2609210303",
+          "number": 3,
+          "name": "コジアン",
+          "tmIndex": 71,
+          "popularity": 4,
+          "odds": 7.1,
+          "ev": 0.7909732284732776,
+          "marketGap": 2,
           "source": "index2"
         },
         {
-          "id": "2609200109",
-          "number": 9,
-          "name": "リュウノタキノボリ",
-          "tmIndex": 71,
-          "popularity": 5,
-          "odds": 17.2,
-          "ev": 1.5076325710417493,
-          "marketGap": 2,
+          "id": "2609210313",
+          "number": 13,
+          "name": "ココモフィーバー",
+          "tmIndex": 70,
+          "popularity": 7,
+          "odds": 13,
+          "ev": 1.3113681368677732,
+          "marketGap": 3,
           "source": "evidence",
-          "selectionScore": 72.5,
+          "selectionScore": 70.25,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 69,
-            "form": 76,
-            "training": 68,
-            "pace": 77
+            "ability": 70,
+            "form": 74,
+            "training": 61,
+            "pace": 76
           }
         }
       ],
       "valueWatch": {
-        "id": "2609200110",
-        "number": 10,
-        "name": "ニシノツムジカゼ",
-        "tmIndex": 69,
-        "popularity": 9,
-        "odds": 32.9,
-        "ev": 2.3610117943632254,
+        "id": "2609210308",
+        "number": 8,
+        "name": "キャンドル",
+        "tmIndex": 66,
+        "popularity": 12,
+        "odds": 36.6,
+        "ev": 2.445589881858551,
         "marketGap": 4,
         "source": "valueWatch"
       },
@@ -284,1145 +461,153 @@
         "quinella": {
           "type": "quinella",
           "numbers": [
-            4,
-            8
-          ],
-          "minOdds": 4.1,
-          "maxOdds": 4.1,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:07",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            8,
+            3,
             9
           ],
-          "minOdds": 4.1,
-          "maxOdds": 4.8,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T10:07",
+          "minOdds": 10.6,
+          "maxOdds": 10.6,
+          "popularity": 3,
+          "updatedAt": "2026-09-20T21:11",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        },
+        "wide": {
+          "type": "wide",
+          "numbers": [
+            9,
+            13
+          ],
+          "minOdds": 8.2,
+          "maxOdds": 9.2,
+          "popularity": 7,
+          "updatedAt": "2026-09-20T21:11",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            4,
-            8
-          ],
-          "minOdds": 2,
-          "maxOdds": 2.2,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:07",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            8,
+            3,
             9
           ],
-          "minOdds": 4.1,
-          "maxOdds": 4.8,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T10:07",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 70.1,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 75,
-          "indexGap": 2,
-          "gapStrength": 62,
-          "axisCore": 75.1,
-          "conditionFit": 55,
-          "opponentDepth": 72.8
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-2R",
-      "bundleId": "2026-09-20-hanshin-02R",
-      "track": "阪神",
-      "number": 2,
-      "name": "阪神2R",
-      "grade": null,
-      "category": "race",
-      "time": "10:20",
-      "surface": "ダ",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1200,
-      "fieldSize": 13,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200202",
-        "number": 2,
-        "name": "アースグリッパー",
-        "tmIndex": 71,
-        "popularity": 2,
-        "odds": 4.2,
-        "ev": 0.5407467056550651,
-        "marketGap": 1,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609200202",
-          "number": 2,
-          "name": "アースグリッパー",
-          "tmIndex": 71,
-          "popularity": 2,
-          "odds": 4.2,
-          "ev": 0.5407467056550651,
-          "marketGap": 1,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200208",
-          "number": 8,
-          "name": "スクワミッシュ",
-          "tmIndex": 70,
+          "minOdds": 4,
+          "maxOdds": 4.5,
           "popularity": 3,
-          "odds": 6.3,
-          "ev": 0.7344512603350883,
-          "marketGap": 1,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200207",
-          "number": 7,
-          "name": "ヴァーヴイレヴン",
-          "tmIndex": 69,
-          "popularity": 1,
-          "odds": 3.1,
-          "ev": 0.32676947462750905,
-          "marketGap": -2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200208",
-          "number": 8,
-          "name": "スクワミッシュ",
-          "tmIndex": 70,
-          "popularity": 3,
-          "odds": 6.3,
-          "ev": 0.7344512603350883,
-          "marketGap": 1,
-          "source": "index2"
-        },
-        {
-          "id": "2609200207",
-          "number": 7,
-          "name": "ヴァーヴイレヴン",
-          "tmIndex": 69,
-          "popularity": 1,
-          "odds": 3.1,
-          "ev": 0.32676947462750905,
-          "marketGap": -2,
-          "source": "evidence",
-          "selectionScore": 68.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 63,
-            "form": 65,
-            "training": 70,
-            "pace": 75
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200203",
-        "number": 3,
-        "name": "ゴールデンレシオ",
-        "tmIndex": 67,
-        "popularity": 7,
-        "odds": 20,
-        "ev": 1.715891273054054,
-        "marketGap": 2,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "mid",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            2,
-            8
-          ],
-          "minOdds": 10.1,
-          "maxOdds": 10.1,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T10:27",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            2,
-            7
-          ],
-          "minOdds": 3.2,
-          "maxOdds": 3.6,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:27",
+          "updatedAt": "2026-09-20T21:11",
           "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            2,
-            8
-          ],
-          "minOdds": 3.4,
-          "maxOdds": 3.8,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T10:27",
-          "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            2,
-            7
-          ],
-          "minOdds": 3.2,
-          "maxOdds": 3.6,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:27",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 66,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 71,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 65.5,
-          "conditionFit": 64.5,
-          "opponentDepth": 69.2
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-2R",
-      "bundleId": "2026-09-20-nakayama-02R",
-      "track": "中山",
-      "number": 2,
-      "name": "中山2R",
-      "grade": null,
-      "category": "race",
-      "time": "10:35",
-      "surface": "芝",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1600,
-      "fieldSize": 14,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200211",
-        "number": 11,
-        "name": "アテナブレイブ",
-        "tmIndex": 76,
-        "popularity": 1,
-        "odds": 2.4,
-        "ev": 0.4086530694056524,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "clear",
-      "leaderContenders": [
-        {
-          "id": "2609200211",
-          "number": 11,
-          "name": "アテナブレイブ",
-          "tmIndex": 76,
-          "popularity": 1,
-          "odds": 2.4,
-          "ev": 0.4086530694056524,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200212",
-          "number": 12,
-          "name": "ジェイエルキール",
-          "tmIndex": 73,
-          "popularity": 4,
-          "odds": 5.9,
-          "ev": 0.7578101364221907,
-          "marketGap": 2,
-          "source": "index2"
-        },
-        {
-          "id": "2609200203",
-          "number": 3,
-          "name": "セレスティナ",
-          "tmIndex": 70,
-          "popularity": 3,
-          "odds": 5.5,
-          "ev": 0.526619998111776,
-          "marketGap": 0,
-          "source": "evidence",
-          "selectionScore": 70,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 69,
-            "form": 73,
-            "training": 68,
-            "pace": 70
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200201",
-        "number": 1,
-        "name": "ホワイトホール",
-        "tmIndex": 68,
-        "popularity": 7,
-        "odds": 29.7,
-        "ev": 2.3214921306948186,
-        "marketGap": 2,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "mid",
-      "indexGap": 3,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            11,
-            12
-          ],
-          "minOdds": 5.7,
-          "maxOdds": 5.7,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:41",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            3,
-            11
-          ],
-          "minOdds": 3,
-          "maxOdds": 3.4,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T10:41",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            11,
-            12
-          ],
-          "minOdds": 2.5,
-          "maxOdds": 2.8,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:41",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            3,
-            11
-          ],
-          "minOdds": 3,
-          "maxOdds": 3.4,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T10:41",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 71.3,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 76,
-          "indexGap": 3,
-          "gapStrength": 68,
-          "axisCore": 69.7,
-          "conditionFit": 64,
-          "opponentDepth": 71.7
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-3R",
-      "bundleId": "2026-09-20-hanshin-03R",
-      "track": "阪神",
-      "number": 3,
-      "name": "阪神3R",
-      "grade": null,
-      "category": "race",
-      "time": "10:50",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1800,
-      "fieldSize": 7,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200307",
-        "number": 7,
-        "name": "ハートノート",
-        "tmIndex": 75,
-        "popularity": 1,
-        "odds": 1.1,
-        "ev": 0.30555601714926545,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "clear",
-      "leaderContenders": [
-        {
-          "id": "2609200307",
-          "number": 7,
-          "name": "ハートノート",
-          "tmIndex": 75,
-          "popularity": 1,
-          "odds": 1.1,
-          "ev": 0.30555601714926545,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200303",
-          "number": 3,
-          "name": "シャローチャンプ",
-          "tmIndex": 71,
-          "popularity": 2,
-          "odds": 7.6,
-          "ev": 1.4384386536345504,
-          "marketGap": 0,
-          "source": "index2"
-        },
-        {
-          "id": "2609200305",
-          "number": 5,
-          "name": "サトノボルテクス",
-          "tmIndex": 68,
-          "popularity": 3,
-          "odds": 20.5,
-          "ev": 2.868042360938645,
-          "marketGap": -1,
-          "source": "evidence",
-          "selectionScore": 66.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 63,
-            "form": 64,
-            "training": 61,
-            "pace": 77
-          }
-        }
-      ],
-      "valueWatch": null,
-      "valuePending": false,
-      "topConfidence": "mid",
-      "indexGap": 4,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            3,
-            7
-          ],
-          "minOdds": 1.7,
-          "maxOdds": 1.7,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:56",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            5,
-            7
-          ],
-          "minOdds": 1.5,
-          "maxOdds": 2.1,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T10:56",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            3,
-            7
-          ],
-          "minOdds": 1.1,
-          "maxOdds": 1.3,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T10:56",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            5,
-            7
-          ],
-          "minOdds": 1.5,
-          "maxOdds": 2.1,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T10:56",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 74.2,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 75,
-          "indexGap": 4,
-          "gapStrength": 74,
-          "axisCore": 76.2,
-          "conditionFit": 75.5,
-          "opponentDepth": 68.9
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-3R",
-      "bundleId": "2026-09-20-nakayama-03R",
-      "track": "中山",
-      "number": 3,
-      "name": "中山3R",
-      "grade": null,
-      "category": "race",
-      "time": "11:05",
-      "surface": "芝",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 2000,
-      "fieldSize": 13,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200306",
-        "number": 6,
-        "name": "スーパーユタカ",
-        "tmIndex": 73,
-        "popularity": 2,
-        "odds": 5.1,
-        "ev": 0.6126350397773801,
-        "marketGap": 1,
-        "source": "index1"
-      },
-      "leaderStatus": "tied",
-      "leaderContenders": [
-        {
-          "id": "2609200306",
-          "number": 6,
-          "name": "スーパーユタカ",
-          "tmIndex": 73,
-          "popularity": 2,
-          "odds": 5.1,
-          "ev": 0.6126350397773801,
-          "marketGap": 1,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200313",
-          "number": 13,
-          "name": "サウンズオーサム",
-          "tmIndex": 73,
-          "popularity": 1,
-          "odds": 1.9,
-          "ev": 0.22823658344647493,
-          "marketGap": -1,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200302",
-          "number": 2,
-          "name": "ハンデンブレイズ",
-          "tmIndex": 71,
-          "popularity": 6,
-          "odds": 15.3,
-          "ev": 1.5131135055146092,
-          "marketGap": 3,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200313",
-          "number": 13,
-          "name": "サウンズオーサム",
-          "tmIndex": 73,
-          "popularity": 1,
-          "odds": 1.9,
-          "ev": 0.22823658344647493,
-          "marketGap": -1,
-          "source": "index2"
-        },
-        {
-          "id": "2609200302",
-          "number": 2,
-          "name": "ハンデンブレイズ",
-          "tmIndex": 71,
-          "popularity": 6,
-          "odds": 15.3,
-          "ev": 1.5131135055146092,
-          "marketGap": 3,
-          "source": "evidence",
-          "selectionScore": 68,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 67,
-            "form": 65,
-            "training": 67,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": null,
-      "valuePending": false,
-      "topConfidence": "mid",
-      "indexGap": 0,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            6,
+            9,
             13
           ],
-          "minOdds": 5.1,
-          "maxOdds": 5.1,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T11:12",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            2,
-            6
-          ],
-          "minOdds": 8,
+          "minOdds": 8.2,
           "maxOdds": 9.2,
-          "popularity": 12,
-          "updatedAt": "2026-09-20T11:12",
+          "popularity": 7,
+          "updatedAt": "2026-09-20T21:11",
           "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            6,
-            13
-          ],
-          "minOdds": 2.8,
-          "maxOdds": 3.2,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T11:12",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            2,
-            6
-          ],
-          "minOdds": 8,
-          "maxOdds": 9.2,
-          "popularity": 12,
-          "updatedAt": "2026-09-20T11:12",
-          "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 65.8,
+        "score": 69.1,
         "coverage": 1,
         "components": {
           "axisIndex": 73,
-          "indexGap": 0,
-          "gapStrength": 50,
-          "axisCore": 67.7,
-          "conditionFit": 60.5,
-          "opponentDepth": 70.8
+          "indexGap": 2,
+          "gapStrength": 62,
+          "axisCore": 68.7,
+          "conditionFit": 68,
+          "opponentDepth": 70.7
         }
       }
     },
     {
-      "id": "2026-09-20-阪神-4R",
-      "bundleId": "2026-09-20-hanshin-04R",
+      "id": "2026-09-21-阪神-4R",
+      "bundleId": "2026-09-21-hanshin-04R",
       "track": "阪神",
       "number": 4,
       "name": "阪神4R",
       "grade": null,
       "category": "race",
-      "time": "11:20",
+      "time": "11:35",
       "surface": "ダ",
       "goingBasis": "official",
       "goingLabel": null,
-      "distance": 1200,
+      "distance": 1400,
       "fieldSize": 15,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609200404",
-        "number": 4,
-        "name": "ダイユウエゾフジ",
-        "tmIndex": 66,
-        "popularity": 15,
-        "odds": 204.1,
-        "ev": 15.747464902395635,
-        "marketGap": 14,
-        "source": "index1"
-      },
-      "leaderStatus": "tied",
-      "leaderContenders": [
-        {
-          "id": "2609200404",
-          "number": 4,
-          "name": "ダイユウエゾフジ",
-          "tmIndex": 66,
-          "popularity": 15,
-          "odds": 204.1,
-          "ev": 15.747464902395635,
-          "marketGap": 14,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200406",
-          "number": 6,
-          "name": "レタートゥブリッジ",
-          "tmIndex": 66,
-          "popularity": 10,
-          "odds": 45.5,
-          "ev": 3.5105813476678165,
-          "marketGap": 8,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200407",
-          "number": 7,
-          "name": "リュコス",
-          "tmIndex": 66,
-          "popularity": 14,
-          "odds": 178.6,
-          "ev": 13.779996235021363,
-          "marketGap": 11,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200406",
-          "number": 6,
-          "name": "レタートゥブリッジ",
-          "tmIndex": 66,
-          "popularity": 10,
-          "odds": 45.5,
-          "ev": 3.5105813476678165,
-          "marketGap": 8,
-          "source": "index2"
-        },
-        {
-          "id": "2609200410",
-          "number": 10,
-          "name": "フィリップヴィル",
-          "tmIndex": 65,
-          "popularity": 1,
-          "odds": 1.7,
-          "ev": 0.11786979099461901,
-          "marketGap": -4,
-          "source": "evidence",
-          "selectionScore": 58.5,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 50,
-            "form": 50,
-            "training": 76,
-            "pace": 58
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200401",
-        "number": 1,
-        "name": "ナムラモモタロー",
-        "tmIndex": 64,
-        "popularity": 8,
-        "odds": 27.6,
-        "ev": 1.71683672803964,
-        "marketGap": 2,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "low",
-      "indexGap": 0,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            4,
-            6
-          ],
-          "minOdds": 2230.7,
-          "maxOdds": 2230.7,
-          "popularity": 97,
-          "updatedAt": "2026-09-20T11:28",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            4,
-            10
-          ],
-          "minOdds": 90.7,
-          "maxOdds": 101.8,
-          "popularity": 63,
-          "updatedAt": "2026-09-20T11:28",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            4,
-            6
-          ],
-          "minOdds": 413.2,
-          "maxOdds": 420.6,
-          "popularity": 94,
-          "updatedAt": "2026-09-20T11:28",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            4,
-            10
-          ],
-          "minOdds": 90.7,
-          "maxOdds": 101.8,
-          "popularity": 63,
-          "updatedAt": "2026-09-20T11:28",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 58.5,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 66,
-          "indexGap": 0,
-          "gapStrength": 50,
-          "axisCore": 52.6,
-          "conditionFit": 55,
-          "opponentDepth": 62.6
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-4R",
-      "bundleId": "2026-09-20-nakayama-04R",
-      "track": "中山",
-      "number": 4,
-      "name": "中山4R",
-      "grade": null,
-      "category": "race",
-      "time": "11:35",
-      "surface": "ダ",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1800,
-      "fieldSize": 16,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200406",
-        "number": 6,
-        "name": "アフォーダビリティ",
-        "tmIndex": 66,
-        "popularity": 16,
-        "odds": 200.8,
-        "ev": 14.70336520907381,
-        "marketGap": 15,
-        "source": "index1"
-      },
-      "leaderStatus": "tied",
-      "leaderContenders": [
-        {
-          "id": "2609200406",
-          "number": 6,
-          "name": "アフォーダビリティ",
-          "tmIndex": 66,
-          "popularity": 16,
-          "odds": 200.8,
-          "ev": 14.70336520907381,
-          "marketGap": 15,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200414",
-          "number": 14,
-          "name": "エマルタ",
-          "tmIndex": 66,
-          "popularity": 14,
-          "odds": 106.3,
-          "ev": 7.783703793448934,
-          "marketGap": 12,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200403",
-          "number": 3,
-          "name": "マートングレイス",
-          "tmIndex": 65,
-          "popularity": 5,
-          "odds": 10.2,
-          "ev": 0.6711802299332658,
-          "marketGap": 2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200414",
-          "number": 14,
-          "name": "エマルタ",
-          "tmIndex": 66,
-          "popularity": 14,
-          "odds": 106.3,
-          "ev": 7.783703793448934,
-          "marketGap": 12,
-          "source": "index2"
-        },
-        {
-          "id": "2609200411",
-          "number": 11,
-          "name": "グランレーヴ",
-          "tmIndex": 65,
-          "popularity": 7,
-          "odds": 12.5,
-          "ev": 0.8225247915848846,
-          "marketGap": 2,
-          "source": "evidence",
-          "selectionScore": 56.5,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 50,
-            "form": 50,
-            "training": 68,
-            "pace": 58
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200401",
-        "number": 1,
-        "name": "ロードベラヴィータ",
-        "tmIndex": 64,
-        "popularity": 11,
-        "odds": 29.6,
-        "ev": 1.747418849892286,
-        "marketGap": 4,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "low",
-      "indexGap": 0,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            6,
-            14
-          ],
-          "minOdds": 1905.4,
-          "maxOdds": 1905.4,
-          "popularity": 115,
-          "updatedAt": "2026-09-20T11:42",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            6,
-            11
-          ],
-          "minOdds": 283.4,
-          "maxOdds": 292.2,
-          "popularity": 105,
-          "updatedAt": "2026-09-20T11:42",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            6,
-            14
-          ],
-          "minOdds": 688.7,
-          "maxOdds": 691.8,
-          "popularity": 119,
-          "updatedAt": "2026-09-20T11:42",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            6,
-            11
-          ],
-          "minOdds": 283.4,
-          "maxOdds": 292.2,
-          "popularity": 105,
-          "updatedAt": "2026-09-20T11:42",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 58.4,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 66,
-          "indexGap": 0,
-          "gapStrength": 50,
-          "axisCore": 52.8,
-          "conditionFit": 55,
-          "opponentDepth": 61.7
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-5R",
-      "bundleId": "2026-09-20-hanshin-05R",
-      "track": "阪神",
-      "number": 5,
-      "name": "阪神5R",
-      "grade": null,
-      "category": "race",
-      "time": "12:10",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1600,
-      "fieldSize": 14,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200509",
+        "id": "2609210409",
         "number": 9,
-        "name": "イーサンマリーン",
+        "name": "ナイスウーマン",
         "tmIndex": 66,
-        "popularity": 9,
-        "odds": 32.5,
-        "ev": 2.742495693365517,
-        "marketGap": 8,
+        "popularity": 14,
+        "odds": 55.4,
+        "ev": 4.37402688543636,
+        "marketGap": 13,
         "source": "index1"
       },
-      "leaderStatus": "contested",
+      "leaderStatus": "tied",
       "leaderContenders": [
         {
-          "id": "2609200509",
+          "id": "2609210409",
           "number": 9,
-          "name": "イーサンマリーン",
+          "name": "ナイスウーマン",
           "tmIndex": 66,
-          "popularity": 9,
-          "odds": 32.5,
-          "ev": 2.742495693365517,
-          "marketGap": 8,
+          "popularity": 14,
+          "odds": 55.4,
+          "ev": 4.37402688543636,
+          "marketGap": 13,
           "source": "leader-contender"
         },
         {
-          "id": "2609200506",
-          "number": 6,
-          "name": "クインズローマ",
-          "tmIndex": 65,
-          "popularity": 6,
-          "odds": 30,
-          "ev": 2.274939207903758,
-          "marketGap": 4,
+          "id": "2609210415",
+          "number": 15,
+          "name": "ワンスフォーユー",
+          "tmIndex": 66,
+          "popularity": 1,
+          "odds": 3.8,
+          "ev": 0.3000235047772233,
+          "marketGap": -1,
           "source": "leader-contender"
         },
         {
-          "id": "2609200511",
-          "number": 11,
-          "name": "シャーロットタウン",
+          "id": "2609210401",
+          "number": 1,
+          "name": "エイントノーウェイ",
           "tmIndex": 65,
-          "popularity": 3,
-          "odds": 7.1,
-          "ev": 0.5384022792038894,
-          "marketGap": 0,
+          "popularity": 2,
+          "odds": 4.9,
+          "ev": 0.3476591877350074,
+          "marketGap": -1,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609200506",
-          "number": 6,
-          "name": "クインズローマ",
-          "tmIndex": 65,
-          "popularity": 6,
-          "odds": 30,
-          "ev": 2.274939207903758,
-          "marketGap": 4,
+          "id": "2609210415",
+          "number": 15,
+          "name": "ワンスフォーユー",
+          "tmIndex": 66,
+          "popularity": 1,
+          "odds": 3.8,
+          "ev": 0.3000235047772233,
+          "marketGap": -1,
           "source": "index2"
         },
         {
-          "id": "2609200511",
-          "number": 11,
-          "name": "シャーロットタウン",
+          "id": "2609210405",
+          "number": 5,
+          "name": "レジェンディーヴァ",
           "tmIndex": 65,
-          "popularity": 3,
-          "odds": 7.1,
-          "ev": 0.5384022792038894,
-          "marketGap": 0,
+          "popularity": 11,
+          "odds": 35.1,
+          "ev": 2.49037499785689,
+          "marketGap": 7,
           "source": "evidence",
           "selectionScore": 57,
           "selectionCoverage": 1,
@@ -1435,1502 +620,355 @@
         }
       ],
       "valueWatch": {
-        "id": "2609200512",
-        "number": 12,
-        "name": "タイセイプリュム",
-        "tmIndex": 65,
-        "popularity": 8,
-        "odds": 32,
-        "ev": 2.4266018217640086,
-        "marketGap": 4,
+        "id": "2609210402",
+        "number": 2,
+        "name": "ワインオクロック",
+        "tmIndex": 64,
+        "popularity": 13,
+        "odds": 42.4,
+        "ev": 2.6989187415254334,
+        "marketGap": 8,
         "source": "valueWatch"
       },
       "valuePending": false,
       "topConfidence": "low",
-      "indexGap": 1,
+      "indexGap": 0,
       "ticketOdds": {
         "quinella": {
           "type": "quinella",
           "numbers": [
-            6,
-            9
+            9,
+            15
           ],
-          "minOdds": 446.2,
-          "maxOdds": 446.2,
-          "popularity": 63,
-          "updatedAt": "2026-09-20T12:17",
+          "minOdds": 137.7,
+          "maxOdds": 137.7,
+          "popularity": 46,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B32",
-          "status": "closed"
+          "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            9,
-            11
+            5,
+            9
           ],
-          "minOdds": 36.5,
-          "maxOdds": 39.8,
-          "popularity": 36,
-          "updatedAt": "2026-09-20T12:17",
+          "minOdds": 86.6,
+          "maxOdds": 88.6,
+          "popularity": 85,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            6,
-            9
+            9,
+            15
           ],
-          "minOdds": 101.6,
-          "maxOdds": 105.9,
-          "popularity": 62,
-          "updatedAt": "2026-09-20T12:17",
+          "minOdds": 39.8,
+          "maxOdds": 41.9,
+          "popularity": 50,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            9,
-            11
+            5,
+            9
           ],
-          "minOdds": 36.5,
-          "maxOdds": 39.8,
-          "popularity": 36,
-          "updatedAt": "2026-09-20T12:17",
+          "minOdds": 86.6,
+          "maxOdds": 88.6,
+          "popularity": 85,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 59.6,
+        "score": 58.6,
         "coverage": 1,
         "components": {
           "axisIndex": 66,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 53,
+          "indexGap": 0,
+          "gapStrength": 50,
+          "axisCore": 53.4,
           "conditionFit": 55,
-          "opponentDepth": 61.4
+          "opponentDepth": 62
         }
       }
     },
     {
-      "id": "2026-09-20-中山-5R",
-      "bundleId": "2026-09-20-nakayama-05R",
-      "track": "中山",
+      "id": "2026-09-21-阪神-5R",
+      "bundleId": "2026-09-21-hanshin-05R",
+      "track": "阪神",
       "number": 5,
-      "name": "中山5R",
+      "name": "阪神5R",
       "grade": null,
       "category": "race",
       "time": "12:25",
       "surface": "芝",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1600,
-      "fieldSize": 16,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200516",
-        "number": 16,
-        "name": "アイレバルバドス",
-        "tmIndex": 67,
-        "popularity": 12,
-        "odds": 83.3,
-        "ev": 6.457702247444962,
-        "marketGap": 11,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609200516",
-          "number": 16,
-          "name": "アイレバルバドス",
-          "tmIndex": 67,
-          "popularity": 12,
-          "odds": 83.3,
-          "ev": 6.457702247444962,
-          "marketGap": 11,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200502",
-          "number": 2,
-          "name": "マイバーゲン",
-          "tmIndex": 66,
-          "popularity": 6,
-          "odds": 28.6,
-          "ev": 1.995643575137237,
-          "marketGap": 4,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200504",
-          "number": 4,
-          "name": "クロノスフィア",
-          "tmIndex": 66,
-          "popularity": 5,
-          "odds": 14.4,
-          "ev": 1.0047995623068606,
-          "marketGap": 2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200502",
-          "number": 2,
-          "name": "マイバーゲン",
-          "tmIndex": 66,
-          "popularity": 6,
-          "odds": 28.6,
-          "ev": 1.995643575137237,
-          "marketGap": 4,
-          "source": "index2"
-        },
-        {
-          "id": "2609200501",
-          "number": 1,
-          "name": "ファンタジーゲーム",
-          "tmIndex": 65,
-          "popularity": 13,
-          "odds": 91.4,
-          "ev": 5.731246510067826,
-          "marketGap": 9,
-          "source": "evidence",
-          "selectionScore": 56.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 50,
-            "form": 50,
-            "training": 67,
-            "pace": 58
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200505",
-        "number": 5,
-        "name": "アニーリング",
-        "tmIndex": 65,
-        "popularity": 7,
-        "odds": 32.8,
-        "ev": 2.0567274128033333,
-        "marketGap": 2,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "low",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            2,
-            16
-          ],
-          "minOdds": 568.2,
-          "maxOdds": 568.2,
-          "popularity": 72,
-          "updatedAt": "2026-09-20T12:32",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            1,
-            16
-          ],
-          "minOdds": 196.4,
-          "maxOdds": 199.7,
-          "popularity": 87,
-          "updatedAt": "2026-09-20T12:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            2,
-            16
-          ],
-          "minOdds": 111.8,
-          "maxOdds": 115.6,
-          "popularity": 71,
-          "updatedAt": "2026-09-20T12:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            1,
-            16
-          ],
-          "minOdds": 196.4,
-          "maxOdds": 199.7,
-          "popularity": 87,
-          "updatedAt": "2026-09-20T12:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 60.5,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 67,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 55.4,
-          "conditionFit": 55,
-          "opponentDepth": 61.6
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-6R",
-      "bundleId": "2026-09-20-hanshin-06R",
-      "track": "阪神",
-      "number": 6,
-      "name": "阪神6R",
-      "grade": null,
-      "category": "race",
-      "time": "12:40",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 2000,
-      "fieldSize": 11,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200603",
-        "number": 3,
-        "name": "メイショウショカツ",
-        "tmIndex": 81,
-        "popularity": 1,
-        "odds": 2.5,
-        "ev": 0.4733727644396891,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "clear",
-      "leaderContenders": [
-        {
-          "id": "2609200603",
-          "number": 3,
-          "name": "メイショウショカツ",
-          "tmIndex": 81,
-          "popularity": 1,
-          "odds": 2.5,
-          "ev": 0.4733727644396891,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200610",
-          "number": 10,
-          "name": "エイシンビーコン",
-          "tmIndex": 77,
-          "popularity": 6,
-          "odds": 14.8,
-          "ev": 1.9659158217504367,
-          "marketGap": 4,
-          "source": "index2"
-        },
-        {
-          "id": "2609200607",
-          "number": 7,
-          "name": "キッコベッロ",
-          "tmIndex": 73,
-          "popularity": 2,
-          "odds": 3.4,
-          "ev": 0.3108902228544815,
-          "marketGap": -2,
-          "source": "evidence",
-          "selectionScore": 64.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 67,
-            "form": 58,
-            "training": 59,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": null,
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 4,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            3,
-            10
-          ],
-          "minOdds": 15.4,
-          "maxOdds": 15.4,
-          "popularity": 8,
-          "updatedAt": "2026-09-20T12:47",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            3,
-            7
-          ],
-          "minOdds": 3.4,
-          "maxOdds": 3.9,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T12:47",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            3,
-            10
-          ],
-          "minOdds": 6.1,
-          "maxOdds": 6.8,
-          "popularity": 8,
-          "updatedAt": "2026-09-20T12:47",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            3,
-            7
-          ],
-          "minOdds": 3.4,
-          "maxOdds": 3.9,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T12:47",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 75.9,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 81,
-          "indexGap": 4,
-          "gapStrength": 74,
-          "axisCore": 71.7,
-          "conditionFit": 77.5,
-          "opponentDepth": 71.3
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-6R",
-      "bundleId": "2026-09-20-nakayama-06R",
-      "track": "中山",
-      "number": 6,
-      "name": "中山6R",
-      "grade": null,
-      "category": "race",
-      "time": "12:55",
-      "surface": "ダ",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1800,
-      "fieldSize": 14,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200608",
-        "number": 8,
-        "name": "ウリズンベー",
-        "tmIndex": 77,
-        "popularity": 1,
-        "odds": 3.3,
-        "ev": 0.4040391983724313,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609200608",
-          "number": 8,
-          "name": "ウリズンベー",
-          "tmIndex": 77,
-          "popularity": 1,
-          "odds": 3.3,
-          "ev": 0.4040391983724313,
-          "marketGap": 0,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200601",
-          "number": 1,
-          "name": "エタンセル",
-          "tmIndex": 76,
-          "popularity": 4,
-          "odds": 9.8,
-          "ev": 1.0949535761714724,
-          "marketGap": 2,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200603",
-          "number": 3,
-          "name": "アビヤント",
-          "tmIndex": 75,
-          "popularity": 2,
-          "odds": 3.6,
-          "ev": 0.36661128496164513,
-          "marketGap": -1,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200601",
-          "number": 1,
-          "name": "エタンセル",
-          "tmIndex": 76,
-          "popularity": 4,
-          "odds": 9.8,
-          "ev": 1.0949535761714724,
-          "marketGap": 2,
-          "source": "index2"
-        },
-        {
-          "id": "2609200609",
-          "number": 9,
-          "name": "アデルフィー",
-          "tmIndex": 73,
-          "popularity": 8,
-          "odds": 19.3,
-          "ev": 1.62664137423171,
-          "marketGap": 3,
-          "source": "evidence",
-          "selectionScore": 66.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 65,
-            "form": 62,
-            "training": 65,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200605",
-        "number": 5,
-        "name": "ハルノアラシ",
-        "tmIndex": 70,
-        "popularity": 10,
-        "odds": 24.7,
-        "ev": 1.5518785059962203,
-        "marketGap": 3,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            1,
-            8
-          ],
-          "minOdds": 20.8,
-          "maxOdds": 20.8,
-          "popularity": 8,
-          "updatedAt": "2026-09-20T13:02",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            8,
-            9
-          ],
-          "minOdds": 9.6,
-          "maxOdds": 10.8,
-          "popularity": 13,
-          "updatedAt": "2026-09-20T13:02",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            1,
-            8
-          ],
-          "minOdds": 7.3,
-          "maxOdds": 8.2,
-          "popularity": 8,
-          "updatedAt": "2026-09-20T13:02",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            8,
-            9
-          ],
-          "minOdds": 9.6,
-          "maxOdds": 10.8,
-          "popularity": 13,
-          "updatedAt": "2026-09-20T13:02",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 70.3,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 77,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 67.6,
-          "conditionFit": 79,
-          "opponentDepth": 71.6
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-7R",
-      "bundleId": "2026-09-20-hanshin-07R",
-      "track": "阪神",
-      "number": 7,
-      "name": "阪神7R",
-      "grade": null,
-      "category": "race",
-      "time": "13:10",
-      "surface": "ダ",
       "goingBasis": "official",
       "goingLabel": null,
       "distance": 1800,
-      "fieldSize": 12,
+      "fieldSize": 10,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609200704",
-        "number": 4,
-        "name": "テイエムスターラン",
-        "tmIndex": 77,
-        "popularity": 9,
-        "odds": 26.4,
-        "ev": 3.5322422885111364,
-        "marketGap": 8,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609200704",
-          "number": 4,
-          "name": "テイエムスターラン",
-          "tmIndex": 77,
-          "popularity": 9,
-          "odds": 26.4,
-          "ev": 3.5322422885111364,
-          "marketGap": 8,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200701",
-          "number": 1,
-          "name": "ココロヅヨサ",
-          "tmIndex": 76,
-          "popularity": 2,
-          "odds": 3.9,
-          "ev": 0.4761800930829249,
-          "marketGap": 0,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200706",
-          "number": 6,
-          "name": "テーオーカイザー",
-          "tmIndex": 75,
-          "popularity": 3,
-          "odds": 4,
-          "ev": 0.44514378851088965,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200701",
-          "number": 1,
-          "name": "ココロヅヨサ",
-          "tmIndex": 76,
-          "popularity": 2,
-          "odds": 3.9,
-          "ev": 0.4761800930829249,
-          "marketGap": 0,
-          "source": "index2"
-        },
-        {
-          "id": "2609200706",
-          "number": 6,
-          "name": "テーオーカイザー",
-          "tmIndex": 75,
-          "popularity": 3,
-          "odds": 4,
-          "ev": 0.44514378851088965,
-          "marketGap": 0,
-          "source": "evidence",
-          "selectionScore": 66.5,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 65,
-            "form": 58,
-            "training": 70,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200703",
-        "number": 3,
-        "name": "ルファーダ",
-        "tmIndex": 74,
-        "popularity": 6,
-        "odds": 15.8,
-        "ev": 1.600628729232635,
-        "marketGap": 2,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            1,
-            4
-          ],
-          "minOdds": 38.4,
-          "maxOdds": 38.4,
-          "popularity": 14,
-          "updatedAt": "2026-09-20T13:17",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            4,
-            6
-          ],
-          "minOdds": 10.6,
-          "maxOdds": 12,
-          "popularity": 16,
-          "updatedAt": "2026-09-20T13:17",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            1,
-            4
-          ],
-          "minOdds": 9.6,
-          "maxOdds": 10.8,
-          "popularity": 14,
-          "updatedAt": "2026-09-20T13:17",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            4,
-            6
-          ],
-          "minOdds": 10.6,
-          "maxOdds": 12,
-          "popularity": 16,
-          "updatedAt": "2026-09-20T13:17",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 70,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 77,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 66.9,
-          "conditionFit": 77.5,
-          "opponentDepth": 71.7
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-7R",
-      "bundleId": "2026-09-20-nakayama-07R",
-      "track": "中山",
-      "number": 7,
-      "name": "中山7R",
-      "grade": null,
-      "category": "race",
-      "time": "13:25",
-      "surface": "芝",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 2000,
-      "fieldSize": 18,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200706",
+        "id": "2609210506",
         "number": 6,
-        "name": "ピエスユニーク",
-        "tmIndex": 80,
-        "popularity": 3,
-        "odds": 8.1,
-        "ev": 0.8591989698714421,
-        "marketGap": 2,
-        "source": "index1"
-      },
-      "leaderStatus": "clear",
-      "leaderContenders": [
-        {
-          "id": "2609200706",
-          "number": 6,
-          "name": "ピエスユニーク",
-          "tmIndex": 80,
-          "popularity": 3,
-          "odds": 8.1,
-          "ev": 0.8591989698714421,
-          "marketGap": 2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200713",
-          "number": 13,
-          "name": "エルナト",
-          "tmIndex": 77,
-          "popularity": 9,
-          "odds": 18.8,
-          "ev": 1.5260604786940781,
-          "marketGap": 7,
-          "source": "index2"
-        },
-        {
-          "id": "2609200711",
-          "number": 11,
-          "name": "エピックフライト",
-          "tmIndex": 76,
-          "popularity": 1,
-          "odds": 3.4,
-          "ev": 0.25185633709262933,
-          "marketGap": -3,
-          "source": "evidence",
-          "selectionScore": 78.75,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 81,
-            "form": 88,
-            "training": 71,
-            "pace": 75
-          }
-        }
-      ],
-      "valueWatch": null,
-      "valuePending": false,
-      "topConfidence": "mid",
-      "indexGap": 3,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            6,
-            13
-          ],
-          "minOdds": 127.3,
-          "maxOdds": 127.3,
-          "popularity": 42,
-          "updatedAt": "2026-09-20T13:32",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            6,
-            11
-          ],
-          "minOdds": 5.8,
-          "maxOdds": 6.4,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T13:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            6,
-            13
-          ],
-          "minOdds": 37.7,
-          "maxOdds": 40,
-          "popularity": 46,
-          "updatedAt": "2026-09-20T13:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            6,
-            11
-          ],
-          "minOdds": 5.8,
-          "maxOdds": 6.4,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T13:32",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 74.9,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 80,
-          "indexGap": 3,
-          "gapStrength": 68,
-          "axisCore": 69.8,
-          "conditionFit": 76.5,
-          "opponentDepth": 77.8
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-8R",
-      "bundleId": "2026-09-20-hanshin-08R",
-      "track": "阪神",
-      "number": 8,
-      "name": "阪神8R",
-      "grade": null,
-      "category": "race",
-      "time": "13:40",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1600,
-      "fieldSize": 15,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200811",
-        "number": 11,
-        "name": "リアンマヒナ",
-        "tmIndex": 81,
-        "popularity": 1,
-        "odds": 2.3,
-        "ev": 0.27674113588765215,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609200811",
-          "number": 11,
-          "name": "リアンマヒナ",
-          "tmIndex": 81,
-          "popularity": 1,
-          "odds": 2.3,
-          "ev": 0.27674113588765215,
-          "marketGap": 0,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200802",
-          "number": 2,
-          "name": "ペイシャシス",
-          "tmIndex": 80,
-          "popularity": 2,
-          "odds": 4.9,
-          "ev": 0.5404764060010256,
-          "marketGap": 0,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200804",
-          "number": 4,
-          "name": "スリラーナイト",
-          "tmIndex": 80,
-          "popularity": 9,
-          "odds": 40.8,
-          "ev": 4.500293339763641,
-          "marketGap": 6,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200802",
-          "number": 2,
-          "name": "ペイシャシス",
-          "tmIndex": 80,
-          "popularity": 2,
-          "odds": 4.9,
-          "ev": 0.5404764060010256,
-          "marketGap": 0,
-          "source": "index2"
-        },
-        {
-          "id": "2609200804",
-          "number": 4,
-          "name": "スリラーナイト",
-          "tmIndex": 80,
-          "popularity": 9,
-          "odds": 40.8,
-          "ev": 4.500293339763641,
-          "marketGap": 6,
-          "source": "evidence",
-          "selectionScore": 68.75,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 74,
-            "form": 72,
-            "training": 59,
-            "pace": 70
-          }
-        }
-      ],
-      "valueWatch": null,
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            2,
-            11
-          ],
-          "minOdds": 9.3,
-          "maxOdds": 9.3,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T13:46",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            4,
-            11
-          ],
-          "minOdds": 11,
-          "maxOdds": 12.5,
-          "popularity": 13,
-          "updatedAt": "2026-09-20T13:46",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            2,
-            11
-          ],
-          "minOdds": 3.6,
-          "maxOdds": 4.2,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T13:46",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            4,
-            11
-          ],
-          "minOdds": 11,
-          "maxOdds": 12.5,
-          "popularity": 13,
-          "updatedAt": "2026-09-20T13:46",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 72.9,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 81,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 72.1,
-          "conditionFit": 76.5,
-          "opponentDepth": 74.9
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-8R",
-      "bundleId": "2026-09-20-nakayama-08R",
-      "track": "中山",
-      "number": 8,
-      "name": "中山8R",
-      "grade": null,
-      "category": "race",
-      "time": "13:55",
-      "surface": "ダ",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1200,
-      "fieldSize": 16,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200804",
-        "number": 4,
-        "name": "グラティアム",
-        "tmIndex": 78,
+        "name": "シホノノービレ",
+        "tmIndex": 65,
         "popularity": 2,
-        "odds": 3.6,
-        "ev": 0.40399509047284843,
+        "odds": 3.2,
+        "ev": 0.34104537767285725,
         "marketGap": 1,
         "source": "index1"
       },
       "leaderStatus": "tied",
       "leaderContenders": [
         {
-          "id": "2609200804",
-          "number": 4,
-          "name": "グラティアム",
-          "tmIndex": 78,
+          "id": "2609210506",
+          "number": 6,
+          "name": "シホノノービレ",
+          "tmIndex": 65,
           "popularity": 2,
-          "odds": 3.6,
-          "ev": 0.40399509047284843,
+          "odds": 3.2,
+          "ev": 0.34104537767285725,
           "marketGap": 1,
           "source": "leader-contender"
         },
         {
-          "id": "2609200815",
-          "number": 15,
-          "name": "ペイトー",
-          "tmIndex": 78,
-          "popularity": 8,
-          "odds": 26.9,
-          "ev": 3.018741092699895,
-          "marketGap": 6,
+          "id": "2609210507",
+          "number": 7,
+          "name": "キングリア",
+          "tmIndex": 65,
+          "popularity": 1,
+          "odds": 2.2,
+          "ev": 0.23446869715008936,
+          "marketGap": -1,
           "source": "leader-contender"
         },
         {
-          "id": "2609200805",
-          "number": 5,
-          "name": "カンレイスター",
-          "tmIndex": 76,
-          "popularity": 1,
-          "odds": 3.4,
-          "ev": 0.31811593980966535,
-          "marketGap": -2,
+          "id": "2609210509",
+          "number": 9,
+          "name": "キミアドーネ",
+          "tmIndex": 65,
+          "popularity": 6,
+          "odds": 16.6,
+          "ev": 1.769172896677947,
+          "marketGap": 3,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609200815",
-          "number": 15,
-          "name": "ペイトー",
-          "tmIndex": 78,
-          "popularity": 8,
-          "odds": 26.9,
-          "ev": 3.018741092699895,
-          "marketGap": 6,
+          "id": "2609210507",
+          "number": 7,
+          "name": "キングリア",
+          "tmIndex": 65,
+          "popularity": 1,
+          "odds": 2.2,
+          "ev": 0.23446869715008936,
+          "marketGap": -1,
           "source": "index2"
         },
         {
-          "id": "2609200801",
-          "number": 1,
-          "name": "フラッシュポイント",
-          "tmIndex": 73,
-          "popularity": 7,
-          "odds": 18.6,
-          "ev": 1.312756970121207,
-          "marketGap": 3,
+          "id": "2609210510",
+          "number": 10,
+          "name": "ハナナ",
+          "tmIndex": 65,
+          "popularity": 3,
+          "odds": 6.1,
+          "ev": 0.650117751188884,
+          "marketGap": -1,
           "source": "evidence",
-          "selectionScore": 66.5,
+          "selectionScore": 57.75,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 66,
-            "form": 57,
-            "training": 70,
-            "pace": 73
+            "ability": 50,
+            "form": 50,
+            "training": 73,
+            "pace": 58
           }
         }
       ],
       "valueWatch": {
-        "id": "2609200812",
-        "number": 12,
-        "name": "シスター",
-        "tmIndex": 73,
-        "popularity": 11,
-        "odds": 41.2,
-        "ev": 2.9078272671502003,
-        "marketGap": 6,
+        "id": "2609210509",
+        "number": 9,
+        "name": "キミアドーネ",
+        "tmIndex": 65,
+        "popularity": 6,
+        "odds": 16.6,
+        "ev": 1.769172896677947,
+        "marketGap": 3,
         "source": "valueWatch"
       },
       "valuePending": false,
-      "topConfidence": "high",
+      "topConfidence": "low",
       "indexGap": 0,
       "ticketOdds": {
         "quinella": {
           "type": "quinella",
           "numbers": [
-            4,
-            15
+            6,
+            7
           ],
-          "minOdds": 47.6,
-          "maxOdds": 47.6,
-          "popularity": 15,
-          "updatedAt": "2026-09-20T14:01",
+          "minOdds": 3.7,
+          "maxOdds": 3.7,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B32",
-          "status": "closed"
+          "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            1,
-            4
+            6,
+            10
           ],
-          "minOdds": 16.2,
-          "maxOdds": 18.5,
-          "popularity": 19,
-          "updatedAt": "2026-09-20T14:01",
+          "minOdds": 3.4,
+          "maxOdds": 4.2,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            4,
-            15
+            6,
+            7
           ],
-          "minOdds": 15.9,
-          "maxOdds": 18.3,
-          "popularity": 17,
-          "updatedAt": "2026-09-20T14:01",
+          "minOdds": 2,
+          "maxOdds": 2.1,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            1,
-            4
+            6,
+            10
           ],
-          "minOdds": 16.2,
-          "maxOdds": 18.5,
-          "popularity": 19,
-          "updatedAt": "2026-09-20T14:01",
+          "minOdds": 3.4,
+          "maxOdds": 4.2,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:09",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 69,
+        "score": 58.5,
         "coverage": 1,
         "components": {
-          "axisIndex": 78,
+          "axisIndex": 65,
           "indexGap": 0,
           "gapStrength": 50,
-          "axisCore": 69.8,
-          "conditionFit": 68.5,
-          "opponentDepth": 72.8
+          "axisCore": 54.8,
+          "conditionFit": 55,
+          "opponentDepth": 61.7
         }
       }
     },
     {
-      "id": "2026-09-20-阪神-9R",
-      "bundleId": "2026-09-20-hanshin-09R",
+      "id": "2026-09-21-阪神-6R",
+      "bundleId": "2026-09-21-hanshin-06R",
       "track": "阪神",
-      "number": 9,
-      "name": "夕月特別",
+      "number": 6,
+      "name": "阪神6R",
       "grade": null,
-      "category": "special",
-      "time": "14:10",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 2000,
-      "fieldSize": 10,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609200904",
-        "number": 4,
-        "name": "セナスタイル",
-        "tmIndex": 80,
-        "popularity": 1,
-        "odds": 2,
-        "ev": 0.3739406412505158,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "clear",
-      "leaderContenders": [
-        {
-          "id": "2609200904",
-          "number": 4,
-          "name": "セナスタイル",
-          "tmIndex": 80,
-          "popularity": 1,
-          "odds": 2,
-          "ev": 0.3739406412505158,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609200905",
-          "number": 5,
-          "name": "エアビッグマム",
-          "tmIndex": 76,
-          "popularity": 4,
-          "odds": 9.6,
-          "ev": 1.253456142290151,
-          "marketGap": 2,
-          "source": "index2"
-        },
-        {
-          "id": "2609200901",
-          "number": 1,
-          "name": "エバーグルーヴ",
-          "tmIndex": 75,
-          "popularity": 3,
-          "odds": 7.3,
-          "ev": 0.8687493000803235,
-          "marketGap": -1,
-          "source": "evidence",
-          "selectionScore": 66.5,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 69,
-            "form": 56,
-            "training": 68,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609200908",
-        "number": 8,
-        "name": "ジェルブロア",
-        "tmIndex": 76,
-        "popularity": 6,
-        "odds": 16,
-        "ev": 2.089093570483585,
-        "marketGap": 3,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 4,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            4,
-            5
-          ],
-          "minOdds": 7.8,
-          "maxOdds": 7.8,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T14:16",
-          "source": "JV-Link 0B32",
-          "status": "closed"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            1,
-            4
-          ],
-          "minOdds": 2.3,
-          "maxOdds": 2.6,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:16",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            4,
-            5
-          ],
-          "minOdds": 2.4,
-          "maxOdds": 2.8,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T14:16",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            1,
-            4
-          ],
-          "minOdds": 2.3,
-          "maxOdds": 2.6,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:16",
-          "source": "JV-Link 0B33",
-          "status": "closed"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 75.9,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 80,
-          "indexGap": 4,
-          "gapStrength": 74,
-          "axisCore": 71.8,
-          "conditionFit": 80,
-          "opponentDepth": 71.7
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-9R",
-      "bundleId": "2026-09-20-nakayama-09R",
-      "track": "中山",
-      "number": 9,
-      "name": "松戸特別",
-      "grade": null,
-      "category": "special",
-      "time": "14:25",
+      "category": "race",
+      "time": "12:55",
       "surface": "ダ",
       "goingBasis": "official",
       "goingLabel": null,
-      "distance": 2400,
-      "fieldSize": 12,
+      "distance": 2000,
+      "fieldSize": 15,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609200909",
-        "number": 9,
-        "name": "オオタチ",
-        "tmIndex": 75,
-        "popularity": 4,
-        "odds": 6,
-        "ev": 0.893342129476348,
-        "marketGap": 3,
+        "id": "2609210611",
+        "number": 11,
+        "name": "メイショウジンライ",
+        "tmIndex": 77,
+        "popularity": 1,
+        "odds": 4.7,
+        "ev": 0.6712748341257152,
+        "marketGap": 0,
         "source": "index1"
       },
       "leaderStatus": "contested",
       "leaderContenders": [
         {
-          "id": "2609200909",
-          "number": 9,
-          "name": "オオタチ",
-          "tmIndex": 75,
-          "popularity": 4,
-          "odds": 6,
-          "ev": 0.893342129476348,
-          "marketGap": 3,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609200903",
-          "number": 3,
-          "name": "コズミックダンサー",
-          "tmIndex": 73,
+          "id": "2609210611",
+          "number": 11,
+          "name": "メイショウジンライ",
+          "tmIndex": 77,
           "popularity": 1,
-          "odds": 3.1,
-          "ev": 0.3819965460320092,
-          "marketGap": -1,
+          "odds": 4.7,
+          "ev": 0.6712748341257152,
+          "marketGap": 0,
           "source": "leader-contender"
         },
         {
-          "id": "2609200905",
-          "number": 5,
-          "name": "マッドゲイル",
-          "tmIndex": 73,
-          "popularity": 5,
-          "odds": 6.9,
-          "ev": 0.8502503766518915,
-          "marketGap": 2,
+          "id": "2609210614",
+          "number": 14,
+          "name": "フィサブロス",
+          "tmIndex": 75,
+          "popularity": 11,
+          "odds": 20.9,
+          "ev": 2.4828047160028324,
+          "marketGap": 9,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609200903",
-          "number": 3,
-          "name": "コズミックダンサー",
-          "tmIndex": 73,
-          "popularity": 1,
-          "odds": 3.1,
-          "ev": 0.3819965460320092,
-          "marketGap": -1,
+          "id": "2609210614",
+          "number": 14,
+          "name": "フィサブロス",
+          "tmIndex": 75,
+          "popularity": 11,
+          "odds": 20.9,
+          "ev": 2.4828047160028324,
+          "marketGap": 9,
           "source": "index2"
         },
         {
-          "id": "2609200905",
-          "number": 5,
-          "name": "マッドゲイル",
-          "tmIndex": 73,
-          "popularity": 5,
-          "odds": 6.9,
-          "ev": 0.8502503766518915,
-          "marketGap": 2,
+          "id": "2609210604",
+          "number": 4,
+          "name": "ゴールドコット",
+          "tmIndex": 72,
+          "popularity": 3,
+          "odds": 8,
+          "ev": 0.71414252343555,
+          "marketGap": 0,
           "source": "evidence",
-          "selectionScore": 63.75,
+          "selectionScore": 65.25,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 66,
-            "form": 57,
-            "training": 62,
-            "pace": 70
+            "ability": 62,
+            "form": 61,
+            "training": 66,
+            "pace": 72
           }
         }
       ],
       "valueWatch": {
-        "id": "2609200906",
-        "number": 6,
-        "name": "ビップチェイス",
-        "tmIndex": 67,
-        "popularity": 9,
-        "odds": 40.9,
-        "ev": 2.7649332317629005,
-        "marketGap": 2,
+        "id": "2609210612",
+        "number": 12,
+        "name": "ディープサミット",
+        "tmIndex": 68,
+        "popularity": 13,
+        "odds": 27,
+        "ev": 1.6154502389314604,
+        "marketGap": 6,
         "source": "valueWatch"
       },
       "valuePending": false,
@@ -2940,823 +978,482 @@
         "quinella": {
           "type": "quinella",
           "numbers": [
-            3,
-            9
+            11,
+            14
           ],
-          "minOdds": 7.6,
-          "maxOdds": 7.6,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T14:32",
+          "minOdds": 19.6,
+          "maxOdds": 19.6,
+          "popularity": 4,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B32",
-          "status": "closed"
+          "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            5,
-            9
+            4,
+            11
           ],
-          "minOdds": 5.9,
-          "maxOdds": 6.8,
-          "popularity": 10,
-          "updatedAt": "2026-09-20T14:32",
+          "minOdds": 7,
+          "maxOdds": 7.4,
+          "popularity": 4,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            3,
-            9
+            11,
+            14
           ],
-          "minOdds": 2.6,
-          "maxOdds": 2.9,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:32",
+          "minOdds": 6.4,
+          "maxOdds": 6.8,
+          "popularity": 3,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            5,
-            9
+            4,
+            11
           ],
-          "minOdds": 5.9,
-          "maxOdds": 6.8,
-          "popularity": 10,
-          "updatedAt": "2026-09-20T14:32",
+          "minOdds": 7,
+          "maxOdds": 7.4,
+          "popularity": 4,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
-          "status": "closed"
+          "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 70.2,
+        "score": 70.8,
         "coverage": 1,
         "components": {
-          "axisIndex": 75,
+          "axisIndex": 77,
           "indexGap": 2,
           "gapStrength": 62,
-          "axisCore": 66.3,
-          "conditionFit": 79.5,
-          "opponentDepth": 68.8
+          "axisCore": 66.1,
+          "conditionFit": 76.5,
+          "opponentDepth": 70.6
         }
       }
     },
     {
-      "id": "2026-09-20-阪神-10R",
-      "bundleId": "2026-09-20-hanshin-10R",
+      "id": "2026-09-21-阪神-7R",
+      "bundleId": "2026-09-21-hanshin-07R",
       "track": "阪神",
-      "number": 10,
-      "name": "鳥取特別",
+      "number": 7,
+      "name": "阪神7R",
       "grade": null,
-      "category": "special",
-      "time": "14:50",
-      "surface": "ダ",
+      "category": "race",
+      "time": "13:25",
+      "surface": "芝",
       "goingBasis": "official",
       "goingLabel": null,
-      "distance": 1800,
-      "fieldSize": 15,
+      "distance": 1400,
+      "fieldSize": 18,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609201003",
-        "number": 3,
-        "name": "ゼンエスポワール",
-        "tmIndex": 78,
-        "popularity": 2,
-        "odds": 4.4,
-        "ev": 0.5848007719832524,
-        "marketGap": 1,
+        "id": "2609210716",
+        "number": 16,
+        "name": "ムーンライトダイヤ",
+        "tmIndex": 79,
+        "popularity": 6,
+        "odds": 12.4,
+        "ev": 1.2056396321262148,
+        "marketGap": 5,
         "source": "index1"
       },
       "leaderStatus": "contested",
       "leaderContenders": [
         {
-          "id": "2609201003",
-          "number": 3,
-          "name": "ゼンエスポワール",
+          "id": "2609210716",
+          "number": 16,
+          "name": "ムーンライトダイヤ",
+          "tmIndex": 79,
+          "popularity": 6,
+          "odds": 12.4,
+          "ev": 1.2056396321262148,
+          "marketGap": 5,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609210702",
+          "number": 2,
+          "name": "ダンデノン",
           "tmIndex": 78,
-          "popularity": 2,
-          "odds": 4.4,
-          "ev": 0.5848007719832524,
+          "popularity": 3,
+          "odds": 5.8,
+          "ev": 0.5158178940245925,
           "marketGap": 1,
           "source": "leader-contender"
         },
         {
-          "id": "2609201011",
-          "number": 11,
-          "name": "アートレスマインド",
+          "id": "2609210706",
+          "number": 6,
+          "name": "ヴァージル",
           "tmIndex": 77,
-          "popularity": 6,
-          "odds": 13.7,
-          "ev": 1.6635991327742803,
-          "marketGap": 4,
+          "popularity": 4,
+          "odds": 8.3,
+          "ev": 0.67440279292908,
+          "marketGap": 1,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609201011",
-          "number": 11,
-          "name": "アートレスマインド",
-          "tmIndex": 77,
-          "popularity": 6,
-          "odds": 13.7,
-          "ev": 1.6635991327742803,
-          "marketGap": 4,
+          "id": "2609210702",
+          "number": 2,
+          "name": "ダンデノン",
+          "tmIndex": 78,
+          "popularity": 3,
+          "odds": 5.8,
+          "ev": 0.5158178940245925,
+          "marketGap": 1,
           "source": "index2"
         },
         {
-          "id": "2609201002",
-          "number": 2,
-          "name": "マシン",
-          "tmIndex": 75,
+          "id": "2609210706",
+          "number": 6,
+          "name": "ヴァージル",
+          "tmIndex": 77,
           "popularity": 4,
-          "odds": 5.7,
-          "ev": 0.57570067856478,
+          "odds": 8.3,
+          "ev": 0.67440279292908,
           "marketGap": 1,
           "source": "evidence",
-          "selectionScore": 66.75,
+          "selectionScore": 69,
           "selectionCoverage": 1,
           "selectionEvidence": {
             "ability": 68,
-            "form": 62,
+            "form": 64,
             "training": 67,
-            "pace": 70
+            "pace": 77
+          }
+        }
+      ],
+      "valueWatch": {
+        "id": "2609210703",
+        "number": 3,
+        "name": "ベルセクレト",
+        "tmIndex": 76,
+        "popularity": 9,
+        "odds": 16.1,
+        "ev": 1.1937880125351916,
+        "marketGap": 4,
+        "source": "valueWatch"
+      },
+      "valuePending": false,
+      "topConfidence": "high",
+      "indexGap": 1,
+      "ticketOdds": {
+        "quinella": {
+          "type": "quinella",
+          "numbers": [
+            2,
+            16
+          ],
+          "minOdds": 65.8,
+          "maxOdds": 65.8,
+          "popularity": 22,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        },
+        "wide": {
+          "type": "wide",
+          "numbers": [
+            6,
+            16
+          ],
+          "minOdds": 17.1,
+          "maxOdds": 18,
+          "popularity": 18,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent1": {
+          "type": "wide",
+          "numbers": [
+            2,
+            16
+          ],
+          "minOdds": 29,
+          "maxOdds": 30.8,
+          "popularity": 30,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent2": {
+          "type": "wide",
+          "numbers": [
+            6,
+            16
+          ],
+          "minOdds": 17.1,
+          "maxOdds": 18,
+          "popularity": 18,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      },
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 71.4,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 79,
+          "indexGap": 1,
+          "gapStrength": 56,
+          "axisCore": 70.2,
+          "conditionFit": 74,
+          "opponentDepth": 74
+        }
+      }
+    },
+    {
+      "id": "2026-09-21-阪神-8R",
+      "bundleId": "2026-09-21-hanshin-08R",
+      "track": "阪神",
+      "number": 8,
+      "name": "阪神8R",
+      "grade": null,
+      "category": "race",
+      "time": "13:55",
+      "surface": "ダ",
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 1800,
+      "fieldSize": 12,
+      "oddsStatus": "active",
+      "indexTop": {
+        "id": "2609210803",
+        "number": 3,
+        "name": "ロードアルディート",
+        "tmIndex": 76,
+        "popularity": 3,
+        "odds": 5.4,
+        "ev": 0.8717925595238804,
+        "marketGap": 2,
+        "source": "index1"
+      },
+      "leaderStatus": "contested",
+      "leaderContenders": [
+        {
+          "id": "2609210803",
+          "number": 3,
+          "name": "ロードアルディート",
+          "tmIndex": 76,
+          "popularity": 3,
+          "odds": 5.4,
+          "ev": 0.8717925595238804,
+          "marketGap": 2,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609210804",
+          "number": 4,
+          "name": "アメリカンバー",
+          "tmIndex": 74,
+          "popularity": 4,
+          "odds": 11.6,
+          "ev": 1.553832781804351,
+          "marketGap": 2,
+          "source": "leader-contender"
+        }
+      ],
+      "opponents": [
+        {
+          "id": "2609210804",
+          "number": 4,
+          "name": "アメリカンバー",
+          "tmIndex": 74,
+          "popularity": 4,
+          "odds": 11.6,
+          "ev": 1.553832781804351,
+          "marketGap": 2,
+          "source": "index2"
+        },
+        {
+          "id": "2609210810",
+          "number": 10,
+          "name": "エアフォースワン",
+          "tmIndex": 71,
+          "popularity": 9,
+          "odds": 28.8,
+          "ev": 2.88752119773738,
+          "marketGap": 4,
+          "source": "evidence",
+          "selectionScore": 64.25,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 60,
+            "form": 53,
+            "training": 67,
+            "pace": 77
           }
         }
       ],
       "valueWatch": null,
       "valuePending": false,
       "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            3,
-            11
-          ],
-          "minOdds": 18.7,
-          "maxOdds": 18.7,
-          "popularity": 9,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B32",
-          "status": "active"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            2,
-            3
-          ],
-          "minOdds": 4.8,
-          "maxOdds": 5.3,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            3,
-            11
-          ],
-          "minOdds": 6,
-          "maxOdds": 6.6,
-          "popularity": 7,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            2,
-            3
-          ],
-          "minOdds": 4.8,
-          "maxOdds": 5.3,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 71,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 78,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 68,
-          "conditionFit": 80.5,
-          "opponentDepth": 72.4
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-10R",
-      "bundleId": "2026-09-20-nakayama-10R",
-      "track": "中山",
-      "number": 10,
-      "name": "汐留特別",
-      "grade": null,
-      "category": "special",
-      "time": "15:05",
-      "surface": "ダ",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1200,
-      "fieldSize": 16,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609201008",
-        "number": 8,
-        "name": "タカスタカスタカス",
-        "tmIndex": 83,
-        "popularity": 1,
-        "odds": 1.8,
-        "ev": 0.22389935345498052,
-        "marketGap": 0,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609201008",
-          "number": 8,
-          "name": "タカスタカスタカス",
-          "tmIndex": 83,
-          "popularity": 1,
-          "odds": 1.8,
-          "ev": 0.22389935345498052,
-          "marketGap": 0,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609201015",
-          "number": 15,
-          "name": "ブルーマッキンジー",
-          "tmIndex": 81,
-          "popularity": 2,
-          "odds": 6.6,
-          "ev": 0.692106225026659,
-          "marketGap": 0,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609201015",
-          "number": 15,
-          "name": "ブルーマッキンジー",
-          "tmIndex": 81,
-          "popularity": 2,
-          "odds": 6.6,
-          "ev": 0.692106225026659,
-          "marketGap": 0,
-          "source": "index2"
-        },
-        {
-          "id": "2609201002",
-          "number": 2,
-          "name": "ベルゼビュート",
-          "tmIndex": 79,
-          "popularity": 4,
-          "odds": 12.8,
-          "ev": 1.1267648654182756,
-          "marketGap": 1,
-          "source": "evidence",
-          "selectionScore": 69.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 73,
-            "form": 67,
-            "training": 64,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609201011",
-        "number": 11,
-        "name": "フィールマイプラン",
-        "tmIndex": 77,
-        "popularity": 10,
-        "odds": 32.3,
-        "ev": 2.376135956692848,
-        "marketGap": 5,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
       "indexGap": 2,
       "ticketOdds": {
         "quinella": {
           "type": "quinella",
           "numbers": [
-            8,
-            15
+            3,
+            4
           ],
-          "minOdds": 5.8,
-          "maxOdds": 5.8,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 13.2,
+          "maxOdds": 13.2,
+          "popularity": 4,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B32",
           "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            2,
-            8
+            3,
+            10
           ],
-          "minOdds": 4.1,
-          "maxOdds": 4.5,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 6.9,
+          "maxOdds": 7.7,
+          "popularity": 9,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            8,
-            15
+            3,
+            4
           ],
-          "minOdds": 3.1,
-          "maxOdds": 3.4,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 5.1,
+          "maxOdds": 5.8,
+          "popularity": 4,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            2,
-            8
+            3,
+            10
           ],
-          "minOdds": 4.1,
-          "maxOdds": 4.5,
-          "popularity": 3,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 6.9,
+          "maxOdds": 7.7,
+          "popularity": 9,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 75.6,
+        "score": 70.4,
         "coverage": 1,
         "components": {
-          "axisIndex": 83,
+          "axisIndex": 76,
           "indexGap": 2,
           "gapStrength": 62,
-          "axisCore": 71.3,
-          "conditionFit": 85.5,
-          "opponentDepth": 75.7
+          "axisCore": 66.5,
+          "conditionFit": 77,
+          "opponentDepth": 69.6
         }
       }
     },
     {
-      "id": "2026-09-20-阪神-11R",
-      "bundleId": "2026-09-20-hanshin-11R",
+      "id": "2026-09-21-阪神-9R",
+      "bundleId": "2026-09-21-hanshin-09R",
       "track": "阪神",
-      "number": 11,
-      "name": "道頓堀ステークス",
+      "number": 9,
+      "name": "新涼特別",
       "grade": null,
       "category": "special",
-      "time": "15:30",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 1200,
-      "fieldSize": 16,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609201104",
-        "number": 4,
-        "name": "インブロリオ",
-        "tmIndex": 79,
-        "popularity": 3,
-        "odds": 7.1,
-        "ev": 0.6827913083345758,
-        "marketGap": 2,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609201104",
-          "number": 4,
-          "name": "インブロリオ",
-          "tmIndex": 79,
-          "popularity": 3,
-          "odds": 7.1,
-          "ev": 0.6827913083345758,
-          "marketGap": 2,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609201107",
-          "number": 7,
-          "name": "ディアドコス",
-          "tmIndex": 78,
-          "popularity": 5,
-          "odds": 8.8,
-          "ev": 0.7740782900335712,
-          "marketGap": 3,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609201102",
-          "number": 2,
-          "name": "アサクサグレース",
-          "tmIndex": 77,
-          "popularity": 1,
-          "odds": 6.2,
-          "ev": 0.4982723201125126,
-          "marketGap": -2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609201107",
-          "number": 7,
-          "name": "ディアドコス",
-          "tmIndex": 78,
-          "popularity": 5,
-          "odds": 8.8,
-          "ev": 0.7740782900335712,
-          "marketGap": 3,
-          "source": "index2"
-        },
-        {
-          "id": "2609201110",
-          "number": 10,
-          "name": "モーデン",
-          "tmIndex": 77,
-          "popularity": 11,
-          "odds": 21.2,
-          "ev": 1.703769868771817,
-          "marketGap": 7,
-          "source": "evidence",
-          "selectionScore": 70.25,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 70,
-            "form": 64,
-            "training": 71,
-            "pace": 76
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609201103",
-        "number": 3,
-        "name": "マリノトニトゥルス",
-        "tmIndex": 76,
-        "popularity": 13,
-        "odds": 25,
-        "ev": 1.8334756685868054,
-        "marketGap": 8,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            4,
-            7
-          ],
-          "minOdds": 41.7,
-          "maxOdds": 41.7,
-          "popularity": 13,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B32",
-          "status": "active"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            4,
-            10
-          ],
-          "minOdds": 18.9,
-          "maxOdds": 19.8,
-          "popularity": 21,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            4,
-            7
-          ],
-          "minOdds": 15.9,
-          "maxOdds": 16.9,
-          "popularity": 18,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            4,
-            10
-          ],
-          "minOdds": 18.9,
-          "maxOdds": 19.8,
-          "popularity": 21,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 71.7,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 79,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 70.8,
-          "conditionFit": 75.5,
-          "opponentDepth": 74.5
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-中山-11R",
-      "bundleId": "2026-09-20-nakayama-11R",
-      "track": "中山",
-      "number": 11,
-      "name": "産経賞オールカマー",
-      "grade": "G2",
-      "category": "grade",
-      "time": "15:45",
-      "surface": "芝",
-      "goingBasis": "official",
-      "goingLabel": null,
-      "distance": 2200,
-      "fieldSize": 13,
-      "oddsStatus": "active",
-      "indexTop": {
-        "id": "2609201112",
-        "number": 12,
-        "name": "エセルフリーダ",
-        "tmIndex": 80,
-        "popularity": 4,
-        "odds": 9.8,
-        "ev": 1.2175325939985924,
-        "marketGap": 3,
-        "source": "index1"
-      },
-      "leaderStatus": "contested",
-      "leaderContenders": [
-        {
-          "id": "2609201112",
-          "number": 12,
-          "name": "エセルフリーダ",
-          "tmIndex": 80,
-          "popularity": 4,
-          "odds": 9.8,
-          "ev": 1.2175325939985924,
-          "marketGap": 3,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609201106",
-          "number": 6,
-          "name": "パンジャ",
-          "tmIndex": 79,
-          "popularity": 6,
-          "odds": 11.8,
-          "ev": 1.3424442468828393,
-          "marketGap": 4,
-          "source": "leader-contender"
-        },
-        {
-          "id": "2609201107",
-          "number": 7,
-          "name": "レガレイラ",
-          "tmIndex": 79,
-          "popularity": 1,
-          "odds": 2.9,
-          "ev": 0.32992273864069777,
-          "marketGap": -2,
-          "source": "leader-contender"
-        }
-      ],
-      "opponents": [
-        {
-          "id": "2609201106",
-          "number": 6,
-          "name": "パンジャ",
-          "tmIndex": 79,
-          "popularity": 6,
-          "odds": 11.8,
-          "ev": 1.3424442468828393,
-          "marketGap": 4,
-          "source": "index2"
-        },
-        {
-          "id": "2609201107",
-          "number": 7,
-          "name": "レガレイラ",
-          "tmIndex": 79,
-          "popularity": 1,
-          "odds": 2.9,
-          "ev": 0.32992273864069777,
-          "marketGap": -2,
-          "source": "evidence",
-          "selectionScore": 72.75,
-          "selectionCoverage": 1,
-          "selectionEvidence": {
-            "ability": 76,
-            "form": 70,
-            "training": 72,
-            "pace": 73
-          }
-        }
-      ],
-      "valueWatch": {
-        "id": "2609201101",
-        "number": 1,
-        "name": "キャントウェイト",
-        "tmIndex": 78,
-        "popularity": 7,
-        "odds": 17.1,
-        "ev": 1.7794383286553512,
-        "marketGap": 3,
-        "source": "valueWatch"
-      },
-      "valuePending": false,
-      "topConfidence": "high",
-      "indexGap": 1,
-      "ticketOdds": {
-        "quinella": {
-          "type": "quinella",
-          "numbers": [
-            6,
-            12
-          ],
-          "minOdds": 38.3,
-          "maxOdds": 38.3,
-          "popularity": 16,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B32",
-          "status": "active"
-        },
-        "wide": {
-          "type": "wide",
-          "numbers": [
-            7,
-            12
-          ],
-          "minOdds": 7.2,
-          "maxOdds": 8.3,
-          "popularity": 10,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent1": {
-          "type": "wide",
-          "numbers": [
-            6,
-            12
-          ],
-          "minOdds": 12.6,
-          "maxOdds": 13.8,
-          "popularity": 16,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        },
-        "wideOpponent2": {
-          "type": "wide",
-          "numbers": [
-            7,
-            12
-          ],
-          "minOdds": 7.2,
-          "maxOdds": 8.3,
-          "popularity": 10,
-          "updatedAt": "2026-09-20T14:43",
-          "source": "JV-Link 0B33",
-          "status": "active"
-        }
-      },
-      "battleProfile": {
-        "ruleVersion": "battle-readiness-v1",
-        "score": 72.8,
-        "coverage": 1,
-        "components": {
-          "axisIndex": 80,
-          "indexGap": 1,
-          "gapStrength": 56,
-          "axisCore": 70,
-          "conditionFit": 81.5,
-          "opponentDepth": 76.2
-        }
-      }
-    },
-    {
-      "id": "2026-09-20-阪神-12R",
-      "bundleId": "2026-09-20-hanshin-12R",
-      "track": "阪神",
-      "number": 12,
-      "name": "阪神12R",
-      "grade": null,
-      "category": "race",
-      "time": "16:10",
+      "time": "14:25",
       "surface": "ダ",
       "goingBasis": "official",
       "goingLabel": null,
       "distance": 1400,
-      "fieldSize": 15,
+      "fieldSize": 16,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609201203",
-        "number": 3,
-        "name": "タイニーワンダー",
+        "id": "2609210912",
+        "number": 12,
+        "name": "ピカラ",
         "tmIndex": 82,
-        "popularity": 1,
-        "odds": 1.9,
-        "ev": 0.31004497584018986,
-        "marketGap": 0,
+        "popularity": 2,
+        "odds": 4.1,
+        "ev": 0.6245557175411217,
+        "marketGap": 1,
         "source": "index1"
       },
       "leaderStatus": "clear",
       "leaderContenders": [
         {
-          "id": "2609201203",
-          "number": 3,
-          "name": "タイニーワンダー",
+          "id": "2609210912",
+          "number": 12,
+          "name": "ピカラ",
           "tmIndex": 82,
-          "popularity": 1,
-          "odds": 1.9,
-          "ev": 0.31004497584018986,
-          "marketGap": 0,
+          "popularity": 2,
+          "odds": 4.1,
+          "ev": 0.6245557175411217,
+          "marketGap": 1,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609201206",
-          "number": 6,
-          "name": "ニーナバイリッカ",
+          "id": "2609210903",
+          "number": 3,
+          "name": "ポートデラメール",
           "tmIndex": 76,
-          "popularity": 14,
-          "odds": 49.5,
-          "ev": 4.745418023606494,
-          "marketGap": 12,
+          "popularity": 1,
+          "odds": 3.5,
+          "ev": 0.3132229354892089,
+          "marketGap": -1,
           "source": "index2"
         },
         {
-          "id": "2609201201",
-          "number": 1,
-          "name": "ダンシングドール",
+          "id": "2609210913",
+          "number": 13,
+          "name": "アンビシャスヨシノ",
           "tmIndex": 75,
-          "popularity": 3,
-          "odds": 9.9,
-          "ev": 0.8650439416038264,
-          "marketGap": 0,
+          "popularity": 8,
+          "odds": 22,
+          "ev": 1.7944935003183364,
+          "marketGap": 4,
           "source": "evidence",
-          "selectionScore": 67.25,
+          "selectionScore": 68.25,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 71,
-            "form": 61,
-            "training": 65,
-            "pace": 72
+            "ability": 66,
+            "form": 65,
+            "training": 66,
+            "pace": 76
           }
         }
       ],
       "valueWatch": {
-        "id": "2609201209",
-        "number": 9,
-        "name": "レイム",
-        "tmIndex": 70,
-        "popularity": 13,
-        "odds": 46.8,
-        "ev": 2.522936173743836,
-        "marketGap": 3,
+        "id": "2609210907",
+        "number": 7,
+        "name": "プチプラージュ",
+        "tmIndex": 69,
+        "popularity": 15,
+        "odds": 48.6,
+        "ev": 2.2114150938429966,
+        "marketGap": 5,
         "source": "valueWatch"
       },
       "valuePending": false,
@@ -3767,25 +1464,25 @@
           "type": "quinella",
           "numbers": [
             3,
-            6
+            12
           ],
-          "minOdds": 134.7,
-          "maxOdds": 134.7,
-          "popularity": 34,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 5.9,
+          "maxOdds": 5.9,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B32",
           "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            1,
-            3
+            12,
+            13
           ],
-          "minOdds": 3.6,
-          "maxOdds": 3.9,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 7.6,
+          "maxOdds": 8.6,
+          "popularity": 7,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -3793,145 +1490,145 @@
           "type": "wide",
           "numbers": [
             3,
-            6
+            12
           ],
-          "minOdds": 36.1,
-          "maxOdds": 39.3,
-          "popularity": 38,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 3.2,
+          "maxOdds": 3.4,
+          "popularity": 1,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            1,
-            3
+            12,
+            13
           ],
-          "minOdds": 3.6,
-          "maxOdds": 3.9,
-          "popularity": 2,
-          "updatedAt": "2026-09-20T14:43",
+          "minOdds": 7.6,
+          "maxOdds": 8.6,
+          "popularity": 7,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 78.6,
+        "score": 79.3,
         "coverage": 1,
         "components": {
           "axisIndex": 82,
           "indexGap": 6,
           "gapStrength": 86,
           "axisCore": 70.5,
-          "conditionFit": 78,
-          "opponentDepth": 72.1
+          "conditionFit": 84,
+          "opponentDepth": 72.5
         }
       }
     },
     {
-      "id": "2026-09-20-中山-12R",
-      "bundleId": "2026-09-20-nakayama-12R",
-      "track": "中山",
-      "number": 12,
-      "name": "中山12R",
+      "id": "2026-09-21-阪神-10R",
+      "bundleId": "2026-09-21-hanshin-10R",
+      "track": "阪神",
+      "number": 10,
+      "name": "Ｍキタサンブラック",
       "grade": null,
       "category": "race",
-      "time": "16:30",
+      "time": "15:05",
       "surface": "芝",
-      "goingBasis": "forecast",
-      "goingLabel": "重馬場想定・公式発表前",
-      "distance": 1200,
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 2200,
       "fieldSize": 16,
       "oddsStatus": "active",
       "indexTop": {
-        "id": "2609201212",
-        "number": 12,
-        "name": "カシオペア",
-        "tmIndex": 78,
-        "popularity": 2,
-        "odds": 5.2,
-        "ev": 0.5356858143414047,
-        "marketGap": 1,
+        "id": "2609211016",
+        "number": 16,
+        "name": "ロードガレリア",
+        "tmIndex": 80,
+        "popularity": 9,
+        "odds": 16.3,
+        "ev": 1.6444733017764388,
+        "marketGap": 8,
         "source": "index1"
       },
       "leaderStatus": "contested",
       "leaderContenders": [
         {
-          "id": "2609201212",
-          "number": 12,
-          "name": "カシオペア",
-          "tmIndex": 78,
-          "popularity": 2,
-          "odds": 5.2,
-          "ev": 0.5356858143414047,
-          "marketGap": 1,
+          "id": "2609211016",
+          "number": 16,
+          "name": "ロードガレリア",
+          "tmIndex": 80,
+          "popularity": 9,
+          "odds": 16.3,
+          "ev": 1.6444733017764388,
+          "marketGap": 8,
           "source": "leader-contender"
         },
         {
-          "id": "2609201206",
-          "number": 6,
-          "name": "エバーラスト",
-          "tmIndex": 77,
+          "id": "2609211008",
+          "number": 8,
+          "name": "アルマデオロ",
+          "tmIndex": 79,
           "popularity": 1,
-          "odds": 4.9,
-          "ev": 0.4611856011996725,
+          "odds": 3.8,
+          "ev": 0.3510609707113741,
           "marketGap": -1,
           "source": "leader-contender"
         },
         {
-          "id": "2609201211",
-          "number": 11,
-          "name": "ビッグフラワー",
-          "tmIndex": 76,
-          "popularity": 8,
-          "odds": 14.6,
-          "ev": 1.2539857032843318,
-          "marketGap": 5,
+          "id": "2609211009",
+          "number": 9,
+          "name": "ファームツエンティ",
+          "tmIndex": 78,
+          "popularity": 7,
+          "odds": 13.8,
+          "ev": 1.1661398026734788,
+          "marketGap": 4,
           "source": "leader-contender"
         }
       ],
       "opponents": [
         {
-          "id": "2609201206",
-          "number": 6,
-          "name": "エバーラスト",
-          "tmIndex": 77,
+          "id": "2609211008",
+          "number": 8,
+          "name": "アルマデオロ",
+          "tmIndex": 79,
           "popularity": 1,
-          "odds": 4.9,
-          "ev": 0.4611856011996725,
+          "odds": 3.8,
+          "ev": 0.3510609707113741,
           "marketGap": -1,
           "source": "index2"
         },
         {
-          "id": "2609201211",
-          "number": 11,
-          "name": "ビッグフラワー",
-          "tmIndex": 76,
-          "popularity": 8,
-          "odds": 14.6,
-          "ev": 1.2539857032843318,
-          "marketGap": 5,
+          "id": "2609211015",
+          "number": 15,
+          "name": "ベトルス",
+          "tmIndex": 78,
+          "popularity": 6,
+          "odds": 12.9,
+          "ev": 1.0900872068469476,
+          "marketGap": 2,
           "source": "evidence",
-          "selectionScore": 67,
+          "selectionScore": 67.25,
           "selectionCoverage": 1,
           "selectionEvidence": {
-            "ability": 69,
-            "form": 62,
+            "ability": 68,
+            "form": 67,
             "training": 64,
-            "pace": 73
+            "pace": 70
           }
         }
       ],
       "valueWatch": {
-        "id": "2609201202",
-        "number": 2,
-        "name": "サツキレジーナ",
+        "id": "2609211014",
+        "number": 14,
+        "name": "サトノクローク",
         "tmIndex": 72,
-        "popularity": 12,
-        "odds": 25.6,
-        "ev": 1.5059551004203389,
+        "popularity": 15,
+        "odds": 41.4,
+        "ev": 1.9977315564551408,
         "marketGap": 5,
         "source": "valueWatch"
       },
@@ -3942,67 +1639,376 @@
         "quinella": {
           "type": "quinella",
           "numbers": [
-            6,
-            12
+            8,
+            16
           ],
-          "minOdds": 11.5,
-          "maxOdds": 11.5,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:42",
+          "minOdds": 34.5,
+          "maxOdds": 34.5,
+          "popularity": 12,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B32",
           "status": "active"
         },
         "wide": {
           "type": "wide",
           "numbers": [
-            11,
-            12
+            15,
+            16
           ],
-          "minOdds": 8.4,
-          "maxOdds": 9,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T14:42",
+          "minOdds": 16,
+          "maxOdds": 16.9,
+          "popularity": 15,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
         "wideOpponent1": {
           "type": "wide",
           "numbers": [
-            6,
-            12
+            8,
+            16
           ],
-          "minOdds": 4.8,
-          "maxOdds": 5.2,
-          "popularity": 1,
-          "updatedAt": "2026-09-20T14:42",
+          "minOdds": 12.7,
+          "maxOdds": 13.7,
+          "popularity": 11,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         },
         "wideOpponent2": {
           "type": "wide",
           "numbers": [
-            11,
-            12
+            15,
+            16
           ],
-          "minOdds": 8.4,
-          "maxOdds": 9,
-          "popularity": 4,
-          "updatedAt": "2026-09-20T14:42",
+          "minOdds": 16,
+          "maxOdds": 16.9,
+          "popularity": 15,
+          "updatedAt": "2026-09-20T21:10",
           "source": "JV-Link 0B33",
           "status": "active"
         }
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
-        "score": 70.2,
+        "score": 71.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 1,
+          "gapStrength": 56,
+          "axisCore": 69,
+          "conditionFit": 78.5,
+          "opponentDepth": 73.7
+        }
+      }
+    },
+    {
+      "id": "2026-09-21-阪神-11R",
+      "bundleId": "2026-09-21-hanshin-11R",
+      "track": "阪神",
+      "number": 11,
+      "name": "神戸新聞杯",
+      "grade": "G2",
+      "category": "grade",
+      "time": "15:45",
+      "surface": "芝",
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 2400,
+      "fieldSize": 11,
+      "oddsStatus": "active",
+      "indexTop": {
+        "id": "2609211101",
+        "number": 1,
+        "name": "ロブチェン",
+        "tmIndex": 82,
+        "popularity": 1,
+        "odds": 1.3,
+        "ev": 0.17757683644397174,
+        "marketGap": 0,
+        "source": "index1"
+      },
+      "leaderStatus": "tied",
+      "leaderContenders": [
+        {
+          "id": "2609211101",
+          "number": 1,
+          "name": "ロブチェン",
+          "tmIndex": 82,
+          "popularity": 1,
+          "odds": 1.3,
+          "ev": 0.17757683644397174,
+          "marketGap": 0,
+          "source": "leader-contender"
+        },
+        {
+          "id": "2609211107",
+          "number": 7,
+          "name": "コンジェスタス",
+          "tmIndex": 82,
+          "popularity": 4,
+          "odds": 13.3,
+          "ev": 1.8167476343883262,
+          "marketGap": 2,
+          "source": "leader-contender"
+        }
+      ],
+      "opponents": [
+        {
+          "id": "2609211107",
+          "number": 7,
+          "name": "コンジェスタス",
+          "tmIndex": 82,
+          "popularity": 4,
+          "odds": 13.3,
+          "ev": 1.8167476343883262,
+          "marketGap": 2,
+          "source": "index2"
+        },
+        {
+          "id": "2609211111",
+          "number": 11,
+          "name": "ショウナンハヤナミ",
+          "tmIndex": 77,
+          "popularity": 7,
+          "odds": 27.4,
+          "ev": 2.4095260988719285,
+          "marketGap": 2,
+          "source": "evidence",
+          "selectionScore": 73.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 73,
+            "form": 82,
+            "training": 69,
+            "pace": 70
+          }
+        }
+      ],
+      "valueWatch": null,
+      "valuePending": false,
+      "topConfidence": "high",
+      "indexGap": 0,
+      "ticketOdds": {
+        "quinella": {
+          "type": "quinella",
+          "numbers": [
+            1,
+            7
+          ],
+          "minOdds": 5.8,
+          "maxOdds": 5.8,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        },
+        "wide": {
+          "type": "wide",
+          "numbers": [
+            1,
+            11
+          ],
+          "minOdds": 7.5,
+          "maxOdds": 8.5,
+          "popularity": 8,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent1": {
+          "type": "wide",
+          "numbers": [
+            1,
+            7
+          ],
+          "minOdds": 2.8,
+          "maxOdds": 3.2,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent2": {
+          "type": "wide",
+          "numbers": [
+            1,
+            11
+          ],
+          "minOdds": 7.5,
+          "maxOdds": 8.5,
+          "popularity": 8,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      },
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 72.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 0,
+          "gapStrength": 50,
+          "axisCore": 75,
+          "conditionFit": 75,
+          "opponentDepth": 78.2
+        }
+      }
+    },
+    {
+      "id": "2026-09-21-阪神-12R",
+      "bundleId": "2026-09-21-hanshin-12R",
+      "track": "阪神",
+      "number": 12,
+      "name": "阪神12R",
+      "grade": null,
+      "category": "race",
+      "time": "16:30",
+      "surface": "ダ",
+      "goingBasis": "official",
+      "goingLabel": null,
+      "distance": 1400,
+      "fieldSize": 15,
+      "oddsStatus": "active",
+      "indexTop": {
+        "id": "2609211205",
+        "number": 5,
+        "name": "ホットシート",
+        "tmIndex": 78,
+        "popularity": 3,
+        "odds": 5.5,
+        "ev": 0.7192398217415072,
+        "marketGap": 2,
+        "source": "index1"
+      },
+      "leaderStatus": "clear",
+      "leaderContenders": [
+        {
+          "id": "2609211205",
+          "number": 5,
+          "name": "ホットシート",
+          "tmIndex": 78,
+          "popularity": 3,
+          "odds": 5.5,
+          "ev": 0.7192398217415072,
+          "marketGap": 2,
+          "source": "leader-contender"
+        }
+      ],
+      "opponents": [
+        {
+          "id": "2609211207",
+          "number": 7,
+          "name": "ディーエストッキー",
+          "tmIndex": 75,
+          "popularity": 5,
+          "odds": 14.6,
+          "ev": 1.4508767321059017,
+          "marketGap": 3,
+          "source": "index2"
+        },
+        {
+          "id": "2609211209",
+          "number": 9,
+          "name": "エイシンティザー",
+          "tmIndex": 75,
+          "popularity": 1,
+          "odds": 3.4,
+          "ev": 0.3378754033671278,
+          "marketGap": -2,
+          "source": "evidence",
+          "selectionScore": 66.5,
+          "selectionCoverage": 1,
+          "selectionEvidence": {
+            "ability": 67,
+            "form": 62,
+            "training": 67,
+            "pace": 70
+          }
+        }
+      ],
+      "valueWatch": {
+        "id": "2609211211",
+        "number": 11,
+        "name": "ユキノサイエンス",
+        "tmIndex": 70,
+        "popularity": 11,
+        "odds": 28.4,
+        "ev": 1.741219156595406,
+        "marketGap": 3,
+        "source": "valueWatch"
+      },
+      "valuePending": false,
+      "topConfidence": "mid",
+      "indexGap": 3,
+      "ticketOdds": {
+        "quinella": {
+          "type": "quinella",
+          "numbers": [
+            5,
+            7
+          ],
+          "minOdds": 57.1,
+          "maxOdds": 57.1,
+          "popularity": 17,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        },
+        "wide": {
+          "type": "wide",
+          "numbers": [
+            5,
+            9
+          ],
+          "minOdds": 3.5,
+          "maxOdds": 3.9,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent1": {
+          "type": "wide",
+          "numbers": [
+            5,
+            7
+          ],
+          "minOdds": 20,
+          "maxOdds": 22.2,
+          "popularity": 21,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        },
+        "wideOpponent2": {
+          "type": "wide",
+          "numbers": [
+            5,
+            9
+          ],
+          "minOdds": 3.5,
+          "maxOdds": 3.9,
+          "popularity": 2,
+          "updatedAt": "2026-09-20T21:10",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      },
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 72.1,
         "coverage": 1,
         "components": {
           "axisIndex": 78,
-          "indexGap": 1,
-          "gapStrength": 56,
+          "indexGap": 3,
+          "gapStrength": 68,
           "axisCore": 68.7,
-          "conditionFit": 71,
-          "opponentDepth": 72.5
+          "conditionFit": 68,
+          "opponentDepth": 71.2
         }
       }
     }

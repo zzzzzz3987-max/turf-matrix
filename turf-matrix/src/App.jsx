@@ -2154,7 +2154,7 @@ const AllRaceSignalsPanel = ({ data }) => {
       <div className="flex items-end justify-between">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">All Race Signals</div>
-          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">3会場 レースシグナル</h2>
+          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">{tracks.length === 1 ? tracks[0] : `${tracks.length}会場`} レースシグナル</h2>
         </div>
         <span className="text-[11px] font-semibold text-[#A6AFBE]">
           <Num className="text-[#64748B]">{evaluatedRaces.length}</Num>レース掲載

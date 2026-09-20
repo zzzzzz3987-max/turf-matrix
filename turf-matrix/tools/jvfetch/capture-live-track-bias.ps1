@@ -56,8 +56,14 @@ try {
     }
     [System.IO.File]::WriteAllText($ConfigPath, (($runtime | ConvertTo-Json -Depth 4) + [Environment]::NewLine), (New-Object System.Text.UTF8Encoding($false)))
     $env:TURF_MATRIX_RACE_CONFIG = $ConfigPath
-    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File (Join-Path $PSScriptRoot "run-jvfetch.ps1") --results-only
-    if ($LASTEXITCODE -eq 0 -and (Test-Path -LiteralPath $ResultsPath)) {
+    $fetchScript = Join-Path $PSScriptRoot "run-jvfetch.ps1"
+    $fetch = Start-Process -FilePath "powershell.exe" -ArgumentList @("-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "`"$fetchScript`"", "--results-only") -WindowStyle Hidden -PassThru
+    if (-not $fetch.WaitForExit(30000)) {
+      & taskkill.exe /PID $fetch.Id /T /F | Out-Null
+      throw "Track-bias result fetch exceeded 30 seconds; odds publication must continue."
+    }
+    $fetch.WaitForExit()
+    if ($fetch.ExitCode -eq 0 -and (Test-Path -LiteralPath $ResultsPath)) {
       Copy-Item -LiteralPath $ResultsPath -Destination $CapturedResultsPath -Force
       $captured = $true
       break

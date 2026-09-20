@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-20T05:03:51.865Z",
+  "raceDate": "2026-09-20",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "d919d8a74411fa2aedba1e3102bdc00d6348e66415271d22783cf486126930d2",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-5afd10e607490d5a",
+      "sha256": "5afd10e607490d5a6597390b0a0752339bdd824f28c160a1b227c1d87df9a9aa",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-aad34466b8b3cbb8",
+      "sha256": "aad34466b8b3cbb83fcc91bcb4b0b211560e013db178a24eba30a8fd42d819ac",
+      "fileCount": 5
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "60a6bcd1b1a0c835f5c14e4955db5e8c117f479981861a16df378618e0f98a3a",
+  "baseline": {
+    "date": "2026-09-20",
+    "raceId": "2026-09-20-阪神-9R",
+    "bundleId": "2026-09-20-hanshin-09R",
+    "track": "阪神",
+    "raceNumber": 9,
+    "raceName": "夕月特別",
+    "scheduledTime": "14:10",
+    "axis": {
+      "number": 4,
+      "name": "セナスタイル",
+      "tmIndex": 80,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 5,
+        "name": "エアビッグマム",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 1,
+        "name": "エバーグルーヴ",
+        "tmIndex": 75,
+        "selectionScore": 66.5
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 80,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 71.8,
+        "conditionFit": 80,
+        "opponentDepth": 71.7
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-20",
+    "raceId": "2026-09-20-阪神-9R",
+    "bundleId": "2026-09-20-hanshin-09R",
+    "track": "阪神",
+    "raceNumber": 9,
+    "raceName": "夕月特別",
+    "scheduledTime": "14:10",
+    "axis": {
+      "number": 4,
+      "name": "セナスタイル",
+      "tmIndex": 80,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 5,
+        "name": "エアビッグマム",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 1,
+        "name": "エバーグルーヴ",
+        "tmIndex": 75,
+        "selectionScore": 66.5
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 80,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 71.8,
+        "conditionFit": 80,
+        "opponentDepth": 71.7
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-阪神-9R",
+      "bundleId": "2026-09-20-hanshin-09R",
+      "track": "阪神",
+      "raceNumber": 9,
+      "raceName": "夕月特別",
+      "scheduledTime": "14:10",
+      "axis": {
+        "number": 4,
+        "name": "セナスタイル",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 5,
+          "name": "エアビッグマム",
+          "tmIndex": 76,
+          "selectionScore": null
+        },
+        {
+          "number": 1,
+          "name": "エバーグルーヴ",
+          "tmIndex": 75,
+          "selectionScore": 66.5
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 75.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 71.8,
+          "conditionFit": 80,
+          "opponentDepth": 71.7
+        }
+      }
+    }
+  ]
+}

@@ -7,7 +7,7 @@ import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import { buildPedigreeRaceEvidence } from "./lib/pedigree-race-evidence.js";
 import { buildAbilityPublicEvidence } from "./lib/ability-public-evidence.js";
-import { selectBattleWideCandidate } from "../tools/battle-ticket-selection.mjs";
+import { buildPublicBattleTicketPlan } from "../tools/public-battle-ticket-plan.mjs";
 import {
   buildPedigreeFamilyPublicLines,
   buildPedigreePublicConditionSummary,
@@ -1995,13 +1995,10 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
 
 const BattleRacePanel = ({ race, onOpen }) => {
   if (!race?.indexTop) return null;
-  const [opponentA, opponentB] = race.opponents ?? [];
+  const plan = buildPublicBattleTicketPlan(race);
+  const opponents = plan.opponents;
+  const trioTickets = plan.tickets.filter((ticket) => ticket.type === "trio");
   const axis = race.indexTop;
-  const exactaPair = opponentA ? `${axis.number}-${opponentA.number}` : null;
-  const baseTicketUnits = 1 + (exactaPair ? 1 : 0);
-  const wideCandidate = selectBattleWideCandidate(race, { stakedUnitsBeforeWide: baseTicketUnits });
-  const widePair = wideCandidate ? `${axis.number}-${wideCandidate.opponent.number}` : null;
-  const wideMinimumProfit = wideCandidate ? Math.round(wideCandidate.minimumProfitUnits * 100) : null;
 
   return (
     <section className="mt-12">
@@ -2011,7 +2008,7 @@ const BattleRacePanel = ({ race, onOpen }) => {
           <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">本日の勝負レース</h2>
         </div>
         <span className="text-[11px] font-semibold text-[#A6AFBE]">
-          {race.valuePending ? "オッズ反映前" : "オッズ反映済み"}
+          {race.valuePending ? "単勝オッズ反映前" : "単勝オッズ反映済み"}
         </span>
       </div>
       <div className="mt-4 overflow-hidden rounded-[18px] border border-[#2D7BFF] bg-white">
@@ -2031,8 +2028,8 @@ const BattleRacePanel = ({ race, onOpen }) => {
             </div>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 divide-y divide-[#E2E8F0] border-y border-[#E2E8F0] sm:grid-cols-3 sm:gap-3 sm:divide-y-0 sm:border-y-0">
-            <div className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3 sm:block sm:rounded-lg sm:border sm:border-[#E2E8F0] sm:px-4">
+          <div className="mt-5 grid grid-cols-1 divide-y divide-[#E2E8F0] border-y border-[#E2E8F0]">
+            <div className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3">
               <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">軸</div>
               <div className="min-w-0 sm:mt-1.5">
                 <div className="text-[13px] font-bold leading-snug text-[#050B1E] sm:text-[14px]">
@@ -2041,15 +2038,15 @@ const BattleRacePanel = ({ race, onOpen }) => {
                 <div className="mt-1 text-[10px] text-[#64748B]">TM INDEX 1位</div>
               </div>
             </div>
-            {[opponentA, opponentB].filter(Boolean).map((horse, index) => (
-              <div key={horse.id} className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3 sm:block sm:rounded-lg sm:border sm:border-[#E2E8F0] sm:px-4">
+            {opponents.map((horse, index) => (
+              <div key={horse.number} className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3">
                 <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">相手 {index + 1}</div>
                 <div className="min-w-0 sm:mt-1.5">
                   <div className="text-[13px] font-bold leading-snug text-[#050B1E] sm:text-[14px]">
                     <Num>{horse.number}</Num> {horse.name}
                   </div>
                   <div className="mt-1 text-[10px] text-[#64748B]">
-                    {horse.source === "evidence" ? "総合評価上位" : `TM INDEX ${index + 2}位`}
+                    TM INDEX <Num>{horse.tmIndex}</Num>
                   </div>
                 </div>
               </div>
@@ -2059,24 +2056,22 @@ const BattleRacePanel = ({ race, onOpen }) => {
           <div className="mt-5 border-t border-[#E5E7EB] pt-4">
             <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">参考買い目</div>
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
-              <span>単勝 <Num>{axis.number}</Num></span>
-              {exactaPair ? <span>馬連 <Num>{exactaPair}</Num></span> : null}
-              {widePair ? (
-                <span>
-                  ワイド <Num>{widePair}</Num>
-                  <Num className="ml-1 text-[#64748B]">({wideCandidate.market.minOdds.toFixed(1)}倍〜)</Num>
-                </span>
-              ) : null}
+              {plan.status === "ready" ? <span>単勝 <Num>{axis.number}</Num>・1点</span> : <span>オッズ確認待ち</span>}
             </div>
-            {widePair ? (
-              <div className="mt-2 text-[10px] leading-relaxed text-[#64748B]">
-                各<Num>100</Num>円・計<Num>{(baseTicketUnits + 1) * 100}</Num>円なら、ワイド的中だけでも最低<Num>+{wideMinimumProfit}</Num>円
+            {trioTickets.length > 0 ? (
+              <div className="mt-3 text-[12px] leading-relaxed text-[#050B1E]">
+                <div className="font-semibold">3連複 1頭軸流し・<Num>{trioTickets.length}</Num>点</div>
+                <div className="mt-1 break-words">軸 <Num>{axis.number}</Num> → 相手 <Num>{opponents.map((horse) => horse.number).join("・")}</Num></div>
+                <details className="mt-2 text-[11px] text-[#64748B]">
+                  <summary className="cursor-pointer">組み合わせ</summary>
+                  <div className="mt-2 grid grid-cols-2 gap-2">{trioTickets.map((ticket) => <Num key={ticket.numbers.join("-")}>{ticket.numbers.join("−")}</Num>)}</div>
+                </details>
               </div>
             ) : null}
-            {race.valueWatch ? (
-              <div className="mt-2 text-[10px] leading-relaxed text-[#94A3B8]">
-                注目穴 <Num>{race.valueWatch.number}</Num> {race.valueWatch.name}
-                {isFiniteNumber(race.valueWatch.ev) ? <Num> / 期待値 {race.valueWatch.ev.toFixed(2)}</Num> : null}
+            {plan.status === "ready" ? (
+              <div className="mt-3 text-[11px] leading-relaxed text-[#64748B]">
+                各<Num>100</Num>円・合計<Num>{plan.totalUnits * 100}</Num>円
+                {trioTickets.length > 0 ? <div>3連複オッズ未取得・払戻し目安なし</div> : <div>3連複は相手候補不足で見送り</div>}
               </div>
             ) : null}
           </div>

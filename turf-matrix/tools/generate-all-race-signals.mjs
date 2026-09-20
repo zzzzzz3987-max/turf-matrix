@@ -21,6 +21,7 @@ import {
 } from "./battle-race-selection.mjs";
 import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
 import { buildPairOddsIndex, pairOddsFor } from "./pair-odds.mjs";
+import { buildPublicBattleTicketPlan } from "./public-battle-ticket-plan.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -96,6 +97,7 @@ const buildSignal = (race) => {
     fieldSize: race.fieldSize,
     oddsStatus: race.oddsStatus ?? "missing",
     indexTop: compactHorse(indexTop, "index1"),
+    battleCandidates: ranked.slice(1, 5).map((horse, index) => ({ ...compactHorse(horse, "index"), indexRank: index + 2 })),
     leaderStatus: leadership.status,
     leaderContenders: leadership.contenders.slice(0, 3).map((horse) => compactHorse(horse, "leader-contender")),
     opponents: [
@@ -139,6 +141,7 @@ const buildSignal = (race) => {
   };
   return {
     ...signal,
+    publicTicketPlan: buildPublicBattleTicketPlan(signal),
     battleProfile: buildBattleReadiness({
       indexTop,
       indexSecond,

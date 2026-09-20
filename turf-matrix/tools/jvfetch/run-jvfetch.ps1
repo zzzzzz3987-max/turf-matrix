@@ -5,6 +5,17 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# JVLinkAgent supplies the licensed key to JV-Link. A stopped service can cause -303.
+$Agent = Get-Service -Name "JVLinkAgent" -ErrorAction Stop
+if ($Agent.Status -ne "Running") {
+  try {
+    Start-Service -Name "JVLinkAgent" -ErrorAction Stop
+    $Agent.WaitForStatus([System.ServiceProcess.ServiceControllerStatus]::Running, [TimeSpan]::FromSeconds(15))
+  } catch {
+    throw "JVLinkAgent is not running. Automatic service recovery failed. Start-Service JVLinkAgent must be run by an administrator. No odds were fetched. Detail: $($_.Exception.Message)"
+  }
+}
+
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $Project = Join-Path $PSScriptRoot "TurfMatrix.JvFetch.csproj"
 $MsBuild = Join-Path $env:WINDIR "Microsoft.NET\Framework\v4.0.30319\MSBuild.exe"

@@ -532,7 +532,16 @@ const main = async () => {
   try {
     if (watch && !dryRun) runMorningPreflight();
     do {
-      const result = runOnce();
+      let result;
+      try {
+        result = runOnce();
+      } catch (error) {
+        if (!watch || dryRun) throw error;
+        recordAlert(error.message, { stack: error.stack });
+        log("ERROR", "Update failed; retrying on the next watch poll", { error: error.message });
+        await sleep(pollSeconds * 1_000);
+        continue;
+      }
       if (!watch || dryRun || result.done) break;
       await sleep(pollSeconds * 1_000);
     } while (true);

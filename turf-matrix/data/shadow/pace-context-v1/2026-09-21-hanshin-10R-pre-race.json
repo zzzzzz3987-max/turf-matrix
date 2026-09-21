@@ -1,0 +1,431 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-21T05:59:12.817Z",
+  "raceDate": "2026-09-21",
+  "bundleId": "2026-09-21-hanshin-10R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "49851dd70c4ecb1de9fe8a26dcf06a882c750be008957a018798257d5af7a0e4",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "4aefba23334891bafa5bb1496c881be880132440efec460401a0f71a07244d4b",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "be197d2f6c627316165c8b305108c11f3fc3fc8a6bb14aaeb916f60283ef2c55",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 16,
+    "adjustedHorseCount": 3,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 1
+  },
+  "predictionSha256": "d42b0f7f9bc777c5162de5beb1d9ca863ba6eb226bda47d4e57321d2da12b40d",
+  "predictions": [
+    {
+      "raceId": "2026-09-21-阪神-10R",
+      "bundleId": "2026-09-21-hanshin-10R",
+      "track": "阪神",
+      "surface": "芝",
+      "raceNumber": 10,
+      "raceName": "Ｍキタサンブラック",
+      "horseCount": 16,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "currentPace": 77,
+        "shadowPace": 76,
+        "paceAdjustment": -1,
+        "historyAdjustment": -1,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "shadowPaceLeader": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "currentPace": 77,
+        "shadowPace": 76,
+        "paceAdjustment": -1,
+        "historyAdjustment": -1,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 77,
+        "shadowTm": 77
+      },
+      "currentTmLeader": {
+        "number": 16,
+        "name": "ロードガレリア",
+        "currentPace": 67,
+        "shadowPace": 66,
+        "paceAdjustment": -1,
+        "historyAdjustment": -1,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 80,
+        "shadowTm": 80
+      },
+      "shadowTmLeader": {
+        "number": 16,
+        "name": "ロードガレリア",
+        "currentPace": 67,
+        "shadowPace": 66,
+        "paceAdjustment": -1,
+        "historyAdjustment": -1,
+        "contextAdjustment": 0,
+        "contextLabel": "中立",
+        "currentTm": 80,
+        "shadowTm": 80
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "キタサンハナビラ",
+          "currentPace": 75,
+          "shadowPace": 75,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "想定ペース スロー / 脚質 先行",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "テーオーダグラス",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 平均・偏りなしで明確な展開利不利なし",
+            "2026-06-27 平均・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "レジェンドシップ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-29 平均・差し決着に逆らって前方で踏ん張った",
+            "2026-08-09 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "ミスタージーティー",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "スパークリシャール",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "シンゼンカガ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-15 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "チルカーノ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-22 平均・偏りなしで明確な展開利不利なし",
+            "2026-08-01 平均・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 69,
+          "shadowTm": 69,
+          "tmDelta": 0
+        },
+        {
+          "number": 8,
+          "name": "アルマデオロ",
+          "currentPace": 75,
+          "shadowPace": 74,
+          "paceAdjustment": -1,
+          "historyAdjustment": -1,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-01 平均・差し決着の展開利を受けた好走",
+            "2026-07-05 後傾・偏りなしの展開利を受けた好走",
+            "想定ペース スロー / 脚質 先行",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0
+        },
+        {
+          "number": 9,
+          "name": "ファームツエンティ",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0
+        },
+        {
+          "number": 10,
+          "name": "ナリタエスペランサ",
+          "currentPace": 77,
+          "shadowPace": 76,
+          "paceAdjustment": -1,
+          "historyAdjustment": -1,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-28 後傾・偏りなしの展開利を受けた好走",
+            "2026-06-14 後傾・偏りなしの展開利を受けた好走",
+            "想定ペース スロー / 脚質 逃げ",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 11,
+          "name": "ジョイボーイ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-14 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 12,
+          "name": "サークルオブジョイ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 13,
+          "name": "タイセイフェリーク",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-08-30 後傾・偏りなしで明確な展開利不利なし",
+            "2026-07-25 平均・偏りなしで明確な展開利不利なし",
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 70,
+          "shadowTm": 70,
+          "tmDelta": 0
+        },
+        {
+          "number": 14,
+          "name": "サトノクローク",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-07-25 平均・偏りなしで明確な展開利不利なし",
+            "2026-06-20 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 15,
+          "name": "ベトルス",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-14 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0
+        },
+        {
+          "number": 16,
+          "name": "ロードガレリア",
+          "currentPace": 67,
+          "shadowPace": 66,
+          "paceAdjustment": -1,
+          "historyAdjustment": -1,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-06-21 前傾・差し決着の展開利を受けた好走",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 80,
+          "shadowTm": 80,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

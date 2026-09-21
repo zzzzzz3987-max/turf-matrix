@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-21T05:18:44.118Z",
+  "raceDate": "2026-09-21",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "2506ffa466a2d09f53b3d1d5914e17fa92915cd9d76d1e468de14b897351ae88",
+    "raceCount": 12,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-5afd10e607490d5a",
+      "sha256": "5afd10e607490d5a6597390b0a0752339bdd824f28c160a1b227c1d87df9a9aa",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-f84fed7bc6160814",
+      "sha256": "f84fed7bc61608147543c9ae5949ab2afe981af347566c26c3edd8b24064be9a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "b67094adb7a6c35b809914746e5b016d63a743d6f99b9606e44235c743694ac9",
+  "baseline": {
+    "date": "2026-09-21",
+    "raceId": "2026-09-21-阪神-9R",
+    "bundleId": "2026-09-21-hanshin-09R",
+    "track": "阪神",
+    "raceNumber": 9,
+    "raceName": "新涼特別",
+    "scheduledTime": "14:25",
+    "axis": {
+      "number": 12,
+      "name": "ピカラ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "ポートデラメール",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "アンビシャスヨシノ",
+        "tmIndex": 75,
+        "selectionScore": 68.25
+      }
+    ],
+    "indexGap": 6,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 79.3,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 6,
+        "gapStrength": 86,
+        "axisCore": 70.5,
+        "conditionFit": 84,
+        "opponentDepth": 72.5
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-21",
+    "raceId": "2026-09-21-阪神-9R",
+    "bundleId": "2026-09-21-hanshin-09R",
+    "track": "阪神",
+    "raceNumber": 9,
+    "raceName": "新涼特別",
+    "scheduledTime": "14:25",
+    "axis": {
+      "number": 12,
+      "name": "ピカラ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "ポートデラメール",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "アンビシャスヨシノ",
+        "tmIndex": 75,
+        "selectionScore": 68.25
+      }
+    ],
+    "indexGap": 6,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 79.3,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 6,
+        "gapStrength": 86,
+        "axisCore": 70.5,
+        "conditionFit": 84,
+        "opponentDepth": 72.5
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-阪神-9R",
+      "bundleId": "2026-09-21-hanshin-09R",
+      "track": "阪神",
+      "raceNumber": 9,
+      "raceName": "新涼特別",
+      "scheduledTime": "14:25",
+      "axis": {
+        "number": 12,
+        "name": "ピカラ",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 3,
+          "name": "ポートデラメール",
+          "tmIndex": 76,
+          "selectionScore": null
+        },
+        {
+          "number": 13,
+          "name": "アンビシャスヨシノ",
+          "tmIndex": 75,
+          "selectionScore": 68.25
+        }
+      ],
+      "indexGap": 6,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 79.3,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 6,
+          "gapStrength": 86,
+          "axisCore": 70.5,
+          "conditionFit": 84,
+          "opponentDepth": 72.5
+        }
+      }
+    }
+  ]
+}

@@ -222,25 +222,41 @@ const calculateAbilityProfile = (horse, { includeDistanceFit = true, sparseOppon
     : null;
   const trendScore = trendQuality(comparableRuns, targetDistance);
 
-  const score = ziScore == null
-    ? clamp(weightedAverage([
-        { value: recentScore, weight: 0.46 },
-        { value: effectiveRelationScore, weight: 0.27 },
-        { value: trendScore, weight: trendScore == null ? 0 : 0.12 },
-        { value: marginScore, weight: marginScore == null ? 0 : 0.08 },
-        { value: closingScore, weight: closingScore == null ? 0 : 0.07 },
-      ], 50))
-    : clamp(weightedAverage([
-        { value: ziScore, weight: 0.38 },
-        { value: recentScore, weight: 0.27 },
-        { value: effectiveRelationScore, weight: 0.18 },
-        { value: trendScore, weight: trendScore == null ? 0 : 0.07 },
-        { value: marginScore, weight: marginScore == null ? 0 : 0.05 },
-        { value: closingScore, weight: closingScore == null ? 0 : 0.05 },
-      ]));
+  const scoreInputs = ziScore == null
+    ? [
+        { key: "recent", label: "近走能力", value: recentScore, weight: 0.46 },
+        { key: "relations", label: "相手関係", value: effectiveRelationScore, weight: 0.27 },
+        { key: "trend", label: "能力推移", value: trendScore, weight: trendScore == null ? 0 : 0.12 },
+        { key: "margin", label: "着差", value: marginScore, weight: marginScore == null ? 0 : 0.08 },
+        { key: "closing", label: "上がり", value: closingScore, weight: closingScore == null ? 0 : 0.07 },
+      ]
+    : [
+        { key: "zi", label: "ZI", value: ziScore, weight: 0.38 },
+        { key: "recent", label: "近走能力", value: recentScore, weight: 0.27 },
+        { key: "relations", label: "相手関係", value: effectiveRelationScore, weight: 0.18 },
+        { key: "trend", label: "能力推移", value: trendScore, weight: trendScore == null ? 0 : 0.07 },
+        { key: "margin", label: "着差", value: marginScore, weight: marginScore == null ? 0 : 0.05 },
+        { key: "closing", label: "上がり", value: closingScore, weight: closingScore == null ? 0 : 0.05 },
+      ];
+  const validScoreInputs = scoreInputs.filter((item) => Number.isFinite(item.value) && item.weight > 0);
+  const scoreWeight = validScoreInputs.reduce((sum, item) => sum + item.weight, 0);
+  const scoreBeforeClamp = weightedAverage(validScoreInputs, 50);
+  const score = clamp(scoreBeforeClamp);
 
   return {
     score,
+    calculation: {
+      components: validScoreInputs.map((item) => ({
+        key: item.key,
+        label: item.label,
+        score: item.value,
+        share: scoreWeight ? item.weight / scoreWeight : 0,
+        contribution: scoreWeight ? item.value * item.weight / scoreWeight : 0,
+      })),
+      beforeClamp: scoreBeforeClamp,
+      finalScore: score,
+      ziIncluded: ziScore != null,
+    },
     confidence: confidenceForRuns(runs.length, ziScore != null, centralRuns.length, localRuns.length),
     runCount: runs.length,
     centralRunCount: centralRuns.length,

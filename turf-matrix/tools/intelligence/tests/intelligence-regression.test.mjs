@@ -137,6 +137,14 @@ test("Stage 1.5 analysis produces readable evidence for each core module", () =>
   assert.ok(result.analysis.factorsDetail.pace.summary.includes("傾向"));
   assert.ok(result.analysis.factorsDetail.value.summary.includes("単勝"));
   assert.ok(result.analysis.indexContributions.length >= 3);
+  assert.equal(result.analysis.indexCalculation.rawIndex, result.analysis.rawTmIndex);
+  assert.equal(result.analysis.indexCalculation.finalIndex, result.tmIndex);
+  assert.ok(Number.isFinite(result.analysis.factorsDetail.course.components.sameCourse.score));
+  assert.ok(Number.isFinite(result.analysis.factorsDetail.training.calculation.baseScore));
+  assert.ok(Number.isFinite(result.analysis.factorsDetail.blood.calculation.baseScore));
+  assert.ok(result.analysis.factorsDetail.ability.calculation.components.length > 0);
+  assert.ok(Number.isFinite(result.analysis.factorsDetail.form.calculation.finalScore));
+  assert.ok(Number.isFinite(result.analysis.factorsDetail.pace.calculation.finalScore));
 });
 
 test("missing training evidence is neutral and excluded from TM INDEX", () => {

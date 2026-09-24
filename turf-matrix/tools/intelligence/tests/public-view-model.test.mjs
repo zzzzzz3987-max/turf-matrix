@@ -14,12 +14,137 @@ import {
   isPublicFactorEvaluated,
   publicScoreBand,
   publicTrainingHeadline,
+  publicFactorExplanation,
   sanitizePublicText,
 } from "../../../src/lib/public-view-model.js";
 import {
   selectPublicValueEvidenceHorse,
   selectPublicValueHorse,
 } from "../../../src/lib/public-role-selection.js";
+
+test("factor explanations describe the evidence and remove scoring formulas", () => {
+  const course = publicFactorExplanation({ key: "course", components: {
+    sameCourse: { score: 72, count: 2 },
+    sameSurface: { score: 68, count: 5 },
+    courseType: { score: 70, count: 8 },
+  } });
+  assert.match(course, /今回と同じコースを2走/);
+  assert.match(course, /同じ芝・ダートを5走/);
+  assert.doesNotMatch(course, /%|点/);
+
+  const blood = publicFactorExplanation({ key: "blood", calculation: {
+    baseScore: 70, statisticsAdjustment: 2, individualProfileAdjustment: -1,
+  } });
+  assert.match(blood, /父・母父の特徴/);
+  assert.match(blood, /今回の距離・コース・馬場/);
+
+  const training = publicFactorExplanation({ key: "training", calculation: {
+    baseScore: 74, stablePatternAdjustment: 1, goodRunAdjustment: 0, videoAdjustment: 3,
+  } });
+  assert.match(training, /最終追い切りと一週前の内容/);
+  assert.match(training, /時計・ラップ・本数/);
+
+  const trainingWeights = publicFactorExplanation({ key: "training", calculation: {
+    baseScore: 71, stablePatternAdjustment: 0, goodRunAdjustment: 0, videoAdjustment: 0,
+  }, components: { phaseQuality: 75, recentBest: 70, consistency: 68, volume: 60, freshness: 80 } });
+  assert.match(trainingWeights, /最終追い切りと一週前の内容/);
+  assert.doesNotMatch(trainingWeights, /62%|6%/);
+
+  const load = publicFactorExplanation({ key: "load", status: "active", score: 71, adjustment: 1, relativeKg: -0.5 });
+  assert.match(load, /基準より0.5kg軽く/);
+  assert.match(load, /過去の負担実績も踏まえてプラス評価/);
+  assert.doesNotMatch(load, /65＋補正/);
+  const bias = publicFactorExplanation({ key: "trackBias", status: "pending" });
+  assert.match(bias, /当日のレース傾向がまだ分からない/);
+  assert.doesNotMatch(bias, /指数補正|Evidence|Confidence/);
+  const distance = publicFactorExplanation({
+    key: "distance",
+    summary: "1800mは非根幹距離。前走1600mから200m延長。",
+    evidence: ["1800m前後の経験 8走"],
+    components: {
+      proximity: { score: 74 },
+      cadence: { adjustment: 2, sampleCount: 6 },
+      direction: { adjustment: 2, label: "延長への好材料あり" },
+    },
+  });
+  assert.match(distance, /1800m前後を8走経験/);
+  assert.match(distance, /距離変更（延長）への対応もプラス材料/);
+  assert.doesNotMatch(distance, /非根幹|\+2点|延長への好材料あり/);
+});
+
+test("full course explanation leads with scored race-record evidence, not venue copy", () => {
+  const horse = {
+    currentRace: { course: "中山", surface: "ダ", distance: 1800 },
+    analysis: { course: { geometryFit: { label: "右回り・内回り・短い直線・急坂", scoreConnected: false } } },
+    pastRuns: [
+      { course: "中山", surface: "ダ", distance: 1800, finishPosition: 2 },
+      { course: "中山", surface: "芝", distance: 1800, finishPosition: 1 },
+      { course: "東京", surface: "ダ", distance: 1700, finishPosition: 3 },
+      { course: "東京", surface: "ダ", distance: 1600, finishPosition: 4 },
+      { course: "中京", surface: "ダ", distance: 1800, finishPosition: 2 },
+    ],
+  };
+  const text = publicFactorExplanation({ key: "course", score: 71 }, { horse });
+  assert.match(text, /このコース点には、同コース・同じダート・坂コースでの着順と着差/);
+  assert.match(text, /同じダート4走で3着以内3回・坂コース（中山・中京）3走で3着以内3回/);
+  assert.match(text, /中山での直接実績は2走、3着以内2回/);
+  assert.match(text, /コース点には加えていません/);
+  assert.doesNotMatch(text, /今回の舞台は/);
+  assert.doesNotMatch(text, /1800m前後/);
+});
+
+test("full blood explanation connects sire traits to samples without overstating them", () => {
+  const horse = {
+    currentRace: { surface: "ダ", distance: 1800 },
+    analysis: { pedigree: {
+      identity: { sire: "父名", broodmareSire: "母父名" },
+      sireProfile: { traits: ["持続力", "中距離性能"] },
+      broodmareSireProfile: { traits: ["瞬発力", "スピード"] },
+      statistics: [
+        { entityType: "sire", name: "父名", sampleSize: 4, uniqueHorseCount: 2, top3: 3, hitRate: 0.75,
+          horseContributions: { A: { sampleSize: 3 } } },
+        { entityType: "broodmareSire", name: "母父名", sampleSize: 20, uniqueHorseCount: 8, top3: 7, hitRate: 0.35 },
+      ],
+      componentDetails: { goingFit: { status: "reference_only", label: "重への血統適合" } },
+    } },
+  };
+  const text = publicFactorExplanation({ key: "blood" }, { horse });
+  assert.match(text, /父父名は持続力・中距離性能が持ち味/);
+  assert.match(text, /母父母父名は瞬発力・スピードで補います/);
+  assert.match(text, /4走・2頭、3着以内3回（複勝率75%）/);
+  assert.match(text, /一頭の成績に偏るため参考扱い/);
+  assert.match(text, /重馬場への血統適性は裏づけデータがなく、中立扱い/);
+});
+
+test("ability, recent-form, and pace explanations stay specific without exposing formulas", () => {
+  const ability = publicFactorExplanation({ key: "ability", components: [], calculation: { components: [
+    { key: "distance", label: "距離一致", score: 80, share: 0.38, contribution: 30.4 },
+    { key: "peer", label: "同走馬", score: 54, share: 0.27, contribution: 18.9 },
+  ] } });
+  assert.match(ability, /今回に近い距離の実績が強み/);
+  assert.match(ability, /直接対戦の内容は控えめ/);
+  assert.doesNotMatch(ability, /構成比|%|点×/);
+
+  const form = publicFactorExplanation({ key: "form", calculation: {
+    centralScore: 72, localScore: 60, runs: [{
+      text: "中山記念",
+      weightedScore: 75,
+      classAdjustment: 5,
+      distanceAdjustment: 4,
+      components: { finish: 80, margin: 74, closing: 70 },
+    }],
+  } });
+  assert.match(form, /評価材料は「中山記念」/);
+  assert.doesNotMatch(form, /平均72|85%|着順80点/);
+
+  const pace = publicFactorExplanation({ key: "pace", calculation: {
+    method: "想定ペースとの脚質相性", expectedPace: "ハイ", style: "差し",
+    paceAdjustment: 4, courseAdjustment: 2,
+  } });
+  assert.match(pace, /ハイペース想定/);
+  assert.match(pace, /展開面でプラス/);
+  assert.doesNotMatch(pace, /基準72|補正\+4点/);
+});
 
 const raceHorse = ({ id, name, number, score, popularity, factors = {}, value }) => ({
   id,
@@ -50,13 +175,13 @@ test("score bands and condition labels share one public scale", () => {
   assert.equal(publicConditionFit(82), "非常に合う");
 });
 
-test("training headline explains a positive final work inside a standard total", () => {
+test("training headline clarifies the role of each workout", () => {
   const result = publicTrainingHeadline({
     grade: "C",
     details: { final: { score: 76 } },
   });
 
-  assert.equal(result, "最終追い切りは良好。調教全体は標準評価です。");
+  assert.equal(result, "調教全体は標準。最終追い切りを含む調整過程と、時計・ラップ・本数を合わせて評価しています。");
 });
 
 test("stable pattern public view explains sample, hit rate, and stable baseline difference", () => {
@@ -139,7 +264,7 @@ test("pedigree breakdown turns component scores into readable drill-down rows", 
     { label: "複勝率", value: "56.5%" },
   ]);
   assert.deepEqual(result[0].sections.map((section) => section.label), ["父のタイプ", "父側の3代構成", "今回条件で見る点", "産駒成績", "点数の見方", "慎重に見る点"]);
-  assert.match(result[0].sections.find((section) => section.label === "父のタイプ")?.text ?? "", /高速馬場と瞬発力/);
+  assert.match(result[0].sections.find((section) => section.label === "父のタイプ")?.text ?? "", /高速馬場・瞬発力/);
   assert.match(result[0].sections.find((section) => section.label === "慎重に見る点")?.text ?? "", /消耗戦/);
   assert.match(result[2].summary, /1000m|スピード83/);
   assert.deepEqual(result[2].metrics, [

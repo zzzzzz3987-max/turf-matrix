@@ -35,6 +35,18 @@ test("local race rows are detected without changing their display data", () => {
   assert.equal(isLocalRun(centralRun()), false);
 });
 
+test("index contributions expose baseline and renormalized effective weights", () => {
+  const rows = buildIndexContributions({ ability: 80, form: 70, distance: 60 }, { category: "normal" });
+  const ability = rows.find((row) => row.key === "ability");
+  const form = rows.find((row) => row.key === "form");
+  const distance = rows.find((row) => row.key === "distance");
+  assert.equal(ability.weight, 0.27);
+  assert.equal(ability.normalizedWeight, 0.458);
+  assert.equal(form.normalizedWeight, 0.339);
+  assert.equal(distance.normalizedWeight, 0.203);
+  assert.ok(Math.abs(ability.normalizedContribution - 36.610169) < 0.000001);
+});
+
 test("local wins supplement but do not replace central ability evidence", () => {
   const central = [
     centralRun({ finishPosition: 10, margin: 3.3 }),

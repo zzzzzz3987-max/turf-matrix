@@ -1,4 +1,13 @@
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const numericValue = (value) => {
+  if (value == null || (typeof value === "string" && !value.trim())) return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+};
+const validCarriedWeight = (value) => {
+  const weight = numericValue(value);
+  return weight != null && weight >= 30 && weight <= 80 ? weight : null;
+};
 
 // JRA weight-for-age allowances for open-class flat races. Values in
 // parentheses on the official table are used for non-open races.
@@ -66,8 +75,8 @@ const sexAllowanceKg = (sex, age, raceDate) => {
 
 const equivalentLoadKg = (horse, race = {}) => {
   const current = horse.currentRace ?? horse;
-  const carriedWeight = Number(horse.carriedWeight ?? current.carriedWeight);
-  if (!Number.isFinite(carriedWeight)) return null;
+  const carriedWeight = validCarriedWeight(horse.carriedWeight ?? current.carriedWeight);
+  if (carriedWeight == null) return null;
   const age = Number(horse.age ?? current.age);
   const sex = horse.sex ?? current.sex;
   const raceDate = race.raceDate ?? race.date ?? current.raceDate;
@@ -115,47 +124,50 @@ const buildRaceLoadContext = (horses = [], race = {}) => {
 
 const comparableLoadSuccesses = (horse) => {
   const current = horse.currentRace ?? {};
-  const targetDistance = Number(current.distance);
-  const currentWeight = Number(current.carriedWeight ?? horse.carriedWeight);
-  if (!Number.isFinite(targetDistance) || !Number.isFinite(currentWeight)) return [];
+  const targetDistance = numericValue(current.distance);
+  const currentWeight = validCarriedWeight(current.carriedWeight ?? horse.carriedWeight);
+  if (targetDistance == null || targetDistance <= 0 || currentWeight == null) return [];
   return (horse.pastRuns ?? []).filter((run) => (
-    Number(run.finishPosition) > 0
-    && Number(run.finishPosition) <= 3
-    && Number.isFinite(Number(run.carriedWeight))
-    && Number(run.carriedWeight) >= currentWeight - 0.5
+    Number.isInteger(numericValue(run.finishPosition))
+    && numericValue(run.finishPosition) >= 1
+    && numericValue(run.finishPosition) <= 3
+    && validCarriedWeight(run.carriedWeight) != null
+    && validCarriedWeight(run.carriedWeight) >= currentWeight - 0.5
     && (!current.surface || run.surface === current.surface)
-    && Number.isFinite(Number(run.distance))
-    && Math.abs(Number(run.distance) - targetDistance) <= 200
+    && numericValue(run.distance) != null
+    && numericValue(run.distance) > 0
+    && Math.abs(numericValue(run.distance) - targetDistance) <= 200
   ));
 };
 
 const loadRunQuality = (run) => {
-  const finish = Number(run?.finishPosition);
-  const fieldSize = Number(run?.fieldSize) || 16;
-  if (!Number.isFinite(finish) || finish <= 0) return null;
+  const finish = numericValue(run?.finishPosition);
+  const suppliedFieldSize = numericValue(run?.fieldSize);
+  const fieldSize = suppliedFieldSize != null && Number.isInteger(suppliedFieldSize) && suppliedFieldSize > 0 ? suppliedFieldSize : 16;
+  if (finish == null || !Number.isInteger(finish) || finish <= 0 || finish > fieldSize) return null;
   const finishScore = ((fieldSize - Math.min(finish, fieldSize) + 1) / fieldSize) * 100;
-  const margin = Number(run?.margin);
-  const marginScore = Number.isFinite(margin) ? 74 - margin * 18 : 60;
+  const margin = numericValue(run?.margin);
+  const marginScore = margin != null && margin >= 0 && margin <= 20 ? 74 - margin * 18 : 60;
   return clamp(finishScore * 0.6 + marginScore * 0.4, 35, 96);
 };
 
 const buildLoadToleranceProfile = (horse) => {
   const current = horse.currentRace ?? {};
-  const currentWeight = Number(current.carriedWeight ?? horse.carriedWeight);
-  const targetDistance = Number(current.distance);
-  if (!Number.isFinite(currentWeight)) {
+  const currentWeight = validCarriedWeight(current.carriedWeight ?? horse.carriedWeight);
+  const targetDistance = numericValue(current.distance);
+  if (currentWeight == null) {
     return { status: "missing", score: null, adjustment: 0, sampleCount: 0, maxPastWeight: null, runs: [] };
   }
   const targetSurface = current.surface;
   const runs = (horse.pastRuns ?? [])
-    .filter((run) => Number.isFinite(Number(run.carriedWeight)))
+    .filter((run) => validCarriedWeight(run.carriedWeight) != null)
     .filter((run) => !targetSurface || run.surface === targetSurface)
-    .filter((run) => !Number.isFinite(targetDistance) || !Number.isFinite(Number(run.distance)) || Math.abs(Number(run.distance) - targetDistance) <= 400)
+    .filter((run) => targetDistance == null || targetDistance <= 0 || (numericValue(run.distance) != null && numericValue(run.distance) > 0 && Math.abs(numericValue(run.distance) - targetDistance) <= 400))
     .map((run, index) => ({ ...run, quality: loadRunQuality(run), recencyWeight: Math.max(0.65, 1 - index * 0.06) }))
     .filter((run) => Number.isFinite(run.quality))
     .slice(0, 10);
-  const maxPastWeight = runs.length ? Math.max(...runs.map((run) => Number(run.carriedWeight))) : null;
-  const comparable = runs.filter((run) => Number(run.carriedWeight) >= currentWeight - 0.5);
+  const maxPastWeight = runs.length ? Math.max(...runs.map((run) => validCarriedWeight(run.carriedWeight))) : null;
+  const comparable = runs.filter((run) => validCarriedWeight(run.carriedWeight) >= currentWeight - 0.5);
   const totalWeight = comparable.reduce((sum, run) => sum + run.recencyWeight, 0);
   const observed = totalWeight
     ? comparable.reduce((sum, run) => sum + run.quality * run.recencyWeight, 0) / totalWeight
@@ -178,7 +190,7 @@ const buildLoadToleranceProfile = (horse) => {
     runs: comparable.map((run) => ({
       date: run.date ?? null,
       distance: Number(run.distance) || null,
-      carriedWeight: Number(run.carriedWeight),
+      carriedWeight: validCarriedWeight(run.carriedWeight),
       finishPosition: Number(run.finishPosition),
       quality: run.quality,
     })),
@@ -198,8 +210,8 @@ const buildLoadAnalysis = (horse, context = {}) => {
     openClass: context.load?.openClass,
   };
   const load = equivalentLoadKg(horse, race);
-  const fieldMedian = Number(context.load?.medianEquivalentWeight);
-  if (!load || !Number.isFinite(fieldMedian)) {
+  const fieldMedian = validCarriedWeight(context.load?.medianEquivalentWeight);
+  if (!load || fieldMedian == null) {
     return {
       key: "load",
       label: "斤量",

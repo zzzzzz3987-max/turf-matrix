@@ -1,0 +1,3149 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-22T17:21:23.758Z",
+  "scope": "Read-only production payload audit plus local-code probes. Runner hashes do not prove deployed frontend code identity. Synthetic probes do not establish affected live horses.",
+  "live": {
+    "manifest": {
+      "schemaVersion": 1,
+      "version": "8598c6e5061fc67e",
+      "weekDataUrl": "/live/week-data.json?v=8598c6e5061fc67e",
+      "allRaceSignalsUrl": "/live/all-race-signals.json?v=8598c6e5061fc67e"
+    },
+    "weekSha256": "c24f356b8184d0106efe683aac5e30478b79492bfc9eaeacf57c579f826fa7f0",
+    "signalsSha256": "140a67a00eda01e9316740379a5404afa6faa0dea0d9d5355ee14d21e39da8a7",
+    "meta": {
+      "date": "2026-09-22",
+      "dateLabel": "2026-09-22",
+      "venue": "中山",
+      "dataStatus": "odds-ready",
+      "source": "target-frontier-jv-race-batch",
+      "featuredRaceId": "2026-09-22-中山-9R",
+      "oddsUpdatedAt": "2026-09-22T05:43:00.000Z",
+      "oddsStatus": "active",
+      "engineFingerprint": {
+        "schemaVersion": 2,
+        "id": "tmx-5afd10e607490d5a",
+        "sha256": "5afd10e607490d5a6597390b0a0752339bdd824f28c160a1b227c1d87df9a9aa",
+        "fileCount": 114
+      },
+      "contextPreview": false,
+      "closingReference": {
+        "rows": 0,
+        "policy": "closing-context-v1",
+        "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "raceShapeHistory": {
+        "status": "active",
+        "raceCount": 911,
+        "generatedAt": "2026-09-15T08:01:53.510Z"
+      },
+      "previewMode": false,
+      "version": "beta"
+    },
+    "signalDate": "2026-09-22",
+    "signalRaceCount": 12,
+    "diagnosis": {
+      "races": 3,
+      "horses": 43,
+      "replayed": 43,
+      "trainingMissing": 0,
+      "trainingPartial": 1,
+      "trackBiasMonitoring": 0,
+      "otherSurfaceSameCourseHorses": 8,
+      "formCandidateChanges": 43,
+      "courseCandidateChanges": 11,
+      "unassessedNumericFactors": 43,
+      "publicStrengthErrors": 0,
+      "errors": 0
+    },
+    "errors": [],
+    "factorStatuses": {
+      "ability": {
+        "active": 43
+      },
+      "form": {
+        "active": 43
+      },
+      "distance": {
+        "active": 43
+      },
+      "course": {
+        "active": 43
+      },
+      "training": {
+        "active": 42,
+        "partial": 1
+      },
+      "blood": {
+        "active": 26,
+        "partial": 17
+      },
+      "pace": {
+        "active": 43
+      },
+      "trackBias": {
+        "missing": 43
+      },
+      "stable": {
+        "active": 43
+      }
+    },
+    "missingCurrentWeights": [],
+    "incompleteHistoricalResults": [],
+    "closingBenchmarks": {
+      "missing": 782
+    },
+    "videoReviewCount": 0
+  },
+  "localVideoPolicy": {
+    "scoringEnabled": false,
+    "maxAdjustment": 2,
+    "dimensions": [
+      "rhythm",
+      "straightness",
+      "response",
+      "finish",
+      "balance"
+    ]
+  },
+  "files": [
+    {
+      "path": "tools/intelligence/index.mjs",
+      "localSha": "66cf94862c933cc028e6a4975103a7217895206f68bcc7f5d212b76b69313126",
+      "runnerSha": "80bd277e089f862ec184fd9f12ecba0d3204b94d8334706d122a8ee5364603b6",
+      "localTextSha": "0a6ecf31eb600d7e3fc4672695162a85d7bf9b5eba58ede4d49ef7c1207696c8",
+      "runnerTextSha": "0a6ecf31eb600d7e3fc4672695162a85d7bf9b5eba58ede4d49ef7c1207696c8",
+      "equal": true
+    },
+    {
+      "path": "tools/intelligence/form-ai.mjs",
+      "localSha": "a82f112ac4b2d77dfe014187065986cac556b3f3750dbc62d40da4cf6a3815c1",
+      "runnerSha": "e95dee5026d368e218f24b1077523e265b04a36b0dfa4dcf8d0f2af5592fa50c",
+      "localTextSha": "7611a8f03de96fadb2dc9c041e0f54123ba3ec51f62b7dad7e74d1c2a28a6ef3",
+      "runnerTextSha": "7611a8f03de96fadb2dc9c041e0f54123ba3ec51f62b7dad7e74d1c2a28a6ef3",
+      "equal": true
+    },
+    {
+      "path": "tools/intelligence/course-ai.mjs",
+      "localSha": "beec6daa701d2d9d6d4c03be766c85ec54ce7d9be1a0bff2f9e394f12915fb8c",
+      "runnerSha": "43f5df70c92f084b524f43dd32d6b82936ea50a440a15564766b382dc0ed8d02",
+      "localTextSha": "beec6daa701d2d9d6d4c03be766c85ec54ce7d9be1a0bff2f9e394f12915fb8c",
+      "runnerTextSha": "beec6daa701d2d9d6d4c03be766c85ec54ce7d9be1a0bff2f9e394f12915fb8c",
+      "equal": true
+    },
+    {
+      "path": "tools/intelligence/training-ai.mjs",
+      "localSha": "5251fb7ab9e0a993b42d88eae7e06b56092de4dbebed270d4646b4d065f75eba",
+      "runnerSha": "238ad4908470fbb80730735f905bff1fecc4ce1e8536404aa13bec10be9d79c7",
+      "localTextSha": "5251fb7ab9e0a993b42d88eae7e06b56092de4dbebed270d4646b4d065f75eba",
+      "runnerTextSha": "6dbe817426e190cbaf2c0dbe285eca40f27f4a7278c9c4e2fc4271bc8e234ea5",
+      "equal": false
+    },
+    {
+      "path": "tools/intelligence/going-adjustment.mjs",
+      "localSha": "e73b7b19ffa0ad765ff0820f2ac8277bc7b328b8224783a7989491bcff55ca18",
+      "runnerSha": "0f5f9612adb8ef409f90ceb1bea2fcb0f5a148e74fe6b14a72f8e23286bade07",
+      "localTextSha": "e73b7b19ffa0ad765ff0820f2ac8277bc7b328b8224783a7989491bcff55ca18",
+      "runnerTextSha": "e73b7b19ffa0ad765ff0820f2ac8277bc7b328b8224783a7989491bcff55ca18",
+      "equal": true
+    },
+    {
+      "path": "tools/intelligence/load-ai.mjs",
+      "localSha": "3b4a72619e9e232f77659ddfee5424d7210d37788ab7681c8496b191afad5eed",
+      "runnerSha": "e68dcbf1253e6bc669813c252ea3e29aa362fb8b0257f72c4b5fa8288397592b",
+      "localTextSha": "3b4a72619e9e232f77659ddfee5424d7210d37788ab7681c8496b191afad5eed",
+      "runnerTextSha": "3b4a72619e9e232f77659ddfee5424d7210d37788ab7681c8496b191afad5eed",
+      "equal": true
+    },
+    {
+      "path": "tools/intelligence/value-ai.mjs",
+      "localSha": "040b12e919a1e18f9055dc22ab4e5b24d243640a6de035420f5abf962fbe8bf0",
+      "runnerSha": "9f21fa9f0de0e0b126ac1d4b1f817ae29d0972e5f5e9c2173e07c9d74ffcb375",
+      "localTextSha": "040b12e919a1e18f9055dc22ab4e5b24d243640a6de035420f5abf962fbe8bf0",
+      "runnerTextSha": "040b12e919a1e18f9055dc22ab4e5b24d243640a6de035420f5abf962fbe8bf0",
+      "equal": true
+    },
+    {
+      "path": "src/lib/public-role-selection.js",
+      "localSha": "9a5ae85e81b348feb1277f317888fe094a5d7a3e46a5d583101e256b7ce70e8a",
+      "runnerSha": "5c876b265760d7250f5916271798ca455bfc7b17241da89f73e6d322f34ba96e",
+      "localTextSha": "9a5ae85e81b348feb1277f317888fe094a5d7a3e46a5d583101e256b7ce70e8a",
+      "runnerTextSha": "3b060958571d3616bad6be507c74c83bf30736a2617e23889dcf23c3668191b6",
+      "equal": false
+    },
+    {
+      "path": "src/data/live-data-refresh.js",
+      "localSha": "acc135a67cd5ae96187d597e866304b98441e69a41aec293627f07e9ffeb4cc5",
+      "runnerSha": "78d0c8fbcae242ecfa2a113f1dec449d332f80bf56e6eb0a3c5257cfad8c220e",
+      "localTextSha": "acc135a67cd5ae96187d597e866304b98441e69a41aec293627f07e9ffeb4cc5",
+      "runnerTextSha": "acc135a67cd5ae96187d597e866304b98441e69a41aec293627f07e9ffeb4cc5",
+      "equal": true
+    },
+    {
+      "path": "tools/public-battle-ticket-plan.mjs",
+      "localSha": "8db83abc32e03b62a9e82695580e34f9fce678644228ec64fb7148debfb6c9b4",
+      "runnerSha": "8db83abc32e03b62a9e82695580e34f9fce678644228ec64fb7148debfb6c9b4",
+      "localTextSha": "8db83abc32e03b62a9e82695580e34f9fce678644228ec64fb7148debfb6c9b4",
+      "runnerTextSha": "8db83abc32e03b62a9e82695580e34f9fce678644228ec64fb7148debfb6c9b4",
+      "equal": true
+    },
+    {
+      "path": "tools/auto-odds-update.mjs",
+      "localSha": "91c8ac07a5c1ec38a95d7545bb899f9f4b49d80f8952aaa1990f3b3868de571e",
+      "runnerSha": "91c8ac07a5c1ec38a95d7545bb899f9f4b49d80f8952aaa1990f3b3868de571e",
+      "localTextSha": "28654b12fd967c5d7cd2aeeec3b3785ae4321eb973c8df1dde524b64efdd1e1b",
+      "runnerTextSha": "28654b12fd967c5d7cd2aeeec3b3785ae4321eb973c8df1dde524b64efdd1e1b",
+      "equal": true
+    }
+  ],
+  "probes": {
+    "mismatchedLivePayload": {
+      "accepted": true,
+      "weekDate": "2026-09-22",
+      "signalsDate": "2026-09-21",
+      "weekRaceCount": 0
+    },
+    "missingGoingInputs": {
+      "key": "goingAdjustment",
+      "label": "馬場適性補正",
+      "going": "重・不良",
+      "surface": "芝",
+      "adjustment": 2,
+      "relevantRunCount": 3,
+      "goodRunCount": 1,
+      "rawDifference": 43,
+      "shrinkFactor": 0.65,
+      "evidence": [
+        "芝重・不良 3走・平均着差 0.00秒",
+        "良馬場 1走・平均着差 2.00秒",
+        "サンプル収縮係数 0.65"
+      ],
+      "status": "active",
+      "summary": "芝重・不良3走と良馬場1走を同馬内で比較し、プラス補正+2。"
+    },
+    "missingLoad": {
+      "key": "load",
+      "label": "斤量",
+      "score": 77,
+      "maxScore": 100,
+      "status": "active",
+      "adjustment": 2,
+      "carriedWeight": 0,
+      "ageAllowance": 0,
+      "sexAllowance": 0,
+      "equivalentWeight": 0,
+      "fieldMedianEquivalentWeight": 57,
+      "relativeKg": -57,
+      "comparableSuccessCount": 0,
+      "rawAdjustment": 2,
+      "provenLoadMitigation": 0,
+      "tolerance": {
+        "status": "missing",
+        "score": null,
+        "adjustment": 0,
+        "sampleCount": 0,
+        "maxPastWeight": null,
+        "currentWeight": 0,
+        "unprovenHigh": false,
+        "runs": []
+      },
+      "summary": "年齢・性別差の補正なし。実質負担0.0kgはレース中央値より57.0kg軽い。同等斤量の直接実績は限定的。TM INDEX +2点。",
+      "evidence": [
+        "今回斤量 0.0kg",
+        "年齢・性別基準換算 0.0kg / レース中央値 57.0kg",
+        "今回距離±200mで同等以上の斤量を背負った3着内 0走"
+      ]
+    },
+    "tiedValue": [
+      {
+        "number": 1,
+        "probability": 0.3333333333333333,
+        "ev": 1.3333333333333333,
+        "indexRank": 1,
+        "marketGap": 2,
+        "highlighted": true,
+        "stars": 4,
+        "verdict": {
+          "label": "妙味あり",
+          "tone": "blue"
+        },
+        "eligible": true,
+        "reasons": []
+      },
+      {
+        "number": 2,
+        "probability": 0.3333333333333333,
+        "ev": 1.3333333333333333,
+        "indexRank": 2,
+        "marketGap": 1,
+        "highlighted": false,
+        "stars": 4,
+        "verdict": {
+          "label": "参考",
+          "tone": "gray"
+        },
+        "eligible": false,
+        "reasons": [
+          "market_gap"
+        ]
+      },
+      {
+        "number": 3,
+        "probability": 0.3333333333333333,
+        "ev": 1.3333333333333333,
+        "indexRank": 3,
+        "marketGap": 0,
+        "highlighted": false,
+        "stars": 4,
+        "verdict": {
+          "label": "参考",
+          "tone": "gray"
+        },
+        "eligible": false,
+        "reasons": [
+          "market_gap"
+        ]
+      }
+    ]
+  },
+  "diagnosisRows": [
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 1,
+      "name": "コンアフェット",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.6436004419336,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 2,
+      "name": "ヴァズレーヌ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 53,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.90008274022745,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 3,
+      "name": "パースウェイド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.8935029325468,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 4,
+      "name": "エアトベーレ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.91021534159219,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 5,
+      "name": "サファイアテソーロ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.53353930718421,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 6,
+        "courseSameSurface": 11
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 6,
+      "name": "フィールオーサム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.488005775507,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 7,
+      "name": "コパノエビータ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 41,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.48734963690825,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 7,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 8,
+      "name": "カスバートテソーロ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 62.34780844367559,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 9,
+      "name": "ルージュマローネ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 37,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.17359361059707,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 7,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 10,
+      "name": "ヴァリオーサ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 49,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.22302918538118,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 11,
+      "name": "ロイスター",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.07667427199182,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 6,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 12,
+      "name": "レーヴドレフォン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 64.39289329519654,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 77,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 13,
+      "name": "セレーノ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.12721252699762,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 14,
+      "name": "ヴンダーバール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.64927804855641,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 15,
+      "name": "ステラスプレンダー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 38,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.76750566321941,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": -5
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-09R",
+      "number": 16,
+      "name": "ユーヴェリア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.01209361059708,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": -1
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 1,
+      "name": "フミサウンド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.36763998138753,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": -3
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 2,
+      "name": "レッドレナート",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 52,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 76,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.734978493034,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 8
+      },
+      "otherSurfaceSameCourseRuns": 4,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 3,
+      "name": "ジャルディニエ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "partial",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.01687849303401,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 4,
+      "name": "エリム",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 55,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.72967849303402,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 5,
+      "name": "デイトナチャンプ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.06820194854522,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 6,
+      "name": "セブンマイスター",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 53,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.72126223391086,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 7,
+      "name": "アロンソア",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.77957849303401,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 8,
+      "name": "ロゼル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 47,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.4329447609346,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 9,
+      "name": "アルデトップガン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.84009296944132,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": -11
+      },
+      "otherSurfaceSameCourseRuns": 2,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 10,
+      "name": "サヴァビアン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 40,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 51,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 46,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.73306023903528,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": -2
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-10R",
+      "number": 11,
+      "name": "プリムツァール",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 80,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.93252939009436,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 1,
+      "name": "マーシヴィガラス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 65.86191491867224,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 2,
+      "name": "キョウエイフロイデ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 64.9312550731288,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 4
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 3,
+      "name": "ディーズゴールド",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 79,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 82,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 65.21451534159219,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 12,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 4,
+      "name": "グレイテストソング",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 51,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.14252504047528,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 5,
+      "name": "サノノワンダー",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 87,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 68.42015647035348,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 6,
+      "name": "タンゴバイラリン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 43,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.78494627597061,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 3,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 7,
+      "name": "オレデイイノカ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 42,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 68.17709361059707,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 8,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 8,
+      "name": "ブロッケンボウ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 48,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 59,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 63.57930205427266,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": -7
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 9,
+      "name": "ラオラシオン",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.26569361059707,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 10,
+      "name": "ブルータス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 81,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.60561242840231,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 5
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 11,
+      "name": "ダカラフェスティヴ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 60,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 50,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 67,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 84,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 58,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.04384630883834,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 12,
+      "name": "リフレックス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 66,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 65,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 75,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.87559717092373,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 70,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 13,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 13,
+      "name": "ハッスルダンク",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 54,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 47,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 71,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.87871143763267,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 9,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 14,
+      "name": "レディーフランシス",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 57,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 78,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 89,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 62,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 66.01209361059708,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 11,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 15,
+      "name": "ゲキザル",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 49,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 68,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 63,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "partial",
+          "score": 67.85807209216578,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 72,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 0
+      },
+      "otherSurfaceSameCourseRuns": 0,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    },
+    {
+      "race": "2026-09-22-nakayama-11R",
+      "number": 16,
+      "name": "ルーラーリッチ",
+      "factors": {
+        "ability": {
+          "status": "active",
+          "score": 56,
+          "publiclyEvaluated": true
+        },
+        "form": {
+          "status": "active",
+          "score": 53,
+          "publiclyEvaluated": true
+        },
+        "distance": {
+          "status": "active",
+          "score": 61,
+          "publiclyEvaluated": true
+        },
+        "course": {
+          "status": "active",
+          "score": 69,
+          "publiclyEvaluated": true
+        },
+        "training": {
+          "status": "active",
+          "score": 64,
+          "publiclyEvaluated": true
+        },
+        "blood": {
+          "status": "active",
+          "score": 67.76160566321941,
+          "publiclyEvaluated": true
+        },
+        "pace": {
+          "status": "active",
+          "score": 73,
+          "publiclyEvaluated": true
+        },
+        "trackBias": {
+          "status": "missing",
+          "score": 65,
+          "publiclyEvaluated": false
+        },
+        "stable": {
+          "status": "active",
+          "score": 74,
+          "publiclyEvaluated": true
+        }
+      },
+      "indexReplay": {
+        "rawMatches": true,
+        "finalMatches": true
+      },
+      "candidateDifferences": {
+        "formWeightedAverage": 10,
+        "courseSameSurface": 2
+      },
+      "otherSurfaceSameCourseRuns": 1,
+      "unassessedNumericFactors": [
+        "trackBias"
+      ],
+      "unassessedFactorsExposedAsStrengths": [],
+      "trainingExcludedFromIndex": false
+    }
+  ]
+}

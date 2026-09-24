@@ -118,6 +118,25 @@ const buildAnalysis = (horse, suppliedContext) => {
     ? experienceAdjustedIndex - rawTmIndex
     : 0;
   const indexContributions = buildIndexContributions({ ability, form, distance, course, training: trainingForIndex, blood, pace }, context);
+  const indexCalculation = {
+    category: context?.category ?? "normal",
+    surface: context?.surface ?? null,
+    weightedAverage: indexContributions.length
+      ? Math.round(indexContributions.reduce((sum, row) => sum + row.normalizedContribution, 0) * 10) / 10
+      : null,
+    offset: 8,
+    rawIndex: rawTmIndex,
+    sampleAdjustment,
+    goingAdjustment,
+    loadAdjustment,
+    trackBiasAdjustment,
+    beforeFinalClamp: Number.isFinite(experienceAdjustedIndex)
+      ? experienceAdjustedIndex + goingAdjustment + loadAdjustment + trackBiasAdjustment
+      : null,
+    finalIndex: tmIndex,
+    lowerLimit: 45,
+    upperLimit: 92,
+  };
   const pedigreeAnalysis = buildPedigreeAnalysis(horse, blood, context);
   const bloodSummary = pedigreeAnalysis.headline;
   const trainingReadable = trainingAnalysis.count
@@ -155,6 +174,7 @@ const buildAnalysis = (horse, suppliedContext) => {
     valueAnalysis,
     stableAnalysis,
     indexContributions,
+    indexCalculation,
     dataQuality,
   });
 

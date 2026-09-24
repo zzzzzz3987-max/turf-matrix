@@ -7,6 +7,7 @@ import rolePerformance from "./data/public-role-performance.json";
 import { isValueSignalEv, isValueSignalMetrics } from "./lib/value-rules.js";
 import { buildPedigreeRaceEvidence } from "./lib/pedigree-race-evidence.js";
 import { buildAbilityPublicEvidence } from "./lib/ability-public-evidence.js";
+import { selectPublicFocusHorses, selectPublicRoleHorses } from "./lib/public-role-selection.js";
 import { buildPublicBattleTicketPlan } from "../tools/public-battle-ticket-plan.mjs";
 import {
   buildPedigreeFamilyPublicLines,
@@ -16,19 +17,23 @@ import {
   buildRacePublicConclusion,
   buildStablePatternPublicView,
   buildHorsePublicView as horseQuickRead,
+  buildHorseBrief,
+  buildIndexLeaderBrief,
   publicConditionFit,
   isPublicFactorEvaluated,
+  publicFactorExplanation,
   publicFactorSummary,
   publicHorseComment,
   publicScoreBand,
   publicTrainingGrade,
   publicTrainingHeadline,
+  sanitizePublicText,
   summarizePublicText,
 } from "./lib/public-view-model.js";
 import {
   Dumbbell, LayoutGrid, Dna, TrendingUp, Clock,
   ChevronDown, ChevronLeft, X, Star, ChevronRight,
-  Target, ShieldAlert, KeyRound,
+  ShieldAlert, KeyRound,
 } from "lucide-react";
 
 const EMBEDDED_DATA_VERSION = __TURF_MATRIX_DATA_VERSION__;
@@ -309,7 +314,10 @@ const adoptLiveData = ({ weekData, allRaceSignals }) => {
     previewMode: false,
     officialWeekData: weekData,
   });
-  WEEK_DATA_PROMISE = Promise.resolve(prepareWeekData(adaptedWeekData));
+  const preparedWeekData = prepareWeekData(adaptedWeekData);
+  const errors = validateWeekData(preparedWeekData);
+  if (errors.length) throw new Error(`Live week-data rejected: ${errors.join("; ")}`);
+  WEEK_DATA_PROMISE = Promise.resolve(preparedWeekData);
   currentAllRaceSignals = allRaceSignals;
 };
 
@@ -837,14 +845,16 @@ const StarRating = ({ value, size = 12, className = "" }) => (
 );
 const starText = (n) => "★".repeat(n) + "☆".repeat(5 - n);
 
-const TMFactorsCard = ({ analysis }) => {
+const TMFactorsCard = ({ analysis, tmIndex, horse }) => {
   const factorsDetail = analysis?.factorsDetail ?? {};
   const defs = [
-    ["ability", "能力"], ["blood", "血統"], ["training", "調教"],
-    ["course", "コース"], ["load", "斤量"], ["pace", "展開"],
-    ["trackBias", "馬場傾向"], ["stable", "厩舎"], ["form", "近走"],
+    ["ability", "能力"], ["form", "近走"], ["distance", "距離"],
+    ["course", "コース"], ["training", "調教"], ["blood", "血統"],
+    ["pace", "展開"], ["load", "斤量"],
+    ["trackBias", "馬場傾向"], ["stable", "厩舎・陣営"],
   ];
-  const factors = defs.map(([key, label]) => ({ key, label, ...(factorsDetail[key] ?? {}) }));
+  const factors = [...new Map(defs.map(([key, label]) => [key, { ...(factorsDetail[key] ?? {}), key, label }])).values()]
+    .map((factor) => ({ ...factor }));
   const visibleFactors = factors.filter(isPublicFactorEvaluated);
   const pendingFactors = factors.filter((factor) => factor.status && !isPublicFactorEvaluated(factor));
   if (!visibleFactors.length && !pendingFactors.length) return null;
@@ -858,6 +868,9 @@ const TMFactorsCard = ({ analysis }) => {
         </span>
         <ChevronDown size={15} className="text-slate-300 transition-transform group-open:rotate-180" />
       </summary>
+      <p className="border-y border-gray-100 bg-slate-50/70 px-3 py-3 text-[11px] leading-relaxed text-slate-600">
+        各項目は100点満点の評価です。TM INDEXは項目を組み合わせ、経験・馬場・斤量も加味した総合評価。勝率ではありません。
+      </p>
       <div className="border-t border-gray-100 md:grid md:grid-cols-2">
         {visibleFactors.map((factor) => (
           <div key={factor.key} className="border-b border-gray-100 py-3 md:px-3 md:[&:nth-child(odd)]:border-r">
@@ -869,9 +882,9 @@ const TMFactorsCard = ({ analysis }) => {
               <Num className="text-right text-[14px] font-bold text-slate-950">{displayFactorScore(factor.score)}</Num>
               <span className="text-right text-[10px] font-semibold text-slate-400">{publicScoreBand(factor.score).label}</span>
             </div>
-            {factor.summary ? (
+            {factor.summary || factor.evidence?.length ? (
               <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
-                {publicFactorSummary(factor.summary, 86)}
+                {publicFactorExplanation(factor, { horse }) ?? publicFactorSummary(factor.summary, 120)}
               </p>
             ) : null}
           </div>
@@ -910,42 +923,35 @@ const HorseRiskTags = ({ flags = [], limit = 3, className = "" }) => {
 };
 
 const HorseQuickRead = ({ horse, compact = false }) => {
-  const quickRead = horseQuickRead(horse);
-  if (!quickRead.strengths.length && !quickRead.watchText && !quickRead.riskFlags.length) return null;
+  const brief = buildHorseBrief(horse);
 
   return (
     <section className={compact ? "border-b border-gray-100 pb-5" : "mt-5 border-y border-gray-100 py-5"}>
-      <h3 className="text-[13px] font-bold text-slate-950">この馬の見立て</h3>
-      {quickRead.headline ? <p className="mt-2 text-[13px] leading-7 text-slate-600">{quickRead.headline}</p> : null}
-      {quickRead.riskFlags.length ? (
-        <div className="mt-3 border-l-2 border-amber-300 pl-3">
-          <HorseRiskTags flags={quickRead.riskFlags} />
-          <p className="mt-2 text-[11px] leading-relaxed text-slate-500">
-            {quickRead.riskFlags.map((flag) => flag.detail).join(" ")}
-          </p>
-        </div>
-      ) : null}
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        {quickRead.strengths.map((factor) => (
-          <div key={factor.key} className="border-l-2 border-blue-500 pl-3">
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="text-[11px] font-bold text-slate-900">{factor.label}</span>
-              <Num className="text-[14px] font-bold text-blue-700">{displayFactorScore(factor.score)}</Num>
-            </div>
-            {factor.summary ? (
-              <p className="mt-1 text-[10px] leading-relaxed text-slate-500">{factor.summary}</p>
-            ) : null}
-          </div>
-        ))}
-      </div>
-      {quickRead.watchText ? (
-        <div className="mt-4 flex gap-2 border-t border-gray-100 pt-3 text-[11px] leading-relaxed text-slate-500">
-          <span className="shrink-0 font-bold text-amber-700">{quickRead.watchLabel}</span>
-          <span>{quickRead.watchText}</span>
+      <h3 className="text-[16px] font-bold leading-relaxed text-slate-950">{brief.headline}</h3>
+      {brief.reason ? <p className="mt-2 text-[13px] leading-6 text-slate-600">{brief.reason}</p> : null}
+      {brief.caution ? (
+        <div className="mt-4 border-l-2 border-amber-400 pl-3 text-[12px] leading-6 text-slate-600">
+          <span className="mr-2 font-bold text-amber-700">注意点</span>
+          <span>{brief.caution}</span>
         </div>
       ) : null}
     </section>
   );
+};
+
+const horseKeyPoint = (horse, rank, fieldHorses) => {
+  const brief = rank === 1
+    ? buildIndexLeaderBrief(horse, fieldHorses) ?? buildHorseBrief(horse)
+    : buildHorseBrief(horse);
+  const headline = sanitizePublicText(brief.headline);
+  const reasons = sanitizePublicText(brief.reason)?.match(/[^。！？]+[。！？]?/g) ?? [];
+  const parts = headline ? [headline] : [];
+  for (const sentence of reasons) {
+    const candidate = [...parts, sentence].join(" ");
+    if (candidate.length > 132) break;
+    parts.push(sentence);
+  }
+  return parts.join(" ") || "評価の詳細を確認";
 };
 
 const SectionLabel = ({ icon: Icon, children }) => (
@@ -954,6 +960,48 @@ const SectionLabel = ({ icon: Icon, children }) => (
     {children}
   </h4>
 );
+
+const FocusHorseCard = ({ horse, rank, role, onSelect, fieldHorses }) => {
+  const isValueCandidate = role === "注目穴";
+  const value = horse.analysis?.factorsDetail?.value;
+
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className={`${GLASS.surface} ${GLASS.interactive} w-full p-4 text-left`}
+      aria-label={`${role} ${displayHorseName(horse)}の分析を見る`}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <span className={`inline-flex rounded-md px-2 py-1 text-[10px] font-bold ${isValueCandidate ? "bg-teal-50 text-teal-700" : "bg-blue-50 text-blue-700"}`}>
+            {role}{rank ? `・指数${rank}位` : ""}
+          </span>
+          <div className="mt-2 flex min-w-0 items-baseline gap-2">
+            <Num className="shrink-0 text-[12px] font-semibold text-slate-400">{displayHorseNumber(horse.number)}</Num>
+            <span className="break-words text-[16px] font-bold leading-snug text-slate-950">{displayHorseName(horse)}</span>
+          </div>
+          <p className="mt-1 text-[11px] text-slate-500">
+            {displayPopularity(horse.popularity)}人気 ・ 単勝 {displayOdds(horse.odds, horse.oddsDetail?.status)}
+          </p>
+        </div>
+        <div className="shrink-0 text-right">
+          <span className="block text-[9px] font-semibold uppercase tracking-[0.15em] text-slate-400">TM INDEX</span>
+          <Num className={`mt-1 block text-[28px] font-bold leading-none ${scoreTone(horse.aiScore)}`}>{displayScore(horse.aiScore)}</Num>
+        </div>
+      </div>
+      {isValueCandidate && value ? (
+        <p className="mt-3 text-[11px] font-semibold text-teal-700">
+          期待値 {Number.isFinite(value.ev) ? value.ev.toFixed(2) : "—"}
+          {displayMarketGap(value.marketGap) ? <> ・ 指数順位より人気が<Num>{value.marketGap}</Num>つ下</> : null}
+        </p>
+      ) : null}
+      <p className="mt-3 border-t border-gray-100 pt-3 text-[12px] leading-relaxed text-slate-600">
+        {horseKeyPoint(horse, rank, fieldHorses)}
+      </p>
+    </button>
+  );
+};
 
 /* ---- ファクター比較テーブル: 横=馬 / 縦=ファクター、行ごとの上位だけを静かに強調 ---- */
 const ComparisonTable = ({ horses, evMap, onSelect }) => {
@@ -1347,11 +1395,10 @@ const PedigreeCard = ({ pedigree, sourcePedigree, score, horse }) => {
 /* ---- 調教評価カード: 「一週前重視・最終追いは確認材料」の思想を文言で明示 ---- */
 const formatTrainingPoint = (item) => {
   if (!item) return "時計なし";
-  const type = item.type === "wood" ? "ウッド" : "坂路";
-  const course = item.course ? `${item.course}` : type;
+  const course = item.course ?? (item.type === "wood" ? "ウッド" : "坂路");
   const dateText = String(item.date ?? "").match(/^\d{4}(\d{2})(\d{2})$/);
   const date = dateText ? `${Number(dateText[1])}/${Number(dateText[2])}` : "日付不明";
-  return `${date} ${course}コース 4F ${item.f4 ?? "-"} / 1F ${item.f1 ?? "-"}`;
+  return `${date} ${course}・800m ${item.f4 ?? "-"}秒 / 最後の200m ${item.f1 ?? "-"}秒`;
 };
 
 const TrainingEvalCard = ({ evalData, stablePattern: stablePatternSource }) => {
@@ -1376,23 +1423,24 @@ const TrainingEvalCard = ({ evalData, stablePattern: stablePatternSource }) => {
       <div className="mt-5 grid border-t border-gray-100 sm:grid-cols-2">
         <div className="border-b border-gray-100 py-3 sm:pr-4 sm:border-r">
           <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11px] font-bold text-slate-700">追い切り総合</span>
+            <span className="text-[11px] font-bold text-slate-700">調教全体</span>
             {isFiniteNumber(evalData.oneWeek?.score) ? (
-              <Num className="text-[13px] font-bold text-slate-950">{evalData.oneWeek.score}</Num>
+              <span className="text-right"><Num className="text-[13px] font-bold text-slate-950">{evalData.oneWeek.score}</Num><span className="ml-0.5 text-[9px] text-slate-400">/100</span></span>
             ) : null}
           </div>
           {evalData.oneWeek?.text ? (
-            <p className="mt-1 text-[10px] leading-relaxed text-slate-500">{publicFactorSummary(evalData.oneWeek.text, 86)}</p>
+            <p className="mt-1 text-[10px] leading-relaxed text-slate-500">最終追い切りと一週前の内容を含めた総合点です。</p>
           ) : null}
         </div>
         <div className="border-b border-gray-100 py-3 sm:pl-4">
           <div className="flex items-baseline justify-between gap-3">
-            <span className="text-[11px] font-bold text-slate-700">最終追切</span>
-            {isFiniteNumber(details.final?.score) ? <Num className="text-[13px] font-bold text-slate-950">{details.final.score}</Num> : null}
+            <span className="text-[11px] font-bold text-slate-700">最終追い切り</span>
+            {isFiniteNumber(details.final?.score) ? <span className="text-right"><Num className="text-[13px] font-bold text-slate-950">{details.final.score}</Num><span className="ml-0.5 text-[9px] text-slate-400">/100</span></span> : null}
           </div>
           {details.final ? (
             <p className="mt-1 text-[10px] leading-relaxed text-slate-500">{formatTrainingPoint(details.final)}</p>
           ) : null}
+          <p className="mt-1 text-[10px] leading-relaxed text-slate-400">この時計も調教全体の評価材料に含めています。</p>
         </div>
       </div>
 
@@ -1461,7 +1509,7 @@ const HorseDataPreviewContent = ({ horse }) => {
   );
 };
 
-const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false }) => {
+const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false, detailedDiagnosis = true }) => {
   const a = horse.analysis;
   const opponentRows = buildAbilityPublicEvidence(horse);
   if (!isEvaluatedHorse(horse) || !a?.factors) return <HorseDataPreviewContent horse={horse} />;
@@ -1513,7 +1561,25 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
         ) : null}
 
         <HorseQuickRead horse={horse} compact={compactHeader} />
-        <TMFactorsCard analysis={a} />
+      </section>
+
+      {!detailedDiagnosis ? null : (
+      <>
+
+      <details className="group/evidence mt-4 border-t border-gray-200" data-testid="horse-evidence">
+        <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-3 text-[13px] font-bold text-slate-950 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden">
+          分析の根拠
+          <ChevronDown size={16} className="shrink-0 text-slate-400 transition-transform group-open/evidence:rotate-180" />
+        </summary>
+        {horseQuickRead(horse).riskFlags.length > 1 ? (
+          <div className="border-t border-gray-100 py-4">
+            <h4 className="text-[12px] font-bold text-slate-800">その他の注意点</h4>
+            {horseQuickRead(horse).riskFlags.slice(1).map((flag) => (
+              <p key={flag.key} className="mt-2 text-[12px] leading-6 text-slate-600">{flag.detail}</p>
+            ))}
+          </div>
+        ) : null}
+        <TMFactorsCard analysis={a} tmIndex={horse.aiScore} horse={horse} />
         {opponentRows.length > 0 && (
           <details className="group mt-4 border-t border-gray-100">
             <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-3 text-[13px] font-bold text-slate-950 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden">
@@ -1531,8 +1597,6 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
             </ul>
           </details>
         )}
-      </section>
-
       {/* 期待値評価(自動計算) */}
       {!compactHeader ? <ValueCard ev={ev} rank={rank} popularity={horse.popularity} /> : null}
 
@@ -1565,6 +1629,9 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
           <TrainingEvalCard evalData={a.trainingEval} stablePattern={a.factorsDetail?.stable?.stablePattern} />
         </div>
       </details>
+      </details>
+      </>
+      )}
     </div>
   );
 };
@@ -1576,7 +1643,7 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false 
  *  - 背面スクロール連鎖: overscroll-behavior:contain(.tm-sheet)
  *  - iOS Safariのbodyスクロール貫通: position:fixedロック + 位置復元
  */
-const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
+const BottomSheet = ({ horse, rank, fieldSize, ev, detailedDiagnosis, onClose }) => {
   const sheetRef = useRef(null);
   const sheetBodyRef = useRef(null);
   const touchStartYRef = useRef(0);
@@ -1731,6 +1798,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
             fieldSize={fieldSize}
             ev={ev}
             compactHeader
+            detailedDiagnosis={detailedDiagnosis}
           />
         </div>
       </div>
@@ -1741,7 +1809,7 @@ const BottomSheet = ({ horse, rank, fieldSize, ev, onClose }) => {
 };
 
 /* ---- 出走馬の1行(クリックで詳細) ---- */
-const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isDesktop }) => (
+const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isDesktop, fieldHorses, detailedDiagnosis }) => (
   <div className="border-b border-gray-200 last:border-b-0">
     <button
       onClick={onToggle}
@@ -1781,7 +1849,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
           </span>
         </span>
 
-        <span className="mt-3 flex items-center justify-between gap-3 border-t border-gray-200 pt-3 md:hidden">
+        <span className={`mt-3 items-center justify-between gap-3 border-t border-gray-200 pt-3 md:hidden ${sortKey === "ev" ? "flex" : "hidden"}`}>
           <span className="min-w-0">
             {sortKey === "ev" && displayMarketGap(ev?.marketGap) ? (
               <>
@@ -1829,7 +1897,10 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
           </span>
         </span>
 
-        <span className="mt-2 block truncate text-[12px] text-gray-500 md:hidden">{publicHorseComment(horse, 62)}</span>
+        <span className="mt-3 flex items-center justify-between gap-3 text-[12px] leading-relaxed text-gray-500 md:hidden">
+          <span>{horseKeyPoint(horse, rank, fieldHorses)}</span>
+          {sortKey !== "ev" ? <ChevronRight size={15} className="shrink-0 text-teal-600" aria-hidden="true" /> : null}
+        </span>
       </span>
 
       {/* PC列: 騎手 / 人気 / オッズ+EV */}
@@ -1891,7 +1962,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
 
       {/* PC列: 短評 */}
       <span className="hidden items-center justify-between gap-2 md:flex">
-        <span className="truncate text-[12px] text-gray-500">{publicHorseComment(horse, 82)}</span>
+        <span className="truncate text-[12px] text-gray-500">{horseKeyPoint(horse, rank, fieldHorses)}</span>
         <ChevronDown
           size={14}
           strokeWidth={1.75}
@@ -1904,7 +1975,7 @@ const HorseRow = ({ horse, rank, fieldSize, ev, sortKey, expanded, onToggle, isD
     {isDesktop && expanded && (
       <div className="tm-fadein border-t border-gray-100 bg-gray-50/40 px-5 py-7">
         <div className="mx-auto max-w-3xl">
-          <HorseDetailContent horse={horse} rank={rank} fieldSize={fieldSize} ev={ev} />
+          <HorseDetailContent horse={horse} rank={rank} fieldSize={fieldSize} ev={ev} detailedDiagnosis={detailedDiagnosis} />
         </div>
       </div>
     )}
@@ -1926,7 +1997,7 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   return (
     <button
       onClick={() => onOpen(race.id)}
-      className={`group relative w-full overflow-hidden rounded-[18px] border bg-white px-6 py-5 text-left shadow-[0_1px_2px_rgba(15,23,42,0.04)] transition-colors active:bg-[#F8FAFC] ${
+      className={`tm-race-card group relative w-full overflow-hidden rounded-lg border bg-white px-5 py-5 text-left transition-colors active:bg-[#F8FAFC] ${
         isGradedRace
           ? "border-[1.5px] border-[#2D7BFF]/95 before:absolute before:inset-y-4 before:left-0 before:w-1 before:rounded-r-full before:bg-[#2D7BFF] hover:border-[#2D7BFF]"
           : "border-[#DDE3EA] hover:border-[#CBD5E1]"
@@ -1967,26 +2038,22 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
           <ChevronRight size={15} strokeWidth={1.8} className="mt-0.5 shrink-0 text-[#CBD5E1] transition-transform group-hover:translate-x-0.5" />
         </div>
 
-        <div className="mt-4 border-t border-[#EDF0F3] pt-4">
-          <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#2D7BFF]">
-            {leaderLabel}
-          </span>
-          <span className="ml-2 text-[12px] font-semibold text-[#050B1E]">
-            {race.topHorse.available ? `${race.topHorse.name} ` : null}
-            <Num className={isTopTier ? "text-[#2D7BFF]" : race.topHorse.available ? "text-gray-900" : "text-gray-300"}>
-              {score}
-            </Num>
-            {isFiniteNumber(ev) ? (
-              <Num className={isValueSignal(race.topHorse.value) ? "text-[#00A9B8]" : "text-gray-500"}>
-                {" "}— 期待値 {ev.toFixed(2)}{valueReferenceLabel(race.topHorse.value) ? " 注意" : ""}
-              </Num>
-            ) : null}
+        <div className="tm-race-leader mt-4 flex items-center justify-between gap-4 border-t border-[#EDF0F3] pt-4">
+          <div className="min-w-0">
+            <span className="text-[10px] font-bold text-[#00A9B8]">{leaderLabel}</span>
+            <div className="mt-1 break-words text-[16px] font-bold leading-relaxed text-[#050B1E]">
+              {race.topHorse.available ? race.topHorse.name : "評価待ち"}
+            </div>
             {(race.leaderStatus === "contested" || race.leaderStatus === "tied") && race.secondHorse ? (
-              <span className="ml-2 text-[10px] font-medium text-[#94A3B8]">
+              <span className="mt-1 block text-[11px] font-medium text-slate-500">
                 {race.leaderStatus === "tied" ? "同率" : "次点"} {race.secondHorse.name} <Num>{race.secondHorse.aiScore}</Num>
               </span>
             ) : null}
-          </span>
+          </div>
+          <div className="shrink-0 text-right">
+            <Num className={`text-[36px] font-bold leading-none ${isTopTier ? "text-[#2D7BFF]" : race.topHorse.available ? "text-[#101D27]" : "text-gray-300"}`}>{score}</Num>
+            <span className="mt-1 block text-[9px] font-bold text-slate-400">TM INDEX</span>
+          </div>
         </div>
       </div>
     </button>
@@ -1997,6 +2064,7 @@ const BattleRacePanel = ({ race, onOpen }) => {
   if (!race?.indexTop) return null;
   const plan = buildPublicBattleTicketPlan(race);
   const opponents = plan.opponents;
+  const valueHorse = plan.valueHorse;
   const trioTickets = plan.tickets.filter((ticket) => ticket.type === "trio");
   const axis = race.indexTop;
 
@@ -2051,6 +2119,17 @@ const BattleRacePanel = ({ race, onOpen }) => {
                 </div>
               </div>
             ))}
+            {valueHorse ? (
+              <div className="grid min-w-0 grid-cols-[64px_minmax(0,1fr)] items-center gap-3 py-3">
+                <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#00A9B8]">注目穴</div>
+                <div className="min-w-0 sm:mt-1.5">
+                  <div className="text-[13px] font-bold leading-snug text-[#050B1E] sm:text-[14px]">
+                    <Num>{valueHorse.number}</Num> {valueHorse.name}
+                  </div>
+                  <div className="mt-1 text-[10px] text-[#64748B]">期待値 <Num>{valueHorse.ev.toFixed(2)}</Num> ・ 指数順位より人気が<Num>{valueHorse.marketGap}</Num>つ下</div>
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="mt-5 border-t border-[#E5E7EB] pt-4">
@@ -2061,7 +2140,10 @@ const BattleRacePanel = ({ race, onOpen }) => {
             {trioTickets.length > 0 ? (
               <div className="mt-3 text-[12px] leading-relaxed text-[#050B1E]">
                 <div className="font-semibold">3連複 1頭軸流し・<Num>{trioTickets.length}</Num>点</div>
-                <div className="mt-1 break-words">軸 <Num>{axis.number}</Num> → 相手 <Num>{opponents.map((horse) => horse.number).join("・")}</Num></div>
+                <div className="mt-1 break-words">
+                  軸 <Num>{axis.number}</Num> → 相手 <Num>{opponents.map((horse) => horse.number).join("・") || "—"}</Num>
+                  {valueHorse ? <> ＋ 注目穴 <Num>{valueHorse.number}</Num></> : null}
+                </div>
                 <details className="mt-2 text-[11px] text-[#64748B]">
                   <summary className="cursor-pointer">組み合わせ</summary>
                   <div className="mt-2 grid grid-cols-2 gap-2">{trioTickets.map((ticket) => <Num key={ticket.numbers.join("-")}>{ticket.numbers.join("−")}</Num>)}</div>
@@ -2089,8 +2171,8 @@ const BattleRacePanel = ({ race, onOpen }) => {
   );
 };
 
-const AllRaceSignalRows = ({ races }) => (
-  <div className="divide-y divide-[#F1F5F9]">
+const AllRaceSignalRows = ({ races, spread = false }) => (
+  <div className={spread ? "grid grid-cols-2 divide-y divide-[#F1F5F9] lg:grid-cols-3" : "divide-y divide-[#F1F5F9]"}>
     {races.map((race) => (
       <div key={race.id} className="grid grid-cols-[34px_minmax(0,1fr)] gap-2.5 px-4 py-3">
         <Num className="pt-0.5 text-[11px] font-bold text-[#64748B]">{race.number}R</Num>
@@ -2185,20 +2267,14 @@ const AllRaceSignalsPanel = ({ data }) => {
             );
           })}
         </div>
-        <div className="hidden grid-cols-3 divide-x divide-[#E5E7EB] md:grid">
+        <div className="hidden divide-x divide-[#E5E7EB] md:grid" style={{ gridTemplateColumns: `repeat(${Math.max(1, racesByTrack.length)}, minmax(0, 1fr))` }}>
           {racesByTrack.map(({ track, races }) => (
             <div key={track}>
               <div className="border-b border-[#E5E7EB] px-4 py-3 text-[12px] font-bold text-[#050B1E]">{track}</div>
-              <AllRaceSignalRows races={races} />
+              <AllRaceSignalRows races={races} spread={racesByTrack.length === 1} />
             </div>
           ))}
         </div>
-        {evaluatedRaces.length ? (
-          <div className="border-t border-[#E5E7EB] px-4 py-3 text-[10px] leading-relaxed text-[#94A3B8]">
-            <div className="font-medium text-[#64748B]">分析が完了したレースのみ掲載しています。</div>
-            <div className="mt-1">同指数は1位タイ、指数差1〜2点は僅差、3点以上は単独首位として扱います。相手1はTM INDEX 2位、相手2は3〜5位から総合評価で選び、高期待値馬は注目穴として分離します。</div>
-          </div>
-        ) : null}
       </div>
     </section>
   );
@@ -2278,14 +2354,16 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
         </p>
       )}
       {/* Hero */}
-      <section className="relative mt-7 overflow-hidden rounded-[18px] border border-[#DDE3EA] bg-white px-6 pb-7 pt-7 shadow-[0_1px_2px_rgba(15,23,42,0.04)] md:mt-8 md:px-7">
+      <section className="tm-feature relative mt-6 border-y border-slate-200 px-4 pb-6 pt-5 md:mt-8 md:px-7">
         <div className="relative">
           {featuredRace ? (
             <>
               <div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">Featured Race</div>
+                <div className="text-[11px] font-bold text-[#00A9B8]">
+                  FEATURED RACE
+                </div>
                 <div className="mt-3 flex flex-wrap items-center gap-2.5">
-                  <h1 className="text-[23px] font-bold leading-none tracking-tight text-[#050B1E]">{featuredRace.name}</h1>
+                  <h1 className="text-[28px] font-bold leading-tight text-[#101D27]">{featuredRace.name}</h1>
                   {featuredRace.grade ? (
                     <span className="rounded-md border border-[#BFDBFE] bg-white px-2.5 py-1 text-[11px] font-bold leading-none text-[#2D7BFF]">
                       {featuredRace.grade}
@@ -2309,19 +2387,22 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
                   発走 <Num>{displayRaceValue(featuredRace.time, "未発表")}</Num>
                 </div>
               </div>
-              <div className="mt-7 flex items-end justify-between gap-3 sm:gap-5">
+              {featuredRace.topHorse.available ? (
+                <div className="mt-6 border-t border-slate-200 pt-4">
+                  <span className="text-[11px] font-bold text-[#00A9B8]">{featuredRace.leaderStatus === "tied" ? "指数1位タイ" : "指数1位"}</span>
+                  <div className="mt-1 break-words text-[23px] font-bold leading-relaxed text-[#101D27]">{featuredRace.topHorse.name}</div>
+                </div>
+              ) : null}
+              <div className="mt-3 flex items-end justify-between gap-4 sm:gap-5">
                 <div className="min-w-0">
                   <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#A6AFBE]">
                     {featuredRace.topHorse.available ? "TM INDEX" : "TM INDEX"}
                   </div>
-                  {featuredRace.topHorse.available ? (
-                    <div className="mt-2 whitespace-nowrap text-[14px] font-bold leading-tight text-[#050B1E] min-[360px]:text-[15px]">{featuredRace.topHorse.name}</div>
-                  ) : null}
                   <div className="mt-4 flex items-end gap-1.5">
                     {featuredRace.topHorse.available ? (
                       <AnimatedIndexValue
                         value={featuredRace.topHorse.aiScore}
-                        className="block text-[64px] font-bold leading-[0.82] tracking-tight text-[#050B1E]"
+                        className="block text-[76px] font-bold leading-[0.9] text-[#101D27]"
                       />
                     ) : (
                       <Num className="block text-[64px] font-bold leading-[0.82] tracking-tight text-gray-300">--</Num>
@@ -2334,15 +2415,11 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
                   {isFiniteNumber(featuredRace.topHorse.aiScore) ? <IndexUnderline /> : null}
                 </div>
                 {featuredRace.topHorse.available ? (
-                <div className="w-[122px] shrink-0 pb-1 text-right min-[360px]:w-[145px] sm:w-auto">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#2D7BFF]">
-                    {featuredRace.leaderStatus === "tied" ? "TM INDEX 1位タイ" : "TM INDEX 1位"}
-                  </div>
-                  <div className="mt-2 max-w-[122px] text-[10px] font-semibold leading-relaxed text-[#050B1E] min-[360px]:max-w-[145px] min-[360px]:text-[11px] sm:max-w-[230px] sm:text-[12px]">
-                    {isFiniteNumber(featuredRace.topHorse.popularity) && isFiniteNumber(featuredRace.topHorse.ev)
-                      ? <>{featuredRace.leaderStatus === "tied" ? "指数1位タイ。" : "指数1位。"}市場評価は<Num>{featuredRace.topHorse.popularity}</Num>人気。 期待値 <Num>{featuredRace.topHorse.ev.toFixed(2)}</Num></>
-                      : "指数上位のシグナルを表示します"}
-                  </div>
+                <div className="min-w-0 pb-1 text-right">
+                  {isFiniteNumber(featuredRace.topHorse.popularity) ? <div className="text-[12px] text-slate-600">単勝人気 <Num className="font-bold text-[#101D27]">{featuredRace.topHorse.popularity}</Num>位</div> : null}
+                  <button type="button" onClick={() => onOpenRace(featuredRace.id)} className="tm-feature-link mt-4 inline-flex min-h-11 items-center gap-2 border-b-2 border-[#00A9B8] py-2 text-[13px] font-bold text-[#00A9B8]">
+                    分析を見る <ChevronRight size={16} />
+                  </button>
                 </div>
                 ) : null}
               </div>
@@ -2382,7 +2459,7 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
         </div>
         {races ? (
           races.length ? (
-            <div className="mt-4 space-y-3">
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
               {visibleRaceCards.map((race) => (
                 <RaceSignalCard key={race.id} race={race} onOpen={onOpenRace} />
               ))}
@@ -2413,7 +2490,7 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
           {ranking
             ? ranking.length
               ? ranking.map((item, index) => {
-                  const quickRead = horseQuickRead(item.horse);
+                  const brief = buildHorseBrief(item.horse);
                   return (
                     <button
                       key={`${item.raceId}-${item.horse.id}`}
@@ -2430,15 +2507,11 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
                             <span className="shrink-0 rounded-md bg-[#2D7BFF] px-1.5 py-0.5 text-[9px] font-bold text-white">最高評価</span>
                           ) : null}
                         </span>
-                        <span className="mt-1 flex min-w-0 items-center gap-2 text-[10px] text-slate-400">
+                        <span className="mt-1 block text-[10px] text-slate-400">
                           <span className="shrink-0 font-medium text-slate-500">
                             {item.raceLabel}・{item.horse.number ? <><Num>{item.horse.number}</Num>番</> : "馬番未確定"}
                           </span>
-                          {quickRead.strengths.length ? (
-                            <span className="truncate">
-                              強み {quickRead.strengths.slice(0, 2).map((factor) => `${factor.label} ${displayFactorScore(factor.score)}`).join("・")}
-                            </span>
-                          ) : null}
+                          <span className="mt-1 block text-[11px] leading-relaxed text-slate-500">{brief.headline}</span>
                         </span>
                       </span>
                       <span className="text-right">
@@ -2524,9 +2597,7 @@ const RolePerformancePanel = ({ performance }) => {
       <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left md:px-5 [&::-webkit-details-marker]:hidden">
         <span>
           <span className="block text-[12px] font-bold text-slate-900">注目穴・危険な人気馬の過去検証</span>
-          <span className="mt-0.5 block text-[10px] font-medium text-slate-500">
-            注目穴 3着内<Num>{value?.topThreeRate ?? "-"}</Num>%・危険馬の馬券外<Num>{danger?.missedTopThreeRate ?? "-"}</Num>%
-          </span>
+          <span className="mt-0.5 block text-[10px] font-medium text-slate-500">成績と検証方法を見る</span>
         </span>
         <ChevronDown size={15} strokeWidth={1.8} className="shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true" />
       </summary>
@@ -2584,11 +2655,7 @@ const RolePerformancePanel = ({ performance }) => {
 const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
   if (!conclusion) return null;
   const items = [
-    { key: "favorite", label: "本命", icon: Target, tone: "text-[#00A9B8]" },
-    { key: "challenger", label: "逆転候補", icon: TrendingUp, tone: "text-[#2D7BFF]" },
-    { key: "value", label: "注目穴", icon: Star, tone: "text-[#00A9B8]" },
     { key: "danger", label: "危険な人気馬", icon: ShieldAlert, tone: "text-[#B7791F]" },
-    { key: "key", label: "レースの鍵", icon: KeyRound, tone: "text-slate-500" },
   ];
 
   return (
@@ -2598,14 +2665,12 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
           <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#00A9B8]">Race Verdict</div>
           <h2 id="race-conclusion-title" className="mt-1 text-[20px] font-bold tracking-tight text-slate-950">AI結論</h2>
         </div>
-        <p className="max-w-xl text-[13px] font-medium leading-relaxed text-slate-500 md:text-right">
-          {conclusion.summary}
-        </p>
       </div>
 
       <div className="mt-4 overflow-hidden border-y border-slate-200 bg-white">
-        <div className="grid grid-cols-2 lg:grid-cols-5">
-          {items.map(({ key, label, icon: Icon, tone }) => {
+        <p className="px-4 pb-3 text-[12px] leading-relaxed text-slate-600 md:px-5">{conclusion.summary}</p>
+        <div className="grid grid-cols-1">
+          {items.filter(({ key }) => conclusion[key].horse?.id).map(({ key, label, icon: Icon, tone }) => {
             const item = conclusion[key];
             const interactive = Boolean(item.horse?.id);
             const Element = interactive ? "button" : "div";
@@ -2613,7 +2678,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
               <Element
                 key={key}
                 {...(interactive ? { type: "button", onClick: () => onSelectHorse(item.horse.id) } : {})}
-                className={`min-h-[162px] border-b border-slate-200 px-4 py-4 text-left odd:border-r last:col-span-2 last:border-b-0 last:border-r-0 lg:col-span-1 lg:min-h-[178px] lg:border-b-0 lg:border-r lg:last:col-span-1 lg:last:border-r-0 ${
+                className={`tm-verdict tm-verdict-${key} min-w-0 border-b border-slate-200 px-3 py-4 text-left ${
                   interactive ? "transition-colors hover:bg-[#F7FCFD] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8EDFE4]" : ""
                 }`}
                 aria-label={interactive ? `${label} ${item.value}の分析を見る` : undefined}
@@ -2633,17 +2698,34 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
                       <Num className="text-[16px] font-bold text-slate-950">{item.horse.score}</Num>
                     </div>
                   ) : null}
-                  <HorseRiskTags flags={item.horse?.riskFlags ?? []} limit={2} className="mt-2" />
+                  <HorseRiskTags flags={item.horse?.riskFlags ?? []} limit={1} className="mt-2" />
                 </div>
-                <p className="mt-2 text-[12px] font-medium leading-[1.6] text-slate-500">
-                  {item.note}
-                </p>
               </Element>
             );
           })}
         </div>
-        <RolePerformancePanel performance={rolePerformance} />
-        <RaceUpdatePanel updateDiff={updateDiff} />
+        <details className="group/more border-t border-slate-200 bg-[#F8FBFC]">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-semibold text-slate-700 md:px-5 [&::-webkit-details-marker]:hidden">
+            <span>詳しい情報を見る</span>
+            <ChevronDown size={15} className="shrink-0 text-slate-400 transition-transform group-open/more:rotate-180" aria-hidden="true" />
+          </summary>
+          <div className="border-t border-slate-200 bg-white">
+            <div className="px-4 py-3 md:px-5">
+              <div className="flex items-center gap-2 text-[11px] font-bold text-teal-700"><KeyRound size={13} aria-hidden="true" />レースの鍵 · {conclusion.key.value}</div>
+              <p className="mt-1 text-[12px] leading-6 text-slate-600">{conclusion.key.note}</p>
+            </div>
+            <RolePerformancePanel performance={rolePerformance} />
+            {updateDiff?.events?.length ? (
+              <details className="group/updates border-t border-slate-200">
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-semibold text-slate-600 [&::-webkit-details-marker]:hidden">
+                  前回からの変更
+                  <ChevronDown size={15} className="shrink-0 transition-transform group-open/updates:rotate-180" />
+                </summary>
+                <RaceUpdatePanel updateDiff={updateDiff} />
+              </details>
+            ) : null}
+          </div>
+        </details>
       </div>
     </section>
   );
@@ -2652,8 +2734,6 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
 /* ---- レース詳細ページ ---- */
 const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
   const [race, setRace] = useState(null);
-  const [sortKey, setSortKey] = useState("score");
-  const [showAllHorses, setShowAllHorses] = useState(false);
   const [expandedId, setExpandedId] = useState(null); // PC: インライン展開
   const [sheetHorse, setSheetHorse] = useState(null); // モバイル: ボトムシート
   const initialHorseHandledRef = useRef(false);
@@ -2661,6 +2741,15 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
 
   /* Rank・期待値はロジック層で自動計算(手入力不要) */
   const rankMap = useMemo(() => (race ? rankByScore(race.horses) : {}), [race]);
+  const focusHorses = useMemo(() => selectPublicFocusHorses(race), [race]);
+  const detailedDiagnosisIds = useMemo(() => {
+    if (!race) return new Set();
+    const ids = new Set([...focusHorses.axis, ...focusHorses.opponents, ...focusHorses.value].map((horse) => horse.id));
+    const roles = selectPublicRoleHorses(race);
+    if (roles.value?.id) ids.add(roles.value.id);
+    if (roles.danger?.id) ids.add(roles.danger.id);
+    return ids;
+  }, [race, focusHorses]);
   const evMap = useMemo(
     () =>
       race && race.horses.length
@@ -2669,17 +2758,10 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
     [race]
   );
   const raceConclusion = useMemo(() => (race ? buildRacePublicConclusion(race) : null), [race]);
-  const sortedHorses = useMemo(
-    () => (race ? sortHorses(race.horses, sortKey, evMap, rankMap) : []),
-    [race, sortKey, evMap, rankMap]
-  );
-  const visibleHorses = showAllHorses ? sortedHorses : sortedHorses.slice(0, 6);
-  const hiddenHorseCount = Math.max(0, sortedHorses.length - visibleHorses.length);
 
   useEffect(() => {
-    setShowAllHorses(false);
     setExpandedId(null);
-  }, [raceId, initialHorseId, sortKey]);
+  }, [raceId, initialHorseId]);
 
   useEffect(() => {
     initialHorseHandledRef.current = false;
@@ -2696,10 +2778,6 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
         const h = r.horses.find((x) => x.id === initialHorseId);
         if (h) {
               if (window.matchMedia("(min-width: 768px)").matches) {
-                const initialPosition = [...r.horses]
-                  .sort((a, b) => (b.aiScore ?? -1) - (a.aiScore ?? -1) || a.number - b.number)
-                  .findIndex((candidate) => candidate.id === h.id);
-                setShowAllHorses(initialPosition >= 6);
                 setExpandedId(h.id);
               }
           else setSheetHorse(h);
@@ -2793,92 +2871,90 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
 
       <RaceConclusionPanel conclusion={raceConclusion} updateDiff={race?.updateDiff} onSelectHorse={handleConclusionHorse} />
 
-      {/* ファクター比較(全馬横断) */}
-      {race && race.horses.some(isEvaluatedHorse) && <ComparisonTable horses={race.horses} evMap={evMap} onSelect={handleToggle} />}
-
-      {/* 並び替え(モバイル: 全幅・親指で押しやすい高さ) */}
-      <div className="mt-8 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-        <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Runner Matrix</div>
-          <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">出走馬の評価</h2>
-        </div>
-        <div className="grid w-full grid-cols-4 rounded-2xl border border-gray-200 bg-white p-1 shadow-sm md:flex md:w-auto md:rounded-2xl md:p-1">
-          {SORT_OPTIONS.map((o) => (
-            <button
-              key={o.key}
-              onClick={() => setSortKey(o.key)}
-              className={`rounded-lg px-2 py-2.5 text-[11px] font-semibold transition-colors duration-150 md:rounded-md md:px-3 md:py-1.5 ${
-                sortKey === o.key
-                  ? "bg-[#EAFBFA] text-[#00A9B8] shadow-sm ring-1 ring-[#BFEFED]"
-                  : "text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {o.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* 出走馬一覧 */}
-      <div className={`mt-4 overflow-hidden ${GLASS.surface}`}>
-        {/* PC列ヘッダー */}
-        <div className="hidden grid-cols-[2.5rem_minmax(10rem,2fr)_minmax(4rem,0.75fr)_3.5rem_5rem_3.5rem_minmax(12rem,1.15fr)] gap-x-3 border-b border-gray-200 bg-gray-50/60 px-5 py-2 text-[10px] font-semibold uppercase tracking-wider text-gray-500 md:grid">
-          <span>馬番</span>
-          <span>馬名</span>
-          <span>騎手</span>
-          <span className="text-right">人気</span>
-          <span className="text-right">{sortKey === "ev" ? "乖離 / 期待値" : "単勝 / 期待値"}</span>
-          <span className="text-right">TM INDEX</span>
-          <span>短評</span>
-        </div>
-
-        {race
-          ? visibleHorses.length
-            ? visibleHorses.map((h) => (
-              <HorseRow
-                key={h.id}
-                horse={h}
-                rank={rankMap[h.id]}
-                fieldSize={race.fieldSize}
-                ev={evMap[h.id]}
-                sortKey={sortKey}
-                expanded={expandedId === h.id}
-                onToggle={() => handleToggle(h)}
-                isDesktop={isDesktop}
-              />
-            ))
-            : (
-              <div className="px-5 py-10 text-center text-[13px] font-medium text-slate-400">
-                {sortKey === "ev"
-                  ? race.oddsStatus === "active"
-                    ? "現在、期待値が基準を満たす馬はいません"
-                    : "オッズ発表後に期待値を表示します"
-                  : WEEK_PREPARING_TEXT}
+      {race ? (
+        <section className="mt-8">
+          <div className="mb-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-400">Race Focus</div>
+            <h2 className="mt-1 text-[18px] font-bold tracking-tight text-slate-950">軸1頭・相手3頭・注目穴</h2>
+          </div>
+          <div className="grid gap-6">
+            <div>
+              <h3 className="mb-3 text-[13px] font-bold text-slate-800">軸（指数1位）</h3>
+              <div className="grid gap-3">
+                {focusHorses.axis.map((horse) => (
+                  <FocusHorseCard
+                    key={horse.id}
+                    horse={horse}
+                    rank={rankMap[horse.id]}
+                    role="軸"
+                    fieldHorses={race.horses}
+                    onSelect={() => handleToggle(horse)}
+                  />
+                ))}
               </div>
-            )
-          : [0, 1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="m-3 h-14" />)}
-        {race && sortedHorses.length > 6 ? (
-          <button
-            type="button"
-            onClick={() => {
-              setShowAllHorses((current) => !current);
-              if (showAllHorses) setExpandedId(null);
-            }}
-            aria-expanded={showAllHorses}
-            className="flex min-h-12 w-full items-center justify-center gap-2 border-t border-gray-200 bg-gray-50/70 px-4 py-3 text-[12px] font-bold text-slate-700 transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-blue-200"
-          >
-            {showAllHorses ? "上位6頭に戻す" : `残り${hiddenHorseCount}頭を見る`}
-            <ChevronDown size={15} className={`text-slate-400 transition-transform ${showAllHorses ? "rotate-180" : ""}`} />
-          </button>
-        ) : null}
-      </div>
+            </div>
+            <div>
+              <h3 className="mb-3 text-[13px] font-bold text-slate-800">相手（指数上位3頭）</h3>
+              {focusHorses.opponents.length ? (
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {focusHorses.opponents.map((horse) => (
+                    <FocusHorseCard
+                      key={horse.id}
+                      horse={horse}
+                      rank={rankMap[horse.id]}
+                      role="相手"
+                      fieldHorses={race.horses}
+                      onSelect={() => handleToggle(horse)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="rounded-xl border border-dashed border-slate-200 px-4 py-5 text-[12px] text-slate-500">指数評価のある相手候補なし</p>
+              )}
+            </div>
+            <div>
+              <h3 className="mb-3 text-[13px] font-bold text-slate-800">注目穴（1頭）</h3>
+              {focusHorses.value.length ? (
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {focusHorses.value.map((horse) => (
+                    <FocusHorseCard
+                      key={horse.id}
+                      horse={horse}
+                      rank={rankMap[horse.id]}
+                      role="注目穴"
+                      fieldHorses={race.horses}
+                      onSelect={() => handleToggle(horse)}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="rounded-xl border border-dashed border-slate-200 px-4 py-5 text-[12px] text-slate-500">今回は条件に合う注目穴なし</p>
+              )}
+            </div>
+          </div>
+        </section>
+      ) : <div className="mt-8 grid gap-3 sm:grid-cols-2">{[0, 1, 2, 3].map((i) => <Skeleton key={i} className="h-32" />)}</div>}
 
-      <p className="mt-3 text-[11px] text-gray-500">
-        {isDesktop ? "行をクリックすると分析詳細が展開されます。" : "馬をタップすると分析詳細が開きます。"}
-        {sortKey === "ev"
-          ? "期待値タブは、指数順位より人気が低く、オッズに妙味がある馬を表示します。"
-          : "期待値は、TM INDEXの評価に対してオッズに妙味があるかを示します。"}
-      </p>
+      {isDesktop && race && expandedId ? (() => {
+        const horse = race.horses.find((candidate) => candidate.id === expandedId);
+        if (!horse) return null;
+        return (
+          <section className={`mt-5 ${GLASS.surface} p-5`}>
+            <div className="mb-4 flex items-center justify-between gap-3 border-b border-gray-100 pb-3">
+              <h3 className="text-[15px] font-bold text-slate-950">{displayHorseName(horse)}</h3>
+              <button type="button" onClick={() => setExpandedId(null)} className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-50" aria-label="分析を閉じる"><X size={16} /></button>
+            </div>
+            <HorseDetailContent
+              horse={horse}
+              rank={rankMap[horse.id]}
+              fieldSize={race.fieldSize}
+              ev={evMap[horse.id]}
+              detailedDiagnosis={detailedDiagnosisIds.has(horse.id)}
+            />
+          </section>
+        );
+      })() : null}
+
 
       {/* モバイル: ボトムシート */}
       {!isDesktop && sheetHorse && (
@@ -2887,6 +2963,7 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
           rank={rankMap[sheetHorse.id]}
           fieldSize={race?.fieldSize}
           ev={evMap[sheetHorse.id]}
+          detailedDiagnosis={detailedDiagnosisIds.has(sheetHorse.id)}
           onClose={closeSheet}
         />
       )}
@@ -2934,7 +3011,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#FAFAFA] text-gray-900 antialiased">
+    <div className="tm-app relative min-h-screen overflow-hidden bg-[#FAFAFA] text-gray-900 antialiased">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@500;600;700&display=swap');
         body, #root { font-family: 'Inter', 'Noto Sans JP', system-ui, sans-serif; }

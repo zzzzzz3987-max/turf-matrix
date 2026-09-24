@@ -9,7 +9,12 @@ const ANALYZE_DIR = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(ANALYZE_DIR, "..", "..");
 const ARCHIVE_DIR = join(ROOT, "data", "archive");
 const SHADOW_DIR = join(ROOT, "data", "shadow", "blood-pairing-cross-v1");
-const OUTPUT_DATE = "2026-09-01";
+const OUTPUT_DATE = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Tokyo",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+}).format(new Date());
 const OUTPUT = join(ROOT, "docs", "analysis", `blood-pairing-cross-shadow-evaluation-${OUTPUT_DATE}.md`);
 const MIN_RACES = 30;
 const MIN_ADJUSTED_HORSES = 20;

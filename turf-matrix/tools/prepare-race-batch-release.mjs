@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validateIntelligenceOutput } from "./intelligence/output-contract.mjs";
+import { isCurrentOrFutureRaceDate, tokyoCalendarDate } from "./release-date-guard.mjs";
 import { buildPublicUpdateDiff } from "../src/lib/public-update-diff.js";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
@@ -18,7 +19,14 @@ if (candidate.races?.length !== config.expectedRaceCount) {
   errors.push(`Race count must be ${config.expectedRaceCount} but got ${candidate.races?.length ?? 0}.`);
 }
 if (candidate.meta?.date !== config.raceDate) errors.push(`Race date must be ${config.raceDate}.`);
+if (!isCurrentOrFutureRaceDate(candidate.meta?.date)) {
+  errors.push(`Race date ${candidate.meta?.date ?? "(missing)"} is before today (${tokyoCalendarDate()} JST).`);
+}
 for (const race of candidate.races ?? []) {
+  if (race.id?.slice(0, 10) !== config.raceDate) errors.push(`${race.id ?? "unknown race"}: race ID date does not match ${config.raceDate}.`);
+  if (race.raceContext?.date && race.raceContext.date !== config.raceDate) {
+    errors.push(`${race.id ?? "unknown race"}: race context date does not match ${config.raceDate}.`);
+  }
   if (!["active", "partial"].includes(race.oddsStatus)) errors.push(`${race.id}: odds status is ${race.oddsStatus}`);
   if (race.horses.length !== race.fieldSize) errors.push(`${race.id}: runner count mismatch`);
   for (const horse of race.horses) {

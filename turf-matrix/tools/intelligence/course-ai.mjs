@@ -64,13 +64,29 @@ const scoreCourse = (horse, { sameSurfaceOnly = false } = {}) => {
   const sameSurface = matched?.sameSurface ?? runs.filter((run) => run.surface === currentSurface);
   const sameCourse = matched?.sameCourse ?? runs.filter((run) => run.course === currentCourse);
   const sameType = matched?.sameType ?? runs.filter((run) => courseGroup(run.course) === currentType);
-
-  const sameCourseScore = sameCourse.length ? avg(sameCourse.map(finishQuality), 62) + Math.min(8, sameCourse.length * 2) : 52;
-  const surfaceScore = sameSurface.length ? avg(sameSurface.map(finishQuality), 58) + Math.min(8, sameSurface.length) : 50;
-  const typeScore = sameType.length ? avg(sameType.map(finishQuality), 58) + Math.min(6, sameType.length) : 54;
-
-  return clamp(sameCourseScore * 0.42 + surfaceScore * 0.28 + typeScore * 0.3);
+  const components = courseComponents(sameCourse, sameSurface, sameType);
+  return clamp(components.sameCourse.score * components.sameCourse.weight
+    + components.sameSurface.score * components.sameSurface.weight
+    + components.courseType.score * components.courseType.weight);
 };
+
+const courseComponents = (sameCourse, sameSurface, sameType) => ({
+  sameCourse: {
+    score: sameCourse.length ? avg(sameCourse.map(finishQuality), 62) + Math.min(8, sameCourse.length * 2) : 52,
+    weight: 0.42,
+    count: sameCourse.length,
+  },
+  sameSurface: {
+    score: sameSurface.length ? avg(sameSurface.map(finishQuality), 58) + Math.min(8, sameSurface.length) : 50,
+    weight: 0.28,
+    count: sameSurface.length,
+  },
+  courseType: {
+    score: sameType.length ? avg(sameType.map(finishQuality), 58) + Math.min(6, sameType.length) : 54,
+    weight: 0.3,
+    count: sameType.length,
+  },
+});
 
 const buildCourseAnalysis = (horse, context, scores = {}) => {
   const runs = horse.pastRuns ?? [];
@@ -83,6 +99,9 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
     distanceFit(run.distance, currentDistance) >= 84
   );
   const sameSurface = runs.filter((run) => run.surface === horse.currentRace?.surface);
+  const currentType = courseGroup(currentCourse);
+  const sameType = runs.filter((run) => courseGroup(run.course) === currentType);
+  const components = courseComponents(sameCourse, sameSurface, sameType);
   const surfaceLabel = String(horse.currentRace?.surface ?? context?.surface ?? "").startsWith("ダ") ? "ダート" : "芝";
   const bestCourse = [...sameCourse].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
   const bestDistance = [...nearDistance].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
@@ -122,6 +141,10 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
   return {
     score: courseScore,
     distanceScore,
+    components: Object.fromEntries(Object.entries(components).map(([key, value]) => [key, {
+      ...value,
+      score: Math.round(value.score * 10) / 10,
+    }])),
     distanceSummary: `${currentDistance ?? "今回"}mは${cadence.label}。${directionSummary}${cadenceSummary}`,
     distanceComponents: {
       proximity: { label: "距離の近さと実績", score: distanceProfile.baseScore },

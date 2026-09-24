@@ -106,25 +106,42 @@ const legacyPositionScore = (horse) => {
     .slice(0, 8)
     .flatMap((run) => run.passingOrder ?? [])
     .filter((value) => typeof value === "number" && value > 0);
-  if (!orders.length) return 58;
+  if (!orders.length) return { beforeClamp: 58, meanPosition: null, styleAdjustment: 0 };
   const mean = avg(orders, 8);
   const style = classifyRunningStyle(horse);
   const styleBonus = style === "先行" || style === "差し" ? 4 : style === "逃げ" ? 1 : 0;
-  return 76 - Math.abs(mean - 6) * 3.5 + styleBonus;
+  return { beforeClamp: 76 - Math.abs(mean - 6) * 3.5 + styleBonus, meanPosition: mean, styleAdjustment: styleBonus };
 };
 
-const scorePace = (horse, context = {}) => {
+const paceScoreCalculation = (horse, context = {}) => {
   const scenario = context?.paceScenario;
   if (!scenario || scenario.confidence === "low") {
-    return clamp(legacyPositionScore(horse));
+    const legacy = legacyPositionScore(horse);
+    return {
+      method: "過去の位置取り",
+      meanPosition: legacy.meanPosition,
+      styleAdjustment: legacy.styleAdjustment,
+      beforeClamp: legacy.beforeClamp,
+      finalScore: clamp(legacy.beforeClamp),
+    };
   }
   const style = classifyRunningStyle(horse);
-  return clamp(
-    72
-      + scenarioAdjustment(style, scenario.expectedPace)
-      + courseStyleAdjustment(style, context),
-  );
+  const paceAdjustment = scenarioAdjustment(style, scenario.expectedPace);
+  const courseAdjustment = courseStyleAdjustment(style, context);
+  const beforeClamp = 72 + paceAdjustment + courseAdjustment;
+  return {
+    method: "想定ペースとの脚質相性",
+    baseScore: 72,
+    style,
+    expectedPace: scenario.expectedPace,
+    paceAdjustment,
+    courseAdjustment,
+    beforeClamp,
+    finalScore: clamp(beforeClamp),
+  };
 };
+
+const scorePace = (horse, context = {}) => paceScoreCalculation(horse, context).finalScore;
 
 const buildPaceAnalysis = (horse, context, scores = {}) => {
   const runs = horse.pastRuns ?? [];
@@ -134,6 +151,7 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
   const lapRuns = runs.filter(isValidLast3F).slice(0, 8);
   const bestLap = [...lapRuns].sort((a, b) => a.last3F - b.last3F)[0] ?? null;
   const paceScore = scores.pace ?? scorePace(horse, context);
+  const calculation = paceScoreCalculation(horse, context);
   const lapScore = scores.lap ?? scoreLap(horse);
   const liveBias = context?.trackBias ?? null;
   const scenario = context?.paceScenario ?? null;
@@ -141,6 +159,7 @@ const buildPaceAnalysis = (horse, context, scores = {}) => {
 
   return {
     score: paceScore,
+    calculation,
     lapScore,
     style,
     status: runs.length ? "active" : "missing",
@@ -172,6 +191,7 @@ export {
   buildPaceAnalysis,
   buildRacePaceScenario,
   classifyRunningStyle,
+  paceScoreCalculation,
   scoreLap,
   scorePace,
 };

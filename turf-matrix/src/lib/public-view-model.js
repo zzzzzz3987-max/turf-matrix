@@ -1,5 +1,6 @@
 import { findPedigreePublicProfile } from "../data/pedigree-public-profiles.js";
 import { selectPublicRoleHorses } from "./public-role-selection.js";
+import { COURSE_GROUPS, courseGroup } from "../../tools/intelligence/dictionaries/course-bias-dictionary.mjs";
 
 export const PUBLIC_FACTOR_LABELS = {
   ability: "能力",
@@ -10,7 +11,7 @@ export const PUBLIC_FACTOR_LABELS = {
   load: "斤量",
   pace: "展開",
   trackBias: "馬場傾向",
-  stable: "厩舎",
+  stable: "厩舎・陣営",
   form: "近走",
   value: "期待値",
 };
@@ -81,6 +82,252 @@ export const summarizePublicText = (value, { maxLength = 118, sentences = 2 } = 
 export const publicFactorSummary = (value, maxLength = 86) =>
   summarizePublicText(value, { maxLength, sentences: 1 });
 
+const publicCourseEvidence = (horse) => {
+  const race = horse?.currentRace;
+  if (!race?.course || !race?.surface) return null;
+  const isDirt = (surface) => String(surface ?? "").startsWith("ダ");
+  const surfaceName = isDirt(race.surface) ? "ダート" : "芝";
+  const runs = horse.pastRuns ?? [];
+  const sameSurface = runs.filter((run) => run.surface === race.surface);
+  const courseRuns = runs.filter((run) => run.course === race.course);
+  const type = courseGroup(race.course);
+  const typeCourses = COURSE_GROUPS[type] ?? [];
+  const typeRuns = runs.filter((run) => typeCourses.includes(run.course));
+  const topThreeCount = (items) => items.filter((run) => {
+    const place = Number(run.confirmedFinishPosition ?? run.finishPosition);
+    return Number.isFinite(place) && place >= 1 && place <= 3;
+  }).length;
+  const recordText = (items, label) => items.length
+    ? `${label}は${items.length}走、3着以内${topThreeCount(items)}回`
+    : `${label}なし`;
+  const labels = {
+    small: "小回りコース",
+    wide: "広いコース",
+    steep: "坂コース",
+    standard: "標準コース",
+  };
+  const typeName = labels[type] ?? "同じコース区分";
+  const relatedCourses = [...new Set(typeRuns.map((run) => run.course).filter((course) => course && course !== race.course))].join("・");
+  const shape = horse.analysis?.course?.geometryFit?.label;
+  const quickRecord = (items, label) => items.length
+    ? `${label}${items.length}走で3着以内${topThreeCount(items)}回`
+    : `${label}の実績なし`;
+  const scoreNote = `今回のコース形状（${shape || "右回り・コーナー・直線・坂"}）は説明用で、コース点には加えていません。`;
+  return [
+    `${quickRecord(sameSurface, `同じ${surfaceName}`)}・${quickRecord(typeRuns, `${typeName}${relatedCourses ? `（${race.course}・${relatedCourses}）` : `（${race.course}）`}`)}。`,
+    `${recordText(courseRuns, `${race.course}での直接実績`)}。`,
+    `このコース点には、同コース・同じ${surfaceName}・${typeName}での着順と着差を反映しています。`,
+    scoreNote,
+  ].join("");
+};
+
+const publicBloodEvidence = (horse) => {
+  const pedigree = horse?.analysis?.pedigree;
+  if (!pedigree) return null;
+  const sireProfile = pedigree.sireProfile;
+  const maternalProfile = pedigree.broodmareSireProfile;
+  const sireName = pedigree.identity?.sire;
+  const maternalName = pedigree.identity?.broodmareSire;
+  const sireTraits = [...new Set(sireProfile?.traits ?? [])].slice(0, 3);
+  const maternalTraits = [...new Set(maternalProfile?.traits ?? [])].slice(0, 3);
+  const stats = pedigree.statistics ?? [];
+  const sireStats = stats.find((item) => item.entityType === "sire" && item.name === sireName);
+  const maternalStats = stats.find((item) => item.entityType === "broodmareSire" && item.name === maternalName);
+  const condition = horse.currentRace
+    ? `${horse.currentRace.surface === "ダ" ? "ダート" : "芝"}${horse.currentRace.distance}m前後`
+    : "今回条件";
+  const describeStats = (role, name, item) => {
+    if (!name || !Number.isFinite(item?.sampleSize) || item.sampleSize <= 0) return null;
+    const hitCount = Number.isFinite(item.top3) ? item.top3 : null;
+    const hitRate = Number.isFinite(item.hitRate) ? `（複勝率${Math.round(item.hitRate * 100)}%）` : "";
+    const entries = Object.values(item.horseContributions ?? {});
+    const concentrated = entries.some((entry) => entry.sampleSize / item.sampleSize > 0.5);
+    const population = role === "父" ? `父${name}産駒` : `母父に${name}を持つ馬`;
+    return `${population}の${condition}成績は${item.sampleSize}走・${item.uniqueHorseCount ?? "-"}頭${hitCount == null ? "" : `、3着以内${hitCount}回`}${hitRate}${concentrated ? "。一頭の成績に偏るため参考扱い" : ""}。`;
+  };
+  const goingFit = pedigree.componentDetails?.goingFit;
+  const goingLabel = String(goingFit?.label ?? horse.currentRace?.going ?? "今回の馬場")
+    .replace(/への血統適合|への血統相性|の血統適合/u, "");
+  const goingCondition = goingLabel === "重" || goingLabel === "不良"
+    ? `${goingLabel}馬場`
+    : goingLabel.includes("馬場") ? goingLabel : `${goingLabel}馬場`;
+  const goingText = goingFit?.status === "reference_only"
+    ? `${goingCondition}への血統適性は裏づけデータがなく、中立扱いです。`
+    : Number.isFinite(goingFit?.score)
+      ? `${goingCondition}との相性は${publicConditionFit(goingFit.score)}評価です。`
+      : null;
+  return [
+    sireName && sireTraits.length ? `父${sireName}は${sireTraits.join("・")}が持ち味。` : null,
+    maternalName && maternalTraits.length ? `母父${maternalName}は${maternalTraits.join("・")}で補います。` : null,
+    describeStats("父", sireName, sireStats),
+    describeStats("母父", maternalName, maternalStats),
+    goingText,
+    "血統点は父・母父の特徴と今回条件への適合を合わせた評価です。",
+  ].filter(Boolean).join("");
+};
+
+export const publicFactorExplanation = (factor, { horse = null } = {}) => {
+  if (!factor) return null;
+
+  if (factor.key === "ability" && (factor.components?.length || factor.calculation?.components?.length)) {
+    const components = factor.calculation?.components ?? factor.components;
+    const publicLabels = {
+      baseAbility: "近走の基礎能力",
+      class: "対戦相手の水準",
+      peer: "直接対戦の内容",
+      opponentCareer: "相手のその後の活躍",
+      margin: "着差",
+      distance: "今回に近い距離の実績",
+      lap: "レース終盤の脚",
+      recent: "近走の上向き具合",
+    };
+    const scored = components.filter((component) => Number.isFinite(component.score));
+    const strongest = [...scored].sort((a, b) => b.score - a.score)[0];
+    const concerns = [...new Set(scored
+      .filter((component) => component.score < 60)
+      .map((component) => publicLabels[component.key])
+      .filter(Boolean))].slice(0, 2);
+    if (!strongest) return "近走の着順・着差や対戦相手のその後の成績を合わせて評価しています。";
+    const strength = publicLabels[strongest.key] ?? "能力材料";
+    return strongest.score >= 75
+      ? `${strength}が強み。${concerns.length ? `${concerns.join("・")}は控えめ。` : ""}近走の内容と相手関係も合わせて評価しています。`
+      : `近走の基礎能力・着差・相手関係を総合評価。${concerns.length ? `${concerns.join("・")}は慎重に見ています。` : "目立つ強みは限定的です。"}`;
+  }
+
+  if (factor.key === "pace" && factor.calculation) {
+    const calc = factor.calculation;
+    if (calc.method === "想定ペースとの脚質相性") {
+      const adjustment = (calc.paceAdjustment ?? 0) + (calc.courseAdjustment ?? 0);
+      const verdict = adjustment > 0 ? "展開面でプラス" : adjustment < 0 ? "展開面で割引" : "展開面は中立";
+      return `${calc.expectedPace}ペース想定。${calc.style}の脚質と位置取りが今回の流れに合うかを評価し、${verdict}と判断。`;
+    }
+    const position = Number.isFinite(calc.meanPosition) ? `近走の平均位置は${calc.meanPosition.toFixed(1)}番手。` : "";
+    return `${position}脚質と今回の流れの相性を評価しています。`;
+  }
+
+  if (factor.key === "pace" && factor.evidence?.length) {
+    const style = factor.evidence.find((item) => /^想定ペース /.test(item));
+    const position = factor.evidence.find((item) => item.startsWith("平均位置取り "));
+    const [, pace, runningStyle] = style?.match(/^想定ペース ([^/]+)(?:\/ 脚質 (.+))?$/) ?? [];
+    const positionText = position?.replace("平均位置取り ", "平均");
+    return [
+      pace && `${pace.trim()}ペース想定`,
+      runningStyle && `脚質は${runningStyle}`,
+      positionText,
+      "脚質と位置取りが今回の流れに合うかを評価",
+    ].filter(Boolean).join("。") + "。";
+  }
+
+  if (factor.key === "form" && factor.calculation) {
+    const calc = factor.calculation;
+    const run = [...(calc.runs ?? [])].sort((a, b) => b.weightedScore - a.weightedScore)[0];
+    return run?.text
+      ? `近走の着順・着差・相手関係を総合評価。評価材料は「${run.text}」です。`
+      : "近走の着順や着差、相手関係を合わせて評価しています。";
+  }
+
+  if (factor.key === "form" && factor.evidence?.length) {
+    const highlight = factor.evidence.find((item) => item.startsWith("評価材料: "));
+    if (highlight) return `近走の着順・着差・相手関係を総合評価。特に「${highlight.slice("評価材料: ".length).replace(/\((芝|ダ)(\d{3,4}m)\)/u, "（$1$2）")}」が材料です。`;
+  }
+
+  if (factor.key === "form" && factor.runEvidence?.length) {
+    const strongest = [...factor.runEvidence].sort((a, b) => (b.score ?? 0) - (a.score ?? 0))[0];
+    if (strongest?.text) return `近走の着順・着差・相手関係を総合評価。評価材料は「${strongest.text}」です。`;
+  }
+
+  if (factor.key === "course" && horse) {
+    const explanation = publicCourseEvidence(horse);
+    if (explanation) return explanation;
+  }
+
+  if (factor.key === "course" && factor.evidence?.length) {
+    const course = factor.evidence.find((item) => /実績 \d+走/.test(item))?.match(/^(.+)実績 (\d+)走$/);
+    const surface = factor.evidence.find((item) => /同じ(芝|ダート)条件 \d+走/.test(item))?.match(/^同じ(芝|ダート)条件 (\d+)走$/);
+    const distance = factor.evidence.find((item) => /前後の経験 \d+走/.test(item))?.match(/^(\d{3,4}m)前後の経験 (\d+)走$/);
+    const findings = [
+      course && `${course[1]}で${course[2]}走`,
+      surface && `同じ${surface[1]}で${surface[2]}走`,
+      distance && `${distance[1]}前後を${distance[2]}走経験`,
+    ].filter(Boolean);
+    if (findings.length) return `${findings.join("。")}。コース形態との相性も合わせて評価しています。`;
+  }
+
+  if (factor.key === "course" && factor.components) {
+    const sameCourse = factor.components.sameCourse;
+    const sameSurface = factor.components.sameSurface;
+    const parts = [];
+    if (sameCourse?.count) parts.push(`今回と同じコースを${sameCourse.count}走`);
+    if (sameSurface?.count) parts.push(`同じ芝・ダートを${sameSurface.count}走`);
+    if (parts.length) return `${parts.join("、")}。コース形態も含めて相性を評価しています。`;
+  }
+
+  if (factor.key === "blood") {
+    const explanation = publicBloodEvidence(horse);
+    if (explanation) return explanation;
+    return "父・母父の特徴と、今回の距離・コース・馬場との相性を合わせて評価しています。";
+  }
+
+  if (factor.key === "training") {
+    return "最終追い切りと一週前の内容を含め、時計・ラップ・本数から仕上がりを評価しています。";
+  }
+
+  if (factor.key === "trackBias") {
+    return factor.status === "active"
+      ? "当日のレース結果から、前に行く馬と後ろから伸びる馬のどちらが有利かを評価しています。"
+      : "当日のレース傾向がまだ分からないため、この項目は指数に反映していません。";
+  }
+
+  if (factor.key === "load" && factor.status === "active") {
+    const relative = Number.isFinite(factor.relativeKg)
+      ? factor.relativeKg === 0 ? "斤量は出走馬の中で標準的" : `斤量は出走馬の基準より${Math.abs(factor.relativeKg).toFixed(1)}kg${factor.relativeKg > 0 ? "重く" : "軽く"}`
+      : null;
+    const adjustment = Number.isFinite(factor.adjustment) ? factor.adjustment : 0;
+    const impact = adjustment > 0 ? "過去の負担実績も踏まえてプラス評価" : adjustment < 0 ? "過去の負担実績も踏まえて慎重評価" : "斤量面は標準評価";
+    return `${relative ?? "出走馬同士の斤量を比較"}。${impact}です。`;
+  }
+
+  if (factor.key === "distance" || factor.label === "距離適性") {
+    const raw = sanitizePublicText(factor.summary) ?? "";
+    const targetDistance = raw.match(/(?:^|。)(\d{3,4})mは/)?.[1];
+    const nearRuns = (factor.evidence ?? []).join(" ").match(/(\d{3,4})m前後の経験\s*(\d+)走/);
+    const tripChange = raw.match(/前走(\d{3,4})mから(\d+)m(延長|短縮)/);
+    const components = factor.components ?? {};
+    const parts = [];
+    if (targetDistance && nearRuns) parts.push(`${targetDistance}m前後を${nearRuns[2]}走経験`);
+    if (Number.isFinite(components.proximity?.score)) parts.push("近い距離での走りを重視");
+    const adjustments = [];
+    if (components.direction?.adjustment) {
+      const change = tripChange?.[3] ?? "距離変更";
+      adjustments.push(`距離変更（${change}）への対応も${components.direction.adjustment > 0 ? "プラス" : "慎重"}材料`);
+    }
+    if (components.cadence?.adjustment) {
+      const sampleCount = components.cadence.sampleCount;
+      const category = targetDistance ? "同じ距離帯での過去成績" : "同じ距離帯での過去成績";
+      adjustments.push(`${category}${components.cadence.adjustment > 0 ? "がプラス" : "がマイナス"}${sampleCount ? `（${sampleCount}走）` : ""}`);
+    }
+    if (adjustments.length) parts.push(adjustments.join("、"));
+    if (tripChange) parts.push(`前走から${tripChange[2]}m${tripChange[3]}への対応力も評価`);
+    if (parts.length) return parts.join("。") + "。";
+    const usefulSentences = raw.split(/(?<=[。．])/u)
+      .filter((sentence) => !/根幹距離|非根幹距離/.test(sentence));
+    return summarizePublicText(usefulSentences.join(""), { maxLength: 120, sentences: 2 });
+  }
+
+  if (factor.key === "stable" || factor.label === "厩舎" || factor.label === "厩舎・陣営") {
+    const components = factor.components ?? {};
+    const evidence = [];
+    if (factor.stablePattern?.status === "照合済" || components.stablePattern) evidence.push("厩舎の好走パターン");
+    if (components.rotation) evidence.push("ローテーション");
+    if (components.jockey) evidence.push("騎手との組み合わせ");
+    if (components.travel) evidence.push("輸送条件");
+    if (evidence.length) return `${evidence.join("・")}を見て、陣営面の後押しを評価しています。`;
+    return "厩舎独自の好走パターンは確認できず、基準点で評価しています。";
+  }
+
+  return publicFactorSummary(factor.summary, 120);
+};
+
 export const publicHorseComment = (horse, maxLength = 72) =>
   summarizePublicText(horse?.comment, { maxLength, sentences: 1 }) ?? "評価の詳細を確認";
 
@@ -113,16 +360,7 @@ export const publicTrainingGrade = (grade) => ({
 export const publicTrainingHeadline = (evalData) => {
   if (!evalData) return null;
   const gradeLabel = publicTrainingGrade(evalData.grade);
-  const finalScore = evalData.details?.final?.score;
-  const finalLabel = isFiniteScore(finalScore)
-    ? finalScore >= 75 ? "良好"
-      : finalScore >= 70 ? "水準以上"
-        : finalScore >= 60 ? "標準"
-          : "慎重"
-    : null;
-
-  if (finalLabel) return `最終追い切りは${finalLabel}。調教全体は${gradeLabel}評価です。`;
-  return `調教全体は${gradeLabel}評価です。`;
+  return `調教全体は${gradeLabel}。最終追い切りを含む調整過程と、時計・ラップ・本数を合わせて評価しています。`;
 };
 
 const publicPatternLabel = (value) => {
@@ -255,8 +493,8 @@ const inheritedTraitText = (role, name, traits) => {
   const labels = [...new Set((traits ?? []).filter(Boolean))].slice(0, 4);
   if (!name || !labels.length) return null;
   return role === "父"
-    ? `父${name}からは${labels.join("・")}を主な能力特性として評価します。`
-    : `母父${name}からは${labels.join("・")}を補完要素として評価します。`;
+    ? `父${name}は${labels.join("・")}が持ち味。今回の条件に生きるかを見ます。`
+    : `母父${name}の${labels.join("・")}も、配合を補う材料として見ています。`;
 };
 
 const publicSireProfileFor = (pedigree) => {
@@ -272,32 +510,18 @@ export const buildPedigreePublicOverview = (pedigree, score = null) => {
   const sireProfile = publicSireProfileFor(pedigree);
   const sireTraits = [...new Set((sireProfile?.traits ?? []).filter(Boolean))].slice(0, 3);
   const maternalTraits = [...new Set((pedigree.broodmareSireProfile?.traits ?? []).filter(Boolean))].slice(0, 3);
-  const totalTraits = pedigreeTraitRows(pedigree).slice(0, 2);
-  const sireStatistics = (pedigree.statistics ?? []).find((stat) =>
-    stat?.entityType === "sire" && (!identity.sire || stat?.name === identity.sire)
-  );
-  const roleClauses = [
+  const description = [
     identity.sire && sireTraits.length
-      ? `父${identity.sire}の${sireTraits.join("・")}が父側の軸`
+      ? `父${identity.sire}は${sireTraits.join("・")}が持ち味。今回の条件に合うかを見ます。`
       : null,
     identity.broodmareSire && maternalTraits.length
-      ? `母父${identity.broodmareSire}が${maternalTraits.join("・")}を補う`
+      ? `母父${identity.broodmareSire}の${maternalTraits.join("・")}も補完材料です。`
+      : identity.broodmareSire
+        ? `母父${identity.broodmareSire}は今回条件に結びつく材料が少なく、強い加点はしていません。`
       : null,
-  ].filter(Boolean);
-  const evidenceClauses = [
-    totalTraits.length
-      ? `配合全体は${totalTraits.map((trait) => `${trait.label}${trait.score}`).join("・")}`
-      : null,
-    sireStatistics && isFiniteScore(sireStatistics.sampleSize) && isFiniteScore(sireStatistics.hitRate)
-      ? `父産駒は${sireStatistics.sampleSize}走で複勝率${percentText(sireStatistics.hitRate)}`
-      : null,
-  ].filter(Boolean);
-  if (roleClauses.length || evidenceClauses.length) {
-    const roleSentence = roleClauses.length ? `${roleClauses.join("、")}配合。` : "";
-    const verdict = isFiniteScore(score) ? `今回は${Math.round(score)}点の${publicConditionFit(score)}評価` : null;
-    const evidenceSentence = [...evidenceClauses, verdict].filter(Boolean).join("、");
-    return `${roleSentence}${evidenceSentence ? `${evidenceSentence}。` : ""}`;
-  }
+    isFiniteScore(score) ? `血統全体では${publicConditionFit(score)}評価。` : null,
+  ].filter(Boolean).join("");
+  if (description) return description;
   return publicPedigreeSummary(pedigree.headline, pedigree.summary);
 };
 
@@ -334,7 +558,11 @@ const componentEvaluationText = (role, name, score, statistics) => {
   return `${role}${name}は今回条件との相性を${publicConditionFit(score)}と評価。${limited ?? "父・母父・距離・コースの噛み合いを合わせて判断します。"}`;
 };
 
-const profileTypeText = (profile) => publicPedigreeDetail(profile?.summary);
+const profileTypeText = (profile, role, name) => {
+  if (!profile) return null;
+  if (!profile.traits?.length) return `${role}${name ?? ""}は今回条件への得意傾向を判断できる材料が少なく、名前だけで加点せず配合全体で見ます。`;
+  return `${role}${name ?? ""}の得意条件の目安は${profile.traits.slice(0, 3).join("・")}。今回の距離やコースとの相性を確認します。`;
+};
 
 const statisticsCautionText = (role, statistics) => {
   if (!statistics || !isFiniteScore(statistics.sampleSize)) return null;
@@ -450,8 +678,9 @@ const distanceBalanceText = (pedigree, label, score) => {
     .filter((item) => isFiniteScore(item.value));
   if (!selected.length) return null;
   const distanceText = Number.isFinite(distance) ? `${distance}m` : "今回距離";
-  const scoreText = isFiniteScore(score) ? `距離適合は${Math.round(score)}で${publicConditionFit(score)}。` : "";
-  return `${distanceText}では${selected.map((item) => `${item.trait}${item.value}`).join("と")}のバランスを評価。${scoreText}`;
+  const traitsText = selected.map((item) => item.trait).join("と");
+  const scoreText = isFiniteScore(score) ? `血統面の距離適性は${publicConditionFit(score)}。` : "";
+  return `${distanceText}では${traitsText}のバランスが鍵。${scoreText}`;
 };
 
 export const buildPedigreePublicConditionSummary = (pedigree) => {
@@ -459,8 +688,11 @@ export const buildPedigreePublicConditionSummary = (pedigree) => {
   const components = pedigree.componentDetails ?? {};
   const distanceText = distanceBalanceText(pedigree, components.distanceFit?.label, components.distanceFit?.score);
   const goingFit = components.goingFit;
+  const goingCondition = String(goingFit?.label ?? "今回の馬場")
+    .replace(/への血統適合|への血統相性|の血統適合/u, "");
+  const goingLabel = goingCondition === "重" ? "重馬場" : goingCondition;
   const goingText = isFiniteScore(goingFit?.score)
-    ? `${goingFit.label ?? "今回馬場への血統適合"}は${Math.round(goingFit.score)}で${publicConditionFit(goingFit.score)}。`
+    ? `${goingLabel}への血統相性は${publicConditionFit(goingFit.score)}。`
     : null;
   return publicPedigreeDetail([distanceText, goingText].filter(Boolean).join(""));
 };
@@ -506,7 +738,7 @@ export const buildPedigreePublicBreakdown = (pedigree, sourcePedigree = null) =>
       points: (sireProfile?.traits ?? []).slice(0, 3),
       metrics: publicStatisticsMetrics(sireStatistics),
       sections: uniqueSections([
-        detailSection("父のタイプ", profileTypeText(sireProfile)),
+        detailSection("父のタイプ", profileTypeText(sireProfile, "父", identity.sire)),
         detailSection("父側の3代構成", sireStructureText(pedigree, sourcePedigree) || profileStructureText("父", identity.sire, sireProfile?.ancestry)),
         detailSection("父方祖先の役割", sireLineage),
         detailSection("今回条件で見る点", sireStrengths.map((strength) => strength.text).join("。")),
@@ -523,14 +755,16 @@ export const buildPedigreePublicBreakdown = (pedigree, sourcePedigree = null) =>
       summary: publicPedigreeSummary(
         inheritedTraitText("母父", identity.broodmareSire, pedigree.broodmareSireProfile?.traits),
         broodmareSireStructureText(pedigree, sourcePedigree),
-        identity.broodmareSire ? `母父${identity.broodmareSire}が補うスピード・パワー・持続力を評価。` : null,
+        identity.broodmareSire && pedigree.broodmareSireProfile?.traits?.length
+          ? `母父${identity.broodmareSire}の${pedigree.broodmareSireProfile.traits.slice(0, 3).join("・")}も配合を補う材料です。`
+          : identity.broodmareSire
+            ? `母父${identity.broodmareSire}は今回条件への材料が少なく、名前だけでは加点していません。`
+            : null,
       ),
-      points: (pedigree.broodmareSireProfile?.traits?.length
-        ? pedigree.broodmareSireProfile.traits
-        : pedigree.broodmareSireProfile?.ancestry ?? []).slice(0, 3),
+      points: (pedigree.broodmareSireProfile?.traits ?? []).slice(0, 3),
       metrics: publicStatisticsMetrics(maternalStatistics),
       sections: uniqueSections([
-        detailSection("母父のタイプ", profileTypeText(pedigree.broodmareSireProfile)),
+        detailSection("母父のタイプ", profileTypeText(pedigree.broodmareSireProfile, "母父", identity.broodmareSire)),
         detailSection("母父側の構成", broodmareSireStructureText(pedigree, sourcePedigree) || profileStructureText("母父", identity.broodmareSire, pedigree.broodmareSireProfile?.ancestry)),
         detailSection("母父方祖先の役割", maternalLineage),
         detailSection("今回条件で見る点", maternalStrengths.map((strength) => strength.text).join("。")),
@@ -806,10 +1040,193 @@ const PUBLIC_ROLE_FACTOR_PHRASES = {
 
 const publicRoleFactorPhrase = (factor) => PUBLIC_ROLE_FACTOR_PHRASES[factor?.key] ?? factor?.label ?? "総合力";
 
+const PUBLIC_HOOKS = {
+  ability: "相手関係まで見た地力",
+  blood: "条件に合う血統背景",
+  training: "追い切りから見える仕上がり",
+  course: "今回の舞台で生きる経験",
+  distance: "今回距離への対応力",
+  load: "斤量条件の追い風",
+  pace: "想定展開との噛み合い",
+  trackBias: "当日の馬場傾向との相性",
+  stable: "ローテーションと騎手起用",
+  form: "近走で見せた勝ち切る力",
+};
+
+const publicHook = (factor) => PUBLIC_HOOKS[factor?.key] ?? publicRoleFactorPhrase(factor);
+
+const distancePerformanceEvidence = (horse) => {
+  const target = Number(horse?.currentRace?.distance);
+  const surface = horse?.currentRace?.surface;
+  const runs = (horse?.pastRuns ?? [])
+    .map((run) => ({
+      distance: Number(run.distance),
+      position: Number(run.confirmedFinishPosition ?? run.finishPosition),
+      surface: run.surface,
+    }))
+    .filter((run) => Number.isFinite(run.distance) && Number.isFinite(run.position) && run.position > 0
+      && (!surface || run.surface === surface));
+  if (!Number.isFinite(target) || !runs.length) return null;
+
+  const exact = runs.filter((run) => run.distance === target && run.position <= 3);
+  const nearestDistance = [...new Set(runs
+    .filter((run) => run.distance !== target && Math.abs(run.distance - target) <= 100)
+    .map((run) => run.distance))]
+    .sort((a, b) => Math.abs(a - target) - Math.abs(b - target)
+      || runs.filter((run) => run.distance === b && run.position <= 3).length
+        - runs.filter((run) => run.distance === a && run.position <= 3).length)[0];
+  const adjacent = nearestDistance == null
+    ? []
+    : runs.filter((run) => run.distance === nearestDistance && run.position <= 3);
+  const claims = [];
+  if (exact.length) {
+    const places = [...new Set(exact.map((run) => run.position))].sort((a, b) => a - b).slice(0, 2);
+    claims.push(`${target}mで${places.map((place) => `${place}着`).join("・")}`);
+  }
+  const adjacentTopTwo = adjacent.filter((run) => run.position <= 2).length;
+  if (adjacentTopTwo >= 2) claims.push(`${nearestDistance}mで連対${adjacentTopTwo}回`);
+  else if (adjacent.length >= 2) claims.push(`${nearestDistance}mで3着以内${adjacent.length}回`);
+  else if (adjacent.length === 1) claims.push(`${nearestDistance}mで${adjacent[0].position}着`);
+  return claims.length ? claims.join("、") : null;
+};
+
+const coursePerformanceEvidence = (horse) => {
+  const race = horse?.currentRace;
+  if (!race?.course || !race?.surface) return null;
+  const surface = String(race.surface).startsWith("ダ") ? "ダート" : "芝";
+  const runs = (horse?.pastRuns ?? []).filter((run) =>
+    run.course === race.course && run.surface === race.surface
+  );
+  const finishes = runs
+    .map((run) => Number(run.confirmedFinishPosition ?? run.finishPosition))
+    .filter((position) => Number.isFinite(position) && position > 0);
+  const topThree = finishes.filter((position) => position <= 3).length;
+  if (finishes.length && topThree) {
+    return {
+      headline: `${race.course}${surface}${finishes.length}走で3着以内${topThree}回`,
+      duplicate: `${race.course}での直接実績は`,
+    };
+  }
+
+  const sameSurface = (horse?.pastRuns ?? [])
+    .filter((run) => run.surface === race.surface)
+    .map((run) => Number(run.confirmedFinishPosition ?? run.finishPosition))
+    .filter((position) => Number.isFinite(position) && position > 0);
+  const sameSurfaceTopThree = sameSurface.filter((position) => position <= 3).length;
+  if (!sameSurface.length || !sameSurfaceTopThree) return null;
+  return {
+    headline: `同じ${surface}${sameSurface.length}走で3着以内${sameSurfaceTopThree}回`,
+    duplicate: `同じ${surface}${sameSurface.length}走で3着以内${sameSurfaceTopThree}回`,
+  };
+};
+
+const omitCourseHeadlineEvidence = (text, horse, evidence) => {
+  const course = horse?.currentRace?.course;
+  if (!text) return text;
+  if (course && evidence?.duplicate?.endsWith("での直接実績は")) {
+    return splitSentences(text).filter((sentence) => !sentence.includes(evidence.duplicate)).join("");
+  }
+  return evidence?.duplicate
+    ? text.replace(evidence.duplicate, "").replace(/^[・、]\s*/, "")
+    : text;
+};
+
 const publicRoleStrengthText = (factor) => {
   if (!factor) return "総合評価で最上位。";
   const phrase = publicRoleFactorPhrase(factor);
   return factor.score >= 75 ? `${phrase}を高く評価。` : `${phrase}が総合評価を支える。`;
+};
+
+export const buildHorseBrief = (horse) => {
+  const view = buildHorsePublicView(horse);
+  const strength = view.strengths.find((factor) => factor.score >= 70);
+  const caution = view.riskFlags[0]?.detail ?? view.watchText;
+  const rawFactor = horse?.analysis?.factorsDetail?.[strength?.key];
+  const reason = rawFactor
+    ? publicFactorExplanation({ ...rawFactor, key: strength.key, label: strength.label }, { horse })
+      ?? rawFactor.summary
+    : null;
+  const distanceEvidence = strength?.key === "distance" ? distancePerformanceEvidence(horse) : null;
+  const courseEvidence = strength?.key === "course" ? coursePerformanceEvidence(horse) : null;
+  const lead = distanceEvidence ?? courseEvidence?.headline;
+  const supportingReason = courseEvidence ? omitCourseHeadlineEvidence(reason, horse, courseEvidence) : reason;
+  return {
+    headline: strength ? `推し材料は「${lead ?? publicHook(strength)}」`
+      : view.factors.length ? "強調材料は少なく、慎重に評価。" : "評価に必要な情報が不足しています。",
+    reason: strength ? summarizePublicText(
+      distanceEvidence ? reason ?? "近い距離での実績を今回条件に照らして評価。" : supportingReason,
+      { maxLength: 120, sentences: 2 }
+    ) : null,
+    // Keep qualifications such as light workouts intact, rather than clipping the warning.
+    caution: caution ?? null,
+  };
+};
+
+const INDEX_REASON_LABELS = {
+  ability: "地力",
+  form: "近走内容",
+  distance: "距離適性",
+  course: "コース適性",
+  training: "調教評価",
+  blood: "血統適性",
+  pace: "展開適性",
+};
+
+const contributionMap = (horse) => {
+  const rows = horse?.analysis?.indexContributions ?? [];
+  const totalWeight = rows.reduce((sum, row) => sum + (Number(row.weight) || 0), 0);
+  if (!totalWeight) return new Map();
+  return new Map(rows.map((row) => [
+    row.key,
+    (Number.isFinite(row.contribution) ? row.contribution : (row.effectiveScore ?? row.score) * row.weight) / totalWeight,
+  ]).filter(([, value]) => Number.isFinite(value)));
+};
+
+const leaderDifferenceFactor = (leader, runnerUp) => {
+  const lead = contributionMap(leader);
+  const next = contributionMap(runnerUp);
+  return [...lead.entries()]
+    .filter(([key]) => next.has(key))
+    .map(([key, value]) => ({ key, difference: value - next.get(key) }))
+    .filter((item) => item.difference > 0)
+    .sort((a, b) => b.difference - a.difference)[0] ?? null;
+};
+
+export const buildIndexLeaderBrief = (horse, fieldHorses = []) => {
+  const ranked = [...fieldHorses]
+    .filter((runner) => isFiniteScore(raceHorseScore(runner)))
+    .sort((a, b) => raceHorseScore(b) - raceHorseScore(a) || (a.number ?? 999) - (b.number ?? 999));
+  if (ranked[0]?.id !== horse?.id) return null;
+
+  const runnerUp = ranked[1] ?? null;
+  const gap = runnerUp ? raceHorseScore(horse) - raceHorseScore(runnerUp) : null;
+  const edge = runnerUp ? leaderDifferenceFactor(horse, runnerUp) : null;
+  const key = edge?.key ?? horse?.analysis?.indexContributions?.[0]?.key;
+  const phrase = INDEX_REASON_LABELS[key] ?? null;
+  const factor = key ? horse?.analysis?.factorsDetail?.[key] : null;
+  const rawEvidence = factor
+    ? publicFactorExplanation({ ...factor, key }, { horse })
+      ?? publicFactorSummary(factor.summary, 120)
+    : null;
+  const specificEvidence = key === "distance"
+    ? distancePerformanceEvidence(horse)
+    : key === "course" ? coursePerformanceEvidence(horse) : null;
+  const evidence = key === "course" && specificEvidence
+    ? omitCourseHeadlineEvidence(rawEvidence, horse, specificEvidence)
+    : rawEvidence;
+  const hook = factor
+    ? key === "course" ? specificEvidence?.headline ?? publicHook({ key, label: phrase })
+      : specificEvidence ?? publicHook({ key, label: phrase })
+    : null;
+  const headline = edge && hook && gap > 0
+    ? `指数1位の決め手は「${hook}」`
+    : hook ? `指数1位の推し材料は「${hook}」` : "総合評価で指数1位";
+  const margin = gap === 0 ? "指数2位と同点。" : Number.isFinite(gap) ? `指数2位に${gap}点差。` : "";
+
+  return {
+    headline,
+    reason: [margin, evidence].filter(Boolean).join(" ") || "複数項目を総合して最上位。",
+  };
 };
 
 const strongestRaceFactor = (horse) => QUICK_READ_FACTOR_KEYS
@@ -910,6 +1327,9 @@ export const buildRacePublicConclusion = (race) => {
   const favorite = ranked[0];
   const challenger = ranked[1] ?? null;
   const { value: valueHorse, danger: dangerHorse } = selectPublicRoleHorses(race);
+  const dangerRank = dangerHorse
+    ? 1 + ranked.filter((horse) => raceHorseScore(horse) > raceHorseScore(dangerHorse)).length
+    : null;
   const favoriteGap = challenger ? raceHorseScore(favorite) - raceHorseScore(challenger) : null;
   const raceKey = raceKeyFor(race);
 
@@ -937,9 +1357,9 @@ export const buildRacePublicConclusion = (race) => {
       note: valueReason(valueHorse, valueHorse ? rankById.get(valueHorse.id) : null),
     },
     danger: {
-      horse: raceHorseIdentity(dangerHorse, dangerHorse ? rankById.get(dangerHorse.id) : null),
+      horse: raceHorseIdentity(dangerHorse, dangerRank),
       value: dangerHorse?.name ?? "該当馬なし",
-      note: dangerReason(dangerHorse, dangerHorse ? rankById.get(dangerHorse.id) : null),
+      note: dangerReason(dangerHorse, dangerRank),
     },
     key: {
       horse: null,

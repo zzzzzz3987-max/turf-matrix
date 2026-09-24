@@ -7,6 +7,15 @@ const response = (body, ok = true, status = 200) => ({
   status,
   json: async () => body,
 });
+const weekPayload = (date = "2026-09-06", id = "race-1") => ({
+  meta: { date },
+  races: [{ id, horses: [{ id: "horse-1" }], fieldSize: 1 }],
+});
+const signalsPayload = (date = "2026-09-06", id = "race-1") => ({
+  date,
+  raceCount: 1,
+  races: [{ id }],
+});
 
 test("a hanging manifest or JSON body times out and aborts the request", async () => {
   for (const hangBody of [false, true]) {
@@ -24,7 +33,7 @@ test("a hanging manifest or JSON body times out and aborts the request", async (
 test("a failed payload does not produce a partial update", async () => {
   const fetchImpl = async (url) => {
     if (url.startsWith("/live/version")) return response({ version: "new", weekDataUrl: "/week", allRaceSignalsUrl: "/signals" });
-    if (url === "/week") return response({ races: [] });
+    if (url === "/week") return response(weekPayload());
     return response(null, false, 503);
   };
   await assert.rejects(fetchLiveDataUpdate({ currentVersion: "old", fetchImpl }), /503/);
@@ -51,7 +60,7 @@ test("polling recovers after timeout and retries when applying the update fails"
   const fetchImpl = async (url) => {
     if (hang) return new Promise(() => {});
     if (url.startsWith("/live/version")) return response({ version: "new", weekDataUrl: "/week", allRaceSignalsUrl: "/signals" });
-    return response({ races: [] });
+    return response(url.endsWith("/week") ? weekPayload() : signalsPayload());
   };
   try {
     const firstError = new Promise((resolve) => { notifyError = resolve; });
@@ -110,8 +119,8 @@ test("live data refresh loads both payloads after the version changes", async ()
   const fetchImpl = async (url) => {
     requests.push(url);
     if (url.startsWith("/live/version.json")) return response(manifest);
-    if (url === manifest.weekDataUrl) return response({ meta: { date: "2026-09-06" }, races: [] });
-    if (url === manifest.allRaceSignalsUrl) return response({ date: "2026-09-06", races: [] });
+    if (url === manifest.weekDataUrl) return response(weekPayload());
+    if (url === manifest.allRaceSignalsUrl) return response(signalsPayload());
     return response(null, false, 404);
   };
 
@@ -122,4 +131,28 @@ test("live data refresh loads both payloads after the version changes", async ()
   assert.equal(result.weekData.meta.date, "2026-09-06");
   assert.equal(result.allRaceSignals.date, "2026-09-06");
   assert.equal(requests.length, 3);
+});
+
+test("live data rejects dates, race IDs, and engine versions that do not agree", async () => {
+  const manifest = { version: "new", weekDataUrl: "/week", allRaceSignalsUrl: "/signals" };
+  const fetchFor = (week, signals) => async (url) => {
+    if (url.startsWith("/live/version")) return response(manifest);
+    return response(url === "/week" ? week : signals);
+  };
+
+  await assert.rejects(
+    fetchLiveDataUpdate({ currentVersion: "old", fetchImpl: fetchFor(weekPayload(), signalsPayload("2026-09-05")) }),
+    /date mismatch/,
+  );
+  await assert.rejects(
+    fetchLiveDataUpdate({ currentVersion: "old", fetchImpl: fetchFor(weekPayload(), signalsPayload("2026-09-06", "other-race")) }),
+    /race IDs do not match/,
+  );
+  await assert.rejects(
+    fetchLiveDataUpdate({ currentVersion: "old", fetchImpl: fetchFor(
+      { ...weekPayload(), meta: { date: "2026-09-06", engineFingerprint: { sha256: "week" } } },
+      { ...signalsPayload(), engineFingerprint: { sha256: "signals" } },
+    ) }),
+    /analysis versions do not match/,
+  );
 });

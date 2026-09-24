@@ -73,15 +73,21 @@ const calculateTmIndex = (scores, context = null) => {
 const buildIndexContributions = (scores, context = null) => {
   const weights = weightsFor(context);
   const effectiveScores = calibrateIndexScores(scores, context);
-  return Object.entries(weights)
-    .filter(([key]) => Number.isFinite(effectiveScores[key]))
-    .map(([key, weight]) => ({
-      key,
-      score: scores[key],
-      effectiveScore: Math.round(effectiveScores[key] * 10) / 10,
-      weight,
-      contribution: Math.round(effectiveScores[key] * weight * 10) / 10,
-    }))
+  const available = Object.entries(weights).filter(([key]) => Number.isFinite(effectiveScores[key]));
+  const totalWeight = available.reduce((sum, [, weight]) => sum + weight, 0);
+  return available
+    .map(([key, weight]) => {
+      const normalizedWeight = totalWeight ? weight / totalWeight : 0;
+      return {
+        key,
+        score: scores[key],
+        effectiveScore: Math.round(effectiveScores[key] * 10) / 10,
+        weight,
+        normalizedWeight: Math.round(normalizedWeight * 1000) / 1000,
+        contribution: Math.round(effectiveScores[key] * weight * 10) / 10,
+        normalizedContribution: effectiveScores[key] * normalizedWeight,
+      };
+    })
     .sort((a, b) => b.contribution - a.contribution);
 };
 

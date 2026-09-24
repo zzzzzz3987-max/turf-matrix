@@ -28,7 +28,8 @@ const toDate = (dateText) => {
   const match = compact ?? separated;
   if (!match) return null;
   const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3])));
-  return Number.isNaN(date.getTime()) ? null : date;
+  return Number.isNaN(date.getTime()) || date.getUTCFullYear() !== Number(match[1]) ||
+    date.getUTCMonth() !== Number(match[2]) - 1 || date.getUTCDate() !== Number(match[3]) ? null : date;
 };
 
 const daysBeforeRace = (sessionDate, raceDate) => {
@@ -38,10 +39,18 @@ const daysBeforeRace = (sessionDate, raceDate) => {
   return Math.round((race.getTime() - session.getTime()) / 86400000);
 };
 
-const phaseForDays = (days) => {
-  if (!Number.isFinite(days) || days < 0) return "unknown";
-  if (days <= 4) return "final";
-  if (days <= 12) return "oneWeek";
+const phaseWindowForRace = (raceDate, phasePolicy) => {
+  const weekday = toDate(raceDate)?.getUTCDay();
+  // Keep weekend scoring stable; Monday/Tuesday meetings follow the same preparation week.
+  const extension = phasePolicy !== "legacy-four-day" && (weekday === 1 || weekday === 2) ? weekday : 0;
+  return { final: 4 + extension, oneWeek: 12 + extension };
+};
+
+const phaseForDays = (days, raceDate, phasePolicy) => {
+  if (!Number.isFinite(days) || days < 1) return "unknown";
+  const window = phaseWindowForRace(raceDate, phasePolicy);
+  if (days <= window.final) return "final";
+  if (days <= window.oneWeek) return "oneWeek";
   if (days <= 28) return "intermediate";
   return "stale";
 };
@@ -142,13 +151,14 @@ const finishPosition = (run) => {
 
 const raceDateOf = (run) => run?.raceDate ?? run?.date ?? null;
 
-const phaseQualityForRace = (sessions, raceDate) => {
+const phaseQualityForRace = (sessions, raceDate, phasePolicy) => {
   const eligible = sessions
     .map((session) => {
       const days = daysBeforeRace(session.date, raceDate);
-      return { ...session, comparisonDays: days, comparisonPhase: phaseForDays(days) };
+      return { ...session, comparisonDays: days, comparisonPhase: phaseForDays(days, raceDate, phasePolicy) };
     })
-    .filter((session) => Number.isFinite(session.comparisonDays) && session.comparisonDays >= 1 && session.comparisonDays <= 12);
+    .filter((session) => Number.isFinite(session.comparisonDays) && session.comparisonDays >= 1 &&
+      session.comparisonDays <= phaseWindowForRace(raceDate, phasePolicy).oneWeek);
   if (!eligible.length) return null;
   const representatives = ["final", "oneWeek"]
     .map((phase) => ({ phase, session: bestSession(eligible.filter((item) => item.comparisonPhase === phase)) }))
@@ -160,11 +170,12 @@ const phaseQualityForRace = (sessions, raceDate) => {
   };
 };
 
-const buildGoodRunComparison = (horse, sessions, currentPhaseQuality) => {
+const buildGoodRunComparison = (horse, sessions, currentPhaseQuality, phasePolicy) => {
   const baselines = (horse.pastRuns ?? [])
     .filter((run) => finishPosition(run) != null && finishPosition(run) <= 3)
+    .filter((run) => daysBeforeRace(raceDateOf(run), horse.currentRace?.raceDate) > 0)
     .map((run) => {
-      const profile = phaseQualityForRace(sessions, raceDateOf(run));
+      const profile = phaseQualityForRace(sessions, raceDateOf(run), phasePolicy);
       return profile
         ? { raceDate: raceDateOf(run), finish: finishPosition(run), raceName: run.raceName ?? run.name ?? null, ...profile }
         : null;
@@ -263,7 +274,8 @@ const matchStablePattern = (horse, sessions, phaseRepresentatives) => {
   };
 };
 
-const buildTrainingProfile = (horse) => {
+const buildTrainingProfile = (horse, { phasePolicy = "weekend-aligned-v2" } = {}) => {
+  if (!["weekend-aligned-v2", "legacy-four-day"].includes(phasePolicy)) throw new Error(`Unknown training phase policy: ${phasePolicy}`);
   const stableSide = horse.currentRace?.stableSide ?? horse.stableSide ?? "";
   const raceDate = horse.currentRace?.raceDate;
   const videoReview = findVideoReview(horse);
@@ -277,14 +289,15 @@ const buildTrainingProfile = (horse) => {
         score: sessionScore(session, stableSide),
         dateValue: date?.getTime() ?? 0,
         daysBeforeRace: days,
-        phase: phaseForDays(days),
+        phase: phaseForDays(days, raceDate, phasePolicy),
       };
     })
+    .filter((session) => Number.isFinite(session.daysBeforeRace) && session.daysBeforeRace >= 1)
     .sort((a, b) => b.dateValue - a.dateValue);
   const comparisonSessions = collectTrainingSessions(horse, {
     slope: [...(horse.training?.slope ?? []), ...(trainingHistory.slope ?? [])],
     wood: [...(horse.training?.wood ?? []), ...(trainingHistory.wood ?? [])],
-  }).map((session) => ({
+  }).filter((session) => daysBeforeRace(session.date, raceDate) >= 1).map((session) => ({
     ...session,
     score: sessionScore(session, stableSide),
     dateValue: toDate(session.date)?.getTime() ?? 0,
@@ -294,8 +307,10 @@ const buildTrainingProfile = (horse) => {
   if (!sessions.length) {
     const score = clamp(TRAINING_NEUTRAL_SCORE + (videoReview?.adjustment ?? 0));
     return {
+      phasePolicy,
       score,
       clockScore: TRAINING_NEUTRAL_SCORE,
+      baseScore: TRAINING_NEUTRAL_SCORE,
       lapScore: score,
       confidence: "low",
       status: videoReview ? "partial" : "missing",
@@ -358,7 +373,7 @@ const buildTrainingProfile = (horse) => {
       freshness * 0.06
   );
   const stablePattern = matchStablePattern(horse, sessions, phaseRepresentatives);
-  const goodRunComparison = buildGoodRunComparison(horse, comparisonSessions, phaseQuality);
+  const goodRunComparison = buildGoodRunComparison(horse, comparisonSessions, phaseQuality, phasePolicy);
   const clockScore = clamp(baseScore + stablePattern.adjustment + goodRunComparison.adjustment);
   const score = clamp(clockScore + (videoReview?.adjustment ?? 0));
   const accelCount = recent28.filter((session) => {
@@ -371,6 +386,7 @@ const buildTrainingProfile = (horse) => {
   const confidence = hasFinal && hasOneWeek ? "high" : hasFinal || hasOneWeek || recent21.length >= 2 ? "mid" : "low";
 
   return {
+    phasePolicy,
     score,
     clockScore,
     baseScore,
@@ -399,8 +415,8 @@ const buildTrainingProfile = (horse) => {
   };
 };
 
-const buildTrainingAnalysis = (horse) => {
-  const profile = buildTrainingProfile(horse);
+const buildTrainingAnalysis = (horse, options) => {
+  const profile = buildTrainingProfile(horse, options);
   const intervals = (horse.pastRuns ?? []).map((run) => daysBeforeRace(run.date, horse.currentRace?.raceDate))
     .filter((days) => Number.isFinite(days) && days > 0);
   const intervalDays = intervals.length ? Math.min(...intervals) : null;

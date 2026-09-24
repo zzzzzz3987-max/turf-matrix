@@ -41,10 +41,10 @@ const verdictForEv = (ev) => {
 const buildRaceValueMetrics = (horses) => {
   const evaluated = horses.filter((horse) => Number.isFinite(horse.tmIndex));
   if (!evaluated.length || evaluated.length !== horses.length) return new Map();
-  const ranked = [...evaluated].sort(
-    (a, b) => b.tmIndex - a.tmIndex || (a.number ?? 999) - (b.number ?? 999),
-  );
-  const rankByHorse = new Map(ranked.map((horse, index) => [horse, index + 1]));
+  const rankByHorse = new Map(evaluated.map((horse) => [
+    horse,
+    1 + evaluated.filter((other) => other.tmIndex > horse.tmIndex).length,
+  ]));
 
   const weights = evaluated.map((horse) => ({
     horse,

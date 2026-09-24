@@ -81,6 +81,7 @@ const buildVerdictPayload = ({
   valueAnalysis,
   stableAnalysis,
   indexContributions,
+  indexCalculation,
   dataQuality,
 }) => {
   const { ability, form, course, pace, training, blood, stable, frame } = scores;
@@ -177,11 +178,17 @@ const buildVerdictPayload = ({
           evidenceV2: pedigreeAnalysis?.evidenceV2 ?? [],
           components: pedigreeAnalysis?.components ?? {},
           componentDetails: pedigreeAnalysis?.componentDetails ?? {},
+          calculation: {
+            baseScore: pedigreeAnalysis?.baseScore ?? null,
+            statisticsAdjustment: pedigreeAnalysis?.statisticsAdjustment ?? 0,
+            individualProfileAdjustment: pedigreeAnalysis?.individualProfileAdjustment ?? 0,
+          },
         },
         training: {
           key: "training",
           indexEligible: trainingAnalysis.indexEligible !== false,
           raceIntervalDays: trainingAnalysis.raceIntervalDays ?? null,
+          phasePolicy: trainingAnalysis.phasePolicy,
           label: "調教",
           score: training,
           maxScore: 100,
@@ -190,6 +197,13 @@ const buildVerdictPayload = ({
           summary: trainingReadable,
           evidence: trainingAnalysis.strengths ?? [],
           components: trainingAnalysis.components ?? {},
+          calculation: {
+            baseScore: trainingAnalysis.baseScore ?? null,
+            stablePatternAdjustment: trainingAnalysis.stablePattern?.adjustment ?? 0,
+            goodRunAdjustment: trainingAnalysis.goodRunComparison?.adjustment ?? 0,
+            videoAdjustment: trainingAnalysis.videoReview?.adjustment ?? 0,
+            clockScore: trainingAnalysis.clockScore ?? null,
+          },
           ...(trainingAnalysis.goodRunComparison?.status !== "missing"
             ? { goodRunComparison: trainingAnalysis.goodRunComparison }
             : {}),
@@ -203,6 +217,7 @@ const buildVerdictPayload = ({
           status: "active",
           summary: courseAnalysis?.summary ?? contextSummary,
           evidence: courseAnalysis?.strengths ?? [`コース適性は${factorLabel(course)}`, `距離適性は${factorLabel(factors.distance)}`],
+          components: courseAnalysis?.components ?? {},
         },
         distance: {
           key: "distance",
@@ -225,6 +240,7 @@ const buildVerdictPayload = ({
           summary: paceAnalysis?.summary ?? "近走の通過順と位置取り傾向から、今回の流れへの合いやすさを評価",
           evidence: paceAnalysis?.strengths ?? [`展開適性は${factorLabel(pace)}`, `上がり評価は${factorLabel(factors.lap)}`],
           contextFit: paceAnalysis?.contextFit ?? null,
+          calculation: paceAnalysis?.calculation ?? null,
           historicalFlow: paceAnalysis?.historicalFlow ?? null,
           integratedFit: paceAnalysis?.integratedFit ?? null,
         },
@@ -251,6 +267,8 @@ const buildVerdictPayload = ({
           status: horse.pastRuns?.length ? "active" : "missing",
           summary: formAnalysis?.summary ?? "着順、着差、相手関係、近走推移を評価",
           evidence: formEvidence,
+          runEvidence: formAnalysis?.evidence ?? [],
+          calculation: formAnalysis?.calculation ?? null,
         },
         value: {
           key: "value",
@@ -308,6 +326,7 @@ const buildVerdictPayload = ({
       pace: paceAnalysis,
       value: valueAnalysis,
       indexContributions,
+      indexCalculation,
       dataQuality,
       verdict: {
         status: "active",

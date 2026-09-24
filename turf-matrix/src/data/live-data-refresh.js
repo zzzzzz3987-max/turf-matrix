@@ -1,6 +1,43 @@
 export const LIVE_DATA_REFRESH_INTERVAL_MS = 15_000;
 export const LIVE_DATA_REQUEST_TIMEOUT_MS = 10_000;
 
+const validDate = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
+
+const validateLivePayloads = (weekData, allRaceSignals) => {
+  const weekDate = weekData?.meta?.date ?? weekData?.date;
+  const signalDate = allRaceSignals?.date ?? allRaceSignals?.meta?.date;
+  const weekRaces = weekData?.races;
+  const signalRaces = allRaceSignals?.races;
+  if (!validDate(weekDate) || !validDate(signalDate) || weekDate !== signalDate) {
+    throw new Error("Live data date mismatch or missing date");
+  }
+  if (!Array.isArray(weekRaces) || !weekRaces.length || !Array.isArray(signalRaces) || !signalRaces.length) {
+    throw new Error("Live data race lists are missing or empty");
+  }
+
+  const uniqueIds = (races, label) => {
+    const ids = races.map((race) => race?.id ?? race?.raceId);
+    if (ids.some((id) => typeof id !== "string" || !id.trim()) || new Set(ids).size !== ids.length) {
+      throw new Error(`Live ${label} race IDs are invalid or duplicated`);
+    }
+    return new Set(ids);
+  };
+  const weekIds = uniqueIds(weekRaces, "week-data");
+  const signalIds = uniqueIds(signalRaces, "all-race-signals");
+  if ([...weekIds].some((id) => !signalIds.has(id))) {
+    throw new Error("Live payload race IDs do not match");
+  }
+  if (allRaceSignals.raceCount != null && allRaceSignals.raceCount !== signalRaces.length) {
+    throw new Error("Live all-race-signals count does not match its race list");
+  }
+
+  const weekFingerprint = weekData.meta?.engineFingerprint?.sha256;
+  const signalFingerprint = allRaceSignals.engineFingerprint?.sha256;
+  if (weekFingerprint && signalFingerprint && weekFingerprint !== signalFingerprint) {
+    throw new Error("Live payload analysis versions do not match");
+  }
+};
+
 const fetchJson = async (fetchImpl, url, timeoutMs) => {
   const controller = new AbortController();
   let timer;
@@ -38,6 +75,7 @@ export const fetchLiveDataUpdate = async ({
     fetchJson(fetchImpl, manifest.weekDataUrl, timeoutMs),
     fetchJson(fetchImpl, manifest.allRaceSignalsUrl, timeoutMs),
   ]);
+  validateLivePayloads(weekData, allRaceSignals);
 
   return {
     changed: true,
@@ -46,6 +84,8 @@ export const fetchLiveDataUpdate = async ({
     allRaceSignals,
   };
 };
+
+export { validateLivePayloads };
 
 export const startLiveDataRefresh = ({
   initialVersion,

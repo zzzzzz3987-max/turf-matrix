@@ -14,6 +14,8 @@ export const rankPublicRoleHorses = (race) => [...(race?.horses ?? [])]
   .map((horse, index, ranked) => ({
     horse,
     rank: index + 1,
+    // Equal scores share a rank when measuring disagreement with the market.
+    competitionRank: 1 + ranked.filter((other) => publicRoleScore(other) > publicRoleScore(horse)).length,
     score: publicRoleScore(horse),
     leaderGap: publicRoleScore(ranked[0]) - publicRoleScore(horse),
     marketGap: valueData(horse).marketGap,
@@ -48,13 +50,32 @@ const isValueCandidate = (candidate) =>
   finite(candidate.marketGap) &&
   candidate.marketGap >= 2;
 
-export const selectPublicValueHorse = (race) => rankPublicRoleHorses(race)
+export const selectPublicValueHorses = (race, limit = 2) => rankPublicRoleHorses(race)
   .filter(isValueCandidate)
   .sort((left, right) =>
     right.marketGap - left.marketGap ||
     right.score - left.score ||
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
-  )[0]?.horse ?? null;
+  )
+  .slice(0, Math.max(0, limit))
+  .map((candidate) => candidate.horse);
+
+export const selectPublicValueHorse = (race) => selectPublicValueHorses(race, 1)[0] ?? null;
+
+export const selectPublicFocusHorses = (race) => {
+  const ranked = rankPublicRoleHorses(race);
+  const axis = ranked.slice(0, 1).map((candidate) => candidate.horse);
+  const opponents = ranked.slice(1, 4).map((candidate) => candidate.horse);
+  const excluded = new Set([...axis, ...opponents].map((horse) => horse.id));
+  const value = selectPublicValueHorses(race, race?.horses?.length ?? 0)
+    .filter((horse) => !excluded.has(horse.id))
+    .slice(0, 1);
+  return {
+    axis,
+    opponents,
+    value,
+  };
+};
 
 // Candidate v2 stays in shadow until fresh pre-race samples pass the adoption gate.
 export const selectPublicValueEvidenceHorse = (race) => rankPublicRoleHorses(race)
@@ -69,10 +90,10 @@ export const selectPublicDangerHorse = (race) => rankPublicRoleHorses(race)
   .filter((candidate) =>
     finite(candidate.horse.popularity) &&
     candidate.horse.popularity <= 4 &&
-    candidate.rank - candidate.horse.popularity >= 3
+    candidate.competitionRank - candidate.horse.popularity >= 3
   )
   .sort((left, right) =>
-    (right.rank - right.horse.popularity) - (left.rank - left.horse.popularity) ||
+    (right.competitionRank - right.horse.popularity) - (left.competitionRank - left.horse.popularity) ||
     right.leaderGap - left.leaderGap ||
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
   )[0]?.horse ?? null;

@@ -1,0 +1,1022 @@
+{
+  "version": "evidence-gate-v1-shadow",
+  "generatedAt": "2026-09-22T16:35:32.537Z",
+  "policy": {
+    "productionConnected": false,
+    "retrospectiveOnly": true,
+    "thresholdValidated": false,
+    "resultUsedForSelection": false,
+    "indexWeightsChanged": false,
+    "nextStep": "Freeze this policy before future races; assess coverage and false warnings on unseen data. Do not tune to remove known winners."
+  },
+  "raceCount": 18,
+  "summary": {
+    "published": {
+      "selected": 14,
+      "wins": 4,
+      "top3": 6,
+      "outsideTop3": 8,
+      "coverage": 0.7777777777777778,
+      "outsideTop3Rate": 0.5714285714285714
+    },
+    "tiesOnly": {
+      "selected": 11,
+      "wins": 3,
+      "top3": 4,
+      "outsideTop3": 7,
+      "coverage": 0.6111111111111112,
+      "outsideTop3Rate": 0.6363636363636364
+    },
+    "candidate": {
+      "selected": 2,
+      "wins": 1,
+      "top3": 1,
+      "outsideTop3": 1,
+      "coverage": 0.1111111111111111,
+      "outsideTop3Rate": 0.5
+    }
+  },
+  "rows": [
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-中山-9R",
+      "race": "カンナステークス",
+      "commit": "b8023e323774e6e1e8aea22c3e23498d8ee9e6ae",
+      "availableAt": "2026-09-19T05:19:16.098Z",
+      "published": {
+        "number": 2,
+        "name": "ジャスパートレノ",
+        "finishPosition": 4
+      },
+      "tiesOnly": {
+        "number": 2,
+        "name": "ジャスパートレノ",
+        "finishPosition": 4
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 2,
+        "name": "ジャスパートレノ",
+        "score": 74,
+        "competitionRank": 4,
+        "popularity": 1,
+        "rankGap": 3,
+        "leaderGap": 7,
+        "classification": "market_mismatch",
+        "risks": [],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 2,
+          "name": "ジャスパートレノ",
+          "score": 74,
+          "competitionRank": 4,
+          "popularity": 1,
+          "rankGap": 3,
+          "leaderGap": 7,
+          "classification": "market_mismatch",
+          "risks": [],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-中山-10R",
+      "race": "九十九里特別",
+      "commit": "116ddf4bf1de557827530af0a574a0e0ccbbb350",
+      "availableAt": "2026-09-19T05:59:17.838Z",
+      "published": {
+        "number": 11,
+        "name": "キンググローリー",
+        "finishPosition": 1
+      },
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 11,
+        "name": "キンググローリー",
+        "score": 74,
+        "competitionRank": 5,
+        "popularity": 3,
+        "rankGap": 2,
+        "leaderGap": 7,
+        "classification": "none",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          },
+          {
+            "key": "training",
+            "group": "training",
+            "label": "調教評価が低め"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "no_rank_mismatch"
+        ]
+      },
+      "assessments": []
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-中山-11R",
+      "race": "ながつきステークス",
+      "commit": "9fdb9078cc5077d68868308d44b21560e1c263f2",
+      "availableAt": "2026-09-19T06:39:20.341Z",
+      "published": {
+        "number": 4,
+        "name": "イムホテプ",
+        "finishPosition": 7
+      },
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 4,
+        "name": "イムホテプ",
+        "score": 74,
+        "competitionRank": 6,
+        "popularity": 4,
+        "rankGap": 2,
+        "leaderGap": 6,
+        "classification": "none",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "no_rank_mismatch"
+        ]
+      },
+      "assessments": []
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-阪神-8R",
+      "race": "野路菊ステークス",
+      "commit": "cf7e036a99da6fb2b97f9583cd477d02eccd7044",
+      "availableAt": "2026-09-19T04:36:42.751Z",
+      "published": null,
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": null,
+      "assessments": []
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-阪神-10R",
+      "race": "北摂特別",
+      "commit": "c764ad5f19eaa5a313fb233829894eb851256aa3",
+      "availableAt": "2026-09-19T05:43:47.299Z",
+      "published": null,
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": null,
+      "assessments": []
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-阪神-11R",
+      "race": "大阪スポーツ杯",
+      "commit": "cb220e72cd03835b7b8cf95b5dcebed0ef3df63d",
+      "availableAt": "2026-09-19T06:23:49.447Z",
+      "published": {
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "finishPosition": 13
+      },
+      "tiesOnly": {
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "finishPosition": 13
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "score": 69,
+        "competitionRank": 11,
+        "popularity": 4,
+        "rankGap": 7,
+        "leaderGap": 12,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "ability",
+            "group": "performance",
+            "label": "能力評価が低め"
+          },
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 6,
+          "name": "メイショウツヨキ",
+          "score": 69,
+          "competitionRank": 11,
+          "popularity": 4,
+          "rankGap": 7,
+          "leaderGap": 12,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "ability",
+              "group": "performance",
+              "label": "能力評価が低め"
+            },
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-阪神-9R",
+      "race": "夕月特別",
+      "commit": "bd59f998c367c42a8ecafe4330d638688d048f91",
+      "availableAt": "2026-09-20T05:04:03.383Z",
+      "published": {
+        "number": 6,
+        "name": "ガーネットフレア",
+        "finishPosition": 1
+      },
+      "tiesOnly": {
+        "number": 6,
+        "name": "ガーネットフレア",
+        "finishPosition": 1
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 6,
+        "name": "ガーネットフレア",
+        "score": 72,
+        "competitionRank": 6,
+        "popularity": 2,
+        "rankGap": 4,
+        "leaderGap": 8,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 6,
+          "name": "ガーネットフレア",
+          "score": 72,
+          "competitionRank": 6,
+          "popularity": 2,
+          "rankGap": 4,
+          "leaderGap": 8,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-阪神-10R",
+      "race": "鳥取特別",
+      "commit": "315118ae2ab76e83115d46c14c183ee29e85558f",
+      "availableAt": "2026-09-20T05:18:35.548Z",
+      "published": {
+        "number": 12,
+        "name": "サンライズケヴィン",
+        "finishPosition": 1
+      },
+      "tiesOnly": {
+        "number": 12,
+        "name": "サンライズケヴィン",
+        "finishPosition": 1
+      },
+      "candidate": {
+        "number": 12,
+        "name": "サンライズケヴィン",
+        "finishPosition": 1
+      },
+      "publishedAssessment": {
+        "number": 12,
+        "name": "サンライズケヴィン",
+        "score": 72,
+        "competitionRank": 6,
+        "popularity": 3,
+        "rankGap": 3,
+        "leaderGap": 6,
+        "classification": "danger",
+        "risks": [
+          {
+            "key": "ability",
+            "group": "performance",
+            "label": "能力評価が低め"
+          },
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          },
+          {
+            "key": "training",
+            "group": "training",
+            "label": "調教評価が低め"
+          }
+        ],
+        "protections": [],
+        "reasons": []
+      },
+      "assessments": [
+        {
+          "number": 5,
+          "name": "ソルチェリア",
+          "score": 74,
+          "competitionRank": 4,
+          "popularity": 1,
+          "rankGap": 3,
+          "leaderGap": 4,
+          "classification": "danger",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            },
+            {
+              "key": "training",
+              "group": "training",
+              "label": "調教評価が低め"
+            }
+          ],
+          "protections": [],
+          "reasons": []
+        },
+        {
+          "number": 12,
+          "name": "サンライズケヴィン",
+          "score": 72,
+          "competitionRank": 6,
+          "popularity": 3,
+          "rankGap": 3,
+          "leaderGap": 6,
+          "classification": "danger",
+          "risks": [
+            {
+              "key": "ability",
+              "group": "performance",
+              "label": "能力評価が低め"
+            },
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            },
+            {
+              "key": "training",
+              "group": "training",
+              "label": "調教評価が低め"
+            }
+          ],
+          "protections": [],
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-阪神-11R",
+      "race": "道頓堀ステークス",
+      "commit": "9560411735dd3dc5fbfbd7dba9e4780dac2dd549",
+      "availableAt": "2026-09-20T05:53:43.009Z",
+      "published": {
+        "number": 5,
+        "name": "ユウファラオ",
+        "finishPosition": 16
+      },
+      "tiesOnly": {
+        "number": 5,
+        "name": "ユウファラオ",
+        "finishPosition": 16
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 5,
+        "name": "ユウファラオ",
+        "score": 71,
+        "competitionRank": 13,
+        "popularity": 4,
+        "rankGap": 9,
+        "leaderGap": 8,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 9,
+          "name": "チューラワンサ",
+          "score": 76,
+          "competitionRank": 5,
+          "popularity": 2,
+          "rankGap": 3,
+          "leaderGap": 3,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        },
+        {
+          "number": 5,
+          "name": "ユウファラオ",
+          "score": 71,
+          "competitionRank": 13,
+          "popularity": 4,
+          "rankGap": 9,
+          "leaderGap": 8,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-中山-9R",
+      "race": "松戸特別",
+      "commit": "315118ae2ab76e83115d46c14c183ee29e85558f",
+      "availableAt": "2026-09-20T05:18:35.548Z",
+      "published": {
+        "number": 10,
+        "name": "シャローファースト",
+        "finishPosition": 2
+      },
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 10,
+        "name": "シャローファースト",
+        "score": 70,
+        "competitionRank": 4,
+        "popularity": 2,
+        "rankGap": 2,
+        "leaderGap": 5,
+        "classification": "none",
+        "risks": [
+          {
+            "key": "ability",
+            "group": "performance",
+            "label": "能力評価が低め"
+          },
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          },
+          {
+            "key": "training",
+            "group": "training",
+            "label": "調教評価が低め"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "no_rank_mismatch"
+        ]
+      },
+      "assessments": []
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-中山-10R",
+      "race": "汐留特別",
+      "commit": "9560411735dd3dc5fbfbd7dba9e4780dac2dd549",
+      "availableAt": "2026-09-20T05:53:43.009Z",
+      "published": {
+        "number": 9,
+        "name": "ジャックナダル",
+        "finishPosition": 5
+      },
+      "tiesOnly": {
+        "number": 9,
+        "name": "ジャックナダル",
+        "finishPosition": 5
+      },
+      "candidate": {
+        "number": 9,
+        "name": "ジャックナダル",
+        "finishPosition": 5
+      },
+      "publishedAssessment": {
+        "number": 9,
+        "name": "ジャックナダル",
+        "score": 75,
+        "competitionRank": 8,
+        "popularity": 3,
+        "rankGap": 5,
+        "leaderGap": 8,
+        "classification": "danger",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          },
+          {
+            "key": "training",
+            "group": "training",
+            "label": "調教評価が低め"
+          }
+        ],
+        "protections": [],
+        "reasons": []
+      },
+      "assessments": [
+        {
+          "number": 9,
+          "name": "ジャックナダル",
+          "score": 75,
+          "competitionRank": 8,
+          "popularity": 3,
+          "rankGap": 5,
+          "leaderGap": 8,
+          "classification": "danger",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            },
+            {
+              "key": "training",
+              "group": "training",
+              "label": "調教評価が低め"
+            }
+          ],
+          "protections": [],
+          "reasons": []
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-中山-11R",
+      "race": "産経賞オールカマー",
+      "commit": "9560411735dd3dc5fbfbd7dba9e4780dac2dd549",
+      "availableAt": "2026-09-20T05:53:43.009Z",
+      "published": {
+        "number": 4,
+        "name": "ヴーレヴー",
+        "finishPosition": 3
+      },
+      "tiesOnly": {
+        "number": 4,
+        "name": "ヴーレヴー",
+        "finishPosition": 3
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 4,
+        "name": "ヴーレヴー",
+        "score": 74,
+        "competitionRank": 8,
+        "popularity": 3,
+        "rankGap": 5,
+        "leaderGap": 6,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [
+          "能力上位"
+        ],
+        "reasons": [
+          "insufficient_independent_evidence",
+          "positive_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 4,
+          "name": "ヴーレヴー",
+          "score": 74,
+          "competitionRank": 8,
+          "popularity": 3,
+          "rankGap": 5,
+          "leaderGap": 6,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [
+            "能力上位"
+          ],
+          "reasons": [
+            "insufficient_independent_evidence",
+            "positive_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-阪神-9R",
+      "race": "新涼特別",
+      "commit": "d8ea8d2211ae387057d8f94f8961c84974115cd5",
+      "availableAt": "2026-09-21T05:18:53.654Z",
+      "published": {
+        "number": 14,
+        "name": "ヤマニンバロネス",
+        "finishPosition": 1
+      },
+      "tiesOnly": {
+        "number": 14,
+        "name": "ヤマニンバロネス",
+        "finishPosition": 1
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 14,
+        "name": "ヤマニンバロネス",
+        "score": 68,
+        "competitionRank": 12,
+        "popularity": 4,
+        "rankGap": 8,
+        "leaderGap": 14,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "ability",
+            "group": "performance",
+            "label": "能力評価が低め"
+          },
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 16,
+          "name": "ライトオブヌカタ",
+          "score": 72,
+          "competitionRank": 7,
+          "popularity": 3,
+          "rankGap": 4,
+          "leaderGap": 10,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "ability",
+              "group": "performance",
+              "label": "能力評価が低め"
+            },
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        },
+        {
+          "number": 14,
+          "name": "ヤマニンバロネス",
+          "score": 68,
+          "competitionRank": 12,
+          "popularity": 4,
+          "rankGap": 8,
+          "leaderGap": 14,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "ability",
+              "group": "performance",
+              "label": "能力評価が低め"
+            },
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-阪神-10R",
+      "race": "Ｍキタサンブラック",
+      "commit": "f62ecd38adaa0a150c891ef9cad6e44335306b0f",
+      "availableAt": "2026-09-21T05:59:20.574Z",
+      "published": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "finishPosition": 12
+      },
+      "tiesOnly": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "finishPosition": 12
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "score": 77,
+        "competitionRank": 5,
+        "popularity": 1,
+        "rankGap": 4,
+        "leaderGap": 3,
+        "classification": "market_mismatch",
+        "risks": [],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 10,
+          "name": "ナリタエスペランサ",
+          "score": 77,
+          "competitionRank": 5,
+          "popularity": 1,
+          "rankGap": 4,
+          "leaderGap": 3,
+          "classification": "market_mismatch",
+          "risks": [],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-阪神-11R",
+      "race": "神戸新聞杯",
+      "commit": "2365ed304123259a9fd0ae9d339d82d779c03d04",
+      "availableAt": "2026-09-21T06:38:48.042Z",
+      "published": {
+        "number": 9,
+        "name": "グリーンエナジー",
+        "finishPosition": 8
+      },
+      "tiesOnly": {
+        "number": 9,
+        "name": "グリーンエナジー",
+        "finishPosition": 8
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 9,
+        "name": "グリーンエナジー",
+        "score": 76,
+        "competitionRank": 6,
+        "popularity": 2,
+        "rankGap": 4,
+        "leaderGap": 6,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 3,
+          "name": "ゴーラッキー",
+          "score": 76,
+          "competitionRank": 6,
+          "popularity": 3,
+          "rankGap": 3,
+          "leaderGap": 6,
+          "classification": "market_mismatch",
+          "risks": [],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        },
+        {
+          "number": 9,
+          "name": "グリーンエナジー",
+          "score": 76,
+          "competitionRank": 6,
+          "popularity": 2,
+          "rankGap": 4,
+          "leaderGap": 6,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "raceId": "2026-09-22-中山-9R",
+      "race": "鋸山特別",
+      "commit": "495aa8edbd070d6526b5aff412141fcb0dd11477",
+      "availableAt": "2026-09-22T05:04:13.026Z",
+      "published": {
+        "number": 11,
+        "name": "ロイスター",
+        "finishPosition": 4
+      },
+      "tiesOnly": {
+        "number": 11,
+        "name": "ロイスター",
+        "finishPosition": 4
+      },
+      "candidate": null,
+      "publishedAssessment": {
+        "number": 11,
+        "name": "ロイスター",
+        "score": 72,
+        "competitionRank": 7,
+        "popularity": 4,
+        "rankGap": 3,
+        "leaderGap": 5,
+        "classification": "market_mismatch",
+        "risks": [
+          {
+            "key": "ability",
+            "group": "performance",
+            "label": "能力評価が低め"
+          },
+          {
+            "key": "form",
+            "group": "performance",
+            "label": "近走内容に不安"
+          }
+        ],
+        "protections": [],
+        "reasons": [
+          "insufficient_independent_evidence"
+        ]
+      },
+      "assessments": [
+        {
+          "number": 11,
+          "name": "ロイスター",
+          "score": 72,
+          "competitionRank": 7,
+          "popularity": 4,
+          "rankGap": 3,
+          "leaderGap": 5,
+          "classification": "market_mismatch",
+          "risks": [
+            {
+              "key": "ability",
+              "group": "performance",
+              "label": "能力評価が低め"
+            },
+            {
+              "key": "form",
+              "group": "performance",
+              "label": "近走内容に不安"
+            }
+          ],
+          "protections": [],
+          "reasons": [
+            "insufficient_independent_evidence"
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "raceId": "2026-09-22-中山-10R",
+      "race": "Ｍディープインパクト",
+      "commit": "30f10708084d2204a1750ce877e3ec1909b48824",
+      "availableAt": "2026-09-22T05:43:39.835Z",
+      "published": null,
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": null,
+      "assessments": []
+    },
+    {
+      "date": "2026-09-22",
+      "raceId": "2026-09-22-中山-11R",
+      "race": "ＪＲＡアニバーサリー",
+      "commit": "30f10708084d2204a1750ce877e3ec1909b48824",
+      "availableAt": "2026-09-22T05:43:39.835Z",
+      "published": null,
+      "tiesOnly": null,
+      "candidate": null,
+      "publishedAssessment": null,
+      "assessments": []
+    }
+  ]
+}

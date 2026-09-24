@@ -66,6 +66,19 @@ test("unexperienced heavy track remains neutral", () => {
   assert.equal(result.relevantRunCount, 0);
 });
 
+test("missing or invalid finish data is excluded instead of becoming a zero-second heavy-track result", () => {
+  const result = buildGoingAdjustment(horse([
+    run({ trackCondition: "重", margin: null, finishPosition: null }),
+    run({ trackCondition: "重", margin: "", finishPosition: 0 }),
+    run({ trackCondition: "重", margin: 0.2, finishPosition: 99, fieldSize: 12 }),
+    run({ trackCondition: "良", margin: 1.4, finishPosition: 8 }),
+  ]), { surface: "芝", going: "重" });
+
+  assert.equal(result.status, "unexperienced");
+  assert.equal(result.adjustment, 0);
+  assert.equal(result.relevantRunCount, 0);
+});
+
 test("heavy-track adjustment compares the same horse against its good-track baseline", () => {
   const result = buildGoingAdjustment(horse([
     run({ trackCondition: "重", margin: 0, finishPosition: 1 }),

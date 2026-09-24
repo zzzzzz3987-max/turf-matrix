@@ -1,4 +1,9 @@
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+const numericValue = (value) => {
+  if (value == null || (typeof value === "string" && !value.trim())) return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+};
 
 const normalizeGoing = (value) => {
   const text = String(value ?? "").normalize("NFKC").replace(/\s+/g, "");
@@ -27,10 +32,11 @@ const classBonus = (run) => {
 };
 
 const performanceScore = (run) => {
-  const margin = Number(run?.margin);
-  const finish = Number(run?.finishPosition);
-  const fieldSize = Number(run?.fieldSize);
-  if (!Number.isFinite(margin) || !Number.isFinite(finish) || !Number.isFinite(fieldSize) || fieldSize <= 0) {
+  const margin = numericValue(run?.margin);
+  const finish = numericValue(run?.finishPosition);
+  const fieldSize = numericValue(run?.fieldSize);
+  if (margin == null || margin < 0 || margin > 20 || finish == null || !Number.isInteger(finish)
+    || fieldSize == null || !Number.isInteger(fieldSize) || fieldSize <= 0 || finish < 1 || finish > fieldSize) {
     return null;
   }
   const marginScore = clamp(72 - margin * 18 + classBonus(run), 35, 96);
@@ -43,7 +49,7 @@ const average = (values) => {
   return valid.length ? valid.reduce((sum, value) => sum + value, 0) / valid.length : null;
 };
 
-const averageMargin = (runs) => average(runs.map((run) => Number(run.margin)));
+const averageMargin = (runs) => average(runs.map((run) => numericValue(run.margin)).filter((margin) => margin != null && margin >= 0 && margin <= 20));
 
 const shrinkFactorFor = (runCount) => {
   if (runCount <= 0) return 0;

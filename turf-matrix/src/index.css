@@ -7,3 +7,59 @@ body,
 #root {
   background: #FAFAFA;
 }
+
+.tm-app [class*="tracking-"] { letter-spacing: 0; }
+
+.tm-feature {
+  background: #fff;
+  border-top: 3px solid #e2e8f0;
+}
+
+.tm-race-card {
+  border-color: #dce4e7;
+  border-top: 3px solid #cad6d9;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.tm-race-card:hover,
+.tm-race-card:focus-visible {
+  border-color: #168b87;
+  box-shadow: 0 4px 16px rgb(19 54 52 / 7%);
+}
+
+.tm-race-leader { min-height: 88px; }
+.tm-feature-link:hover { color: #008c99; border-color: #008c99; }
+.tm-verdict { border-top: 3px solid #cbd5dc; }
+.tm-verdict-favorite { background: #eef8f6; border-top-color: #087e79; }
+.tm-verdict-challenger { border-top-color: #3478df; }
+.tm-verdict-value { border-top-color: #56a47b; }
+.tm-verdict-danger { background: #fff9f5; border-top-color: #c48a56; }
+.tm-verdict-favorite > div:nth-child(2) > div:first-child { color: #086e69; }
+
+.tm-app details > summary { transition: color 150ms ease, background-color 150ms ease; }
+.tm-app details > summary:hover { color: #087e79; background-color: #f3f8f7; }
+.tm-app details[open] > summary { color: #087e79; }
+.tm-app [data-testid="horse-evidence"] { border-top: 2px solid #152b33; }
+
+@media (min-width: 1100px) {
+  .tm-feature > .relative {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr 1.1fr;
+    align-items: center;
+    gap: 24px;
+    min-height: 210px;
+  }
+  .tm-feature > .relative > div { margin-top: 0; }
+  .tm-feature > .relative > div:nth-child(2) {
+    border-top: 0;
+    border-left: 1px solid #e2e8f0;
+    padding: 12px 0 12px 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-app *, .tm-app *::before, .tm-app *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

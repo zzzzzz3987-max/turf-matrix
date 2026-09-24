@@ -42,6 +42,37 @@ test("loads are compared after JRA age and sex allowance conversion", () => {
   assert.equal(equivalentLoadKg(horse({ age: 4, weight: 57 }), race).equivalentWeight, 57);
 });
 
+test("missing current weight is not accepted as zero or included in the field median", () => {
+  const missing = horse({ number: 1, name: "欠損", weight: null });
+  const valid = horse({ number: 2, name: "有効", weight: 57 });
+  const context = buildRaceLoadContext([missing, valid], race);
+
+  assert.equal(equivalentLoadKg(missing, race), null);
+  assert.equal(context.sample, 1);
+  assert.equal(context.medianEquivalentWeight, 57);
+  assert.equal(buildLoadAnalysis(missing, { ...race, load: context }).status, "missing");
+});
+
+test("null field median never creates a load penalty", () => {
+  const target = horse({ number: 1, name: "A", weight: 57 });
+  const analysis = buildLoadAnalysis(target, { ...race, load: { medianEquivalentWeight: null } });
+
+  assert.equal(analysis.status, "missing");
+  assert.equal(analysis.adjustment, 0);
+});
+
+test("missing historical weight and malformed placings do not become load evidence", () => {
+  const target = horse({ number: 1, name: "A", weight: 57, pastRuns: [
+    { finishPosition: 1, fieldSize: 16, margin: null, carriedWeight: null, surface: "芝", distance: 2000 },
+    { finishPosition: null, fieldSize: 16, margin: 0, carriedWeight: 58, surface: "芝", distance: 2000 },
+  ] });
+
+  const tolerance = buildLoadToleranceProfile(target);
+  assert.equal(tolerance.sampleCount, 0);
+  assert.equal(tolerance.maxPastWeight, null);
+  assert.equal(tolerance.adjustment, 0);
+});
+
 test("relative load is bounded to a maximum two-point index adjustment", () => {
   const horses = [
     horse({ number: 1, name: "A", age: 3, weight: 57 }),

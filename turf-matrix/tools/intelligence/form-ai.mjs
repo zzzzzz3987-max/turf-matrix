@@ -70,15 +70,29 @@ const distanceFitBonus = (run, targetDistance) => {
 
 const recentRunWeight = (index) => 1 - index * 0.08;
 
-const runScore = (run, index, targetDistance, { includeDistanceFit = true } = {}) => {
+const runScoreBreakdown = (run, index, targetDistance, { includeDistanceFit = true } = {}) => {
   const recentWeight = recentRunWeight(index);
-  const base =
-    finishScore(run) * 0.42 +
-    marginScore(run) * 0.28 +
-    (isValidLast3F(run) ? clamp(90 - (run.last3F - 33.5) * 7, 45, 92) : 60) * 0.15 +
-    60 * 0.15;
-  return (base + classBonus(run) + (includeDistanceFit ? distanceFitBonus(run, targetDistance) : 0)) * recentWeight;
+  const components = {
+    finish: finishScore(run),
+    margin: marginScore(run),
+    closing: isValidLast3F(run) ? clamp(90 - (run.last3F - 33.5) * 7, 45, 92) : 60,
+    neutral: 60,
+  };
+  const base = components.finish * 0.42 + components.margin * 0.28 + components.closing * 0.15 + components.neutral * 0.15;
+  const classAdjustment = classBonus(run);
+  const distanceAdjustment = includeDistanceFit ? distanceFitBonus(run, targetDistance) : 0;
+  return {
+    components,
+    baseScore: base,
+    classAdjustment,
+    distanceAdjustment,
+    recentWeight,
+    weightedScore: (base + classAdjustment + distanceAdjustment) * recentWeight,
+  };
 };
+
+const runScore = (run, index, targetDistance, options) =>
+  runScoreBreakdown(run, index, targetDistance, options).weightedScore;
 
 const scoreZi = (horse) => {
   return calculateAbilityProfile(horse).score;
@@ -290,6 +304,7 @@ const buildAbilityAnalysis = (horse, score = scoreZi(horse)) => {
       ...(localRunCount ? [`地方実績 ${localRunCount}走は中央実績より低い重みで補助評価`] : []),
     ],
     components,
+    calculation: profile.calculation,
     inputs: {
       baseAbility: {
         source: ziScore == null ? "JV-Link過去走" : "TARGET ZI",
@@ -326,9 +341,37 @@ const buildFormAnalysis = (horse, score = scoreRecentForm(horse)) => {
   const distanceMatches = recent.filter((run) => distanceFitBonus(run, horse.currentRace?.distance) >= 4);
   const popularityUpsets = recent.filter((run) => popularityGapScore(run) >= 4);
   const label = score >= 82 ? "近走内容は強い" : score >= 70 ? "近走内容は良好" : score >= 58 ? "近走内容は標準" : "近走評価は控えめ";
+  const grouped = selectRecentFormRuns(horse);
+  const runRows = Object.entries(grouped).flatMap(([source, selected]) => selected.map((run, index) => ({
+    source,
+    date: run.date ?? run.raceDate ?? null,
+    text: formatRun(run),
+    ...runScoreBreakdown(run, index, horse.currentRace?.distance),
+  })));
+  const centralScore = grouped.central?.length
+    ? avg(grouped.central.map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    : null;
+  const localScore = grouped.local?.length
+    ? avg(grouped.local.map((run, index) => runScore(run, index, horse.currentRace?.distance)))
+    : null;
+  const beforeClamp = centralScore != null && localScore != null
+    ? centralScore * 0.85 + localScore * 0.15
+    : centralScore != null
+      ? centralScore
+      : localScore != null ? 50 + (localScore - 50) * 0.35 : 50;
 
   return {
     score,
+    calculation: {
+      centralScore,
+      localScore,
+      centralShare: centralScore != null && localScore != null ? 0.85 : centralScore != null ? 1 : 0,
+      localShare: localScore != null && centralScore != null ? 0.15 : localScore != null ? 0.35 : 0,
+      localOnlyRegressionTo: localScore != null && centralScore == null ? 50 : null,
+      beforeClamp,
+      finalScore: score,
+      runs: runRows,
+    },
     status: runs.length ? "active" : "missing",
     count: runs.length,
     label,

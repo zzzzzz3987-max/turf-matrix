@@ -778,6 +778,8 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
     version: bloodV2.version,
     status: profile.status,
     confidence: profile.confidence,
+    baseScore: profile.baseScore,
+    individualProfileAdjustment: profile.individualProfileAdjustment,
     confidenceGrade: bloodV2.confidenceGrade,
     confidenceBasis: bloodV2.confidenceBasis,
     coverage: profile.coverage,

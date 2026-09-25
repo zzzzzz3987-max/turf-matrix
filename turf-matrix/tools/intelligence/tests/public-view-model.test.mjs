@@ -313,6 +313,38 @@ test("pedigree breakdown turns component scores into readable drill-down rows", 
   assert.deepEqual(result[3].points, ["Deep Impact系"]);
 });
 
+test("distant paternal ancestry is shown as lineage only, not as the sire's distance aptitude", () => {
+  const result = buildPedigreePublicBreakdown({
+    identity: { sire: "Nyquist", broodmareSire: "Tapit" },
+    sireProfile: {
+      summary: "父NyquistはUncle Mo × Seeking Gabrielle。父方祖先（Forestry）からStorm Cat系を確認。祖先の傾向を父Nyquist自身の得意距離とはみなさず、加点にも使いません。",
+      ancestry: ["Uncle Mo", "Seeking Gabrielle"],
+      traits: [],
+    },
+    broodmareSireProfile: { traits: [] },
+    raceBias: {
+      matched: [],
+      backgroundMatches: [{
+        label: "Storm Cat系",
+        note: "北米型の先行スピードとパワーを補強。短距離では加速と速度維持を評価します。",
+        fit: ["スピード", "パワー", "短距離"],
+        hitEntries: [{ generation: 3, branch: "sire.dam.sire", name: "Forestry", role: "ancestor" }],
+      }],
+      femaleMatched: [],
+      courseMatched: [],
+    },
+    componentDetails: { sireTrait: { score: 62 } },
+    statistics: [],
+    strengths: [],
+  });
+
+  const sire = result.find((row) => row.key === "sireTrait");
+  const lineage = sire?.sections.find((section) => section.label === "父方祖先の役割")?.text ?? "";
+  assert.match(lineage, /Forestry・3代目からStorm Cat系を確認/u);
+  assert.match(lineage, /系統構成の記録にとどめ/u);
+  assert.doesNotMatch(lineage, /短距離|スピード|パワー/u);
+});
+
 test("public sire profile and exact three-generation structure replace bare parent-name copy", () => {
   const source = JSON.parse(readFileSync(new URL("../../../tools/week-data.json", import.meta.url), "utf8"));
   const horse = source.races.flatMap((race) => race.horses ?? []).find((runner) => {

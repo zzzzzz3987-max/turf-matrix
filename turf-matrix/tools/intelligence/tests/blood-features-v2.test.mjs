@@ -124,7 +124,7 @@ test("Blood v2 expands an unregistered sire through recorded parents before line
 
   assert.equal(v2.sireProfile.status, "ancestry_fallback");
   assert.match(v2.sireProfile.summary, /父父テスト × 父母テスト/);
-  assert.match(v2.sireProfile.summary, /祖先構成をEvidenceとして保持/);
+  assert.match(v2.sireProfile.summary, /祖先構成のみ記録/);
 });
 
 test("Blood v2 turns recorded ancestry rules into a specific sire explanation", () => {
@@ -144,8 +144,42 @@ test("Blood v2 turns recorded ancestry rules into a specific sire explanation", 
   const v2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore: profile.score });
 
   assert.match(v2.sireProfile.summary, /Deep Impact系/);
-  assert.doesNotMatch(v2.sireProfile.summary, /固有プロフィールは未登録/);
-  assert.ok(v2.sireProfile.traits.length > 0);
+  assert.match(v2.sireProfile.summary, /得意距離とはみなさず/);
+  assert.deepEqual(v2.sireProfile.traits, []);
+  assert.equal(v2.sireProfile.scoreApplied, false);
+});
+
+test("distant Forestry ancestry is not presented as Nyquist's own sprint aptitude", () => {
+  const horse = {
+    currentRace: { raceDate: "2026-09-27", course: "阪神", surface: "ダ", distance: 2000 },
+    pedigree: {
+      sire: "Nyquist",
+      sireSire: "Uncle Mo",
+      sireDam: "Seeking Gabrielle",
+      dam: "メイディーン",
+      broodmareSire: "Tapit",
+      ancestors: [
+        { generation: 3, branch: "sire.dam.sire", name: "Forestry" },
+      ],
+    },
+  };
+  const context = buildRaceContext(horse.currentRace);
+  const profile = buildBloodProfile(horse, context);
+  const v2 = buildBloodEvidenceV2({ horse, context, profile, bloodScore: profile.score });
+
+  assert.match(v2.sireProfile.summary, /祖先構成のみ記録/u);
+  assert.deepEqual(v2.sireProfile.traits, []);
+  assert.equal(v2.sireProfile.scoreApplied, false);
+  assert.doesNotMatch(v2.summary, /短距離.*父方の評価材料/u);
+  assert.match(v2.summary, /個別血統適合データはなく、中立扱い/u);
+  const analysis = buildPedigreeAnalysis(horse, profile.score, context);
+  const ancestorEvidence = analysis.strengths.find((item) => item.roles?.includes("祖先"));
+  assert.equal(ancestorEvidence, undefined);
+  const withoutForestry = buildBloodProfile({
+    ...horse,
+    pedigree: { ...horse.pedigree, ancestors: [] },
+  }, context);
+  assert.equal(profile.score, withoutForestry.score);
 });
 
 test("Blood v2 scoring remains deterministic after individual profile integration", () => {

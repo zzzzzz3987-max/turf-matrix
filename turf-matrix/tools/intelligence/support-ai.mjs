@@ -36,13 +36,13 @@ const rotationAnalysis = (horse) => {
     return { label: "出走間隔は評価対象外", adjustment: 0, intervalDays: null, previousIntervalDays };
   }
   if (Number.isFinite(previousIntervalDays) && previousIntervalDays >= 56 && intervalDays >= 8 && intervalDays <= 42) {
-    return { label: `前走から${intervalDays}日・休養明け2戦目`, adjustment: 2, intervalDays, previousIntervalDays };
+    return { label: `前走から${intervalDays}日・休養明け2戦目`, adjustment: 0, intervalDays, previousIntervalDays };
   }
-  if (intervalDays <= 7) return { label: `前走から${intervalDays}日・連闘`, adjustment: -3, intervalDays, previousIntervalDays };
-  if (intervalDays <= 20) return { label: `前走から${intervalDays}日・中${Math.max(1, Math.floor(intervalDays / 7))}週`, adjustment: 1, intervalDays, previousIntervalDays };
-  if (intervalDays <= 42) return { label: `前走から${intervalDays}日・中${Math.max(2, Math.floor(intervalDays / 7))}週`, adjustment: 2, intervalDays, previousIntervalDays };
+  if (intervalDays <= 7) return { label: `前走から${intervalDays}日・連闘`, adjustment: 0, intervalDays, previousIntervalDays };
+  if (intervalDays <= 20) return { label: `前走から${intervalDays}日・中${Math.max(1, Math.floor(intervalDays / 7))}週`, adjustment: 0, intervalDays, previousIntervalDays };
+  if (intervalDays <= 42) return { label: `前走から${intervalDays}日・中${Math.max(2, Math.floor(intervalDays / 7))}週`, adjustment: 0, intervalDays, previousIntervalDays };
   if (intervalDays <= 90) return { label: `前走から${intervalDays}日・休み明け`, adjustment: 0, intervalDays, previousIntervalDays };
-  return { label: `前走から${intervalDays}日・長期休養明け`, adjustment: -2, intervalDays, previousIntervalDays };
+  return { label: `前走から${intervalDays}日・長期休養明け`, adjustment: 0, intervalDays, previousIntervalDays };
 };
 
 const jockeyAnalysis = (horse) => {
@@ -56,7 +56,7 @@ const jockeyAnalysis = (horse) => {
   if (!current) return { label: "騎手起用は評価対象外", adjustment: 0, current: null, previous: previous ?? null, recentRideCount: 0 };
   if (previous && normalizeKey(previous) === normalizeKey(current)) {
     const frequency = recentRideCount >= 2 ? `（近3走中${recentRideCount}走）` : "";
-    return { label: `${current}騎手が前走から継続${frequency}`, adjustment: 2, current, previous, recentRideCount };
+    return { label: `${current}騎手が前走から継続${frequency}`, adjustment: 0, current, previous, recentRideCount };
   }
   if (previous) return { label: `${previous}騎手から${current}騎手へ乗り替わり`, adjustment: 0, current, previous, recentRideCount };
   return { label: `${current}騎手を起用`, adjustment: 0, current, previous: null, recentRideCount };
@@ -77,7 +77,7 @@ const travelAnalysis = (horse) => {
     || (westStable && EAST_COURSES.has(course));
   return {
     label: `${side}所属・${course}開催${crossRegion ? "（遠征条件）" : ""}`,
-    adjustment: crossRegion ? -1 : 0,
+    adjustment: 0,
     isAway: crossRegion,
   };
 };
@@ -109,7 +109,7 @@ const buildStableAnalysis = (horse, trainingAnalysis = {}) => {
   const travel = travelAnalysis(horse);
   const stablePattern = stablePatternAnalysis(trainingAnalysis);
   const score = trainer
-    ? clamp(70 + rotation.adjustment + jockey.adjustment + travel.adjustment + stablePattern.adjustment, 55, 84)
+    ? clamp(70 + stablePattern.adjustment, 55, 84)
     : 58;
   const phaseRepresentatives = trainingAnalysis?.phaseRepresentatives ?? {};
   const preparation = phaseRepresentatives.final && phaseRepresentatives.oneWeek
@@ -129,19 +129,15 @@ const buildStableAnalysis = (horse, trainingAnalysis = {}) => {
   ].filter(Boolean);
   const confidence = trainer && jockey.current && rotation.intervalDays != null ? "high" : trainer || jockey.current ? "mid" : "low";
   const stablePatternSummary = stablePattern.label?.replace(/[。．]+$/u, "") ?? null;
-  const summaryParts = [
-    trainer ? `${trainer}厩舎${side ? `（${side}）` : ""}` : "厩舎情報",
-    rotation.intervalDays == null ? null : rotation.label,
-    jockey.current ? jockey.label : null,
-    travel.isAway ? travel.label : null,
-    stablePatternSummary,
-  ].filter(Boolean);
+  const summary = stablePatternSummary
+    ? `${stablePatternSummary}。ローテーション・騎手起用・輸送条件は、実績で裏付けられていないため加点していません。`
+    : "厩舎・ローテーション・騎手起用の好走データは未確認。今回は陣営面の加点なし。";
 
   return {
     score,
     status: trainer ? "active" : "missing",
     confidence,
-    summary: `${summaryParts.join("。")}。ローテーションと騎手起用を陣営運用として評価。`,
+    summary,
     evidence,
     components: {
       baseline: trainer ? 70 : 58,

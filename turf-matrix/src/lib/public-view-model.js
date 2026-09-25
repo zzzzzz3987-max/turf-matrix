@@ -619,13 +619,25 @@ const pairingCautionText = (pedigree) => {
 
 const sideLineageText = (pedigree, side) => {
   const prefix = side === "sire" ? "sire" : "dam.sire";
-  const matches = [...(pedigree?.raceBias?.matched ?? []), ...(pedigree?.raceBias?.femaleMatched ?? [])]
-    .filter((match) => (match.hitEntries ?? []).some((entry) => String(entry?.branch ?? "").startsWith(prefix)))
+  const matches = [
+    ...(pedigree?.raceBias?.matched ?? []),
+    ...(pedigree?.raceBias?.femaleMatched ?? []),
+    ...(pedigree?.raceBias?.backgroundMatches ?? []),
+  ]
+    .filter((match) => (match.hitEntries ?? []).some((entry) =>
+      String(entry?.branch ?? "").startsWith(prefix)
+        && (entry.role === "ancestor" || (Number.isFinite(entry.generation) && entry.generation > (side === "sire" ? 1 : 2)))
+    ))
     .slice(0, 2);
   if (!matches.length) return null;
   return matches.map((match) => {
-    const ancestor = (match.hitEntries ?? [])
-      .find((entry) => String(entry?.branch ?? "").startsWith(prefix))?.name;
+    const entry = (match.hitEntries ?? [])
+      .find((candidate) => String(candidate?.branch ?? "").startsWith(prefix));
+    const ancestor = entry?.name;
+    if (entry?.role === "ancestor" || (Number.isFinite(entry?.generation) && entry.generation > (side === "sire" ? 1 : 2))) {
+      const generation = Number.isFinite(entry.generation) ? `・${entry.generation}代目` : "";
+      return `${ancestor ?? match.label}${generation}から${match.label}を確認。系統構成の記録にとどめ、父自身や今回距離の適性・加点には使いません。`;
+    }
     const fits = [...new Set((match.fit ?? []).filter(Boolean))].slice(0, 3);
     const note = summarizePublicText(match.note, { maxLength: 96, sentences: 1 });
     return `${ancestor ?? match.label}から${fits.length ? fits.join("・") : match.label}を評価。${note ?? ""}`;

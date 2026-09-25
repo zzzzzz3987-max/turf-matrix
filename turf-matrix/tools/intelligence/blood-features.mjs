@@ -213,11 +213,22 @@ const buildSireFeature = ({ sire, pedigree, sireMatch, paternalMatches, profileE
   const ancestry = curated?.ancestry?.length ? curated.ancestry : recordedAncestry;
   const ancestryText = ancestry.length ? `${ancestry.join(" × ")}。` : "父方祖先は一部未取得。";
   const adoptedMatches = uniqueMatches([sireMatch, ...(paternalMatches ?? [])]);
-  const lineLabels = adoptedMatches.slice(0, 2).map((match) => match.label);
-  const fitLabels = matchFitLabels(adoptedMatches);
-  const evidenceText = lineLabels.length
-    ? `取得済み祖先から${lineLabels.join("と")}を確認。${fitLabels.length ? `${fitLabels.join("・")}を父方の評価材料にします。` : "父方の系統Evidenceとして保持します。"}`
-    : "取得済みの祖先構成をEvidenceとして保持し、条件適合は中立評価とします。";
+  const directSireMatches = sireMatch?.hitEntries?.some((entry) => entry.role === "sire") ? [sireMatch] : [];
+  const ancestorMatches = adoptedMatches.filter((match) =>
+    match.hitEntries?.some((entry) => entry.role !== "sire")
+  );
+  const lineLabels = uniqueMatches([...directSireMatches, ...ancestorMatches]).slice(0, 2).map((match) => match.label);
+  const directTraits = matchFitLabels(directSireMatches);
+  const ancestorNames = [...new Set(ancestorMatches.flatMap((match) =>
+    (match.hitEntries ?? [])
+      .filter((entry) => entry.role !== "sire" && entry.name)
+      .map((entry) => entry.name)
+  ))].slice(0, 2);
+  const evidenceText = directTraits.length
+    ? `父自身の系統情報から${directTraits.join("・")}を確認。今回条件への適性は産駒実績など別の根拠で判断します。`
+    : lineLabels.length
+      ? `父方祖先${ancestorNames.length ? `（${ancestorNames.join("・")}）` : "の系統"}から${lineLabels.join("・")}を確認。祖先の傾向を父${sire}自身の得意距離とはみなさず、加点にも使いません。`
+      : "父自身の適性データは未確認です。祖先構成のみ記録し、距離適性は断定していません。";
   const summary = curated?.summary
     ? `父${sire}は${ancestryText}${curated.summary}`
     : `父${sire}は${ancestryText}${evidenceText}`;
@@ -226,7 +237,7 @@ const buildSireFeature = ({ sire, pedigree, sireMatch, paternalMatches, profileE
     id: curated?.id ?? null,
     sire,
     ancestry,
-    traits: curated?.traits ?? fitLabels,
+    traits: curated?.traits ?? directTraits,
     evidenceLines: lineLabels,
     summary,
     status: curated ? "curated" : recordedAncestry.length ? "ancestry_fallback" : "unavailable",
@@ -323,7 +334,7 @@ const buildBloodEvidenceV2 = ({ horse, context, profile, bloodScore, pairingRefe
     .filter(Boolean).join("");
   const matchText = profile.courseMatches.length || profile.femaleCourseMatches.length
     ? `${condition || "今回条件"}への明示的な血統適合を確認。`
-    : `${condition || "今回条件"}は距離・系統特性から評価。`;
+    : `${condition || "今回条件"}への個別血統適合データはなく、中立扱い。`;
   const crossText = crosses.length
     ? `${crosses.slice(0, 2).map((cross) => `${cross.ancestor} ${cross.pattern}`).join("、")}を検出。`
     : "";

@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { buildStableAnalysis } from "../support-ai.mjs";
 
-test("Stable AI explains rotation, rider continuity, travel, and learned preparation", () => {
+test("Stable AI scores only a learned pattern, not unvalidated rotation, rider, or travel heuristics", () => {
   const result = buildStableAnalysis({
     trainer: "テスト調教師",
     stableSide: "栗東",
@@ -29,11 +29,15 @@ test("Stable AI explains rotation, rider continuity, travel, and learned prepara
 
   assert.equal(result.status, "active");
   assert.equal(result.confidence, "high");
-  assert.equal(result.rotation.adjustment, 2);
-  assert.equal(result.jockey.adjustment, 2);
-  assert.equal(result.travel.adjustment, -1);
-  assert.ok(result.summary.includes("休養明け2戦目"));
-  assert.ok(result.summary.includes("前走から継続"));
+  assert.equal(result.rotation.adjustment, 0);
+  assert.equal(result.jockey.adjustment, 0);
+  assert.equal(result.travel.adjustment, 0);
+  assert.equal(result.stablePattern.adjustment, 2);
+  assert.equal(result.score, 72);
+  assert.match(result.summary, /合致度75%/);
+  assert.match(result.summary, /加点していません/);
+  assert.ok(result.evidence.some((item) => item.includes("休養明け2戦目")));
+  assert.ok(result.evidence.some((item) => item.includes("前走から継続")));
   assert.ok(result.evidence.includes("最終・一週前追い切りを取得済み"));
   assert.ok(result.evidence.some((item) => item.includes("合致度75%")));
 });
@@ -60,7 +64,10 @@ test("Stable AI does not expose an unregistered-pattern message", () => {
   assert.equal(result.travel.isAway, true);
   assert.equal(result.summary.includes("未登録"), false);
   assert.equal(result.summary.includes("学習待ち"), false);
-  assert.ok(result.summary.includes("乗り替わり"));
+  assert.match(result.summary, /今回は陣営面の加点なし/);
+  assert.ok(result.evidence.some((item) => item.includes("乗り替わり")));
+  assert.equal(result.jockey.adjustment, 0);
+  assert.equal(result.travel.adjustment, 0);
 });
 
 test("Stable AI remains explicit when trainer data is unavailable", () => {

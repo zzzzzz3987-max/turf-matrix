@@ -364,8 +364,8 @@ const resolveRuleMatches = (rawMatches, context) => {
   for (const candidate of candidates) {
     const key = `${candidate.entry.branch}:${normalizeName(candidate.entry.name)}`;
     const current = byAncestor.get(key);
-    const candidateIsScored = candidate.entry.scoreWeight > 0;
-    const currentIsScored = current?.entry.scoreWeight > 0;
+    const candidateIsScored = candidate.entry.scoreWeight > 0 && candidate.entry.role !== "ancestor";
+    const currentIsScored = current?.entry.scoreWeight > 0 && current.entry.role !== "ancestor";
     const shouldReplace = !current
       || (candidateIsScored !== currentIsScored
         ? candidateIsScored
@@ -383,7 +383,7 @@ const resolveRuleMatches = (rawMatches, context) => {
 
   const bySide = new Map();
   for (const candidate of byAncestor.values()) {
-    if (!(candidate.entry.scoreWeight > 0)) {
+    if (!(candidate.entry.scoreWeight > 0) || candidate.entry.role === "ancestor") {
       backgrounds.push({ ...candidate, reason: "distant-signal-only" });
       continue;
     }
@@ -736,15 +736,21 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
       scoreApplied: false,
     }));
 
-  const strengths = matches.slice(0, context?.depth === "full" ? 4 : 2).map((match) => ({
-    key: match.id,
-    label: match.label,
-    text: `${match.roles.join("・")}の${match.hits.join("・")}から、${fitText([match])}を評価。${match.note}`,
-    score: bloodScore,
-    fit: match.fit ?? [],
-    roles: match.roles,
-    courseFit: courseMatches.some((item) => item.id === match.id),
-  }));
+  const strengths = matches.slice(0, context?.depth === "full" ? 4 : 2).map((match) => {
+    const ancestorOnly = match.hitEntries?.length > 0
+      && match.hitEntries.every((entry) => entry.role === "ancestor");
+    return {
+      key: match.id,
+      label: match.label,
+      text: ancestorOnly
+        ? `祖先${match.hits.join("・")}から${match.label}の系統記録を確認。祖先情報のみのため、今回条件の適性判断や加点には使いません。`
+        : `${match.roles.join("・")}の${match.hits.join("・")}から、${fitText([match])}を評価。${match.note}`,
+      score: bloodScore,
+      fit: ancestorOnly ? [] : match.fit ?? [],
+      roles: match.roles,
+      courseFit: ancestorOnly ? false : courseMatches.some((item) => item.id === match.id),
+    };
+  });
 
   const femaleStrengths = femaleMatches.slice(0, context?.depth === "full" ? 3 : 1).map((match) => ({
     key: match.id,
@@ -817,6 +823,7 @@ const buildPedigreeAnalysis = (horse, bloodScore, context) => {
       score: bloodScore,
       grade: bloodScore >= 82 ? "高" : bloodScore >= 68 ? "中" : "低",
       matched: matches,
+      backgroundMatches: profile.backgroundMatches,
       courseMatched: courseMatches,
       femaleMatched: femaleMatches,
       femaleCourseMatched: femaleCourseMatches,

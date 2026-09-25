@@ -1,0 +1,6032 @@
+{
+  "schemaVersion": 1,
+  "modelVersion": "form-normalized-weights-v1",
+  "modelSha256": "f2b42ffd2719fa841fe0ea30b3cb80f1fe1016d43d8aef271a28e75bdc20d522",
+  "inputSha256": "c4c2d45d4ee3c781f968258cea0670c8af55f5263ada021b780ef130c185a5bc",
+  "frozenAt": "2026-09-25T13:16:06.482Z",
+  "status": "frozen-pre-race",
+  "productionConnected": false,
+  "raceDate": "2026-09-26",
+  "policy": {
+    "changedFactor": "form",
+    "weightsChanged": false,
+    "courseChanged": false,
+    "recencyWeightsChanged": false,
+    "normalizedAverage": true,
+    "resultsRead": false
+  },
+  "predictions": [
+    {
+      "raceId": "2026-09-26-nakayama-04R",
+      "date": "2026-09-26",
+      "time": "11:20",
+      "track": "中山",
+      "number": 4,
+      "name": "清秋ジャンプＳ",
+      "currentLeader": 5,
+      "shadowLeader": 5,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "プラチナトレジャー",
+          "currentForm": 64,
+          "shadowForm": 77,
+          "formDelta": 13,
+          "currentTm": 76,
+          "shadowTm": 79,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 75,
+            "course": 68,
+            "training": 62,
+            "blood": 62.38674505539321,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2025-11-15",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.52,
+                  "weightedScore": 89.52
+                },
+                {
+                  "date": "2025-10-05",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 86.52,
+                  "weightedScore": 79.5984
+                },
+                {
+                  "date": "2025-06-07",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 83.52,
+                  "weightedScore": 70.15679999999999
+                },
+                {
+                  "date": "2025-05-11",
+                  "course": "新潟",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 68.952,
+                  "weightedScore": 52.40352
+                },
+                {
+                  "date": "2025-01-19",
+                  "course": "中京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 45.003,
+                  "weightedScore": 30.60204
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 64.456152,
+              "normalizedAverage": 76.73351428571429
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "メイショウソムリエ",
+          "currentForm": 57,
+          "shadowForm": 68,
+          "formDelta": 11,
+          "currentTm": 74,
+          "shadowTm": 76,
+          "tmDelta": 2,
+          "currentRaw": 74,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 65,
+            "course": 77,
+            "training": 69,
+            "distance": 67,
+            "blood": 62.0348594573286,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-13",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 49.495999999999995,
+                  "weightedScore": 49.495999999999995
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.52,
+                  "weightedScore": 82.3584
+                },
+                {
+                  "date": "2026-03-07",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.504,
+                  "weightedScore": 70.98336
+                },
+                {
+                  "date": "2026-02-07",
+                  "course": "小倉",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 86.52,
+                  "weightedScore": 65.7552
+                },
+                {
+                  "date": "2025-12-21",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 24.743999999999996,
+                  "weightedScore": 16.825919999999996
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 57.083776,
+              "normalizedAverage": 67.95687619047621
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "ネビーイーム",
+          "currentForm": 58,
+          "shadowForm": 69,
+          "formDelta": 11,
+          "currentTm": 74,
+          "shadowTm": 76,
+          "tmDelta": 2,
+          "currentRaw": 75,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 71,
+            "distance": 72,
+            "course": 72,
+            "training": 60,
+            "blood": 64.09756212850601,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-16",
+                  "course": "京都",
+                  "weight": 1,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 61.464,
+                  "weightedScore": 61.464
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 55.559999999999995,
+                  "weightedScore": 51.115199999999994
+                },
+                {
+                  "date": "2026-03-14",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 59.952,
+                  "weightedScore": 50.35968
+                },
+                {
+                  "date": "2025-12-27",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 84.288,
+                  "weightedScore": 64.05888
+                },
+                {
+                  "date": "2025-09-20",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 94.52,
+                  "weightedScore": 64.27359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 58.25427199999999,
+              "normalizedAverage": 69.35032380952381
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "トゥラッタッタ",
+          "currentForm": 66,
+          "shadowForm": 79,
+          "formDelta": 13,
+          "currentTm": 75,
+          "shadowTm": 78,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 66,
+            "training": 68,
+            "distance": 67,
+            "course": 68,
+            "blood": 66.58761229922086,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-11",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.17381818181818,
+                  "weightedScore": 82.17381818181818
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.74523076923077,
+                  "weightedScore": 74.28561230769232
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.496,
+                  "weightedScore": 65.09664
+                },
+                {
+                  "date": "2026-02-14",
+                  "course": "小倉",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.51446153846153,
+                  "weightedScore": 62.71099076923077
+                },
+                {
+                  "date": "2026-01-31",
+                  "course": "小倉",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 69.97200000000001,
+                  "weightedScore": 47.580960000000005
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.36960425174826,
+              "normalizedAverage": 79.01143363303365
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "コレクテイニア",
+          "currentForm": 69,
+          "shadowForm": 82,
+          "formDelta": 13,
+          "currentTm": 79,
+          "shadowTm": 81,
+          "tmDelta": 2,
+          "currentRaw": 78,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 68,
+            "distance": 75,
+            "course": 78,
+            "training": 63,
+            "blood": 67.9670822066033,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-13",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.384,
+                  "weightedScore": 77.384
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 80.18181818181819,
+                  "weightedScore": 73.76727272727274
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.512,
+                  "weightedScore": 71.83008
+                },
+                {
+                  "date": "2026-03-07",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.496,
+                  "weightedScore": 61.176959999999994
+                },
+                {
+                  "date": "2026-01-17",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 86.52,
+                  "weightedScore": 58.83359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 68.59838254545454,
+              "normalizedAverage": 81.66474112554114
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "アクロスザリバー",
+          "currentForm": 39,
+          "shadowForm": 46,
+          "formDelta": 7,
+          "currentTm": 61,
+          "shadowTm": 62,
+          "tmDelta": 1,
+          "currentRaw": 62,
+          "shadowRaw": 63,
+          "unchangedScores": {
+            "ability": 56,
+            "training": 64,
+            "distance": 60,
+            "blood": 65,
+            "course": 45,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 40.884,
+                  "weightedScore": 40.884
+                },
+                {
+                  "date": "2026-07-04",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 86.52,
+                  "weightedScore": 79.5984
+                },
+                {
+                  "date": "2026-06-07",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 66.456,
+                  "weightedScore": 55.82304
+                },
+                {
+                  "date": "2026-05-17",
+                  "course": "新潟",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 13.727999999999996,
+                  "weightedScore": 10.433279999999998
+                },
+                {
+                  "date": "2026-03-01",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 9.683999999999997,
+                  "weightedScore": 6.585119999999998
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 38.664767999999995,
+              "normalizedAverage": 46.02948571428572
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-nakayama-09R",
+      "date": "2026-09-26",
+      "time": "14:10",
+      "track": "中山",
+      "number": 9,
+      "name": "芙蓉ステークス",
+      "currentLeader": 4,
+      "shadowLeader": 4,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ニシノリリックス",
+          "currentForm": 68,
+          "shadowForm": 70,
+          "formDelta": 2,
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0,
+          "currentRaw": 74,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 65,
+            "distance": 68,
+            "training": 64,
+            "course": 56,
+            "blood": 65.085,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-30",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.97,
+                  "weightedScore": 86.97
+                },
+                {
+                  "date": "2026-08-08",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 52.431999999999995,
+                  "weightedScore": 48.23744
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 67.60372,
+              "normalizedAverage": 70.42054166666667
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "ジョドレルバンク",
+          "currentForm": 89,
+          "shadowForm": 89,
+          "formDelta": 0,
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0,
+          "currentRaw": 82,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 74,
+            "training": 71,
+            "distance": 69,
+            "course": 63,
+            "blood": 67.11738533386514,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-07",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 89.07
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 89.07,
+              "normalizedAverage": 89.07
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "エイシンウルトラン",
+          "currentForm": 59,
+          "shadowForm": 70,
+          "formDelta": 11,
+          "currentTm": 73,
+          "shadowTm": 76,
+          "tmDelta": 3,
+          "currentRaw": 73,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 71,
+            "distance": 62,
+            "course": 60,
+            "blood": 65,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-22",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 73.05799999999999,
+                  "weightedScore": 73.05799999999999
+                },
+                {
+                  "date": "2026-08-06",
+                  "course": null,
+                  "weight": 0.92,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 72.04533333333333,
+                  "weightedScore": 66.28170666666666
+                },
+                {
+                  "date": "2026-07-21",
+                  "course": null,
+                  "weight": 0.84,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 77.72,
+                  "weightedScore": 65.28479999999999
+                },
+                {
+                  "date": "2026-07-07",
+                  "course": null,
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 48.918,
+                  "weightedScore": 37.17768
+                },
+                {
+                  "date": "2026-06-17",
+                  "course": null,
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 77.72,
+                  "weightedScore": 52.849599999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 58.930357333333326,
+              "normalizedAverage": 70.1551873015873
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "コスモプルー",
+          "currentForm": 82,
+          "shadowForm": 86,
+          "formDelta": 4,
+          "currentTm": 79,
+          "shadowTm": 79,
+          "tmDelta": 0,
+          "currentRaw": 83,
+          "shadowRaw": 83,
+          "unchangedScores": {
+            "ability": 74,
+            "course": 89,
+            "distance": 72,
+            "training": 67,
+            "blood": 62.609517532132706,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.02,
+                  "weightedScore": 88.02
+                },
+                {
+                  "date": "2026-08-08",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.55399999999999,
+                  "weightedScore": 76.86967999999999
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 82.44484,
+              "normalizedAverage": 85.88004166666667
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "タイヴァス",
+          "currentForm": 88,
+          "shadowForm": 88,
+          "formDelta": 0,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 85,
+          "shadowRaw": 85,
+          "unchangedScores": {
+            "ability": 81,
+            "training": 74,
+            "distance": 70,
+            "course": 63,
+            "blood": 64.996,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.17,
+                  "weightedScore": 88.17
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 88.17,
+              "normalizedAverage": 88.17
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "レオンティウス",
+          "currentForm": 82,
+          "shadowForm": 85,
+          "formDelta": 3,
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 72,
+            "distance": 73,
+            "training": 67,
+            "course": 62,
+            "blood": 66.84864685716187,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-11",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.27,
+                  "weightedScore": 87.27
+                },
+                {
+                  "date": "2026-06-07",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.854,
+                  "weightedScore": 76.22568
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 81.74784,
+              "normalizedAverage": 85.154
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "モーモーゼロ",
+          "currentForm": 51,
+          "shadowForm": 55,
+          "formDelta": 4,
+          "currentTm": 65,
+          "shadowTm": 66,
+          "tmDelta": 1,
+          "currentRaw": 66,
+          "shadowRaw": 67,
+          "unchangedScores": {
+            "ability": 57,
+            "training": 61,
+            "distance": 57,
+            "course": 52,
+            "blood": 67.70542478380284,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-12",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 55.668,
+                  "weightedScore": 55.668
+                },
+                {
+                  "date": "2026-07-11",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 62.826,
+                  "weightedScore": 57.79992
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "福島",
+                  "weight": 0.84,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 46.732727272727274,
+                  "weightedScore": 39.25549090909091
+                }
+              ],
+              "count": 3,
+              "totalWeight": 2.76,
+              "legacyAverage": 50.90780363636363,
+              "normalizedAverage": 55.334569169960474
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "スタースポット",
+          "currentForm": 87,
+          "shadowForm": 87,
+          "formDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 71,
+            "training": 73,
+            "distance": 69,
+            "course": 63,
+            "blood": 64.08882234859743,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-04",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.12,
+                  "weightedScore": 87.12
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 87.12,
+              "normalizedAverage": 87.12
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-hanshin-09R",
+      "date": "2026-09-26",
+      "time": "14:25",
+      "track": "阪神",
+      "number": 9,
+      "name": "ヤマボウシ賞",
+      "currentLeader": 6,
+      "shadowLeader": 6,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ナイトパイロット",
+          "currentForm": 86,
+          "shadowForm": 86,
+          "formDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 69,
+            "course": 73,
+            "training": 63,
+            "blood": 65.0087,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-12",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.92,
+                  "weightedScore": 85.92
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 85.92,
+              "normalizedAverage": 85.92
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "リーチツモドライチ",
+          "currentForm": 80,
+          "shadowForm": 80,
+          "formDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 81,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 73,
+            "training": 77,
+            "distance": 68,
+            "course": 63,
+            "blood": 67.82412661549186,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-02",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 80.07,
+                  "weightedScore": 80.07
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 80.07,
+              "normalizedAverage": 80.07
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "エランヴィータ",
+          "currentForm": 83,
+          "shadowForm": 83,
+          "formDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 70,
+            "training": 72,
+            "distance": 67,
+            "course": 63,
+            "blood": 68.69842661549187,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-27",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 83.07,
+                  "weightedScore": 83.07
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 83.07,
+              "normalizedAverage": 83.07
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "ベルヴェール",
+          "currentForm": 77,
+          "shadowForm": 80,
+          "formDelta": 3,
+          "currentTm": 75,
+          "shadowTm": 75,
+          "tmDelta": 0,
+          "currentRaw": 79,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 70,
+            "course": 87,
+            "distance": 70,
+            "training": 58,
+            "blood": 61.42240855239938,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.57,
+                  "weightedScore": 84.57
+                },
+                {
+                  "date": "2026-07-25",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.60369230769231,
+                  "weightedScore": 69.55539692307693
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 77.06269846153846,
+              "normalizedAverage": 80.27364423076924
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "ヌーンベルク",
+          "currentForm": 65,
+          "shadowForm": 74,
+          "formDelta": 9,
+          "currentTm": 72,
+          "shadowTm": 73,
+          "tmDelta": 1,
+          "currentRaw": 72,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 65,
+            "training": 68,
+            "distance": 58,
+            "course": 52,
+            "blood": 62.4178489006214,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-29",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 61.745999999999995,
+                  "weightedScore": 61.745999999999995
+                },
+                {
+                  "date": "2026-07-25",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.42,
+                  "weightedScore": 80.4264
+                },
+                {
+                  "date": "2026-07-04",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.35,
+                  "weightedScore": 59.93399999999999
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "函館",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.116,
+                  "weightedScore": 57.84816
+                }
+              ],
+              "count": 4,
+              "totalWeight": 3.5199999999999996,
+              "legacyAverage": 64.98863999999999,
+              "normalizedAverage": 73.85072727272727
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "ウンディーネ",
+          "currentForm": 75,
+          "shadowForm": 78,
+          "formDelta": 3,
+          "currentTm": 76,
+          "shadowTm": 77,
+          "tmDelta": 1,
+          "currentRaw": 79,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 73,
+            "course": 83,
+            "training": 70,
+            "blood": 62.76217979191709,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-13",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.12,
+                  "weightedScore": 84.12
+                },
+                {
+                  "date": "2026-06-13",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.22246153846153,
+                  "weightedScore": 66.44466461538461
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 75.28233230769231,
+              "normalizedAverage": 78.41909615384617
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "スマートポーション",
+          "currentForm": 69,
+          "shadowForm": 72,
+          "formDelta": 3,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 76,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 65,
+            "distance": 70,
+            "training": 70,
+            "course": 73,
+            "blood": 65.8743,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-15",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.77,
+                  "weightedScore": 82.77
+                },
+                {
+                  "date": "2026-06-28",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 60.348,
+                  "weightedScore": 55.520160000000004
+                }
+              ],
+              "count": 2,
+              "totalWeight": 1.92,
+              "legacyAverage": 69.14508000000001,
+              "normalizedAverage": 72.02612500000001
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "ユイノエスポワール",
+          "currentForm": 86,
+          "shadowForm": 86,
+          "formDelta": 0,
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0,
+          "currentRaw": 80,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 71,
+            "distance": 70,
+            "training": 66,
+            "course": 63,
+            "blood": 66.74135647035348,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-14",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.07,
+                  "weightedScore": 86.07
+                }
+              ],
+              "count": 1,
+              "totalWeight": 1,
+              "legacyAverage": 86.07,
+              "normalizedAverage": 86.07
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-nakayama-10R",
+      "date": "2026-09-26",
+      "time": "14:50",
+      "track": "中山",
+      "number": 10,
+      "name": "勝浦特別",
+      "currentLeader": 1,
+      "shadowLeader": 1,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "デンプシー",
+          "currentForm": 70,
+          "shadowForm": 84,
+          "formDelta": 14,
+          "currentTm": 80,
+          "shadowTm": 83,
+          "tmDelta": 3,
+          "currentRaw": 79,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 69,
+            "distance": 78,
+            "training": 72,
+            "course": 69,
+            "blood": 69.21093787149398,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-30",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 74.75399999999999,
+                  "weightedScore": 74.75399999999999
+                },
+                {
+                  "date": "2026-08-02",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.77,
+                  "weightedScore": 78.9084
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "福島",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.32,
+                  "weightedScore": 74.18879999999999
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "新潟",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.12,
+                  "weightedScore": 63.931200000000004
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "福島",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.32,
+                  "weightedScore": 60.05759999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 70.368,
+              "normalizedAverage": 83.77142857142859
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "イゾラフェリーチェ",
+          "currentForm": 55,
+          "shadowForm": 66,
+          "formDelta": 11,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 66,
+            "training": 73,
+            "distance": 65,
+            "course": 67,
+            "blood": 60.78518301077498,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-05",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.43299999999999,
+                  "weightedScore": 83.43299999999999
+                },
+                {
+                  "date": "2026-06-06",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.07564705882353,
+                  "weightedScore": 70.90959529411765
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 80.69781818181818,
+                  "weightedScore": 67.78616727272727
+                },
+                {
+                  "date": "2026-03-07",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 41.226,
+                  "weightedScore": 31.33176
+                },
+                {
+                  "date": "2026-01-18",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 32.483000000000004,
+                  "weightedScore": 22.088440000000002
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 55.10979251336899,
+              "normalizedAverage": 65.6068958492488
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "ウィングブルー",
+          "currentForm": 70,
+          "shadowForm": 83,
+          "formDelta": 13,
+          "currentTm": 78,
+          "shadowTm": 81,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 77,
+            "course": 79,
+            "training": 62,
+            "blood": 62.655302934718115,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.72,
+                  "weightedScore": 87.72
+                },
+                {
+                  "date": "2026-08-09",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.441,
+                  "weightedScore": 77.68572
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "新潟",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.391,
+                  "weightedScore": 72.56844
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "新潟",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.662,
+                  "weightedScore": 58.26312000000001
+                },
+                {
+                  "date": "2026-04-19",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 79.158,
+                  "weightedScore": 53.827439999999996
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 70.01294399999999,
+              "normalizedAverage": 83.34874285714287
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "ジョヴィアン",
+          "currentForm": 52,
+          "shadowForm": 62,
+          "formDelta": 10,
+          "currentTm": 69,
+          "shadowTm": 71,
+          "tmDelta": 2,
+          "currentRaw": 70,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 60,
+            "training": 74,
+            "course": 69,
+            "distance": 61,
+            "blood": 65,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-06",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.73929411764706,
+                  "weightedScore": 67.73929411764706
+                },
+                {
+                  "date": "2026-03-01",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 47.673,
+                  "weightedScore": 43.85916
+                },
+                {
+                  "date": "2026-01-31",
+                  "course": "小倉",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.57,
+                  "weightedScore": 71.0388
+                },
+                {
+                  "date": "2025-11-22",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 60.705,
+                  "weightedScore": 46.135799999999996
+                },
+                {
+                  "date": "2025-10-12",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 49.152,
+                  "weightedScore": 33.423359999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 52.4392828235294,
+              "normalizedAverage": 62.42771764705882
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "ヴィヴァクラウン",
+          "currentForm": 58,
+          "shadowForm": 70,
+          "formDelta": 12,
+          "currentTm": 72,
+          "shadowTm": 75,
+          "tmDelta": 3,
+          "currentRaw": 72,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 61,
+            "distance": 69,
+            "course": 75,
+            "training": 63,
+            "blood": 65.99327908835731,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.84969230769232,
+                  "weightedScore": 75.84969230769232
+                },
+                {
+                  "date": "2026-08-22",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 52.938,
+                  "weightedScore": 48.702960000000004
+                },
+                {
+                  "date": "2026-07-11",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.29599999999999,
+                  "weightedScore": 56.52863999999999
+                },
+                {
+                  "date": "2026-06-28",
+                  "course": "函館",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.80799999999999,
+                  "weightedScore": 54.574079999999995
+                },
+                {
+                  "date": "2026-06-14",
+                  "course": "函館",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.866,
+                  "weightedScore": 56.348879999999994
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 58.40085046153846,
+              "normalizedAverage": 69.52482197802199
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "トラスコンガーデン",
+          "currentForm": 53,
+          "shadowForm": 63,
+          "formDelta": 10,
+          "currentTm": 71,
+          "shadowTm": 73,
+          "tmDelta": 2,
+          "currentRaw": 71,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 63,
+            "distance": 67,
+            "course": 73,
+            "training": 63,
+            "blood": 62.470045055393214,
+            "pace": 77
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.76892307692307,
+                  "weightedScore": 72.76892307692307
+                },
+                {
+                  "date": "2026-06-06",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 50.24576470588235,
+                  "weightedScore": 46.226103529411766
+                },
+                {
+                  "date": "2026-05-10",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 45.89236363636364,
+                  "weightedScore": 38.54958545454546
+                },
+                {
+                  "date": "2026-02-14",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.52,
+                  "weightedScore": 68.0352
+                },
+                {
+                  "date": "2026-01-11",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 58.634,
+                  "weightedScore": 39.87112
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 53.09018641217606,
+              "normalizedAverage": 63.20260287163818
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "ドリーミングアップ",
+          "currentForm": 68,
+          "shadowForm": 81,
+          "formDelta": 13,
+          "currentTm": 79,
+          "shadowTm": 82,
+          "tmDelta": 3,
+          "currentRaw": 78,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 69,
+            "distance": 76,
+            "course": 81,
+            "training": 70,
+            "blood": 62.997160062168376,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.04246153846154,
+                  "weightedScore": 81.04246153846154
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "函館",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 81.6684
+                },
+                {
+                  "date": "2026-06-13",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.766,
+                  "weightedScore": 70.36344
+                },
+                {
+                  "date": "2026-05-16",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 71.80799999999999,
+                  "weightedScore": 54.574079999999995
+                },
+                {
+                  "date": "2026-05-02",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.583,
+                  "weightedScore": 52.75643999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 68.08096430769231,
+              "normalizedAverage": 81.04876703296705
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "レオアジャイル",
+          "currentForm": 62,
+          "shadowForm": 73,
+          "formDelta": 11,
+          "currentTm": 77,
+          "shadowTm": 79,
+          "tmDelta": 2,
+          "currentRaw": 76,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 68,
+            "distance": 73,
+            "training": 73,
+            "course": 73,
+            "blood": 60.984356998026875,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-28",
+                  "course": "函館",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.47,
+                  "weightedScore": 88.47
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 62.54538461538461,
+                  "weightedScore": 57.541753846153846
+                },
+                {
+                  "date": "2026-05-02",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.054,
+                  "weightedScore": 67.24536
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 50.342666666666666,
+                  "weightedScore": 38.26042666666667
+                },
+                {
+                  "date": "2026-01-11",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 83.72,
+                  "weightedScore": 56.92959999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 61.6894281025641,
+              "normalizedAverage": 73.43979536019538
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 9,
+          "name": "ビッグフラワー",
+          "currentForm": 64,
+          "shadowForm": 77,
+          "formDelta": 13,
+          "currentTm": 78,
+          "shadowTm": 81,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 76,
+            "course": 79,
+            "blood": 65.97290746282303,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-20",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.67,
+                  "weightedScore": 86.67
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.79599999999999,
+                  "weightedScore": 62.372319999999995
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "福島",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.321,
+                  "weightedScore": 60.74964
+                },
+                {
+                  "date": "2026-04-19",
+                  "course": "福島",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.125,
+                  "weightedScore": 55.575
+                },
+                {
+                  "date": "2026-03-22",
+                  "course": "中京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.94533333333334,
+                  "weightedScore": 56.40282666666666
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 64.35395733333334,
+              "normalizedAverage": 76.61185396825398
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 10,
+          "name": "セレッソデアモール",
+          "currentForm": 56,
+          "shadowForm": 67,
+          "formDelta": 11,
+          "currentTm": 73,
+          "shadowTm": 76,
+          "tmDelta": 3,
+          "currentRaw": 73,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 66,
+            "training": 72,
+            "distance": 70,
+            "course": 70,
+            "blood": 60.6992692367792,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-01-10",
+                  "course": "京都",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.084,
+                  "weightedScore": 77.084
+                },
+                {
+                  "date": "2025-09-13",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.90745454545456,
+                  "weightedScore": 70.7548581818182
+                },
+                {
+                  "date": "2025-08-16",
+                  "course": "中京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.57292307692308,
+                  "weightedScore": 61.80125538461538
+                },
+                {
+                  "date": "2025-03-22",
+                  "course": "中京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.0155294117647,
+                  "weightedScore": 43.331802352941175
+                },
+                {
+                  "date": "2024-12-15",
+                  "course": "中京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 41.41066666666667,
+                  "weightedScore": 28.159253333333332
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 56.22623385054161,
+              "normalizedAverage": 66.93599267921621
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 11,
+          "name": "ビービーエフォート",
+          "currentForm": 66,
+          "shadowForm": 79,
+          "formDelta": 13,
+          "currentTm": 78,
+          "shadowTm": 81,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 69,
+            "distance": 78,
+            "course": 85,
+            "training": 55,
+            "blood": 62.323495046157966,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 79.092,
+                  "weightedScore": 79.092
+                },
+                {
+                  "date": "2026-08-22",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.516,
+                  "weightedScore": 77.75472
+                },
+                {
+                  "date": "2026-06-20",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.24199999999999,
+                  "weightedScore": 59.00327999999999
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "新潟",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.854,
+                  "weightedScore": 58.40904
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.95181818181818,
+                  "weightedScore": 57.76723636363636
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.40525527272726,
+              "normalizedAverage": 79.05387532467533
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 12,
+          "name": "アイムインディ",
+          "currentForm": 66,
+          "shadowForm": 79,
+          "formDelta": 13,
+          "currentTm": 77,
+          "shadowTm": 80,
+          "tmDelta": 3,
+          "currentRaw": 76,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 67,
+            "course": 87,
+            "distance": 74,
+            "training": 59,
+            "blood": 61.850990730491034,
+            "pace": 76
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.97,
+                  "weightedScore": 86.97
+                },
+                {
+                  "date": "2026-07-11",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.342,
+                  "weightedScore": 61.03464
+                },
+                {
+                  "date": "2026-06-21",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.18745454545454,
+                  "weightedScore": 61.477461818181816
+                },
+                {
+                  "date": "2026-05-24",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.47,
+                  "weightedScore": 64.9572
+                },
+                {
+                  "date": "2026-03-28",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.845,
+                  "weightedScore": 56.334599999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.15478036363636,
+              "normalizedAverage": 78.75569090909092
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 13,
+          "name": "レザンノワール",
+          "currentForm": 63,
+          "shadowForm": 76,
+          "formDelta": 13,
+          "currentTm": 75,
+          "shadowTm": 78,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 68,
+            "distance": 76,
+            "course": 72,
+            "training": 62,
+            "blood": 61.23611974058498,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-20",
+                  "course": "函館",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.408,
+                  "weightedScore": 81.408
+                },
+                {
+                  "date": "2026-03-08",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 79.491,
+                  "weightedScore": 73.13172
+                },
+                {
+                  "date": "2026-01-17",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.00399999999999,
+                  "weightedScore": 59.64335999999999
+                },
+                {
+                  "date": "2025-12-07",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.60588235294118,
+                  "weightedScore": 51.3804705882353
+                },
+                {
+                  "date": "2025-11-09",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.83733333333333,
+                  "weightedScore": 51.56938666666666
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 63.42658745098039,
+              "normalizedAverage": 75.5078422035481
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 14,
+          "name": "スミッコディスコ",
+          "currentForm": 68,
+          "shadowForm": 81,
+          "formDelta": 13,
+          "currentTm": 80,
+          "shadowTm": 83,
+          "tmDelta": 3,
+          "currentRaw": 79,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 71,
+            "distance": 77,
+            "course": 88,
+            "training": 66,
+            "blood": 66.2635433891931,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-20",
+                  "course": "函館",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.32,
+                  "weightedScore": 88.32
+                },
+                {
+                  "date": "2026-05-02",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.18666666666667,
+                  "weightedScore": 80.21173333333334
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 69.94200000000001,
+                  "weightedScore": 58.75128
+                },
+                {
+                  "date": "2026-01-31",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.7,
+                  "weightedScore": 55.252
+                },
+                {
+                  "date": "2025-12-06",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 85.62,
+                  "weightedScore": 58.221599999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 68.15132266666667,
+              "normalizedAverage": 81.132526984127
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 15,
+          "name": "メローネ",
+          "currentForm": 64,
+          "shadowForm": 77,
+          "formDelta": 13,
+          "currentTm": 77,
+          "shadowTm": 80,
+          "tmDelta": 3,
+          "currentRaw": 76,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 76,
+            "training": 69,
+            "course": 71,
+            "blood": 65.95579666341594,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-11",
+                  "course": "小倉",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.62533333333334,
+                  "weightedScore": 57.62533333333334
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.57,
+                  "weightedScore": 80.56439999999999
+                },
+                {
+                  "date": "2026-04-25",
+                  "course": "福島",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.42099999999999,
+                  "weightedScore": 59.99363999999999
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "中京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 67.4652
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "小倉",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.09933333333333,
+                  "weightedScore": 55.82754666666666
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 64.29522399999999,
+              "normalizedAverage": 76.54193333333335
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 16,
+          "name": "ピコアーガイル",
+          "currentForm": 59,
+          "shadowForm": 70,
+          "formDelta": 11,
+          "currentTm": 74,
+          "shadowTm": 76,
+          "tmDelta": 2,
+          "currentRaw": 74,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 73,
+            "course": 73,
+            "training": 63,
+            "blood": 65,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-11",
+                  "course": "函館",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.366,
+                  "weightedScore": 84.366
+                },
+                {
+                  "date": "2026-06-20",
+                  "course": "函館",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.191,
+                  "weightedScore": 78.37572
+                },
+                {
+                  "date": "2026-03-08",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 44.067,
+                  "weightedScore": 37.01628
+                },
+                {
+                  "date": "2025-12-07",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.571,
+                  "weightedScore": 52.11396
+                },
+                {
+                  "date": "2025-11-08",
+                  "course": "福島",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 63.245999999999995,
+                  "weightedScore": 43.007279999999994
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 58.975848,
+              "normalizedAverage": 70.20934285714287
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-hanshin-10R",
+      "date": "2026-09-26",
+      "time": "15:05",
+      "track": "阪神",
+      "number": 10,
+      "name": "野分特別",
+      "currentLeader": 11,
+      "shadowLeader": 11,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ヴォーカライズ",
+          "currentForm": 66,
+          "shadowForm": 79,
+          "formDelta": 13,
+          "currentTm": 76,
+          "shadowTm": 79,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 68,
+            "training": 75,
+            "distance": 71,
+            "course": 77,
+            "blood": 65.9067,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-29",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 89.07
+                },
+                {
+                  "date": "2026-08-01",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.73981818181818,
+                  "weightedScore": 77.04063272727272
+                },
+                {
+                  "date": "2026-04-25",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.705,
+                  "weightedScore": 56.032199999999996
+                },
+                {
+                  "date": "2026-04-05",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.44969230769232,
+                  "weightedScore": 55.82176615384616
+                },
+                {
+                  "date": "2026-01-31",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.054,
+                  "weightedScore": 53.076719999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.20826377622377,
+              "normalizedAverage": 78.81936163836164
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "ストップザタイム",
+          "currentForm": 63,
+          "shadowForm": 75,
+          "formDelta": 12,
+          "currentTm": 77,
+          "shadowTm": 79,
+          "tmDelta": 2,
+          "currentRaw": 77,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 67,
+            "training": 74,
+            "distance": 72,
+            "course": 78,
+            "blood": 67.72967849303402,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.25,
+                  "weightedScore": 80.25
+                },
+                {
+                  "date": "2025-05-18",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 80.01599999999999,
+                  "weightedScore": 73.61471999999999
+                },
+                {
+                  "date": "2025-04-20",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 71.75399999999999,
+                  "weightedScore": 60.27335999999999
+                },
+                {
+                  "date": "2025-03-29",
+                  "course": "中京",
+                  "weight": 0.76,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 63.55066666666667,
+                  "weightedScore": 48.29850666666667
+                },
+                {
+                  "date": "2024-08-25",
+                  "course": "札幌",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.066,
+                  "weightedScore": 51.04488
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 62.69629333333332,
+              "normalizedAverage": 74.63844444444445
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "テーオーシュタイン",
+          "currentForm": 65,
+          "shadowForm": 77,
+          "formDelta": 12,
+          "currentTm": 78,
+          "shadowTm": 81,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 65,
+            "distance": 77,
+            "course": 82,
+            "training": 70,
+            "blood": 68.7536447609346,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.01599999999999,
+                  "weightedScore": 83.01599999999999
+                },
+                {
+                  "date": "2026-06-20",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.03800000000001,
+                  "weightedScore": 65.35496000000002
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.358,
+                  "weightedScore": 59.10072
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 67.69319999999999
+                },
+                {
+                  "date": "2026-03-15",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.50415384615386,
+                  "weightedScore": 47.942824615384616
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 64.62154092307694,
+              "normalizedAverage": 76.93040586080588
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "アジュマン",
+          "currentForm": 56,
+          "shadowForm": 66,
+          "formDelta": 10,
+          "currentTm": 71,
+          "shadowTm": 74,
+          "tmDelta": 3,
+          "currentRaw": 71,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 61,
+            "training": 68,
+            "distance": 66,
+            "course": 71,
+            "blood": 68.11963077961313,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-12",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 42.86353846153847,
+                  "weightedScore": 42.86353846153847
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.7,
+                  "weightedScore": 54.004000000000005
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.70333333333333,
+                  "weightedScore": 71.1508
+                },
+                {
+                  "date": "2026-03-28",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.25181818181818,
+                  "weightedScore": 64.79138181818182
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.20400000000001,
+                  "weightedScore": 45.01872
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 55.565688055944065,
+              "normalizedAverage": 66.14962863802866
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "シーミハットク",
+          "currentForm": 57,
+          "shadowForm": 68,
+          "formDelta": 11,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 63,
+            "training": 70,
+            "distance": 68,
+            "course": 72,
+            "blood": 59.876987625616785,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-13",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 44.40654545454545,
+                  "weightedScore": 44.40654545454545
+                },
+                {
+                  "date": "2026-05-31",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 62.154666666666664,
+                  "weightedScore": 57.182293333333334
+                },
+                {
+                  "date": "2026-04-04",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.55,
+                  "weightedScore": 69.342
+                },
+                {
+                  "date": "2026-03-15",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.37,
+                  "weightedScore": 67.9212
+                },
+                {
+                  "date": "2026-02-14",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.77327272727274,
+                  "weightedScore": 48.125825454545456
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 57.395572848484846,
+              "normalizedAverage": 68.32806291486293
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "オーシャントライブ",
+          "currentForm": 48,
+          "shadowForm": 58,
+          "formDelta": 10,
+          "currentTm": 71,
+          "shadowTm": 73,
+          "tmDelta": 2,
+          "currentRaw": 71,
+          "shadowRaw": 73,
+          "unchangedScores": {
+            "ability": 62,
+            "distance": 73,
+            "training": 70,
+            "course": 73,
+            "blood": 67.03210840949879,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-08",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 40.65553846153846,
+                  "weightedScore": 40.65553846153846
+                },
+                {
+                  "date": "2025-08-23",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 61.00384615384616,
+                  "weightedScore": 56.12353846153847
+                },
+                {
+                  "date": "2025-06-15",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 44.05200000000001,
+                  "weightedScore": 37.00368
+                },
+                {
+                  "date": "2025-05-18",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.84533333333333,
+                  "weightedScore": 63.722453333333334
+                },
+                {
+                  "date": "2025-03-16",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.02933333333334,
+                  "weightedScore": 44.899946666666665
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 48.481031384615385,
+              "normalizedAverage": 57.71551355311357
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "ウィルサヴァイブ",
+          "currentForm": 52,
+          "shadowForm": 62,
+          "formDelta": 10,
+          "currentTm": 71,
+          "shadowTm": 74,
+          "tmDelta": 3,
+          "currentRaw": 71,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 64,
+            "course": 82,
+            "distance": 67,
+            "training": 59,
+            "blood": 65.49688547207731,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-29",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 57.31799999999999,
+                  "weightedScore": 57.31799999999999
+                },
+                {
+                  "date": "2026-08-01",
+                  "course": "札幌",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.646,
+                  "weightedScore": 65.91432
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 47.172,
+                  "weightedScore": 39.62448
+                },
+                {
+                  "date": "2026-06-27",
+                  "course": "函館",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 71.00345454545455,
+                  "weightedScore": 53.96262545454545
+                },
+                {
+                  "date": "2026-05-16",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 64.17066666666666,
+                  "weightedScore": 43.63605333333333
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 52.09109575757575,
+              "normalizedAverage": 62.01320923520924
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "ショウナンバルドル",
+          "currentForm": 61,
+          "shadowForm": 72,
+          "formDelta": 11,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 62,
+            "training": 69,
+            "distance": 67,
+            "course": 59,
+            "blood": 68.7803447609346,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.03800000000001,
+                  "weightedScore": 73.03800000000001
+                },
+                {
+                  "date": "2026-08-08",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.71927272727272,
+                  "weightedScore": 65.06173090909091
+                },
+                {
+                  "date": "2026-06-20",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 51.248,
+                  "weightedScore": 43.04832
+                },
+                {
+                  "date": "2026-05-24",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.666,
+                  "weightedScore": 64.34616
+                },
+                {
+                  "date": "2026-04-25",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.25181818181818,
+                  "weightedScore": 57.97123636363636
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 60.69308945454545,
+              "normalizedAverage": 72.25367792207793
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 9,
+          "name": "ストームサンダー",
+          "currentForm": 52,
+          "shadowForm": 62,
+          "formDelta": 10,
+          "currentTm": 70,
+          "shadowTm": 72,
+          "tmDelta": 2,
+          "currentRaw": 70,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 63,
+            "distance": 66,
+            "training": 64,
+            "course": 59,
+            "blood": 66.93270128023474,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.458,
+                  "weightedScore": 70.458
+                },
+                {
+                  "date": "2026-06-13",
+                  "course": "函館",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 44.673,
+                  "weightedScore": 41.099160000000005
+                },
+                {
+                  "date": "2026-05-10",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 55.34072727272727,
+                  "weightedScore": 46.48621090909091
+                },
+                {
+                  "date": "2026-04-04",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.738,
+                  "weightedScore": 54.52088
+                },
+                {
+                  "date": "2025-12-21",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.122,
+                  "weightedScore": 46.322959999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 51.77744218181819,
+              "normalizedAverage": 61.63981212121214
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 10,
+          "name": "フェイトライン",
+          "currentForm": 52,
+          "shadowForm": 62,
+          "formDelta": 10,
+          "currentTm": 72,
+          "shadowTm": 75,
+          "tmDelta": 3,
+          "currentRaw": 72,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 64,
+            "distance": 77,
+            "course": 80,
+            "training": 55,
+            "blood": 68.39281650665905,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-28",
+                  "course": null,
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.72,
+                  "weightedScore": 84.72
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 15.271999999999995,
+                  "weightedScore": 14.050239999999995
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 59.796,
+                  "weightedScore": 50.22864
+                },
+                {
+                  "date": "2026-03-15",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.53492307692308,
+                  "weightedScore": 55.12654153846154
+                },
+                {
+                  "date": "2026-03-01",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.316,
+                  "weightedScore": 55.29488
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 51.8840603076923,
+              "normalizedAverage": 61.766738461538466
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 11,
+          "name": "ジーティーマン",
+          "currentForm": 67,
+          "shadowForm": 80,
+          "formDelta": 13,
+          "currentTm": 79,
+          "shadowTm": 82,
+          "tmDelta": 3,
+          "currentRaw": 78,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 74,
+            "training": 74,
+            "course": 68,
+            "blood": 67.46301586854626,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.016,
+                  "weightedScore": 86.016
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.03981818181819,
+                  "weightedScore": 77.31663272727273
+                },
+                {
+                  "date": "2026-05-17",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.5,
+                  "weightedScore": 64.25999999999999
+                },
+                {
+                  "date": "2026-04-05",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.1670909090909,
+                  "weightedScore": 51.806989090909084
+                },
+                {
+                  "date": "2026-02-15",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.58181818181818,
+                  "weightedScore": 56.155636363636354
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 67.11105163636363,
+              "normalizedAverage": 79.8941090909091
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 12,
+          "name": "スナークピカソ",
+          "currentForm": 58,
+          "shadowForm": 69,
+          "formDelta": 11,
+          "currentTm": 73,
+          "shadowTm": 75,
+          "tmDelta": 2,
+          "currentRaw": 73,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 64,
+            "distance": 71,
+            "training": 67,
+            "course": 64,
+            "blood": 67.71569789918843,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-13",
+                  "course": "中山",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 56.95090909090909,
+                  "weightedScore": 56.95090909090909
+                },
+                {
+                  "date": "2026-08-08",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.09545454545454,
+                  "weightedScore": 69.08781818181818
+                },
+                {
+                  "date": "2026-05-30",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 61.120909090909095,
+                  "weightedScore": 51.34156363636364
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 69.66927272727273,
+                  "weightedScore": 52.94864727272727
+                },
+                {
+                  "date": "2026-03-14",
+                  "course": "中京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 60.36359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 58.138507636363634,
+              "normalizedAverage": 69.21250909090911
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 13,
+          "name": "ツーネサーン",
+          "currentForm": 61,
+          "shadowForm": 73,
+          "formDelta": 12,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 62,
+            "distance": 70,
+            "course": 71,
+            "training": 58,
+            "blood": 61.751800809900345,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 62.16,
+                  "weightedScore": 62.16
+                },
+                {
+                  "date": "2026-08-29",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 65.196,
+                  "weightedScore": 59.98032
+                },
+                {
+                  "date": "2026-06-06",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.7344705882353,
+                  "weightedScore": 61.09695529411765
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.766,
+                  "weightedScore": 63.66216000000001
+                },
+                {
+                  "date": "2026-05-10",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.95181818181818,
+                  "weightedScore": 57.76723636363636
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 60.9333343315508,
+              "normalizedAverage": 72.53968372803668
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 14,
+          "name": "アイガーリー",
+          "currentForm": 51,
+          "shadowForm": 61,
+          "formDelta": 10,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 67,
+            "course": 82,
+            "distance": 68,
+            "training": 52,
+            "blood": 67.9999447609346,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-06",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 89.07
+                },
+                {
+                  "date": "2026-05-16",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 37.656,
+                  "weightedScore": 34.64352
+                },
+                {
+                  "date": "2026-04-25",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.462,
+                  "weightedScore": 55.82808
+                },
+                {
+                  "date": "2026-03-22",
+                  "course": "中京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 63.534,
+                  "weightedScore": 48.28584
+                },
+                {
+                  "date": "2026-02-14",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 42.23618181818182,
+                  "weightedScore": 28.720603636363634
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 51.309608727272725,
+              "normalizedAverage": 61.08286753246754
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-nakayama-11R",
+      "date": "2026-09-26",
+      "time": "15:30",
+      "track": "中山",
+      "number": 11,
+      "name": "秋風ステークス",
+      "currentLeader": 3,
+      "shadowLeader": 3,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "エフォートレス",
+          "currentForm": 61,
+          "shadowForm": 72,
+          "formDelta": 11,
+          "currentTm": 77,
+          "shadowTm": 79,
+          "tmDelta": 2,
+          "currentRaw": 76,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 80,
+            "course": 81,
+            "training": 60,
+            "blood": 65.75483298403897,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-30",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.696,
+                  "weightedScore": 78.696
+                },
+                {
+                  "date": "2026-06-21",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.67099999999999,
+                  "weightedScore": 62.25731999999999
+                },
+                {
+                  "date": "2026-02-15",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 74.5668
+                },
+                {
+                  "date": "2025-11-15",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.06892307692307,
+                  "weightedScore": 55.532381538461536
+                },
+                {
+                  "date": "2025-10-25",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 46.946,
+                  "weightedScore": 31.923279999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 60.5951563076923,
+              "normalizedAverage": 72.13709084249085
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "サウンドムーブ",
+          "currentForm": 69,
+          "shadowForm": 82,
+          "formDelta": 13,
+          "currentTm": 79,
+          "shadowTm": 82,
+          "tmDelta": 3,
+          "currentRaw": 78,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 72,
+            "distance": 76,
+            "course": 78,
+            "training": 56,
+            "blood": 65.08798966325436,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-09-05",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.50399999999999,
+                  "weightedScore": 75.50399999999999
+                },
+                {
+                  "date": "2026-07-04",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.45,
+                  "weightedScore": 74.93400000000001
+                },
+                {
+                  "date": "2026-04-19",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 81.43333333333334,
+                  "weightedScore": 68.404
+                },
+                {
+                  "date": "2026-03-15",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.437,
+                  "weightedScore": 65.69212
+                },
+                {
+                  "date": "2026-01-12",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 90.191,
+                  "weightedScore": 61.329879999999996
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 69.1728,
+              "normalizedAverage": 82.34857142857143
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "ソルトブリーズ",
+          "currentForm": 68,
+          "shadowForm": 82,
+          "formDelta": 14,
+          "currentTm": 81,
+          "shadowTm": 84,
+          "tmDelta": 3,
+          "currentRaw": 80,
+          "shadowRaw": 83,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 79,
+            "course": 84,
+            "training": 75,
+            "blood": 68.0470411910505,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-31",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.15423529411764,
+                  "weightedScore": 81.15423529411764
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 81.9444
+                },
+                {
+                  "date": "2025-12-14",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 74.658,
+                  "weightedScore": 62.71272
+                },
+                {
+                  "date": "2025-11-16",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.62692307692308,
+                  "weightedScore": 55.95646153846154
+                },
+                {
+                  "date": "2025-10-18",
+                  "course": "新潟",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 89.07,
+                  "weightedScore": 60.56759999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 68.46708336651582,
+              "normalizedAverage": 81.50843257918552
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "フォルラニーニ",
+          "currentForm": 62,
+          "shadowForm": 73,
+          "formDelta": 11,
+          "currentTm": 77,
+          "shadowTm": 80,
+          "tmDelta": 3,
+          "currentRaw": 76,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 79,
+            "course": 85,
+            "training": 65,
+            "blood": 62.04985807362193,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-18",
+                  "course": "福島",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 40.902,
+                  "weightedScore": 40.902
+                },
+                {
+                  "date": "2026-05-24",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.32,
+                  "weightedScore": 81.2544
+                },
+                {
+                  "date": "2026-03-21",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.216,
+                  "weightedScore": 69.06143999999999
+                },
+                {
+                  "date": "2026-01-25",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.42866666666667,
+                  "weightedScore": 59.605786666666674
+                },
+                {
+                  "date": "2025-11-15",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.47723076923077,
+                  "weightedScore": 57.44451692307692
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 61.653628717948706,
+              "normalizedAverage": 73.39717704517705
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "グラニット",
+          "currentForm": 51,
+          "shadowForm": 61,
+          "formDelta": 10,
+          "currentTm": 69,
+          "shadowTm": 71,
+          "tmDelta": 2,
+          "currentRaw": 69,
+          "shadowRaw": 71,
+          "unchangedScores": {
+            "ability": 60,
+            "distance": 65,
+            "training": 65,
+            "course": 67,
+            "blood": 67.7536447609346,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-22",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 47.343333333333334,
+                  "weightedScore": 47.343333333333334
+                },
+                {
+                  "date": "2026-07-18",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.855,
+                  "weightedScore": 53.2266
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 63.588,
+                  "weightedScore": 53.41392
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 64.146,
+                  "weightedScore": 48.75096
+                },
+                {
+                  "date": "2025-08-10",
+                  "course": "新潟",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.45400000000001,
+                  "weightedScore": 52.66872
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 51.080706666666664,
+              "normalizedAverage": 60.810365079365084
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "アルトゥーム",
+          "currentForm": 48,
+          "shadowForm": 57,
+          "formDelta": 9,
+          "currentTm": 68,
+          "shadowTm": 70,
+          "tmDelta": 2,
+          "currentRaw": 68,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 60,
+            "training": 69,
+            "distance": 64,
+            "course": 58,
+            "blood": 67.46301586854626,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-04",
+                  "course": "小倉",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 59.826,
+                  "weightedScore": 59.826
+                },
+                {
+                  "date": "2026-04-05",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 39.510000000000005,
+                  "weightedScore": 36.3492
+                },
+                {
+                  "date": "2026-03-14",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.610727272727274,
+                  "weightedScore": 49.23301090909091
+                },
+                {
+                  "date": "2026-03-01",
+                  "course": "小倉",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 70.25964705882353,
+                  "weightedScore": 53.39733176470588
+                },
+                {
+                  "date": "2026-01-11",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.53,
+                  "weightedScore": 39.800399999999996
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 47.72118853475936,
+              "normalizedAverage": 56.81093873185639
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "エスコバル",
+          "currentForm": 50,
+          "shadowForm": 60,
+          "formDelta": 10,
+          "currentTm": 67,
+          "shadowTm": 69,
+          "tmDelta": 2,
+          "currentRaw": 68,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 60,
+            "training": 72,
+            "distance": 61,
+            "course": 54,
+            "blood": 66.94490188722479,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-09",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.83784615384616,
+                  "weightedScore": 58.83784615384616
+                },
+                {
+                  "date": "2026-07-18",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.78800000000001,
+                  "weightedScore": 62.36496000000001
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 43.622,
+                  "weightedScore": 36.64248
+                },
+                {
+                  "date": "2026-02-15",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 50.205,
+                  "weightedScore": 38.1558
+                },
+                {
+                  "date": "2025-11-23",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.09223529411764,
+                  "weightedScore": 54.46271999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 50.09276123076923,
+              "normalizedAverage": 59.63423956043957
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "インパクトシー",
+          "currentForm": 67,
+          "shadowForm": 80,
+          "formDelta": 13,
+          "currentTm": 81,
+          "shadowTm": 83,
+          "tmDelta": 2,
+          "currentRaw": 81,
+          "shadowRaw": 83,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 81,
+            "course": 90,
+            "training": 75,
+            "blood": 67.7536447609346,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-11",
+                  "course": "函館",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.41538461538462,
+                  "weightedScore": 66.41538461538462
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "中山",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.212,
+                  "weightedScore": 74.71504
+                },
+                {
+                  "date": "2026-03-15",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.62,
+                  "weightedScore": 74.4408
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "小倉",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.02,
+                  "weightedScore": 66.8952
+                },
+                {
+                  "date": "2026-02-01",
+                  "course": "小倉",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.29246153846154,
+                  "weightedScore": 54.59887384615384
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 67.4130596923077,
+              "normalizedAverage": 80.25364249084251
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 9,
+          "name": "ナヴォーナ",
+          "currentForm": 50,
+          "shadowForm": 59,
+          "formDelta": 9,
+          "currentTm": 71,
+          "shadowTm": 72,
+          "tmDelta": 1,
+          "currentRaw": 71,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 60,
+            "training": 74,
+            "distance": 69,
+            "course": 67,
+            "blood": 68.52730840949879,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-19",
+                  "course": "小倉",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 26.055,
+                  "weightedScore": 26.055
+                },
+                {
+                  "date": "2026-07-04",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 52.668,
+                  "weightedScore": 48.45456
+                },
+                {
+                  "date": "2025-12-07",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.34133333333332,
+                  "weightedScore": 70.00671999999999
+                },
+                {
+                  "date": "2025-11-23",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 73.44705882352942,
+                  "weightedScore": 55.819764705882356
+                },
+                {
+                  "date": "2025-11-08",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.208,
+                  "weightedScore": 47.74144
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 49.61549694117647,
+              "normalizedAverage": 59.066067787114854
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 10,
+          "name": "ウォータークラーク",
+          "currentForm": 68,
+          "shadowForm": 81,
+          "formDelta": 13,
+          "currentTm": 77,
+          "shadowTm": 80,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 76,
+            "training": 65,
+            "course": 66,
+            "blood": 67.7536447609346,
+            "pace": 72
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-09",
+                  "course": "京都",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 88.77
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.12,
+                  "weightedScore": 74.63040000000001
+                },
+                {
+                  "date": "2026-02-01",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.21199999999999,
+                  "weightedScore": 69.05807999999999
+                },
+                {
+                  "date": "2026-01-05",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.82327272727272,
+                  "weightedScore": 52.30568727272727
+                },
+                {
+                  "date": "2025-12-14",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.27,
+                  "weightedScore": 57.30359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 68.41355345454545,
+              "normalizedAverage": 81.4447064935065
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 11,
+          "name": "マイネルフルムーン",
+          "currentForm": 62,
+          "shadowForm": 73,
+          "formDelta": 11,
+          "currentTm": 77,
+          "shadowTm": 80,
+          "tmDelta": 3,
+          "currentRaw": 76,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 68,
+            "distance": 77,
+            "training": 70,
+            "course": 70,
+            "blood": 66.00496706172065,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-31",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.6804705882353,
+                  "weightedScore": 72.6804705882353
+                },
+                {
+                  "date": "2026-05-02",
+                  "course": "新潟",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.72,
+                  "weightedScore": 80.7024
+                },
+                {
+                  "date": "2026-04-05",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.25181818181818,
+                  "weightedScore": 71.61152727272727
+                },
+                {
+                  "date": "2026-03-07",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 64.16799999999999,
+                  "weightedScore": 48.76767999999999
+                },
+                {
+                  "date": "2026-02-15",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 50.718545454545456,
+                  "weightedScore": 34.48861090909091
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 61.650137754010686,
+              "normalizedAverage": 73.39302113572703
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 12,
+          "name": "マテンロウブラボー",
+          "currentForm": 66,
+          "shadowForm": 79,
+          "formDelta": 13,
+          "currentTm": 79,
+          "shadowTm": 82,
+          "tmDelta": 3,
+          "currentRaw": 78,
+          "shadowRaw": 81,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 80,
+            "course": 82,
+            "training": 71,
+            "blood": 66.92766730396912,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-21",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 70.596,
+                  "weightedScore": 70.596
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.008,
+                  "weightedScore": 74.52736
+                },
+                {
+                  "date": "2026-04-12",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.958,
+                  "weightedScore": 61.28471999999999
+                },
+                {
+                  "date": "2026-03-14",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.46600000000001,
+                  "weightedScore": 63.434160000000006
+                },
+                {
+                  "date": "2026-01-10",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.77,
+                  "weightedScore": 60.36359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.041168,
+              "normalizedAverage": 78.6204380952381
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 13,
+          "name": "セブンマジシャン",
+          "currentForm": 59,
+          "shadowForm": 70,
+          "formDelta": 11,
+          "currentTm": 75,
+          "shadowTm": 78,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 71,
+            "course": 80,
+            "training": 71,
+            "blood": 65.4545259606747,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-14",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 42.972,
+                  "weightedScore": 42.972
+                },
+                {
+                  "date": "2026-05-17",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.81969230769232,
+                  "weightedScore": 72.51411692307694
+                },
+                {
+                  "date": "2026-01-18",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.80000000000001,
+                  "weightedScore": 60.312000000000005
+                },
+                {
+                  "date": "2025-12-28",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.633,
+                  "weightedScore": 64.32108
+                },
+                {
+                  "date": "2025-11-16",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 80.708,
+                  "weightedScore": 54.88143999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 59.00012738461538,
+              "normalizedAverage": 70.2382468864469
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 14,
+          "name": "テンミラクルスター",
+          "currentForm": 62,
+          "shadowForm": 74,
+          "formDelta": 12,
+          "currentTm": 76,
+          "shadowTm": 78,
+          "tmDelta": 2,
+          "currentRaw": 76,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 76,
+            "course": 87,
+            "training": 64,
+            "blood": 62.137021506965986,
+            "pace": 73
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-09",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 51.0683076923077,
+                  "weightedScore": 51.0683076923077
+                },
+                {
+                  "date": "2026-05-31",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 74.40105882352941,
+                  "weightedScore": 68.44897411764705
+                },
+                {
+                  "date": "2026-03-14",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 84.72,
+                  "weightedScore": 71.1648
+                },
+                {
+                  "date": "2025-12-14",
+                  "course": "中京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 85.32,
+                  "weightedScore": 64.8432
+                },
+                {
+                  "date": "2025-10-26",
+                  "course": "東京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.416,
+                  "weightedScore": 56.72287999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 62.44963236199095,
+              "normalizedAverage": 74.34480043094162
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "raceId": "2026-09-26-hanshin-11R",
+      "date": "2026-09-26",
+      "time": "15:45",
+      "track": "阪神",
+      "number": 11,
+      "name": "シリウスステークス",
+      "currentLeader": 6,
+      "shadowLeader": 6,
+      "leaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ジューンアヲニヨシ",
+          "currentForm": 47,
+          "shadowForm": 56,
+          "formDelta": 9,
+          "currentTm": 70,
+          "shadowTm": 72,
+          "tmDelta": 2,
+          "currentRaw": 70,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 60,
+            "training": 71,
+            "distance": 71,
+            "blood": 63.20314419015964,
+            "course": 76,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-23",
+                  "course": "京都",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 53.198,
+                  "weightedScore": 53.198
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 50.711,
+                  "weightedScore": 46.65412
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.87,
+                  "weightedScore": 71.2908
+                },
+                {
+                  "date": "2026-02-07",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 35.745000000000005,
+                  "weightedScore": 27.166200000000003
+                },
+                {
+                  "date": "2025-11-22",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 54.102000000000004,
+                  "weightedScore": 36.78936
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 47.019695999999996,
+              "normalizedAverage": 55.97582857142858
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 2,
+          "name": "ゼットリアン",
+          "currentForm": 60,
+          "shadowForm": 71,
+          "formDelta": 11,
+          "currentTm": 77,
+          "shadowTm": 79,
+          "tmDelta": 2,
+          "currentRaw": 76,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 66,
+            "distance": 78,
+            "training": 64,
+            "blood": 67.557957727345,
+            "course": 83,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-02",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.92933333333333,
+                  "weightedScore": 77.92933333333333
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 61.10600000000001,
+                  "weightedScore": 56.21752000000001
+                },
+                {
+                  "date": "2026-05-03",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.776,
+                  "weightedScore": 49.37184
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.137,
+                  "weightedScore": 57.86412
+                },
+                {
+                  "date": "2026-02-07",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.32,
+                  "weightedScore": 58.01759999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 59.88008266666666,
+              "normalizedAverage": 71.2858126984127
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 3,
+          "name": "メイショウズイウン",
+          "currentForm": 52,
+          "shadowForm": 62,
+          "formDelta": 10,
+          "currentTm": 73,
+          "shadowTm": 75,
+          "tmDelta": 2,
+          "currentRaw": 73,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 65,
+            "distance": 72,
+            "training": 66,
+            "blood": 67.07570840949879,
+            "course": 77,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-29",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.12,
+                  "weightedScore": 84.12
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "小倉",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 57.69709090909091,
+                  "weightedScore": 53.08132363636364
+                },
+                {
+                  "date": "2026-06-13",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 58.626000000000005,
+                  "weightedScore": 49.24584
+                },
+                {
+                  "date": "2026-05-03",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 51.918,
+                  "weightedScore": 39.45768
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 48.536,
+                  "weightedScore": 33.00448
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 51.781864727272726,
+              "normalizedAverage": 61.64507705627707
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 4,
+          "name": "ダイシンピスケス",
+          "currentForm": 36,
+          "shadowForm": 42,
+          "formDelta": 6,
+          "currentTm": 68,
+          "shadowTm": 69,
+          "tmDelta": 1,
+          "currentRaw": 67,
+          "shadowRaw": 68,
+          "unchangedScores": {
+            "ability": 57,
+            "training": 79,
+            "blood": 65.86503783735478,
+            "distance": 61,
+            "course": 69,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-05-03",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 45.402,
+                  "weightedScore": 45.402
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 46.998,
+                  "weightedScore": 43.23816
+                },
+                {
+                  "date": "2025-06-21",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 19.592181818181817,
+                  "weightedScore": 16.457432727272725
+                },
+                {
+                  "date": "2025-05-04",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 54.498000000000005,
+                  "weightedScore": 41.41848
+                },
+                {
+                  "date": "2025-04-09",
+                  "course": null,
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 46.78830769230769,
+                  "weightedScore": 31.816049230769227
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 35.666424391608395,
+              "normalizedAverage": 42.46002903762905
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 5,
+          "name": "ハピ",
+          "currentForm": 60,
+          "shadowForm": 71,
+          "formDelta": 11,
+          "currentTm": 74,
+          "shadowTm": 76,
+          "tmDelta": 2,
+          "currentRaw": 74,
+          "shadowRaw": 76,
+          "unchangedScores": {
+            "ability": 67,
+            "distance": 71,
+            "blood": 66.53509298701043,
+            "training": 60,
+            "course": 78,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 74.229,
+                  "weightedScore": 74.229
+                },
+                {
+                  "date": "2026-06-13",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.825,
+                  "weightedScore": 69.759
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.18,
+                  "weightedScore": 59.7912
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.213,
+                  "weightedScore": 43.481880000000004
+                },
+                {
+                  "date": "2026-01-25",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.521,
+                  "weightedScore": 52.714279999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 59.99507199999999,
+              "normalizedAverage": 71.42270476190477
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 6,
+          "name": "ギュルヴィ",
+          "currentForm": 70,
+          "shadowForm": 83,
+          "formDelta": 13,
+          "currentTm": 81,
+          "shadowTm": 83,
+          "tmDelta": 2,
+          "currentRaw": 80,
+          "shadowRaw": 82,
+          "unchangedScores": {
+            "ability": 70,
+            "distance": 81,
+            "training": 65,
+            "course": 90,
+            "blood": 64.7121,
+            "pace": 75
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-20",
+                  "course": null,
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.17599999999999,
+                  "weightedScore": 78.17599999999999
+                },
+                {
+                  "date": "2026-05-24",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.82,
+                  "weightedScore": 79.8744
+                },
+                {
+                  "date": "2026-05-02",
+                  "course": "東京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.145,
+                  "weightedScore": 69.84179999999999
+                },
+                {
+                  "date": "2026-03-28",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.87,
+                  "weightedScore": 64.5012
+                },
+                {
+                  "date": "2025-12-13",
+                  "course": "中京",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.57,
+                  "weightedScore": 57.50759999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 69.98019999999998,
+              "normalizedAverage": 83.3097619047619
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 7,
+          "name": "ミッキークレスト",
+          "currentForm": 44,
+          "shadowForm": 53,
+          "formDelta": 9,
+          "currentTm": 72,
+          "shadowTm": 74,
+          "tmDelta": 2,
+          "currentRaw": 70,
+          "shadowRaw": 72,
+          "unchangedScores": {
+            "ability": 62,
+            "distance": 70,
+            "blood": 67.7966549446068,
+            "course": 84,
+            "training": 61,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-23",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 64.99199999999999,
+                  "weightedScore": 64.99199999999999
+                },
+                {
+                  "date": "2026-06-20",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 35.612,
+                  "weightedScore": 32.763040000000004
+                },
+                {
+                  "date": "2026-04-11",
+                  "course": "福島",
+                  "weight": 0.84,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 52.714,
+                  "weightedScore": 44.279759999999996
+                },
+                {
+                  "date": "2026-02-07",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.963,
+                  "weightedScore": 55.451879999999996
+                },
+                {
+                  "date": "2025-11-22",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 36.45,
+                  "weightedScore": 24.786
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 44.454536,
+              "normalizedAverage": 52.92206666666667
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 8,
+          "name": "ダブルジョーク",
+          "currentForm": 63,
+          "shadowForm": 75,
+          "formDelta": 12,
+          "currentTm": 77,
+          "shadowTm": 79,
+          "tmDelta": 2,
+          "currentRaw": 75,
+          "shadowRaw": 77,
+          "unchangedScores": {
+            "ability": 66,
+            "training": 69,
+            "distance": 72,
+            "course": 77,
+            "blood": 61.57570080990035,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-04-12",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.97,
+                  "weightedScore": 86.97
+                },
+                {
+                  "date": "2026-03-01",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 79.362,
+                  "weightedScore": 73.01304
+                },
+                {
+                  "date": "2026-01-12",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 69.771,
+                  "weightedScore": 58.607639999999996
+                },
+                {
+                  "date": "2025-12-27",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.489000000000004,
+                  "weightedScore": 43.69164000000001
+                },
+                {
+                  "date": "2025-09-28",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 75.021,
+                  "weightedScore": 51.01428
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 62.65932,
+              "normalizedAverage": 74.5944285714286
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 9,
+          "name": "ルシュヴァルドール",
+          "currentForm": 38,
+          "shadowForm": 45,
+          "formDelta": 7,
+          "currentTm": 69,
+          "shadowTm": 70,
+          "tmDelta": 1,
+          "currentRaw": 69,
+          "shadowRaw": 70,
+          "unchangedScores": {
+            "ability": 62,
+            "training": 72,
+            "distance": 71,
+            "blood": 62.20314419015964,
+            "course": 76,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 37.55,
+                  "weightedScore": 37.55
+                },
+                {
+                  "date": "2026-03-22",
+                  "course": "阪神",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 38.148,
+                  "weightedScore": 35.096160000000005
+                },
+                {
+                  "date": "2026-01-25",
+                  "course": "京都",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.316,
+                  "weightedScore": 73.34544
+                },
+                {
+                  "date": "2025-12-21",
+                  "course": "阪神",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.52,
+                  "weightedScore": 65.7552
+                },
+                {
+                  "date": "2025-10-26",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": -31.392000000000017,
+                  "weightedScore": -21.34656000000001
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 38.080048,
+              "normalizedAverage": 45.33339047619048
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 10,
+          "name": "サイモンザナドゥ",
+          "currentForm": 50,
+          "shadowForm": 60,
+          "formDelta": 10,
+          "currentTm": 73,
+          "shadowTm": 75,
+          "tmDelta": 2,
+          "currentRaw": 72,
+          "shadowRaw": 74,
+          "unchangedScores": {
+            "ability": 65,
+            "training": 70,
+            "distance": 70,
+            "course": 77,
+            "blood": 61.92395610697253,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-02",
+                  "course": "中京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.65466666666667,
+                  "weightedScore": 71.65466666666667
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.939,
+                  "weightedScore": 63.42388
+                },
+                {
+                  "date": "2026-04-18",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 45.556999999999995,
+                  "weightedScore": 38.26787999999999
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 42.874,
+                  "weightedScore": 32.58424
+                },
+                {
+                  "date": "2026-01-25",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.634,
+                  "weightedScore": 45.311119999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 50.24835733333333,
+              "normalizedAverage": 59.81947301587302
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 11,
+          "name": "ヴァルツァーシャル",
+          "currentForm": 65,
+          "shadowForm": 77,
+          "formDelta": 12,
+          "currentTm": 74,
+          "shadowTm": 77,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 67,
+            "training": 69,
+            "distance": 72,
+            "blood": 62.06592165578356,
+            "course": 69,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-08",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 65.75327272727273,
+                  "weightedScore": 65.75327272727273
+                },
+                {
+                  "date": "2026-05-23",
+                  "course": "京都",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 84.67099999999999,
+                  "weightedScore": 77.89732
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "中山",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.23400000000001,
+                  "weightedScore": 64.87656000000001
+                },
+                {
+                  "date": "2026-01-11",
+                  "course": "中山",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 82.041,
+                  "weightedScore": 62.35116
+                },
+                {
+                  "date": "2025-12-14",
+                  "course": "中山",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.505,
+                  "weightedScore": 52.703399999999995
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 64.71634254545455,
+              "normalizedAverage": 77.04326493506495
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 12,
+          "name": "マイノワール",
+          "currentForm": 63,
+          "shadowForm": 75,
+          "formDelta": 12,
+          "currentTm": 78,
+          "shadowTm": 81,
+          "tmDelta": 3,
+          "currentRaw": 76,
+          "shadowRaw": 79,
+          "unchangedScores": {
+            "ability": 65,
+            "distance": 77,
+            "training": 71,
+            "blood": 68.02771237438323,
+            "course": 73,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-04-25",
+                  "course": "京都",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 86.07,
+                  "weightedScore": 86.07
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "中京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 78.904,
+                  "weightedScore": 72.59168
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": -3,
+                  "performanceScore": 45.117999999999995,
+                  "weightedScore": 37.899119999999996
+                },
+                {
+                  "date": "2026-01-24",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.512,
+                  "weightedScore": 58.14912
+                },
+                {
+                  "date": "2025-09-13",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 85.77,
+                  "weightedScore": 58.32359999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 62.60670399999999,
+              "normalizedAverage": 74.53179047619048
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 13,
+          "name": "ラムジェット",
+          "currentForm": 67,
+          "shadowForm": 79,
+          "formDelta": 12,
+          "currentTm": 75,
+          "shadowTm": 78,
+          "tmDelta": 3,
+          "currentRaw": 77,
+          "shadowRaw": 80,
+          "unchangedScores": {
+            "ability": 69,
+            "training": 69,
+            "distance": 71,
+            "blood": 65.87393783735477,
+            "course": 81,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-07-01",
+                  "course": null,
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 77.76492307692308,
+                  "weightedScore": 77.76492307692308
+                },
+                {
+                  "date": "2026-02-22",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 71.059,
+                  "weightedScore": 65.37428
+                },
+                {
+                  "date": "2025-12-07",
+                  "course": "中京",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 88.354,
+                  "weightedScore": 74.21736
+                },
+                {
+                  "date": "2025-11-09",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 81.35,
+                  "weightedScore": 61.82599999999999
+                },
+                {
+                  "date": "2025-09-07",
+                  "course": null,
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 79.05963636363637,
+                  "weightedScore": 53.76055272727273
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 66.58862316083916,
+              "normalizedAverage": 79.27217042957045
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 14,
+          "name": "リアレスト",
+          "currentForm": 61,
+          "shadowForm": 72,
+          "formDelta": 11,
+          "currentTm": 73,
+          "shadowTm": 75,
+          "tmDelta": 2,
+          "currentRaw": 73,
+          "shadowRaw": 75,
+          "unchangedScores": {
+            "ability": 65,
+            "training": 69,
+            "distance": 70,
+            "blood": 62.20314419015964,
+            "course": 61,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-06-20",
+                  "course": "東京",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 87.72,
+                  "weightedScore": 87.72
+                },
+                {
+                  "date": "2026-05-03",
+                  "course": "東京",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 66.642,
+                  "weightedScore": 61.31064
+                },
+                {
+                  "date": "2026-02-28",
+                  "course": "阪神",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 60.192,
+                  "weightedScore": 50.56128
+                },
+                {
+                  "date": "2026-02-07",
+                  "course": "京都",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 76.95,
+                  "weightedScore": 58.482
+                },
+                {
+                  "date": "2025-11-22",
+                  "course": "京都",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 67.509,
+                  "weightedScore": 45.906119999999994
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 60.79600800000001,
+              "normalizedAverage": 72.37620000000003
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 15,
+          "name": "カズタンジャー",
+          "currentForm": 61,
+          "shadowForm": 73,
+          "formDelta": 12,
+          "currentTm": 74,
+          "shadowTm": 77,
+          "tmDelta": 3,
+          "currentRaw": 75,
+          "shadowRaw": 78,
+          "unchangedScores": {
+            "ability": 68,
+            "distance": 78,
+            "training": 63,
+            "blood": 64.7121,
+            "course": 72,
+            "pace": 67
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-29",
+                  "course": "新潟",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.90345454545454,
+                  "weightedScore": 71.90345454545454
+                },
+                {
+                  "date": "2026-07-01",
+                  "course": null,
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 68.27938461538461,
+                  "weightedScore": 62.81703384615385
+                },
+                {
+                  "date": "2026-05-04",
+                  "course": null,
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 72.176,
+                  "weightedScore": 60.62784
+                },
+                {
+                  "date": "2026-03-11",
+                  "course": null,
+                  "weight": 0.76,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 80.208,
+                  "weightedScore": 60.95808
+                },
+                {
+                  "date": "2026-02-12",
+                  "course": null,
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 71.66,
+                  "weightedScore": 48.72879999999999
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 61.00704167832167,
+              "normalizedAverage": 72.62743056943057
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        },
+        {
+          "number": 16,
+          "name": "オニャンコポン",
+          "currentForm": 48,
+          "shadowForm": 57,
+          "formDelta": 9,
+          "currentTm": 71,
+          "shadowTm": 73,
+          "tmDelta": 2,
+          "currentRaw": 69,
+          "shadowRaw": 71,
+          "unchangedScores": {
+            "ability": 64,
+            "training": 70,
+            "blood": 67.7256447609346,
+            "distance": 58,
+            "course": 63,
+            "pace": 70
+          },
+          "evidence": {
+            "central": {
+              "runs": [
+                {
+                  "date": "2026-08-16",
+                  "course": "札幌",
+                  "weight": 1,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 42.97,
+                  "weightedScore": 42.97
+                },
+                {
+                  "date": "2026-07-12",
+                  "course": "福島",
+                  "weight": 0.92,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 83.996,
+                  "weightedScore": 77.27632
+                },
+                {
+                  "date": "2026-06-28",
+                  "course": "函館",
+                  "weight": 0.84,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 57.888000000000005,
+                  "weightedScore": 48.62592
+                },
+                {
+                  "date": "2026-05-09",
+                  "course": "東京",
+                  "weight": 0.76,
+                  "distanceFitBonus": 4,
+                  "performanceScore": 54.29176470588236,
+                  "weightedScore": 41.26174117647059
+                },
+                {
+                  "date": "2026-03-29",
+                  "course": "阪神",
+                  "weight": 0.6799999999999999,
+                  "distanceFitBonus": 1,
+                  "performanceScore": 45.86030769230769,
+                  "weightedScore": 31.18500923076923
+                }
+              ],
+              "count": 5,
+              "totalWeight": 4.199999999999999,
+              "legacyAverage": 48.263798081447966,
+              "normalizedAverage": 57.456902477914255
+            },
+            "local": {
+              "runs": [],
+              "count": 0,
+              "totalWeight": 0,
+              "legacyAverage": null,
+              "normalizedAverage": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "predictionSha256": "a1ade40a735a5b4034be0b93e4487c4ff9bd8c976e0ae77e0bae19e70ce7f33a"
+}

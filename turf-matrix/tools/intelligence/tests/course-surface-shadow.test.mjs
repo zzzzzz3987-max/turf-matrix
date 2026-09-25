@@ -105,6 +105,26 @@ test("current saved field replays fully without changing published data", () => 
   assert.equal(JSON.stringify(input), before);
 });
 
+test("obstacle races stay unchanged in a turf-versus-dirt comparison", () => {
+  const input = week();
+  const race = input.races[0];
+  race.surface = "障";
+  race.horses.forEach((horse) => {
+    horse.currentRace.surface = "障";
+    const scores = Object.fromEntries(horse.analysis.indexContributions.map((row) => [row.key, row.score]));
+    scores.course = scoreCourse(horse);
+    const raw = calculateTmIndex(scores, context);
+    const sampleFactor = horse.pastRuns.length === 0 ? 0.3 : horse.pastRuns.length === 1 ? 0.5 : horse.pastRuns.length === 2 ? 0.7 : 1;
+    horse.tmIndex = Math.round(65 + (raw - 65) * sampleFactor);
+    horse.analysis.indexContributions = buildIndexContributions(scores, context);
+    horse.analysis.rawTmIndex = raw;
+    horse.analysis.sampleAdjustment = horse.tmIndex - raw;
+  });
+  const prediction = buildCourseSurfacePrediction(input).predictions[0];
+  assert.ok(prediction.horses.every((horse) => horse.courseDelta === 0));
+  assert.ok(prediction.horses.every((horse) => horse.evidence.comparisonStatus === "not-applicable"));
+});
+
 test("weekly publish is wired to freeze and stage the course-only comparison", () => {
   const source = readFileSync(new URL("../../publish-race-batch.ps1", import.meta.url), "utf8");
   assert.match(source, /shadow:course:freeze -- --input tools\/week-data.next.json/);

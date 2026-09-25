@@ -46,6 +46,16 @@ test("post-time, missing conditions, diagnostics and modified frozen records can
   const wrongDistance = makeWeek();
   wrongDistance.races[0].distance = 1600;
   assert.throws(() => buildOverlapShadowArtifact(wrongDistance, options), /conditions differ/);
+  const obstacle = makeWeek();
+  obstacle.races[0].bundleId = "obstacle-test-race";
+  obstacle.races[0].surface = "障";
+  obstacle.races[0].horses.forEach((horse) => { horse.currentRace.surface = "障"; });
+  const flatRace = structuredClone(makeWeek().races[0]);
+  flatRace.bundleId = "flat-test-race";
+  obstacle.races.push(flatRace);
+  const obstacleArtifact = buildOverlapShadowArtifact(obstacle, options);
+  assert.deepEqual(obstacleArtifact.predictions.map((race) => race.raceId), ["flat-test-race"]);
+  assert.doesNotThrow(() => validateOverlapShadowArtifact(obstacleArtifact));
   const diagnostic = buildOverlapShadowArtifact(makeWeek(), { ...options, prospective: false });
   assert.throws(() => evaluateOverlapShadowArtifact(diagnostic, resultsFor(diagnostic)), /Retrospective/);
   const changed = buildOverlapShadowArtifact(makeWeek(), options);

@@ -27,24 +27,34 @@ const checkedTimestamp = (value) => {
 export const buildOverlapShadowArtifact = (week, { prospective = false, now = new Date().toISOString(), modelSha256 = null } = {}) => {
   if (prospective && !isHash(modelSha256)) throw new Error("Missing model fingerprint for pre-race freeze");
   const frozenTime = checkedTimestamp(now);
+  const comparableRaces = [];
   for (const race of week.races ?? []) {
     const post = checkedPostTime(week.meta?.date, race.time);
     if (prospective && frozenTime >= post) throw new Error("Pre-race freeze refused: a race has already started");
+    const raceSurface = normalizeCourseSurface(race.surface);
+    const isObstacleRace = race.surface === "障";
+    if (!raceSurface && !isObstacleRace) throw new Error("Horse and race conditions differ or are missing");
     for (const horse of race.horses ?? []) {
-      if (!normalizeCourseSurface(race.surface) || horse.currentRace?.course !== race.track ||
-          normalizeCourseSurface(horse.currentRace?.surface) !== normalizeCourseSurface(race.surface) ||
+      const horseSurface = normalizeCourseSurface(horse.currentRace?.surface);
+      if (horse.currentRace?.course !== race.track ||
+          (isObstacleRace ? horse.currentRace?.surface !== "障" : horseSurface !== raceSurface) ||
           !Number.isFinite(race.distance) || race.distance <= 0 || Number(horse.currentRace?.distance) !== race.distance) {
         throw new Error("Horse and race conditions differ or are missing");
       }
     }
+    if (!isObstacleRace) comparableRaces.push(race);
   }
-  const report = diagnoseEvidenceOverlap(week);
+  if (!comparableRaces.length) throw new Error("No flat-course races available for overlap comparison");
+  const report = diagnoseEvidenceOverlap({ ...week, races: comparableRaces });
+  const raceById = new Map(comparableRaces.map((race) => [race.bundleId ?? race.id, race]));
   const payload = {
     schemaVersion: 1, modelVersion: OVERLAP_SHADOW_VERSION, modelSha256,
     inputSha256: hash(week), frozenAt: now, raceDate: report.raceDate,
     status: prospective ? "frozen-pre-race" : "retrospective-diagnostic", productionConnected: false,
     policy: structuredClone(policy),
-    predictions: report.races.map((race, i) => ({ ...race, date: report.raceDate, time: week.races[i].time })),
+    predictions: report.races.map((race) => ({
+      ...race, date: report.raceDate, time: raceById.get(race.raceId)?.time,
+    })),
   };
   return { ...payload, predictionSha256: hash(payload) };
 };

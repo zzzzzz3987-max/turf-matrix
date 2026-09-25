@@ -3,6 +3,7 @@ import { appendFileSync, closeSync, copyFileSync, existsSync, mkdirSync, openSyn
 import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { buildFullRaceRuntimeConfig, buildOddsSnapshotSchedule } from "./odds-snapshot-schedule.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -23,11 +24,7 @@ const ALL_RACE_SIGNALS_NEXT_PATH = join(RUNTIME_DIR, "all-race-signals.next.json
 const ALL_RACE_SIGNALS_BACKUP_PATH = join(RUNTIME_DIR, "all-race-signals.backup.json");
 const TRACK_BIAS_PATH = join(TOOLS_DIR, "track-bias.current.json");
 const TRACK_BIAS_BACKUP_PATH = join(RUNTIME_DIR, "track-bias.current.backup.json");
-const ALL_RACE_RUNTIME_CANDIDATES = [
-  join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"),
-  join(TOOLS_DIR, "jvlink", "output", "race-batch-all36.json"),
-  join(TOOLS_DIR, "jvlink", "output", "race-batch-runtime.json"),
-];
+const FULL_RACE_RUNTIME_PATH = join(RUNTIME_DIR, "all-race-snapshot-runtime.json");
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
 const DEFAULT_LEAD_MINUTES = 7;
 const DEFAULT_POLL_SECONDS = 60;
@@ -223,12 +220,12 @@ const latestPairOddsCandidate = (notBefore) => {
 };
 
 const resolveAllRaceRuntime = (raceDate) => {
-  for (const path of ALL_RACE_RUNTIME_CANDIDATES) {
-    if (!existsSync(path)) continue;
-    const runtime = readJson(path, null);
-    if (runtime?.raceDate === raceDate && (runtime.bundles?.length ?? 0) > 0) return path;
-  }
-  throw new Error(`Race runtime config is unavailable for ${raceDate}`);
+  const runtime = buildFullRaceRuntimeConfig({
+    raceDate,
+    allRaceSignals: readJson(ALL_RACE_SIGNALS_PATH, null),
+  });
+  writeJson(FULL_RACE_RUNTIME_PATH, runtime);
+  return FULL_RACE_RUNTIME_PATH;
 };
 
 const assertCleanTrackedTree = (git) => {
@@ -398,7 +395,7 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath
   }
 };
 
-const processDueRaces = (due, state, raceDate) => {
+const refreshOddsAndPublish = ({ raceDate, commitMessage, releaseRaces }) => {
   const git = resolveGit();
   assertCleanTrackedTree(git);
   const initialHead = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();
@@ -415,7 +412,6 @@ const processDueRaces = (due, state, raceDate) => {
       oddsPath,
       `--config=${allRaceRuntime}`,
       "--allow-partial",
-      "--preserve-missing",
     );
 
     try {
@@ -434,23 +430,12 @@ const processDueRaces = (due, state, raceDate) => {
       log("WARN", "Same-day track-bias shadow refresh failed; odds update continues", { error: error.message });
     }
 
-    const labels = due.map((race) => `${race.track}${race.number}R`).join("/");
-    const result = generateAndPublish(git, `Update live odds before ${labels}`, raceDate, due, pairOddsPath);
-    const completedAt = new Date().toISOString();
-    for (const race of due) {
-      state.processed[race.id] = {
-        status: "published",
-        triggerTime: race.triggerTime.toISOString(),
-        completedAt,
-        oddsFile: oddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/"),
-        pairOddsFile: pairOddsPath ? pairOddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/") : null,
-        commit: result.commit,
-        changed: result.changed,
-      };
-    }
-    writeJson(STATE_PATH, state);
-    resolveAlert(`Automatic odds update recovered and completed for ${labels}`);
-    log("INFO", "Automatic odds update completed", { races: labels, ...result });
+    const result = generateAndPublish(git, commitMessage, raceDate, releaseRaces, pairOddsPath);
+    return {
+      ...result,
+      oddsFile: oddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/"),
+      pairOddsFile: pairOddsPath ? pairOddsPath.slice(REPO_ROOT.length + 1).replaceAll("\\", "/") : null,
+    };
   } catch (error) {
     const currentHead = run(git, ["rev-parse", "HEAD"], { quiet: true }).stdout.trim();
     if (currentHead === initialHead) {
@@ -463,6 +448,50 @@ const processDueRaces = (due, state, raceDate) => {
   }
 };
 
+const processScheduledRefresh = ({ due, snapshots, state, raceDate, schedule }) => {
+  const snapshotLabels = snapshots.map((snapshot) => snapshot.label);
+  const raceLabels = due.map((race) => `${race.track}${race.number}R`);
+  const commitMessage = snapshots.length
+    ? `Refresh all-race odds before ${snapshotLabels.join(" and ")}`
+    : `Update live odds before ${raceLabels.join("/")}`;
+  const releaseRaces = snapshots.length ? schedule : due;
+  const result = refreshOddsAndPublish({ raceDate, commitMessage, releaseRaces });
+  const completedAt = new Date().toISOString();
+  state.processed ??= {};
+  for (const race of due) {
+    state.processed[race.id] = {
+      status: "published",
+      triggerTime: race.triggerTime.toISOString(),
+      completedAt,
+      oddsFile: result.oddsFile,
+      pairOddsFile: result.pairOddsFile,
+      commit: result.commit,
+      changed: result.changed,
+    };
+  }
+  state.snapshots ??= {};
+  const signalRaceCount = readJson(ALL_RACE_SIGNALS_PATH, { races: [] }).races.length;
+  for (const snapshot of snapshots) {
+    state.snapshots[snapshot.id] = {
+      status: "published",
+      triggerTime: snapshot.triggerTime,
+      completedAt,
+      raceCount: signalRaceCount,
+      oddsFile: result.oddsFile,
+      commit: result.commit,
+      changed: result.changed,
+    };
+  }
+  writeJson(STATE_PATH, state);
+  const labels = [...snapshotLabels, ...raceLabels].join(" / ");
+  resolveAlert(`Automatic odds update recovered and completed for ${labels}`);
+  log("INFO", "Automatic odds update completed", {
+    races: raceLabels,
+    snapshots: snapshots.map(({ id, anchorRace }) => ({ id, anchorRace })),
+    ...result,
+  });
+};
+
 const runOnce = () => {
   if (!existsSync(WEEK_DATA_PATH)) throw new Error(`week-data.json was not found: ${WEEK_DATA_PATH}`);
   const publishedData = readJson(WEEK_DATA_PATH, null);
@@ -472,23 +501,69 @@ const runOnce = () => {
   if (!weekData || !selected.raceDate) throw new Error("Race schedule data is unavailable");
   const schedule = parseSchedule(weekData);
   const raceDate = selected.raceDate;
+  const allRaceSignals = readJson(ALL_RACE_SIGNALS_PATH, null);
+  if (allRaceSignals?.date !== raceDate) {
+    throw new Error(`All-race signals date does not match race schedule: ${allRaceSignals?.date ?? "missing"} != ${raceDate}`);
+  }
+  const fullFieldSnapshots = buildOddsSnapshotSchedule({ raceDate, races: allRaceSignals.races, leadMinutes });
   const now = nowOverride ? new Date(nowOverride) : new Date();
   if (Number.isNaN(now.getTime())) throw new Error(`Invalid --now value: ${nowOverride}`);
 
   const stored = readJson(STATE_PATH, { raceDate, processed: {} });
-  const state = stored.raceDate === raceDate ? stored : { raceDate, processed: {} };
+  const state = stored.raceDate === raceDate
+    ? { ...stored, snapshots: stored.snapshots ?? {} }
+    : { raceDate, processed: {}, snapshots: {} };
   const report = snapshotSchedule(schedule, now, state);
   const dueIds = new Set(report.filter((race) => race.due).map((race) => race.id));
   const due = schedule.filter((race) => dueIds.has(race.id));
-
+  const dueSnapshots = fullFieldSnapshots.filter((snapshot) => {
+    const status = state.snapshots[snapshot.id]?.status;
+    const triggerTime = new Date(snapshot.triggerTime);
+    const postTime = new Date(snapshot.postTime);
+    return status !== "published" && status !== "missed" && now >= triggerTime && now < postTime;
+  });
+  const missedSnapshots = fullFieldSnapshots.filter((snapshot) => {
+    const status = state.snapshots[snapshot.id]?.status;
+    return status !== "published" && status !== "missed" && now >= new Date(snapshot.postTime);
+  });
   if (dryRun) {
-    console.log(JSON.stringify({ status: "dry-run", now: now.toISOString(), leadMinutes, raceDate, scheduleSource: selected.source, schedule: report }, null, 2));
+    console.log(JSON.stringify({
+      status: "dry-run",
+      now: now.toISOString(),
+      leadMinutes,
+      raceDate,
+      scheduleSource: selected.source,
+      schedule: report,
+      snapshotSchedule: fullFieldSnapshots.map((snapshot) => ({
+        ...snapshot,
+        status: state.snapshots[snapshot.id]?.status ?? (missedSnapshots.some(({ id }) => id === snapshot.id) ? "missed" : "pending"),
+        due: dueSnapshots.some((dueSnapshot) => dueSnapshot.id === snapshot.id),
+      })),
+    }, null, 2));
     return { done: false, latestPostTime: schedule.at(-1)?.postTime };
   }
-  if (!due.length) {
-    log("INFO", "No race is due for an odds update", { now: now.toISOString(), next: report.find((race) => !race.processed && new Date(race.triggerTime) > now)?.race ?? null });
+  for (const snapshot of missedSnapshots) {
+    state.snapshots[snapshot.id] = {
+      status: "missed",
+      triggerTime: snapshot.triggerTime,
+      missedAt: now.toISOString(),
+      anchorRace: snapshot.anchorRace,
+    };
+    const message = `Missed all-race odds refresh window before ${snapshot.label} (${snapshot.anchorRace})`;
+    recordAlert(message, { raceDate, triggerTime: snapshot.triggerTime, postTime: snapshot.postTime });
+    log("ERROR", message, { raceDate });
+  }
+  if (missedSnapshots.length) writeJson(STATE_PATH, state);
+
+  if (!due.length && !dueSnapshots.length) {
+    log("INFO", "No race or full-field snapshot is due for an odds update", {
+      now: now.toISOString(),
+      nextRace: report.find((race) => !race.processed && new Date(race.triggerTime) > now)?.race ?? null,
+      nextSnapshot: fullFieldSnapshots.find((snapshot) => !["published", "missed"].includes(state.snapshots[snapshot.id]?.status)
+        && new Date(snapshot.triggerTime) > now)?.id ?? null,
+    });
   } else {
-    processDueRaces(due, state, raceDate);
+    processScheduledRefresh({ due, snapshots: dueSnapshots, state, raceDate, schedule });
   }
   return { done: now > new Date((schedule.at(-1)?.postTime?.getTime() ?? 0) + 5 * 60_000), latestPostTime: schedule.at(-1)?.postTime };
 };
@@ -552,7 +627,11 @@ const main = async () => {
 };
 
 main().catch((error) => {
-  recordAlert(error.message, { stack: error.stack });
-  log("ERROR", error.message, { stack: error.stack });
+  if (dryRun) {
+    console.error(error.message);
+  } else {
+    recordAlert(error.message, { stack: error.stack });
+    log("ERROR", error.message, { stack: error.stack });
+  }
   process.exit(1);
 });

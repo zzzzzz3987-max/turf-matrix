@@ -36,7 +36,13 @@ test("current race configuration has a production or protected preview payload",
   assert.ok(candidate);
   assert.equal(candidate.meta?.date, raceConfig.raceDate);
   assert.equal(candidate.races?.every((race) => race.id?.startsWith(raceConfig.raceDate)), true);
-  assert.ok(candidate.races?.some((race) => race.oddsStatus !== "active"));
+  if (candidate.meta?.dataStatus === "odds-ready") {
+    assert.ok(candidate.meta?.oddsUpdatedAt);
+    assert.equal(candidate.races?.every((race) =>
+      race.oddsStatus === "active" && race.horses?.every((horse) => Number.isFinite(horse.odds))), true);
+  } else {
+    assert.ok(candidate.races?.some((race) => race.oddsStatus !== "active"));
+  }
   assert.ok(String(official.meta?.date) < raceConfig.raceDate);
 });
 

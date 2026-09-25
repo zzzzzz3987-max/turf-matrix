@@ -652,7 +652,9 @@ const Header = ({ onHome, meta }) => (
           <>
             {meta.previewMode ? (
               <span className="rounded-md border border-sky-200 bg-sky-50 px-1.5 py-0.5 text-[9px] font-bold text-sky-700">
-                <span className="hidden sm:inline">オッズ反映前</span>
+                <span className="hidden sm:inline">
+                  {meta.dataStatus === "odds-ready" ? "候補・オッズ反映済み" : "オッズ反映前"}
+                </span>
                 <span className="sm:hidden">暫定</span>
               </span>
             ) : null}
@@ -922,6 +924,22 @@ const HorseRiskTags = ({ flags = [], limit = 3, className = "" }) => {
   );
 };
 
+const BriefMaterials = ({ materials = [], compact = false }) => materials.length ? (
+  <div className={`${compact ? "mt-2" : "mt-3"} grid gap-1.5`}>
+    {!compact ? <div className="text-[10px] font-semibold text-slate-400">別角度の評価材料</div> : null}
+    {materials.map((material) => (
+      <p key={material.key} className="text-[11px] leading-relaxed text-slate-600">
+        <span className="mr-1.5 inline-block rounded bg-teal-50 px-1.5 py-0.5 align-middle text-[9px] font-bold text-teal-700">{material.label}</span>
+        <span>{material.text}</span>
+      </p>
+    ))}
+  </div>
+) : null;
+
+const horseRoleBrief = (horse, rank, fieldHorses) => rank === 1
+  ? buildIndexLeaderBrief(horse, fieldHorses) ?? buildHorseBrief(horse)
+  : buildHorseBrief(horse);
+
 const HorseQuickRead = ({ horse, compact = false }) => {
   const brief = buildHorseBrief(horse);
 
@@ -929,6 +947,7 @@ const HorseQuickRead = ({ horse, compact = false }) => {
     <section className={compact ? "border-b border-gray-100 pb-5" : "mt-5 border-y border-gray-100 py-5"}>
       <h3 className="text-[16px] font-bold leading-relaxed text-slate-950">{brief.headline}</h3>
       {brief.reason ? <p className="mt-2 text-[13px] leading-6 text-slate-600">{brief.reason}</p> : null}
+      <BriefMaterials materials={brief.materials} />
       {brief.caution ? (
         <div className="mt-4 border-l-2 border-amber-400 pl-3 text-[12px] leading-6 text-slate-600">
           <span className="mr-2 font-bold text-amber-700">注意点</span>
@@ -940,9 +959,7 @@ const HorseQuickRead = ({ horse, compact = false }) => {
 };
 
 const horseKeyPoint = (horse, rank, fieldHorses) => {
-  const brief = rank === 1
-    ? buildIndexLeaderBrief(horse, fieldHorses) ?? buildHorseBrief(horse)
-    : buildHorseBrief(horse);
+  const brief = horseRoleBrief(horse, rank, fieldHorses);
   const headline = sanitizePublicText(brief.headline);
   const reasons = sanitizePublicText(brief.reason)?.match(/[^。！？]+[。！？]?/g) ?? [];
   const parts = headline ? [headline] : [];
@@ -964,6 +981,7 @@ const SectionLabel = ({ icon: Icon, children }) => (
 const FocusHorseCard = ({ horse, rank, role, onSelect, fieldHorses }) => {
   const isValueCandidate = role === "注目穴";
   const value = horse.analysis?.factorsDetail?.value;
+  const brief = horseRoleBrief(horse, rank, fieldHorses);
 
   return (
     <button
@@ -996,9 +1014,11 @@ const FocusHorseCard = ({ horse, rank, role, onSelect, fieldHorses }) => {
           {displayMarketGap(value.marketGap) ? <> ・ 指数順位より人気が<Num>{value.marketGap}</Num>つ下</> : null}
         </p>
       ) : null}
-      <p className="mt-3 border-t border-gray-100 pt-3 text-[12px] leading-relaxed text-slate-600">
-        {horseKeyPoint(horse, rank, fieldHorses)}
-      </p>
+      <div className="mt-3 border-t border-gray-100 pt-3">
+        <p className="text-[12px] font-semibold leading-relaxed text-slate-700">{brief.headline}</p>
+        {brief.reason ? <p className="mt-1 text-[11px] leading-relaxed text-slate-500">{brief.reason}</p> : null}
+        <BriefMaterials materials={brief.materials} compact />
+      </div>
     </button>
   );
 };
@@ -2500,20 +2520,19 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
                       <Num className={`text-[13px] font-bold ${index === 0 ? "text-[#2D7BFF]" : "text-slate-400"}`}>
                         {String(index + 1).padStart(2, "0")}
                       </Num>
-                      <span className="min-w-0">
-                        <span className="flex items-center gap-2">
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2">
                           <span className="truncate text-[14px] font-bold text-slate-950">{displayHorseName(item.horse)}</span>
                           {index === 0 ? (
                             <span className="shrink-0 rounded-md bg-[#2D7BFF] px-1.5 py-0.5 text-[9px] font-bold text-white">最高評価</span>
                           ) : null}
-                        </span>
-                        <span className="mt-1 block text-[10px] text-slate-400">
-                          <span className="shrink-0 font-medium text-slate-500">
-                            {item.raceLabel}・{item.horse.number ? <><Num>{item.horse.number}</Num>番</> : "馬番未確定"}
-                          </span>
-                          <span className="mt-1 block text-[11px] leading-relaxed text-slate-500">{brief.headline}</span>
-                        </span>
-                      </span>
+                        </div>
+                        <div className="mt-1 text-[10px] font-medium text-slate-500">
+                          {item.raceLabel}・{item.horse.number ? <><Num>{item.horse.number}</Num>番</> : "馬番未確定"}
+                        </div>
+                        <div className="mt-1 text-[11px] leading-relaxed text-slate-600">{brief.headline}</div>
+                        <BriefMaterials materials={brief.materials} compact />
+                      </div>
                       <span className="text-right">
                         <span className="block text-[8px] font-bold uppercase tracking-[0.14em] text-slate-400">TM INDEX</span>
                         <Num className={`mt-1 block text-[24px] font-bold leading-none ${scoreTone(item.horse.aiScore)}`}>

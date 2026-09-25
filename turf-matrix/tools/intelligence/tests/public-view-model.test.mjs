@@ -122,7 +122,7 @@ test("ability, recent-form, and pace explanations stay specific without exposing
     { key: "peer", label: "同走馬", score: 54, share: 0.27, contribution: 18.9 },
   ] } });
   assert.match(ability, /今回に近い距離の実績が強み/);
-  assert.match(ability, /直接対戦の内容は控えめ/);
+  assert.match(ability, /直接対戦の内容は慎重評価/);
   assert.doesNotMatch(ability, /構成比|%|点×/);
 
   const form = publicFactorExplanation({ key: "form", calculation: {
@@ -144,6 +144,44 @@ test("ability, recent-form, and pace explanations stay specific without exposing
   assert.match(pace, /ハイペース想定/);
   assert.match(pace, /展開面でプラス/);
   assert.doesNotMatch(pace, /基準72|補正\+4点/);
+});
+
+test("ability explanation cites horse-specific head-to-head and close-margin evidence", () => {
+  const ability = publicFactorExplanation({ key: "ability", components: [
+    { key: "baseAbility", score: 76 },
+  ], evidence: [
+    "東京でレオンティウスと直接対戦。全2頭も評価",
+    "直近で0.5秒差以内 1走",
+    "最速材料 東京 33.7",
+  ] });
+
+  assert.match(ability, /東京でレオンティウスと直接対戦/);
+  assert.match(ability, /上がり最速の材料は東京・33\.7秒/);
+  assert.doesNotMatch(ability, /直近で0\.5秒差以内/);
+});
+
+test("ability explanation leads with concrete facts when component scores are unavailable", () => {
+  const ability = publicFactorExplanation({ key: "ability", evidence: [
+    "東京でレオンティウスと直接対戦。全2頭も評価",
+    "最速材料 東京 33.7",
+    "直近1走の着順・着差・クラス・上がりから算出",
+  ] });
+  assert.match(ability, /東京でレオンティウスと直接対戦/u);
+  assert.match(ability, /上がり最速は東京・33\.7秒/u);
+  assert.doesNotMatch(ability, /能力材料が強み/u);
+});
+
+test("ability explanation names calculation-only components instead of calling them generic ability material", () => {
+  const ability = publicFactorExplanation({ key: "ability", calculation: { components: [
+    { key: "closing", score: 89 },
+    { key: "relations", score: 58.6 },
+  ] }, evidence: [
+    "東京でレオンティウスと直接対戦。全2頭も評価",
+    "最速材料 東京 33.7",
+  ] });
+  assert.match(ability, /上がり性能が強み/u);
+  assert.match(ability, /相手関係は慎重評価/u);
+  assert.doesNotMatch(ability, /能力材料/u);
 });
 
 const raceHorse = ({ id, name, number, score, popularity, factors = {}, value }) => ({

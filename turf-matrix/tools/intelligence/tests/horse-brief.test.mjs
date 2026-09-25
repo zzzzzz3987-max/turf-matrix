@@ -15,6 +15,55 @@ test('brief uses one supported strength without exposing factor scores', () => {
   assert.equal(JSON.stringify(horse), before);
 });
 
+test('brief adds distinct supporting factors without repeating the headline factor', () => {
+  const horse = { analysis: { factorsDetail: {
+    distance: { status: 'active', score: 84, summary: '今回距離への対応力を評価。' },
+    training: { status: 'active', score: 82, summary: '調教時計と本数を評価。' },
+    blood: { status: 'active', score: 78, summary: '今回条件への血統適性を評価。' },
+    course: { status: 'active', score: 68, summary: '今回の舞台への経験を評価。' },
+  } } };
+
+  const brief = buildHorseBrief(horse);
+  assert.deepEqual(brief.materials.map((material) => material.key), ['training', 'blood']);
+  assert.ok(brief.materials.every((material) => material.text));
+  assert.ok(brief.materials.every((material) => !material.text.includes('84')));
+});
+
+test('supporting training material uses this horse\'s final workout instead of boilerplate', () => {
+  const horse = { analysis: { factorsDetail: {
+    ability: { status: 'active', score: 82, summary: '近走内容から地力を評価。' },
+    training: { status: 'active', score: 78 },
+  }, trainingEval: {
+    grade: 'B',
+    details: { final: { type: 'slope', f4: 54.8, f1: 12.0 } },
+  } } };
+
+  const brief = buildHorseBrief(horse);
+  assert.match(brief.materials[0].text, /坂路4F54\.8秒・終い1F12\.0秒/);
+  assert.match(brief.materials[0].text, /良好評価/);
+  assert.doesNotMatch(brief.materials[0].text, /時計・ラップ・本数から仕上がりを評価/);
+});
+
+test('index leader supporting factors exclude the factor that separates it from rank two', () => {
+  const leader = {
+    id: 'leader', aiScore: 82,
+    analysis: {
+      indexContributions: [{ key: 'ability', contribution: 20, weight: 0.3 }],
+      factorsDetail: {
+        ability: { status: 'active', score: 82, summary: '相手関係まで見た地力を評価。' },
+        training: { status: 'active', score: 78, summary: '追い切り内容を評価。' },
+      },
+    },
+  };
+  const runnerUp = {
+    id: 'runner-up', aiScore: 78,
+    analysis: { indexContributions: [{ key: 'ability', contribution: 17, weight: 0.3 }] },
+  };
+
+  const brief = buildIndexLeaderBrief(leader, [leader, runnerUp]);
+  assert.deepEqual(brief.materials.map((material) => material.key), ['training']);
+});
+
 test('missing and weak factors never become a positive headline', () => {
   assert.match(buildHorseBrief({}).headline, /情報が不足/);
   const horse = { analysis: { factorsDetail: {

@@ -169,7 +169,7 @@ const publicBloodEvidence = (horse) => {
 export const publicFactorExplanation = (factor, { horse = null } = {}) => {
   if (!factor) return null;
 
-  if (factor.key === "ability" && (factor.components?.length || factor.calculation?.components?.length)) {
+  if (factor.key === "ability" && (factor.components?.length || factor.calculation?.components?.length || factor.evidence?.length)) {
     const components = factor.calculation?.components ?? factor.components;
     const publicLabels = {
       baseAbility: "近走の基礎能力",
@@ -179,19 +179,43 @@ export const publicFactorExplanation = (factor, { horse = null } = {}) => {
       margin: "着差",
       distance: "今回に近い距離の実績",
       lap: "レース終盤の脚",
+      closing: "上がり性能",
+      relations: "相手関係",
       recent: "近走の上向き具合",
     };
-    const scored = components.filter((component) => Number.isFinite(component.score));
+    const scored = (components ?? []).filter((component) => Number.isFinite(component.score));
     const strongest = [...scored].sort((a, b) => b.score - a.score)[0];
     const concerns = [...new Set(scored
       .filter((component) => component.score < 60)
       .map((component) => publicLabels[component.key])
       .filter(Boolean))].slice(0, 2);
-    if (!strongest) return "近走の着順・着差や対戦相手のその後の成績を合わせて評価しています。";
+    const evidence = factor.evidence ?? [];
+    const direct = evidence.find((item) => /で.+と直接対戦/u.test(item))?.split("。")[0];
+    const margin = evidence.find((item) => /直近で[\d.]+秒差以内 \d+走/u.test(item))
+      ?.match(/直近で([\d.]+)秒差以内 (\d+)走/u);
+    const fastest = evidence.find((item) => item.startsWith("最速材料 "))
+      ?.match(/^最速材料 (.+?) ([\d.]+)$/u);
+    const directText = direct?.replace(/。.*$/u, "");
+    const concreteEvidence = [
+      directText,
+      fastest ? `上がり最速の材料は${fastest[1]}・${fastest[2]}秒` : null,
+      margin ? `直近で${margin[1]}秒差以内の走りは${margin[2]}回` : null,
+    ].filter(Boolean).slice(0, 2);
+    const evidenceText = concreteEvidence.length ? `${concreteEvidence.join("。")}。` : null;
+    if (!strongest) {
+      const fastestText = fastest ? `上がり最速は${fastest[1]}・${fastest[2]}秒` : null;
+      const marginText = margin ? `直近で${margin[1]}秒差以内の走りが${margin[2]}回` : null;
+      const facts = [directText, fastestText, marginText].filter(Boolean).slice(0, 2);
+      return facts.length
+        ? `${facts.join("、")}を能力比較の材料にしています。`
+        : "近走の着順・着差と対戦相手を合わせて評価しています。";
+    }
     const strength = publicLabels[strongest.key] ?? "能力材料";
-    return strongest.score >= 75
-      ? `${strength}が強み。${concerns.length ? `${concerns.join("・")}は控えめ。` : ""}近走の内容と相手関係も合わせて評価しています。`
-      : `近走の基礎能力・着差・相手関係を総合評価。${concerns.length ? `${concerns.join("・")}は慎重に見ています。` : "目立つ強みは限定的です。"}`;
+    const explanation = strongest.score >= 75
+      ? `${strength}が強み${concerns.length ? `（${concerns.join("・")}は慎重評価）` : ""}`
+      : `近走の能力・着差・相手関係を総合評価${concerns.length ? `（${concerns.join("・")}は慎重評価）` : ""}`;
+    const compactEvidence = concreteEvidence.join("、");
+    return `${explanation}。${compactEvidence || "近走の内容と対戦相手も確認"}。`;
   }
 
   if (factor.key === "pace" && factor.calculation) {
@@ -269,7 +293,15 @@ export const publicFactorExplanation = (factor, { horse = null } = {}) => {
   }
 
   if (factor.key === "training") {
-    return "最終追い切りと一週前の内容を含め、時計・ラップ・本数から仕上がりを評価しています。";
+    const final = horse?.analysis?.trainingEval?.details?.final;
+    const trackNames = { slope: "坂路", wood: "ウッド", turf: "芝", poly: "ポリ" };
+    const clock = final && [final.f4, final.f1].some(Number.isFinite)
+      ? `最終追い切りは${trackNames[final.type] ?? "調教コース"}${Number.isFinite(final.f4) ? `4F${final.f4.toFixed(1)}秒` : ""}${Number.isFinite(final.f4) && Number.isFinite(final.f1) ? "・" : ""}${Number.isFinite(final.f1) ? `終い1F${final.f1.toFixed(1)}秒` : ""}。`
+      : null;
+    const grade = horse?.analysis?.trainingEval?.grade;
+    const evaluation = grade ? `調教全体は${publicTrainingGrade(grade)}評価。` : null;
+    return [clock, evaluation].filter(Boolean).join("")
+      || "最終追い切りと一週前の内容を含め、時計・ラップ・本数から仕上がりを評価しています。";
   }
 
   if (factor.key === "trackBias") {
@@ -315,6 +347,8 @@ export const publicFactorExplanation = (factor, { horse = null } = {}) => {
   }
 
   if (factor.key === "stable" || factor.label === "厩舎" || factor.label === "厩舎・陣営") {
+    const detail = summarizePublicText(factor.summary, { maxLength: 120, sentences: 2 });
+    if (detail) return detail;
     const components = factor.components ?? {};
     const evidence = [];
     if (factor.stablePattern?.status === "照合済" || components.stablePattern) evidence.push("厩舎の好走パターン");
@@ -1137,6 +1171,29 @@ const publicRoleStrengthText = (factor) => {
   return factor.score >= 75 ? `${phrase}を高く評価。` : `${phrase}が総合評価を支える。`;
 };
 
+const buildSupportingMaterials = (horse, excludedKeys = [], limit = 2) => {
+  const excluded = new Set(excludedKeys.filter(Boolean));
+  return QUICK_READ_FACTOR_KEYS
+    .map((key) => ({
+      key,
+      label: PUBLIC_FACTOR_LABELS[key],
+      score: raceHorseFactor(horse, key),
+      raw: horse?.analysis?.factorsDetail?.[key],
+    }))
+    .filter((factor) => factor.score >= 70 && !excluded.has(factor.key))
+    .sort((a, b) => b.score - a.score || QUICK_READ_FACTOR_KEYS.indexOf(a.key) - QUICK_READ_FACTOR_KEYS.indexOf(b.key))
+    .map((factor) => ({
+      key: factor.key,
+      label: factor.label,
+      text: summarizePublicText(
+        publicFactorExplanation({ ...factor.raw, key: factor.key, label: factor.label }, { horse }) ?? factor.raw?.summary,
+        { maxLength: 92, sentences: 2 },
+      ),
+    }))
+    .filter((factor) => factor.text)
+    .slice(0, limit);
+};
+
 export const buildHorseBrief = (horse) => {
   const view = buildHorsePublicView(horse);
   const strength = view.strengths.find((factor) => factor.score >= 70);
@@ -1157,6 +1214,7 @@ export const buildHorseBrief = (horse) => {
       distanceEvidence ? reason ?? "近い距離での実績を今回条件に照らして評価。" : supportingReason,
       { maxLength: 120, sentences: 2 }
     ) : null,
+    materials: buildSupportingMaterials(horse, [strength?.key]),
     // Keep qualifications such as light workouts intact, rather than clipping the warning.
     caution: caution ?? null,
   };
@@ -1226,6 +1284,7 @@ export const buildIndexLeaderBrief = (horse, fieldHorses = []) => {
   return {
     headline,
     reason: [margin, evidence].filter(Boolean).join(" ") || "複数項目を総合して最上位。",
+    materials: buildSupportingMaterials(horse, [key]),
   };
 };
 

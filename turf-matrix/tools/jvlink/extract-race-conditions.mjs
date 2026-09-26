@@ -77,8 +77,12 @@ const useRealtime = realtimeRaceDate === config.raceDate;
 const fallbackUpdatedAt = existsSync(SUMMARY_PATH)
   ? statSync(SUMMARY_PATH).mtime.toISOString()
   : realtime?.GeneratedAt ?? realtime?.generatedAt ?? statSync(REALTIME_PATH).mtime.toISOString();
-const races = (summary?.races?.length ?? 0) > 0
-  ? summary.races
+const summaryMatchesRaceDate = (summary?.races?.length ?? 0) > 0
+  && (!summary.configuredRaceDate || summary.configuredRaceDate === config.raceDate)
+  && summary.races.every((race) => race.raceDate === config.raceDate);
+const summaryRaces = summaryMatchesRaceDate ? summary?.races ?? [] : [];
+const races = summaryRaces.length > 0
+  ? summaryRaces
   : (weekData?.races ?? []).map((race) => {
       const match = String(race.bundleId ?? "").match(/^\d{4}-\d{2}-\d{2}-([a-z]+)-(\d{1,2})R$/);
       return {
@@ -120,6 +124,10 @@ for (const race of races) {
     source: live ? "JV-Link 0B14 WE" : "JV-Link RA",
     status: weather && going ? "active" : "missing",
   };
+}
+
+if (Object.keys(conditions).length !== selected.size) {
+  throw new Error(`Race conditions mapping incomplete for ${config.raceDate}: mapped ${Object.keys(conditions).length} of ${selected.size}; check race summary/data date alignment`);
 }
 
 const active = Object.values(conditions).filter((item) => item.status === "active").length;

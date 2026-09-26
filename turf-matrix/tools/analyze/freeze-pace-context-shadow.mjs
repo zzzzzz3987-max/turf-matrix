@@ -103,9 +103,25 @@ const artifact = {
 mkdirSync(SHADOW_DIR, { recursive: true });
 const artifactName = bundleId ?? raceDate;
 const output = join(SHADOW_DIR, `${artifactName}-pre-race.json`);
+let preservedExisting = false;
 if (!dryRun && existsSync(output)) {
   const previous = readJson(output);
-  if (previous.predictionSha256 !== predictionSha256) throw new Error(`Frozen Pace context differs: ${output}`);
+  if (previous.predictionSha256 !== predictionSha256) {
+    const validFrozenArtifact = previous.schemaVersion === 1
+      && previous.raceDate === raceDate
+      && previous.bundleId === bundleId
+      && /^[a-f0-9]{64}$/i.test(previous.predictionSha256 ?? "")
+      && Array.isArray(previous.predictions);
+    if (!validFrozenArtifact) throw new Error(`Existing frozen Pace context is invalid: ${output}`);
+    if (flag("--strict") || flag("--reconstruct")) throw new Error(`Frozen Pace context differs: ${output}`);
+    preservedExisting = true;
+    console.warn(JSON.stringify({
+      warning: "Frozen Pace context differs; preserving the original pre-race artifact",
+      output,
+      frozenPredictionSha256: previous.predictionSha256,
+      currentCandidateSha256: predictionSha256,
+    }));
+  }
 } else if (!dryRun) writeFileSync(output, stableJson(artifact));
 
 const reportPath = join(ROOT, "docs", "analysis", `pace-context-shadow-${artifactName}.md`);
@@ -126,5 +142,5 @@ const report = `# Pace × Course × Track Bias 事前影評価 (${raceDate})
 |---|---|---|---:|---:|
 ${rows}
 `;
-if (!dryRun) writeFileSync(reportPath, report, "utf8");
-console.log(JSON.stringify({ output, reportPath, dryRun, raceDate, predictionSha256, ...artifact.summary }, null, 2));
+if (!dryRun && !preservedExisting) writeFileSync(reportPath, report, "utf8");
+console.log(JSON.stringify({ output, reportPath, dryRun, preservedExisting, raceDate, predictionSha256, ...artifact.summary }, null, 2));

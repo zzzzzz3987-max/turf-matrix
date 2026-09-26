@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-09-26T00:39:06.923Z",
+  "raceDate": "2026-09-26",
+  "bundleId": "2026-09-26-nakayama-04R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "25c1006b7397af36779b0bffbbc8025bc22b2be940e68189a6733d7ca89e76bc",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "4990fcc77392a2c340903fdee50a8a92e1aa71d9faf8f8c61d5b0bea2db16dbc",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "be197d2f6c627316165c8b305108c11f3fc3fc8a6bb14aaeb916f60283ef2c55",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 6,
+    "adjustedHorseCount": 0,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 0
+  },
+  "predictionSha256": "2563b71f72de7776a228ee24e4f56092c61d28142145637932a1e012ae2accfe",
+  "predictions": [
+    {
+      "raceId": "2026-09-26-中山-4R",
+      "bundleId": "2026-09-26-nakayama-04R",
+      "track": "中山",
+      "surface": "障",
+      "raceNumber": 4,
+      "raceName": "清秋ジャンプＳ",
+      "horseCount": 6,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 2,
+        "name": "メイショウソムリエ",
+        "currentPace": 75,
+        "shadowPace": 75,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "対象外",
+        "currentTm": 74,
+        "shadowTm": 74
+      },
+      "shadowPaceLeader": {
+        "number": 2,
+        "name": "メイショウソムリエ",
+        "currentPace": 75,
+        "shadowPace": 75,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "対象外",
+        "currentTm": 74,
+        "shadowTm": 74
+      },
+      "currentTmLeader": {
+        "number": 5,
+        "name": "コレクテイニア",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "対象外",
+        "currentTm": 80,
+        "shadowTm": 80
+      },
+      "shadowTmLeader": {
+        "number": 5,
+        "name": "コレクテイニア",
+        "currentPace": 70,
+        "shadowPace": 70,
+        "paceAdjustment": 0,
+        "historyAdjustment": 0,
+        "contextAdjustment": 0,
+        "contextLabel": "対象外",
+        "currentTm": 80,
+        "shadowTm": 80
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "プラチナトレジャー",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2025-11-15 中立形状",
+            "2025-10-05 中立形状",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 77,
+          "shadowTm": 77,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "メイショウソムリエ",
+          "currentPace": 75,
+          "shadowPace": 75,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2026-06-13 中立形状",
+            "2026-04-11 前残りの展開利を受けた好走",
+            "2026-03-07 中立形状",
+            "2026-02-07 前残りの展開利を受けた好走",
+            "2025-12-21 形状による明確な利不利なし",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "ネビーイーム",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2026-05-16 形状による明確な利不利なし",
+            "2026-04-18 中立形状",
+            "2026-03-14 中立形状",
+            "2025-12-27 前残りの展開利を受けた好走",
+            "2025-09-20 中立形状",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "トゥラッタッタ",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2026-07-11 前残りの展開利を受けた好走",
+            "2026-05-23 中立形状",
+            "2026-04-11 前残りに逆らって後方から押し上げた",
+            "2026-02-14 中立形状",
+            "2026-01-31 前残りに逆らって後方から押し上げた",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "コレクテイニア",
+          "currentPace": 70,
+          "shadowPace": 70,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2026-06-13 中立形状",
+            "2026-05-09 中立形状",
+            "2026-04-11 形状による明確な利不利なし",
+            "2026-03-07 中立形状",
+            "2026-01-17 中立形状",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 80,
+          "shadowTm": 80,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "アクロスザリバー",
+          "currentPace": 67,
+          "shadowPace": 67,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "対象外",
+          "evidence": [
+            "2026-09-05 中立形状",
+            "2026-07-04 中立形状",
+            "2026-06-07 形状による明確な利不利なし",
+            "2026-05-17 形状による明確な利不利なし",
+            "2026-03-01 平均・偏りなしで明確な展開利不利なし",
+            "障害戦はCourse × Pace × 枠 × 馬場傾向の影評価対象外"
+          ],
+          "currentTm": 61,
+          "shadowTm": 61,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

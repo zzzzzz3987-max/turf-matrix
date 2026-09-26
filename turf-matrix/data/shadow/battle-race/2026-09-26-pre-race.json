@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-09-26T00:39:02.783Z",
+  "raceDate": "2026-09-26",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "477021ae4c3ca1946b68aa84c8271c461a5a64c530081f35e8172f7a096b1ab4",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-ee7a0cd51f71707c",
+      "sha256": "ee7a0cd51f71707c5640a9c370b6405c547babf94a690bd2666045c45d44a29d",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-7741a3843e463604",
+      "sha256": "7741a3843e46360452c5fdb2a1ffc0664e03fc30d9fca346d4eb67203081f22a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "b1b1215eba002eb0af81fc21933664b427c3a8074b19e34a38d9af099eea6792",
+  "baseline": {
+    "date": "2026-09-26",
+    "raceId": "2026-09-26-阪神-11R",
+    "bundleId": "2026-09-26-hanshin-11R",
+    "track": "阪神",
+    "raceNumber": 11,
+    "raceName": "シリウスステークス",
+    "scheduledTime": "15:45",
+    "axis": {
+      "number": 6,
+      "name": "ギュルヴィ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 12,
+        "name": "マイノワール",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "ラムジェット",
+        "tmIndex": 76,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.4,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.8,
+        "conditionFit": 85.5,
+        "opponentDepth": 74.4
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-09-26",
+    "raceId": "2026-09-26-阪神-11R",
+    "bundleId": "2026-09-26-hanshin-11R",
+    "track": "阪神",
+    "raceNumber": 11,
+    "raceName": "シリウスステークス",
+    "scheduledTime": "15:45",
+    "axis": {
+      "number": 6,
+      "name": "ギュルヴィ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 12,
+        "name": "マイノワール",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "ラムジェット",
+        "tmIndex": 76,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.4,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.8,
+        "conditionFit": 85.5,
+        "opponentDepth": 74.4
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-阪神-11R",
+      "bundleId": "2026-09-26-hanshin-11R",
+      "track": "阪神",
+      "raceNumber": 11,
+      "raceName": "シリウスステークス",
+      "scheduledTime": "15:45",
+      "axis": {
+        "number": 6,
+        "name": "ギュルヴィ",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 12,
+          "name": "マイノワール",
+          "tmIndex": 79,
+          "selectionScore": null
+        },
+        {
+          "number": 13,
+          "name": "ラムジェット",
+          "tmIndex": 76,
+          "selectionScore": 68.75
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.4,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 71.8,
+          "conditionFit": 85.5,
+          "opponentDepth": 74.4
+        }
+      }
+    }
+  ]
+}

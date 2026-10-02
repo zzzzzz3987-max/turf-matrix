@@ -173,7 +173,8 @@ test('course brief leads with the horse\'s own record at today\'s venue and surf
 
   const brief = buildHorseBrief(horse);
   assert.equal(brief.headline, '推し材料は「中山ダート3走で3着以内2回」');
-  assert.match(brief.reason, /坂コース/);
+  assert.match(brief.reason, /他場も含むダートでは4走で3着以内3回/);
+  assert.match(brief.reason, /芝・ダートを合わせた中山4走/);
   assert.doesNotMatch(brief.reason, /中山での直接実績/);
   assert.doesNotMatch(brief.headline, /距離適性|コース適性/);
 });
@@ -198,8 +199,8 @@ test('course brief falls back to positive same-surface results without a same-ve
     analysis: { factorsDetail: { course: { status: 'active', score: 81, summary: '今回条件への適性を評価。' } } },
   };
   const brief = buildHorseBrief(horse);
-  assert.equal(brief.headline, '推し材料は「同じダート2走で3着以内2回」');
-  assert.doesNotMatch(brief.reason, /同じダート2走で3着以内2回/);
+  assert.equal(brief.headline, '推し材料は「ダート2走で3着以内2回」');
+  assert.doesNotMatch(brief.reason, /ダート2走で3着以内2回/);
 });
 
 test('index leader headline uses a concrete course record when that is the deciding factor', () => {

@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { scoreCourse } from "../course-ai.mjs";
+import { scoreLegacyCourse as scoreCourse, buildCoursePerformanceProfile } from "../course-ai.mjs";
 import { buildIndexContributions, calculateTmIndex } from "../tm-index-engine.mjs";
 import { buildCourseSurfaceArtifact, buildCourseSurfacePrediction, evaluateCourseSurfaceArtifact, validateCourseSurfaceArtifact } from "../../analyze/lib/course-surface-shadow.mjs";
 
@@ -129,4 +129,23 @@ test("weekly publish is wired to freeze and stage the course-only comparison", (
   const source = readFileSync(new URL("../../publish-race-batch.ps1", import.meta.url), "utf8");
   assert.match(source, /shadow:course:freeze -- --input tools\/week-data.next.json/);
   assert.match(source, /git add \$CourseShadow \$CourseReport \$CourseReportData/);
+});
+
+test("venue-surface-distance policy replays without reapplying the legacy surface experiment", () => {
+  const input = week();
+  for (const horse of input.races[0].horses) {
+    horse.pastRuns.forEach((run) => { run.distance = 1800; });
+    const profile = buildCoursePerformanceProfile(horse);
+    const scores = Object.fromEntries(horse.analysis.indexContributions.map((row) => [row.key, row.score]));
+    scores.course = profile.score;
+    const raw = calculateTmIndex(scores, context);
+    const adjusted = Math.round(65 + (raw - 65) * (horse.pastRuns.length === 2 ? 0.7 : 1));
+    horse.tmIndex = adjusted;
+    horse.analysis.course = { performanceProfile: profile };
+    horse.analysis.rawTmIndex = raw;
+    horse.analysis.sampleAdjustment = adjusted - raw;
+    horse.analysis.indexContributions = buildIndexContributions(scores, context);
+  }
+  const prediction = buildCourseSurfacePrediction(input);
+  assert.ok(prediction.predictions[0].horses.every((horse) => horse.courseDelta === 0));
 });

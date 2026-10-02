@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { assessPublicRoleCaution, selectPublicRoleCautionShadow, assertUpcomingPublicRoleRaces } from '../public-role-caution-shadow.mjs';
 
 const horse = (number, score, popularity, factors = {}) => ({
-  number, id: String(number), name: `horse-${number}`, aiScore: score, popularity,
+  number, id: String(number), name: `horse-${number}`, aiScore: score, popularity, odds: popularity * 2,
   analysis: { factorsDetail: Object.fromEntries(Object.entries(factors).map(([key, value]) =>
     [key, typeof value === 'number' ? { status: 'active', score: value } : value])) },
 });

@@ -86,9 +86,19 @@ export const selectPublicValueEvidenceHorse = (race) => rankPublicRoleHorses(rac
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
   )[0]?.horse ?? null;
 
-export const selectPublicDangerHorse = (race) => rankPublicRoleHorses(race)
+export const hasCompletePublicDangerMarket = (race) => {
+  const status = race?.oddsStatus ?? race?.dataStatus?.odds;
+  if (status != null && status !== "active") return false;
+  const horses = race?.horses ?? [];
+  return horses.length > 0 && horses.every((horse) =>
+    finite(horse.odds) && horse.odds >= 1 &&
+    Number.isInteger(horse.popularity) && horse.popularity >= 1
+  );
+};
+
+export const selectPublicDangerHorse = (race) => hasCompletePublicDangerMarket(race) ? rankPublicRoleHorses(race)
   .filter((candidate) =>
-    finite(candidate.horse.popularity) &&
+    candidate.horse.odds < 10 &&
     candidate.horse.popularity <= 4 &&
     candidate.competitionRank - candidate.horse.popularity >= 3
   )
@@ -96,7 +106,7 @@ export const selectPublicDangerHorse = (race) => rankPublicRoleHorses(race)
     (right.competitionRank - right.horse.popularity) - (left.competitionRank - left.horse.popularity) ||
     right.leaderGap - left.leaderGap ||
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
-  )[0]?.horse ?? null;
+  )[0]?.horse ?? null : null;
 
 export const selectPublicRoleHorses = (race) => ({
   value: selectPublicValueHorse(race),

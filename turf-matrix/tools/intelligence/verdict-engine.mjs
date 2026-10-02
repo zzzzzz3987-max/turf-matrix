@@ -214,10 +214,11 @@ const buildVerdictPayload = ({
           label: "コース",
           score: course,
           maxScore: 100,
-          status: "active",
+          status: courseAnalysis?.status ?? "missing",
           summary: courseAnalysis?.summary ?? contextSummary,
           evidence: courseAnalysis?.strengths ?? [`コース適性は${factorLabel(course)}`, `距離適性は${factorLabel(factors.distance)}`],
           components: courseAnalysis?.components ?? {},
+          performanceProfile: courseAnalysis?.performanceProfile ?? null,
         },
         distance: {
           key: "distance",

@@ -85,10 +85,10 @@ test("full course explanation leads with scored race-record evidence, not venue 
     ],
   };
   const text = publicFactorExplanation({ key: "course", score: 71 }, { horse });
-  assert.match(text, /このコース点には、同コース・同じダート・坂コースでの着順と着差/);
-  assert.match(text, /同じダート4走で3着以内3回・坂コース（中山・中京）3走で3着以内3回/);
-  assert.match(text, /中山での直接実績は2走、3着以内2回/);
-  assert.match(text, /コース点には加えていません/);
+  assert.match(text, /^中山ダート1走で3着以内1回。/);
+  assert.match(text, /他場も含むダートでは4走で3着以内3回/);
+  assert.match(text, /芝・ダートを合わせた中山2走の着順・着差/);
+  assert.doesNotMatch(text, /標準コース|坂コース|形状|直接実績/);
   assert.doesNotMatch(text, /今回の舞台は/);
   assert.doesNotMatch(text, /1800m前後/);
 });
@@ -184,12 +184,13 @@ test("ability explanation names calculation-only components instead of calling t
   assert.doesNotMatch(ability, /能力材料/u);
 });
 
-const raceHorse = ({ id, name, number, score, popularity, factors = {}, value }) => ({
+const raceHorse = ({ id, name, number, score, popularity, odds = popularity == null ? null : popularity * 2, factors = {}, value }) => ({
   id,
   name,
   number,
   tmIndex: score,
   popularity,
+  odds,
   analysis: {
     factorsDetail: {
       ...Object.fromEntries(Object.entries(factors).map(([key, factorScore]) => [key, { score: factorScore }])),

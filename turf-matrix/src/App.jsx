@@ -2689,7 +2689,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
       <div className="mt-4 overflow-hidden border-y border-slate-200 bg-white">
         <p className="px-4 pb-3 text-[12px] leading-relaxed text-slate-600 md:px-5">{conclusion.summary}</p>
         <div className="grid grid-cols-1">
-          {items.filter(({ key }) => conclusion[key].horse?.id).map(({ key, label, icon: Icon, tone }) => {
+          {items.filter(({ key }) => conclusion[key].horse?.id || conclusion[key].status === "pending").map(({ key, label, icon: Icon, tone }) => {
             const item = conclusion[key];
             const interactive = Boolean(item.horse?.id);
             const Element = interactive ? "button" : "div";

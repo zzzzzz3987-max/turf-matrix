@@ -1,6 +1,5 @@
 import { findPedigreePublicProfile } from "../data/pedigree-public-profiles.js";
-import { selectPublicRoleHorses } from "./public-role-selection.js";
-import { COURSE_GROUPS, courseGroup } from "../../tools/intelligence/dictionaries/course-bias-dictionary.mjs";
+import { hasCompletePublicDangerMarket, selectPublicRoleHorses } from "./public-role-selection.js";
 
 export const PUBLIC_FACTOR_LABELS = {
   ability: "能力",
@@ -82,41 +81,64 @@ export const summarizePublicText = (value, { maxLength = 118, sentences = 2 } = 
 export const publicFactorSummary = (value, maxLength = 86) =>
   summarizePublicText(value, { maxLength, sentences: 1 });
 
-const publicCourseEvidence = (horse) => {
+const publicSurface = (value) => {
+  const text = String(value ?? "").normalize("NFKC").trim();
+  return text === "芝" ? "芝" : ["ダ", "ダート"].includes(text) ? "ダート"
+    : ["障", "障害"].includes(text) ? "障害" : null;
+};
+
+const publicRunSurface = (run) => /^5[1-9]$/.test(String(run.surfaceCode ?? ""))
+  ? "障害" : publicSurface(run.surface);
+
+const courseRecordText = (runs, label) => {
+  if (!runs.length) return `${label}の出走実績はありません`;
+  const finishes = runs.map((run) => Number(run.confirmedFinishPosition ?? run.finishPosition))
+    .filter((place) => Number.isInteger(place) && place >= 1);
+  if (!finishes.length) return `${label}${runs.length}走の着順は未確認です`;
+  const hits = finishes.filter((place) => place <= 3).length;
+  const partial = finishes.length < runs.length ? `（着順確認${finishes.length}走）` : "";
+  return `${label}${runs.length}走${partial}で3着以内${hits}回`;
+};
+
+const publicCourseRecords = (horse) => {
   const race = horse?.currentRace;
   if (!race?.course || !race?.surface) return null;
-  const isDirt = (surface) => String(surface ?? "").startsWith("ダ");
-  const surfaceName = isDirt(race.surface) ? "ダート" : "芝";
+  const surfaceName = publicSurface(race.surface);
+  if (!surfaceName) return null;
   const runs = horse.pastRuns ?? [];
-  const sameSurface = runs.filter((run) => run.surface === race.surface);
-  const courseRuns = runs.filter((run) => run.course === race.course);
-  const type = courseGroup(race.course);
-  const typeCourses = COURSE_GROUPS[type] ?? [];
-  const typeRuns = runs.filter((run) => typeCourses.includes(run.course));
-  const topThreeCount = (items) => items.filter((run) => {
-    const place = Number(run.confirmedFinishPosition ?? run.finishPosition);
-    return Number.isFinite(place) && place >= 1 && place <= 3;
-  }).length;
-  const recordText = (items, label) => items.length
-    ? `${label}は${items.length}走、3着以内${topThreeCount(items)}回`
-    : `${label}なし`;
-  const labels = {
-    small: "小回りコース",
-    wide: "広いコース",
-    steep: "坂コース",
-    standard: "標準コース",
-  };
-  const typeName = labels[type] ?? "同じコース区分";
-  const relatedCourses = [...new Set(typeRuns.map((run) => run.course).filter((course) => course && course !== race.course))].join("・");
-  const shape = horse.analysis?.course?.geometryFit?.label;
-  const quickRecord = (items, label) => items.length
-    ? `${label}${items.length}走で3着以内${topThreeCount(items)}回`
-    : `${label}の実績なし`;
-  const scoreNote = `今回のコース形状（${shape || "右回り・コーナー・直線・坂"}）は説明用で、コース点には加えていません。`;
+  const sameSurface = runs.filter((run) => publicRunSurface(run) === surfaceName);
+  const profile = horse.analysis?.factorsDetail?.course?.performanceProfile ?? horse.analysis?.course?.performanceProfile;
+  const courseRuns = profile?.policy === "venue-surface-near-distance-v1"
+    ? profile.runs.map((entry) => entry.run)
+    : sameSurface.filter((run) => run.course === race.course);
+  const venueRuns = runs.filter((run) => run.course === race.course);
+  return { race, surfaceName, sameSurface, courseRuns, venueRuns, profile };
+};
+
+const publicCourseEvidence = (horse) => {
+  const records = publicCourseRecords(horse);
+  if (!records) return null;
+  const { race, surfaceName, sameSurface, courseRuns, venueRuns, profile } = records;
+  if (profile?.policy === "venue-surface-near-distance-v1") return profile.summary;
+  const direct = `${courseRecordText(courseRuns, `${race.course}${surfaceName}`)}。`;
+  const overall = !sameSurface.length ? `${surfaceName}の出走実績もありません。`
+    : sameSurface.length === courseRuns.length
+    ? `${surfaceName}の実績はすべて${race.course}でのものです。`
+    : `${courseRecordText(sameSurface, `他場も含む${surfaceName}では`)}。`;
+  const courseCount = horse.analysis?.factorsDetail?.course?.components?.sameCourse?.count
+    ?? horse.analysis?.course?.components?.sameCourse?.count;
+  const includesOtherSurface = venueRuns.length > courseRuns.length &&
+    (courseCount == null || courseCount === venueRuns.length);
+  const scoreNote = includesOtherSurface
+    ? `評価には${surfaceName === "障害" ? "平地・障害" : "芝・ダート"}を合わせた${race.course}${venueRuns.length}走の着順・着差も含まれます。`
+    : courseRuns.length
+      ? `${race.course}での着順・着差を中心に、${surfaceName}全体の成績も合わせてコース適性を評価しています。`
+      : sameSurface.length
+        ? `${race.course}${surfaceName}での実績データが不足しているため、他場の${surfaceName}成績を参考に評価しています。`
+        : "コース適性を判断する過去成績が不足しています。";
   return [
-    `${quickRecord(sameSurface, `同じ${surfaceName}`)}・${quickRecord(typeRuns, `${typeName}${relatedCourses ? `（${race.course}・${relatedCourses}）` : `（${race.course}）`}`)}。`,
-    `${recordText(courseRuns, `${race.course}での直接実績`)}。`,
-    `このコース点には、同コース・同じ${surfaceName}・${typeName}での着順と着差を反映しています。`,
+    direct,
+    overall,
     scoreNote,
   ].join("");
 };
@@ -274,7 +296,7 @@ export const publicFactorExplanation = (factor, { horse = null } = {}) => {
       surface && `同じ${surface[1]}で${surface[2]}走`,
       distance && `${distance[1]}前後を${distance[2]}走経験`,
     ].filter(Boolean);
-    if (findings.length) return `${findings.join("。")}。コース形態との相性も合わせて評価しています。`;
+    if (findings.length) return `${findings.join("。")}。過去の着順・着差をもとに評価しています。`;
   }
 
   if (factor.key === "course" && factor.components) {
@@ -283,7 +305,7 @@ export const publicFactorExplanation = (factor, { horse = null } = {}) => {
     const parts = [];
     if (sameCourse?.count) parts.push(`今回と同じコースを${sameCourse.count}走`);
     if (sameSurface?.count) parts.push(`同じ芝・ダートを${sameSurface.count}走`);
-    if (parts.length) return `${parts.join("、")}。コース形態も含めて相性を評価しています。`;
+    if (parts.length) return `${parts.join("、")}。過去の着順・着差をもとに評価しています。`;
   }
 
   if (factor.key === "blood") {
@@ -1017,7 +1039,7 @@ export const buildHorsePublicView = (horse) => {
       label: PUBLIC_FACTOR_LABELS[key],
       score: details[key]?.score,
       rating: publicScoreBand(details[key]?.score),
-      summary: publicFactorSummary(details[key]?.summary, 70),
+      summary: publicFactorSummary(key === "course" ? publicCourseEvidence(horse) ?? details[key]?.summary : details[key]?.summary, 70),
     }))
     .filter((factor) => isFiniteScore(factor.score));
   const strengths = [...factors]
@@ -1137,44 +1159,39 @@ const distancePerformanceEvidence = (horse) => {
 };
 
 const coursePerformanceEvidence = (horse) => {
-  const race = horse?.currentRace;
-  if (!race?.course || !race?.surface) return null;
-  const surface = String(race.surface).startsWith("ダ") ? "ダート" : "芝";
-  const runs = (horse?.pastRuns ?? []).filter((run) =>
-    run.course === race.course && run.surface === race.surface
-  );
+  const records = publicCourseRecords(horse);
+  if (!records) return null;
+  const { race, surfaceName: surface, courseRuns: runs, profile } = records;
   const finishes = runs
     .map((run) => Number(run.confirmedFinishPosition ?? run.finishPosition))
     .filter((position) => Number.isFinite(position) && position > 0);
   const topThree = finishes.filter((position) => position <= 3).length;
   if (finishes.length && topThree) {
     return {
-      headline: `${race.course}${surface}${finishes.length}走で3着以内${topThree}回`,
-      duplicate: `${race.course}での直接実績は`,
+      headline: `${profile?.label ?? `${race.course}${surface}`}${finishes.length}走で3着以内${topThree}回`,
+      duplicate: courseRecordText(runs, profile?.label ?? `${race.course}${surface}`),
     };
   }
 
-  const sameSurface = (horse?.pastRuns ?? [])
-    .filter((run) => run.surface === race.surface)
+  if (profile?.policy === "venue-surface-near-distance-v1") return null;
+
+  const sameSurface = records.sameSurface
     .map((run) => Number(run.confirmedFinishPosition ?? run.finishPosition))
     .filter((position) => Number.isFinite(position) && position > 0);
   const sameSurfaceTopThree = sameSurface.filter((position) => position <= 3).length;
   if (!sameSurface.length || !sameSurfaceTopThree) return null;
   return {
-    headline: `同じ${surface}${sameSurface.length}走で3着以内${sameSurfaceTopThree}回`,
-    duplicate: `同じ${surface}${sameSurface.length}走で3着以内${sameSurfaceTopThree}回`,
+    headline: `${surface}${sameSurface.length}走で3着以内${sameSurfaceTopThree}回`,
+    duplicate: courseRecordText(records.sameSurface, `他場も含む${surface}では`),
   };
 };
 
 const omitCourseHeadlineEvidence = (text, horse, evidence) => {
-  const course = horse?.currentRace?.course;
   if (!text) return text;
-  if (course && evidence?.duplicate?.endsWith("での直接実績は")) {
+  if (evidence?.duplicate) {
     return splitSentences(text).filter((sentence) => !sentence.includes(evidence.duplicate)).join("");
   }
-  return evidence?.duplicate
-    ? text.replace(evidence.duplicate, "").replace(/^[・、]\s*/, "")
-    : text;
+  return text;
 };
 
 const publicRoleStrengthText = (factor) => {
@@ -1398,6 +1415,7 @@ export const buildRacePublicConclusion = (race) => {
   const favorite = ranked[0];
   const challenger = ranked[1] ?? null;
   const { value: valueHorse, danger: dangerHorse } = selectPublicRoleHorses(race);
+  const dangerMarketReady = hasCompletePublicDangerMarket(race);
   const dangerRank = dangerHorse
     ? 1 + ranked.filter((horse) => raceHorseScore(horse) > raceHorseScore(dangerHorse)).length
     : null;
@@ -1428,9 +1446,12 @@ export const buildRacePublicConclusion = (race) => {
       note: valueReason(valueHorse, valueHorse ? rankById.get(valueHorse.id) : null),
     },
     danger: {
+      status: dangerMarketReady ? (dangerHorse ? "active" : "none") : "pending",
       horse: raceHorseIdentity(dangerHorse, dangerRank),
-      value: dangerHorse?.name ?? "該当馬なし",
-      note: dangerReason(dangerHorse, dangerRank),
+      value: dangerHorse?.name ?? (dangerMarketReady ? "該当馬なし" : "オッズ確認待ち"),
+      note: dangerMarketReady
+        ? dangerReason(dangerHorse, dangerRank)
+        : "全頭の単勝オッズ・人気が揃ってから判定します。",
     },
     key: {
       horse: null,

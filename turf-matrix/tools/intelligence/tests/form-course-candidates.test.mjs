@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { scoreRecentForm } from "../form-ai.mjs";
-import { scoreCourse, buildCourseSurfaceEvidence } from "../course-ai.mjs";
+import { scoreLegacyCourse as scoreCourse, buildCourseSurfaceEvidence } from "../course-ai.mjs";
 
 const run = { course: "中山", surface: "芝", distance: 1800, fieldSize: 16, finishPosition: 2, margin: 0.2, last3F: 34 };
 const horse = (runs) => ({ currentRace: { course: "中山", surface: "芝", distance: 1800 }, pastRuns: runs });

@@ -55,7 +55,7 @@ const buildCourseSurfaceEvidence = (horse) => {
   };
 };
 
-const scoreCourse = (horse, { sameSurfaceOnly = false } = {}) => {
+const scoreLegacyCourse = (horse, { sameSurfaceOnly = false } = {}) => {
   const runs = horse.pastRuns ?? [];
   const currentCourse = horse.currentRace?.course;
   const currentSurface = horse.currentRace?.surface;
@@ -88,12 +88,70 @@ const courseComponents = (sameCourse, sameSurface, sameType) => ({
   },
 });
 
+export const COURSE_PERFORMANCE_POLICY = "venue-surface-near-distance-v1";
+
+const performanceSurface = (value, code) => /^5[1-9]$/.test(String(code ?? "")) || ["障", "障害"].includes(value)
+  ? "障" : normalizeCourseSurface(value);
+
+const buildCoursePerformanceProfile = (horse) => {
+  const target = horse.currentRace ?? {};
+  const surface = performanceSurface(target.surface);
+  const distance = Number(target.distance);
+  const targetDate = Date.parse(target.raceDate ?? "");
+  const seen = new Set();
+  const entries = [];
+  for (const run of horse.pastRuns ?? []) {
+    if (!target.course || !knownCourses.has(target.course) || !surface || !Number.isFinite(distance) || distance <= 0) continue;
+    if (run.course !== target.course || performanceSurface(run.surface, run.surfaceCode) !== surface) continue;
+    const actualDistance = Number(run.distance);
+    const gap = Math.abs(actualDistance - distance);
+    if (!Number.isFinite(actualDistance) || actualDistance <= 0 || gap > 200 || gap / distance > 0.2) continue;
+    const finish = Number(run.confirmedFinishPosition ?? run.finishPosition);
+    if (!Number.isInteger(finish) || finish < 1) continue;
+    const runDate = Date.parse(run.date ?? "");
+    if (run.date && (!Number.isFinite(runDate) || (Number.isFinite(targetDate) && runDate >= targetDate))) continue;
+    const key = Number.isFinite(runDate) ? `${run.date}/${run.course}/${run.raceNumber ?? ""}` : null;
+    if (key && seen.has(key)) continue;
+    if (key) seen.add(key);
+    const normalizedRun = { ...run, finishPosition: finish };
+    entries.push({ run: normalizedRun, weight: gap <= 100 ? 1 : 0.75, score: finishQuality(normalizedRun) });
+  }
+  const priorScore = 65;
+  const priorWeight = 2;
+  const totalWeight = entries.reduce((sum, entry) => sum + entry.weight, 0);
+  const score = totalWeight
+    ? clamp((priorScore * priorWeight + entries.reduce((sum, entry) => sum + entry.score * entry.weight, 0)) / (priorWeight + totalWeight))
+    : priorScore;
+  const surfaceLabel = surface === "ダ" ? "ダート" : surface === "障" ? "障害" : surface ?? "路面不明";
+  const label = `${target.course ?? "今回会場"}${surfaceLabel}${Number.isFinite(distance) && distance > 0 ? `${distance}m前後` : ""}`;
+  const topThreeCount = entries.filter((entry) => entry.run.finishPosition <= 3).length;
+  return {
+    policy: COURSE_PERFORMANCE_POLICY,
+    status: entries.length ? "active" : "missing",
+    score,
+    sampleCount: entries.length,
+    topThreeCount,
+    priorScore,
+    priorWeight,
+    totalWeight,
+    label,
+    distanceTolerance: 200,
+    runs: entries,
+    summary: entries.length
+      ? `${label}で${entries.length}走し、3着以内${topThreeCount}回。${entries.length === 1 ? "1走だけでは得意・不得意を判断しづらいため、評価は控えめです。" : ""}`
+      : `${label}での実績データが不足しています。苦手という意味ではありません。`,
+  };
+};
+
+const scoreCourse = (horse) => buildCoursePerformanceProfile(horse).score;
+
 const buildCourseAnalysis = (horse, context, scores = {}) => {
   const runs = horse.pastRuns ?? [];
   const currentCourse = horse.currentRace?.course;
   const currentDistance = horse.currentRace?.distance;
   const distanceProfile = buildDistanceProfile(horse);
-  const sameCourse = runs.filter((run) => run.course === currentCourse);
+  const performanceProfile = buildCoursePerformanceProfile(horse);
+  const sameCourse = performanceProfile.runs.map((entry) => entry.run);
   const nearDistance = runs.filter((run) =>
     (!horse.currentRace?.surface || run.surface === horse.currentRace.surface) &&
     distanceFit(run.distance, currentDistance) >= 84
@@ -101,7 +159,7 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
   const sameSurface = runs.filter((run) => run.surface === horse.currentRace?.surface);
   const currentType = courseGroup(currentCourse);
   const sameType = runs.filter((run) => courseGroup(run.course) === currentType);
-  const components = courseComponents(sameCourse, sameSurface, sameType);
+  const components = { sameCourse: { score: performanceProfile.score, weight: 1, count: sameCourse.length } };
   const surfaceLabel = String(horse.currentRace?.surface ?? context?.surface ?? "").startsWith("ダ") ? "ダート" : "芝";
   const bestCourse = [...sameCourse].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
   const bestDistance = [...nearDistance].sort((a, b) => finishQuality(b) - finishQuality(a))[0] ?? null;
@@ -124,7 +182,7 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
 
   const courseScore = scores.course ?? scoreCourse(horse);
   const distanceScore = scores.distance ?? distanceProfile.score;
-  const grade = courseScore >= 82 || distanceScore >= 84 ? "A" : courseScore >= 70 || distanceScore >= 72 ? "B" : "C";
+  const grade = courseScore >= 82 ? "A" : courseScore >= 70 ? "B" : "C";
   const direction = distanceProfile.direction;
   const cadence = distanceProfile.cadence;
   const directionSummary = direction.key === "extension" || direction.key === "shortening"
@@ -140,6 +198,7 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
 
   return {
     score: courseScore,
+    performanceProfile,
     distanceScore,
     components: Object.fromEntries(Object.entries(components).map(([key, value]) => [key, {
       ...value,
@@ -168,33 +227,21 @@ const buildCourseAnalysis = (horse, context, scores = {}) => {
       },
     },
     grade,
-    status: runs.length ? "active" : "missing",
-    summary: `${context?.profile ? `${context.profile}: ` : ""}${context?.summary ?? "今回条件"} ${geometryLabel}として、過去走のコース形態・距離・同じ${surfaceLabel}条件との噛み合いを評価。`,
+    status: performanceProfile.status,
+    summary: performanceProfile.summary,
     geometryFit: {
       source: targetShape?.source ?? "unavailable",
       label: geometryLabel,
       matchedRunCount: geometryRuns.length,
       scoreConnected: false,
     },
-    strengths: [
-      sameCourse.length ? `${currentCourse}実績 ${sameCourse.length}走` : `${currentCourse ?? "今回コース"}の直接実績は限定的`,
-      nearDistance.length ? `${currentDistance}m前後の経験 ${nearDistance.length}走` : "今回距離に近い経験は限定的",
-      direction.key === "extension" || direction.key === "shortening" ? direction.label : directionSummary,
-      direction.key === "extension" || direction.key === "shortening" ? transitionSummary : null,
-      cadence.sampleCount ? `${cadence.assessment}（${cadence.sampleCount}走）` : `${cadence.label}の直接実績は限定的`,
-      sameSurface.length ? `同じ${surfaceLabel}条件 ${sameSurface.length}走` : `同じ${surfaceLabel}条件の実績は限定的`,
-      geometryRuns.length ? `近いコース形態の経験 ${geometryRuns.length}走` : "近いコース形態の実績は限定的",
-    ].filter(Boolean),
+    strengths: [performanceProfile.summary],
     evidence: [
       bestCourse ? `同コース材料: ${bestCourse.raceName ?? "過去走"} ${bestCourse.finishPosition ?? "-"}着` : "同コース材料は未取得",
-      bestDistance ? `距離材料: ${bestDistance.raceName ?? "過去走"} ${bestDistance.distance ?? "-"}m` : "距離材料は未取得",
-      direction.key === "extension" || direction.key === "shortening" ? direction.label : directionSummary,
-      direction.key === "extension" || direction.key === "shortening" ? transitionSummary : null,
-      cadence.sampleCount ? cadence.assessment : `${cadence.label}の材料は限定的`,
-      bestGeometry ? `形態材料: ${bestGeometry.raceName ?? bestGeometry.course ?? "過去走"} ${bestGeometry.finishPosition ?? "-"}着` : "近似コース形態の材料は未取得",
-      "コース形態Evidenceは表示のみでCourse点へ未接続",
+      performanceProfile.summary,
+      "他会場・別路面・離れた距離の成績はコース点に含めません。",
     ].filter(Boolean),
   };
 };
 
-export { scoreDistance, scoreCourse, buildCourseAnalysis, describeGeometry, geometrySimilarity, normalizeCourseSurface, buildCourseSurfaceEvidence };
+export { scoreDistance, scoreCourse, scoreLegacyCourse, buildCoursePerformanceProfile, buildCourseAnalysis, describeGeometry, geometrySimilarity, normalizeCourseSurface, buildCourseSurfaceEvidence };

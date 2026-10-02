@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { rankPublicRoleHorses, selectPublicDangerHorse } from '../../../src/lib/public-role-selection.js';
 import { buildRacePublicConclusion } from '../../../src/lib/public-view-model.js';
 
-const horse = (number, tmIndex, popularity) => ({ number, name: `horse-${number}`, tmIndex, popularity });
+const horse = (number, tmIndex, popularity) => ({ number, name: `horse-${number}`, tmIndex, popularity, odds: popularity * 2 });
 
 test('equal leaders are not dangerous merely because of horse number', () => {
   const race = { horses: [horse(1, 80, 4), horse(2, 80, 3), horse(3, 80, 2), horse(4, 80, 1)] };

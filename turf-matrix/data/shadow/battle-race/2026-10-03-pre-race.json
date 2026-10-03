@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-03T00:43:33.169Z",
+  "raceDate": "2026-10-03",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "40967d2e6e1b203c4fe465b8e87b93e3677b81dd6565672350d0bc064e5325ba",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-de1fe283ecc5c4e2",
+      "sha256": "de1fe283ecc5c4e2c3efda688acc04131b101a1778c574e0c6053a87bdf420c6",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-7741a3843e463604",
+      "sha256": "7741a3843e46360452c5fdb2a1ffc0664e03fc30d9fca346d4eb67203081f22a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "8a5bd43d51c0716bc3b4c72f1e0c6fa3489350aae1abcafb1936061bdf8a971d",
+  "baseline": {
+    "date": "2026-10-03",
+    "raceId": "2026-10-03-東京-9R",
+    "bundleId": "2026-10-03-tokyo-09R",
+    "track": "東京",
+    "raceNumber": 9,
+    "raceName": "八ヶ岳特別",
+    "scheduledTime": "14:35",
+    "axis": {
+      "number": 4,
+      "name": "フィールドノート",
+      "tmIndex": 83,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 8,
+        "name": "ドッグウッド",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      {
+        "number": 11,
+        "name": "ホウオウシンデレラ",
+        "tmIndex": 76,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.2,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 83,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 76.1,
+        "conditionFit": 71,
+        "opponentDepth": 74.9
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-03",
+    "raceId": "2026-10-03-東京-9R",
+    "bundleId": "2026-10-03-tokyo-09R",
+    "track": "東京",
+    "raceNumber": 9,
+    "raceName": "八ヶ岳特別",
+    "scheduledTime": "14:35",
+    "axis": {
+      "number": 4,
+      "name": "フィールドノート",
+      "tmIndex": 83,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 8,
+        "name": "ドッグウッド",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      {
+        "number": 11,
+        "name": "ホウオウシンデレラ",
+        "tmIndex": 76,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.2,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 83,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 76.1,
+        "conditionFit": 71,
+        "opponentDepth": 74.9
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-東京-9R",
+      "bundleId": "2026-10-03-tokyo-09R",
+      "track": "東京",
+      "raceNumber": 9,
+      "raceName": "八ヶ岳特別",
+      "scheduledTime": "14:35",
+      "axis": {
+        "number": 4,
+        "name": "フィールドノート",
+        "tmIndex": 83,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 8,
+          "name": "ドッグウッド",
+          "tmIndex": 80,
+          "selectionScore": null
+        },
+        {
+          "number": 11,
+          "name": "ホウオウシンデレラ",
+          "tmIndex": 76,
+          "selectionScore": 68.75
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.2,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 83,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 76.1,
+          "conditionFit": 71,
+          "opponentDepth": 74.9
+        }
+      }
+    }
+  ]
+}

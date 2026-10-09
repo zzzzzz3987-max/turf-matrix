@@ -2215,7 +2215,7 @@ const AllRaceSignalRows = ({ races, spread = false }) => (
             </Num>
           </div>
           <div className="mt-1 truncate text-[9px] font-semibold text-[#475569]">
-            相手 {race.opponents?.map((horse) => `${horse.number} ${horse.name}`).join(" / ") || "未評価"}
+            相手 {race.opponents?.map((horse) => [horse.number, horse.name].filter((value) => value != null && value !== "").join(" ")).join(" / ") || "未評価"}
           </div>
           {race.valueWatch ? (
             <div className="mt-0.5 truncate text-[9px] font-medium text-[#00A9B8]">

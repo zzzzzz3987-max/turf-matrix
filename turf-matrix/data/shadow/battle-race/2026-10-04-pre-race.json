@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-04T00:43:50.140Z",
+  "raceDate": "2026-10-04",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "ab28f8f6f657d11cbae674553c9f9839f29a3183542b2d09c66d05f95f9e92b0",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-de1fe283ecc5c4e2",
+      "sha256": "de1fe283ecc5c4e2c3efda688acc04131b101a1778c574e0c6053a87bdf420c6",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-7741a3843e463604",
+      "sha256": "7741a3843e46360452c5fdb2a1ffc0664e03fc30d9fca346d4eb67203081f22a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "cf5914ee57c1c69a381aabd0ac064008113c2a1418cf6dee1d22f39f94fed82f",
+  "baseline": {
+    "date": "2026-10-04",
+    "raceId": "2026-10-04-京都-10R",
+    "bundleId": "2026-10-04-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "藤森ステークス",
+    "scheduledTime": "14:50",
+    "axis": {
+      "number": 14,
+      "name": "ゼットエール",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 13,
+        "name": "ドンレパルス",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 9,
+        "name": "エンヤラヴフェイス",
+        "tmIndex": 77,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 74.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.5,
+        "conditionFit": 76,
+        "opponentDepth": 73.8
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-04",
+    "raceId": "2026-10-04-京都-10R",
+    "bundleId": "2026-10-04-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "藤森ステークス",
+    "scheduledTime": "14:50",
+    "axis": {
+      "number": 14,
+      "name": "ゼットエール",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 13,
+        "name": "ドンレパルス",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 9,
+        "name": "エンヤラヴフェイス",
+        "tmIndex": 77,
+        "selectionScore": 68.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 74.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.5,
+        "conditionFit": 76,
+        "opponentDepth": 73.8
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-京都-10R",
+      "bundleId": "2026-10-04-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "藤森ステークス",
+      "scheduledTime": "14:50",
+      "axis": {
+        "number": 14,
+        "name": "ゼットエール",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 13,
+          "name": "ドンレパルス",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 9,
+          "name": "エンヤラヴフェイス",
+          "tmIndex": 77,
+          "selectionScore": 68.75
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 74.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 71.5,
+          "conditionFit": 76,
+          "opponentDepth": 73.8
+        }
+      }
+    }
+  ]
+}

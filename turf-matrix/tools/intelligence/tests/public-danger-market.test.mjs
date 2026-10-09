@@ -7,7 +7,8 @@ const makeRace = () => ({ oddsStatus: 'active', horses: [
   { id: '1', number: 1, name: 'Leader', tmIndex: 85, popularity: 2, odds: 4 },
   { id: '2', number: 2, name: 'Second', tmIndex: 83, popularity: 3, odds: 6 },
   { id: '3', number: 3, name: 'Third', tmIndex: 81, popularity: 4, odds: 12 },
-  { id: '4', number: 4, name: 'Popular', tmIndex: 78, popularity: 1, odds: 2 },
+  { id: '4', number: 4, name: 'Popular', tmIndex: 78, popularity: 1, odds: 2,
+    analysis: { factorsDetail: { form: { status: 'active', score: 50 }, distance: { status: 'active', score: 50 } } } },
 ] });
 
 test('danger requires complete market data without changing index ranks', () => {

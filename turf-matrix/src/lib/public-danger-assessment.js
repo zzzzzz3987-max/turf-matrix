@@ -1,11 +1,11 @@
-import { rankPublicRoleHorses } from "./public-role-selection.js";
+import { rankPublicRoleHorses, hasCompletePublicDangerMarket } from "./public-role-ranking.js";
 
 const finite = (value) => typeof value === "number" && Number.isFinite(value);
 const observed = (factor) => factor?.status === "active" && factor.indexEligible !== false;
 const usableScore = (factor) => observed(factor) && finite(factor.score);
 
-// Candidate policy only. Historical results and the live selector remain unchanged.
-export const DANGER_ASSESSMENT_VERSION = "evidence-gate-v1-shadow";
+// This is an evidence/wording safeguard, not a claim of improved prediction accuracy.
+export const DANGER_ASSESSMENT_VERSION = "evidence-gate-v1";
 
 export const assessPublicDangerCandidates = (race) => {
   const ranked = rankPublicRoleHorses(race);
@@ -45,8 +45,9 @@ export const assessPublicDangerCandidates = (race) => {
       ? ability.components.find((component) => component.key === "opponentCareer") : null;
     if (observed(ability) && usableScore(opponent) && opponent.score >= 68) protections.push("強い相手との実績");
 
-    const validMarket = Number.isInteger(horse.popularity) && horse.popularity >= 1 && horse.popularity <= 4 &&
-      finite(horse.odds) && horse.odds > 1;
+    const validMarket = hasCompletePublicDangerMarket(race) &&
+      Number.isInteger(horse.popularity) && horse.popularity >= 1 && horse.popularity <= 4 &&
+      finite(horse.odds) && horse.odds >= 1 && horse.odds < 10;
     const rankGap = validMarket ? candidate.competitionRank - horse.popularity : null;
     const marketMismatch = validMarket && rankGap >= 3;
     const groups = [...new Set(risks.map((risk) => risk.group))];

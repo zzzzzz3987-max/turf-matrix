@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { assessPublicDangerCandidates, selectPublicDangerEvidenceHorse } from "../../../src/lib/public-danger-assessment.js";
-import { selectPublicDangerHorse } from "../../../src/lib/public-role-selection.js";
+import { selectPublicDangerHorse, selectPublicMarketMismatchHorse } from "../../../src/lib/public-role-selection.js";
 
 const factor = (score, extra = {}) => ({ score, status: "active", ...extra });
 const raceWith = (factors = {}, extra = {}) => ({ horses: [
@@ -10,9 +10,10 @@ const raceWith = (factors = {}, extra = {}) => ({ horses: [
 ] });
 const assessment = (race) => assessPublicDangerCandidates(race).find((item) => item.horse.number === 4);
 
-test("rank disagreement alone is not evidence of danger; production stays unchanged", () => {
+test("rank disagreement alone is market mismatch, never production danger", () => {
   const race = raceWith();
-  assert.equal(selectPublicDangerHorse(race).number, 4);
+  assert.equal(selectPublicMarketMismatchHorse(race).number, 4);
+  assert.equal(selectPublicDangerHorse(race), null);
   assert.equal(selectPublicDangerEvidenceHorse(race), null);
   assert.equal(assessment(race).classification, "market_mismatch");
 });

@@ -32,10 +32,10 @@ const main = () => {
   const output = {
     schemaVersion: 2,
     basis: "current-rules-on-frozen-pre-race-data",
-    ruleVersion: "public-role-v2",
+    ruleVersion: "public-role-v3-evidence-gate",
     rules: {
       value: "market-gap-baseline",
-      danger: "top-four-popularity-with-index-gap-three",
+      danger: "complete-market-under-ten-with-independent-observed-risks-and-ability-protection",
     },
     snapshotCutoff: "13:00 JST",
     from: sourceDates[0] ?? null,

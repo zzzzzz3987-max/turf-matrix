@@ -1,33 +1,7 @@
+import { rankPublicRoleHorses, hasCompletePublicDangerMarket } from './public-role-ranking.js';
+import { selectPublicDangerEvidenceHorse } from './public-danger-assessment.js';
+export { publicRoleScore, rankPublicRoleHorses, hasCompletePublicDangerMarket } from './public-role-ranking.js';
 const finite = (value) => typeof value === "number" && Number.isFinite(value);
-
-export const publicRoleScore = (horse) => horse?.aiScore ?? horse?.tmIndex;
-
-const factorScore = (horse, key) => horse?.analysis?.factorsDetail?.[key]?.score;
-const valueData = (horse) => horse?.analysis?.factorsDetail?.value ?? {};
-
-export const rankPublicRoleHorses = (race) => [...(race?.horses ?? [])]
-  .filter((horse) => finite(publicRoleScore(horse)))
-  .sort((left, right) =>
-    publicRoleScore(right) - publicRoleScore(left) ||
-    (left.number ?? 999) - (right.number ?? 999)
-  )
-  .map((horse, index, ranked) => ({
-    horse,
-    rank: index + 1,
-    // Equal scores share a rank when measuring disagreement with the market.
-    competitionRank: 1 + ranked.filter((other) => publicRoleScore(other) > publicRoleScore(horse)).length,
-    score: publicRoleScore(horse),
-    leaderGap: publicRoleScore(ranked[0]) - publicRoleScore(horse),
-    marketGap: valueData(horse).marketGap,
-    ev: valueData(horse).ev,
-    valueEligible: valueData(horse).eligible === true,
-    ability: factorScore(horse, "ability"),
-    form: factorScore(horse, "form"),
-    training: factorScore(horse, "training"),
-    pace: factorScore(horse, "pace"),
-    distance: factorScore(horse, "distance"),
-    course: factorScore(horse, "course"),
-  }));
 
 export const publicRoleEvidenceScore = (candidate) => {
   const weighted = [
@@ -86,17 +60,7 @@ export const selectPublicValueEvidenceHorse = (race) => rankPublicRoleHorses(rac
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
   )[0]?.horse ?? null;
 
-export const hasCompletePublicDangerMarket = (race) => {
-  const status = race?.oddsStatus ?? race?.dataStatus?.odds;
-  if (status != null && status !== "active") return false;
-  const horses = race?.horses ?? [];
-  return horses.length > 0 && horses.every((horse) =>
-    finite(horse.odds) && horse.odds >= 1 &&
-    Number.isInteger(horse.popularity) && horse.popularity >= 1
-  );
-};
-
-export const selectPublicDangerHorse = (race) => hasCompletePublicDangerMarket(race) ? rankPublicRoleHorses(race)
+export const selectPublicMarketMismatchHorse = (race) => hasCompletePublicDangerMarket(race) ? rankPublicRoleHorses(race)
   .filter((candidate) =>
     candidate.horse.odds < 10 &&
     candidate.horse.popularity <= 4 &&
@@ -107,6 +71,8 @@ export const selectPublicDangerHorse = (race) => hasCompletePublicDangerMarket(r
     right.leaderGap - left.leaderGap ||
     (left.horse.number ?? 999) - (right.horse.number ?? 999)
   )[0]?.horse ?? null : null;
+
+export const selectPublicDangerHorse = selectPublicDangerEvidenceHorse;
 
 export const selectPublicRoleHorses = (race) => ({
   value: selectPublicValueHorse(race),

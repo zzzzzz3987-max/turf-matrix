@@ -1,0 +1,2172 @@
+{
+  "generatedAt": "2026-10-07T07:41:15.407Z",
+  "ruleVersion": "evidence-gate-v1",
+  "basis": "Retrospective current-rule comparison on 13:00 JST snapshots; not prospective efficacy proof.",
+  "dates": [
+    "2026-07-25",
+    "2026-07-26",
+    "2026-08-02",
+    "2026-08-08",
+    "2026-08-09",
+    "2026-08-15",
+    "2026-08-16",
+    "2026-08-22",
+    "2026-08-23",
+    "2026-08-30",
+    "2026-09-12",
+    "2026-09-13",
+    "2026-09-19",
+    "2026-09-20",
+    "2026-09-21",
+    "2026-09-22",
+    "2026-09-26",
+    "2026-09-27",
+    "2026-10-03",
+    "2026-10-04"
+  ],
+  "old": {
+    "sampleSize": 81,
+    "excludedCount": 12,
+    "wins": 10,
+    "topThree": 30,
+    "missedTopThree": 51,
+    "winRate": 12.3,
+    "topThreeRate": 37,
+    "missedTopThreeRate": 63,
+    "payoutSampleSize": 81,
+    "winReturnRate": 61.1,
+    "placeReturnRate": 80,
+    "status": "active"
+  },
+  "current": {
+    "sampleSize": 18,
+    "excludedCount": 3,
+    "wins": 1,
+    "topThree": 8,
+    "missedTopThree": 10,
+    "winRate": 5.6,
+    "topThreeRate": 44.4,
+    "missedTopThreeRate": 55.6,
+    "payoutSampleSize": 18,
+    "winReturnRate": 20,
+    "placeReturnRate": 105.6,
+    "status": "building"
+  },
+  "recentPublished": [
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-京都-9R",
+      "race": "りんどう賞",
+      "time": "14:15",
+      "commit": "398e12eded1f1123cc6b94e79bb1ca181c26b650",
+      "availableAt": "2026-10-03T05:09:07.734Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 7,
+      "name": "ラムラベイ",
+      "tmIndex": 74,
+      "odds": 1.8,
+      "popularity": 1,
+      "finalPopularity": 1,
+      "finishPosition": 1,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 170,
+      "placePayout": 110,
+      "newClassification": "market_mismatch",
+      "risks": [],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "insufficient_independent_evidence",
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-京都-10R",
+      "race": "大山崎ステークス",
+      "time": "14:50",
+      "commit": "5f560a6ebffbd0191cbdae4c55d0ae1b6f4fc64d",
+      "availableAt": "2026-10-03T05:44:32.734Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 8,
+      "name": "アメリカンチケット",
+      "tmIndex": 71,
+      "odds": 7.7,
+      "popularity": 4,
+      "finalPopularity": 4,
+      "finishPosition": 1,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 640,
+      "placePayout": 240,
+      "newClassification": "market_mismatch",
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-京都-11R",
+      "race": "オパールステークス",
+      "time": "15:30",
+      "commit": "7611dbc4ad83f8d91f17441bb83d56a6f555b3f6",
+      "availableAt": "2026-10-03T06:24:00.227Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 6,
+      "name": "リリージョワ",
+      "tmIndex": 75,
+      "odds": 5.7,
+      "popularity": 2,
+      "finalPopularity": 2,
+      "finishPosition": 1,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 650,
+      "placePayout": 290,
+      "newClassification": "market_mismatch",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-東京-9R",
+      "race": "八ヶ岳特別",
+      "time": "14:35",
+      "commit": "9f86a80245662c954f3e271ce640f728700929be",
+      "availableAt": "2026-10-03T05:28:50.526Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 2,
+      "name": "イージーライダー",
+      "tmIndex": 73,
+      "odds": 8.1,
+      "popularity": 4,
+      "finalPopularity": 4,
+      "finishPosition": 7,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 0,
+      "newClassification": "danger",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-東京-10R",
+      "race": "白秋ステークス",
+      "time": "15:10",
+      "commit": "124dd73dd384f1f71c24f43451a7f6a5469bb635",
+      "availableAt": "2026-10-03T06:04:16.720Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 1,
+      "name": "グーテンベルク",
+      "tmIndex": 75,
+      "odds": 9.1,
+      "popularity": 3,
+      "finalPopularity": 3,
+      "finishPosition": 6,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 0,
+      "newClassification": "market_mismatch",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-東京-11R",
+      "race": "グリーンチャンネルＣ",
+      "time": "15:45",
+      "commit": "b2ee8581623178d336172db1a73a1ca91feb464d",
+      "availableAt": "2026-10-03T06:38:42.262Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 11,
+      "name": "ジャスティンアース",
+      "tmIndex": 75,
+      "odds": 6.6,
+      "popularity": 3,
+      "finalPopularity": 3,
+      "finishPosition": 7,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 0,
+      "newClassification": "market_mismatch",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-京都-10R",
+      "race": "藤森ステークス",
+      "time": "14:50",
+      "commit": "0f2b5be9f7270a9e040296aab5793ee04d20ca58",
+      "availableAt": "2026-10-04T05:43:57.038Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 5,
+      "name": "ロードフロンティア",
+      "tmIndex": 72,
+      "odds": 9.1,
+      "popularity": 4,
+      "finalPopularity": 4,
+      "finishPosition": 6,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 0,
+      "newClassification": "danger",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-東京-9R",
+      "race": "ｔｖｋ賞",
+      "time": "14:35",
+      "commit": "5be1fcd0d996a99e7f741386b5de6453b578fcb3",
+      "availableAt": "2026-10-04T05:31:01.049Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 10,
+      "name": "スペルーチェ",
+      "tmIndex": 77,
+      "odds": 3.2,
+      "popularity": 2,
+      "finalPopularity": 2,
+      "finishPosition": 3,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 160,
+      "newClassification": "market_mismatch",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-東京-10R",
+      "race": "赤富士ステークス",
+      "time": "15:10",
+      "commit": "4491815164827ceb22e51a7d7d0af161bc4bd703",
+      "availableAt": "2026-10-04T06:03:47.626Z",
+      "scope": "specialDetails",
+      "role": "danger",
+      "number": 8,
+      "name": "ルグランヴァン",
+      "tmIndex": 75,
+      "odds": 5.9,
+      "popularity": 2,
+      "finalPopularity": 2,
+      "finishPosition": 3,
+      "abnormalityCode": "0",
+      "payoutAvailable": true,
+      "winPayout": 0,
+      "placePayout": 190,
+      "newClassification": "danger",
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    }
+  ],
+  "details": [
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-chukyo-06R",
+      "name": "ポートデラメール",
+      "finish": "5",
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-niigata-06R",
+      "name": "ルナルーチェット",
+      "finish": "9",
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-sapporo-11R",
+      "name": "メルトユアハート",
+      "finish": "2",
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-chukyo-07R",
+      "name": "ミッキーゴールド",
+      "finish": "1",
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-niigata-07R",
+      "name": "ピコローズ",
+      "finish": "1",
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-25",
+      "raceId": "2026-07-25-niigata-08R",
+      "name": "ヴィエントデコラ",
+      "finish": "5",
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-sapporo-10R",
+      "name": "アルデトップガン",
+      "finish": "3",
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-chukyo-06R",
+      "name": "レッドラージャ",
+      "finish": "2",
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-niigata-06R",
+      "name": "ラヴオントップ",
+      "finish": "8",
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-sapporo-11R",
+      "name": "アマキヒ",
+      "finish": "10",
+      "retained": false,
+      "risks": [
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-chukyo-07R",
+      "name": "ドラゴンテイラー",
+      "finish": "14",
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-07-26",
+      "raceId": "2026-07-26-niigata-07R",
+      "name": "サンダーストラック",
+      "finish": "9",
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-niigata-06R",
+      "name": "ナイトスラッガー",
+      "finish": 3,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "distance",
+          "group": "suitability",
+          "label": "今回距離への適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-chukyo-07R",
+      "name": "ゼットリアン",
+      "finish": 2,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-niigata-07R",
+      "name": "エコロレジーナ",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-sapporo-12R",
+      "name": "ミキノバカラ",
+      "finish": 5,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-chukyo-08R",
+      "name": "ジャンシ",
+      "finish": 4,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-02",
+      "raceId": "2026-08-02-niigata-08R",
+      "name": "ゴバド",
+      "finish": 6,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "raceId": "2026-08-08-sapporo-10R",
+      "name": "バルティカ",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "raceId": "2026-08-08-chukyo-06R",
+      "name": "ショウナンバルドル",
+      "finish": 5,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "raceId": "2026-08-08-niigata-07R",
+      "name": "ゴンバデカーブース",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-08",
+      "raceId": "2026-08-08-sapporo-12R",
+      "name": "ヒズマスターピース",
+      "finish": 5,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "raceId": "2026-08-09-sapporo-10R",
+      "name": "テイエムゴッホ",
+      "finish": 12,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "raceId": "2026-08-09-niigata-07R",
+      "name": "ショウナンバンライ",
+      "finish": 6,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "raceId": "2026-08-09-niigata-08R",
+      "name": "キントラダンサー",
+      "finish": 11,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "raceId": "2026-08-09-chukyo-08R",
+      "name": "ブルックリンダンス",
+      "finish": 3,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-chukyo-06R",
+      "name": "パリコレジェンヌ",
+      "finish": 4,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-niigata-07R",
+      "name": "アメリカンチケット",
+      "finish": 7,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-chukyo-07R",
+      "name": "アラタマフェーヴル",
+      "finish": 3,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-niigata-08R",
+      "name": "ルーナディサングエ",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-sapporo-12R",
+      "name": "オブラプリーマ",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-chukyo-08R",
+      "name": "ショウグンマサムネ",
+      "finish": 4,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-15",
+      "raceId": "2026-08-15-niigata-09R",
+      "name": "ブラックボイス",
+      "finish": 10,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-sapporo-09R",
+      "name": "ラヴノー",
+      "finish": 3,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-chukyo-06R",
+      "name": "スターリングアップ",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-niigata-07R",
+      "name": "ワイワイレジェンド",
+      "finish": 1,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-chukyo-07R",
+      "name": "ラヴァンダ",
+      "finish": 1,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-sapporo-11R",
+      "name": "ショウヘイ",
+      "finish": 7,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-niigata-08R",
+      "name": "アンドリーナ",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "raceId": "2026-08-16-chukyo-08R",
+      "name": "ケープアグラス",
+      "finish": 14,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-sapporo-09R",
+      "name": "フレイコン",
+      "finish": 2,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-chukyo-06R",
+      "name": "ソウルアンドジャズ",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-sapporo-10R",
+      "name": "ウチュウノセカイ",
+      "finish": 13,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-chukyo-07R",
+      "name": "ルグランヴァン",
+      "finish": 7,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-sapporo-11R",
+      "name": "スピードリッチ",
+      "finish": 5,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-niigata-08R",
+      "name": "ランスオブセヘル",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "raceId": "2026-08-22-sapporo-12R",
+      "name": "サマーナイト",
+      "finish": 3,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "raceId": "2026-08-23-sapporo-09R",
+      "name": "メイショウテンク",
+      "finish": 4,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "raceId": "2026-08-23-sapporo-10R",
+      "name": "ハヤブサオヒメサマ",
+      "finish": 8,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "raceId": "2026-08-23-niigata-08R",
+      "name": "ナルキッソス",
+      "finish": 4,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "close_scores",
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "raceId": "2026-08-23-chukyo-08R",
+      "name": "コマチチャン",
+      "finish": 14,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-23",
+      "raceId": "2026-08-23-sapporo-12R",
+      "name": "バセリーナ",
+      "finish": 11,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-08-30",
+      "raceId": "2026-08-30-sapporo-10R",
+      "name": "サトノワーグナー",
+      "finish": 1,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "raceId": "2026-08-30-sapporo-11R",
+      "name": "マジックローズ",
+      "finish": 12,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "raceId": "2026-08-30-chukyo-07R",
+      "name": "ジーティーマイカ",
+      "finish": 1,
+      "retained": false,
+      "risks": [],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "insufficient_independent_evidence",
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-08-30",
+      "raceId": "2026-08-30-niigata-09R",
+      "name": "スペルキャスター",
+      "finish": 5,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-nakayama-09R",
+      "name": "ギフテッド",
+      "finish": 11,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-hanshin-09R",
+      "name": "アムールリーベ",
+      "finish": 7,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-nakayama-10R",
+      "name": "デルアヴァー",
+      "finish": 7,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-nakayama-11R",
+      "name": "ジョーローリット",
+      "finish": 2,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-12",
+      "raceId": "2026-09-12-hanshin-11R",
+      "name": "ジーティーダーリン",
+      "finish": 15,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-13",
+      "raceId": "2026-09-13-hanshin-10R",
+      "name": "レッドアトレーヴ",
+      "finish": 8,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-13",
+      "raceId": "2026-09-13-nakayama-10R",
+      "name": "コパノヴィンセント",
+      "finish": 8,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-13",
+      "raceId": "2026-09-13-hanshin-11R",
+      "name": "モンローウォーク",
+      "finish": 1,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-13",
+      "raceId": "2026-09-13-nakayama-11R",
+      "name": "ゴーイントゥスカイ",
+      "finish": 6,
+      "retained": false,
+      "risks": [],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "insufficient_independent_evidence",
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-nakayama-09R",
+      "name": "ジャスパートレノ",
+      "finish": 4,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-hanshin-11R",
+      "name": "メイショウツヨキ",
+      "finish": 13,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "raceId": "2026-09-19-nakayama-11R",
+      "name": "イムホテプ",
+      "finish": 7,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-hanshin-09R",
+      "name": "ガーネットフレア",
+      "finish": 1,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-nakayama-09R",
+      "name": "シャローファースト",
+      "finish": 2,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-hanshin-10R",
+      "name": "サンライズケヴィン",
+      "finish": 1,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-nakayama-10R",
+      "name": "ジャックナダル",
+      "finish": 5,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-hanshin-11R",
+      "name": "ユウファラオ",
+      "finish": 16,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "raceId": "2026-09-20-nakayama-11R",
+      "name": "ヴーレヴー",
+      "finish": 3,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "insufficient_independent_evidence",
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-hanshin-09R",
+      "name": "ヤマニンバロネス",
+      "finish": 1,
+      "retained": false,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-hanshin-10R",
+      "name": "ナリタエスペランサ",
+      "finish": 12,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "raceId": "2026-09-21-hanshin-11R",
+      "name": "グリーンエナジー",
+      "finish": 8,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "raceId": "2026-09-22-nakayama-09R",
+      "name": "パースウェイド",
+      "finish": 10,
+      "retained": true,
+      "risks": [
+        {
+          "key": "ability",
+          "group": "performance",
+          "label": "能力評価が低め"
+        },
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-nakayama-04R",
+      "name": "ネビーイーム",
+      "finish": 2,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-nakayama-09R",
+      "name": "エイシンウルトラン",
+      "finish": 7,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-hanshin-09R",
+      "name": "リーチツモドライチ",
+      "finish": 3,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-nakayama-10R",
+      "name": "イゾラフェリーチェ",
+      "finish": 3,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-hanshin-10R",
+      "name": "シーミハットク",
+      "finish": 9,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "raceId": "2026-09-26-hanshin-11R",
+      "name": "サイモンザナドゥ",
+      "finish": 10,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "raceId": "2026-09-27-nakayama-11R",
+      "name": "スターアニス",
+      "finish": 4,
+      "retained": false,
+      "risks": [],
+      "protections": [],
+      "reasons": [
+        "close_scores",
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-kyoto-09R",
+      "name": "ラムラベイ",
+      "finish": 1,
+      "retained": false,
+      "risks": [],
+      "protections": [
+        "能力上位"
+      ],
+      "reasons": [
+        "insufficient_independent_evidence",
+        "positive_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-tokyo-09R",
+      "name": "イージーライダー",
+      "finish": 7,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "course",
+          "group": "suitability",
+          "label": "今回コースへの適性に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-tokyo-10R",
+      "name": "グーテンベルク",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-kyoto-11R",
+      "name": "リリージョワ",
+      "finish": 1,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-03",
+      "raceId": "2026-10-03-tokyo-11R",
+      "name": "ジャスティンアース",
+      "finish": 7,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-tokyo-09R",
+      "name": "スペルーチェ",
+      "finish": 3,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-tokyo-10R",
+      "name": "ルグランヴァン",
+      "finish": 3,
+      "retained": true,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        },
+        {
+          "key": "training",
+          "group": "training",
+          "label": "調教評価が低め"
+        }
+      ],
+      "protections": [],
+      "reasons": []
+    },
+    {
+      "date": "2026-10-04",
+      "raceId": "2026-10-04-kyoto-11R",
+      "name": "ウエストナウ",
+      "finish": 6,
+      "retained": false,
+      "risks": [
+        {
+          "key": "form",
+          "group": "performance",
+          "label": "近走内容に不安"
+        }
+      ],
+      "protections": [],
+      "reasons": [
+        "insufficient_independent_evidence"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "modelVersion": "public-role-caution-v1",
-  "modelSha256": "1d2323d77bbb3439424be369269960db3f196b178644e5d3b691eeff0ca40a3c",
+  "modelSha256": "d3e6d9a802518916f87cea618a750267284f97f31b40ec8c529fb19ed39096b1",
   "retrospectiveDiagnosticOnly": true,
   "productionConnected": false,
   "dates": [
@@ -15,126 +15,135 @@
     "2026-08-23",
     "2026-08-29",
     "2026-08-30",
-    "2026-09-12"
+    "2026-09-12",
+    "2026-09-13",
+    "2026-09-19",
+    "2026-09-20",
+    "2026-09-21",
+    "2026-09-22",
+    "2026-09-26",
+    "2026-09-27",
+    "2026-10-03",
+    "2026-10-04"
   ],
-  "comparedRaces": 111,
+  "comparedRaces": 161,
   "changes": {
-    "Value": 73,
-    "Danger": 49
+    "Value": 108,
+    "Danger": 62
   },
   "stats": {
     "productionValue": {
-      "sampleSize": 68,
+      "sampleSize": 106,
       "excludedCount": 8,
-      "wins": 1,
-      "topThree": 10,
-      "missedTopThree": 58,
-      "winRate": 1.5,
-      "topThreeRate": 14.7,
-      "missedTopThreeRate": 85.3,
-      "payoutSampleSize": 68,
-      "winReturnRate": 19,
-      "placeReturnRate": 51.3,
+      "wins": 3,
+      "topThree": 17,
+      "missedTopThree": 89,
+      "winRate": 2.8,
+      "topThreeRate": 16,
+      "missedTopThreeRate": 84,
+      "payoutSampleSize": 106,
+      "winReturnRate": 34.1,
+      "placeReturnRate": 70,
       "status": "active"
     },
     "cautionValue": {
-      "sampleSize": 4,
+      "sampleSize": 12,
       "excludedCount": 1,
-      "wins": 0,
-      "topThree": 0,
-      "missedTopThree": 4,
-      "winRate": 0,
-      "topThreeRate": 0,
-      "missedTopThreeRate": 100,
-      "payoutSampleSize": 4,
-      "winReturnRate": 0,
-      "placeReturnRate": 0,
+      "wins": 1,
+      "topThree": 1,
+      "missedTopThree": 11,
+      "winRate": 8.3,
+      "topThreeRate": 8.3,
+      "missedTopThreeRate": 91.7,
+      "payoutSampleSize": 12,
+      "winReturnRate": 66.7,
+      "placeReturnRate": 22.5,
       "status": "building"
     },
     "productionDanger": {
-      "sampleSize": 63,
-      "excludedCount": 13,
-      "wins": 6,
-      "topThree": 21,
-      "missedTopThree": 42,
-      "winRate": 9.5,
-      "topThreeRate": 33.3,
-      "missedTopThreeRate": 66.7,
-      "payoutSampleSize": 63,
-      "winReturnRate": 76.8,
+      "sampleSize": 81,
+      "excludedCount": 12,
+      "wins": 10,
+      "topThree": 30,
+      "missedTopThree": 51,
+      "winRate": 12.3,
+      "topThreeRate": 37,
+      "missedTopThreeRate": 63,
+      "payoutSampleSize": 81,
+      "winReturnRate": 61.1,
       "placeReturnRate": 80,
       "status": "active"
     },
     "cautionDanger": {
-      "sampleSize": 20,
-      "excludedCount": 7,
-      "wins": 1,
-      "topThree": 7,
-      "missedTopThree": 13,
-      "winRate": 5,
-      "topThreeRate": 35,
-      "missedTopThreeRate": 65,
-      "payoutSampleSize": 20,
-      "winReturnRate": 55.5,
-      "placeReturnRate": 123.5,
+      "sampleSize": 25,
+      "excludedCount": 6,
+      "wins": 2,
+      "topThree": 10,
+      "missedTopThree": 15,
+      "winRate": 8,
+      "topThreeRate": 40,
+      "missedTopThreeRate": 60,
+      "payoutSampleSize": 25,
+      "winReturnRate": 84.4,
+      "placeReturnRate": 122.8,
       "status": "building"
     }
   },
   "pairedStats": {
     "productionValue": {
-      "sampleSize": 4,
+      "sampleSize": 12,
       "excludedCount": 1,
       "wins": 0,
       "topThree": 0,
-      "missedTopThree": 4,
+      "missedTopThree": 12,
       "winRate": 0,
       "topThreeRate": 0,
       "missedTopThreeRate": 100,
-      "payoutSampleSize": 4,
+      "payoutSampleSize": 12,
       "winReturnRate": 0,
       "placeReturnRate": 0,
       "status": "building"
     },
     "cautionValue": {
-      "sampleSize": 4,
+      "sampleSize": 12,
       "excludedCount": 1,
-      "wins": 0,
-      "topThree": 0,
-      "missedTopThree": 4,
-      "winRate": 0,
-      "topThreeRate": 0,
-      "missedTopThreeRate": 100,
-      "payoutSampleSize": 4,
-      "winReturnRate": 0,
-      "placeReturnRate": 0,
+      "wins": 1,
+      "topThree": 1,
+      "missedTopThree": 11,
+      "winRate": 8.3,
+      "topThreeRate": 8.3,
+      "missedTopThreeRate": 91.7,
+      "payoutSampleSize": 12,
+      "winReturnRate": 66.7,
+      "placeReturnRate": 22.5,
       "status": "building"
     },
     "productionDanger": {
-      "sampleSize": 20,
-      "excludedCount": 7,
-      "wins": 1,
-      "topThree": 7,
-      "missedTopThree": 13,
-      "winRate": 5,
-      "topThreeRate": 35,
-      "missedTopThreeRate": 65,
-      "payoutSampleSize": 20,
-      "winReturnRate": 55.5,
-      "placeReturnRate": 123.5,
+      "sampleSize": 25,
+      "excludedCount": 6,
+      "wins": 2,
+      "topThree": 10,
+      "missedTopThree": 15,
+      "winRate": 8,
+      "topThreeRate": 40,
+      "missedTopThreeRate": 60,
+      "payoutSampleSize": 25,
+      "winReturnRate": 84.4,
+      "placeReturnRate": 122.8,
       "status": "building"
     },
     "cautionDanger": {
-      "sampleSize": 20,
-      "excludedCount": 7,
-      "wins": 1,
-      "topThree": 7,
-      "missedTopThree": 13,
-      "winRate": 5,
-      "topThreeRate": 35,
-      "missedTopThreeRate": 65,
-      "payoutSampleSize": 20,
-      "winReturnRate": 55.5,
-      "placeReturnRate": 123.5,
+      "sampleSize": 25,
+      "excludedCount": 6,
+      "wins": 2,
+      "topThree": 10,
+      "missedTopThree": 15,
+      "winRate": 8,
+      "topThreeRate": 40,
+      "missedTopThreeRate": 60,
+      "payoutSampleSize": 25,
+      "winReturnRate": 84.4,
+      "placeReturnRate": 122.8,
       "status": "building"
     }
   },
@@ -281,15 +290,15 @@
       "name": "ＴＶｈ賞",
       "productionValue": null,
       "productionDanger": {
-        "number": 3,
-        "name": "サウスバンク",
-        "score": 72
+        "number": 5,
+        "name": "メルトユアハート",
+        "score": 67
       },
       "cautionValue": null,
       "cautionDanger": {
-        "number": 3,
-        "name": "サウスバンク",
-        "score": 72
+        "number": 5,
+        "name": "メルトユアハート",
+        "score": 67
       },
       "evidence": {
         "value": {
@@ -300,23 +309,21 @@
         },
         "danger": {
           "performanceRisks": [
+            "ability",
             "form"
           ],
           "conditionRisks": [
-            "course",
-            "pace"
+            "course"
           ],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": null,
         "cautionValue": null,
-        "productionDanger": "3",
-        "cautionDanger": "3"
+        "productionDanger": "2",
+        "cautionDanger": "2"
       }
     },
     {
@@ -877,17 +884,9 @@
         "name": "ヴァンアグレアブル",
         "score": 74
       },
-      "productionDanger": {
-        "number": 9,
-        "name": "レーヴドレフォン",
-        "score": 71
-      },
+      "productionDanger": null,
       "cautionValue": null,
-      "cautionDanger": {
-        "number": 9,
-        "name": "レーヴドレフォン",
-        "score": 71
-      },
+      "cautionDanger": null,
       "evidence": {
         "value": {
           "performanceRisks": [
@@ -901,25 +900,17 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
-          "conditionRisks": [
-            "pace"
-          ],
+          "performanceRisks": [],
+          "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": "8",
         "cautionValue": null,
-        "productionDanger": "11",
-        "cautionDanger": "11"
+        "productionDanger": null,
+        "cautionDanger": null
       }
     },
     {
@@ -1052,11 +1043,7 @@
         "name": "リラボニート",
         "score": 76
       },
-      "productionDanger": {
-        "number": 10,
-        "name": "フェスティバルヒル",
-        "score": 75
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -1073,19 +1060,15 @@
         },
         "danger": {
           "performanceRisks": [],
-          "conditionRisks": [
-            "course"
-          ],
+          "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 7,
         "cautionValue": null,
-        "productionDanger": 14,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -1367,9 +1350,9 @@
         "score": 72
       },
       "productionDanger": {
-        "number": 7,
-        "name": "レーヴドロペラ",
-        "score": 72
+        "number": 5,
+        "name": "バルティカ",
+        "score": 70
       },
       "cautionValue": null,
       "cautionDanger": null,
@@ -1393,14 +1376,15 @@
           "conditionRisks": [],
           "performanceSupports": [],
           "conditionSupports": [
-            "distance"
+            "distance",
+            "course"
           ]
         }
       },
       "finishes": {
         "productionValue": 4,
         "cautionValue": null,
-        "productionDanger": 5,
+        "productionDanger": 2,
         "cautionDanger": null
       }
     },
@@ -1668,11 +1652,7 @@
         "name": "ラヴィサンエール",
         "score": 75
       },
-      "productionDanger": {
-        "number": 7,
-        "name": "アンムート",
-        "score": 75
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -1691,23 +1671,15 @@
         },
         "danger": {
           "performanceRisks": [],
-          "conditionRisks": [
-            "course",
-            "pace"
-          ],
-          "performanceSupports": [
-            "ability",
-            "form"
-          ],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 4,
         "cautionValue": null,
-        "productionDanger": 2,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -1818,11 +1790,7 @@
         "name": "エラン",
         "score": 75
       },
-      "productionDanger": {
-        "number": 4,
-        "name": "ガジュノリ",
-        "score": 77
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -1833,21 +1801,16 @@
           "conditionSupports": []
         },
         "danger": {
-          "performanceRisks": [
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 7,
         "cautionValue": null,
-        "productionDanger": 6,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -1963,11 +1926,7 @@
         "name": "タマモブラックタイ",
         "score": 76
       },
-      "productionDanger": {
-        "number": 7,
-        "name": "ディアナザール",
-        "score": 81
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -1979,23 +1938,15 @@
         },
         "danger": {
           "performanceRisks": [],
-          "conditionRisks": [
-            "pace"
-          ],
-          "performanceSupports": [
-            "ability",
-            "form"
-          ],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 16,
         "cautionValue": null,
-        "productionDanger": 9,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -2167,11 +2118,7 @@
       "time": "14:50",
       "name": "阿賀野川特別",
       "productionValue": null,
-      "productionDanger": {
-        "number": 13,
-        "name": "パッションリッチ",
-        "score": 73
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -2182,22 +2129,16 @@
           "conditionSupports": []
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": null,
         "cautionValue": null,
-        "productionDanger": 0,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -2341,11 +2282,7 @@
         "name": "レーウィン",
         "score": 71
       },
-      "productionDanger": {
-        "number": 8,
-        "name": "トルショー",
-        "score": 71
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -2361,22 +2298,16 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 6,
         "cautionValue": null,
-        "productionDanger": 4,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -2683,11 +2614,7 @@
         "name": "スコーピオン",
         "score": 69
       },
-      "productionDanger": {
-        "number": 13,
-        "name": "トールキン",
-        "score": 74
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -2698,21 +2625,16 @@
           "conditionSupports": []
         },
         "danger": {
-          "performanceRisks": [
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 6,
         "cautionValue": null,
-        "productionDanger": 7,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -2765,11 +2687,7 @@
         "name": "ビーマックス",
         "score": 74
       },
-      "productionDanger": {
-        "number": 12,
-        "name": "キーガッツ",
-        "score": 73
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -2785,20 +2703,16 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 3,
         "cautionValue": null,
-        "productionDanger": 1,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -3069,17 +2983,9 @@
         "name": "ジュンツバメガエシ",
         "score": 76
       },
-      "productionDanger": {
-        "number": 8,
-        "name": "レイデラルース",
-        "score": 69
-      },
+      "productionDanger": null,
       "cautionValue": null,
-      "cautionDanger": {
-        "number": 8,
-        "name": "レイデラルース",
-        "score": 69
-      },
+      "cautionDanger": null,
       "evidence": {
         "value": {
           "performanceRisks": [],
@@ -3091,24 +2997,17 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
-          "conditionRisks": [
-            "course"
-          ],
+          "performanceRisks": [],
+          "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 2,
         "cautionValue": null,
-        "productionDanger": 11,
-        "cautionDanger": 11
+        "productionDanger": null,
+        "cautionDanger": null
       }
     },
     {
@@ -3484,11 +3383,7 @@
         "name": "ヒラボクソライア",
         "score": 72
       },
-      "productionDanger": {
-        "number": 4,
-        "name": "サイモンゼスト",
-        "score": 72
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -3506,22 +3401,16 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 5,
         "cautionValue": null,
-        "productionDanger": 1,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -3613,11 +3502,7 @@
         "name": "パフ",
         "score": 76
       },
-      "productionDanger": {
-        "number": 1,
-        "name": "クロニクル",
-        "score": 72
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -3634,22 +3519,16 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "ability",
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 11,
         "cautionValue": null,
-        "productionDanger": 15,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -3663,11 +3542,7 @@
         "name": "セブンマイスター",
         "score": 76
       },
-      "productionDanger": {
-        "number": 3,
-        "name": "ジーティーマン",
-        "score": 78
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -3681,15 +3556,13 @@
           "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 10,
         "cautionValue": null,
-        "productionDanger": 2,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -3943,15 +3816,15 @@
         "score": 76
       },
       "productionDanger": {
-        "number": 10,
-        "name": "テルヒコウ",
-        "score": 71
+        "number": 3,
+        "name": "バセリーナ",
+        "score": 70
       },
       "cautionValue": null,
       "cautionDanger": {
-        "number": 10,
-        "name": "テルヒコウ",
-        "score": 71
+        "number": 3,
+        "name": "バセリーナ",
+        "score": 70
       },
       "evidence": {
         "value": {
@@ -3967,6 +3840,7 @@
         },
         "danger": {
           "performanceRisks": [
+            "ability",
             "form"
           ],
           "conditionRisks": [
@@ -3981,8 +3855,8 @@
       "finishes": {
         "productionValue": 3,
         "cautionValue": null,
-        "productionDanger": 14,
-        "cautionDanger": 14
+        "productionDanger": 11,
+        "cautionDanger": 11
       }
     },
     {
@@ -4346,11 +4220,7 @@
         "name": "キーチパルフェ",
         "score": 79
       },
-      "productionDanger": {
-        "number": 9,
-        "name": "リューデスハイム",
-        "score": 76
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -4366,21 +4236,16 @@
           ]
         },
         "danger": {
-          "performanceRisks": [
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "distance",
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 8,
         "cautionValue": null,
-        "productionDanger": 9,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -4559,11 +4424,7 @@
         "name": "タビニュ",
         "score": 72
       },
-      "productionDanger": {
-        "number": 10,
-        "name": "ワンダフルデイズ",
-        "score": 72
-      },
+      "productionDanger": null,
       "cautionValue": null,
       "cautionDanger": null,
       "evidence": {
@@ -4574,20 +4435,16 @@
           "conditionSupports": []
         },
         "danger": {
-          "performanceRisks": [
-            "form"
-          ],
+          "performanceRisks": [],
           "conditionRisks": [],
           "performanceSupports": [],
-          "conditionSupports": [
-            "course"
-          ]
+          "conditionSupports": []
         }
       },
       "finishes": {
         "productionValue": 11,
         "cautionValue": null,
-        "productionDanger": 2,
+        "productionDanger": null,
         "cautionDanger": null
       }
     },
@@ -4686,9 +4543,9 @@
         "score": 76
       },
       "productionDanger": {
-        "number": 6,
-        "name": "マルカオペラ",
-        "score": 69
+        "number": 14,
+        "name": "ギフテッド",
+        "score": 71
       },
       "cautionValue": null,
       "cautionDanger": null,
@@ -4715,7 +4572,7 @@
       "finishes": {
         "productionValue": 5,
         "cautionValue": null,
-        "productionDanger": 12,
+        "productionDanger": 11,
         "cautionDanger": null
       }
     },
@@ -4730,9 +4587,9 @@
         "score": 76
       },
       "productionDanger": {
-        "number": 11,
-        "name": "アジュマン",
-        "score": 73
+        "number": 6,
+        "name": "アムールリーベ",
+        "score": 74
       },
       "cautionValue": null,
       "cautionDanger": null,
@@ -4761,7 +4618,7 @@
       "finishes": {
         "productionValue": 2,
         "cautionValue": null,
-        "productionDanger": 12,
+        "productionDanger": 7,
         "cautionDanger": null
       }
     },
@@ -4946,6 +4803,2140 @@
         "productionValue": 0,
         "cautionValue": 0,
         "productionDanger": 15,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-hanshin-09R",
+      "time": "14:10",
+      "name": "能勢特別",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-nakayama-09R",
+      "time": "14:25",
+      "name": "習志野特別",
+      "productionValue": {
+        "number": 5,
+        "name": "スナークピカソ",
+        "score": 74
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 7,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-hanshin-10R",
+      "time": "14:50",
+      "name": "仲秋ステークス",
+      "productionValue": {
+        "number": 5,
+        "name": "モンテシート",
+        "score": 76
+      },
+      "productionDanger": {
+        "number": 13,
+        "name": "レッドアトレーヴ",
+        "score": 74
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 2,
+        "cautionValue": null,
+        "productionDanger": 8,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-nakayama-10R",
+      "time": "15:05",
+      "name": "初風ステークス",
+      "productionValue": {
+        "number": 1,
+        "name": "パルデンス",
+        "score": 67
+      },
+      "productionDanger": {
+        "number": 3,
+        "name": "コパノヴィンセント",
+        "score": 66
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 10,
+        "cautionValue": null,
+        "productionDanger": 8,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-hanshin-11R",
+      "time": "15:30",
+      "name": "関西ＴＶローズＳ",
+      "productionValue": null,
+      "productionDanger": {
+        "number": 7,
+        "name": "モンローウォーク",
+        "score": 81
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": 1,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-13",
+      "bundleId": "2026-09-13-nakayama-11R",
+      "time": "15:45",
+      "name": "朝日セントライト記念",
+      "productionValue": null,
+      "productionDanger": {
+        "number": 8,
+        "name": "ゴーイントゥスカイ",
+        "score": 78
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": 6,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-hanshin-08R",
+      "time": "13:40",
+      "name": "野路菊ステークス",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-nakayama-09R",
+      "time": "14:25",
+      "name": "カンナステークス",
+      "productionValue": {
+        "number": 7,
+        "name": "ピクニックマーチ",
+        "score": 72
+      },
+      "productionDanger": {
+        "number": 2,
+        "name": "ジャスパートレノ",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "form"
+          ],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 7,
+        "cautionValue": null,
+        "productionDanger": 4,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-hanshin-10R",
+      "time": "14:50",
+      "name": "北摂特別",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-nakayama-10R",
+      "time": "15:05",
+      "name": "九十九里特別",
+      "productionValue": {
+        "number": 10,
+        "name": "ダノンピクチャー",
+        "score": 73
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 8,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-hanshin-11R",
+      "time": "15:30",
+      "name": "大阪スポーツ杯",
+      "productionValue": {
+        "number": 2,
+        "name": "トゥロン",
+        "score": 71
+      },
+      "productionDanger": {
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "score": 68
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 6,
+        "name": "メイショウツヨキ",
+        "score": 68
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [
+            "load"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 2,
+        "cautionValue": null,
+        "productionDanger": 13,
+        "cautionDanger": 13
+      }
+    },
+    {
+      "date": "2026-09-19",
+      "bundleId": "2026-09-19-nakayama-11R",
+      "time": "15:45",
+      "name": "ながつきステークス",
+      "productionValue": {
+        "number": 5,
+        "name": "カンピオーネ",
+        "score": 74
+      },
+      "productionDanger": {
+        "number": 4,
+        "name": "イムホテプ",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 13,
+        "cautionValue": null,
+        "productionDanger": 7,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-hanshin-09R",
+      "time": "14:10",
+      "name": "夕月特別",
+      "productionValue": {
+        "number": 8,
+        "name": "ジェルブロア",
+        "score": 76
+      },
+      "productionDanger": {
+        "number": 6,
+        "name": "ガーネットフレア",
+        "score": 72
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 2,
+        "cautionValue": null,
+        "productionDanger": 1,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-nakayama-09R",
+      "time": "14:25",
+      "name": "松戸特別",
+      "productionValue": {
+        "number": 4,
+        "name": "コルデアニル",
+        "score": 66
+      },
+      "productionDanger": {
+        "number": 10,
+        "name": "シャローファースト",
+        "score": 70
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 10,
+        "name": "シャローファースト",
+        "score": 70
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 11,
+        "cautionValue": null,
+        "productionDanger": 2,
+        "cautionDanger": 2
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-hanshin-10R",
+      "time": "14:50",
+      "name": "鳥取特別",
+      "productionValue": {
+        "number": 4,
+        "name": "ハイディージェン",
+        "score": 69
+      },
+      "productionDanger": {
+        "number": 12,
+        "name": "サンライズケヴィン",
+        "score": 72
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 15,
+        "cautionValue": null,
+        "productionDanger": 1,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-nakayama-10R",
+      "time": "15:05",
+      "name": "汐留特別",
+      "productionValue": {
+        "number": 11,
+        "name": "フィールマイプラン",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 9,
+        "name": "ジャックナダル",
+        "score": 75
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 9,
+        "cautionValue": null,
+        "productionDanger": 5,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-hanshin-11R",
+      "time": "15:30",
+      "name": "道頓堀ステークス",
+      "productionValue": {
+        "number": 10,
+        "name": "モーデン",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 5,
+        "name": "ユウファラオ",
+        "score": 71
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 5,
+        "cautionValue": null,
+        "productionDanger": 16,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-20",
+      "bundleId": "2026-09-20-nakayama-11R",
+      "time": "15:45",
+      "name": "産経賞オールカマー",
+      "productionValue": {
+        "number": 1,
+        "name": "キャントウェイト",
+        "score": 78
+      },
+      "productionDanger": {
+        "number": 4,
+        "name": "ヴーレヴー",
+        "score": 74
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 4,
+        "name": "ヴーレヴー",
+        "score": 74
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 2,
+        "cautionValue": null,
+        "productionDanger": 3,
+        "cautionDanger": 3
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "bundleId": "2026-09-21-hanshin-09R",
+      "time": "14:25",
+      "name": "新涼特別",
+      "productionValue": {
+        "number": 13,
+        "name": "アンビシャスヨシノ",
+        "score": 75
+      },
+      "productionDanger": {
+        "number": 14,
+        "name": "ヤマニンバロネス",
+        "score": 68
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 14,
+        "name": "ヤマニンバロネス",
+        "score": 68
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [
+            "load"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 7,
+        "cautionValue": null,
+        "productionDanger": 1,
+        "cautionDanger": 1
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "bundleId": "2026-09-21-hanshin-10R",
+      "time": "15:05",
+      "name": "Ｍキタサンブラック",
+      "productionValue": {
+        "number": 9,
+        "name": "ファームツエンティ",
+        "score": 78
+      },
+      "productionDanger": {
+        "number": 10,
+        "name": "ナリタエスペランサ",
+        "score": 77
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 2,
+        "cautionValue": null,
+        "productionDanger": 12,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-21",
+      "bundleId": "2026-09-21-hanshin-11R",
+      "time": "15:45",
+      "name": "神戸新聞杯",
+      "productionValue": {
+        "number": 11,
+        "name": "ショウナンハヤナミ",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 9,
+        "name": "グリーンエナジー",
+        "score": 76
+      },
+      "cautionValue": {
+        "number": 11,
+        "name": "ショウナンハヤナミ",
+        "score": 77
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 10,
+        "cautionValue": 10,
+        "productionDanger": 8,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "bundleId": "2026-09-22-nakayama-09R",
+      "time": "14:10",
+      "name": "鋸山特別",
+      "productionValue": {
+        "number": 13,
+        "name": "セレーノ",
+        "score": 70
+      },
+      "productionDanger": {
+        "number": 3,
+        "name": "パースウェイド",
+        "score": 74
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [
+            "ability",
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 16,
+        "cautionValue": null,
+        "productionDanger": 10,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "bundleId": "2026-09-22-nakayama-10R",
+      "time": "14:50",
+      "name": "Ｍディープインパクト",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-22",
+      "bundleId": "2026-09-22-nakayama-11R",
+      "time": "15:30",
+      "name": "ＪＲＡアニバーサリー",
+      "productionValue": {
+        "number": 4,
+        "name": "グレイテストソング",
+        "score": 72
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 6,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-nakayama-04R",
+      "time": "11:20",
+      "name": "清秋ジャンプＳ",
+      "productionValue": {
+        "number": 4,
+        "name": "トゥラッタッタ",
+        "score": 76
+      },
+      "productionDanger": {
+        "number": 3,
+        "name": "ネビーイーム",
+        "score": 74
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 4,
+        "cautionValue": null,
+        "productionDanger": 2,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-nakayama-09R",
+      "time": "14:10",
+      "name": "芙蓉ステークス",
+      "productionValue": {
+        "number": 5,
+        "name": "タイヴァス",
+        "score": 75
+      },
+      "productionDanger": {
+        "number": 3,
+        "name": "エイシンウルトラン",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 3,
+        "name": "エイシンウルトラン",
+        "score": 73
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 8,
+        "cautionValue": null,
+        "productionDanger": 7,
+        "cautionDanger": 7
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-hanshin-09R",
+      "time": "14:25",
+      "name": "ヤマボウシ賞",
+      "productionValue": {
+        "number": 5,
+        "name": "ヌーンベルク",
+        "score": 73
+      },
+      "productionDanger": {
+        "number": 2,
+        "name": "リーチツモドライチ",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 8,
+        "cautionValue": null,
+        "productionDanger": 3,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-nakayama-10R",
+      "time": "14:50",
+      "name": "勝浦特別",
+      "productionValue": {
+        "number": 15,
+        "name": "メローネ",
+        "score": 78
+      },
+      "productionDanger": {
+        "number": 2,
+        "name": "イゾラフェリーチェ",
+        "score": 73
+      },
+      "cautionValue": {
+        "number": 11,
+        "name": "ビービーエフォート",
+        "score": 79
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 13,
+        "cautionValue": 14,
+        "productionDanger": 3,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-hanshin-10R",
+      "time": "15:05",
+      "name": "野分特別",
+      "productionValue": {
+        "number": 12,
+        "name": "スナークピカソ",
+        "score": 74
+      },
+      "productionDanger": {
+        "number": 5,
+        "name": "シーミハットク",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": [
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 12,
+        "cautionValue": null,
+        "productionDanger": 9,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-nakayama-11R",
+      "time": "15:30",
+      "name": "秋風ステークス",
+      "productionValue": {
+        "number": 11,
+        "name": "マイネルフルムーン",
+        "score": 77
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 4,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-26",
+      "bundleId": "2026-09-26-hanshin-11R",
+      "time": "15:45",
+      "name": "シリウスステークス",
+      "productionValue": {
+        "number": 2,
+        "name": "ゼットリアン",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 10,
+        "name": "サイモンザナドゥ",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 6,
+        "cautionValue": null,
+        "productionDanger": 10,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-hanshin-09R",
+      "time": "14:10",
+      "name": "兵庫特別",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-nakayama-09R",
+      "time": "14:25",
+      "name": "サフラン賞",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-hanshin-10R",
+      "time": "14:45",
+      "name": "堺ステークス",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-nakayama-10R",
+      "time": "15:00",
+      "name": "茨城新聞杯",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-hanshin-11R",
+      "time": "15:20",
+      "name": "ポートアイランドＳ",
+      "productionValue": {
+        "number": 1,
+        "name": "ダノンセンチュリー",
+        "score": 76
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 1,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-nakayama-11R",
+      "time": "15:40",
+      "name": "スプリンターズＳ",
+      "productionValue": {
+        "number": 3,
+        "name": "ママコチャ",
+        "score": 82
+      },
+      "productionDanger": {
+        "number": 9,
+        "name": "スターアニス",
+        "score": 81
+      },
+      "cautionValue": {
+        "number": 10,
+        "name": "レイピア",
+        "score": 82
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 10,
+        "cautionValue": 13,
+        "productionDanger": 4,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-09-27",
+      "bundleId": "2026-09-27-nakayama-12R",
+      "time": "16:30",
+      "name": "外房ステークス",
+      "productionValue": null,
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-kyoto-09R",
+      "time": "14:15",
+      "name": "りんどう賞",
+      "productionValue": null,
+      "productionDanger": {
+        "number": 7,
+        "name": "ラムラベイ",
+        "score": 74
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": null,
+        "cautionValue": null,
+        "productionDanger": 1,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-tokyo-09R",
+      "time": "14:35",
+      "name": "八ヶ岳特別",
+      "productionValue": {
+        "number": 11,
+        "name": "ホウオウシンデレラ",
+        "score": 76
+      },
+      "productionDanger": {
+        "number": 2,
+        "name": "イージーライダー",
+        "score": 73
+      },
+      "cautionValue": null,
+      "cautionDanger": {
+        "number": 2,
+        "name": "イージーライダー",
+        "score": 73
+      },
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 9,
+        "cautionValue": null,
+        "productionDanger": 7,
+        "cautionDanger": 7
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-kyoto-10R",
+      "time": "14:50",
+      "name": "大山崎ステークス",
+      "productionValue": {
+        "number": 10,
+        "name": "カミーロ",
+        "score": 75
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 15,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-tokyo-10R",
+      "time": "15:10",
+      "name": "白秋ステークス",
+      "productionValue": {
+        "number": 12,
+        "name": "フォーゲル",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 1,
+        "name": "グーテンベルク",
+        "score": 75
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 1,
+        "cautionValue": null,
+        "productionDanger": 6,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-kyoto-11R",
+      "time": "15:30",
+      "name": "オパールステークス",
+      "productionValue": {
+        "number": 15,
+        "name": "タガノアラリア",
+        "score": 80
+      },
+      "productionDanger": {
+        "number": 6,
+        "name": "リリージョワ",
+        "score": 75
+      },
+      "cautionValue": {
+        "number": 15,
+        "name": "タガノアラリア",
+        "score": 80
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 12,
+        "cautionValue": 12,
+        "productionDanger": 1,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-03",
+      "bundleId": "2026-10-03-tokyo-11R",
+      "time": "15:45",
+      "name": "グリーンチャンネルＣ",
+      "productionValue": {
+        "number": 9,
+        "name": "ヴィヴァン",
+        "score": 75
+      },
+      "productionDanger": {
+        "number": 11,
+        "name": "ジャスティンアース",
+        "score": 75
+      },
+      "cautionValue": {
+        "number": 3,
+        "name": "スナッピードレッサ",
+        "score": 81
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 9,
+        "cautionValue": 4,
+        "productionDanger": 7,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-tokyo-09R",
+      "time": "14:35",
+      "name": "ｔｖｋ賞",
+      "productionValue": {
+        "number": 5,
+        "name": "サーナーティオン",
+        "score": 77
+      },
+      "productionDanger": {
+        "number": 10,
+        "name": "スペルーチェ",
+        "score": 77
+      },
+      "cautionValue": {
+        "number": 11,
+        "name": "ウフドゥウフ",
+        "score": 78
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 11,
+        "cautionValue": 1,
+        "productionDanger": 3,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-tokyo-11R",
+      "time": "15:45",
+      "name": "毎日王冠",
+      "productionValue": {
+        "number": 17,
+        "name": "ダノンエアズロック",
+        "score": 80
+      },
+      "productionDanger": null,
+      "cautionValue": {
+        "number": 16,
+        "name": "アドマイヤクワッズ",
+        "score": 80
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 8,
+        "cautionValue": 17,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-tokyo-10R",
+      "time": "15:10",
+      "name": "赤富士ステークス",
+      "productionValue": {
+        "number": 15,
+        "name": "サトミノエンジェル",
+        "score": 76
+      },
+      "productionDanger": {
+        "number": 8,
+        "name": "ルグランヴァン",
+        "score": 75
+      },
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 7,
+        "cautionValue": null,
+        "productionDanger": 3,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-kyoto-09R",
+      "time": "14:15",
+      "name": "大原ステークス",
+      "productionValue": {
+        "number": 1,
+        "name": "ホウオウアートマン",
+        "score": 74
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [
+            "course"
+          ],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 14,
+        "cautionValue": null,
+        "productionDanger": null,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-kyoto-11R",
+      "time": "15:30",
+      "name": "京都大賞典",
+      "productionValue": {
+        "number": 16,
+        "name": "ショウナンラプンタ",
+        "score": 80
+      },
+      "productionDanger": {
+        "number": 1,
+        "name": "ウエストナウ",
+        "score": 75
+      },
+      "cautionValue": {
+        "number": 16,
+        "name": "ショウナンラプンタ",
+        "score": 80
+      },
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [
+            "ability",
+            "form"
+          ],
+          "conditionSupports": [
+            "distance"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [
+            "form"
+          ],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "course"
+          ]
+        }
+      },
+      "finishes": {
+        "productionValue": 10,
+        "cautionValue": 10,
+        "productionDanger": 6,
+        "cautionDanger": null
+      }
+    },
+    {
+      "date": "2026-10-04",
+      "bundleId": "2026-10-04-kyoto-10R",
+      "time": "14:50",
+      "name": "藤森ステークス",
+      "productionValue": {
+        "number": 10,
+        "name": "スマートフォルス",
+        "score": 75
+      },
+      "productionDanger": null,
+      "cautionValue": null,
+      "cautionDanger": null,
+      "evidence": {
+        "value": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": [
+            "distance",
+            "course"
+          ]
+        },
+        "danger": {
+          "performanceRisks": [],
+          "conditionRisks": [],
+          "performanceSupports": [],
+          "conditionSupports": []
+        }
+      },
+      "finishes": {
+        "productionValue": 10,
+        "cautionValue": null,
+        "productionDanger": null,
         "cautionDanger": null
       }
     }

@@ -1,5 +1,6 @@
 import { findPedigreePublicProfile } from "../data/pedigree-public-profiles.js";
-import { hasCompletePublicDangerMarket, selectPublicRoleHorses } from "./public-role-selection.js";
+import { hasCompletePublicDangerMarket, selectPublicRoleHorses, selectPublicMarketMismatchHorse } from "./public-role-selection.js";
+import { assessPublicDangerCandidates } from './public-danger-assessment.js';
 
 export const PUBLIC_FACTOR_LABELS = {
   ability: "能力",
@@ -1372,14 +1373,10 @@ const valueReason = (horse, rank) => {
   return `指数${rank}位ながら${popularity}。${support}${caution}`;
 };
 
-const dangerReason = (horse, rank) => {
-  if (!horse) return "現在の人気・指数の条件に該当する馬はいません。";
-  const weakness = weakestDecisionFactor(horse);
-  const strength = strongestRaceFactor(horse);
-  const marketText = isFiniteScore(horse.popularity) ? `${horse.popularity}人気に対して` : "市場評価に対して";
-  const risk = weakness?.score < 65 ? `${publicRoleFactorPhrase(weakness)}は慎重評価。` : "注意の中心は人気との評価差。";
-  const support = strength?.score >= 75 ? `一方で${publicRoleFactorPhrase(strength)}は強み。` : "";
-  return `${marketText}指数${rank}位。${risk}${support}消しの断定ではありません。`;
+const dangerReason = (horse, rank, assessment) => {
+  if (!horse) return "確認できる複数の不安材料が揃う人気馬はいません。";
+  const risks = assessment?.risks.map(risk => risk.label).join('・');
+  return `${horse.popularity}人気に対して指数${rank}位。${risks}。好走しないという断定ではありません。`;
 };
 
 const raceKeyFor = (race) => {
@@ -1416,6 +1413,10 @@ export const buildRacePublicConclusion = (race) => {
   const challenger = ranked[1] ?? null;
   const { value: valueHorse, danger: dangerHorse } = selectPublicRoleHorses(race);
   const dangerMarketReady = hasCompletePublicDangerMarket(race);
+  const dangerAssessment = assessPublicDangerCandidates(race).find(item => item.horse === dangerHorse);
+  const marketHorse = dangerHorse ? null : selectPublicMarketMismatchHorse(race);
+  const marketAssessment = assessPublicDangerCandidates(race).find(item => item.horse === marketHorse);
+  const marketRank = marketHorse ? 1 + ranked.filter(horse => raceHorseScore(horse) > raceHorseScore(marketHorse)).length : null;
   const dangerRank = dangerHorse
     ? 1 + ranked.filter((horse) => raceHorseScore(horse) > raceHorseScore(dangerHorse)).length
     : null;
@@ -1450,8 +1451,16 @@ export const buildRacePublicConclusion = (race) => {
       horse: raceHorseIdentity(dangerHorse, dangerRank),
       value: dangerHorse?.name ?? (dangerMarketReady ? "該当馬なし" : "オッズ確認待ち"),
       note: dangerMarketReady
-        ? dangerReason(dangerHorse, dangerRank)
+        ? dangerReason(dangerHorse, dangerRank, dangerAssessment)
         : "全頭の単勝オッズ・人気が揃ってから判定します。",
+    },
+    marketMismatch: {
+      status: marketHorse ? 'active' : 'none',
+      horse: raceHorseIdentity(marketHorse, marketRank),
+      value: marketHorse?.name ?? '該当馬なし',
+      note: marketHorse
+        ? `${marketHorse.popularity}人気に対して指数${marketRank}位。${marketAssessment?.risks.length ? `注意点は${marketAssessment.risks.map(risk => risk.label).join('・')}。` : ''}${marketAssessment?.protections.length ? `${marketAssessment.protections.join('・')}は好材料。` : ''}人気と指数の評価差であり、能力不足や負ける予測ではありません。`
+        : '人気と指数の大きな評価差はありません。',
     },
     key: {
       horse: null,

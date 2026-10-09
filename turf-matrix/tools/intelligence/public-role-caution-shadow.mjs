@@ -1,4 +1,4 @@
-import { selectPublicDangerHorse, selectPublicValueHorse, selectPublicValueEvidenceHorse } from '../../src/lib/public-role-selection.js';
+import { selectPublicMarketMismatchHorse as selectPublicDangerHorse, selectPublicValueHorse, selectPublicValueEvidenceHorse } from '../../src/lib/public-role-selection.js';
 
 export const CAUTION_MODEL_VERSION = 'public-role-caution-v1';
 

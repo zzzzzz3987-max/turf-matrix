@@ -178,6 +178,8 @@ try {
         raceName = Get-JvField $bytes 33 60
         raceNameShort10 = Get-JvField $bytes 573 20
         gradeCode = Get-JvField $bytes 615 1
+        # JVData 4.9.0.1: RA item 25, code table 2005.
+        raceTypeCode = Get-JvField $bytes 617 2
         # JVData 4.9.0.1: RA item 27, position 622, one byte.
         weightRuleCode = Get-JvField $bytes 622 1
         distance = Convert-PositiveInteger (Get-JvField $bytes 698 4)

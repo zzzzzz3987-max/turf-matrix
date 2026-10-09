@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CAUTION_MODEL_VERSION, selectPublicRoleCautionShadow, assertUpcomingPublicRoleRaces } from '../intelligence/public-role-caution-shadow.mjs';
-import { loadFrozenPublicRoleDays } from './lib/public-role-archive.mjs';
+import { loadFrozenPublicRoleDays, normalizePublicRoleResults } from './lib/public-role-archive.mjs';
 import { summarizePublicRoleRecords } from './lib/public-role-performance.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
@@ -55,8 +55,10 @@ if (args.includes('--freeze')) {
         p.modelVersion !== CAUTION_MODEL_VERSION || p.modelSha256 !== modelSha256 ||
         hash(JSON.stringify(p)) !== artifact.predictionSha256 ||
         p.predictions.some(r => !(new Date(artifact.frozenAt) < new Date(`${p.date}T${r.time}:00+09:00`)))) throw new Error(`Invalid prospective artifact: ${name}`);
-      const resultPath = join(root, `data/archive/${p.date}-results.json`);
-      if (existsSync(resultPath)) days.push({ date: p.date, predictions: p.predictions, results: read(resultPath) });
+      const legacyPath = join(root, `data/archive/${p.date}-results.json`);
+      const resultPath = existsSync(legacyPath) ? legacyPath : join(root, `data/archive/${p.date}-all-race-results.json`);
+      if (existsSync(resultPath)) days.push({ date: p.date, predictions: p.predictions,
+        results: normalizePublicRoleResults(read(resultPath), p.date) });
     }
   } else {
     for (const day of loadFrozenPublicRoleDays({ root })) days.push({ date: day.date, predictions: predictions(day.snapshot), results: day.results });

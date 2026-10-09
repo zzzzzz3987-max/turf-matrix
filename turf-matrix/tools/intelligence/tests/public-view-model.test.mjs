@@ -193,7 +193,7 @@ const raceHorse = ({ id, name, number, score, popularity, odds = popularity == n
   odds,
   analysis: {
     factorsDetail: {
-      ...Object.fromEntries(Object.entries(factors).map(([key, factorScore]) => [key, { score: factorScore }])),
+      ...Object.fromEntries(Object.entries(factors).map(([key, factorScore]) => [key, { score: factorScore, status: 'active' }])),
       value: value ?? { eligible: false, marketGap: 0 },
     },
   },
@@ -511,8 +511,9 @@ test("role explanations do not mistake unavailable training for the reason to op
   }));
   horses[5].analysis.factorsDetail.training = { status: "missing", score: 40 };
   const result = buildRacePublicConclusion({ horses });
-  assert.equal(result.danger.horse.name, "Horse5");
-  assert.doesNotMatch(result.danger.note, /調教/);
+  assert.equal(result.danger.horse, null);
+  assert.equal(result.marketMismatch.horse.name, "Horse5");
+  assert.doesNotMatch(result.marketMismatch.note, /調教/);
 });
 
 test("clock-only training warning does not claim visually poor movement", () => {
@@ -532,7 +533,7 @@ test("race conclusion selects each public role from fixed race data", () => {
       raceHorse({ id: "a", name: "本命馬", number: 1, score: 82, popularity: 1, factors: { ability: 88, course: 70, distance: 80 } }),
       raceHorse({ id: "b", name: "逆転馬", number: 2, score: 80, popularity: 3, factors: { ability: 82, course: 91 } }),
       raceHorse({ id: "c", name: "穴馬", number: 3, score: 76, popularity: 6, factors: { distance: 86 }, value: { eligible: true, marketGap: 3 } }),
-      raceHorse({ id: "d", name: "注意馬", number: 4, score: 72, popularity: 1, factors: { ability: 62, pace: 58 } }),
+      raceHorse({ id: "d", name: "注意馬", number: 4, score: 72, popularity: 1, factors: { ability: 62, distance: 58 } }),
     ],
   });
 
@@ -544,8 +545,8 @@ test("race conclusion selects each public role from fixed race data", () => {
   assert.match(result.favorite.note, /地力の高さを高く評価。指数2位に2ポイント差/);
   assert.match(result.challenger.note, /今回コースへの適性は本命より高評価/);
   assert.match(result.value.note, /指数3位ながら6人気。今回距離への適性が人気以上の評価を支える/);
-  assert.match(result.danger.note, /想定展開との相性は慎重評価/);
-  assert.match(result.danger.note, /消しの断定ではありません/);
+  assert.match(result.danger.note, /今回距離への適性に不安/);
+  assert.match(result.danger.note, /好走しないという断定ではありません/);
   assert.doesNotMatch(
     [result.favorite.note, result.challenger.note, result.value.note, result.danger.note].join(" "),
     /能力88|コース91|距離適性86|展開58|pt差/
@@ -572,9 +573,10 @@ test('danger copy retains strong condition evidence instead of implying a confid
     raceHorse({ id: 'c', number: 3, score: 81, popularity: 4 }),
     raceHorse({ id: 'd', number: 4, score: 78, popularity: 1, factors: { training: 56, distance: 77, course: 71 } }),
   ] });
-  assert.match(result.danger.note, /調教内容は慎重評価/);
-  assert.match(result.danger.note, /一方で今回距離への適性は強み/);
-  assert.doesNotMatch(result.danger.note, /人気ほどの信頼は置きにくい/);
+  assert.equal(result.danger.horse, null);
+  assert.match(result.marketMismatch.note, /調教評価が低め/);
+  assert.match(result.marketMismatch.note, /負ける予測ではありません/);
+  assert.doesNotMatch(result.marketMismatch.note, /人気ほどの信頼は置きにくい/);
 });
 
 test('recent form weakness is not hidden behind market-only caution', () => {
@@ -584,8 +586,9 @@ test('recent form weakness is not hidden behind market-only caution', () => {
     raceHorse({ id: 'c', number: 3, score: 81, popularity: 4 }),
     raceHorse({ id: 'd', number: 4, score: 78, popularity: 1, factors: { form: 56, course: 75, pace: 76 } }),
   ] });
-  assert.match(result.danger.note, /近走内容は慎重評価/);
-  assert.doesNotMatch(result.danger.note, /注意の中心は人気との評価差/);
+  assert.equal(result.danger.horse, null);
+  assert.match(result.marketMismatch.note, /近走内容に不安/);
+  assert.doesNotMatch(result.marketMismatch.note, /注意の中心は人気との評価差/);
 });
 
 test('value copy does not present a weak maximum factor as strong evidence', () => {

@@ -2665,7 +2665,9 @@ const RolePerformancePanel = ({ performance }) => {
         </div>
       </div>
       <p className="border-t border-slate-200 px-4 py-3 text-[9px] font-medium leading-relaxed text-slate-400 md:px-5">
-        注目穴は指数と人気の差、危険馬は上位人気と指数順位の3段差で選定。発走前に固定した過去<Num>{performance.raceDays}</Num>日分で検証。
+        {performance.ruleVersion === 'public-role-v3-evidence-gate'
+          ? '現在の選定条件を過去の保存予想に適用した参考検証です。公開時の実績とは異なります。'
+          : '旧ルール（人気と指数順位の差）の過去検証です。現在の危険判定とは異なります。'}対象<Num>{performance.raceDays}</Num>日分。
       </p>
     </details>
   );
@@ -2675,6 +2677,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
   if (!conclusion) return null;
   const items = [
     { key: "danger", label: "危険な人気馬", icon: ShieldAlert, tone: "text-[#B7791F]" },
+    { key: "marketMismatch", label: "人気先行（指数比較）", icon: ShieldAlert, tone: "text-slate-500" },
   ];
 
   return (
@@ -2689,7 +2692,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
       <div className="mt-4 overflow-hidden border-y border-slate-200 bg-white">
         <p className="px-4 pb-3 text-[12px] leading-relaxed text-slate-600 md:px-5">{conclusion.summary}</p>
         <div className="grid grid-cols-1">
-          {items.filter(({ key }) => conclusion[key].horse?.id || conclusion[key].status === "pending").map(({ key, label, icon: Icon, tone }) => {
+          {items.filter(({ key }) => conclusion[key]?.horse?.id || conclusion[key]?.status === "pending").map(({ key, label, icon: Icon, tone }) => {
             const item = conclusion[key];
             const interactive = Boolean(item.horse?.id);
             const Element = interactive ? "button" : "div";
@@ -2718,6 +2721,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
                     </div>
                   ) : null}
                   <HorseRiskTags flags={item.horse?.riskFlags ?? []} limit={1} className="mt-2" />
+                  <p className="mt-2 text-[12px] leading-6 text-slate-600">{item.note}</p>
                 </div>
               </Element>
             );

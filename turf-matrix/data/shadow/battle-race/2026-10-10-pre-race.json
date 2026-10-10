@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-10T00:44:12.706Z",
+  "raceDate": "2026-10-10",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "010fdbebb7fb1468bad8359aaccdeb9d195a3d76fd975b42130635b2c0609b5d",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-de1fe283ecc5c4e2",
+      "sha256": "de1fe283ecc5c4e2c3efda688acc04131b101a1778c574e0c6053a87bdf420c6",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-7741a3843e463604",
+      "sha256": "7741a3843e46360452c5fdb2a1ffc0664e03fc30d9fca346d4eb67203081f22a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "a819fbace6c1316edd60b3922b0b4c84af19a1b2fcaf4cd4168ba1d7f4adb0d5",
+  "baseline": {
+    "date": "2026-10-10",
+    "raceId": "2026-10-10-京都-10R",
+    "bundleId": "2026-10-10-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "宇治川特別",
+    "scheduledTime": "14:50",
+    "axis": {
+      "number": 11,
+      "name": "マーゴットラヴミー",
+      "tmIndex": 84,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 2,
+        "name": "ノボリリア",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 1,
+        "name": "タガノアンファン",
+        "tmIndex": 77,
+        "selectionScore": 70.5
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 79.2,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 84,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 74.4,
+        "conditionFit": 76,
+        "opponentDepth": 75.2
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-10",
+    "raceId": "2026-10-10-京都-10R",
+    "bundleId": "2026-10-10-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "宇治川特別",
+    "scheduledTime": "14:50",
+    "axis": {
+      "number": 11,
+      "name": "マーゴットラヴミー",
+      "tmIndex": 84,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 2,
+        "name": "ノボリリア",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 1,
+        "name": "タガノアンファン",
+        "tmIndex": 77,
+        "selectionScore": 70.5
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 79.2,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 84,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 74.4,
+        "conditionFit": 76,
+        "opponentDepth": 75.2
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-10",
+      "raceId": "2026-10-10-京都-10R",
+      "bundleId": "2026-10-10-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "宇治川特別",
+      "scheduledTime": "14:50",
+      "axis": {
+        "number": 11,
+        "name": "マーゴットラヴミー",
+        "tmIndex": 84,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 2,
+          "name": "ノボリリア",
+          "tmIndex": 79,
+          "selectionScore": null
+        },
+        {
+          "number": 1,
+          "name": "タガノアンファン",
+          "tmIndex": 77,
+          "selectionScore": 70.5
+        }
+      ],
+      "indexGap": 5,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 79.2,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 84,
+          "indexGap": 5,
+          "gapStrength": 80,
+          "axisCore": 74.4,
+          "conditionFit": 76,
+          "opponentDepth": 75.2
+        }
+      }
+    }
+  ]
+}

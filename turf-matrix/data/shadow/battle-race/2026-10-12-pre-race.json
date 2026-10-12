@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-12T04:44:48.343Z",
+  "raceDate": "2026-10-12",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "aa72e6c0ffb11e82abc87b60325ed49099de92a3300cc73548f30e7de10d3f65",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-de1fe283ecc5c4e2",
+      "sha256": "de1fe283ecc5c4e2c3efda688acc04131b101a1778c574e0c6053a87bdf420c6",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-7741a3843e463604",
+      "sha256": "7741a3843e46360452c5fdb2a1ffc0664e03fc30d9fca346d4eb67203081f22a",
+      "fileCount": 6
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "956e8260104d53191549fa49b775d34b4554985d45248c920ea54cab14e398e7",
+  "baseline": {
+    "date": "2026-10-12",
+    "raceId": "2026-10-12-京都-9R",
+    "bundleId": "2026-10-12-kyoto-09R",
+    "track": "京都",
+    "raceNumber": 9,
+    "raceName": "蹴上特別",
+    "scheduledTime": "14:35",
+    "axis": {
+      "number": 12,
+      "name": "テイエムサンレーヴ",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 1,
+        "name": "イプシロンナンバー",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ゼンエスポワール",
+        "tmIndex": 75,
+        "selectionScore": 67
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 77,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 71.7,
+        "conditionFit": 75.5,
+        "opponentDepth": 72
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-12",
+    "raceId": "2026-10-12-京都-9R",
+    "bundleId": "2026-10-12-kyoto-09R",
+    "track": "京都",
+    "raceNumber": 9,
+    "raceName": "蹴上特別",
+    "scheduledTime": "14:35",
+    "axis": {
+      "number": 12,
+      "name": "テイエムサンレーヴ",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 1,
+        "name": "イプシロンナンバー",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ゼンエスポワール",
+        "tmIndex": 75,
+        "selectionScore": 67
+      }
+    ],
+    "indexGap": 5,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 77,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 5,
+        "gapStrength": 80,
+        "axisCore": 71.7,
+        "conditionFit": 75.5,
+        "opponentDepth": 72
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-12",
+      "raceId": "2026-10-12-京都-9R",
+      "bundleId": "2026-10-12-kyoto-09R",
+      "track": "京都",
+      "raceNumber": 9,
+      "raceName": "蹴上特別",
+      "scheduledTime": "14:35",
+      "axis": {
+        "number": 12,
+        "name": "テイエムサンレーヴ",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 1,
+          "name": "イプシロンナンバー",
+          "tmIndex": 76,
+          "selectionScore": null
+        },
+        {
+          "number": 5,
+          "name": "ゼンエスポワール",
+          "tmIndex": 75,
+          "selectionScore": 67
+        }
+      ],
+      "indexGap": 5,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 77,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 5,
+          "gapStrength": 80,
+          "axisCore": 71.7,
+          "conditionFit": 75.5,
+          "opponentDepth": 72
+        }
+      }
+    },
+    {
+      "date": "2026-10-12",
+      "raceId": "2026-10-12-京都-10R",
+      "bundleId": "2026-10-12-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "堀川特別",
+      "scheduledTime": "15:10",
+      "axis": {
+        "number": 9,
+        "name": "ミリタリータトゥー",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 5,
+          "name": "アクセス",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 2,
+          "name": "カムアップローゼス",
+          "tmIndex": 76,
+          "selectionScore": 70
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 76.2,
+          "conditionFit": 70,
+          "opponentDepth": 74.4
+        }
+      }
+    }
+  ]
+}

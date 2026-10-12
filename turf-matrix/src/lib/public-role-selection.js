@@ -75,6 +75,6 @@ export const selectPublicMarketMismatchHorse = (race) => hasCompletePublicDanger
 export const selectPublicDangerHorse = selectPublicDangerEvidenceHorse;
 
 export const selectPublicRoleHorses = (race) => ({
-  value: selectPublicValueHorse(race),
+  value: selectPublicFocusHorses(race).value[0] ?? null,
   danger: selectPublicDangerHorse(race),
 });

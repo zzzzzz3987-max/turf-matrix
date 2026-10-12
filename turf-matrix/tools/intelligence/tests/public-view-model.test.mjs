@@ -532,7 +532,9 @@ test("race conclusion selects each public role from fixed race data", () => {
     horses: [
       raceHorse({ id: "a", name: "本命馬", number: 1, score: 82, popularity: 1, factors: { ability: 88, course: 70, distance: 80 } }),
       raceHorse({ id: "b", name: "逆転馬", number: 2, score: 80, popularity: 3, factors: { ability: 82, course: 91 } }),
-      raceHorse({ id: "c", name: "穴馬", number: 3, score: 76, popularity: 6, factors: { distance: 86 }, value: { eligible: true, marketGap: 3 } }),
+      raceHorse({ id: "e", number: 5, score: 79, popularity: 4 }),
+      raceHorse({ id: "f", number: 6, score: 78, popularity: 5 }),
+      raceHorse({ id: "c", name: "穴馬", number: 3, score: 76, popularity: 8, factors: { distance: 86 }, value: { eligible: true, marketGap: 3 } }),
       raceHorse({ id: "d", name: "注意馬", number: 4, score: 72, popularity: 1, factors: { ability: 62, distance: 58 } }),
     ],
   });
@@ -544,7 +546,7 @@ test("race conclusion selects each public role from fixed race data", () => {
   assert.equal(result.key.value, "ハイペース × 前有利");
   assert.match(result.favorite.note, /地力の高さを高く評価。指数2位に2ポイント差/);
   assert.match(result.challenger.note, /今回コースへの適性は本命より高評価/);
-  assert.match(result.value.note, /指数3位ながら6人気。今回距離への適性が人気以上の評価を支える/);
+  assert.match(result.value.note, /指数5位ながら8人気。今回距離への適性が人気以上の評価を支える/);
   assert.match(result.danger.note, /今回距離への適性に不安/);
   assert.match(result.danger.note, /好走しないという断定ではありません/);
   assert.doesNotMatch(
@@ -595,6 +597,8 @@ test('value copy does not present a weak maximum factor as strong evidence', () 
   const result = buildRacePublicConclusion({ horses: [
     raceHorse({ id: 'a', number: 1, score: 85, popularity: 1 }),
     raceHorse({ id: 'b', number: 2, score: 83, popularity: 2 }),
+    raceHorse({ id: 'd', number: 4, score: 80, popularity: 3 }),
+    raceHorse({ id: 'e', number: 5, score: 78, popularity: 4 }),
     raceHorse({ id: 'c', number: 3, score: 75, popularity: 9, factors: { ability: 61, course: 66 }, value: { eligible: true, marketGap: 6 } }),
   ] });
   assert.match(result.value.note, /強い好走材料は限定的/);

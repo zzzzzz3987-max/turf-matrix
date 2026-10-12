@@ -5,14 +5,13 @@ import { dirname, isAbsolute, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import {
   evidenceOpponent,
-  horseKey,
   indexRanking,
   isFiniteNumber,
   leaderState,
   scoreOf,
   valueOf,
-  valueWatch,
 } from "./race-signal-selection.mjs";
+import { selectPublicFocusHorses } from "../src/lib/public-role-selection.js";
 import {
   BATTLE_MIN_GAP,
   BATTLE_MIN_INDEX,
@@ -78,8 +77,7 @@ const buildSignal = (race) => {
   const indexSecond = hasComparableScores ? ranked[1] ?? null : null;
   const selectedEvidence = hasComparableScores ? evidenceOpponent(race) : null;
   const secondOpponent = selectedEvidence?.horse ?? null;
-  const excluded = new Set([indexTop, indexSecond, secondOpponent].filter(Boolean).map(horseKey));
-  const watchHorse = valueWatch(race, excluded);
+  const watchHorse = selectPublicFocusHorses(race).value[0] ?? null;
 
   const signal = {
     id: race.id,

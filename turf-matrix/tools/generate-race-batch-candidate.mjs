@@ -101,7 +101,9 @@ const races = normalized.races.map((bundle) => {
     race.goingUpdatedAt = null;
     race.trackBias = null;
   }
-  const oddsStatus = bundle.source.odds.status === "partial"
+  const hasPartialOdds = bundle.horses.some((horse) => Number.isFinite(horse.odds?.winOdds))
+    && bundle.horses.some((horse) => !Number.isFinite(horse.odds?.winOdds));
+  const oddsStatus = bundle.source.odds.status === "partial" || hasPartialOdds
     ? "partial"
     : bundle.productionReady
       ? "active"
@@ -140,7 +142,13 @@ const races = normalized.races.map((bundle) => {
       coatColor: horse.currentRace.coatColor,
       odds: horse.odds?.winOdds ?? null,
       popularity: horse.odds?.popularity ?? null,
-      oddsDetail: horse.odds,
+      oddsDetail: horse.odds ?? (hasPartialOdds ? {
+        horseName: horse.horseName,
+        horseNumber: horse.horseNumber,
+        winOdds: null,
+        popularity: null,
+        status: "missing",
+      } : null),
       tmIndex: intelligence.tmIndex,
       tmValue: intelligence.tmValue,
       comment: intelligence.comment,

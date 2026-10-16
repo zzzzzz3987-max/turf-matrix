@@ -2374,7 +2374,7 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
         </p>
       )}
       {/* Hero */}
-      <section className="tm-feature relative mt-6 border-y border-slate-200 px-4 pb-6 pt-5 md:mt-8 md:px-7">
+      <section className="tm-feature relative mt-6 rounded-[18px] border border-slate-200 px-4 pb-6 pt-5 md:mt-8 md:px-7">
         <div className="relative">
           {featuredRace ? (
             <>

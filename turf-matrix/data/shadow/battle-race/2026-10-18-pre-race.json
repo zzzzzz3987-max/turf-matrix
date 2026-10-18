@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-18T00:33:45.810Z",
+  "raceDate": "2026-10-18",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "1c4b371427f5af2c3a4504ef6af94fe64e807d452b858e34c733e6c2dd7499f5",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-629333067ac3de43",
+      "sha256": "629333067ac3de432dd6d24c9f1280bcf262b9baff470d27027828c867b5de94",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-a39be406e6585c33",
+      "sha256": "a39be406e6585c33b646e26f33c056aa31dd33cf56659a49ab046d317007b91f",
+      "fileCount": 9
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "9a7aeea126417236f916a970338f540d5f8ede5fa9d8609c0b6aae45b85e3e1e",
+  "baseline": {
+    "date": "2026-10-18",
+    "raceId": "2026-10-18-東京-12R",
+    "bundleId": "2026-10-18-tokyo-12R",
+    "track": "東京",
+    "raceNumber": 12,
+    "raceName": "甲斐路ステークス",
+    "scheduledTime": "16:10",
+    "axis": {
+      "number": 14,
+      "name": "ベストミーエヴァー",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 4,
+        "name": "ソルトブリーズ",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ラブリージャブリー",
+        "tmIndex": 79,
+        "selectionScore": 69.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 72,
+        "conditionFit": 80,
+        "opponentDepth": 74.8
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-18",
+    "raceId": "2026-10-18-東京-12R",
+    "bundleId": "2026-10-18-tokyo-12R",
+    "track": "東京",
+    "raceNumber": 12,
+    "raceName": "甲斐路ステークス",
+    "scheduledTime": "16:10",
+    "axis": {
+      "number": 14,
+      "name": "ベストミーエヴァー",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 4,
+        "name": "ソルトブリーズ",
+        "tmIndex": 79,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ラブリージャブリー",
+        "tmIndex": 79,
+        "selectionScore": 69.75
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 72,
+        "conditionFit": 80,
+        "opponentDepth": 74.8
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-18",
+      "raceId": "2026-10-18-新潟-10R",
+      "bundleId": "2026-10-18-niigata-10R",
+      "track": "新潟",
+      "raceNumber": 10,
+      "raceName": "飛翼特別",
+      "scheduledTime": "14:35",
+      "axis": {
+        "number": 13,
+        "name": "カレンデュラ",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 1,
+          "name": "レジーナローズ",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 17,
+          "name": "ウーマンズパワー",
+          "tmIndex": 75,
+          "selectionScore": 69.25
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 74.2,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 70.5,
+          "conditionFit": 75,
+          "opponentDepth": 73.5
+        }
+      }
+    },
+    {
+      "date": "2026-10-18",
+      "raceId": "2026-10-18-東京-12R",
+      "bundleId": "2026-10-18-tokyo-12R",
+      "track": "東京",
+      "raceNumber": 12,
+      "raceName": "甲斐路ステークス",
+      "scheduledTime": "16:10",
+      "axis": {
+        "number": 14,
+        "name": "ベストミーエヴァー",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 4,
+          "name": "ソルトブリーズ",
+          "tmIndex": 79,
+          "selectionScore": null
+        },
+        {
+          "number": 5,
+          "name": "ラブリージャブリー",
+          "tmIndex": 79,
+          "selectionScore": 69.75
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 75.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 72,
+          "conditionFit": 80,
+          "opponentDepth": 74.8
+        }
+      }
+    }
+  ]
+}

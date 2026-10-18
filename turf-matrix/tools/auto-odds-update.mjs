@@ -4,6 +4,7 @@ import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { buildFullRaceRuntimeConfig, buildOddsSnapshotSchedule } from "./odds-snapshot-schedule.mjs";
+import { preserveCompletedPool } from "./odds-field-size.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -316,6 +317,11 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath
     runNode("tools/normalizers/race-batch.mjs");
     runNode("tools/generate-race-batch-candidate.mjs");
     const candidate = readJson(CANDIDATE_PATH, null);
+    const previous = readJson(WEEK_DATA_PATH, null);
+    candidate.races = candidate.races.map(race => preserveCompletedPool(
+      race, previous?.races?.find(entry => entry.id === race.id),
+    ));
+    writeJson(CANDIDATE_PATH, candidate);
     for (const dueRace of dueRaces) {
       const race = (candidate?.races ?? []).find((entry) => entry.id === dueRace.id);
       if (!race) throw new Error(`Due race was not found in the candidate: ${dueRace.id}`);

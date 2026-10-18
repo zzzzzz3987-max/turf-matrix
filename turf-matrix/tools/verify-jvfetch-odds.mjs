@@ -2,6 +2,7 @@
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { oddsFieldSizeIssue } from "./odds-field-size.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -106,7 +107,9 @@ const fieldSizes = (raceDate) => {
   if (!selectedPath) return new Map();
   const week = JSON.parse(readFileSync(selectedPath, "utf8"));
   return new Map(
-    (week.races ?? []).map((race) => [`${race.track}|${race.number}`, race.horses?.length ?? race.fieldSize ?? 0]),
+    (week.races ?? []).map((race) => [`${race.track}|${race.number}`, {
+      size: race.horses?.length ?? race.fieldSize ?? 0, time: race.time,
+    }]),
   );
 };
 
@@ -140,11 +143,12 @@ const main = () => {
     const raceRows = grouped.get(key) ?? [];
     const duplicateHorseNumbers = duplicates(raceRows.map((row) => row.horseNumber));
     const duplicatePopularities = duplicates(raceRows.map((row) => row.popularity));
-    const expectedSize = sizes.get(key);
+    const expectedRace = sizes.get(key);
+    const expectedSize = expectedRace?.size;
     if (!raceRows.length) failures.push(`${race.track}${race.raceNo}R: odds rows are missing`);
-    if (expectedSize && raceRows.length !== expectedSize) {
-      failures.push(`${race.track}${race.raceNo}R: expected ${expectedSize} rows but got ${raceRows.length}`);
-    }
+    const sizeIssue = oddsFieldSizeIssue({ expectedSize, rows: raceRows, raceDate: race.date, time: expectedRace?.time });
+    if (sizeIssue) (sizeIssue.severity === "warning" ? warnings : failures)
+      .push(`${race.track}${race.raceNo}R: ${sizeIssue.message}${sizeIssue.severity === "warning" ? " (completed closed pool; missing rows remain unavailable)" : ""}`);
     if (duplicateHorseNumbers.length) failures.push(`${race.track}${race.raceNo}R: duplicate horse numbers ${duplicateHorseNumbers.join(", ")}`);
     for (const popularity of duplicatePopularities) {
       const tiedRows = raceRows.filter((row) => row.popularity === popularity && Number.isFinite(row.winOdds));

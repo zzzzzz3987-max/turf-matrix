@@ -1,0 +1,243 @@
+{
+  "source": "tools/week-data.json at ab3b9e7; display-copy regression examples only",
+  "races": [
+    {
+      "id": "2026-10-24-京都-11R",
+      "track": "京都",
+      "surface": "芝",
+      "distance": 1800,
+      "fieldSize": 16,
+      "name": "カシオペアステークス",
+      "raceContext": {
+        "paceScenario": {
+          "expectedPace": "標準",
+          "counts": {
+            "逃げ": 1,
+            "先行": 6,
+            "差し": 6,
+            "追込": 3,
+            "不明": 0
+          }
+        }
+      },
+      "horses": [
+        {
+          "id": "2610241104",
+          "name": "ナムラエイハブ",
+          "number": 4,
+          "pastRuns": [
+            {
+              "date": "2026-10-12",
+              "course": "東京",
+              "raceNumber": 11,
+              "raceName": "オクトーバーＳ",
+              "surface": "芝",
+              "distance": 2000,
+              "fieldSize": 18,
+              "finishPosition": 13,
+              "confirmedFinishPosition": 13,
+              "passingOrder": [
+                null,
+                18,
+                17,
+                17
+              ],
+              "last3F": 34.5,
+              "margin": 1.2,
+              "timeSeconds": 119.3
+            },
+            {
+              "date": "2026-07-19",
+              "course": "小倉",
+              "raceNumber": 11,
+              "raceName": "小倉記念G3",
+              "surface": "芝",
+              "distance": 2000,
+              "fieldSize": 18,
+              "finishPosition": 5,
+              "confirmedFinishPosition": 5,
+              "passingOrder": [
+                3,
+                3,
+                3,
+                3
+              ],
+              "last3F": 35.7,
+              "margin": 0.4,
+              "timeSeconds": 118.4
+            },
+            {
+              "date": "2026-06-13",
+              "course": "東京",
+              "raceNumber": 11,
+              "raceName": "ジューンステークス",
+              "surface": "芝",
+              "distance": 1800,
+              "fieldSize": 13,
+              "finishPosition": 9,
+              "confirmedFinishPosition": 9,
+              "passingOrder": [
+                null,
+                2,
+                2,
+                2
+              ],
+              "last3F": 34.5,
+              "margin": 0.6,
+              "timeSeconds": 106.6
+            }
+          ],
+          "analysis": {
+            "factorsDetail": {
+              "pace": {
+                "status": "active",
+                "score": 73,
+                "calculation": {
+                  "style": "先行",
+                  "expectedPace": "標準",
+                  "paceAdjustment": 1
+                },
+                "contextFit": {
+                  "frame": "inner"
+                },
+                "historicalFlow": {
+                  "runs": [
+                    {
+                      "date": "2026-07-19",
+                      "course": "小倉",
+                      "raceNumber": 11,
+                      "finishPosition": 5,
+                      "shape": "neutral",
+                      "shapeConfidence": "high",
+                      "first3F": 34.5,
+                      "last3F": 35.7
+                    },
+                    {
+                      "date": "2026-06-13",
+                      "course": "東京",
+                      "raceNumber": 11,
+                      "finishPosition": 9,
+                      "shape": "neutral",
+                      "shapeConfidence": "high",
+                      "first3F": 36.6,
+                      "last3F": 34.1
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2026-10-24-東京-11R",
+      "track": "東京",
+      "surface": "芝",
+      "distance": 1600,
+      "fieldSize": 13,
+      "name": "アルテミスステークス",
+      "raceContext": {
+        "paceScenario": {
+          "expectedPace": "標準",
+          "counts": {
+            "逃げ": 2,
+            "先行": 2,
+            "差し": 8,
+            "追込": 1,
+            "不明": 0
+          }
+        }
+      },
+      "horses": [
+        {
+          "id": "2610241102",
+          "name": "マリアンデール",
+          "number": 2,
+          "pastRuns": [
+            {
+              "date": "2026-09-21",
+              "course": "阪神",
+              "raceNumber": 2,
+              "raceName": null,
+              "surface": "芝",
+              "distance": 1600,
+              "fieldSize": 10,
+              "finishPosition": 1,
+              "confirmedFinishPosition": 1,
+              "passingOrder": [
+                null,
+                null,
+                7,
+                5
+              ],
+              "last3F": 34.1,
+              "margin": 0,
+              "timeSeconds": 94.3
+            },
+            {
+              "date": "2026-07-25",
+              "course": "新潟",
+              "raceNumber": 3,
+              "raceName": null,
+              "surface": "芝",
+              "distance": 1600,
+              "fieldSize": 8,
+              "finishPosition": 3,
+              "confirmedFinishPosition": 3,
+              "passingOrder": [
+                null,
+                null,
+                8,
+                8
+              ],
+              "last3F": 32.3,
+              "margin": 0.1,
+              "timeSeconds": 96.8
+            }
+          ],
+          "analysis": {
+            "factorsDetail": {
+              "pace": {
+                "status": "active",
+                "score": 72,
+                "calculation": {
+                  "style": "追込",
+                  "expectedPace": "標準",
+                  "paceAdjustment": 0
+                },
+                "contextFit": {
+                  "frame": "inner"
+                },
+                "historicalFlow": {
+                  "runs": [
+                    {
+                      "date": "2026-09-21",
+                      "course": "阪神",
+                      "raceNumber": 2,
+                      "finishPosition": 1,
+                      "shape": "neutral",
+                      "shapeConfidence": "high",
+                      "first3F": null,
+                      "last3F": null
+                    },
+                    {
+                      "date": "2026-07-25",
+                      "course": "新潟",
+                      "raceNumber": 3,
+                      "finishPosition": 3,
+                      "shape": "front_survival",
+                      "shapeConfidence": "high",
+                      "first3F": 38,
+                      "last3F": 33
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

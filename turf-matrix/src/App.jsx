@@ -1,5 +1,7 @@
 ﻿import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { createPortal } from "react-dom";
+import { ReaderHome, ReaderRace, prepareReaderRace } from "./components/ReaderExperience.jsx";
+import "./reader-experience.css";
 import { adaptWeekDataPayload, dataMode, loadWeekData } from "./data/week-data-loader.js";
 import embeddedAllRaceSignals from "../tools/all-race-signals.json";
 import { startLiveDataRefresh } from "./data/live-data-refresh.js";
@@ -642,10 +644,10 @@ const OfficialLogo = ({ className = "" }) => (
 );
 
 const Header = ({ onHome, meta }) => (
-  <header className="sticky top-0 z-40 border-b border-[#E5E7EB] bg-white/70 backdrop-blur-xl">
+  <header className="tm-header">
     <div className="mx-auto flex h-11 max-w-5xl items-center justify-between px-2.5 sm:px-5">
       <button onClick={onHome} className="flex min-w-0 items-center" aria-label="トップへ戻る">
-        <OfficialLogo />
+        <span className="tm-wordmark">TURF <span>MATRIX</span></span>
       </button>
       <div className="flex items-center gap-2 text-[11px] font-semibold text-[#9AA4B2]">
         {meta ? (
@@ -684,7 +686,7 @@ const GlossaryModal = ({ onClose }) => {
   }, [onClose]);
 
   return createPortal(
-    <div className="fixed inset-0 z-[70] bg-slate-900/15 px-3 py-4 sm:px-5" role="dialog" aria-modal="true" aria-label="用語集">
+    <div className="tm-app tm-glossary fixed inset-0 z-[70] bg-slate-900/15 px-3 py-4 sm:px-5" role="dialog" aria-modal="true" aria-label="用語集">
       <div className="mx-auto flex h-full max-w-3xl flex-col overflow-hidden rounded-[18px] border border-gray-200 bg-white shadow-sm">
         <div className="flex shrink-0 items-center justify-between border-b border-gray-200 px-5 py-4">
           <div>
@@ -1529,7 +1531,7 @@ const HorseDataPreviewContent = ({ horse }) => {
   );
 };
 
-const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false, detailedDiagnosis = true }) => {
+const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false, detailedDiagnosis = true, hideQuickRead = false }) => {
   const a = horse.analysis;
   const opponentRows = buildAbilityPublicEvidence(horse);
   if (!isEvaluatedHorse(horse) || !a?.factors) return <HorseDataPreviewContent horse={horse} />;
@@ -1580,13 +1582,13 @@ const HorseDetailContent = ({ horse, rank, fieldSize, ev, compactHeader = false,
           </>
         ) : null}
 
-        <HorseQuickRead horse={horse} compact={compactHeader} />
+        {!hideQuickRead ? <HorseQuickRead horse={horse} compact={compactHeader} /> : null}
       </section>
 
       {!detailedDiagnosis ? null : (
       <>
 
-      <details className="group/evidence mt-4 border-t border-gray-200" data-testid="horse-evidence">
+      <details className="group/evidence mt-4 border-t border-gray-200" data-testid="horse-evidence" open={hideQuickRead || undefined}>
         <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 py-3 text-[13px] font-bold text-slate-950 focus-visible:outline-blue-500 [&::-webkit-details-marker]:hidden">
           分析の根拠
           <ChevronDown size={16} className="shrink-0 text-slate-400 transition-transform group-open/evidence:rotate-180" />
@@ -2311,7 +2313,7 @@ const sortRaceByTime = (a, b) =>
   String(a.track ?? "").localeCompare(String(b.track ?? ""), "ja") ||
   Number(a.number ?? 0) - Number(b.number ?? 0);
 
-const HomePage = ({ onOpenRace, dataRevision }) => {
+const ClassicHomePage = ({ onOpenRace, dataRevision }) => {
   const [meta, setMeta] = useState(null);
   const [races, setRaces] = useState(null);
   const [ranking, setRanking] = useState(null);
@@ -2755,7 +2757,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
 };
 
 /* ---- レース詳細ページ ---- */
-const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
+const ClassicRacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
   const [race, setRace] = useState(null);
   const [expandedId, setExpandedId] = useState(null); // PC: インライン展開
   const [sheetHorse, setSheetHorse] = useState(null); // モバイル: ボトムシート
@@ -2998,6 +3000,41 @@ const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
  * [7] App — 状態ベースの簡易ルーティング
  * 将来: Next.js の / と /race/[id] にそのまま対応
  * ===================================================================== */
+const HomePage = ({ onOpenRace, dataRevision }) => {
+  const [week, setWeek] = useState(null);
+  useEffect(() => {
+    let active = true;
+    WEEK_DATA_PROMISE.then((next) => { if (active) setWeek(next); });
+    return () => { active = false; };
+  }, [dataRevision]);
+  const races = useMemo(() => (week?.races ?? []).filter(r => r.displayTarget !== false).map(prepareReaderRace), [week]);
+  if (!week) return <main className="tm-modern"><p role="status">読み込み中…</p></main>;
+  const signals = week.meta?.date === currentAllRaceSignals.date ? currentAllRaceSignals : null;
+  const battle = signals?.races?.find(r => r.id === signals.battleRaceId);
+  return <ReaderHome meta={week.meta} races={races} signals={signals} onOpenRace={onOpenRace}>
+    <div className="tm-existing-panels"><BattleRacePanel race={battle} onOpen={onOpenRace} /></div>
+  </ReaderHome>;
+};
+
+const RacePage = ({ raceId, initialHorseId, onBack, dataRevision }) => {
+  const [race, setRace] = useState(null);
+  const [advancedHorse, setAdvancedHorse] = useState(initialHorseId);
+  useEffect(() => {
+    let active = true;
+    dataProvider.getRace(raceId).then(next => { if (active) setRace(next); });
+    return () => { active = false; };
+  }, [raceId, dataRevision]);
+  const prepared = useMemo(() => prepareReaderRace(race), [race]);
+  if (!prepared) return <main className="tm-modern"><button className="back" onClick={onBack}>レース一覧</button><p role="status">読み込み中…</p></main>;
+  return <ReaderRace race={prepared} initialHorseId={advancedHorse} onBack={onBack}
+    renderExtra={horse => <HorseDetailContent horse={horse} rank={rankByScore(race.horses)[horse.id]} fieldSize={race.fieldSize} ev={valueMetricsFor(horse)} compactHeader hideQuickRead />}>
+    <div className="tm-existing-panels">
+      <RaceConclusionPanel conclusion={buildRacePublicConclusion(race)} updateDiff={race.updateDiff} onSelectHorse={horseId => { setAdvancedHorse(horseId); document.querySelector('.analysis-section')?.scrollIntoView({block:'start'}); }} />
+    </div>
+    <button className="back" onClick={onBack}><ChevronLeft size={18}/>レース一覧へ戻る</button>
+  </ReaderRace>;
+};
+
 export default function App() {
   const [route, setRoute] = useState({ page: "home" });
   const [meta, setMeta] = useState(null);

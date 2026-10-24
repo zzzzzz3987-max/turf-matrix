@@ -51,34 +51,34 @@
     "to": "2026-09-13"
   },
   "validation": {
-    "splitDate": "2026-06-06",
-    "trainingRaceCount": 2453,
-    "validationRaceCount": 1091,
-    "trainingObservationCount": 33170,
-    "validationObservationCount": 13032,
-    "evaluatedObservationCount": 13032,
+    "splitDate": "2026-06-28",
+    "trainingRaceCount": 2680,
+    "validationRaceCount": 1135,
+    "trainingObservationCount": 36183,
+    "validationObservationCount": 10019,
+    "evaluatedObservationCount": 10019,
     "coverage": 1,
-    "baselineBrier": 0.1742,
-    "adjustedBrier": 0.1746,
+    "baselineBrier": 0.1756,
+    "adjustedBrier": 0.176,
     "positive": {
-      "sampleSize": 4677,
-      "placedCount": 1108,
-      "hitRate": 0.2369,
-      "meanExpectedRate": 0.2486
+      "sampleSize": 3401,
+      "placedCount": 799,
+      "hitRate": 0.2349,
+      "meanExpectedRate": 0.2503
     },
     "negative": {
-      "sampleSize": 4607,
-      "placedCount": 1038,
-      "hitRate": 0.2253,
-      "meanExpectedRate": 0.1916
+      "sampleSize": 3760,
+      "placedCount": 854,
+      "hitRate": 0.2271,
+      "meanExpectedRate": 0.1882
     },
     "byLevel": {
-      "course_surface_distance_field": 8065,
-      "course_surface_field": 594,
-      "course_surface_distance": 542,
-      "surface_distance_field": 3729,
+      "course_surface_distance_field": 6751,
+      "course_surface_field": 674,
+      "course_surface_distance": 501,
+      "surface_distance_field": 2062,
       "course_surface": 0,
-      "surface_field": 102,
+      "surface_field": 31,
       "surface_distance": 0,
       "surface": 0,
       "global": 0
@@ -14052,7 +14052,7 @@
       }
     }
   },
-  "generatedAt": "2026-09-25T13:15:57.334Z",
+  "generatedAt": "2026-10-24T11:32:15.338Z",
   "sourceFile": "data/master/race-shape-history.json",
-  "sourceSha256": "01d81a378890ac51583c02148b0628f201a5880155f7b49a12fc792c6f4a2004"
+  "sourceSha256": "f4cd0c302be32ad04ee0697210166ea8bee8849f378cc34102e9c19662ddb4ed"
 }

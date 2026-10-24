@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-24T11:34:03.076Z",
+  "raceDate": "2026-10-25",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "85aeb8de74b2ea0de66e694115db64c38630ae8d18790c2fff791b3c76548787",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-55de291153c4e387",
+      "sha256": "55de291153c4e38788d7d6f7f14fb9968b66dae692937947c93bf506630fcadc",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-61fdf98e1e939592",
+      "sha256": "61fdf98e1e9395927a7544acc011e90eadc9e3be9d185dc1baafa2b971f898f3",
+      "fileCount": 9
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "f31ffff48157d422b50ad3c3546abed9796312fc8f04b0c9b5e11d9733f925dc",
+  "baseline": {
+    "date": "2026-10-25",
+    "raceId": "2026-10-25-京都-9R",
+    "bundleId": "2026-10-25-kyoto-09R",
+    "track": "京都",
+    "raceNumber": 9,
+    "raceName": "萩ステークス",
+    "scheduledTime": "14:25",
+    "axis": {
+      "number": 8,
+      "name": "ブレイクガール",
+      "tmIndex": 80,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 7,
+        "name": "イッペイ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 4,
+        "name": "ヴァンクライ",
+        "tmIndex": 74,
+        "selectionScore": 80
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 74.6,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 80,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.3,
+        "conditionFit": 69.5,
+        "opponentDepth": 78.3
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-25",
+    "raceId": "2026-10-25-京都-11R",
+    "bundleId": "2026-10-25-kyoto-11R",
+    "track": "京都",
+    "raceNumber": 11,
+    "raceName": "菊花賞",
+    "scheduledTime": "15:40",
+    "axis": {
+      "number": 8,
+      "name": "ロブチェン",
+      "tmIndex": 80,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 10,
+        "name": "ダノンヒストリー",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 9,
+        "name": "ゴーイントゥスカイ",
+        "tmIndex": 76,
+        "selectionScore": 71.5
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 74.7,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 80,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 76.5,
+        "conditionFit": 66,
+        "opponentDepth": 74.5
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-25",
+      "raceId": "2026-10-25-京都-9R",
+      "bundleId": "2026-10-25-kyoto-09R",
+      "track": "京都",
+      "raceNumber": 9,
+      "raceName": "萩ステークス",
+      "scheduledTime": "14:25",
+      "axis": {
+        "number": 8,
+        "name": "ブレイクガール",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 7,
+          "name": "イッペイ",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 4,
+          "name": "ヴァンクライ",
+          "tmIndex": 74,
+          "selectionScore": 80
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 74.6,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 71.3,
+          "conditionFit": 69.5,
+          "opponentDepth": 78.3
+        }
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "raceId": "2026-10-25-東京-10R",
+      "bundleId": "2026-10-25-tokyo-10R",
+      "track": "東京",
+      "raceNumber": 10,
+      "raceName": "山中湖特別",
+      "scheduledTime": "14:45",
+      "axis": {
+        "number": 2,
+        "name": "クライスレリアーナ",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 9,
+          "name": "コスモイシュタル",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 8,
+          "name": "スタニングヴュー",
+          "tmIndex": 75,
+          "selectionScore": 68
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 74.3,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 70.3,
+          "conditionFit": 76.5,
+          "opponentDepth": 73
+        }
+      }
+    },
+    {
+      "date": "2026-10-25",
+      "raceId": "2026-10-25-京都-11R",
+      "bundleId": "2026-10-25-kyoto-11R",
+      "track": "京都",
+      "raceNumber": 11,
+      "raceName": "菊花賞",
+      "scheduledTime": "15:40",
+      "axis": {
+        "number": 8,
+        "name": "ロブチェン",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 10,
+          "name": "ダノンヒストリー",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 9,
+          "name": "ゴーイントゥスカイ",
+          "tmIndex": 76,
+          "selectionScore": 71.5
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 74.7,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 76.5,
+          "conditionFit": 66,
+          "opponentDepth": 74.5
+        }
+      }
+    }
+  ]
+}

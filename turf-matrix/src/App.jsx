@@ -35,7 +35,7 @@ import {
 import {
   Dumbbell, LayoutGrid, Dna, TrendingUp, Clock,
   ChevronDown, ChevronLeft, X, Star, ChevronRight,
-  ShieldAlert, KeyRound,
+  ShieldAlert, KeyRound, Trophy,
 } from "lucide-react";
 
 const EMBEDDED_DATA_VERSION = __TURF_MATRIX_DATA_VERSION__;
@@ -2563,7 +2563,7 @@ const RaceUpdatePanel = ({ updateDiff }) => {
   const currentTime = formatPublicUpdateTime(updateDiff.currentUpdatedAt);
 
   return (
-    <div className="border-t border-slate-200 bg-[#F8FBFC] px-4 py-4 md:px-5">
+    <div className="tm-race-update border-t border-slate-200 px-4 py-4 md:px-5">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <div className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-[#00A9B8]" aria-hidden="true" />
@@ -2614,17 +2614,17 @@ const RolePerformancePanel = ({ performance }) => {
   if (!value?.sampleSize && !danger?.sampleSize) return null;
 
   return (
-    <details className="group border-t border-slate-200 bg-[#F8FBFC]">
+    <details className="tm-role-performance group border-t border-slate-200">
       <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-left md:px-5 [&::-webkit-details-marker]:hidden">
         <span>
-          <span className="block text-[12px] font-bold text-slate-900">注目穴・危険な人気馬の過去検証</span>
-          <span className="mt-0.5 block text-[10px] font-medium text-slate-500">成績と検証方法を見る</span>
+          <span className="block text-[12px] font-bold text-slate-900">注目穴・危険な人気馬の過去成績</span>
+          <span className="mt-0.5 block text-[10px] font-medium text-slate-500">成績と集計方法を見る</span>
         </span>
         <ChevronDown size={15} strokeWidth={1.8} className="shrink-0 text-slate-400 transition-transform group-open:rotate-180" aria-hidden="true" />
       </summary>
       <div className="grid border-t border-slate-200 sm:grid-cols-2">
         <div className="px-4 py-4 sm:border-r sm:border-slate-200 md:px-5">
-          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#008C99]">
+          <div className="tm-role-value-caption flex items-center gap-1.5 text-[11px] font-bold">
             <Star size={13} strokeWidth={1.8} aria-hidden="true" />
             注目穴
           </div>
@@ -2645,7 +2645,7 @@ const RolePerformancePanel = ({ performance }) => {
           <p className="mt-2 text-[10px] font-medium text-slate-400"><Num>{value?.topThree ?? 0}</Num>/<Num>{value?.sampleSize ?? 0}</Num>頭が3着以内</p>
         </div>
         <div className="border-t border-slate-200 px-4 py-4 sm:border-t-0 md:px-5">
-          <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#B7791F]">
+          <div className="tm-role-danger-caption flex items-center gap-1.5 text-[11px] font-bold">
             <ShieldAlert size={13} strokeWidth={1.8} aria-hidden="true" />
             危険な人気馬
           </div>
@@ -2677,13 +2677,18 @@ const RolePerformancePanel = ({ performance }) => {
 
 const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
   if (!conclusion) return null;
+  const tiedLead = conclusion.favorite?.horse?.score != null
+    && conclusion.favorite.horse.score === conclusion.challenger?.horse?.score;
   const items = [
-    { key: "danger", label: "危険な人気馬", icon: ShieldAlert, tone: "text-[#B7791F]" },
-    { key: "marketMismatch", label: "人気先行（指数比較）", icon: ShieldAlert, tone: "text-slate-500" },
+    { key: "favorite", label: tiedLead ? "指数1位タイ" : "指数1位", icon: Trophy },
+    { key: "challenger", label: "相手候補", icon: TrendingUp },
+    { key: "value", label: "注目穴", icon: Star },
+    { key: "danger", label: "危険な人気馬", icon: ShieldAlert },
+    { key: "marketMismatch", label: "人気先行（指数比較）", icon: ShieldAlert },
   ];
 
   return (
-    <section className="mt-8" aria-labelledby="race-conclusion-title">
+    <section className="tm-race-conclusion mt-8" aria-labelledby="race-conclusion-title">
       <div className="flex flex-col gap-1 md:flex-row md:items-end md:justify-between md:gap-6">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.28em] text-[#00A9B8]">Race Verdict</div>
@@ -2694,27 +2699,26 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
       <div className="mt-4 overflow-hidden border-y border-slate-200 bg-white">
         <p className="px-4 pb-3 text-[12px] leading-relaxed text-slate-600 md:px-5">{conclusion.summary}</p>
         <div className="grid grid-cols-1">
-          {items.filter(({ key }) => conclusion[key]?.horse?.id || conclusion[key]?.status === "pending").map(({ key, label, icon: Icon, tone }) => {
+          {items.filter(({ key }) => key === "value" || conclusion[key]?.horse?.id || conclusion[key]?.status === "pending").map(({ key, label, icon: Icon }) => {
             const item = conclusion[key];
             const interactive = Boolean(item.horse?.id);
+            const horseName = key === "value" && !interactive ? "該当馬なし" : item.value;
             const Element = interactive ? "button" : "div";
             return (
               <Element
                 key={key}
                 {...(interactive ? { type: "button", onClick: () => onSelectHorse(item.horse.id) } : {})}
-                className={`tm-verdict tm-verdict-${key} min-w-0 border-b border-slate-200 px-3 py-4 text-left ${
-                  interactive ? "transition-colors hover:bg-[#F7FCFD] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#8EDFE4]" : ""
-                }`}
-                aria-label={interactive ? `${label} ${item.value}の分析を見る` : undefined}
+                className={`tm-verdict tm-verdict-${key} min-w-0 px-3 py-4 text-start`}
+                aria-label={interactive ? `${label} ${horseName}の分析を見る` : undefined}
               >
-                <div className={`flex items-center gap-1.5 text-[11px] font-bold ${tone}`}>
+                <div className="tm-verdict-label flex items-center gap-1.5 text-[11px] font-bold">
                   <Icon size={14} strokeWidth={1.8} aria-hidden="true" />
                   {label}
                 </div>
                 <div className="mt-3 min-w-0">
-                  <div className="min-w-0 break-words text-[15px] font-bold leading-snug text-slate-950">
+                  <div className="tm-verdict-name min-w-0 break-words text-[15px] font-bold leading-snug text-slate-950">
                     {item.horse?.number ? <Num className="mr-1 text-slate-500">{item.horse.number}</Num> : null}
-                    {item.value}
+                    <span className="tm-verdict-horse-name">{horseName}</span>
                   </div>
                   {item.horse?.score != null ? (
                     <div className="mt-1 flex items-baseline gap-1.5">
@@ -2729,7 +2733,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
             );
           })}
         </div>
-        <details className="group/more border-t border-slate-200 bg-[#F8FBFC]">
+        <details className="tm-conclusion-more group/more border-t border-slate-200">
           <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-semibold text-slate-700 md:px-5 [&::-webkit-details-marker]:hidden">
             <span>詳しい情報を見る</span>
             <ChevronDown size={15} className="shrink-0 text-slate-400 transition-transform group-open/more:rotate-180" aria-hidden="true" />
@@ -2741,7 +2745,7 @@ const RaceConclusionPanel = ({ conclusion, updateDiff, onSelectHorse }) => {
             </div>
             <RolePerformancePanel performance={rolePerformance} />
             {updateDiff?.events?.length ? (
-              <details className="group/updates border-t border-slate-200">
+              <details className="tm-conclusion-updates group/updates border-t border-slate-200">
                 <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-[12px] font-semibold text-slate-600 [&::-webkit-details-marker]:hidden">
                   前回からの変更
                   <ChevronDown size={15} className="shrink-0 transition-transform group-open/updates:rotate-180" />

@@ -164,6 +164,50 @@
 .tm-app footer { color: var(--muted); border-color: var(--line); }
 .tm-glossary.tm-app { background: oklch(0 0 none / .65); }
 .tm-app [class*="text-gray-7"],.tm-app [class*="text-gray-8"] { color: var(--muted); }
+
+.tm-app .tm-race-conclusion {
+  --verdict-highlight: oklch(.85 .045 235);
+  --verdict-warning: oklch(.82 .1 75);
+}
+.tm-app .tm-conclusion-more,
+.tm-app .tm-role-performance,
+.tm-app .tm-race-update {
+  background-color: var(--bg);
+  color: var(--text);
+}
+.tm-app .tm-race-conclusion .tm-verdict {
+  --verdict-accent: var(--text);
+  border-block-end: 1px solid var(--line);
+  border-radius: 0;
+  background-color: var(--bg);
+  color: var(--text);
+}
+.tm-app .tm-race-conclusion .tm-verdict-challenger { --verdict-accent: var(--muted); }
+.tm-app .tm-race-conclusion .tm-verdict-value { --verdict-accent: var(--verdict-highlight); }
+.tm-app .tm-race-conclusion .tm-verdict-danger { --verdict-accent: var(--verdict-warning); }
+.tm-app .tm-race-conclusion .tm-verdict-marketMismatch { --verdict-accent: var(--muted); }
+.tm-app .tm-race-conclusion .tm-verdict-label { color: var(--verdict-accent); font-size: 12px; }
+.tm-app .tm-race-conclusion .tm-verdict-name { font-size: 16px; overflow-wrap: anywhere; }
+.tm-app .tm-race-conclusion :is(.tm-conclusion-more,.tm-role-performance,.tm-conclusion-updates) > summary {
+  color: var(--text);
+  background-color: var(--bg);
+}
+.tm-app .tm-race-conclusion :is(.tm-conclusion-more,.tm-role-performance,.tm-conclusion-updates) > summary > svg { transform: none; rotate: 0deg; }
+.tm-app .tm-race-conclusion :is(.tm-conclusion-more,.tm-role-performance,.tm-conclusion-updates)[open] > summary > svg { rotate: 180deg; }
+.tm-app .tm-race-conclusion button:focus-visible { outline: 2px solid var(--verdict-highlight); outline-offset: -2px; }
+.tm-app .tm-race-conclusion button:active,
+.tm-app .tm-race-conclusion summary:active { background-color: color-mix(in oklch,var(--teal) 14%,var(--bg)); }
+.tm-app .tm-role-performance .tm-role-value-caption { color: var(--verdict-highlight); font-size: 13px; }
+.tm-app .tm-role-performance .tm-role-danger-caption { color: var(--verdict-warning); font-size: 13px; }
+.tm-app .tm-role-performance > summary > span > span:first-child { font-size: 14px; }
+.tm-app .tm-role-performance > summary > span > span + span { font-size: 12px; }
+.tm-app .tm-role-performance dt { color: var(--muted); font-size: 11px; }
+.tm-app .tm-role-performance dd { color: var(--text); font-size: 20px; }
+.tm-app .tm-role-performance p { color: var(--muted); font-size: 11px; }
+@media (hover:hover) and (pointer:fine) {
+  .tm-app .tm-race-conclusion button:hover,
+  .tm-app .tm-race-conclusion summary:hover { background-color: color-mix(in oklch,var(--teal) 8%,var(--bg)); }
+}
 @media (prefers-reduced-motion:no-preference) {
  .tm-modern .horse-picker-sheet[open] { animation: picker-enter 220ms cubic-bezier(.2,.8,.2,1); }
  @keyframes picker-enter { from { translate: 0 24px; opacity: 0; } to { translate: 0 0; opacity: 1; } }

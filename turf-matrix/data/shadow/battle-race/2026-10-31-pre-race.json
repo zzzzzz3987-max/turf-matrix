@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-10-30T14:09:19.873Z",
+  "raceDate": "2026-10-31",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "1dc110629a7ca635550d57f5fd867a485bf43b77cb0b68cfd63b9e3224ecb591",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-698f79cbaf8234f5",
+      "sha256": "698f79cbaf8234f5bb1809aca704e61daadaba3e560b5c4c1209a53b2f1a6ab4",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-61fdf98e1e939592",
+      "sha256": "61fdf98e1e9395927a7544acc011e90eadc9e3be9d185dc1baafa2b971f898f3",
+      "fileCount": 9
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "028b7782cb94a81f723beaf7444d6dad856638f3c84d814b7efdce3367d36b6e",
+  "baseline": {
+    "date": "2026-10-31",
+    "raceId": "2026-10-31-京都-10R",
+    "bundleId": "2026-10-31-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "ハロウィンステークス",
+    "scheduledTime": "15:10",
+    "axis": {
+      "number": 9,
+      "name": "システマソラー",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 10,
+        "name": "ブレトワルダ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 11,
+        "name": "ペンナヴェローチェ",
+        "tmIndex": 77,
+        "selectionScore": 69.75
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.4,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 70.4,
+        "conditionFit": 81,
+        "opponentDepth": 73.7
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-10-31",
+    "raceId": "2026-10-31-京都-10R",
+    "bundleId": "2026-10-31-kyoto-10R",
+    "track": "京都",
+    "raceNumber": 10,
+    "raceName": "ハロウィンステークス",
+    "scheduledTime": "15:10",
+    "axis": {
+      "number": 9,
+      "name": "システマソラー",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 10,
+        "name": "ブレトワルダ",
+        "tmIndex": 77,
+        "selectionScore": null
+      },
+      {
+        "number": 11,
+        "name": "ペンナヴェローチェ",
+        "tmIndex": 77,
+        "selectionScore": 69.75
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.4,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 70.4,
+        "conditionFit": 81,
+        "opponentDepth": 73.7
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-10-31",
+      "raceId": "2026-10-31-京都-10R",
+      "bundleId": "2026-10-31-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "ハロウィンステークス",
+      "scheduledTime": "15:10",
+      "axis": {
+        "number": 9,
+        "name": "システマソラー",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 10,
+          "name": "ブレトワルダ",
+          "tmIndex": 77,
+          "selectionScore": null
+        },
+        {
+          "number": 11,
+          "name": "ペンナヴェローチェ",
+          "tmIndex": 77,
+          "selectionScore": 69.75
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.4,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 70.4,
+          "conditionFit": 81,
+          "opponentDepth": 73.7
+        }
+      }
+    }
+  ]
+}

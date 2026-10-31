@@ -1,0 +1,681 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "public-role-evidence-shadow-v4",
+  "frozenAt": "2026-10-31T11:27:53.629Z",
+  "raceDate": "2026-11-01",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "futureRaceShapeJoinAllowed": false,
+    "historicalOfficialLapsUsed": true,
+    "marketUsedForEligibilityAndFinalTieBreakOnly": true,
+    "evUsedForRanking": false,
+    "abstentionAllowed": true,
+    "tmIndexChanged": false
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "9a5461e814aeacaff215aaf2cae4820402f85be12155f5344d5cd274dab9c6a8",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "5349630b9fc3e0d643c195c9ade3d62a1db006019088871103288b886ad191d4",
+    "historyRaceCount": 3874
+  },
+  "summary": {
+    "raceCount": 8,
+    "evidenceValueCount": 2,
+    "evidenceDangerCount": 5,
+    "valueAbstainedCount": 5,
+    "dangerAbstainedCount": 1,
+    "valueChangedCount": 5,
+    "dangerChangedCount": 1
+  },
+  "predictionSha256": "5059a528f3e1a6870480f7757442384aa964c4fc6309f76e2d26a9414729c84c",
+  "predictions": [
+    {
+      "raceId": "2026-11-01-東京-8R",
+      "bundleId": "2026-11-01-tokyo-08R",
+      "track": "東京",
+      "raceNumber": 8,
+      "raceName": "本栖湖特別",
+      "productionValue": null,
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-11-01-京都-9R",
+      "bundleId": "2026-11-01-kyoto-09R",
+      "track": "京都",
+      "raceNumber": 9,
+      "raceName": "愛宕特別",
+      "productionValue": {
+        "id": "2611010905",
+        "number": 5,
+        "name": "ニホンピロデヴィン",
+        "popularity": 6,
+        "tmIndex": 72,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2611010905",
+        "number": 5,
+        "name": "ニホンピロデヴィン",
+        "popularity": 6,
+        "tmIndex": 72,
+        "indexRank": 4
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-11-01-東京-9R",
+      "bundleId": "2026-11-01-tokyo-09R",
+      "track": "東京",
+      "raceNumber": 9,
+      "raceName": "紅葉ステークス",
+      "productionValue": {
+        "id": "2611010913",
+        "number": 13,
+        "name": "アルデトップガン",
+        "popularity": 11,
+        "tmIndex": 79,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2611010913",
+        "number": 13,
+        "name": "アルデトップガン",
+        "popularity": 11,
+        "tmIndex": 79,
+        "indexRank": 3
+      },
+      "evidenceValue": {
+        "id": "2611010913",
+        "number": 13,
+        "name": "アルデトップガン",
+        "popularity": 11,
+        "tmIndex": 79,
+        "indexRank": 3,
+        "marketGap": 9,
+        "qualityScore": 69.79,
+        "foundationScore": 68.95,
+        "conditionScore": 70.96,
+        "evidenceRoleQuality": 69.79,
+        "dangerStrength": null,
+        "supports": [
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [],
+        "protections": [
+          {
+            "key": "load",
+            "label": "重い斤量を克服済み",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 0,
+        "protectionPoints": 1,
+        "components": {
+          "opponentQuality": 56,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 2,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      },
+      "productionDanger": {
+        "id": "2611010911",
+        "number": 11,
+        "name": "サトミノキラリ",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 13
+      },
+      "paceDanger": {
+        "id": "2611010911",
+        "number": 11,
+        "name": "サトミノキラリ",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 13
+      },
+      "evidenceDanger": {
+        "id": "2611010911",
+        "number": 11,
+        "name": "サトミノキラリ",
+        "popularity": 3,
+        "tmIndex": 72,
+        "indexRank": 13,
+        "marketGap": -10,
+        "qualityScore": 64.41,
+        "foundationScore": 62.57,
+        "conditionScore": 66.95,
+        "evidenceRoleQuality": 64.41,
+        "dangerStrength": 52,
+        "supports": [
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 2,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 50,
+          "distanceDirection": 1,
+          "distanceTransition": 1,
+          "distanceCadence": -1,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-01-京都-10R",
+      "bundleId": "2026-11-01-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "古都ステークス",
+      "productionValue": {
+        "id": "2611011007",
+        "number": 7,
+        "name": "ウイナーズナイン",
+        "popularity": 6,
+        "tmIndex": 72,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2611011007",
+        "number": 7,
+        "name": "ウイナーズナイン",
+        "popularity": 6,
+        "tmIndex": 72,
+        "indexRank": 3
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2611011004",
+        "number": 4,
+        "name": "プレシャスデイ",
+        "popularity": 1,
+        "tmIndex": 68,
+        "indexRank": 6
+      },
+      "paceDanger": {
+        "id": "2611011008",
+        "number": 8,
+        "name": "ウィープディライト",
+        "popularity": 3,
+        "tmIndex": 66,
+        "indexRank": 7
+      },
+      "evidenceDanger": {
+        "id": "2611011008",
+        "number": 8,
+        "name": "ウィープディライト",
+        "popularity": 3,
+        "tmIndex": 66,
+        "indexRank": 7,
+        "marketGap": -4,
+        "qualityScore": 59.77,
+        "foundationScore": 57.49,
+        "conditionScore": 62.92,
+        "evidenceRoleQuality": 59.77,
+        "dangerStrength": 35,
+        "supports": [
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "距離条件に不安",
+            "severity": 2
+          },
+          {
+            "key": "cadence",
+            "label": "根幹・非根幹の適性に不安",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 6,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 46,
+          "distanceDirection": -1,
+          "distanceTransition": 0,
+          "distanceCadence": -2,
+          "load": 1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-01-東京-10R",
+      "bundleId": "2026-11-01-tokyo-10R",
+      "track": "東京",
+      "raceNumber": 10,
+      "raceName": "秋嶺ステークス",
+      "productionValue": {
+        "id": "2611011012",
+        "number": 12,
+        "name": "クインズデネブ",
+        "popularity": 9,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2611011012",
+        "number": 12,
+        "name": "クインズデネブ",
+        "popularity": 9,
+        "tmIndex": 75,
+        "indexRank": 4
+      },
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2611011007",
+        "number": 7,
+        "name": "オカメノコイ",
+        "popularity": 1,
+        "tmIndex": 69,
+        "indexRank": 7
+      },
+      "paceDanger": {
+        "id": "2611011007",
+        "number": 7,
+        "name": "オカメノコイ",
+        "popularity": 1,
+        "tmIndex": 69,
+        "indexRank": 7
+      },
+      "evidenceDanger": {
+        "id": "2611011007",
+        "number": 7,
+        "name": "オカメノコイ",
+        "popularity": 1,
+        "tmIndex": 69,
+        "indexRank": 7,
+        "marketGap": -6,
+        "qualityScore": 62.98,
+        "foundationScore": 60.21,
+        "conditionScore": 66.81,
+        "evidenceRoleQuality": 62.98,
+        "dangerStrength": 44,
+        "supports": [],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開と不一致",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 5,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 49,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 0,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": -1
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-01-京都-11R",
+      "bundleId": "2026-11-01-kyoto-11R",
+      "track": "京都",
+      "raceNumber": 11,
+      "raceName": "まほろばステークス",
+      "productionValue": {
+        "id": "2611011102",
+        "number": 2,
+        "name": "ダイシンヤマト",
+        "popularity": 9,
+        "tmIndex": 75,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2611011102",
+        "number": 2,
+        "name": "ダイシンヤマト",
+        "popularity": 9,
+        "tmIndex": 75,
+        "indexRank": 3
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611011104",
+        "number": 4,
+        "name": "テリオスララ",
+        "popularity": 3,
+        "tmIndex": 70,
+        "indexRank": 10
+      },
+      "evidenceDanger": {
+        "id": "2611011104",
+        "number": 4,
+        "name": "テリオスララ",
+        "popularity": 3,
+        "tmIndex": 70,
+        "indexRank": 10,
+        "marketGap": -7,
+        "qualityScore": 63.93,
+        "foundationScore": 60.47,
+        "conditionScore": 68.7,
+        "evidenceRoleQuality": 63.93,
+        "dangerStrength": 42,
+        "supports": [
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 58,
+          "distanceDirection": 1,
+          "distanceTransition": 0,
+          "distanceCadence": -1,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-01-東京-11R",
+      "bundleId": "2026-11-01-tokyo-11R",
+      "track": "東京",
+      "raceNumber": 11,
+      "raceName": "天皇賞（秋）",
+      "productionValue": {
+        "id": "2611011113",
+        "number": 13,
+        "name": "リアライズシリウス",
+        "popularity": 7,
+        "tmIndex": 81,
+        "indexRank": 3
+      },
+      "paceValue": {
+        "id": "2611011113",
+        "number": 13,
+        "name": "リアライズシリウス",
+        "popularity": 7,
+        "tmIndex": 81,
+        "indexRank": 3
+      },
+      "evidenceValue": {
+        "id": "2611011113",
+        "number": 13,
+        "name": "リアライズシリウス",
+        "popularity": 7,
+        "tmIndex": 81,
+        "indexRank": 3,
+        "marketGap": 5,
+        "qualityScore": 71.7,
+        "foundationScore": 71.89,
+        "conditionScore": 71.43,
+        "evidenceRoleQuality": 71.7,
+        "dangerStrength": null,
+        "supports": [
+          {
+            "key": "ability",
+            "label": "地力上位",
+            "severity": 1
+          },
+          {
+            "key": "form",
+            "label": "近走内容良好",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          }
+        ],
+        "risks": [],
+        "protections": [
+          {
+            "key": "distance",
+            "label": "距離変更への実績",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "重い斤量を克服済み",
+            "severity": 1
+          }
+        ],
+        "riskPoints": 0,
+        "protectionPoints": 2,
+        "components": {
+          "opponentQuality": 61,
+          "distanceDirection": 2,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": 1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      },
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611011107",
+        "number": 7,
+        "name": "マスカレードボール",
+        "popularity": 1,
+        "tmIndex": 80,
+        "indexRank": 8
+      },
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-11-01-東京-12R",
+      "bundleId": "2026-11-01-tokyo-12R",
+      "track": "東京",
+      "raceNumber": 12,
+      "raceName": "清里特別",
+      "productionValue": {
+        "id": "2611011211",
+        "number": 11,
+        "name": "キョウエイスレーヴ",
+        "popularity": 11,
+        "tmIndex": 71,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2611011214",
+        "number": 14,
+        "name": "タマモカンパネラ",
+        "popularity": 7,
+        "tmIndex": 71,
+        "indexRank": 5
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611011210",
+        "number": 10,
+        "name": "セイントエルモズ",
+        "popularity": 4,
+        "tmIndex": 66,
+        "indexRank": 13
+      },
+      "evidenceDanger": {
+        "id": "2611011210",
+        "number": 10,
+        "name": "セイントエルモズ",
+        "popularity": 4,
+        "tmIndex": 66,
+        "indexRank": 13,
+        "marketGap": -7,
+        "qualityScore": 60.83,
+        "foundationScore": 56.07,
+        "conditionScore": 67.4,
+        "evidenceRoleQuality": 60.83,
+        "dangerStrength": 58,
+        "supports": [],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          },
+          {
+            "key": "load",
+            "label": "斤量条件に不安",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開と不一致",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 6,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 54,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 1,
+          "load": -1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": -1
+        }
+      }
+    }
+  ]
+}

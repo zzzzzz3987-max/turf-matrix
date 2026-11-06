@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-11-06T12:59:45.694Z",
+  "raceDate": "2026-11-07",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "831b1c78057eb3fd0bb53be10c8e9a47e29835a418327354df0ce108b4592dec",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-4f599d6f54476199",
+      "sha256": "4f599d6f544761992d31eb95d3304f007c2b3e5251cc06717efc790fec4c778e",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-61fdf98e1e939592",
+      "sha256": "61fdf98e1e9395927a7544acc011e90eadc9e3be9d185dc1baafa2b971f898f3",
+      "fileCount": 9
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "c6e27df351165125ea9d34d453b9cc93fd3630413da510d5e94f181e651014af",
+  "baseline": {
+    "date": "2026-11-07",
+    "raceId": "2026-11-07-京都-11R",
+    "bundleId": "2026-11-07-kyoto-11R",
+    "track": "京都",
+    "raceNumber": 11,
+    "raceName": "室町ステークス",
+    "scheduledTime": "15:45",
+    "axis": {
+      "number": 9,
+      "name": "ゼットエール",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "エコロレーヴ",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ノボリショウリュウ",
+        "tmIndex": 76,
+        "selectionScore": 67.5
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.1,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.5,
+        "conditionFit": 78.5,
+        "opponentDepth": 73.3
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-11-07",
+    "raceId": "2026-11-07-京都-11R",
+    "bundleId": "2026-11-07-kyoto-11R",
+    "track": "京都",
+    "raceNumber": 11,
+    "raceName": "室町ステークス",
+    "scheduledTime": "15:45",
+    "axis": {
+      "number": 9,
+      "name": "ゼットエール",
+      "tmIndex": 81,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 3,
+        "name": "エコロレーヴ",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ノボリショウリュウ",
+        "tmIndex": 76,
+        "selectionScore": 67.5
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.1,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 81,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 71.5,
+        "conditionFit": 78.5,
+        "opponentDepth": 73.3
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-11-07",
+      "raceId": "2026-11-07-京都-11R",
+      "bundleId": "2026-11-07-kyoto-11R",
+      "track": "京都",
+      "raceNumber": 11,
+      "raceName": "室町ステークス",
+      "scheduledTime": "15:45",
+      "axis": {
+        "number": 9,
+        "name": "ゼットエール",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 3,
+          "name": "エコロレーヴ",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 5,
+          "name": "ノボリショウリュウ",
+          "tmIndex": 76,
+          "selectionScore": 67.5
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 75.1,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 81,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 71.5,
+          "conditionFit": 78.5,
+          "opponentDepth": 73.3
+        }
+      }
+    }
+  ]
+}

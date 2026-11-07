@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-11-07T13:04:35.496Z",
+  "raceDate": "2026-11-08",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "19c083784290c7b14a26cc6b3754c79004c96e6670bd23f802bf4ddcca51438e",
+    "raceCount": 36,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-a19f3ae7a19166cf",
+      "sha256": "a19f3ae7a19166cff3065f2670f7e30d8d270c071eb6f443811444a486303260",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-61fdf98e1e939592",
+      "sha256": "61fdf98e1e9395927a7544acc011e90eadc9e3be9d185dc1baafa2b971f898f3",
+      "fileCount": 9
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "190f77475fd77b75fb6a1acee26da3b52eedca92077af5772f80112b7560a9ee",
+  "baseline": {
+    "date": "2026-11-08",
+    "raceId": "2026-11-08-東京-9R",
+    "bundleId": "2026-11-08-tokyo-09R",
+    "track": "東京",
+    "raceNumber": 9,
+    "raceName": "百日草特別",
+    "scheduledTime": "14:20",
+    "axis": {
+      "number": 2,
+      "name": "コスモイェーガー",
+      "tmIndex": 80,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 9,
+        "name": "ニシノフランケン",
+        "tmIndex": 76,
+        "selectionScore": null
+      },
+      {
+        "number": 6,
+        "name": "ヴァンドレスト",
+        "tmIndex": 74,
+        "selectionScore": 76.5
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 75.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 80,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 72.3,
+        "conditionFit": 72,
+        "opponentDepth": 76.2
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-11-08",
+    "raceId": "2026-11-08-京都-11R",
+    "bundleId": "2026-11-08-kyoto-11R",
+    "track": "京都",
+    "raceNumber": 11,
+    "raceName": "みやこステークス",
+    "scheduledTime": "15:45",
+    "axis": {
+      "number": 10,
+      "name": "ムルソー",
+      "tmIndex": 84,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 4,
+        "name": "ビービークローサー",
+        "tmIndex": 81,
+        "selectionScore": null
+      },
+      {
+        "number": 5,
+        "name": "ヴァルツァーシャル",
+        "tmIndex": 77,
+        "selectionScore": 70
+      }
+    ],
+    "indexGap": 3,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 77.4,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 84,
+        "indexGap": 3,
+        "gapStrength": 68,
+        "axisCore": 74.2,
+        "conditionFit": 81.5,
+        "opponentDepth": 76.1
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-11-08",
+      "raceId": "2026-11-08-東京-9R",
+      "bundleId": "2026-11-08-tokyo-09R",
+      "track": "東京",
+      "raceNumber": 9,
+      "raceName": "百日草特別",
+      "scheduledTime": "14:20",
+      "axis": {
+        "number": 2,
+        "name": "コスモイェーガー",
+        "tmIndex": 80,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 9,
+          "name": "ニシノフランケン",
+          "tmIndex": 76,
+          "selectionScore": null
+        },
+        {
+          "number": 6,
+          "name": "ヴァンドレスト",
+          "tmIndex": 74,
+          "selectionScore": 76.5
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 75.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 80,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 72.3,
+          "conditionFit": 72,
+          "opponentDepth": 76.2
+        }
+      }
+    },
+    {
+      "date": "2026-11-08",
+      "raceId": "2026-11-08-京都-10R",
+      "bundleId": "2026-11-08-kyoto-10R",
+      "track": "京都",
+      "raceNumber": 10,
+      "raceName": "清水ステークス",
+      "scheduledTime": "15:05",
+      "axis": {
+        "number": 6,
+        "name": "アヴィオン",
+        "tmIndex": 83,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 1,
+          "name": "フェアリーライク",
+          "tmIndex": 80,
+          "selectionScore": null
+        },
+        {
+          "number": 2,
+          "name": "スライビングロード",
+          "tmIndex": 79,
+          "selectionScore": 71.5
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 77.1,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 83,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 75.4,
+          "conditionFit": 79,
+          "opponentDepth": 76.2
+        }
+      }
+    },
+    {
+      "date": "2026-11-08",
+      "raceId": "2026-11-08-京都-11R",
+      "bundleId": "2026-11-08-kyoto-11R",
+      "track": "京都",
+      "raceNumber": 11,
+      "raceName": "みやこステークス",
+      "scheduledTime": "15:45",
+      "axis": {
+        "number": 10,
+        "name": "ムルソー",
+        "tmIndex": 84,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 4,
+          "name": "ビービークローサー",
+          "tmIndex": 81,
+          "selectionScore": null
+        },
+        {
+          "number": 5,
+          "name": "ヴァルツァーシャル",
+          "tmIndex": 77,
+          "selectionScore": 70
+        }
+      ],
+      "indexGap": 3,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 77.4,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 84,
+          "indexGap": 3,
+          "gapStrength": 68,
+          "axisCore": 74.2,
+          "conditionFit": 81.5,
+          "opponentDepth": 76.1
+        }
+      }
+    }
+  ]
+}

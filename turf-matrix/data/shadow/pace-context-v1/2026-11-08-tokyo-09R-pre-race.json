@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "pace-course-track-context-shadow-v1",
+  "frozenAt": "2026-11-08T00:38:30.360Z",
+  "raceDate": "2026-11-08",
+  "bundleId": "2026-11-08-tokyo-09R",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "targetRaceBiasResultAllowed": false,
+    "sourceRaceNumberMustBeBelowTarget": true,
+    "currentHorsePopularityOddsValueUsed": false,
+    "observedLanePathUsed": false,
+    "frameZoneIsNotLanePath": true,
+    "maxPaceAdjustment": 2
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "75a7f484bbdca1803cf437fba121552324a519f7dda401391efb1d060abf4331",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "5a144c7aa17c967c56c620b8189eb9e40c186cacb4705c5e5e10da6a25bf7d92",
+    "trackBias": "tools/track-bias.current.json",
+    "trackBiasSha256": "be197d2f6c627316165c8b305108c11f3fc3fc8a6bb14aaeb916f60283ef2c55",
+    "modelSpecSha256": "be8f6c2ad97067504af1d6be9abb9488de5f7a74603ba18a0ff02e552b734af3"
+  },
+  "summary": {
+    "raceCount": 1,
+    "horseCount": 9,
+    "adjustedHorseCount": 8,
+    "liveBiasRaceCount": 0,
+    "exactCourseProfileRaceCount": 0,
+    "genericCourseGeometryRaceCount": 1,
+    "missingCourseGeometryRaceCount": 0,
+    "paceLeaderChangedRaceCount": 0,
+    "tmLeaderChangedRaceCount": 0,
+    "maxAbsAdjustment": 1
+  },
+  "predictionSha256": "95eeabc4ee621a078eb3dbe97cc2fb1a400e708b2bfead5a5072be3dfe8926af",
+  "predictions": [
+    {
+      "raceId": "2026-11-08-東京-9R",
+      "bundleId": "2026-11-08-tokyo-09R",
+      "track": "東京",
+      "surface": "芝",
+      "raceNumber": 9,
+      "raceName": "百日草特別",
+      "horseCount": 9,
+      "courseShapeSource": "venue-default",
+      "sourceBiasRaceCount": 0,
+      "currentPaceLeader": {
+        "number": 8,
+        "name": "カエンフォース",
+        "currentPace": 77,
+        "shadowPace": 76,
+        "paceAdjustment": -1,
+        "historyAdjustment": 0,
+        "contextAdjustment": -1,
+        "contextLabel": "やや不利",
+        "currentTm": 74,
+        "shadowTm": 74
+      },
+      "shadowPaceLeader": {
+        "number": 8,
+        "name": "カエンフォース",
+        "currentPace": 77,
+        "shadowPace": 76,
+        "paceAdjustment": -1,
+        "historyAdjustment": 0,
+        "contextAdjustment": -1,
+        "contextLabel": "やや不利",
+        "currentTm": 74,
+        "shadowTm": 74
+      },
+      "currentTmLeader": {
+        "number": 2,
+        "name": "コスモイェーガー",
+        "currentPace": 70,
+        "shadowPace": 71,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 82,
+        "shadowTm": 82
+      },
+      "shadowTmLeader": {
+        "number": 2,
+        "name": "コスモイェーガー",
+        "currentPace": 70,
+        "shadowPace": 71,
+        "paceAdjustment": 1,
+        "historyAdjustment": 0,
+        "contextAdjustment": 1,
+        "contextLabel": "やや有利",
+        "currentTm": 82,
+        "shadowTm": 82
+      },
+      "paceLeaderChanged": false,
+      "tmLeaderChanged": false,
+      "horses": [
+        {
+          "number": 1,
+          "name": "ムーンリットデイズ",
+          "currentPace": 70,
+          "shadowPace": 71,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 2,
+          "name": "コスモイェーガー",
+          "currentPace": 70,
+          "shadowPace": 71,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-10-17 形状による明確な利不利なし",
+            "2026-08-22 後傾・偏りなしで明確な展開利不利なし",
+            "2026-08-01 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 82,
+          "shadowTm": 82,
+          "tmDelta": 0
+        },
+        {
+          "number": 3,
+          "name": "テキサス",
+          "currentPace": 75,
+          "shadowPace": 75,
+          "paceAdjustment": 0,
+          "historyAdjustment": 0,
+          "contextAdjustment": 0,
+          "contextLabel": "中立",
+          "evidence": [
+            "2026-09-13 後傾・偏りなしの展開利を受けた好走",
+            "2026-08-30 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 先行",
+            "コース形態 wide / 形態補正 +0",
+            "枠ゾーン inner / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 76,
+          "shadowTm": 76,
+          "tmDelta": 0
+        },
+        {
+          "number": 4,
+          "name": "ハイビスカス",
+          "currentPace": 70,
+          "shadowPace": 71,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-09-19 前残りの展開利を受けた好走",
+            "2026-09-05 前傾・差し決着の展開利を受けた好走",
+            "2026-08-09 前傾・偏りなしに逆らって前方で踏ん張った",
+            "2026-07-18 後傾・偏りなしで明確な展開利不利なし",
+            "2026-06-13 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 71,
+          "shadowTm": 71,
+          "tmDelta": 0
+        },
+        {
+          "number": 5,
+          "name": "ニシノリリックス",
+          "currentPace": 67,
+          "shadowPace": 68,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-09-26 形状による明確な利不利なし",
+            "2026-08-30 平均・偏りなしで明確な展開利不利なし",
+            "2026-08-08 後傾・差し決着で明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 72,
+          "shadowTm": 72,
+          "tmDelta": 0
+        },
+        {
+          "number": 6,
+          "name": "ヴァンドレスト",
+          "currentPace": 70,
+          "shadowPace": 71,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-08-23 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 差し",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン middle / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 7,
+          "name": "エスクアドラ",
+          "currentPace": 67,
+          "shadowPace": 68,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-07-05 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 73,
+          "shadowTm": 73,
+          "tmDelta": 0
+        },
+        {
+          "number": 8,
+          "name": "カエンフォース",
+          "currentPace": 77,
+          "shadowPace": 76,
+          "paceAdjustment": -1,
+          "historyAdjustment": 0,
+          "contextAdjustment": -1,
+          "contextLabel": "やや不利",
+          "evidence": [
+            "2026-10-17 中立形状",
+            "2026-09-05 後傾・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 逃げ",
+            "コース形態 wide / 形態補正 -1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 74,
+          "shadowTm": 74,
+          "tmDelta": 0
+        },
+        {
+          "number": 9,
+          "name": "ニシノフランケン",
+          "currentPace": 67,
+          "shadowPace": 68,
+          "paceAdjustment": 1,
+          "historyAdjustment": 0,
+          "contextAdjustment": 1,
+          "contextLabel": "やや有利",
+          "evidence": [
+            "2026-10-10 前残りで後方から差を詰めた",
+            "2026-07-18 平均・差し決着の展開利を受けた好走",
+            "2026-06-07 平均・偏りなしで明確な展開利不利なし",
+            "想定ペース スロー / 脚質 追込",
+            "コース形態 wide / 形態補正 +1",
+            "枠ゾーン outer / 固有枠補正 +0",
+            "当日以前のトラックバイアスは未取得"
+          ],
+          "currentTm": 78,
+          "shadowTm": 78,
+          "tmDelta": 0
+        }
+      ]
+    }
+  ]
+}

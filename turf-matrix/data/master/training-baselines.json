@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "source": "published pre-odds snapshots; final and one-week sessions only",
-  "through": "2026-11-08",
+  "through": "2026-11-14",
   "policy": {
     "resultDataUsed": false,
     "popularityOddsUsed": false,
@@ -26,7 +26,7 @@
   ],
   "groups": {
     "slope-miho": {
-      "sampleSize": 4532,
+      "sampleSize": 4876,
       "f4": [
         {
           "probability": 0.05,
@@ -34,11 +34,11 @@
         },
         {
           "probability": 0.1,
-          "value": 55
+          "value": 55.1
         },
         {
           "probability": 0.2,
-          "value": 58.8
+          "value": 59.1
         },
         {
           "probability": 0.3,
@@ -54,7 +54,7 @@
         },
         {
           "probability": 0.6,
-          "value": 66.5
+          "value": 66.4
         },
         {
           "probability": 0.7,
@@ -70,7 +70,7 @@
         },
         {
           "probability": 0.95,
-          "value": 72.6
+          "value": 72.7
         }
       ],
       "f1": [
@@ -84,7 +84,7 @@
         },
         {
           "probability": 0.2,
-          "value": 13.8
+          "value": 13.9
         },
         {
           "probability": 0.3,
@@ -121,7 +121,7 @@
       ]
     },
     "slope-ritto": {
-      "sampleSize": 6568,
+      "sampleSize": 6912,
       "f4": [
         {
           "probability": 0.05,
@@ -149,7 +149,7 @@
         },
         {
           "probability": 0.6,
-          "value": 65.9
+          "value": 65.8
         },
         {
           "probability": 0.7,
@@ -216,7 +216,7 @@
       ]
     },
     "wood-C": {
-      "sampleSize": 2193,
+      "sampleSize": 2316,
       "f4": [
         {
           "probability": 0.05,
@@ -228,7 +228,7 @@
         },
         {
           "probability": 0.2,
-          "value": 52.5
+          "value": 52.4
         },
         {
           "probability": 0.3,
@@ -236,11 +236,11 @@
         },
         {
           "probability": 0.4,
-          "value": 54.98
+          "value": 54.8
         },
         {
           "probability": 0.5,
-          "value": 63.2
+          "value": 63
         },
         {
           "probability": 0.6,
@@ -252,15 +252,15 @@
         },
         {
           "probability": 0.8,
-          "value": 74.26
+          "value": 74.3
         },
         {
           "probability": 0.9,
-          "value": 83.28
+          "value": 83.15
         },
         {
           "probability": 0.95,
-          "value": 109.74
+          "value": 108.47
         }
       ],
       "f1": [
@@ -282,11 +282,11 @@
         },
         {
           "probability": 0.4,
-          "value": 12.3
+          "value": 12.2
         },
         {
           "probability": 0.5,
-          "value": 14.3
+          "value": 14.2
         },
         {
           "probability": 0.6,
@@ -302,16 +302,16 @@
         },
         {
           "probability": 0.9,
-          "value": 19.3
+          "value": 19.25
         },
         {
           "probability": 0.95,
-          "value": 25.32
+          "value": 24.9
         }
       ]
     },
     "wood-D": {
-      "sampleSize": 1943,
+      "sampleSize": 2123,
       "f4": [
         {
           "probability": 0.05,
@@ -323,7 +323,7 @@
         },
         {
           "probability": 0.2,
-          "value": 51.7
+          "value": 51.8
         },
         {
           "probability": 0.3,
@@ -331,11 +331,11 @@
         },
         {
           "probability": 0.4,
-          "value": 52.6
+          "value": 52.7
         },
         {
           "probability": 0.5,
-          "value": 53
+          "value": 53.1
         },
         {
           "probability": 0.6,
@@ -343,19 +343,19 @@
         },
         {
           "probability": 0.7,
-          "value": 54.6
+          "value": 54.64
         },
         {
           "probability": 0.8,
-          "value": 58.72
+          "value": 58.92
         },
         {
           "probability": 0.9,
-          "value": 70.5
+          "value": 70.68
         },
         {
           "probability": 0.95,
-          "value": 76.79
+          "value": 76.89
         }
       ],
       "f1": [
@@ -377,7 +377,7 @@
         },
         {
           "probability": 0.4,
-          "value": 11.7
+          "value": 11.8
         },
         {
           "probability": 0.5,
@@ -389,15 +389,15 @@
         },
         {
           "probability": 0.7,
-          "value": 12.34
+          "value": 12.4
         },
         {
           "probability": 0.8,
-          "value": 13.6
+          "value": 13.66
         },
         {
           "probability": 0.9,
-          "value": 16.4
+          "value": 16.5
         },
         {
           "probability": 0.95,
@@ -406,7 +406,7 @@
       ]
     },
     "wood-default": {
-      "sampleSize": 4136,
+      "sampleSize": 4439,
       "f4": [
         {
           "probability": 0.05,
@@ -414,11 +414,11 @@
         },
         {
           "probability": 0.1,
-          "value": 51.3
+          "value": 51.38
         },
         {
           "probability": 0.2,
-          "value": 52
+          "value": 52.1
         },
         {
           "probability": 0.3,
@@ -434,23 +434,23 @@
         },
         {
           "probability": 0.6,
-          "value": 56.7
+          "value": 56.5
         },
         {
           "probability": 0.7,
-          "value": 66.2
+          "value": 66
         },
         {
           "probability": 0.8,
-          "value": 70.8
+          "value": 70.74
         },
         {
           "probability": 0.9,
-          "value": 77.25
+          "value": 77.2
         },
         {
           "probability": 0.95,
-          "value": 89.63
+          "value": 89.61
         }
       ],
       "f1": [
@@ -480,11 +480,11 @@
         },
         {
           "probability": 0.6,
-          "value": 13
+          "value": 12.9
         },
         {
           "probability": 0.7,
-          "value": 15.2
+          "value": 15.1
         },
         {
           "probability": 0.8,

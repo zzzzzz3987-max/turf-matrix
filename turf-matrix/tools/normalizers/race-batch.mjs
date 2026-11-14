@@ -48,6 +48,7 @@ const races = bundleIds.map((bundleId) => {
     provisional: Boolean(config.provisional) || process.env.TURF_MATRIX_PREODDS_REGISTRATIONS === "1",
     allowMissingRaceName: Boolean(config.allowMissingRaceName),
     allowMissingPastRuns: Boolean(config.allowMissingPastRuns),
+    excludedHorseNumbers: config.excludedHorseNumbersByBundle?.[bundleId] ?? [],
     csv: {
       currentRace: firstExistingRepoPath(
         join(csvDir, "current-race-detail.csv"),

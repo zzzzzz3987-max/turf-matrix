@@ -156,12 +156,14 @@ const normalizeRaceBundle = ({
   provisional = false,
   allowMissingRaceName = false,
   allowMissingPastRuns = false,
+  excludedHorseNumbers = [],
 }) => {
   const directCurrentRace = String(csv.currentRace ?? "").replaceAll("\\", "/").includes("data/target/races/");
   const current = currentRaceParser.parse({
     path: csv.currentRace,
     allowProvisional: provisional,
     allowMissingRaceName,
+    excludedHorseNumbers,
   });
   const all = allowMissingPastRuns
     ? optionalParse(allCsvParser, csv.all, { rowCount: 0, horses: [] })

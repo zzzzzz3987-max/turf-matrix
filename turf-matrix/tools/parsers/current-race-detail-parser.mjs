@@ -110,7 +110,7 @@ const duplicateValues = (entries, key) => {
 
 const distinctValues = (entries, key) => [...new Set(entries.map((entry) => entry[key]))];
 
-export const validateEntries = (entries, { allowProvisional = false, allowMissingRaceName = false } = {}) => {
+export const validateEntries = (entries, { allowProvisional = false, allowMissingRaceName = false, excludedHorseNumbers = [] } = {}) => {
   const errors = [];
   if (!entries.length) errors.push("current-race-detail.csv has no entries");
 
@@ -146,9 +146,17 @@ export const validateEntries = (entries, { allowProvisional = false, allowMissin
 
   if (!allowProvisional) {
     const horseNumbers = entries.map((entry) => entry.horseNumber).sort((a, b) => a - b);
-    const expected = Array.from({ length: entries.length }, (_, index) => index + 1);
-    if (horseNumbers.some((value, index) => value !== expected[index])) {
-      errors.push(`horseNumber must be 1-${entries.length}: ${horseNumbers.join(", ")}`);
+    const validExclusions = Array.isArray(excludedHorseNumbers)
+      && excludedHorseNumbers.every((number) => Number.isInteger(number) && number >= 1 && number <= 18)
+      && new Set(excludedHorseNumbers).size === excludedHorseNumbers.length;
+    if (!validExclusions) errors.push("excludedHorseNumbers must contain unique integers within 1-18");
+    const excluded = validExclusions ? excludedHorseNumbers : [];
+    const originalFieldSize = entries.length + excluded.length;
+    if (originalFieldSize > 18) errors.push("Original field size must not exceed 18");
+    const expected = Array.from({ length: originalFieldSize }, (_, index) => index + 1)
+      .filter((number) => !excluded.includes(number));
+    if (horseNumbers.length !== expected.length || horseNumbers.some((value, index) => value !== expected[index])) {
+      errors.push(`horseNumber must match active slots ${expected.join(", ")}: ${horseNumbers.join(", ")}`);
     }
   }
 
@@ -159,12 +167,13 @@ export const parse = ({
   path: sourcePath = source.path,
   allowProvisional = false,
   allowMissingRaceName = false,
+  excludedHorseNumbers = [],
 } = {}) => {
   const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
   const entries = rows.map(normalizeEntry);
-  const errors = validateEntries(entries, { allowProvisional, allowMissingRaceName });
+  const errors = validateEntries(entries, { allowProvisional, allowMissingRaceName, excludedHorseNumbers });
 
   if (errors.length) {
     const error = new Error(`current-race-detail.csv validation failed:\n${errors.join("\n")}`);

@@ -837,15 +837,27 @@ namespace TurfMatrix.JvFetch
             if (!File.Exists(configPath)) throw new FileNotFoundException("race-batch-config was not found.", configPath);
 
             var json = File.ReadAllText(configPath, Encoding.UTF8);
-            var raceDate = MatchRequired(json, "\"raceDate\"\\s*:\\s*\"([0-9]{4}-[0-9]{2}-[0-9]{2})\"");
-            var matches = Regex.Matches(json, "\"([0-9]{4}-[0-9]{2}-[0-9]{2})-([a-z]+)-([0-9]{1,2})R\"");
+            var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
+            var config = serializer.DeserializeObject(json) as Dictionary<string, object>;
+            if (config == null) throw new InvalidOperationException("Race config must be a JSON object.");
+            var raceDate = GetValue(config, "raceDate") as string;
+            if (!Regex.IsMatch(raceDate ?? "", "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"))
+                throw new InvalidOperationException("Race config date is invalid.");
+            var bundles = GetValue(config, "bundles") as object[];
+            if (bundles == null) throw new InvalidOperationException("Race config bundles must be an array.");
             var races = new List<RaceTarget>();
+            var seen = new HashSet<string>(StringComparer.Ordinal);
 
-            foreach (Match match in matches)
+            foreach (var value in bundles)
             {
-                if (match.Groups[1].Value != raceDate) continue;
+                var bundle = value as string;
+                var match = Regex.Match(bundle ?? "", "^([0-9]{4}-[0-9]{2}-[0-9]{2})-([a-z]+)-([0-9]{1,2})R$");
+                if (!match.Success || match.Groups[1].Value != raceDate)
+                    throw new InvalidOperationException("Race config contains an invalid or stale bundle.");
+                if (!seen.Add(bundle)) throw new InvalidOperationException("Race config contains duplicate bundles.");
                 var slug = match.Groups[2].Value;
                 var raceNo = int.Parse(match.Groups[3].Value);
+                if (raceNo < 1 || raceNo > 12) throw new InvalidOperationException("Race number must be within 1-12.");
                 var course = CourseInfo.FromSlug(slug);
                 races.Add(new RaceTarget
                 {
@@ -859,6 +871,9 @@ namespace TurfMatrix.JvFetch
             }
 
             if (races.Count == 0) throw new InvalidOperationException("No race bundles were found in race-batch-config.");
+            var expected = ToInt(GetValue(config, "expectedRaceCount"));
+            if (expected != null && expected.Value != races.Count)
+                throw new InvalidOperationException("Race config count does not match its bundles.");
             return races;
         }
 

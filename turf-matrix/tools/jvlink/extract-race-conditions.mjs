@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { existsSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const JVLINK_DIR = dirname(fileURLToPath(import.meta.url));
@@ -8,7 +8,9 @@ const TOOLS_DIR = join(JVLINK_DIR, "..");
 const REPO_DIR = join(TOOLS_DIR, "..");
 const SUMMARY_PATH = join(JVLINK_DIR, "output", "week-race-summary.json");
 const REALTIME_PATH = join(REPO_DIR, "data", "target", "race-conditions.latest.json");
-const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
+  ? resolve(process.env.TURF_MATRIX_RACE_CONFIG)
+  : join(TOOLS_DIR, "race-batch-config.json");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const OUT_PATH = join(TOOLS_DIR, "race-conditions.current.json");
 
@@ -77,10 +79,10 @@ const useRealtime = realtimeRaceDate === config.raceDate;
 const fallbackUpdatedAt = existsSync(SUMMARY_PATH)
   ? statSync(SUMMARY_PATH).mtime.toISOString()
   : realtime?.GeneratedAt ?? realtime?.generatedAt ?? statSync(REALTIME_PATH).mtime.toISOString();
-const summaryMatchesRaceDate = (summary?.races?.length ?? 0) > 0
-  && (!summary.configuredRaceDate || summary.configuredRaceDate === config.raceDate)
-  && summary.races.every((race) => race.raceDate === config.raceDate);
-const summaryRaces = summaryMatchesRaceDate ? summary?.races ?? [] : [];
+const matchingSummaryRaces = (summary?.races ?? []).filter(race => race.raceDate === config.raceDate);
+const summaryMatchesRaceDate = matchingSummaryRaces.length > 0
+  && (!summary.configuredRaceDate || summary.configuredRaceDate === config.raceDate);
+const summaryRaces = summaryMatchesRaceDate ? matchingSummaryRaces : [];
 const races = summaryRaces.length > 0
   ? summaryRaces
   : (weekData?.races ?? []).map((race) => {

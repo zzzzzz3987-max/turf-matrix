@@ -46,3 +46,26 @@ test("snapshot windows run once seven minutes before the earliest 1R and 6R", ()
     { id: "before-6R", anchorRace: "中山6R", triggerTime: "2026-09-26T03:33:00.000Z" },
   ]);
 });
+
+test("full-race snapshots retain explicit withdrawn slots without narrowing the schedule", () => {
+  const bundle = "2026-09-26-阪神-10R";
+  const sourceConfig = { raceDate: "2026-09-26", bundles: [bundle],
+    excludedHorseNumbersByBundle: { [bundle]: [6] }, officialWithdrawals: [{ horseNumber: 6 }] };
+  const allRaceSignals = { date: "2026-09-26", races: [race("阪神", 1, "09:45"), race("阪神", 10, "15:00")] };
+  const config = buildFullRaceRuntimeConfig({ raceDate: "2026-09-26", allRaceSignals, sourceConfig });
+  assert.equal(config.bundles.length, 2);
+  assert.deepEqual(config.excludedHorseNumbersByBundle, { [bundle]: [6] });
+  config.excludedHorseNumbersByBundle[bundle].push(7);
+  assert.deepEqual(sourceConfig.excludedHorseNumbersByBundle[bundle], [6]);
+});
+
+test("snapshot withdrawal metadata fails closed for stale dates, unknown races or invalid slots", () => {
+  const bundle = "2026-09-26-阪神-10R";
+  const allRaceSignals = { date: "2026-09-26", races: [race("阪神", 10, "15:00")] };
+  for (const sourceConfig of [
+    { raceDate: "2026-09-25" },
+    { raceDate: "2026-09-26", excludedHorseNumbersByBundle: [] },
+    { raceDate: "2026-09-26", excludedHorseNumbersByBundle: { wrong: [6] } },
+    ...[[0], [19], [6, 6], [6.5], "6"].map(numbers => ({ raceDate: "2026-09-26", excludedHorseNumbersByBundle: { [bundle]: numbers } })),
+  ]) assert.throws(() => buildFullRaceRuntimeConfig({ raceDate: "2026-09-26", allRaceSignals, sourceConfig }), /Withdrawal/);
+});

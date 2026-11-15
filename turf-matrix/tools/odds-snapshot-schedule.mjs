@@ -1,6 +1,6 @@
 const isDate = (value) => typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value);
 
-export const buildFullRaceRuntimeConfig = ({ raceDate, allRaceSignals }) => {
+export const buildFullRaceRuntimeConfig = ({ raceDate, allRaceSignals, sourceConfig = null }) => {
   if (!isDate(raceDate) || allRaceSignals?.date !== raceDate) {
     throw new Error("Full-race signals do not match the odds snapshot date");
   }
@@ -27,6 +27,24 @@ export const buildFullRaceRuntimeConfig = ({ raceDate, allRaceSignals }) => {
     throw new Error("Full-race signal count does not match its race list");
   }
 
+  const withdrawalConfig = {};
+  if (sourceConfig) {
+    if (sourceConfig.raceDate !== raceDate) throw new Error("Withdrawal config does not match the snapshot date");
+    const exclusions = sourceConfig.excludedHorseNumbersByBundle;
+    if (exclusions != null) {
+      if (typeof exclusions !== "object" || Array.isArray(exclusions)) throw new Error("Withdrawal slots must be a map");
+      for (const [bundle, numbers] of Object.entries(exclusions)) {
+        if (!bundles.includes(bundle) || !Array.isArray(numbers)
+          || numbers.some(number => !Number.isInteger(number) || number < 1 || number > 18)
+          || new Set(numbers).size !== numbers.length) {
+          throw new Error("Withdrawal slots do not match the full-race field");
+        }
+      }
+      withdrawalConfig.excludedHorseNumbersByBundle = structuredClone(exclusions);
+    }
+    if (sourceConfig.officialWithdrawals) withdrawalConfig.officialWithdrawals = structuredClone(sourceConfig.officialWithdrawals);
+  }
+
   return {
     raceDate,
     expectedRaceCount: bundles.length,
@@ -34,6 +52,7 @@ export const buildFullRaceRuntimeConfig = ({ raceDate, allRaceSignals }) => {
     provisional: false,
     allowMissingRaceName: true,
     allowMissingPastRuns: true,
+    ...withdrawalConfig,
   };
 };
 

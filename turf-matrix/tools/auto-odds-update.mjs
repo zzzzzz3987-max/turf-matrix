@@ -156,14 +156,14 @@ const run = (command, commandArgs, { allowFailure = false, quiet = false } = {})
 };
 
 const runNode = (...nodeArgs) => run(process.execPath, nodeArgs);
-const runNodeWithEnv = (extraEnv, ...nodeArgs) => {
+const withEnvironment = (extraEnv, action) => {
   const previous = {};
   for (const [key, value] of Object.entries(extraEnv)) {
     previous[key] = process.env[key];
     process.env[key] = value;
   }
   try {
-    return runNode(...nodeArgs);
+    return action();
   } finally {
     for (const [key, value] of Object.entries(previous)) {
       if (value == null) delete process.env[key];
@@ -171,7 +171,9 @@ const runNodeWithEnv = (extraEnv, ...nodeArgs) => {
     }
   }
 };
+const runNodeWithEnv = (extraEnv, ...nodeArgs) => withEnvironment(extraEnv, () => runNode(...nodeArgs));
 const runPowerShell = (...scriptArgs) => run("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", ...scriptArgs]);
+const runPowerShellWithEnv = (extraEnv, ...scriptArgs) => withEnvironment(extraEnv, () => runPowerShell(...scriptArgs));
 
 const parseSchedule = (weekData) => {
   const raceDate = weekData.meta?.date ?? weekData.races?.[0]?.id?.slice(0, 10);
@@ -224,6 +226,7 @@ const resolveAllRaceRuntime = (raceDate) => {
   const runtime = buildFullRaceRuntimeConfig({
     raceDate,
     allRaceSignals: readJson(ALL_RACE_SIGNALS_PATH, null),
+    sourceConfig: readJson(join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"), null),
   });
   writeJson(FULL_RACE_RUNTIME_PATH, runtime);
   return FULL_RACE_RUNTIME_PATH;
@@ -409,10 +412,11 @@ const refreshOddsAndPublish = ({ raceDate, commitMessage, releaseRaces }) => {
   if (trackBiasExisted) copyFileSync(TRACK_BIAS_PATH, TRACK_BIAS_BACKUP_PATH);
   const startedAt = Date.now();
   try {
-    runPowerShell("-File", "tools/jvfetch/capture-odds.ps1");
+    const allRaceRuntime = resolveAllRaceRuntime(raceDate);
+    const acquisitionEnv = { TURF_MATRIX_RACE_CONFIG: allRaceRuntime };
+    runPowerShellWithEnv(acquisitionEnv, "-File", "tools/jvfetch/capture-odds.ps1");
     const oddsPath = latestOddsCandidate(startedAt);
     const pairOddsPath = latestPairOddsCandidate(startedAt);
-    const allRaceRuntime = resolveAllRaceRuntime(raceDate);
     runNode(
       "tools/jvfetch/distribute-odds.mjs",
       oddsPath,
@@ -421,8 +425,8 @@ const refreshOddsAndPublish = ({ raceDate, commitMessage, releaseRaces }) => {
     );
 
     try {
-      runPowerShell("-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");
-      runNode("tools/jvlink/extract-race-conditions.mjs");
+      runPowerShellWithEnv(acquisitionEnv, "-File", "tools/jvfetch/run-jvfetch.ps1", "--conditions-only");
+      runNodeWithEnv(acquisitionEnv, "tools/jvlink/extract-race-conditions.mjs");
       resolveAlert("Track conditions refresh recovered", "conditions");
     } catch (error) {
       recordAlert("Track conditions refresh failed; odds update continued", { error: error.message }, "conditions");

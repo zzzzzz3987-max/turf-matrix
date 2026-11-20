@@ -1,41 +1,17 @@
 {
-  "raceDate": "2026-11-15",
-  "expectedRaceCount": 10,
+  "raceDate": "2026-11-21",
+  "expectedRaceCount": 6,
   "bundles": [
-    "2026-11-15-fukushima-09R",
-    "2026-11-15-tokyo-09R",
-    "2026-11-15-kyoto-09R",
-    "2026-11-15-fukushima-10R",
-    "2026-11-15-tokyo-10R",
-    "2026-11-15-kyoto-10R",
-    "2026-11-15-fukushima-11R",
-    "2026-11-15-tokyo-11R",
-    "2026-11-15-kyoto-11R",
-    "2026-11-15-kyoto-12R"
+    "2026-11-21-fukushima-09R",
+    "2026-11-21-kyoto-09R",
+    "2026-11-21-fukushima-10R",
+    "2026-11-21-kyoto-10R",
+    "2026-11-21-fukushima-11R",
+    "2026-11-21-kyoto-11R"
   ],
   "provisional": false,
   "allowMissingRaceName": true,
   "allowMissingPastRuns": true,
-  "runnerCount": 140,
-  "numberedRunnerCount": 140,
-  "excludedHorseNumbersByBundle": {
-    "2026-11-15-kyoto-10R": [
-      6
-    ]
-  },
-  "officialWithdrawals": [
-    {
-      "raceDate": "2026-11-15",
-      "raceKey": "20261115-08-05-04-10",
-      "horseNumber": 6,
-      "horseName": "アートレスマインド",
-      "horseId": "2022105987",
-      "status": "officially-withdrawn",
-      "sourceUrl": "https://app.jra.jp/JRADB/accessD.html?CNAME=sw01ddd0108202605041020261115%2F5E",
-      "observedAt": "2026-11-14T13:34:03.476Z",
-      "sourceLabel": "JRA official card: cancellation",
-      "rawSummarySha256": "28864857b8bfe0d1e7804b9790d7bb8c8017feef90a4c8717ef03d5fc9724fe3",
-      "policy": "Exclude only this confirmed non-starter from current inputs; retain all historical records."
-    }
-  ]
+  "runnerCount": 87,
+  "numberedRunnerCount": 87
 }

@@ -181,6 +181,7 @@ allowBuilds:
     Copy-InputChildDirectories "tools\csv\input\races"
     Copy-InputChildDirectories "tools\target-html\input\races"
     Copy-InputFile "tools\jvlink\output\target-horses.json"
+    Copy-InputFile "tools\jvlink\output\week-race-summary.json"
     Copy-InputFile "tools\jvlink\output\all-races-data-config.json"
     Copy-InputFile "tools\jvlink\output\race-batch-runtime.json" $false
     Copy-InputFile "tools\jvlink\output\race-batch-all36.json" $false

@@ -51,7 +51,7 @@ try {
       throw "Race batch config was not found: $configPath"
     }
 
-    $config = Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
+    $config = Get-Content -LiteralPath $configPath -Raw -Encoding UTF8 | ConvertFrom-Json
     $raceDateText = if ($RaceDate) { $RaceDate } else { [string]$config.raceDate }
     $targetRaceDate = [DateTime]::ParseExact($raceDateText, "yyyy-MM-dd", $null)
     $daysFromMonday = (7 + [int]$targetRaceDate.DayOfWeek - 1) % 7

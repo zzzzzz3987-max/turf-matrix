@@ -11,6 +11,7 @@ import { buildPedigreeRaceEvidence } from "./lib/pedigree-race-evidence.js";
 import { buildAbilityPublicEvidence } from "./lib/ability-public-evidence.js";
 import { selectPublicFocusHorses, selectPublicRoleHorses } from "./lib/public-role-selection.js";
 import { buildPublicBattleTicketPlan } from "../tools/public-battle-ticket-plan.mjs";
+import { publicBattlePostTime, publicBattleRaceForDisplay } from "../tools/public-battle-snapshot.mjs";
 import {
   buildPedigreeFamilyPublicLines,
   buildPedigreePublicConditionSummary,
@@ -2082,23 +2083,32 @@ const RaceSignalCard = ({ race, onOpen, variant = "compact" }) => {
   );
 };
 
-const BattleRacePanel = ({ race, onOpen }) => {
+const BattleRacePanel = ({ race, snapshot, onOpen }) => {
+  const [now, setNow] = useState(Date.now);
+  const postTime = publicBattlePostTime(race);
+  useEffect(() => {
+    setNow(Date.now());
+    if (!Number.isFinite(postTime) || Date.now() >= postTime) return undefined;
+    const timer = setTimeout(() => setNow(Date.now()), Math.min(postTime - Date.now() + 1, 2147483647));
+    return () => clearTimeout(timer);
+  }, [postTime]);
   if (!race?.indexTop) return null;
-  const plan = buildPublicBattleTicketPlan(race);
+  const started = Number.isFinite(postTime) && Math.max(now, Date.now()) >= postTime;
+  const plan = snapshot?.race.publicTicketPlan ?? buildPublicBattleTicketPlan(race);
   const opponents = plan.opponents;
   const valueHorse = plan.valueHorse;
   const trioTickets = plan.tickets.filter((ticket) => ticket.type === "trio");
   const axis = race.indexTop;
 
   return (
-    <section className="mt-12">
+    <section className="mt-12" data-testid="battle-race-panel">
       <div className="flex items-end justify-between">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-[0.34em] text-[#A6AFBE]">Race Selection</div>
           <h2 className="mt-1 text-[18px] font-bold tracking-tight text-[#050B1E]">本日の勝負レース</h2>
         </div>
         <span className="text-[11px] font-semibold text-[#A6AFBE]">
-          {race.valuePending ? "単勝オッズ反映前" : "単勝オッズ反映済み"}
+          {started ? "発走済み" : race.valuePending ? "単勝オッズ反映前" : "単勝オッズ反映済み"}
         </span>
       </div>
       <div className="mt-4 overflow-hidden rounded-[18px] border border-[#2D7BFF] bg-white">
@@ -2155,9 +2165,9 @@ const BattleRacePanel = ({ race, onOpen }) => {
           </div>
 
           <div className="mt-5 border-t border-[#E5E7EB] pt-4">
-            <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">参考買い目</div>
+            <div className="text-[9px] font-bold uppercase tracking-[0.22em] text-[#94A3B8]">{started ? "発走前の参考買い目" : "参考買い目"}</div>
             <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-semibold text-[#050B1E]">
-              {plan.status === "ready" ? <span>単勝 <Num>{axis.number}</Num>・1点</span> : <span>オッズ確認待ち</span>}
+              {plan.status === "ready" ? <span>単勝 <Num>{axis.number}</Num>・1点</span> : <span>{started ? "発走前の買い目記録なし" : "オッズ確認待ち"}</span>}
             </div>
             {trioTickets.length > 0 ? (
               <div className="mt-3 text-[12px] leading-relaxed text-[#050B1E]">
@@ -2343,7 +2353,7 @@ const ClassicHomePage = ({ onOpenRace, dataRevision }) => {
     [races]
   );
   const allRaceSignalData = meta?.date === currentAllRaceSignals.date ? currentAllRaceSignals : null;
-  const battleRace = allRaceSignalData?.races?.find((race) => race.id === allRaceSignalData.battleRaceId) ?? null;
+  const battleRace = publicBattleRaceForDisplay(allRaceSignalData);
   const raceGroups = useMemo(() => {
     const available = races ?? [];
     const trackOrder = [...new Set(available.map((race) => race.track))];
@@ -2465,7 +2475,7 @@ const ClassicHomePage = ({ onOpenRace, dataRevision }) => {
         </div>
       </section>
 
-      <BattleRacePanel race={battleRace} onOpen={onOpenRace} />
+      <BattleRacePanel race={battleRace.race} snapshot={battleRace.snapshot} onOpen={onOpenRace} />
       <AllRaceSignalsPanel data={allRaceSignalData} />
 
       {/* 今日のレース */}
@@ -3014,9 +3024,9 @@ const HomePage = ({ onOpenRace, dataRevision }) => {
   const races = useMemo(() => (week?.races ?? []).filter(r => r.displayTarget !== false).map(prepareReaderRace), [week]);
   if (!week) return <main className="tm-modern"><p role="status">読み込み中…</p></main>;
   const signals = week.meta?.date === currentAllRaceSignals.date ? currentAllRaceSignals : null;
-  const battle = signals?.races?.find(r => r.id === signals.battleRaceId);
+  const battle = publicBattleRaceForDisplay(signals);
   return <ReaderHome meta={week.meta} races={races} signals={signals} onOpenRace={onOpenRace}>
-    <div className="tm-existing-panels"><BattleRacePanel race={battle} onOpen={onOpenRace} /></div>
+    <div className="tm-existing-panels"><BattleRacePanel race={battle.race} snapshot={battle.snapshot} onOpen={onOpenRace} /></div>
   </ReaderHome>;
 };
 

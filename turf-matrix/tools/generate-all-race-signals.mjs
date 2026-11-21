@@ -21,6 +21,7 @@ import {
 import { buildEngineFingerprint } from "./intelligence/engine-fingerprint.mjs";
 import { buildPairOddsIndex, pairOddsFor } from "./pair-odds.mjs";
 import { buildPublicBattleTicketPlan } from "./public-battle-ticket-plan.mjs";
+import { buildPublicBattleSnapshot } from "./public-battle-snapshot.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -197,6 +198,12 @@ try {
   if (CANDIDATE_COPY) writeFileSync(CANDIDATE_COPY, JSON.stringify(candidate, null, 2) + "\n");
   const signals = (candidate.races ?? []).map(buildSignal);
   const battleRace = selectBattleRace(signals);
+  const previousSignalsPath = join(TOOLS_DIR, "all-race-signals.json");
+  const previousSignals = existsSync(previousSignalsPath) ? readJson(previousSignalsPath) : null;
+  const battleRaceSnapshot = buildPublicBattleSnapshot({
+    raceDate: candidate.meta?.date ?? runtime.raceDate,
+    selectedRace: battleRace, previous: previousSignals,
+  });
   const selectionFingerprint = buildEngineFingerprint({
     root: REPO_ROOT,
     entryPoints: ["tools/generate-all-race-signals.mjs"],
@@ -220,7 +227,8 @@ try {
       opponent2Method: "index3to5-evidence",
     },
     raceCount: signals.length,
-    battleRaceId: battleRace?.id ?? null,
+    battleRaceId: battleRaceSnapshot?.race.id ?? battleRace?.id ?? null,
+    battleRaceSnapshot,
     races: signals,
   };
   writeFileSync(OUTPUT, JSON.stringify(output, null, 2) + "\n");

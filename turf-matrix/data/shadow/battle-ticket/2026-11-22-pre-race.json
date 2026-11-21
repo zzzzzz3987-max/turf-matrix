@@ -1,0 +1,535 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-11-21T12:48:28.642Z",
+  "raceDate": "2026-11-22",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開買い目は現行方式を維持する",
+    "shadowRule": "単勝・馬連・ワイドを固定基準で個別採否し、該当券種がなければ見送る"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "8ea98edce4ab8e7c51346239c15d7112c61db83d8ff54f2d8ae1412b076469c1",
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-89b38afc1ab8db43",
+      "sha256": "89b38afc1ab8db435c7faaf58dff545089ce2066f8e29f8298c0d3970ed315f2",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-0b5cbe78c981a031",
+      "sha256": "0b5cbe78c981a0312f072295b2d678d573007c403315863c23cea01b1a2ebb08",
+      "fileCount": 10
+    }
+  },
+  "ticketFingerprint": {
+    "schemaVersion": 2,
+    "id": "tmx-9a2e46b7687f0c49",
+    "sha256": "9a2e46b7687f0c49b91b41a21c36bdae43cc6fd0facadc204f7888b3d1062c28",
+    "fileCount": 1
+  },
+  "ticketRuleVersion": "battle-ticket-shadow-v2",
+  "thresholds": {
+    "readiness": 74,
+    "readinessCoverage": 0.75,
+    "winOddsMin": 1.5,
+    "winOddsMax": 30,
+    "winEvMin": 0.9,
+    "winEvMax": 3,
+    "quinellaOpponentIndex": 75,
+    "quinellaMaxIndexSpread": 6,
+    "quinellaOddsMin": 4,
+    "wideOpponentIndex": 68,
+    "wideEvidenceScore": 68,
+    "wideEvidenceCoverage": 0.75,
+    "wideMaxIndexSpread": 12,
+    "wideOddsMin": 2
+  },
+  "predictionSha256": "16f10d0705c8c1844a760ae3b26efbb28259da551851ff4653404049199d4087",
+  "race": {
+    "id": "2026-11-22-京都-12R",
+    "bundleId": "2026-11-22-kyoto-12R",
+    "track": "京都",
+    "number": 12,
+    "name": "醍醐ステークス",
+    "grade": null,
+    "category": "special",
+    "time": "16:20",
+    "surface": "芝",
+    "goingBasis": "official",
+    "goingLabel": null,
+    "distance": 1200,
+    "fieldSize": 13,
+    "oddsStatus": "active",
+    "indexTop": {
+      "id": "2611221211",
+      "number": 11,
+      "name": "ルージュスプリヤ",
+      "tmIndex": 82,
+      "popularity": 1,
+      "odds": 2.4,
+      "ev": 0.3688768477775433,
+      "marketGap": 0,
+      "source": "index1"
+    },
+    "battleCandidates": [
+      {
+        "id": "2611221209",
+        "number": 9,
+        "name": "マリノトニトゥルス",
+        "tmIndex": 78,
+        "popularity": 6,
+        "odds": 22.8,
+        "ev": 2.469279525666202,
+        "marketGap": 4,
+        "source": "index",
+        "indexRank": 2
+      },
+      {
+        "id": "2611221210",
+        "number": 10,
+        "name": "ディアドコス",
+        "tmIndex": 77,
+        "popularity": 4,
+        "odds": 16.1,
+        "ev": 1.5930673683226229,
+        "marketGap": 1,
+        "source": "index",
+        "indexRank": 3
+      },
+      {
+        "id": "2611221213",
+        "number": 13,
+        "name": "ファビュラススター",
+        "tmIndex": 75,
+        "popularity": 1,
+        "odds": 2.4,
+        "ev": 0.1975209997188303,
+        "marketGap": -3,
+        "source": "index",
+        "indexRank": 4
+      },
+      {
+        "id": "2611221203",
+        "number": 3,
+        "name": "シカゴスティング",
+        "tmIndex": 74,
+        "popularity": 7,
+        "odds": 25.5,
+        "ev": 1.9104488221687026,
+        "marketGap": 2,
+        "source": "index",
+        "indexRank": 5
+      }
+    ],
+    "leaderStatus": "clear",
+    "leaderContenders": [
+      {
+        "id": "2611221211",
+        "number": 11,
+        "name": "ルージュスプリヤ",
+        "tmIndex": 82,
+        "popularity": 1,
+        "odds": 2.4,
+        "ev": 0.3688768477775433,
+        "marketGap": 0,
+        "source": "leader-contender"
+      }
+    ],
+    "opponents": [
+      {
+        "id": "2611221209",
+        "number": 9,
+        "name": "マリノトニトゥルス",
+        "tmIndex": 78,
+        "popularity": 6,
+        "odds": 22.8,
+        "ev": 2.469279525666202,
+        "marketGap": 4,
+        "source": "index2"
+      },
+      {
+        "id": "2611221213",
+        "number": 13,
+        "name": "ファビュラススター",
+        "tmIndex": 75,
+        "popularity": 1,
+        "odds": 2.4,
+        "ev": 0.1975209997188303,
+        "marketGap": -3,
+        "source": "evidence",
+        "selectionScore": 69,
+        "selectionCoverage": 1,
+        "selectionEvidence": {
+          "ability": 68,
+          "form": 64,
+          "training": 74,
+          "pace": 70
+        }
+      }
+    ],
+    "valueWatch": {
+      "id": "2611221206",
+      "number": 6,
+      "name": "ルーフ",
+      "tmIndex": 74,
+      "popularity": 9,
+      "odds": 31.8,
+      "ev": 2.3824420605868526,
+      "marketGap": 4,
+      "source": "valueWatch"
+    },
+    "valuePending": false,
+    "topConfidence": "high",
+    "indexGap": 4,
+    "ticketOdds": {
+      "quinella": {
+        "type": "quinella",
+        "numbers": [
+          9,
+          11
+        ],
+        "minOdds": 9.2,
+        "maxOdds": 9.2,
+        "popularity": 3,
+        "updatedAt": "2026-11-21T21:43",
+        "source": "JV-Link 0B32",
+        "status": "active"
+      },
+      "wide": {
+        "type": "wide",
+        "numbers": [
+          11,
+          13
+        ],
+        "minOdds": 2.1,
+        "maxOdds": 2.1,
+        "popularity": 1,
+        "updatedAt": "2026-11-21T21:43",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      },
+      "wideOpponent1": {
+        "type": "wide",
+        "numbers": [
+          9,
+          11
+        ],
+        "minOdds": 5.2,
+        "maxOdds": 6.2,
+        "popularity": 2,
+        "updatedAt": "2026-11-21T21:43",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      },
+      "wideOpponent2": {
+        "type": "wide",
+        "numbers": [
+          11,
+          13
+        ],
+        "minOdds": 2.1,
+        "maxOdds": 2.1,
+        "popularity": 1,
+        "updatedAt": "2026-11-21T21:43",
+        "source": "JV-Link 0B33",
+        "status": "active"
+      }
+    },
+    "publicTicketPlan": {
+      "ruleVersion": "public-win-trio-v1",
+      "axis": {
+        "id": "2611221211",
+        "number": 11,
+        "name": "ルージュスプリヤ",
+        "tmIndex": 82,
+        "popularity": 1,
+        "odds": 2.4,
+        "ev": 0.3688768477775433,
+        "marketGap": 0,
+        "source": "index1"
+      },
+      "opponents": [
+        {
+          "id": "2611221209",
+          "number": 9,
+          "name": "マリノトニトゥルス",
+          "tmIndex": 78,
+          "popularity": 6,
+          "odds": 22.8,
+          "ev": 2.469279525666202,
+          "marketGap": 4,
+          "source": "index",
+          "indexRank": 2
+        },
+        {
+          "id": "2611221210",
+          "number": 10,
+          "name": "ディアドコス",
+          "tmIndex": 77,
+          "popularity": 4,
+          "odds": 16.1,
+          "ev": 1.5930673683226229,
+          "marketGap": 1,
+          "source": "index",
+          "indexRank": 3
+        },
+        {
+          "id": "2611221213",
+          "number": 13,
+          "name": "ファビュラススター",
+          "tmIndex": 75,
+          "popularity": 1,
+          "odds": 2.4,
+          "ev": 0.1975209997188303,
+          "marketGap": -3,
+          "source": "index",
+          "indexRank": 4
+        }
+      ],
+      "valueHorse": {
+        "id": "2611221206",
+        "number": 6,
+        "name": "ルーフ",
+        "tmIndex": 74,
+        "popularity": 9,
+        "odds": 31.8,
+        "ev": 2.3824420605868526,
+        "marketGap": 4,
+        "source": "valueWatch"
+      },
+      "tickets": [
+        {
+          "type": "win",
+          "numbers": [
+            11
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            9,
+            10,
+            11
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            9,
+            11,
+            13
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            6,
+            9,
+            11
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            10,
+            11,
+            13
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            6,
+            10,
+            11
+          ],
+          "units": 1
+        },
+        {
+          "type": "trio",
+          "numbers": [
+            6,
+            11,
+            13
+          ],
+          "units": 1
+        }
+      ],
+      "totalUnits": 7,
+      "status": "ready"
+    },
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 73.8,
+        "conditionFit": 75.5,
+        "opponentDepth": 74
+      }
+    }
+  },
+  "baseline": {
+    "ruleVersion": "battle-ticket-shadow-v2",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "win",
+        "horses": [
+          {
+            "number": 11,
+            "name": "ルージュスプリヤ"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸単勝",
+        "market": {
+          "minOdds": 2.4,
+          "maxOdds": 2.4
+        }
+      },
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 11,
+            "name": "ルージュスプリヤ"
+          },
+          {
+            "number": 9,
+            "name": "マリノトニトゥルス"
+          }
+        ],
+        "units": 1,
+        "rationale": "現行表示の軸－相手1馬連",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            9,
+            11
+          ],
+          "minOdds": 9.2,
+          "maxOdds": 9.2,
+          "popularity": 3,
+          "updatedAt": "2026-11-21T21:43",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 11,
+            "name": "ルージュスプリヤ"
+          },
+          {
+            "number": 9,
+            "name": "マリノトニトゥルス"
+          }
+        ],
+        "units": 1,
+        "rationale": "相手1の信頼度とオッズを比較して選択",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            9,
+            11
+          ],
+          "minOdds": 5.2,
+          "maxOdds": 6.2,
+          "popularity": 2,
+          "updatedAt": "2026-11-21T21:43",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "現行の公開買い目を再現"
+    ],
+    "rejected": [],
+    "totalUnits": 3
+  },
+  "shadow": {
+    "ruleVersion": "battle-ticket-shadow-v2",
+    "status": "bet",
+    "tickets": [
+      {
+        "type": "quinella",
+        "horses": [
+          {
+            "number": 11,
+            "name": "ルージュスプリヤ"
+          },
+          {
+            "number": 9,
+            "name": "マリノトニトゥルス"
+          }
+        ],
+        "units": 1,
+        "rationale": "指数2位の地力と首位との差、馬連オッズが基準内",
+        "market": {
+          "type": "quinella",
+          "numbers": [
+            9,
+            11
+          ],
+          "minOdds": 9.2,
+          "maxOdds": 9.2,
+          "popularity": 3,
+          "updatedAt": "2026-11-21T21:43",
+          "source": "JV-Link 0B32",
+          "status": "active"
+        }
+      },
+      {
+        "type": "wide",
+        "horses": [
+          {
+            "number": 11,
+            "name": "ルージュスプリヤ"
+          },
+          {
+            "number": 9,
+            "name": "マリノトニトゥルス"
+          }
+        ],
+        "units": 1,
+        "rationale": "相手1の指数・期待値とワイド下限オッズを比較",
+        "market": {
+          "type": "wide",
+          "numbers": [
+            9,
+            11
+          ],
+          "minOdds": 5.2,
+          "maxOdds": 6.2,
+          "popularity": 2,
+          "updatedAt": "2026-11-21T21:43",
+          "source": "JV-Link 0B33",
+          "status": "active"
+        }
+      }
+    ],
+    "reasons": [
+      "2券種だけを採用"
+    ],
+    "rejected": [
+      "単勝: オッズまたは期待値が採用帯外"
+    ],
+    "totalUnits": 2
+  }
+}

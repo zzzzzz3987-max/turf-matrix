@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-11-21T12:48:28.559Z",
+  "raceDate": "2026-11-22",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "8ea98edce4ab8e7c51346239c15d7112c61db83d8ff54f2d8ae1412b076469c1",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-89b38afc1ab8db43",
+      "sha256": "89b38afc1ab8db435c7faaf58dff545089ce2066f8e29f8298c0d3970ed315f2",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-0b5cbe78c981a031",
+      "sha256": "0b5cbe78c981a0312f072295b2d678d573007c403315863c23cea01b1a2ebb08",
+      "fileCount": 10
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "db81eb364477ee32c33c2d2903b7f3b8bfc9c1bd8844a36ebbc8341f12f18ffc",
+  "baseline": {
+    "date": "2026-11-22",
+    "raceId": "2026-11-22-京都-12R",
+    "bundleId": "2026-11-22-kyoto-12R",
+    "track": "京都",
+    "raceNumber": 12,
+    "raceName": "醍醐ステークス",
+    "scheduledTime": "16:20",
+    "axis": {
+      "number": 11,
+      "name": "ルージュスプリヤ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 9,
+        "name": "マリノトニトゥルス",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "ファビュラススター",
+        "tmIndex": 75,
+        "selectionScore": 69
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 73.8,
+        "conditionFit": 75.5,
+        "opponentDepth": 74
+      }
+    }
+  },
+  "shadow": {
+    "date": "2026-11-22",
+    "raceId": "2026-11-22-京都-12R",
+    "bundleId": "2026-11-22-kyoto-12R",
+    "track": "京都",
+    "raceNumber": 12,
+    "raceName": "醍醐ステークス",
+    "scheduledTime": "16:20",
+    "axis": {
+      "number": 11,
+      "name": "ルージュスプリヤ",
+      "tmIndex": 82,
+      "selectionScore": null
+    },
+    "opponents": [
+      {
+        "number": 9,
+        "name": "マリノトニトゥルス",
+        "tmIndex": 78,
+        "selectionScore": null
+      },
+      {
+        "number": 13,
+        "name": "ファビュラススター",
+        "tmIndex": 75,
+        "selectionScore": 69
+      }
+    ],
+    "indexGap": 4,
+    "battleProfile": {
+      "ruleVersion": "battle-readiness-v1",
+      "score": 76.9,
+      "coverage": 1,
+      "components": {
+        "axisIndex": 82,
+        "indexGap": 4,
+        "gapStrength": 74,
+        "axisCore": 73.8,
+        "conditionFit": 75.5,
+        "opponentDepth": 74
+      }
+    }
+  },
+  "candidates": [
+    {
+      "date": "2026-11-22",
+      "raceId": "2026-11-22-京都-12R",
+      "bundleId": "2026-11-22-kyoto-12R",
+      "track": "京都",
+      "raceNumber": 12,
+      "raceName": "醍醐ステークス",
+      "scheduledTime": "16:20",
+      "axis": {
+        "number": 11,
+        "name": "ルージュスプリヤ",
+        "tmIndex": 82,
+        "selectionScore": null
+      },
+      "opponents": [
+        {
+          "number": 9,
+          "name": "マリノトニトゥルス",
+          "tmIndex": 78,
+          "selectionScore": null
+        },
+        {
+          "number": 13,
+          "name": "ファビュラススター",
+          "tmIndex": 75,
+          "selectionScore": 69
+        }
+      ],
+      "indexGap": 4,
+      "battleProfile": {
+        "ruleVersion": "battle-readiness-v1",
+        "score": 76.9,
+        "coverage": 1,
+        "components": {
+          "axisIndex": 82,
+          "indexGap": 4,
+          "gapStrength": 74,
+          "axisCore": 73.8,
+          "conditionFit": 75.5,
+          "opponentDepth": 74
+        }
+      }
+    }
+  ]
+}

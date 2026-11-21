@@ -4,9 +4,9 @@
   "source": "jv-link-all-races",
   "pairOdds": {
     "status": "available",
-    "generatedAt": "2026-11-21T14:18:45.6638576+09:00",
+    "generatedAt": "2026-11-21T14:38:29.7819244+09:00",
     "source": "JV-Link 0B32/O2 + 0B33/O3",
-    "combinations": 4756
+    "combinations": 4742
   },
   "engineFingerprint": {
     "schemaVersion": 2,
@@ -5294,15 +5294,15 @@
       "goingLabel": null,
       "distance": 1400,
       "fieldSize": 8,
-      "oddsStatus": "active",
+      "oddsStatus": "partial",
       "indexTop": {
         "id": "2611210903",
         "number": 3,
         "name": "アンムート",
         "tmIndex": 82,
         "popularity": 1,
-        "odds": 1.8,
-        "ev": 0.4581781981663256,
+        "odds": 1.7,
+        "ev": 0.4327238538237519,
         "marketGap": 0,
         "source": "index1"
       },
@@ -5312,10 +5312,10 @@
           "number": 6,
           "name": "ジャスパーレーブ",
           "tmIndex": 78,
-          "popularity": 4,
-          "odds": 11.7,
-          "ev": 2.098519594863951,
-          "marketGap": 2,
+          "popularity": 3,
+          "odds": 10.6,
+          "ev": 1.901222880816913,
+          "marketGap": 1,
           "source": "index",
           "indexRank": 2
         },
@@ -5325,33 +5325,33 @@
           "name": "カレンハウ",
           "tmIndex": 78,
           "popularity": 2,
-          "odds": 2.8,
-          "ev": 0.5022098175742788,
+          "odds": 1.9,
+          "ev": 0.3407852333539749,
           "marketGap": 0,
           "source": "index",
           "indexRank": 3
-        },
-        {
-          "id": "2611210904",
-          "number": 4,
-          "name": "サンタンジェロ",
-          "tmIndex": 76,
-          "popularity": 3,
-          "odds": 5,
-          "ev": 0.747704679187806,
-          "marketGap": -1,
-          "source": "index",
-          "indexRank": 4
         },
         {
           "id": "2611210901",
           "number": 1,
           "name": "ミハテヌユメ",
           "tmIndex": 75,
+          "popularity": 4,
+          "odds": 21.5,
+          "ev": 2.9304360736794797,
+          "marketGap": -1,
+          "source": "index",
+          "indexRank": 4
+        },
+        {
+          "id": "2611210902",
+          "number": 2,
+          "name": "タナコクシテンホウ",
+          "tmIndex": 63,
           "popularity": 5,
-          "odds": 19.3,
-          "ev": 2.6305774986983237,
-          "marketGap": 0,
+          "odds": 93.2,
+          "ev": 3.748562072471346,
+          "marketGap": -1,
           "source": "index",
           "indexRank": 5
         }
@@ -5364,8 +5364,8 @@
           "name": "アンムート",
           "tmIndex": 82,
           "popularity": 1,
-          "odds": 1.8,
-          "ev": 0.4581781981663256,
+          "odds": 1.7,
+          "ev": 0.4327238538237519,
           "marketGap": 0,
           "source": "leader-contender"
         }
@@ -5376,10 +5376,10 @@
           "number": 6,
           "name": "ジャスパーレーブ",
           "tmIndex": 78,
-          "popularity": 4,
-          "odds": 11.7,
-          "ev": 2.098519594863951,
-          "marketGap": 2,
+          "popularity": 3,
+          "odds": 10.6,
+          "ev": 1.901222880816913,
+          "marketGap": 1,
           "source": "index2"
         },
         {
@@ -5388,8 +5388,8 @@
           "name": "カレンハウ",
           "tmIndex": 78,
           "popularity": 2,
-          "odds": 2.8,
-          "ev": 0.5022098175742788,
+          "odds": 1.9,
+          "ev": 0.3407852333539749,
           "marketGap": 0,
           "source": "evidence",
           "selectionScore": 70.75,
@@ -5413,12 +5413,12 @@
             3,
             6
           ],
-          "minOdds": 9.3,
-          "maxOdds": 9.3,
-          "popularity": 4,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 7.1,
+          "maxOdds": 7.1,
+          "popularity": 2,
+          "updatedAt": "2026-11-21T14:31",
           "source": "JV-Link 0B32",
-          "status": "active"
+          "status": "closed"
         },
         "wide": {
           "type": "wide",
@@ -5426,12 +5426,12 @@
             3,
             7
           ],
-          "minOdds": 1.2,
-          "maxOdds": 1.4,
+          "minOdds": 1.1,
+          "maxOdds": 1.1,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:31",
           "source": "JV-Link 0B33",
-          "status": "active"
+          "status": "closed"
         },
         "wideOpponent1": {
           "type": "wide",
@@ -5439,12 +5439,12 @@
             3,
             6
           ],
-          "minOdds": 2.7,
-          "maxOdds": 3.8,
-          "popularity": 4,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 1.3,
+          "maxOdds": 3,
+          "popularity": 2,
+          "updatedAt": "2026-11-21T14:31",
           "source": "JV-Link 0B33",
-          "status": "active"
+          "status": "closed"
         },
         "wideOpponent2": {
           "type": "wide",
@@ -5452,12 +5452,12 @@
             3,
             7
           ],
-          "minOdds": 1.2,
-          "maxOdds": 1.4,
+          "minOdds": 1.1,
+          "maxOdds": 1.1,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:31",
           "source": "JV-Link 0B33",
-          "status": "active"
+          "status": "closed"
         }
       },
       "publicTicketPlan": {
@@ -5468,88 +5468,16 @@
           "name": "アンムート",
           "tmIndex": 82,
           "popularity": 1,
-          "odds": 1.8,
-          "ev": 0.4581781981663256,
+          "odds": 1.7,
+          "ev": 0.4327238538237519,
           "marketGap": 0,
           "source": "index1"
         },
-        "opponents": [
-          {
-            "id": "2611210906",
-            "number": 6,
-            "name": "ジャスパーレーブ",
-            "tmIndex": 78,
-            "popularity": 4,
-            "odds": 11.7,
-            "ev": 2.098519594863951,
-            "marketGap": 2,
-            "source": "index",
-            "indexRank": 2
-          },
-          {
-            "id": "2611210907",
-            "number": 7,
-            "name": "カレンハウ",
-            "tmIndex": 78,
-            "popularity": 2,
-            "odds": 2.8,
-            "ev": 0.5022098175742788,
-            "marketGap": 0,
-            "source": "index",
-            "indexRank": 3
-          },
-          {
-            "id": "2611210904",
-            "number": 4,
-            "name": "サンタンジェロ",
-            "tmIndex": 76,
-            "popularity": 3,
-            "odds": 5,
-            "ev": 0.747704679187806,
-            "marketGap": -1,
-            "source": "index",
-            "indexRank": 4
-          }
-        ],
+        "opponents": [],
         "valueHorse": null,
-        "tickets": [
-          {
-            "type": "win",
-            "numbers": [
-              3
-            ],
-            "units": 1
-          },
-          {
-            "type": "trio",
-            "numbers": [
-              3,
-              6,
-              7
-            ],
-            "units": 1
-          },
-          {
-            "type": "trio",
-            "numbers": [
-              3,
-              4,
-              6
-            ],
-            "units": 1
-          },
-          {
-            "type": "trio",
-            "numbers": [
-              3,
-              4,
-              7
-            ],
-            "units": 1
-          }
-        ],
-        "totalUnits": 4,
-        "status": "ready"
+        "tickets": [],
+        "totalUnits": 0,
+        "status": "pending"
       },
       "battleProfile": {
         "ruleVersion": "battle-readiness-v1",
@@ -5585,10 +5513,10 @@
         "number": 1,
         "name": "ソニックブレイカー",
         "tmIndex": 78,
-        "popularity": 2,
-        "odds": 5.2,
-        "ev": 0.5582160748680098,
-        "marketGap": 1,
+        "popularity": 1,
+        "odds": 3.7,
+        "ev": 0.39719220711762243,
+        "marketGap": 0,
         "source": "index1"
       },
       "battleCandidates": [
@@ -5597,10 +5525,10 @@
           "number": 7,
           "name": "モズオウンゴール",
           "tmIndex": 77,
-          "popularity": 1,
-          "odds": 4.5,
-          "ev": 0.44135125530901,
-          "marketGap": -1,
+          "popularity": 2,
+          "odds": 4.2,
+          "ev": 0.41192783828840934,
+          "marketGap": 0,
           "source": "index",
           "indexRank": 2
         },
@@ -5609,10 +5537,10 @@
           "number": 3,
           "name": "ビーマックス",
           "tmIndex": 76,
-          "popularity": 5,
-          "odds": 8.9,
-          "ev": 0.7965662997161109,
-          "marketGap": 2,
+          "popularity": 4,
+          "odds": 9.6,
+          "ev": 0.8592175817162544,
+          "marketGap": 1,
           "source": "index",
           "indexRank": 3
         },
@@ -5621,10 +5549,10 @@
           "number": 15,
           "name": "コックピットサイト",
           "tmIndex": 75,
-          "popularity": 3,
-          "odds": 6.9,
-          "ev": 0.5628785650893784,
-          "marketGap": -1,
+          "popularity": 5,
+          "odds": 9.7,
+          "ev": 0.7912930552705753,
+          "marketGap": 1,
           "source": "index",
           "indexRank": 4
         },
@@ -5633,10 +5561,10 @@
           "number": 6,
           "name": "ペルセポネ",
           "tmIndex": 74,
-          "popularity": 6,
-          "odds": 11,
-          "ev": 0.8168672779599245,
-          "marketGap": 1,
+          "popularity": 7,
+          "odds": 15.1,
+          "ev": 1.121335990654078,
+          "marketGap": 2,
           "source": "index",
           "indexRank": 5
         }
@@ -5648,10 +5576,10 @@
           "number": 1,
           "name": "ソニックブレイカー",
           "tmIndex": 78,
-          "popularity": 2,
-          "odds": 5.2,
-          "ev": 0.5582160748680098,
-          "marketGap": 1,
+          "popularity": 1,
+          "odds": 3.7,
+          "ev": 0.39719220711762243,
+          "marketGap": 0,
           "source": "leader-contender"
         },
         {
@@ -5659,10 +5587,10 @@
           "number": 7,
           "name": "モズオウンゴール",
           "tmIndex": 77,
-          "popularity": 1,
-          "odds": 4.5,
-          "ev": 0.44135125530901,
-          "marketGap": -1,
+          "popularity": 2,
+          "odds": 4.2,
+          "ev": 0.41192783828840934,
+          "marketGap": 0,
           "source": "leader-contender"
         },
         {
@@ -5670,10 +5598,10 @@
           "number": 3,
           "name": "ビーマックス",
           "tmIndex": 76,
-          "popularity": 5,
-          "odds": 8.9,
-          "ev": 0.7965662997161109,
-          "marketGap": 2,
+          "popularity": 4,
+          "odds": 9.6,
+          "ev": 0.8592175817162544,
+          "marketGap": 1,
           "source": "leader-contender"
         }
       ],
@@ -5683,10 +5611,10 @@
           "number": 7,
           "name": "モズオウンゴール",
           "tmIndex": 77,
-          "popularity": 1,
-          "odds": 4.5,
-          "ev": 0.44135125530901,
-          "marketGap": -1,
+          "popularity": 2,
+          "odds": 4.2,
+          "ev": 0.41192783828840934,
+          "marketGap": 0,
           "source": "index2"
         },
         {
@@ -5694,10 +5622,10 @@
           "number": 3,
           "name": "ビーマックス",
           "tmIndex": 76,
-          "popularity": 5,
-          "odds": 8.9,
-          "ev": 0.7965662997161109,
-          "marketGap": 2,
+          "popularity": 4,
+          "odds": 9.6,
+          "ev": 0.8592175817162544,
+          "marketGap": 1,
           "source": "evidence",
           "selectionScore": 70,
           "selectionCoverage": 1,
@@ -5715,8 +5643,8 @@
         "name": "ナムラモモ",
         "tmIndex": 73,
         "popularity": 10,
-        "odds": 24.5,
-        "ev": 1.654104264771083,
+        "odds": 28,
+        "ev": 1.8904048740240949,
         "marketGap": 3,
         "source": "valueWatch"
       },
@@ -5730,10 +5658,10 @@
             1,
             7
           ],
-          "minOdds": 9.2,
-          "maxOdds": 9.2,
+          "minOdds": 8.4,
+          "maxOdds": 8.4,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -5743,10 +5671,10 @@
             1,
             3
           ],
-          "minOdds": 6.8,
-          "maxOdds": 7.5,
-          "popularity": 3,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 6.6,
+          "maxOdds": 7.3,
+          "popularity": 5,
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -5756,10 +5684,10 @@
             1,
             7
           ],
-          "minOdds": 4.2,
-          "maxOdds": 4.5,
+          "minOdds": 3.6,
+          "maxOdds": 3.8,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -5769,10 +5697,10 @@
             1,
             3
           ],
-          "minOdds": 6.8,
-          "maxOdds": 7.5,
-          "popularity": 3,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 6.6,
+          "maxOdds": 7.3,
+          "popularity": 5,
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -5784,10 +5712,10 @@
           "number": 1,
           "name": "ソニックブレイカー",
           "tmIndex": 78,
-          "popularity": 2,
-          "odds": 5.2,
-          "ev": 0.5582160748680098,
-          "marketGap": 1,
+          "popularity": 1,
+          "odds": 3.7,
+          "ev": 0.39719220711762243,
+          "marketGap": 0,
           "source": "index1"
         },
         "opponents": [
@@ -5796,10 +5724,10 @@
             "number": 7,
             "name": "モズオウンゴール",
             "tmIndex": 77,
-            "popularity": 1,
-            "odds": 4.5,
-            "ev": 0.44135125530901,
-            "marketGap": -1,
+            "popularity": 2,
+            "odds": 4.2,
+            "ev": 0.41192783828840934,
+            "marketGap": 0,
             "source": "index",
             "indexRank": 2
           },
@@ -5808,10 +5736,10 @@
             "number": 3,
             "name": "ビーマックス",
             "tmIndex": 76,
-            "popularity": 5,
-            "odds": 8.9,
-            "ev": 0.7965662997161109,
-            "marketGap": 2,
+            "popularity": 4,
+            "odds": 9.6,
+            "ev": 0.8592175817162544,
+            "marketGap": 1,
             "source": "index",
             "indexRank": 3
           },
@@ -5820,10 +5748,10 @@
             "number": 15,
             "name": "コックピットサイト",
             "tmIndex": 75,
-            "popularity": 3,
-            "odds": 6.9,
-            "ev": 0.5628785650893784,
-            "marketGap": -1,
+            "popularity": 5,
+            "odds": 9.7,
+            "ev": 0.7912930552705753,
+            "marketGap": 1,
             "source": "index",
             "indexRank": 4
           }
@@ -5834,8 +5762,8 @@
           "name": "ナムラモモ",
           "tmIndex": 73,
           "popularity": 10,
-          "odds": 24.5,
-          "ev": 1.654104264771083,
+          "odds": 28,
+          "ev": 1.8904048740240949,
           "marketGap": 3,
           "source": "valueWatch"
         },
@@ -5940,8 +5868,8 @@
         "name": "ベトルス",
         "tmIndex": 81,
         "popularity": 2,
-        "odds": 4.3,
-        "ev": 0.5418522137116796,
+        "odds": 4,
+        "ev": 0.5040485708945857,
         "marketGap": 1,
         "source": "index1"
       },
@@ -5952,8 +5880,8 @@
           "name": "サトノパトリオット",
           "tmIndex": 78,
           "popularity": 4,
-          "odds": 8.2,
-          "ev": 0.7934020814406191,
+          "odds": 7.4,
+          "ev": 0.7159970003244612,
           "marketGap": 2,
           "source": "index",
           "indexRank": 2
@@ -5964,8 +5892,8 @@
           "name": "ロードガレリア",
           "tmIndex": 77,
           "popularity": 7,
-          "odds": 14,
-          "ev": 1.2376002150402174,
+          "odds": 15,
+          "ev": 1.326000230400233,
           "marketGap": 4,
           "source": "index",
           "indexRank": 3
@@ -5976,8 +5904,8 @@
           "name": "クルミナーレ",
           "tmIndex": 77,
           "popularity": 3,
-          "odds": 7.2,
-          "ev": 0.6364801105921118,
+          "odds": 5.7,
+          "ev": 0.5038800875520886,
           "marketGap": 0,
           "source": "index",
           "indexRank": 4
@@ -5988,8 +5916,8 @@
           "name": "ロードフィレール",
           "tmIndex": 76,
           "popularity": 1,
-          "odds": 3.2,
-          "ev": 0.2581442099948244,
+          "odds": 3.5,
+          "ev": 0.28234522968183917,
           "marketGap": -4,
           "source": "index",
           "indexRank": 5
@@ -6003,8 +5931,8 @@
           "name": "ベトルス",
           "tmIndex": 81,
           "popularity": 2,
-          "odds": 4.3,
-          "ev": 0.5418522137116796,
+          "odds": 4,
+          "ev": 0.5040485708945857,
           "marketGap": 1,
           "source": "leader-contender"
         }
@@ -6016,8 +5944,8 @@
           "name": "サトノパトリオット",
           "tmIndex": 78,
           "popularity": 4,
-          "odds": 8.2,
-          "ev": 0.7934020814406191,
+          "odds": 7.4,
+          "ev": 0.7159970003244612,
           "marketGap": 2,
           "source": "index2"
         },
@@ -6027,8 +5955,8 @@
           "name": "クルミナーレ",
           "tmIndex": 77,
           "popularity": 3,
-          "odds": 7.2,
-          "ev": 0.6364801105921118,
+          "odds": 5.7,
+          "ev": 0.5038800875520886,
           "marketGap": 0,
           "source": "evidence",
           "selectionScore": 71,
@@ -6047,8 +5975,8 @@
         "name": "スピードリッチ",
         "tmIndex": 76,
         "popularity": 9,
-        "odds": 22.6,
-        "ev": 1.8231434830884474,
+        "odds": 23.8,
+        "ev": 1.9199475618365065,
         "marketGap": 4,
         "source": "valueWatch"
       },
@@ -6062,10 +5990,10 @@
             2,
             5
           ],
-          "minOdds": 10.6,
-          "maxOdds": 10.6,
+          "minOdds": 10.1,
+          "maxOdds": 10.1,
           "popularity": 2,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -6075,10 +6003,10 @@
             5,
             15
           ],
-          "minOdds": 5,
-          "maxOdds": 5.5,
+          "minOdds": 4.6,
+          "maxOdds": 5.1,
           "popularity": 3,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6088,10 +6016,10 @@
             2,
             5
           ],
-          "minOdds": 4.7,
-          "maxOdds": 5.3,
+          "minOdds": 4.2,
+          "maxOdds": 4.8,
           "popularity": 2,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6101,10 +6029,10 @@
             5,
             15
           ],
-          "minOdds": 5,
-          "maxOdds": 5.5,
+          "minOdds": 4.6,
+          "maxOdds": 5.1,
           "popularity": 3,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -6117,8 +6045,8 @@
           "name": "ベトルス",
           "tmIndex": 81,
           "popularity": 2,
-          "odds": 4.3,
-          "ev": 0.5418522137116796,
+          "odds": 4,
+          "ev": 0.5040485708945857,
           "marketGap": 1,
           "source": "index1"
         },
@@ -6129,8 +6057,8 @@
             "name": "サトノパトリオット",
             "tmIndex": 78,
             "popularity": 4,
-            "odds": 8.2,
-            "ev": 0.7934020814406191,
+            "odds": 7.4,
+            "ev": 0.7159970003244612,
             "marketGap": 2,
             "source": "index",
             "indexRank": 2
@@ -6141,8 +6069,8 @@
             "name": "ロードガレリア",
             "tmIndex": 77,
             "popularity": 7,
-            "odds": 14,
-            "ev": 1.2376002150402174,
+            "odds": 15,
+            "ev": 1.326000230400233,
             "marketGap": 4,
             "source": "index",
             "indexRank": 3
@@ -6153,8 +6081,8 @@
             "name": "クルミナーレ",
             "tmIndex": 77,
             "popularity": 3,
-            "odds": 7.2,
-            "ev": 0.6364801105921118,
+            "odds": 5.7,
+            "ev": 0.5038800875520886,
             "marketGap": 0,
             "source": "index",
             "indexRank": 4
@@ -6166,8 +6094,8 @@
           "name": "スピードリッチ",
           "tmIndex": 76,
           "popularity": 9,
-          "odds": 22.6,
-          "ev": 1.8231434830884474,
+          "odds": 23.8,
+          "ev": 1.9199475618365065,
           "marketGap": 4,
           "source": "valueWatch"
         },
@@ -6284,8 +6212,8 @@
           "name": "レイニング",
           "tmIndex": 81,
           "popularity": 6,
-          "odds": 10.6,
-          "ev": 1.0819060254815929,
+          "odds": 10.7,
+          "ev": 1.0921126860993438,
           "marketGap": 4,
           "source": "index",
           "indexRank": 2
@@ -6308,8 +6236,8 @@
           "name": "ヨヒーン",
           "tmIndex": 78,
           "popularity": 5,
-          "odds": 9.2,
-          "ev": 0.7210055176912127,
+          "odds": 9.5,
+          "ev": 0.7445165671811437,
           "marketGap": 1,
           "source": "index",
           "indexRank": 4
@@ -6320,8 +6248,8 @@
           "name": "カテリーナ",
           "tmIndex": 78,
           "popularity": 8,
-          "odds": 16.3,
-          "ev": 1.2774336889529097,
+          "odds": 16.5,
+          "ev": 1.2931077219461968,
           "marketGap": 4,
           "source": "index",
           "indexRank": 5
@@ -6346,8 +6274,8 @@
           "name": "レイニング",
           "tmIndex": 81,
           "popularity": 6,
-          "odds": 10.6,
-          "ev": 1.0819060254815929,
+          "odds": 10.7,
+          "ev": 1.0921126860993438,
           "marketGap": 4,
           "source": "leader-contender"
         }
@@ -6359,8 +6287,8 @@
           "name": "レイニング",
           "tmIndex": 81,
           "popularity": 6,
-          "odds": 10.6,
-          "ev": 1.0819060254815929,
+          "odds": 10.7,
+          "ev": 1.0921126860993438,
           "marketGap": 4,
           "source": "index2"
         },
@@ -6390,8 +6318,8 @@
         "name": "カテリーナ",
         "tmIndex": 78,
         "popularity": 8,
-        "odds": 16.3,
-        "ev": 1.2774336889529097,
+        "odds": 16.5,
+        "ev": 1.2931077219461968,
         "marketGap": 4,
         "source": "valueWatch"
       },
@@ -6405,10 +6333,10 @@
             13,
             16
           ],
-          "minOdds": 18.4,
-          "maxOdds": 18.4,
+          "minOdds": 18.3,
+          "maxOdds": 18.3,
           "popularity": 5,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -6418,10 +6346,10 @@
             13,
             15
           ],
-          "minOdds": 5.1,
-          "maxOdds": 5.4,
+          "minOdds": 4.9,
+          "maxOdds": 5.2,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6431,10 +6359,10 @@
             13,
             16
           ],
-          "minOdds": 8.1,
-          "maxOdds": 8.6,
+          "minOdds": 7.8,
+          "maxOdds": 8.3,
           "popularity": 5,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6444,10 +6372,10 @@
             13,
             15
           ],
-          "minOdds": 5.1,
-          "maxOdds": 5.4,
+          "minOdds": 4.9,
+          "maxOdds": 5.2,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -6472,8 +6400,8 @@
             "name": "レイニング",
             "tmIndex": 81,
             "popularity": 6,
-            "odds": 10.6,
-            "ev": 1.0819060254815929,
+            "odds": 10.7,
+            "ev": 1.0921126860993438,
             "marketGap": 4,
             "source": "index",
             "indexRank": 2
@@ -6496,8 +6424,8 @@
             "name": "ヨヒーン",
             "tmIndex": 78,
             "popularity": 5,
-            "odds": 9.2,
-            "ev": 0.7210055176912127,
+            "odds": 9.5,
+            "ev": 0.7445165671811437,
             "marketGap": 1,
             "source": "index",
             "indexRank": 4
@@ -6509,8 +6437,8 @@
           "name": "カテリーナ",
           "tmIndex": 78,
           "popularity": 8,
-          "odds": 16.3,
-          "ev": 1.2774336889529097,
+          "odds": 16.5,
+          "ev": 1.2931077219461968,
           "marketGap": 4,
           "source": "valueWatch"
         },
@@ -6614,10 +6542,10 @@
         "number": 14,
         "name": "チェリヴェント",
         "tmIndex": 81,
-        "popularity": 3,
-        "odds": 5.6,
-        "ev": 0.6140476920416881,
-        "marketGap": 2,
+        "popularity": 2,
+        "odds": 5.4,
+        "ev": 0.5921174173259136,
+        "marketGap": 1,
         "source": "index1"
       },
       "battleCandidates": [
@@ -6627,8 +6555,8 @@
           "name": "テーオーマルコーニ",
           "tmIndex": 80,
           "popularity": 1,
-          "odds": 4.2,
-          "ev": 0.42218047438115125,
+          "odds": 4.1,
+          "ev": 0.4121285583244571,
           "marketGap": -1,
           "source": "index",
           "indexRank": 2
@@ -6639,8 +6567,8 @@
           "name": "メリークリスマス",
           "tmIndex": 79,
           "popularity": 5,
-          "odds": 12.5,
-          "ev": 1.150584704215904,
+          "odds": 12.6,
+          "ev": 1.1597893818496312,
           "marketGap": 2,
           "source": "index",
           "indexRank": 3
@@ -6650,10 +6578,10 @@
           "number": 12,
           "name": "メルカントゥール",
           "tmIndex": 79,
-          "popularity": 2,
+          "popularity": 3,
           "odds": 5.5,
           "ev": 0.5062572698549977,
-          "marketGap": -1,
+          "marketGap": 0,
           "source": "index",
           "indexRank": 4
         },
@@ -6663,8 +6591,8 @@
           "name": "サイモンシュバリエ",
           "tmIndex": 77,
           "popularity": 7,
-          "odds": 14.9,
-          "ev": 1.146146912485786,
+          "odds": 15.2,
+          "ev": 1.169223695958654,
           "marketGap": 2,
           "source": "index",
           "indexRank": 5
@@ -6677,10 +6605,10 @@
           "number": 14,
           "name": "チェリヴェント",
           "tmIndex": 81,
-          "popularity": 3,
-          "odds": 5.6,
-          "ev": 0.6140476920416881,
-          "marketGap": 2,
+          "popularity": 2,
+          "odds": 5.4,
+          "ev": 0.5921174173259136,
+          "marketGap": 1,
           "source": "leader-contender"
         },
         {
@@ -6689,8 +6617,8 @@
           "name": "テーオーマルコーニ",
           "tmIndex": 80,
           "popularity": 1,
-          "odds": 4.2,
-          "ev": 0.42218047438115125,
+          "odds": 4.1,
+          "ev": 0.4121285583244571,
           "marketGap": -1,
           "source": "leader-contender"
         },
@@ -6700,8 +6628,8 @@
           "name": "メリークリスマス",
           "tmIndex": 79,
           "popularity": 5,
-          "odds": 12.5,
-          "ev": 1.150584704215904,
+          "odds": 12.6,
+          "ev": 1.1597893818496312,
           "marketGap": 2,
           "source": "leader-contender"
         }
@@ -6713,8 +6641,8 @@
           "name": "テーオーマルコーニ",
           "tmIndex": 80,
           "popularity": 1,
-          "odds": 4.2,
-          "ev": 0.42218047438115125,
+          "odds": 4.1,
+          "ev": 0.4121285583244571,
           "marketGap": -1,
           "source": "index2"
         },
@@ -6724,8 +6652,8 @@
           "name": "メリークリスマス",
           "tmIndex": 79,
           "popularity": 5,
-          "odds": 12.5,
-          "ev": 1.150584704215904,
+          "odds": 12.6,
+          "ev": 1.1597893818496312,
           "marketGap": 2,
           "source": "evidence",
           "selectionScore": 69.75,
@@ -6744,8 +6672,8 @@
         "name": "レッドプロフェシー",
         "tmIndex": 75,
         "popularity": 10,
-        "odds": 16.8,
-        "ev": 1.0748727916176168,
+        "odds": 17.1,
+        "ev": 1.0940669486107886,
         "marketGap": 4,
         "source": "valueWatch"
       },
@@ -6762,7 +6690,7 @@
           "minOdds": 8.3,
           "maxOdds": 8.3,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -6773,9 +6701,9 @@
             14
           ],
           "minOdds": 12.3,
-          "maxOdds": 13.5,
+          "maxOdds": 13.6,
           "popularity": 14,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6788,7 +6716,7 @@
           "minOdds": 3.9,
           "maxOdds": 4.3,
           "popularity": 1,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -6799,9 +6727,9 @@
             14
           ],
           "minOdds": 12.3,
-          "maxOdds": 13.5,
+          "maxOdds": 13.6,
           "popularity": 14,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -6813,10 +6741,10 @@
           "number": 14,
           "name": "チェリヴェント",
           "tmIndex": 81,
-          "popularity": 3,
-          "odds": 5.6,
-          "ev": 0.6140476920416881,
-          "marketGap": 2,
+          "popularity": 2,
+          "odds": 5.4,
+          "ev": 0.5921174173259136,
+          "marketGap": 1,
           "source": "index1"
         },
         "opponents": [
@@ -6826,8 +6754,8 @@
             "name": "テーオーマルコーニ",
             "tmIndex": 80,
             "popularity": 1,
-            "odds": 4.2,
-            "ev": 0.42218047438115125,
+            "odds": 4.1,
+            "ev": 0.4121285583244571,
             "marketGap": -1,
             "source": "index",
             "indexRank": 2
@@ -6838,8 +6766,8 @@
             "name": "メリークリスマス",
             "tmIndex": 79,
             "popularity": 5,
-            "odds": 12.5,
-            "ev": 1.150584704215904,
+            "odds": 12.6,
+            "ev": 1.1597893818496312,
             "marketGap": 2,
             "source": "index",
             "indexRank": 3
@@ -6849,10 +6777,10 @@
             "number": 12,
             "name": "メルカントゥール",
             "tmIndex": 79,
-            "popularity": 2,
+            "popularity": 3,
             "odds": 5.5,
             "ev": 0.5062572698549977,
-            "marketGap": -1,
+            "marketGap": 0,
             "source": "index",
             "indexRank": 4
           }
@@ -6932,8 +6860,8 @@
         "name": "ニルマーネル",
         "tmIndex": 78,
         "popularity": 6,
-        "odds": 9.3,
-        "ev": 1.0020699231232588,
+        "odds": 9.4,
+        "ev": 1.0128448685331863,
         "marketGap": 5,
         "source": "index1"
       },
@@ -6944,8 +6872,8 @@
           "name": "ヤマニンフェイエル",
           "tmIndex": 77,
           "popularity": 4,
-          "odds": 7.3,
-          "ev": 0.7186390226423784,
+          "odds": 7.4,
+          "ev": 0.7284833928155617,
           "marketGap": 2,
           "source": "index",
           "indexRank": 2
@@ -6956,8 +6884,8 @@
           "name": "ルシェロアズーリ",
           "tmIndex": 76,
           "popularity": 3,
-          "odds": 6.8,
-          "ev": 0.6108814230031476,
+          "odds": 6.4,
+          "ev": 0.5749472216500213,
           "marketGap": 0,
           "source": "index",
           "indexRank": 3
@@ -6968,8 +6896,8 @@
           "name": "ステキサプライズ",
           "tmIndex": 75,
           "popularity": 1,
-          "odds": 5.6,
-          "ev": 0.45853208538388857,
+          "odds": 5.5,
+          "ev": 0.45034401243060485,
           "marketGap": -3,
           "source": "index",
           "indexRank": 4
@@ -6980,8 +6908,8 @@
           "name": "ステートオブロック",
           "tmIndex": 75,
           "popularity": 7,
-          "odds": 14,
-          "ev": 1.1463302134597215,
+          "odds": 14.2,
+          "ev": 1.1627063593662887,
           "marketGap": 3,
           "source": "index",
           "indexRank": 5
@@ -6995,8 +6923,8 @@
           "name": "ニルマーネル",
           "tmIndex": 78,
           "popularity": 6,
-          "odds": 9.3,
-          "ev": 1.0020699231232588,
+          "odds": 9.4,
+          "ev": 1.0128448685331863,
           "marketGap": 5,
           "source": "leader-contender"
         },
@@ -7006,8 +6934,8 @@
           "name": "ヤマニンフェイエル",
           "tmIndex": 77,
           "popularity": 4,
-          "odds": 7.3,
-          "ev": 0.7186390226423784,
+          "odds": 7.4,
+          "ev": 0.7284833928155617,
           "marketGap": 2,
           "source": "leader-contender"
         },
@@ -7017,8 +6945,8 @@
           "name": "ルシェロアズーリ",
           "tmIndex": 76,
           "popularity": 3,
-          "odds": 6.8,
-          "ev": 0.6108814230031476,
+          "odds": 6.4,
+          "ev": 0.5749472216500213,
           "marketGap": 0,
           "source": "leader-contender"
         }
@@ -7030,8 +6958,8 @@
           "name": "ヤマニンフェイエル",
           "tmIndex": 77,
           "popularity": 4,
-          "odds": 7.3,
-          "ev": 0.7186390226423784,
+          "odds": 7.4,
+          "ev": 0.7284833928155617,
           "marketGap": 2,
           "source": "index2"
         },
@@ -7041,8 +6969,8 @@
           "name": "ステートオブロック",
           "tmIndex": 75,
           "popularity": 7,
-          "odds": 14,
-          "ev": 1.1463302134597215,
+          "odds": 14.2,
+          "ev": 1.1627063593662887,
           "marketGap": 3,
           "source": "evidence",
           "selectionScore": 68.75,
@@ -7061,8 +6989,8 @@
         "name": "レモンバーム",
         "tmIndex": 69,
         "popularity": 15,
-        "odds": 46.3,
-        "ev": 2.1148398531292054,
+        "odds": 47.6,
+        "ev": 2.174219805808859,
         "marketGap": 4,
         "source": "valueWatch"
       },
@@ -7076,10 +7004,10 @@
             2,
             4
           ],
-          "minOdds": 33.3,
-          "maxOdds": 33.3,
+          "minOdds": 33.1,
+          "maxOdds": 33.1,
           "popularity": 12,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -7089,10 +7017,10 @@
             2,
             5
           ],
-          "minOdds": 23.7,
-          "maxOdds": 24.6,
-          "popularity": 24,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 24.1,
+          "maxOdds": 25.1,
+          "popularity": 26,
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -7105,7 +7033,7 @@
           "minOdds": 12.7,
           "maxOdds": 13.7,
           "popularity": 13,
-          "updatedAt": "2026-11-21T14:18",
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -7115,10 +7043,10 @@
             2,
             5
           ],
-          "minOdds": 23.7,
-          "maxOdds": 24.6,
-          "popularity": 24,
-          "updatedAt": "2026-11-21T14:18",
+          "minOdds": 24.1,
+          "maxOdds": 25.1,
+          "popularity": 26,
+          "updatedAt": "2026-11-21T14:38",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -7131,8 +7059,8 @@
           "name": "ニルマーネル",
           "tmIndex": 78,
           "popularity": 6,
-          "odds": 9.3,
-          "ev": 1.0020699231232588,
+          "odds": 9.4,
+          "ev": 1.0128448685331863,
           "marketGap": 5,
           "source": "index1"
         },
@@ -7143,8 +7071,8 @@
             "name": "ヤマニンフェイエル",
             "tmIndex": 77,
             "popularity": 4,
-            "odds": 7.3,
-            "ev": 0.7186390226423784,
+            "odds": 7.4,
+            "ev": 0.7284833928155617,
             "marketGap": 2,
             "source": "index",
             "indexRank": 2
@@ -7155,8 +7083,8 @@
             "name": "ルシェロアズーリ",
             "tmIndex": 76,
             "popularity": 3,
-            "odds": 6.8,
-            "ev": 0.6108814230031476,
+            "odds": 6.4,
+            "ev": 0.5749472216500213,
             "marketGap": 0,
             "source": "index",
             "indexRank": 3
@@ -7167,8 +7095,8 @@
             "name": "ステキサプライズ",
             "tmIndex": 75,
             "popularity": 1,
-            "odds": 5.6,
-            "ev": 0.45853208538388857,
+            "odds": 5.5,
+            "ev": 0.45034401243060485,
             "marketGap": -3,
             "source": "index",
             "indexRank": 4
@@ -7180,8 +7108,8 @@
           "name": "レモンバーム",
           "tmIndex": 69,
           "popularity": 15,
-          "odds": 46.3,
-          "ev": 2.1148398531292054,
+          "odds": 47.6,
+          "ev": 2.174219805808859,
           "marketGap": 4,
           "source": "valueWatch"
         },
@@ -7286,8 +7214,8 @@
         "name": "ホウオウタイタン",
         "tmIndex": 77,
         "popularity": 2,
-        "odds": 7.3,
-        "ev": 0.8573892266271346,
+        "odds": 7.5,
+        "ev": 0.8808793424251383,
         "marketGap": 1,
         "source": "index1"
       },
@@ -7298,8 +7226,8 @@
           "name": "バルティカ",
           "tmIndex": 75,
           "popularity": 4,
-          "odds": 8.5,
-          "ev": 0.8303627438006069,
+          "odds": 8,
+          "ev": 0.7815178765182182,
           "marketGap": 2,
           "source": "index",
           "indexRank": 2
@@ -7310,8 +7238,8 @@
           "name": "ヤマニンループ",
           "tmIndex": 74,
           "popularity": 9,
-          "odds": 19.5,
-          "ev": 1.734110369920788,
+          "odds": 20.4,
+          "ev": 1.8141462331479012,
           "marketGap": 6,
           "source": "index",
           "indexRank": 3
@@ -7322,8 +7250,8 @@
           "name": "メイショウアイル",
           "tmIndex": 74,
           "popularity": 3,
-          "odds": 7.7,
-          "ev": 0.6847512742764138,
+          "odds": 7.9,
+          "ev": 0.7025370216602168,
           "marketGap": 0,
           "source": "index",
           "indexRank": 4
@@ -7349,8 +7277,8 @@
           "name": "ホウオウタイタン",
           "tmIndex": 77,
           "popularity": 2,
-          "odds": 7.3,
-          "ev": 0.8573892266271346,
+          "odds": 7.5,
+          "ev": 0.8808793424251383,
           "marketGap": 1,
           "source": "leader-contender"
         },
@@ -7360,8 +7288,8 @@
           "name": "バルティカ",
           "tmIndex": 75,
           "popularity": 4,
-          "odds": 8.5,
-          "ev": 0.8303627438006069,
+          "odds": 8,
+          "ev": 0.7815178765182182,
           "marketGap": 2,
           "source": "leader-contender"
         }
@@ -7373,8 +7301,8 @@
           "name": "バルティカ",
           "tmIndex": 75,
           "popularity": 4,
-          "odds": 8.5,
-          "ev": 0.8303627438006069,
+          "odds": 8,
+          "ev": 0.7815178765182182,
           "marketGap": 2,
           "source": "index2"
         },
@@ -7398,17 +7326,7 @@
           }
         }
       ],
-      "valueWatch": {
-        "id": "2611211211",
-        "number": 11,
-        "name": "オメガインペリアル",
-        "tmIndex": 74,
-        "popularity": 6,
-        "odds": 11.9,
-        "ev": 1.058251969336276,
-        "marketGap": 3,
-        "source": "valueWatch"
-      },
+      "valueWatch": null,
       "valuePending": false,
       "topConfidence": "high",
       "indexGap": 2,
@@ -7419,10 +7337,10 @@
             6,
             7
           ],
-          "minOdds": 22.2,
-          "maxOdds": 22.2,
+          "minOdds": 22,
+          "maxOdds": 22,
           "popularity": 10,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B32",
           "status": "active"
         },
@@ -7432,10 +7350,10 @@
             7,
             10
           ],
-          "minOdds": 8.5,
-          "maxOdds": 9.4,
+          "minOdds": 8.3,
+          "maxOdds": 9.3,
           "popularity": 10,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -7445,10 +7363,10 @@
             6,
             7
           ],
-          "minOdds": 7.8,
-          "maxOdds": 8.7,
-          "popularity": 7,
-          "updatedAt": "2026-11-21T14:17",
+          "minOdds": 8,
+          "maxOdds": 8.9,
+          "popularity": 9,
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         },
@@ -7458,10 +7376,10 @@
             7,
             10
           ],
-          "minOdds": 8.5,
-          "maxOdds": 9.4,
+          "minOdds": 8.3,
+          "maxOdds": 9.3,
           "popularity": 10,
-          "updatedAt": "2026-11-21T14:17",
+          "updatedAt": "2026-11-21T14:37",
           "source": "JV-Link 0B33",
           "status": "active"
         }
@@ -7474,8 +7392,8 @@
           "name": "ホウオウタイタン",
           "tmIndex": 77,
           "popularity": 2,
-          "odds": 7.3,
-          "ev": 0.8573892266271346,
+          "odds": 7.5,
+          "ev": 0.8808793424251383,
           "marketGap": 1,
           "source": "index1"
         },
@@ -7486,8 +7404,8 @@
             "name": "バルティカ",
             "tmIndex": 75,
             "popularity": 4,
-            "odds": 8.5,
-            "ev": 0.8303627438006069,
+            "odds": 8,
+            "ev": 0.7815178765182182,
             "marketGap": 2,
             "source": "index",
             "indexRank": 2
@@ -7498,8 +7416,8 @@
             "name": "ヤマニンループ",
             "tmIndex": 74,
             "popularity": 9,
-            "odds": 19.5,
-            "ev": 1.734110369920788,
+            "odds": 20.4,
+            "ev": 1.8141462331479012,
             "marketGap": 6,
             "source": "index",
             "indexRank": 3
@@ -7510,8 +7428,8 @@
             "name": "メイショウアイル",
             "tmIndex": 74,
             "popularity": 3,
-            "odds": 7.7,
-            "ev": 0.6847512742764138,
+            "odds": 7.9,
+            "ev": 0.7025370216602168,
             "marketGap": 0,
             "source": "index",
             "indexRank": 4

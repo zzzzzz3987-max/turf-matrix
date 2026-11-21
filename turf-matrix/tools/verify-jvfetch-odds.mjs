@@ -98,6 +98,7 @@ const expectedRaces = () => {
 };
 
 const fieldSizes = (raceDate) => {
+  const config = JSON.parse(readFileSync(CONFIG_PATH, "utf8"));
   const paths = [CANDIDATE_PATH, WEEK_DATA_PATH];
   const selectedPath = paths.find((path) => {
     if (!existsSync(path)) return false;
@@ -107,9 +108,14 @@ const fieldSizes = (raceDate) => {
   if (!selectedPath) return new Map();
   const week = JSON.parse(readFileSync(selectedPath, "utf8"));
   return new Map(
-    (week.races ?? []).map((race) => [`${race.track}|${race.number}`, {
-      size: race.horses?.length ?? race.fieldSize ?? 0, time: race.time,
-    }]),
+    (week.races ?? []).map((race) => {
+      const excluded = config.excludedHorseNumbersByBundle?.[race.bundleId] ?? [];
+      const horses = race.horses?.filter(horse => !excluded.includes(horse.number));
+      return [`${race.track}|${race.number}`, {
+        size: horses?.length ?? race.fieldSize ?? 0, time: race.time,
+        horseNumbers: excluded.length && horses ? new Set(horses.map(horse => horse.number)) : null,
+      }];
+    }),
   );
 };
 
@@ -145,6 +151,9 @@ const main = () => {
     const duplicatePopularities = duplicates(raceRows.map((row) => row.popularity));
     const expectedRace = sizes.get(key);
     const expectedSize = expectedRace?.size;
+    if (expectedRace?.horseNumbers && raceRows.some(row => !expectedRace.horseNumbers.has(row.horseNumber))) {
+      failures.push(`${race.track}${race.raceNo}R: odds contain a withdrawn or unexpected horse number`);
+    }
     if (!raceRows.length) failures.push(`${race.track}${race.raceNo}R: odds rows are missing`);
     const sizeIssue = oddsFieldSizeIssue({ expectedSize, rows: raceRows, raceDate: race.date, time: expectedRace?.time });
     if (sizeIssue) (sizeIssue.severity === "warning" ? warnings : failures)

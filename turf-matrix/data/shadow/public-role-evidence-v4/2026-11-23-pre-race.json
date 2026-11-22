@@ -1,0 +1,390 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "modelVersion": "public-role-evidence-shadow-v4",
+  "frozenAt": "2026-11-22T11:29:58.698Z",
+  "raceDate": "2026-11-23",
+  "productionConnected": false,
+  "policy": {
+    "currentRaceResultRead": false,
+    "futureRaceShapeJoinAllowed": false,
+    "historicalOfficialLapsUsed": true,
+    "marketUsedForEligibilityAndFinalTieBreakOnly": true,
+    "evUsedForRanking": false,
+    "abstentionAllowed": true,
+    "tmIndexChanged": false
+  },
+  "source": {
+    "input": "tools/week-data.batch-candidate.json",
+    "inputSha256": "a883af822aa6077b25256a089627da640b8195e9741cabd67776f0a30f294e77",
+    "history": "data/master/race-shape-history.json",
+    "historySha256": "9094814fa404dca2be50c8d7e7c5f1b865683ee52e475cae05a06cd2ed127ba9",
+    "historyRaceCount": 4090
+  },
+  "summary": {
+    "raceCount": 6,
+    "evidenceValueCount": 0,
+    "evidenceDangerCount": 4,
+    "valueAbstainedCount": 2,
+    "dangerAbstainedCount": 0,
+    "valueChangedCount": 2,
+    "dangerChangedCount": 0
+  },
+  "predictionSha256": "1ee9bbf5519699a525149808df4eaa8f95fd9211c759d9259b63a3a3edba651d",
+  "predictions": [
+    {
+      "raceId": "2026-11-23-福島-9R",
+      "bundleId": "2026-11-23-fukushima-09R",
+      "track": "福島",
+      "raceNumber": 9,
+      "raceName": "磐梯山特別",
+      "productionValue": {
+        "id": "2611230908",
+        "number": 8,
+        "name": "マーゴットドライ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 4
+      },
+      "paceValue": {
+        "id": "2611230908",
+        "number": 8,
+        "name": "マーゴットドライ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 4
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611230901",
+        "number": 1,
+        "name": "アルペングロー",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11
+      },
+      "evidenceDanger": {
+        "id": "2611230901",
+        "number": 1,
+        "name": "アルペングロー",
+        "popularity": 3,
+        "tmIndex": 68,
+        "indexRank": 11,
+        "marketGap": -8,
+        "qualityScore": 61.06,
+        "foundationScore": 58.34,
+        "conditionScore": 64.82,
+        "evidenceRoleQuality": 61.06,
+        "dangerStrength": 47,
+        "supports": [],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 53,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 0,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-23-東京-9R",
+      "bundleId": "2026-11-23-tokyo-09R",
+      "track": "東京",
+      "raceNumber": 9,
+      "raceName": "Ｌジョッキーカップ",
+      "productionValue": {
+        "id": "2611230907",
+        "number": 7,
+        "name": "ニュークレド",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "paceValue": {
+        "id": "2611230907",
+        "number": 7,
+        "name": "ニュークレド",
+        "popularity": 8,
+        "tmIndex": 73,
+        "indexRank": 5
+      },
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-11-23-福島-10R",
+      "bundleId": "2026-11-23-fukushima-10R",
+      "track": "福島",
+      "raceNumber": 10,
+      "raceName": "五色沼特別",
+      "productionValue": {
+        "id": "2611231013",
+        "number": 13,
+        "name": "ホウオウシンデレラ",
+        "popularity": 14,
+        "tmIndex": 73,
+        "indexRank": 8
+      },
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": {
+        "id": "2611231011",
+        "number": 11,
+        "name": "ロートホルン",
+        "popularity": 4,
+        "tmIndex": 70,
+        "indexRank": 13
+      },
+      "paceDanger": {
+        "id": "2611231011",
+        "number": 11,
+        "name": "ロートホルン",
+        "popularity": 4,
+        "tmIndex": 70,
+        "indexRank": 13
+      },
+      "evidenceDanger": {
+        "id": "2611231011",
+        "number": 11,
+        "name": "ロートホルン",
+        "popularity": 4,
+        "tmIndex": 70,
+        "indexRank": 13,
+        "marketGap": -8,
+        "qualityScore": 62.93,
+        "foundationScore": 60.96,
+        "conditionScore": 65.66,
+        "evidenceRoleQuality": 62.93,
+        "dangerStrength": 49,
+        "supports": [],
+        "risks": [
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教評価が低い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 2,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 52,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 0,
+          "load": 0,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 0
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-23-東京-10R",
+      "bundleId": "2026-11-23-tokyo-10R",
+      "track": "東京",
+      "raceNumber": 10,
+      "raceName": "Ｌトレーナーカップ",
+      "productionValue": {
+        "id": "2611231015",
+        "number": 15,
+        "name": "ブレトワルダ",
+        "popularity": 10,
+        "tmIndex": 74,
+        "indexRank": 6
+      },
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611231002",
+        "number": 2,
+        "name": "インジケーター",
+        "popularity": 4,
+        "tmIndex": 70,
+        "indexRank": 11
+      },
+      "evidenceDanger": {
+        "id": "2611231002",
+        "number": 2,
+        "name": "インジケーター",
+        "popularity": 4,
+        "tmIndex": 70,
+        "indexRank": 11,
+        "marketGap": -7,
+        "qualityScore": 61.81,
+        "foundationScore": 58.79,
+        "conditionScore": 65.98,
+        "evidenceRoleQuality": 61.81,
+        "dangerStrength": 40,
+        "supports": [
+          {
+            "key": "load",
+            "label": "斤量実績あり",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "ability",
+            "label": "地力評価が低い",
+            "severity": 2
+          },
+          {
+            "key": "form",
+            "label": "近走内容が弱い",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 3,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": 50,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": -1,
+          "load": 2,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      }
+    },
+    {
+      "raceId": "2026-11-23-福島-11R",
+      "bundleId": "2026-11-23-fukushima-11R",
+      "track": "福島",
+      "raceNumber": 11,
+      "raceName": "奥羽ステークス",
+      "productionValue": {
+        "id": "2611231106",
+        "number": 6,
+        "name": "ハリウッドブルース",
+        "popularity": 12,
+        "tmIndex": 71,
+        "indexRank": 9
+      },
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": null,
+      "evidenceDanger": null
+    },
+    {
+      "raceId": "2026-11-23-東京-11R",
+      "bundleId": "2026-11-23-tokyo-11R",
+      "track": "東京",
+      "raceNumber": 11,
+      "raceName": "東京スポーツ杯２歳Ｓ",
+      "productionValue": null,
+      "paceValue": null,
+      "evidenceValue": null,
+      "productionDanger": null,
+      "paceDanger": {
+        "id": "2611231104",
+        "number": 4,
+        "name": "キングリア",
+        "popularity": 3,
+        "tmIndex": 73,
+        "indexRank": 10
+      },
+      "evidenceDanger": {
+        "id": "2611231104",
+        "number": 4,
+        "name": "キングリア",
+        "popularity": 3,
+        "tmIndex": 73,
+        "indexRank": 10,
+        "marketGap": -7,
+        "qualityScore": 72.35,
+        "foundationScore": 75.71,
+        "conditionScore": 67.7,
+        "evidenceRoleQuality": 72.35,
+        "dangerStrength": 33.5,
+        "supports": [
+          {
+            "key": "ability",
+            "label": "地力上位",
+            "severity": 1
+          },
+          {
+            "key": "form",
+            "label": "近走内容良好",
+            "severity": 1
+          },
+          {
+            "key": "training",
+            "label": "調教良好",
+            "severity": 1
+          },
+          {
+            "key": "distance",
+            "label": "今回距離に対応",
+            "severity": 1
+          },
+          {
+            "key": "paceFit",
+            "label": "今回展開が合う",
+            "severity": 1
+          }
+        ],
+        "risks": [
+          {
+            "key": "load",
+            "label": "斤量条件に不安",
+            "severity": 1
+          }
+        ],
+        "protections": [],
+        "riskPoints": 1,
+        "protectionPoints": 0,
+        "components": {
+          "opponentQuality": null,
+          "distanceDirection": 0,
+          "distanceTransition": 0,
+          "distanceCadence": 2,
+          "load": -1,
+          "trackBias": 0,
+          "going": 0,
+          "historicalPace": 0,
+          "currentPaceFit": 1
+        }
+      }
+    }
+  ]
+}

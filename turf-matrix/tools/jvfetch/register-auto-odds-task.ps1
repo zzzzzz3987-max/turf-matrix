@@ -21,6 +21,7 @@ $Action = New-ScheduledTaskAction `
   -WorkingDirectory $RepoRoot
 $Saturday = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Saturday -At $Time
 $Sunday = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Sunday -At $Time
+$Weekdays = New-ScheduledTaskTrigger -Weekly -WeeksInterval 1 -DaysOfWeek Monday,Tuesday,Wednesday,Thursday,Friday -At $Time
 $Settings = New-ScheduledTaskSettingsSet `
   -StartWhenAvailable `
   -WakeToRun `
@@ -33,10 +34,10 @@ $Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interac
 Register-ScheduledTask `
   -TaskName $TaskName `
   -Action $Action `
-  -Trigger @($Saturday, $Sunday) `
+  -Trigger @($Saturday, $Sunday, $Weekdays) `
   -Settings $Settings `
   -Principal $Principal `
-  -Description "TURF MATRIX: sync the isolated runner, then fetch, verify, archive and publish live odds seven minutes before each listed race." `
+  -Description "TURF MATRIX: on prepared race days (including holiday meetings), sync the isolated runner and publish verified live odds seven minutes before each listed race. Other days skip acquisition." `
   -Force | Out-Null
 
 $WatchdogTaskName = "TURF MATRIX Odds Watchdog"
@@ -48,7 +49,7 @@ $EscapedRepoRoot = [Security.SecurityElement]::Escape($RepoRoot)
 $WatchdogXml = @"
 <?xml version="1.0" encoding="UTF-16"?>
 <Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
-  <RegistrationInfo><Description>TURF MATRIX: weekend race-hours live-odds watchdog.</Description></RegistrationInfo>
+  <RegistrationInfo><Description>TURF MATRIX: prepared race-day live-odds watchdog, including holiday meetings.</Description></RegistrationInfo>
   <Triggers>
     <CalendarTrigger>
       <Repetition><Interval>PT5M</Interval><Duration>PT8H</Duration><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>
@@ -59,6 +60,11 @@ $WatchdogXml = @"
       <Repetition><Interval>PT5M</Interval><Duration>PT8H</Duration><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>
       <StartBoundary>2026-08-23T09:00:00+09:00</StartBoundary><Enabled>true</Enabled>
       <ScheduleByWeek><WeeksInterval>1</WeeksInterval><DaysOfWeek><Sunday /></DaysOfWeek></ScheduleByWeek>
+    </CalendarTrigger>
+    <CalendarTrigger>
+      <Repetition><Interval>PT5M</Interval><Duration>PT8H</Duration><StopAtDurationEnd>false</StopAtDurationEnd></Repetition>
+      <StartBoundary>2026-11-23T09:00:00+09:00</StartBoundary><Enabled>true</Enabled>
+      <ScheduleByWeek><WeeksInterval>1</WeeksInterval><DaysOfWeek><Monday /><Tuesday /><Wednesday /><Thursday /><Friday /></DaysOfWeek></ScheduleByWeek>
     </CalendarTrigger>
   </Triggers>
   <Principals><Principal id="Author"><UserId>$UserSid</UserId><LogonType>InteractiveToken</LogonType><RunLevel>LeastPrivilege</RunLevel></Principal></Principals>

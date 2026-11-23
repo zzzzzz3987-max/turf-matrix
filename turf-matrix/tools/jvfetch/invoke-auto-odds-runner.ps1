@@ -124,6 +124,16 @@ try {
   if (-not $Npm -and -not $Pnpm) { throw "npm.cmd or pnpm.cmd was not found." }
   $env:PATH = "$(Split-Path -Parent $Node);$env:PATH"
 
+  if (-not $DryRun) {
+    $eligibilityJson = & $Node (Join-Path $RepoRoot "tools\odds-race-day.mjs") "--input-root=$InputRoot"
+    if ($LASTEXITCODE -ne 0) { throw "Race-day eligibility check failed." }
+    $eligibility = ($eligibilityJson -join "`n") | ConvertFrom-Json
+    if (-not $eligibility.eligible) {
+      Write-Output "No current race-day inputs for $($eligibility.today); odds acquisition and Git sync skipped."
+      return
+    }
+  }
+
   Push-Location $RepoRoot
   try {
     $branch = (& $Git branch --show-current).Trim()

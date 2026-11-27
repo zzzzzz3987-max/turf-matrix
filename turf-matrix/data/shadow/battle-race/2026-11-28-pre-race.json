@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "status": "frozen-pre-race-shadow",
+  "frozenAt": "2026-11-27T12:24:48.694Z",
+  "raceDate": "2026-11-28",
+  "productionConnected": false,
+  "policy": {
+    "resultLeakage": false,
+    "publicationRule": "公開の勝負レースは現行方式を維持する",
+    "shadowRule": "現行の適格候補を軸・条件・相手の総合Battle Readinessで並べ替える"
+  },
+  "source": {
+    "path": "tools/all-race-signals.json",
+    "sha256": "bf4848b4051d2605d8d59fb9bc5d95985509407941a2b1d2b3e0801ccbdf45af",
+    "raceCount": 24,
+    "engineFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-217c8fe0430ec85f",
+      "sha256": "217c8fe0430ec85f93a257341cf9c7e836337a822d026c9d2a1af73b74b15728",
+      "fileCount": 114
+    },
+    "selectionFingerprint": {
+      "schemaVersion": 2,
+      "id": "tmx-0b5cbe78c981a031",
+      "sha256": "0b5cbe78c981a0312f072295b2d678d573007c403315863c23cea01b1a2ebb08",
+      "fileCount": 10
+    }
+  },
+  "shadowRuleVersion": "battle-readiness-v1",
+  "predictionSha256": "4d24a874fb488aa6b1000f1412507ffc2d70f0dfaa398084d87c1574d7ce719f",
+  "baseline": null,
+  "shadow": null,
+  "candidates": []
+}

@@ -7,7 +7,9 @@ import { oddsFieldSizeIssue } from "./odds-field-size.mjs";
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
 const TARGET_DIR = join(REPO_ROOT, "data", "target");
-const CONFIG_PATH = join(TOOLS_DIR, "race-batch-config.json");
+const CONFIG_PATH = process.env.TURF_MATRIX_RACE_CONFIG
+  ? resolve(process.env.TURF_MATRIX_RACE_CONFIG)
+  : join(TOOLS_DIR, "race-batch-config.json");
 const WEEK_DATA_PATH = join(TOOLS_DIR, "week-data.json");
 const CANDIDATE_PATH = join(TOOLS_DIR, "week-data.batch-candidate.json");
 

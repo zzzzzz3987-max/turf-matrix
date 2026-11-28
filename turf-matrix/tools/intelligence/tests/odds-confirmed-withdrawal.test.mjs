@@ -5,7 +5,7 @@ import { join, resolve, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 
-const verify = ({ excluded = [], missing = 5, candidateRemoved = false }) => {
+const verify = ({ excluded = [], missing = 5, candidateRemoved = false, runtimeExcluded = null }) => {
   const root = mkdtempSync(join(tmpdir(), 'tm-confirmed-withdrawal-'));
   try {
     mkdirSync(join(root, 'tools'));
@@ -16,12 +16,17 @@ const verify = ({ excluded = [], missing = 5, candidateRemoved = false }) => {
     const numbers = Array.from({ length: 16 }, (_, i) => i + 1);
     writeFileSync(join(root, 'tools/race-batch-config.json'), JSON.stringify({ bundles: [bundleId],
       excludedHorseNumbersByBundle: { [bundleId]: excluded } }));
+    const runtimePath = join(root, 'tools/full-race-runtime.json');
+    if (runtimeExcluded !== null) writeFileSync(runtimePath, JSON.stringify({ bundles: [bundleId],
+      excludedHorseNumbersByBundle: { [bundleId]: runtimeExcluded } }));
     writeFileSync(join(root, 'tools/week-data.batch-candidate.json'), JSON.stringify({ meta: { date: '2026-11-21' },
       races: [{ bundleId, track: '福島', number: 11, time: '15:20',
         horses: numbers.filter(n => !candidateRemoved || n !== 5).map(number => ({ number })) }] }));
     writeFileSync(join(root, 'odds.csv'), ['場所,R,馬番,馬名,単勝オッズ,人気,取得時刻,更新元,状態',
       ...numbers.filter(n => n !== missing).map(n => `福島,11,${n},Horse${n},10,${n},2026-11-21T14:00,fixture,active`)].join('\n'));
-    return spawnSync(process.execPath, [join(root, 'tools/verify-jvfetch-odds.mjs'), join(root, 'odds.csv')], { encoding: 'utf8' });
+    return spawnSync(process.execPath, [join(root, 'tools/verify-jvfetch-odds.mjs'), join(root, 'odds.csv')], {
+      encoding: 'utf8', env: { ...process.env, TURF_MATRIX_RACE_CONFIG: runtimeExcluded !== null ? runtimePath : '' },
+    });
   } finally {
     assert.equal(dirname(resolve(root)), resolve(tmpdir()));
     assert.ok(root.startsWith(join(tmpdir(), 'tm-confirmed-withdrawal-')));
@@ -42,4 +47,13 @@ test('withdrawn runner cannot replace a different missing runner', () => {
 test('already filtered candidate does not subtract the withdrawal twice', () => {
   const result = verify({ excluded: [5], candidateRemoved: true });
   assert.equal(result.status, 0, result.stdout + result.stderr);
+});
+
+test('capture verifier uses the supplied full-race withdrawal config', () => {
+  const result = verify({ excluded: [], runtimeExcluded: [5] });
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+});
+
+test('an override without confirmed withdrawals cannot borrow the default config exclusions', () => {
+  assert.equal(verify({ excluded: [5], runtimeExcluded: [] }).status, 2);
 });

@@ -12,6 +12,27 @@
   "provisional": false,
   "allowMissingRaceName": true,
   "allowMissingPastRuns": true,
-  "runnerCount": 87,
-  "numberedRunnerCount": 87
+  "runnerCount": 86,
+  "numberedRunnerCount": 86,
+  "excludedHorseNumbersByBundle": {
+    "2026-11-28-kyoto-11R": [
+      9
+    ]
+  },
+  "officialWithdrawals": [
+    {
+      "raceDate": "2026-11-28",
+      "bundleId": "2026-11-28-kyoto-11R",
+      "raceKey": "20261128-08-05-07-11",
+      "horseNumber": 9,
+      "horseName": "ネーロノワール",
+      "horseId": "2024100638",
+      "status": "officially-withdrawn",
+      "observedAt": "2026-11-28T03:25:05.049Z",
+      "sourceUrl": "https://www.jra.go.jp/JRADB/accessD.html?CNAME=pw01dde0108202605071120261128/36",
+      "sourceLabel": "JRA official card: cancellation",
+      "rawSummarySha256": "9a2ec3fefc9bb2e652ab701c8e29b119c2a65bb965d64966e0fb9ff7798f9f90",
+      "policy": "Exclude only this confirmed non-starter from current inputs; retain all historical records."
+    }
+  ]
 }

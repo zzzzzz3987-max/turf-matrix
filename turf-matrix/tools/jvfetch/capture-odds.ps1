@@ -5,9 +5,15 @@ $ErrorActionPreference = "Stop"
 $RepoRoot = Resolve-Path (Join-Path $PSScriptRoot "..\..")
 $TargetDir = Join-Path $RepoRoot "data\target"
 $StartedAt = (Get-Date).AddSeconds(-2)
+$OriginalRaceConfig = $env:TURF_MATRIX_RACE_CONFIG
 
+try {
 & (Join-Path $PSScriptRoot "run-jvfetch.ps1") --odds-only
 $FetchExitCode = $LASTEXITCODE
+if ($FetchExitCode -eq 2) { throw 'JV-Link acquisition failed; no odds were adopted.' }
+& node (Join-Path $PSScriptRoot "withdrawal-runtime.mjs")
+if ($LASTEXITCODE -ne 0) { throw 'Official withdrawal snapshot validation failed; no odds were adopted.' }
+$env:TURF_MATRIX_RACE_CONFIG = Join-Path $RepoRoot "tools\pad-runtime\withdrawal-acquisition-runtime.json"
 
 $Candidate = Get-ChildItem -LiteralPath $TargetDir -File |
   Where-Object {
@@ -65,3 +71,7 @@ if ($FetchExitCode -ne 0) {
 }
 
 exit 0
+} finally {
+  if ($null -eq $OriginalRaceConfig) { Remove-Item Env:TURF_MATRIX_RACE_CONFIG -ErrorAction SilentlyContinue }
+  else { $env:TURF_MATRIX_RACE_CONFIG = $OriginalRaceConfig }
+}

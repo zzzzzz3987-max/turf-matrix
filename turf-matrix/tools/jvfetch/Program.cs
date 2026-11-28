@@ -132,6 +132,7 @@ namespace TurfMatrix.JvFetch
             var races = LoadRaceTargets(configPath);
             var odds = new List<OddsRow>();
             var pairOdds = new List<PairOddsRace>();
+            List<WithdrawalRecord> withdrawals = null;
             var warnings = new List<string>();
 
             Log(logPath, "INFO", "jvfetch --odds-only started.");
@@ -159,6 +160,11 @@ namespace TurfMatrix.JvFetch
                     Console.Error.WriteLine("JVInit failed: " + initResult);
                     return 2;
                 }
+
+                var changesOpen = InvokeInt(jvLink, "JVRTOpen", ConditionsDataSpec, races[0].RaceDate.Replace("-", ""));
+                if (changesOpen < 0) throw new InvalidOperationException("Withdrawal JVRTOpen failed: " + changesOpen);
+                withdrawals = ReadWithdrawalRecords(jvLink, races[0].RaceDate);
+                TryInvoke(jvLink, "JVClose");
 
                 foreach (var race in races)
                 {
@@ -200,6 +206,7 @@ namespace TurfMatrix.JvFetch
             }
 
             var outputPath = Path.Combine(repoRoot, "data", "target", "odds.csv");
+            WriteWithdrawalsJson(Path.Combine(repoRoot, "data", "target", "race-withdrawals.latest.json"), races[0].RaceDate, withdrawals);
             var writtenPath = WriteOddsCsvSafely(outputPath, odds);
             if (!string.Equals(writtenPath, outputPath, StringComparison.OrdinalIgnoreCase))
             {
@@ -518,6 +525,69 @@ namespace TurfMatrix.JvFetch
             };
             var serializer = new JavaScriptSerializer { MaxJsonLength = int.MaxValue };
             File.WriteAllText(outputPath, serializer.Serialize(payload), new UTF8Encoding(true));
+        }
+
+        private static List<WithdrawalRecord> ReadWithdrawalRecords(object jvLink, string raceDate)
+        {
+            var records = new List<WithdrawalRecord>();
+            var timer = Stopwatch.StartNew();
+            for (var iteration = 0; iteration < 10000 && timer.Elapsed.TotalSeconds < 30; iteration++)
+            {
+                var args = new object[] { new string(' ', 4096), 4096, "" };
+                var result = InvokeJvRead(jvLink, args);
+                if (result == 0) return records;
+                if (result == -1) continue;
+                if (result == -3) { System.Threading.Thread.Sleep(100); continue; }
+                if (result < 0) throw new InvalidOperationException("Withdrawal JVRead failed: " + result);
+                var text = Convert.ToString(args[0] ?? "");
+                if (!text.StartsWith("AV", StringComparison.Ordinal)) continue;
+                // JVRead can marshal its ANSI bytes as Latin-1 or decoded Japanese.
+                var encoding = Encoding.GetEncoding(Regex.IsMatch(text, "[\u3000-\uffff]") ? 932 : 1252);
+                records.Add(ParseWithdrawalRecord(encoding.GetBytes(text), raceDate));
+            }
+            throw new InvalidOperationException("Withdrawal snapshot did not reach EOF; existing inputs were not changed.");
+        }
+
+        private static WithdrawalRecord ParseWithdrawalRecord(byte[] bytes, string raceDate)
+        {
+            if (bytes.Length < 78 || GetJvField(bytes, 1, 2) != "AV") throw new InvalidOperationException("Invalid AV record length or type.");
+            var status = GetJvField(bytes, 3, 1);
+            var date = GetJvField(bytes, 12, 4) + "-" + GetJvField(bytes, 16, 2) + "-" + GetJvField(bytes, 18, 2);
+            var course = GetJvField(bytes, 20, 2);
+            var kaiji = GetJvField(bytes, 22, 2);
+            var nichiji = GetJvField(bytes, 24, 2);
+            var raceNo = ParseNullableInt(GetJvField(bytes, 26, 2));
+            var number = ParseNullableInt(GetJvField(bytes, 36, 2));
+            var name = GetJvField(bytes, 38, 36);
+            DateTime announced;
+            var stamp = raceDate.Substring(0, 4) + GetJvField(bytes, 28, 8);
+            if (date != raceDate || (status != "1" && status != "2") || !Regex.IsMatch(course, "^(0[1-9]|10)$")
+                || !Regex.IsMatch(kaiji, "^(0[1-9]|[1-9][0-9])$") || !Regex.IsMatch(nichiji, "^(0[1-9]|[1-9][0-9])$")
+                || raceNo == null || raceNo > 12 || number == null || number > 18 || string.IsNullOrWhiteSpace(name)
+                || name.Contains("?") || name.Contains("\ufffd")
+                || !DateTime.TryParseExact(stamp, "yyyyMMddHHmm", System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.DateTimeStyles.None, out announced))
+                throw new InvalidOperationException("Invalid or mismatched AV identity.");
+            return new WithdrawalRecord {
+                RaceDate = date, CourseCode = course, RaceNo = raceNo.Value,
+                RaceKey = date.Replace("-", "") + "-" + course + "-" + kaiji + "-" + nichiji + "-" + raceNo.Value.ToString("00"),
+                HorseNumber = number.Value, HorseName = name, DataKubun = status,
+                AnnouncedAt = new DateTimeOffset(announced, TimeSpan.FromHours(9)).ToString("o"),
+                ReasonCode = GetJvField(bytes, 74, 3), RawBase64 = Convert.ToBase64String(bytes.Take(78).ToArray())
+            };
+        }
+
+        private static void WriteWithdrawalsJson(string path, string date, List<WithdrawalRecord> records)
+        {
+            if (records == null) throw new InvalidOperationException("A complete withdrawal snapshot is required.");
+            var payload = new { SchemaVersion = 1, Source = "JV-Link 0B14 AV", RaceDate = date,
+                GeneratedAt = DateTimeOffset.Now.ToString("o"), Complete = true, Withdrawals = records };
+            var temporary = path + ".tmp-" + Guid.NewGuid().ToString("N");
+            try {
+                File.WriteAllText(temporary, new JavaScriptSerializer { MaxJsonLength = int.MaxValue }.Serialize(payload), new UTF8Encoding(true));
+                if (File.Exists(path)) File.Replace(temporary, path, null);
+                else File.Move(temporary, path);
+            } finally { if (File.Exists(temporary)) File.Delete(temporary); }
         }
 
         private static void ReadConditionRecords(object jvLink, string raceDate, Dictionary<string, ConditionState> states, List<string> warnings)
@@ -1388,6 +1458,20 @@ namespace TurfMatrix.JvFetch
             public int RaceNo { get; set; }
             public string JvKey { get; set; }
             public string Label { get { return CourseName + RaceNo + "R"; } }
+        }
+
+        private sealed class WithdrawalRecord
+        {
+            public string RaceDate { get; set; }
+            public string RaceKey { get; set; }
+            public string CourseCode { get; set; }
+            public int RaceNo { get; set; }
+            public int HorseNumber { get; set; }
+            public string HorseName { get; set; }
+            public string DataKubun { get; set; }
+            public string AnnouncedAt { get; set; }
+            public string ReasonCode { get; set; }
+            public string RawBase64 { get; set; }
         }
 
         private sealed class OddsRow

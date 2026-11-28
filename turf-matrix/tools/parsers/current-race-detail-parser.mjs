@@ -172,7 +172,11 @@ export const parse = ({
   const path = resolveFromRepo(sourcePath);
   const { text, encoding } = readTextSmart(path);
   const rows = parseCsvRows(text);
-  const entries = rows.map(normalizeEntry);
+  const rawEntries = rows.map(normalizeEntry);
+  if (!Array.isArray(excludedHorseNumbers) || excludedHorseNumbers.some(n => !Number.isInteger(n) || n < 1 || n > 18)
+    || new Set(excludedHorseNumbers).size !== excludedHorseNumbers.length) throw new Error('Invalid confirmed withdrawal slots');
+  if (!allowProvisional && duplicateValues(rawEntries, 'horseNumber').length) throw new Error('Duplicate source horse numbers');
+  const entries = rawEntries.filter(entry => !excludedHorseNumbers.includes(entry.horseNumber));
   const errors = validateEntries(entries, { allowProvisional, allowMissingRaceName, excludedHorseNumbers });
 
   if (errors.length) {

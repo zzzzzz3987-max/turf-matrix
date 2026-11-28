@@ -49,6 +49,11 @@ test('CSV parsing threads the explicit withdrawal through validation', () => {
     const result = parse({ path, excludedHorseNumbers: [6] });
     assert.equal(result.entryCount, 9);
     assert.deepEqual(result.entries.map(h => h.horseNumber), numbers);
+    const full = rows.concat(rows[0].replaceAll('HORSE1', 'HORSE6').replaceAll('RACE1', 'RACE6').replace(',"1","TEST"', ',"6","TEST"'));
+    writeFileSync(path, full.join('\n'));
+    const filtered = parse({ path, excludedHorseNumbers: [6] });
+    assert.equal(filtered.rowCount, 10);
+    assert.deepEqual(filtered.entries.map(h => h.horseNumber), numbers);
   } finally {
     assert.equal(dirname(resolve(directory)), resolve(tmpdir()));
     assert.ok(directory.startsWith(join(tmpdir(), 'tm-withdrawal-')));

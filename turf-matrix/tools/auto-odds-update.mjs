@@ -5,6 +5,7 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { buildFullRaceRuntimeConfig, buildOddsSnapshotSchedule } from "./odds-snapshot-schedule.mjs";
 import { preserveCompletedPool } from "./odds-field-size.mjs";
+import { withdrawalRuntimeFromFiles } from "./jvfetch/withdrawal-runtime.mjs";
 
 const TOOLS_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = join(TOOLS_DIR, "..");
@@ -37,6 +38,9 @@ const LIVE_RELEASE_TESTS = [
   "public-update-diff.test.mjs",
   "race-signal-selection.test.mjs",
   "battle-ticket-selection.test.mjs",
+  "official-withdrawal-runtime.test.mjs",
+  "current-race-withdrawal.test.mjs",
+  "odds-confirmed-withdrawal.test.mjs",
 ].map((name) => join("tools", "intelligence", "tests", name));
 
 const args = process.argv.slice(2);
@@ -222,12 +226,13 @@ const latestPairOddsCandidate = (notBefore) => {
   return candidates[0] ?? null;
 };
 
-const resolveAllRaceRuntime = (raceDate) => {
-  const runtime = buildFullRaceRuntimeConfig({
+const resolveAllRaceRuntime = (raceDate, withWithdrawals = false) => {
+  let runtime = buildFullRaceRuntimeConfig({
     raceDate,
     allRaceSignals: readJson(ALL_RACE_SIGNALS_PATH, null),
     sourceConfig: readJson(join(TOOLS_DIR, "jvlink", "output", "all-races-data-config.json"), null),
   });
+  if (withWithdrawals) runtime = withdrawalRuntimeFromFiles({ root: REPO_ROOT, config: runtime });
   writeJson(FULL_RACE_RUNTIME_PATH, runtime);
   return FULL_RACE_RUNTIME_PATH;
 };
@@ -291,7 +296,9 @@ const runMorningPreflight = () => {
 };
 
 const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath = null) => {
-  const allRaceRuntime = resolveAllRaceRuntime(raceDate);
+  const allRaceRuntime = resolveAllRaceRuntime(raceDate, true);
+  const detailRuntime = join(RUNTIME_DIR, "special-withdrawal-runtime.json");
+  writeJson(detailRuntime, withdrawalRuntimeFromFiles({ root: REPO_ROOT, config: readJson(join(TOOLS_DIR, "race-batch-config.json"), null) }));
   const battleShadowPath = `data/shadow/battle-race/${raceDate}-pre-race.json`;
   const battleShadowAbsolutePath = join(REPO_ROOT, battleShadowPath);
   const battleShadowExisted = existsSync(battleShadowAbsolutePath);
@@ -317,8 +324,8 @@ const generateAndPublish = (git, commitMessage, raceDate, dueRaces, pairOddsPath
     copyFileSync(ALL_RACE_SIGNALS_NEXT_PATH, ALL_RACE_SIGNALS_PATH);
     if (!battleShadowExisted) runNode("tools/analyze/freeze-battle-race-shadow.mjs");
     if (!battleTicketShadowExisted) runNode("tools/analyze/freeze-battle-ticket-shadow.mjs");
-    runNode("tools/normalizers/race-batch.mjs");
-    runNode("tools/generate-race-batch-candidate.mjs");
+    runNodeWithEnv({ TURF_MATRIX_RACE_CONFIG: detailRuntime }, "tools/normalizers/race-batch.mjs");
+    runNodeWithEnv({ TURF_MATRIX_RACE_CONFIG: detailRuntime }, "tools/generate-race-batch-candidate.mjs");
     const candidate = readJson(CANDIDATE_PATH, null);
     const previous = readJson(WEEK_DATA_PATH, null);
     candidate.races = candidate.races.map(race => preserveCompletedPool(
@@ -412,9 +419,10 @@ const refreshOddsAndPublish = ({ raceDate, commitMessage, releaseRaces }) => {
   if (trackBiasExisted) copyFileSync(TRACK_BIAS_PATH, TRACK_BIAS_BACKUP_PATH);
   const startedAt = Date.now();
   try {
-    const allRaceRuntime = resolveAllRaceRuntime(raceDate);
+    let allRaceRuntime = resolveAllRaceRuntime(raceDate);
     const acquisitionEnv = { TURF_MATRIX_RACE_CONFIG: allRaceRuntime };
     runPowerShellWithEnv(acquisitionEnv, "-File", "tools/jvfetch/capture-odds.ps1");
+    allRaceRuntime = resolveAllRaceRuntime(raceDate, true);
     const oddsPath = latestOddsCandidate(startedAt);
     const pairOddsPath = latestPairOddsCandidate(startedAt);
     runNode(

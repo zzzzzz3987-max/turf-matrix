@@ -113,9 +113,10 @@ const fieldSizes = (raceDate) => {
     (week.races ?? []).map((race) => {
       const excluded = config.excludedHorseNumbersByBundle?.[race.bundleId] ?? [];
       const horses = race.horses?.filter(horse => !excluded.includes(horse.number));
+      const expectedNumbers = config.expectedHorseNumbersByBundle?.[race.bundleId];
       return [`${race.track}|${race.number}`, {
-        size: horses?.length ?? race.fieldSize ?? 0, time: race.time,
-        horseNumbers: excluded.length && horses ? new Set(horses.map(horse => horse.number)) : null,
+        size: expectedNumbers?.length ?? horses?.length ?? race.fieldSize ?? 0, time: race.time,
+        horseNumbers: expectedNumbers ? new Set(expectedNumbers) : excluded.length && horses ? new Set(horses.map(horse => horse.number)) : null,
       }];
     }),
   );
@@ -146,12 +147,23 @@ const main = () => {
     if (!["active", "closed", "missing"].includes(row.status)) warnings.push(`row ${row.row}: unknown status ${row.status}`);
   }
 
+  const config = JSON.parse(readFileSync(CONFIG_PATH, 'utf8').replace(/^\uFEFF/, ''));
+  for (const [bundleId, numbers] of Object.entries(config.expectedHorseNumbersByBundle ?? {})) {
+    const excluded = config.excludedHorseNumbersByBundle?.[bundleId] ?? [];
+    if (!config.bundles.includes(bundleId) || !Array.isArray(numbers) || !numbers.length
+      || new Set(numbers).size !== numbers.length || numbers.some(n => !Number.isInteger(n) || n < 1 || n > 18 || excluded.includes(n))) {
+      throw new Error('Invalid expected active horse numbers');
+    }
+  }
   const raceReports = expected.map((race) => {
     const key = `${race.track}|${race.raceNo}`;
     const raceRows = grouped.get(key) ?? [];
     const duplicateHorseNumbers = duplicates(raceRows.map((row) => row.horseNumber));
     const duplicatePopularities = duplicates(raceRows.map((row) => row.popularity));
-    const expectedRace = sizes.get(key);
+    const declaredNumbers = config.expectedHorseNumbersByBundle?.[race.bundleId];
+    const expectedRace = declaredNumbers
+      ? { ...sizes.get(key), size: declaredNumbers.length, horseNumbers: new Set(declaredNumbers) }
+      : sizes.get(key);
     const expectedSize = expectedRace?.size;
     if (expectedRace?.horseNumbers && raceRows.some(row => !expectedRace.horseNumbers.has(row.horseNumber))) {
       failures.push(`${race.track}${race.raceNo}R: odds contain a withdrawn or unexpected horse number`);
